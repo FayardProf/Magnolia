@@ -8,6 +8,7 @@ int main() {
         append_vector_d(&v, i + 0.5);
     }
     struct vector_d w = copy_vector_d(&v);
+    double x = pop_vector_d(&v);
 
     delete_vector_d(&v);
 
