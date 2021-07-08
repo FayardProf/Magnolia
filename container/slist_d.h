@@ -19,7 +19,7 @@ struct slist_d {
 };
 
 struct slist_d* new_slist_d();
-struct slist_d* copy_slist_d(const struct slist_d* other);
+struct slist_d* copy_slist_d(struct slist_d* other);
 
 void prepend_slist_d(struct slist_d* self, double x);
 
@@ -47,6 +47,5 @@ void delete_slist_d(struct slist_d* self) {
     }
     free(self);
 }
-
 
 #endif //MAGNOLIA_SLIST_D_H
