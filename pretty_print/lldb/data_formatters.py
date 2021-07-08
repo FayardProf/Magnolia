@@ -22,9 +22,9 @@ import lldb
 import lldb.formatters.Logger
 
 def __lldb_init_module (debugger, dict):
-    debugger.HandleCommand("type synthetic add -x \"vector_d\" --python-class data_formatters.VectorProvider")
+    debugger.HandleCommand("type synthetic add -x \"array_d\" --python-class data_formatters.ArrayProvider")
 
-class VectorProvider:
+class ArrayProvider:
     def __init__(self, valobj, internal_dict):
         self.valobj = valobj
         self.data = self.valobj.GetChildMemberWithName('at')

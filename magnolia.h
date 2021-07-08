@@ -5,6 +5,7 @@
 #ifndef MAGNOLIA_MAGNOLIA_H
 #define MAGNOLIA_MAGNOLIA_H
 
-#include "container/vector_d.h"
+#include "container/array_d.h"
+#include "container/slist_d.h"
 
 #endif //MAGNOLIA_MAGNOLIA_H
