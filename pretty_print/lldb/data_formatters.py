@@ -22,7 +22,7 @@ import lldb
 import lldb.formatters.Logger
 
 def __lldb_init_module (debugger, dict):
-    debugger.HandleCommand("type synthetic add -x \"array_d\" --python-class data_formatters.ArrayProvider")
+    debugger.HandleCommand("type synthetic add -x \"ArrayD\" --python-class data_formatters.ArrayProvider")
 
 class ArrayProvider:
     def __init__(self, valobj, internal_dict):
