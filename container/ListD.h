@@ -15,7 +15,7 @@ struct NListD {
 };
 
 struct ListD {
-    struct NListD* head;
+    struct NListD* _head;
 };
 
 struct ListD* newListD();
@@ -27,19 +27,19 @@ void deleteListD(struct ListD* self);
 
 struct ListD* newListD() {
     struct ListD* ans = malloc(sizeof(struct ListD));
-    ans->head = NULL;
+    ans->_head = NULL;
     return ans;
 }
 
 void prependListD(struct ListD* self, double x) {
     struct NListD* node = malloc(sizeof(struct NListD));
     node->value = x;
-    node->next = self->head;
-    self->head = node;
+    node->next = self->_head;
+    self->_head = node;
 }
 
 void deleteListD(struct ListD* self) {
-    struct NListD* node = self->head;
+    struct NListD* node = self->_head;
     while (node) {
         struct NListD* next_node = node->next;
         free(node);
