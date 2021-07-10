@@ -1,8 +1,9 @@
-#include <stdio.h>
-#include "magnolia.h"
+#include "stdio.h"
 #include "math.h"
 
-void sin_of_array(struct ArrayD* v) {
+#include "Magnolia.h"
+
+void sin_of_array(ArrayD* v) {
     for (int i = 0; i < sizeArrayD(v); ++i) {
         v->at[i] = sin(v->at[i]);
     }
@@ -10,7 +11,7 @@ void sin_of_array(struct ArrayD* v) {
 
 int main() {
     int n = 5;
-    struct ArrayD* v = newArrayD();
+    ArrayD* v = newArrayD();
     for (int i = 0; i < n; ++i) {
         appendArrayD(v, i * 1.0e-2);
     }
@@ -20,11 +21,21 @@ int main() {
     }
     deleteArrayD(v);
 
-    struct ListD* l = newListD();
+    printf("\n");
+
+    ListD* l = newListD();
     for (int i = 0; i < n; ++i) {
         prependListD(l, i * 1.0e-2);
     }
+    appendListD(l, 36);
+    for (NListD* it = beginListD(l); it != endListD(l); it = it->next) {
+        printf("%f\n", it->value);
+    }
     deleteListD(l);
+
+    String* s = newStringCString("Hello my name is Francois Fayard. This is a nice library.");
+    printf("%s\n", asCStringString(s));
+    deleteString(s);
 
     return 0;
 }
