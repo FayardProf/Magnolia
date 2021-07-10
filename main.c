@@ -33,7 +33,12 @@ int main() {
     }
     deleteListD(l);
 
-    String* s = newStringCString("Hello my name is Francois Fayard. This is a nice library.");
+    String* s = newStringCString("Hello my name is Francois Fayard. This is a nice little library..");
+    appendCharString(s, 'A');
+    appendCStringString(s, "haha");
+    insertCStringString(s, 0, "GNR");
+    bool ans = startsWithCStringString(s, "GNR");
+    bool ans2= endsWithCStringString(s, "Ahaha");
     printf("%s\n", asCStringString(s));
     deleteString(s);
 

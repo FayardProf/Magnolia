@@ -22,7 +22,7 @@ ArrayD* copyArrayD(ArrayD* other);
 
 intptr_t sizeArrayD(ArrayD* self);
 intptr_t capacityArrayD(ArrayD* self);
-double backArrayD(const ArrayD* self);
+double backArrayD(ArrayD* self);
 void resizeArrayD(ArrayD* self, intptr_t n);
 void reserveArrayD(ArrayD* self, intptr_t r);
 void appendArrayD(ArrayD* self, double x);
@@ -62,7 +62,7 @@ intptr_t capacityArrayD(ArrayD* self) {
     return self->_capacity;
 }
 
-double backArrayD(const ArrayD* self) {
+double backArrayD(ArrayD* self) {
    return self->at[self->_size - 1];
 }
 
@@ -115,8 +115,6 @@ void deleteArrayD(ArrayD* self) {
 
 void releaseArrayD(ArrayD* self) {
     free(self->at);
-    self->_size = 0;
-    self->_capacity = 0;
 }
 
 #endif //MAGNOLIA_MARRAYD_H
