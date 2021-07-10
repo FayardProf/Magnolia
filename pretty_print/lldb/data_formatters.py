@@ -30,8 +30,8 @@ class ArrayProvider:
         self.data = self.valobj.GetChildMemberWithName('at')
         self.data_type = self.data.GetType().GetPointeeType()
         self.type_size = self.data_type.GetByteSize()
-        self.size = self.valobj.GetChildMemberWithName('size').GetValueAsUnsigned(0)
-        self.capacity = self.valobj.GetChildMemberWithName('capacity').GetValueAsUnsigned(0)
+        self.size = self.valobj.GetChildMemberWithName('_size').GetValueAsUnsigned(0)
+        self.capacity = self.valobj.GetChildMemberWithName('_capacity').GetValueAsUnsigned(0)
 
     def num_children(self):
         return 2 + self.size
