@@ -22,40 +22,9 @@ import lldb
 import lldb.formatters.Logger
 
 def __lldb_init_module (debugger, dict):
-    debugger.HandleCommand("type synthetic add -x \"ArrayD\" --python-class data_formatters.ArrayProvider")
     debugger.HandleCommand("type synthetic add -x \"String\" --python-class data_formatters.StringProvider")
-
-class ArrayProvider:
-    def __init__(self, valobj, internal_dict):
-        self.valobj = valobj
-        self.data = self.valobj.GetChildMemberWithName('at')
-        self.data_type = self.data.GetType().GetPointeeType()
-        self.type_size = self.data_type.GetByteSize()
-        self.size = self.valobj.GetChildMemberWithName('_size').GetValueAsUnsigned(0)
-        self.capacity = self.valobj.GetChildMemberWithName('_capacity').GetValueAsUnsigned(0)
-
-    def num_children(self):
-        return 2 + self.size
-
-    def get_child_at_index(self, index):
-        if index < 0:
-            return None
-        if index >= self.num_children():
-            return None
-        try:
-            my_frame = self.data.frame
-            if index == 0:
-                x = my_frame.EvaluateExpression('(int)(' + str(self.size) + ')')
-                return x.CreateValueFromData('size', x.GetData(), x.GetType())
-            elif index == 1:
-                x = my_frame.EvaluateExpression('(int)(' + str(self.capacity) + ')')
-                return x.CreateValueFromData('capacity', x.GetData(), x.GetType())
-            else:
-                offset = (index - 2) * self.type_size
-                return self.data.CreateChildAtOffset(
-                    '[' + str(index - 2) + ']', offset, self.data_type)
-        except:
-            return None
+    debugger.HandleCommand("type synthetic add -x \"ArrayD\" --python-class data_formatters.ArrayDProvider")
+    debugger.HandleCommand("type synthetic add -x \"ArrayS\" --python-class data_formatters.ArraySProvider")
 
 class StringProvider:
     def __init__(self, valobj, internal_dict):
@@ -101,3 +70,67 @@ class StringProvider:
 def display_string(valobj, internal_dict):
     prov = StringProvider(valobj, internal_dict)
     return prov.string
+
+class ArrayDProvider:
+    def __init__(self, valobj, internal_dict):
+        self.valobj = valobj
+        self.data = self.valobj.GetChildMemberWithName('at')
+        self.data_type = self.data.GetType().GetPointeeType()
+        self.type_size = self.data_type.GetByteSize()
+        self.size = self.valobj.GetChildMemberWithName('_size').GetValueAsUnsigned(0)
+        self.capacity = self.valobj.GetChildMemberWithName('_capacity').GetValueAsUnsigned(0)
+
+    def num_children(self):
+        return 2 + self.size
+
+    def get_child_at_index(self, index):
+        if index < 0:
+            return None
+        if index >= self.num_children():
+            return None
+        try:
+            my_frame = self.data.frame
+            if index == 0:
+                x = my_frame.EvaluateExpression('(int)(' + str(self.size) + ')')
+                return x.CreateValueFromData('size', x.GetData(), x.GetType())
+            elif index == 1:
+                x = my_frame.EvaluateExpression('(int)(' + str(self.capacity) + ')')
+                return x.CreateValueFromData('capacity', x.GetData(), x.GetType())
+            else:
+                offset = (index - 2) * self.type_size
+                return self.data.CreateChildAtOffset(
+                    '[' + str(index - 2) + ']', offset, self.data_type)
+        except:
+            return None
+
+class ArraySProvider:
+    def __init__(self, valobj, internal_dict):
+        self.valobj = valobj
+        self.data = self.valobj.GetChildMemberWithName('at')
+        self.data_type = self.data.GetType().GetPointeeType()
+        self.type_size = self.data_type.GetByteSize()
+        self.size = self.valobj.GetChildMemberWithName('_size').GetValueAsUnsigned(0)
+        self.capacity = self.valobj.GetChildMemberWithName('_capacity').GetValueAsUnsigned(0)
+
+    def num_children(self):
+        return 2 + self.size
+
+    def get_child_at_index(self, index):
+        if index < 0:
+            return None
+        if index >= self.num_children():
+            return None
+        try:
+            my_frame = self.data.frame
+            if index == 0:
+                x = my_frame.EvaluateExpression('(int)(' + str(self.size) + ')')
+                return x.CreateValueFromData('size', x.GetData(), x.GetType())
+            elif index == 1:
+                x = my_frame.EvaluateExpression('(int)(' + str(self.capacity) + ')')
+                return x.CreateValueFromData('capacity', x.GetData(), x.GetType())
+            else:
+                offset = (index - 2) * self.type_size
+                return self.data.CreateChildAtOffset(
+                    '[' + str(index - 2) + ']', offset, self.data_type)
+        except:
+            return None

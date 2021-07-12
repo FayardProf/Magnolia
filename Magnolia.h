@@ -5,8 +5,9 @@
 #ifndef MAGNOLIA_MAGNOLIA_H
 #define MAGNOLIA_MAGNOLIA_H
 
-#include "container/MArrayD.h"
-#include "container/MListD.h"
 #include "container/MString.h"
+#include "container/MArrayD.h"
+#include "container/MArrayS.h"
+#include "container/MListD.h"
 
 #endif //MAGNOLIA_MAGNOLIA_H

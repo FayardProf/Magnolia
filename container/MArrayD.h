@@ -9,6 +9,12 @@
 #include "MString.h"
 #include "stdint.h"
 
+struct VArrayD_s {
+    double* at;
+    intptr_t _size;
+};
+typedef struct VArrayD_s VArrayD;
+
 struct ArrayD_s {
     double* at;
     intptr_t _size;
@@ -16,36 +22,37 @@ struct ArrayD_s {
 };
 typedef struct ArrayD_s ArrayD;
 
-ArrayD* newArrayD();
-ArrayD* initArrayD(ArrayD* mem);
-ArrayD* copyArrayD(ArrayD* other);
+ArrayD* newAd();
+ArrayD* initAd(ArrayD* mem);
+ArrayD* copyAd(ArrayD* other);
 
-intptr_t sizeArrayD(ArrayD* self);
-intptr_t capacityArrayD(ArrayD* self);
-double backArrayD(ArrayD* self);
-void resizeArrayD(ArrayD* self, intptr_t n);
-void reserveArrayD(ArrayD* self, intptr_t r);
-void appendArrayD(ArrayD* self, double x);
-double popArrayD(ArrayD* self);
+intptr_t sizeAd(ArrayD* self);
+intptr_t capacityAd(ArrayD* self);
+VArrayD viewAd(ArrayD* self);
+double backAd(ArrayD* self);
+void resizeAd(ArrayD* self, intptr_t n);
+void reserveAd(ArrayD* self, intptr_t r);
+void appendAd(ArrayD* self, double x);
+double popAd(ArrayD* self);
 
-void deleteArrayD(ArrayD* self);
-void releaseArrayD(ArrayD* self);
+void deleteAd(ArrayD* self);
+void releaseAd(ArrayD* self);
 
-void _increaseCapacityArrayD(ArrayD* self, intptr_t r);
+void _increaseCapacityAd(ArrayD* self, intptr_t r);
 
-ArrayD* newArrayD() {
+ArrayD* newAd() {
     ArrayD* mem = malloc(sizeof(ArrayD));
-    return initArrayD(mem);
+    return initAd(mem);
 }
 
-ArrayD* initArrayD(ArrayD* mem) {
+ArrayD* initAd(ArrayD* mem) {
     mem->at = NULL;
     mem->_size = 0;
     mem->_capacity = 0;
     return mem;
 }
 
-ArrayD* copyArrayD(ArrayD* other) {
+ArrayD* copyAd(ArrayD* other) {
     ArrayD* ans = malloc(sizeof(ArrayD));
     intptr_t n = other->_size;
     ans->at = malloc(n * sizeof(double));
@@ -55,50 +62,55 @@ ArrayD* copyArrayD(ArrayD* other) {
     return ans;
 }
 
-intptr_t sizeArrayD(ArrayD* self) {
+intptr_t sizeAd(ArrayD* self) {
     return self->_size;
 }
-intptr_t capacityArrayD(ArrayD* self) {
+intptr_t capacityAd(ArrayD* self) {
     return self->_capacity;
 }
 
-double backArrayD(ArrayD* self) {
+VArrayD viewAd(ArrayD* self) {
+    VArrayD ans;
+    ans.at = self->at;
+    ans._size = self->_size;
+    return ans;
+}
+
+double backAd(ArrayD* self) {
    return self->at[self->_size - 1];
 }
 
-void resizeArrayD(ArrayD* self, intptr_t n) {
+void resizeAd(ArrayD* self, intptr_t n) {
     if (n > self->_capacity) {
-        _increaseCapacityArrayD(self, n);
+        _increaseCapacityAd(self, n);
     }
     self->_size = n;
 }
 
-void reserveArrayD(ArrayD* self, intptr_t r) {
+void reserveAd(ArrayD* self, intptr_t r) {
     if (r > self->_capacity) {
-        _increaseCapacityArrayD(self, r);
+        _increaseCapacityAd(self, r);
     }
     self->_capacity = r;
 }
 
-void appendArrayD(ArrayD* self, double x) {
+void appendAd(ArrayD* self, double x) {
     intptr_t n = self->_size;
     if (self->_capacity == n) {
         intptr_t r = n > 1 ? 2 * n : n + 1;
-        _increaseCapacityArrayD(self, r);
-        self->at[n] = x;
-    } else {
-        self->at[n] = x;
+        _increaseCapacityAd(self, r);
     }
+    self->at[n] = x;
     ++self->_size;
 }
 
-double popArrayD(ArrayD* self) {
+double popAd(ArrayD* self) {
     intptr_t n = self->_size;
     --self->_size;
     return self->at[n - 1];
 }
 
-void _increaseCapacityArrayD(ArrayD* self, intptr_t r) {
+void _increaseCapacityAd(ArrayD* self, intptr_t r) {
     double* new_at = malloc(r * sizeof(double));
     if (self->at) {
         memcpy(new_at, self->at, self->_size * sizeof(double));
@@ -108,12 +120,12 @@ void _increaseCapacityArrayD(ArrayD* self, intptr_t r) {
     self->_capacity = r;
 }
 
-void deleteArrayD(ArrayD* self) {
-    releaseArrayD(self);
+void deleteAd(ArrayD* self) {
+    releaseAd(self);
     free(self);
 }
 
-void releaseArrayD(ArrayD* self) {
+void releaseAd(ArrayD* self) {
     free(self->at);
 }
 
