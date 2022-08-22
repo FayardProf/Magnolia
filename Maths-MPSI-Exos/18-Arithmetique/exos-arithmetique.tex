@@ -1,0 +1,385 @@
+\documentclass{magnolia}
+
+\magtex{tex_driver={pdftex}}
+\magfiche{document_nom={Exercices d'arithmétique},
+          auteur_nom={François Fayard},
+          auteur_mail={fayard.prof@gmail.com}}
+\magexos{exos_matiere={maths},
+         exos_niveau={mpsi},
+         exos_chapitre_numero={11},
+         exos_theme={Arithmétique}}
+\magmisenpage{}
+\maglieudiff{}
+\magprocess
+
+\begin{document}
+
+%BEGIN_BOOK
+\magsection{Divisibilité, division euclidienne}
+
+\magsection{Calculs modulo $n$}
+
+\exercice{nom={Exercice}}
+Soit $n\in\Ns$ et $a,b\in\Z$ tels que $a\equiv b\ [n]$. Montrer que
+\[a^n\equiv b^n\ \left[n^2\right].\]
+
+\magsection{$\pgcd$, $\ppcm$}
+
+\exercice{nom={Calculs des coefficients de {\sc Bézout}}}
+Résoudre dans $\Z$ les équations suivantes :
+\[95x+71y=1 \qquad 24x-15y=3 \qquad 12x+15y+20z=1\]
+\begin{sol}
+$\quad$
+\begin{questions}
+\question On trouve une solution particulière à l'aide de l'algorithme d'Euclide étendu puis on obtient ensuite toutes les autres : $x=3+71k$ et $y=-4-95k$ avec $k\in\Z$.
+\question $x=2+5k$ et $y=3+8k$ avec $k\in\Z$.
+\question $x=-2+5k$, $y=-5+4k'$ et $z=5-3\p{k+k'}$.\\
+Victor (Pas convaincu du tout, j'ai l'impression d'arnaquer...) : Analyse : On commence par résoudre $12x+5t=1$. On trouve $x=-2+5k$ et $t=5+12k$ avec $k\in\Z$. $y$ et $z$ doivent être solutions de $t=3y+4z$. On résout alors $3y'+4z'=1$ de solutions $y'=-1+4u$ et $z'=1-3u$. En multipliant par $t$ ces solutions, on obtient $$y=-5+4(3k+5u-12ku) \et z=5-3(4k+5u-12ku)=5-3(k+3k+5u-12ku).$$ On pose alors $k'=3k+5u-12ku$. Un tel $k'$ a toutes les raisons de parcourir $\Z$, donc a priori, on a trouvé que les solutions peuvent être pour $k,k'\in \Z$ :
+$$x=-2+5k \et y=-5+4k' \et z=5-3\p{k+k'}.$$
+Synthèse : on vérifie que cela fonctionne.
+\end{questions}
+\end{sol}
+
+\exercice{nom={Ordre d'un produit}}
+Soit $(G,\star)$ un groupe fini et $x,y$ deux éléments de $G$ d'ordre
+respectifs $\omega_x$ et $\omega_y\in\Ns$. On suppose que $x\star y=y\star x$
+et que $\omega_x\wedge\omega_y=1$.
+\begin{questions}
+\question Montrer que
+${\rm Gr}(x)\cap{\rm Gr}(y)=\ens{e}$.
+\question En déduire que  $xy$ est d'ordre $\omega_x\omega_y$.
+\end{questions}
+
+\begin{sol}
+Déjà $(xy)^{mn} = x^{mn}y^{mn}= (x^m)^n(y^n)^m=e.e=e$. Soit $p$
+tel que $(xy)^p = e$, alors $e= (xy)^{mp} = x^{mp}y^{mp}=y^{mp}$,
+et donc $mp$ est divisible par l'ordre de $y$ , c'est-à-dire $n$.
+Comme $m$ et $n$ sont premiers entre eux alors d'après le théorème
+de Gauss $n$ divise $p$. Un raisonnement semblable à partir de
+$(xy)^{np}=e$ conduit à : $m$ divise $p$. Finalement $m|p$ et
+$n|p$ donc $mn|p$ car $m$ et $n$ sont premiers entre eux.\\
+Voici un contre exemple dans le cas où $m$ et $n$ ne sont pas
+premiers entre eux : dans le groupe $\Z/12\Z$ : $\bar{2}$ est
+d'ordre $6$, $\bar{4}$ est d'ordre $3$, mais $\bar{2}+\bar{4} =
+\bar{6}$ est d'ordre $2 \not= 3\times 6$.\\
+Voici un contre-exemple dans le cas où les deux éléments ne commutent pas.
+$A:=\left(\begin{smallmatrix} 0&-1\\1&0
+\end{smallmatrix}\right)$ et $B:=\left(\begin{smallmatrix}
+0&1\\-1&-1\end{smallmatrix}\right)$ sont des
+\'el\'ements de $\text{GL}(2,\R)$ d'ordres finis
+et $AB$ n'est pas d'ordre fini. $A$ est d'ordre $4$, $B$ est d'ordre $3$, $(AB)^n =
+\begin{pmatrix} 1&n\\0&1\\ \end{pmatrix}$ n'est jamais la matrice identité pour $n\geq 1$.
+\end{sol}
+
+\exercice{nom={Divers calculs de $\pgcd$ et $\ppcm$}}
+Soit $a, b\in\Z$. Calculer
+\[(15a^2+8a+6)\wedge(30a^2+21a+13), \qquad (a^3+a)\wedge(2a+1),\]
+\[(a-b)^3 \wedge (a^3-b^3), \qquad (a+b)\vee (a \wedge b).\]
+%% Reponse
+%% |a+b| - |a-b|(a^b)(3(a^b)^(a-b))
+\begin{sol}
+$\quad$
+\begin{questions}
+\question 
+\begin{francois}
+François :Une utilisation du lemme d'Euclide permet de conclure. On trouve 1.
+\end{francois}\\
+\begin{victor}
+Victor :Rappelons que si $a=bq+r$, on a $a\wedge b=b\wedge r$ et que $a\wedge b=a\wedge (a-b)$ (on écrit $a=b+(a-b)$).
+Ainsi, on trouve ici
+$$30n^2+21n+13=2(15n^2+8n+6)+5n+1,\ \ \ 15n^2+8n+6=3n(5n+1)+5n+6.$$
+On a donc
+\begin{eqnarray*}
+(30n^2+21n+13)\wedge (15n^2+8n+6)&=&(15n^2+8n+6)\wedge (5n+1)\\
+&=&(5n+1)\wedge (5n+6)\\
+&=&(5n+1)\wedge 5\\
+&=&1.
+\end{eqnarray*}
+\end{victor}
+\question Remarquer que $a\wedge (2a+1)=1$. On en déduit que
+  \begin{eqnarray*}
+  (a^3+a)\wedge (2a+1)
+  &=& a(a^2+1)\wedge (2a+1)\\
+  &=& (a^2+1)\wedge (2a+1)\\
+  &=& (a^2-2a)\wedge (2a+1)\\
+  &=& a(a-2)\wedge (2a+1)\\
+  &=& (a-2)\wedge (2a+1)\\
+  &=& (a-2)\wedge 5
+  \end{eqnarray*}
+  Donc le $\pgcd$ est 5 si $a\equiv 2\ [5]$ et est égal à 1 sinon.
+\question On trouve $3\abs{a-b}\p{a\wedge b}^2$ si $a\equiv b [3(a\wedge b)]$
+  et $\abs{a-b}(a\wedge b)^2$ sinon.
+\question On trouve $\abs{a+b}$.
+\end{questions}
+\end{sol}
+
+\exercice{nom={Autour du $\pgcd$}}
+\begin{questions}
+\question Soient $a,b,c\in\Z$ tels que $a\wedge c=1$. Montrer que~:
+  \[\p{ab}\wedge c=b\wedge c\]
+\question Trouver l'ensemble des couples $\p{a,b}\in\Z^2$ tels que~:
+  \[a\wedge b=a+b-1\]
+\end{questions}
+\begin{sol}
+$\quad$
+\begin{questions}
+\question Soit $a,b,c\in\Z$ tels que $a\wedge c=1$. Montrons que
+  $\p{ab}\wedge c=b\wedge c$. Ces deux nombres étant positifs, il suffit de
+  montrer que $\p{ab}\wedge c|b\wedge c$ et $b\wedge c|\p{ab}\wedge c$.
+  \begin{itemize}
+  \item $b\wedge c|\p{ab}\wedge c$.\\
+    En effet $b\wedge c|b$ donc $b\wedge c|ab$. De plus $b\wedge c|c$ donc
+    $b\wedge c|\p{ab}\wedge c$.
+  \item $\p{ab}\wedge c|b\wedge c$.\\
+    En effet $\p{ab}\wedge c|c$. De plus $\p{ab}\wedge c|ab$. Comme
+    \[\p{\p{ab}\wedge c}\wedge a=\p{ab}\wedge\p{c\wedge a}=\p{ab}\wedge 1=1\]
+    on en déduit, d'après le lemme de Gauss, que $\p{ab}\wedge c|b$. Donc
+    $\p{ab}\wedge c|b\wedge c$.
+  \end{itemize}
+\question Montrer que si $a$ et $b$ sont solution du problème, alors $a\wedge b=1$.
+  Les solutions sont les $a=2u+1$ et $b=1-2u$ avec $u\in\Z$.
+\end{questions}
+\end{sol}
+
+\exercice{nom={Autour de la suite de Fibonacci}}
+On définit la suite de Fibonacci par~:
+\[F_0=0 \quad F_1=1 \et \forall n\in\N \quad F_{n+2}=F_{n+1}+F_n\]
+\begin{questions}
+\question Démontrer que~:
+  \[\forall n\in\Ns \quad F_{n+1}F_{n-1}-F_n^2=\p{-1}^n\]
+  En déduire que $F_n$ et $F_{n+1}$ sont premiers entre eux.
+\question Démontrer que~:
+  \[\forall n\in\N \quad \forall p\in\Ns \quad
+    F_{n+p}=F_p F_{n+1}+F_{p-1}F_n\]
+  En déduire que $F_n \wedge F_p = F_{n+p}\wedge F_p$.
+\question Montrer que~:
+  \[\forall n,p\in\N \quad F_n \wedge F_p = F_{n\wedge p}\]
+\end{questions}
+\begin{sol}
+$\quad$
+\begin{questions}
+\question Par récurrence sur $n$. On a ensuite une relation de Bézout.
+  \begin{eqnarray*}
+  F_{n+2}F_n-F_{n+1}^2
+  &=& \p{F_{n+1}+F_n}\p{F_{n+1}-F_{n-1}}-F_{n+1}^2
+  \end{eqnarray*}
+\question Faire une récurrence sur $n$ et mettre le \og pour tout $p$ \fg
+  dans la récurrence. C'est ce qu'il y a de plus rapide.
+  Il faut montrer qu'il se divisent entre eux. Pour un sens il faut utiliser
+  Gauss et le fait que $F_p\wedge F_{p-1}=1$.
+\question C'est l'algorithme d'Euclide.
+\end{questions}
+\end{sol}
+
+\exercice{nom={Reste de la division euclidienne d'une puissance}}
+Soit $n$ un entier supérieur à 2 et $a$ un entier premier avec $n$. Pour tout
+entier $k$ on note $r_k$ le reste de la division euclidienne de $a^k$ par $n$.
+\begin{questions}
+\question Montrer que la suite $r$ est périodique. Pour cela on montrera dans
+  l'ordre
+  \begin{questions}
+  \question qu'il existe $k_1,k_2\in\N$ tels que $k_1<k_2$ et $a^{k_1}\equiv a^{k_2}\ [n]$
+  \question puis, qu'il existe $T\in\Ns$ tel que $a^T\equiv 1\ [n]$
+  \question et enfin conclure
+  \end{questions}
+\question Quel est le reste de la division euclidienne de $3^{1998}$ par $5$ ?
+\question Montrer que $13$ divise $3^{126}+5^{126}$.
+\end{questions}
+\begin{sol}
+\begin{questions}
+\question
+\question On cherche la période de $3^k$ modulo 5. On trouve que $3^4\equiv 1\ \cro{5}$. Or $1998=4\times 499+2$, donc $3^{1998}\equiv 4\ \cro{5}$.
+\question De même, on trouve que $3^3\equiv 1\ \cro{13}$ et que $5^4\equiv 126\ \cro{13}$. Or $126=3\times 42+0$ et $126=4\times 31+2$ donc
+  $3^{126}+5^{126}\equiv 1+(-1)\equiv 0\ \cro{13}$.
+\end{questions}
+\end{sol}
+\magsection{Théorèmes classiques}
+\exercice{nom={Le théorème chinois}}
+On se donne $p_1, p_2\in\Ns$ premiers entre eux, et $a_1$ et $a_2\in\Z$. 
+\begin{questions}
+\question On souhaite montrer qu'il existe $n\in\Z$ tel que~:
+  \[n\equiv a_1 \quad [p_1] \qquad \text{et} \qquad n\equiv a_2 \quad [p_2]\]
+  \begin{questions}
+  \question Montrer que le problème admet une solution lorsque $a_1=1$ et
+    $a_2=0$ ainsi que lorsque $a_1=0$ et $a_2=1$.
+  \question En déduire le cas général.
+  \end{questions}
+\question En déduire l'ensemble des solutions du système~:
+  \[n\equiv a_1 \quad [p_1] \qquad \text{et} \qquad n\equiv a_2 \quad [p_2]\]
+\question {\bf Application~:} Résoudre le système
+    \[n\equiv 3 \quad [21] \qquad \text{et} \qquad n\equiv 1 \quad [5]\]
+\end{questions}
+
+\begin{sol}
+\begin{questions}
+\question On se munit de $u,v\in \Z$ tels que $up_1+vp_2=1$.
+  \begin{questions}
+  \question Lorsque $a_1=1$ et
+    $a_2=0$, on observe que $n=vp_2$ est solution. Lorsque $a_1=0$ et $a_2=1$, $n=up_1$ l'est.
+  \question On prend $n=a_2up_1+a_1vp_2$.
+  \end{questions}
+\question Analyse : Soit $m$ une solution du système. Comme $n$ est également solution, on a :
+  \[m-n\equiv 0 \quad [p_1] \qquad \text{et} \qquad m-n\equiv 0 \quad [p_2]\]
+  Ainsi, $p_1\mid m-n \et p_2\mid m-n$ avec $p_1\wedge p_2=1$ donc $p_1p_2\mid m-n$. Ainsi, il existe $k\in \Z$ tel que $m=n+kp_1p_2$.
+  Synthèse : réciproquement, on vérifie que de tels éléments sont solutions.
+\question {\bf Application~:} On a $1\times 21+(-4)\times 5=1$. On a donc $n_0=21-12\times 5=-39$ comme solution particulière. L'ensemble des solutions est alors $$\set{-39+105k, k\in \Z}.$$
+\end{questions}
+\end{sol}
+
+\exercice{nom={Les pirates}}
+Une bande de 17 pirates dispose d'un butin composé de $N$ pièces d'or d'égale
+valeur. Ils décident de se le partager également et de donner le reste au
+cuisinier (non pirate). Celui-ci reçoit 3 pièces.\\
+Mais une rixe éclate et 6 pirates sont tués. Tout le butin est reconstitué et
+partagé entre les survivants comme précédemment; le cuisinier reçoit alors
+4 pièces.\\
+Dans un naufrage ultérieur, seuls le butin, 6 pirates et le cuisinier sont
+sauvés. Le butin est à nouveau partagé de la même manière et le cuisinier
+reçoit 5 pièces.\\
+Quelle est alors la fortune minimale que peut espérer le cuisinier lorsqu'il
+décide d'empoisonner le reste des pirates~?
+
+\begin{sol}
+Il faut traduire ceci en termes de congruences. On a :
+$$\left\{
+\begin{array}{rcl}
+x&\equiv&3\ [17]\\
+x&\equiv&4\ [11]\\
+x&\equiv&5\ [6]
+\end{array}\right.$$
+On peut résoudre d'abord les deux premières équations
+ensembles, puis introduire la troisième. Ici, tout est facilité si on remarque que $37$ est tel que
+$37\equiv 3\ [17]$ et $37\equiv 4\ [11]$. Puisque $17\wedge 11=1$, on sait d'après l'exercice précédent que
+$$\left\{
+\begin{array}{rcl}
+x&\equiv&3\ [17]\\
+x&\equiv&4\ [11]
+\end{array}\right.
+\iff x\equiv 37[187].$$
+On doit donc résoudre le système
+$$\left\{\begin{array}{rcl}x&\equiv&37\ [187]\\x&\equiv&5\ [6].\end{array}\right.$$
+Or, $1=1\times 187-6\times 37$. L'ensemble des solutions de ce système est donc : $$\{37+187\times1\times (5-37)+1122k;\ k\in\mathbb Z\}=\{-5947+1122k;\ k\in\mathbb Z\}.$$
+etit entier positif est obtenu pour $k=6$ et donne $785$. Le cuisinier est sûr d'obtenir au moins 785 pièces
+d'or.
+
+\end{sol}
+
+\exercice{nom={Petit théorème de Fermat, système de chiffrement%
+  {\sc RSA}}}
+\begin{questions}
+\question 
+Soit $p$ un nombre premier.
+  \begin{questions}
+  \question  Soit $k\in\intere{1}{p-1}$. Montrer que $p$ divise $\binom{p}{k}$.
+  \question  Soit $a,b \in \Z$. Montrer que :
+    \[(a+b)^p\equiv a^p+b^p \quad [p]\]
+  \question  En déduire que pour tout $m\in\Z$ :
+    \[m^p \equiv m \quad [p]\]
+  \question  En déduire que si $m\in\Z$ et $p$ sont premiers entre eux :
+    \[m^{p-1} \equiv 1 \quad [p]\]
+  \end{questions}
+\question  On se donne deux nombres premiers $p$ et $q$ distincts, on pose
+  $n\defeq pq$ et on définit
+  \[\phi(n)\defeq\card\enstq{k\in\intere{0}{n-1}}{k\wedge n=1}.\]
+  \begin{questions}
+  \question Soit $c\in\N$ tel que $c\wedge \phi(n)=1$. Montrer qu'il existe $d\in\N$ tel que $cd\equiv 1\ [\phi(n)]$.
+  \question Montrer que $\phi(n)=(p-1)(q-1)$.
+  \question Montrer que si $t\in\Z$, alors $t^{cd}\equiv t \quad [n]$.
+  \end{questions}
+\end{questions}
+
+\begin{sol}
+\begin{questions}
+\question 
+Soit $p$ un nombre premier.
+  \begin{questions}
+  \question  Déjà, on a $$p\mid k!\binom{p}{k}=\underbrace{p(p-1)\ldots (p-k+1)}_{k \text{ termes}}.$$
+Or, $p\wedge i=1, \forall i \in \intere{1}{k}$, donc $p\wedge k!$ et donc d'après le lemme de Gauss, $p\mid \binom{p}{k}$.
+  \question  En développant avec le binôme de Newton et en utilisant la question précédente.
+  \question  On démontre ensuite par récurrence à l'aide de ce qu'on vient de démontrer que $\forall m \in \N$, $m^p\equiv m \quad [p]$. On étend cela à $\Z$. Si $m\leq 0\in \Z$, $0\equiv (-m+m)^p\equiv (-m)^p+m^p \equiv -m+m^p \quad [p]$ donc $m^p\equiv m \quad [p]$.
+  \question  Soit alors $m\in \Z$ tel que $p\nmid m$, on a alors $p\wedge m=1$ car $p$ est premier. D'après ce qu'on vient de démontrer, $p\mid m^p-m=m(m^{p-1}-1)$ et $p\wedge m=1$ donc d'après le lemme de Gauss, $p\mid m^{p-1}-1$, i.e. $m^{p-1}\equiv 1\ [p]$.
+  \end{questions}
+\question  
+  \begin{questions}
+  \question Montrons que $\phi(n)=(p-1)(q-1)$. On va compter les $k$ dans $\intere{0}{n-1}$ qui ne sont pas premiers avec $pq$. Si $k$ n'est pas premier avec $pq$ alors nécessairement $k\wedge p\neq 1$ ou $k\wedge q=1$. Il y en a $q-1$ non premiers avec $p$ ($p, 2p, \ldots, (q-1)p$) et $(p-1)$ non premiers avec $q$ ($q,2q,\ldots,(p-1)q$) et ceux -ci sont distincts (le plus petit multiple de $p$ et $q$ est $pq$). Ainsi, $$\phi(n)=pq-(p-1)-(q-1)=(p-1)(q-1).$$
+  \question D'après l'hypothèse sur $c$ et $d$, il existe $k\in\Z$ tel que $cd=1+k\phi(n)=1+k(p-1)(q-1)$. Soit alors $t\in\Z$. $t$ est alors premier avec $p$ ou avec $q$. Supposons par exemple que c'est avec $p$.  On a :
+  $$t^{cd}\equiv t(t^{p-1})^{k(q-1)} \equiv 1 \quad [n]$$ d'après la première question.
+  \end{questions}
+\end{questions}
+
+Commentaire culturel :
+ {\it L'application $g$ de $(\Z/n\Z)$ dans $(\Z/n\Z)$ qui à $\bar{t}$ associe
+ $\bar{t}^c$ s'appelle fonction de chiffrement, et l'application $f$ de
+ $(\Z/n\Z)$ dans $(\Z/n\Z)$ qui à $\bar{t}$ associe $\bar{t}^d$ s'appelle
+ fonction de déchiffrement. L'exercice affirme que $f\circ g=Id$. On peut donc
+ chiffrer un message (représenté par $\bar{t}$) par le biais de $g$, puis on le
+ déchiffre par le biais de $f$. Le couple $(n,c)$ est appelé clef publique,
+ l'entier $d$ la clef secrète. La sécurité de ce système repose sur le fait que
+ connaissant la clef publique, il est très difficile de déterminer la clef
+ secrète $d$ : il faudrait par exemple factoriser $n$ pour trouver $p$ et $q$ ce
+ qui est impossible à réaliser de nos jours lorsque $p$ et $q$ sont grands,
+ typiquement de l'ordre de 100 chiffres. En d'autres termes, tout le monde peut
+ chiffrer, mais seuls ceux connaissant la clef secrète peuvent déchiffrer. Ce
+ système de chiffrement est apparu en 1976. Il est appelé système {\sc RSA} (du
+ nom de ses inventeurs {\sc Rivest}, {\sc Shamir} et {\sc Adleman}) et est
+ couramment utilisé aujourd'hui, car il est extrêmement robuste. Son apparition
+ explique l'intérêt que l'on porte aujourd'hui aux algorithmes de factorisation
+ de primalité.}
+\end{sol}
+
+% p = 2, q = 11, n = 22, phi(n) = 10, c = 3, d = 7
+% En pratique, prendre p et q de l'ordre de 512 bits (154 chiffres en base 10)
+% rend le système RSA incassable
+
+
+\exercice{nom={Pour les Toulousaings}}
+Soit $a_1,\ldots,a_{1789}\in\Z$ tels que
+\[\sum_{k=1}^{1789} a_k=0\]
+Montrer que
+\[\sum_{k=1}^{1789} a_k^{37} \equiv 0\ [399].\]
+
+
+\magsection{Nombres premiers}
+
+\exercice{nom={Raréfication des nombres premiers}}
+Montrer qu'il existe des intervalles de $\N$ de longueur aussi grande que l'on
+veut qui ne contiennent aucun nombre premier.
+
+\exercice{nom={Encadrement du n-ième nombre premier}}
+Pour tout $n\in\Ns$, on note $p_n$ le $n$-ième nombre premier.
+\begin{questions}
+\question  Montrer que :
+  \[\forall n \in \Ns \quad p_{n+1} \leq p_1 \ldots p_n +1\]
+\question  En déduire que :
+  \[\forall n \in \Ns \quad p_n \leq 2^{2^n}\]
+\question  Soit $x\in\RP$. On note $\pi(x)$ le nombre de nombres premiers
+  inférieurs ou égaux à $x$. Montrer que pour $x$ assez grand :
+  \[\ln(\ln x) \leq \pi(x) \leq x\]
+  {\it On démontrera le fait que pour $n\geq3$, $\e^{\e^{n-1}} \geq 2^{2^n}$.}
+\end{questions}
+
+\begin{sol}
+\begin{questions}
+\question  Cela vient de la preuve d'Euclide.
+\question  Ca passe TB à la récurrence.
+\question  On veut tout d'abord montrer que pour $n\geq3$, $e^{e^{n-1}} \geq 2^{2^n}$. En raisonnant par équivalence avec deux passages aux log, on arrive à $$n\geq \dfrac{1+\ln(\ln(2))}{1-\ln(2)}\approx 2,065.$$
+Soit $x\in\RP$. On note $\pi(x)$ le nombre de nombres premiers inférieurs ou égaux à $x$. Montrer que pour $x$ assez grand :
+  \[\ln(\ln x) \leq \pi(x) \leq x\]
+  L'inégalité de droite ne pose pas de soucis.
+  Pour l'inégalité de gauche. Posons $$n=1+\ent{\ln(\ln(x))}.$$
+  On a $$n-1\leq \ln(\ln(x))\leq n$$ donc $$p_n\leq 2^{2^n}\leq e^{e^{n-1}}\leq x \leq e^{e^n}.$$ Par croissance (évidente) de la fonction $\pi$, cela donne :
+  $$\ln(\ln(x))\leq n=\pi(p_n)\leq \pi(x).$$
+\end{questions}
+\end{sol}
+
+\exercice{nom={Cas particuliers du théorème de {\sc Dirichlet}}}
+\begin{questions}
+\question Montrer qu'il existe une infinité de nombres premiers de la forme
+  $4k+3$.
+\question Montrer qu'il existe une infinité de nombres premiers de la forme
+  $6k+5$.
+\end{questions}
+{\it Le théorème de {\sc Dirichlet} affirme que si $a$ et $b$ sont premiers entre eux, il existe une infinité de nombres premiers de la forme $ak+b$.}
+%END_BOOK
+
+\end{document}

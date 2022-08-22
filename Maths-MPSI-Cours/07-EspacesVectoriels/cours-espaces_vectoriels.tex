@@ -1,0 +1,841 @@
+\documentclass{magnolia}
+
+\magtex{tex_driver={pdftex},
+        tex_packages={xypic,epigraph,xypic}}
+\magfiche{document_nom={Cours sur les espaces vectoriels},
+          auteur_nom={François Fayard},
+          auteur_mail={fayard.prof@gmail.com}}
+\magcours{cours_matiere={maths},
+          cours_niveau={mpsi},
+          cours_chapitre_numero={14},
+          cours_chapitre={Espaces vectoriels}}
+\magmisenpage{}
+\maglieudiff{}
+\magprocess
+
+\begin{document}
+
+%BEGIN_BOOK
+\setlength\epigraphwidth{.6\textwidth}
+\epigraph{\og Vector is a useless survival, or offshoot from quaternions, and has never been of the slightest use to any creature. \fg}{--- \textsc{Lord Kelvin (1824--1907)}}
+\magtoc
+
+\section{Espace vectoriel, application linéaire}
+\subsection{Définition, propriétés élémentaires}
+
+\begin{definition}
+Soit $E$ un ensemble. On dit qu'une \emph{loi} notée additivement
+\[\dspappli{+}{E\times E}{E}{\p{x,y}}{x+y}\]
+fait de $(E,+)$ un groupe commutatif lorsque~:
+\begin{itemize}
+\item Elle est \emph{associative}
+  \[\forall x,y,z\in E\qsep (x+y)+z=x+(y+z).\]
+\item Elle est \emph{commutative}
+  \[\forall x,y\in E\qsep x+y=y+x.\]
+\item Elle admet un \emph{élément neutre}~
+  \[\exists e\in E\qsep \forall x\in E \qsep x+e=e+x=x.\]
+  Un tel élément est unique; on le note $0_E$.
+\item Tout élément $x\in E$ admet un \emph{opposé}~
+\[\exists y\in E\qsep x+y=y+x=0_E.\]
+Un tel élément est unique; on le note $-x$.
+\end{itemize}
+\end{definition}
+
+\begin{remarques}
+\remarque Si $x_1,x_2,x_3\in E$, l'associativité de la loi $+$ affirme que
+  $(x_1+x_2)+x_3=x_1+(x_2+x_3)$; on note $x_1+x_2+x_3$ cette valeur commune. Plus
+  généralement, si $x_1,x_2,\ldots,x_n\in E$, la valeur de $x_1+x_2+\cdots+x_n$ ne dépend
+  pas de l'ordre dans lesquelles sont effectuées les additions. Cela justifie l'usage de
+  cette notation n'utilisant pas de parenthèses.
+\remarque Si $(E,+)$ est un groupe commutatif et $x,y\in E$, l'élément $x+(-y)$ est aussi
+  noté $x-y$. De plus
+  \[\forall x,y,z\in E\qsep x+y=z \quad\ssi\quad x = z-y.\]
+\remarque Les éléments de $E$ sont \emph{réguliers}. Autrement dit
+  \[\forall x,y,z\in E\qsep x+y=x+z \quad\implique\quad  y=z.\]
+\end{remarques}
+
+En première lecture, on pourra considérer que dans la suite de ce cours, $\K$ désigne le corps $\Q$, $\R$ ou
+$\C$. Cependant, excepté quelques résultats sur les symétries qui ne sont pas valables dans
+un corps de caractéristique 2, ce cours reste valide si $\K$ est un corps quelconque, notion
+dont nous donnerons la définition plus tard dans l'année.
+\vspace{2ex}
+
+\begin{definition}[utile=-3]
+Soit $\K$ un corps, $\p{E,+}$ un groupe commutatif d'élément neutre $0_E$ et
+$\cdot$ une loi de composition externe.
+\[\dspappli{\cdot}{\K\times E}{E}{\p{\lambda,x}}{\lambda\cdot x}\]
+On dit que $\p{E,+,\cdot}$ est un \emph{\Kev} lorsque
+\begin{eqnarray*}
+\forall x,y\in E \qsep \forall \lambda\in\K, & &
+  \lambda\cdot\p{x+y}=\lambda\cdot x+\lambda\cdot y\\
+\forall x\in E \qsep \forall \lambda,\mu\in\K, & &
+  \p{\lambda+\mu}\cdot x=\lambda\cdot x+\mu\cdot x\\
+\forall x\in E \qsep \forall \lambda,\mu\in\K, & &
+  \lambda\cdot\p{\mu\cdot x}=\p{\lambda\mu}\cdot x\\
+\forall x\in E, & & 1\cdot x=x.
+\end{eqnarray*}
+Les éléments de $\K$ sont appelés \emph{scalaires}, ceux de $E$, \emph{vecteurs}.
+\end{definition}
+
+\begin{proposition}[utile=-3]
+\begin{eqnarray*}
+\forall x\in E,& & 0\cdot x=0_E\\
+\forall \lambda\in\K, & & \lambda\cdot 0_E=0_E\\
+\forall x\in E \qsep \forall \lambda\in\K, & &
+  \p{-\lambda}\cdot x=\lambda\cdot\p{-x}=-\p{\lambda\cdot x}
+\end{eqnarray*}
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque[utile=-1] En particulier, si $x\in E$, $(-1)\cdot x=-x$.
+\end{remarqueUnique}
+
+\begin{proposition}[utile=1]
+\[\forall x\in E \qsep \forall \lambda\in\K \qsep
+  \lambda\cdot x=0_E \quad\implique\quad \cro{\lambda=0 \ou x=0_E}.\]  
+\end{proposition}
+
+\begin{definition}[utile=-3]
+Soit $\K$ un corps et $n\in\Ns$. On définit sur $E\defeq\K^n$
+\begin{itemize}
+\item la loi de composition interne $+$ par
+  \[\forall \p{x_1,\ldots,x_n},\p{y_1,\ldots,y_n}\in\K^n,\]
+  \[\p{x_1,\ldots,x_n}+\p{y_1,\ldots,y_n}\defeq\p{x_1+y_1,\ldots,x_n+y_n}.\]
+\item la loi de composition externe $\cdot$ par
+  \[\forall \p{x_1,\ldots,x_n}\in\K^n \qsep \forall \lambda\in\K \qsep
+    \lambda\cdot\p{x_1,\ldots,x_n}\defeq\p{\lambda x_1,\ldots,\lambda x_n}.\]
+\end{itemize}
+Alors $\p{\K^n,+,\cdot}$ est un \Kev d'élément neutre $\p{0,\ldots,0}$.
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque[utile=-1] En particulier, $\K$ est un $\K$-espace vectoriel.
+\end{remarqueUnique}
+
+% \begin{definition}
+% Soit $\K$ un corps et $X$ un ensemble non vide. On définit sur
+% $E=\mathcal{F}\p{X,\K}$~:
+% \begin{itemize}
+% \item la loi de composition interne $+$ par~:
+%   \[\forall f,g\in\mathcal{F}\p{X,\K} \quad \forall x\in X \quad
+%     \p{f+g}(x)=f(x)+g(x)\]
+% \item la loi de composition externe $\cdot$ par~:
+%   \[\forall f\in\mathcal{F}\p{X,\K} \quad \forall \lambda\in\K \quad
+%     \p{\lambda\cdot f}(x)=\lambda f(x)\]
+% \end{itemize}
+% Alors $\p{\mathcal{F}\p{X,\K},+,\cdot}$ est un \Kev dont l'élément neutre est
+% la fonction nulle.
+% \end{definition}
+
+\begin{definition}[utile=-3]
+Soit $E$ un \Kev et $X$ un ensemble. On définit sur
+$\mathcal{F}\p{X,E}$
+\begin{itemize}
+\item la loi de composition interne $+$ par
+  \[\forall f,g\in\mathcal{F}\p{X,E} \qsep \forall x\in X \qsep
+    \p{f+g}(x)\defeq f(x)+g(x).\]
+\item la loi de composition externe $\cdot$ par
+  \[\forall f\in\mathcal{F}\p{X,E} \qsep \forall \lambda\in\K \qsep
+    \p{\lambda\cdot f}(x)\defeq\lambda f(x).\]
+\end{itemize}
+Alors $\p{\mathcal{F}\p{X,E},+,\cdot}$ est un \Kev dont l'élément neutre est
+l'application de $X$ dans $E$ qui à tout $x\in X$ associe $0_E$. En particulier,
+$\p{\mathcal{F}\p{X,\K},+,\cdot}$ est un \Kev.
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque[utile=-3] Munis des lois usuelles, $\mathcal{F}(\R,\R)$ ainsi que l'ensemble 
+  des suites réelles $\R^\N$  sont des
+  $\R$-espaces vectoriels dont les \og zéros \fg sont respectivement la fonction
+  nulle de $\R$ dans $\R$ et la suite nulle.
+\end{remarqueUnique}
+
+\begin{definition}[utile=-2]
+Soit $\p{E,+,\cdot}$ et $\p{F,+,\cdot}$ deux \Kevs. On définit sur $E\times F$
+\begin{itemize}
+\item la loi de composition interne $+$ par
+  \[\forall \p{x_1,y_1},\p{x_2,y_2}\in E\times F \qsep
+    \p{x_1,y_1}+\p{x_2,y_2}\defeq\p{x_1+x_2,y_1+y_2}.\]
+\item la loi de composition externe $\cdot$ par
+  \[\forall \p{x,y}\in E\times F \qsep \forall \lambda\in\K \qsep
+    \lambda\cdot\p{x,y}\defeq\p{\lambda\cdot x,\lambda\cdot y}.\]
+\end{itemize}
+Alors $\p{E\times F,+,\cdot}$ est un \Kev d'élément neutre $\p{0_E,0_F}$.
+\end{definition}
+
+% \begin{proposition}
+% Soit $\K$ un sous-corps de $\KL$. Alors $\p{\KL,+,\cdot}$ est un \Kev.  
+% \end{proposition}
+
+
+% \begin{proposition}
+% Soit $\K$ un corps. Alors $(\polyK,+,\cdot)$ est un \Kev.
+% \end{proposition}
+
+
+
+Dans la suite du cours, l'élément $0_E$ sera désormais noté $0$. Cependant, il sera
+toujours important de se demander si un $0$ est le zéro de $\K$ ou celui de $E$. Dans
+le second cas, on se demandera quelle est la nature de ce zéro~:
+est-ce un un scalaire, un $n$-uplet, une suite, une fonction~?
+
+\subsection{Sous-espace vectoriel}
+
+\begin{definition}[utile=-3]
+On dit qu'une partie $F$ d'un \Kev $E$ est un \emph{sous-espace vectoriel} de $E$
+lorsque
+\begin{itemize}
+\item $0\in F$
+\item $F$ est stable par \emph{combinaisons linéaires}
+  \[\forall x,y\in F \qsep \forall \lambda,\mu\in\K \qsep
+    \lambda x+\mu y\in F.\]
+\end{itemize}
+Si tel est le cas, $\p{F,+,\cdot}$ est un \Kev.
+\end{definition}
+
+\begin{remarques}
+\remarque Si $F$ est un sous-espace vectoriel de $E$, alors
+  \begin{eqnarray*}
+\forall x\in F\qsep \forall \lambda\in\K,& & \lambda x\in F,\\
+\forall x,y\in F,& & x+y \in F.
+	\end{eqnarray*}
+\remarque[utile=-3] Si $E$ est un \Kev, $\ens{0}$ est un sous-espace vectoriel de $E$
+  appelé sous-espace vectoriel \emph{trivial}. De même, $E$ est un sous-espace vectoriel de
+	$E$.
+\remarque[utile=-2] Soit $a_1,\ldots,a_n\in\K$. Alors
+  \[F\defeq\enstq{(x_1,\ldots,x_n)\in\K^n}{a_1 x_1+\cdots+a_n x_n=0}\]
+  est un sous-espace vectoriel de $\K^n$. Par exemple, l'ensemble des triplets $(x,y,z)\in\R^3$ tels que
+  $x+2y-z=0$ est un sous-espace vectoriel de $\R^3$.
+% \remarque[utile=-1] Si $F$ est une partie d'un \Kev E, alors $(F,+,\cdot)$ est un \Kev si et seulement si c'est un sous-espace vectoriel de $E$. En particulier, si $F$ ne contient pas $0$ ou n'est pas stable par combinaison linéaire, ce n'est pas un espace vectoriel.
+\end{remarques}
+
+\begin{exoUnique}
+% \exo Montrer que l'ensemble d'équation $x+y+z=0$ est un sous-espace
+%   vectoriel de $\R^3$.
+% \exo Montrer que l'ensemble des suites réelles convergentes est un
+%   sous-espace vectoriel de l'espace vectoriel des suites réelles.
+\exo Montrer que pour tout $n\in\N$, $\polyK[n]$ est un sous-espace vectoriel de $\polyK$.
+\exo Montrer que l'ensemble des solutions de l'équation différentielle
+  \[\forall t\in\R\qsep y'(t)+\e^{-t^2}y(t)=0\]
+  est un sous-espace vectoriel de l'ensemble des fonctions de $\R$ dans $\R$.
+\end{exoUnique}
+
+%% Exemples :
+%% 3) L'ensemble des fonction C\infty de \R dans \R
+%% 4) L'ensemble des fonctions deux fois dérivables de \R dans \R telles
+%%    que y''+3y'-y=0 est un sous-espace vectoriel de l'ensemble des
+%%    applications de R dans R. 
+
+
+\begin{proposition}[utile=-3]
+Une intersection de sous-espaces vectoriels est un sous-espace vectoriel.
+\end{proposition}
+
+\begin{remarques}
+\remarque[utile=-1] Contrairement à l'intersection, l'union de deux sous-espaces
+  vectoriels n'est en général pas un sous-espace vectoriel.
+\remarque[utile=-2] Soit $(a_{i,j})_{1\leq i\leq q, 1\leq j\leq p}$ une famille de
+  scalaires. Alors
+  \[F=\enstq{(x_1,\ldots,x_p)\in\K^p}%
+    {\forall i\in\intere{1}{q} \qsep
+     a_{i,1} x_1+\cdots+a_{i,p} x_p=0}\]
+  est un sous-espace vectoriel de $\K^p$. Par exemple, l'ensemble des triplets $(x,y,z)\in\R^3$ tels que
+  \[\syslin{x&+y&+z&=&0\hfill\cr
+            x&-y&+2z&=&0\hfill}\]
+  est un sous-espace vectoriel de $\R^3$.
+\end{remarques}
+
+\begin{definition}[utile=-2]
+Soit $A$ une partie d'un \Kev $E$. Alors, au sens de l'inclusion, il existe un plus petit
+sous-espace vectoriel de $E$ contenant $A$. On l'appelle \emph{sous-espace vectoriel
+engendré} par $A$ et on le note $\vect(A)$.
+\end{definition}
+
+\begin{remarques}
+\remarque Si $F$ est un sous-espace vectoriel de $E$ tel que $A\subset F$, alors
+  $\vect(A)\subset F$.
+\remarque Si $A\defeq\ens{x_1,\ldots,x_n}$, alors $\vect(A)$ est aussi noté
+  $\vect(x_1,\ldots,x_n)$.
+\end{remarques}
+
+\begin{proposition}[utile=-2]
+Soit $E$ un \Kev et $x_1,\ldots,x_n\in E$. Alors
+\[\vect(x_1,\ldots,x_n)=\ensim{\lambda_1 x_1+\cdots+\lambda_n x_n}%
+  {\lambda_1,\ldots,\lambda_n\in\K}.\]
+Les éléments de $\vect(x_1,\ldots,x_n)$ sont appelés \emph{combinaisons linéaires}
+de la famille $(x_1,\ldots,x_n)$.
+\end{proposition}
+
+
+\begin{exoUnique}
+% \exo Soit $x_1,\ldots,x_n\in E$, $i\in\intere{1}{n}$ et $\mu_1,\ldots,\mu_{i-1},
+%   \mu_{i+1},\ldots,\mu_n\in\K$. Montrer que
+%   \[\vect\bigg(x_1,\ldots,x_{i-1},x_i+\sum_{\substack{k=1\\k\neq i}}^n \mu_k x_k, x_{i+1},\ldots,x_n\bigg)
+%     =\vect(x_1,\ldots,x_n).\]
+%   En déduire que $\vect(1, X-1, (X-1)^2)=\polyK[2]$.
+\exo Soit $E$ le \Rev des fonctions de $\R$ dans $\R$. On pose
+  \[A\defeq\enstq{f\in\mathcal{F}(\R,\R)}{\forall x\in\R \qsep f(x)\geq 0}.\]
+	Montrer que $\vect(A)=\mathcal{F}(\R,\R)$.
+\end{exoUnique}
+
+\begin{definition}
+  On dit que deux éléments $x,y\in E$ sont \emph{colinéaires} lorsqu'il existe
+  $\lambda\in\K$ tel que $y=\lambda x$ ou $x=\lambda y$.
+\end{definition}
+
+\begin{remarques}
+\remarque Le vecteur nul est colinéaire à tout vecteur.
+\remarque Il est possible que
+  $x$ et $y\in E$ soient colinéaires sans qu'il existe $\lambda\in\K$ tel que $y=\lambda x$.
+  Cependant, si $x$ et $y$ sont colinéaires et $x\neq 0$, alors il existe $\lambda\in\K$
+  tel que $y=\lambda x$.
+\end{remarques}
+
+\begin{definition}
+On dit qu'un espace vectoriel $E$ est une \emph{droite vectorielle} lorsqu'il
+ existe $x\in E\setminus\ens{0}$ tel que $E=\K x$.
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque Si $E$ est une droite vectorielle, quel que soit $x\in E\setminus\ens{0}$,
+  $E=\K x$.
+\end{remarqueUnique}
+
+
+\subsection{Application linéaire}
+
+\begin{definition}[utile=-3]
+Soit $E$ et $F$ deux \Kevs. On dit qu'une application $f$ de $E$ dans $F$ est
+une \emph{application linéaire} lorsque
+\[\forall x,y\in E \qsep \forall \lambda,\mu\in\K \qsep
+  f\p{\lambda x+\mu y}=\lambda f(x)+\mu f(y).\]
+Plus précisément, on dit que $f$ est un
+\begin{itemize}
+\item \emph{endomorphisme} lorsque $E=F$.
+\item \emph{isomorphisme} lorsque $f$ est bijective.
+\item \emph{automorphisme} lorsque $f$ est un endomorphisme et un isomorphisme.
+\end{itemize}
+On note $\lin{E}{F}$ l'ensemble des applications linéaires de $E$ dans $F$ et
+$\Endo{E}$ l'ensemble des endomorphismes de $E$.
+\end{definition}
+
+\begin{remarques}
+\remarque Soit $f\in\lin{E}{F}$. Alors
+\begin{eqnarray*}
+\forall x,y\in E,& & f(x+y)=f(x)+f(y),\\
+\forall x\in E\qsep \forall \lambda\in\K,& & f(\lambda x)=\lambda f(x).
+\end{eqnarray*}
+De plus $f(0_E)=0_F$.
+% \remarque Si $f$ est une application linéaire, alors $f(0)=0$.
+% , pour tout $x,y\in E$, $f(x+y)=f(x)+f(y)$. Autrement
+%   dit, une application linéaire est un morphisme de groupe pour les structures sous-jacentes. En particulier,
+%   $f(0)=0$.
+% \remarque[utile=-2] Soit $\lambda_1,\ldots,\lambda_n\in\K$. Alors, l'application
+%   de $\K^n$ dans $\K$ qui au n-uplet $(x_1,\ldots,x_n)\in\K^n$ associe
+%   $\lambda_1 x_1+\cdots+\lambda_n x_n$ est linéaire. Plus généralement,
+%   si $(\lambda_{i,j})_{1\leq i\leq q, 1\leq j\leq p}$ est une famille de scalaires,
+%   l'application de $\K^p$ dans $\K^q$ qui au $p$-uplet $(x_1,\ldots,x_p)$
+%   associe le $q$-uplet
+%   $(\lambda_{1,1}x_1+\cdots+\lambda_{1,p}x_p,\ldots,
+%     \lambda_{q,1}x_1+\cdots+\lambda_{q,p}x_p)$ est linéaire. Par exemple
+%   les applications
+%   \[\dspappli{\phi_1}{\R^3}{\R}{(x,y,z)}{x+y-2z} \et
+%     \dspappli{\phi_2}{\R^3}{\R^2}{(x,y,z)}{(x+y+z,x-2y+3z)}\]
+%   sont linéaires.
+\remarque Soit $f$ un endomorphisme du \Kev $E$ et $F$ un sous-espace
+  vectoriel de $E$. Lorsque $F$ est stable par $f$, c'est-à-dire
+  lorsque $f(F)\subset F$, la restriction de $f$ à $F$, corestreinte à $F$, est
+  un endomorphisme de $F$ appelé endomorphisme \emph{induit} à $F$.
+\remarque La conjugaison est un automorphisme de $\C$ lorsqu'il est considéré
+  comme un $\R$-espace vectoriel, mais pas lorsqu'il est considéré comme un
+  $\C$-espace vectoriel.
+\end{remarques}
+
+%% Exemples :
+%% 0) L'application de R dans R  f : x -> a x (avec a\in\R)
+%% 1) L'application f qui au couple (x,y) associe le couple
+%%    (a_11 x+a_12 y,a_21 x+a_22 y)
+%% 2) L'application f qui à la suite (u_n) associe la suite (u_(n+1))
+%% 3) L'application phi qui à la fonction f associe f' (de C\infty dans C\infty)
+%% 4) La conjugaison est un isomorphisme linéaire du R-ev C, mais pas du C-ev C
+
+\begin{definition}[utile=-2]
+On dit qu'une application $f$ de $E$ dans $E$ est une \emph{homothétie} lorsqu'il
+existe $\lambda\in\K$ tel que
+\[\forall x\in E \qsep f(x)=\lambda x.\]
+Les homothéties de $E$ sont des endomorphismes.
+\end{definition}
+
+\begin{exoUnique}
+\exo Soit $E$ une droite vectorielle. Montrer que les homothéties sont les seuls
+  endomorphismes de $E$.
+\end{exoUnique}
+
+\begin{definition}[utile=1]
+On appelle \emph{forme linéaire} sur $E$ toute application linéaire de $E$ dans $\K$.
+L'ensemble $\lin{E}{\K}$ est noté $E^\star$ et appelé \emph{dual} de $E$.
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque Si $E=\K^n$ et $\phi\in\mathcal{F}(E,\K)$, alors $\phi\in E^\star$
+  si et seulement si il existe $a_1,\ldots,a_n\in\K$ tels que
+  \[\forall (x_1,\ldots,x_n)\in\K^n\qsep \phi(x_1,\ldots,x_n)=a_1x_1+\cdots+a_nx_n.\]
+\end{remarqueUnique}
+
+\begin{proposition}[utile=-3]
+Soit $f\in\lin{E}{F}$.
+\begin{itemize}
+\item L'image réciproque par $f$ d'un sous-espace vectoriel de $F$ est un
+  sous-espace vectoriel de $E$.
+\item L'image directe par $f$ d'un sous-espace vectoriel de $E$ est un
+  sous-espace vectoriel de $F$.
+\end{itemize}
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque Si $u\in\mathcal{L}(E, F)$ et $A$ est une partie de $E$, alors
+  $u(\vect(A))=\vect(u(A))$. En particulier, si $x_1,\ldots,x_n\in E$, alors
+  $u(\vect(x_1,\ldots,x_n))=\vect(u(x_1),\ldots,u(x_n))$.
+\end{remarqueUnique}
+
+\begin{definition}[utile=-3]
+On appelle \emph{noyau} de $f\in\lin{E}{F}$ et on note $\ker f$ l'ensemble
+\[\ker f=\enstq{x\in E}{f(x)=0}.\]  
+C'est est un sous-espace vectoriel de $E$.
+\end{definition}
+
+% \begin{exoUnique}
+% \exo Soit
+%   \[\dspappli{\phi}{\polyK}{\polyK}{P}{P(X+1)-P(X)}.\]
+% 	Montrer que $\phi$ est linéaire et déterminer $\ker \phi$.
+% \end{exoUnique}
+
+%% Exemple :
+%% 1) L'ensemble y''+y'+y=0 est un sous-espace vectoriel de l'ensemble des
+%%    fonctions dérivables deux fois
+
+\begin{exoUnique}
+\exo Montrer que l'ensemble des $(x,y,z)\in\R^3$ tels que
+  $x+y+z=0$ et $x-2y+3z=0$ est un sous-espace vectoriel de $\R^3$.
+\end{exoUnique}
+
+\begin{proposition}[utile=3]
+Une application linéaire $f$ est injective si et seulement si
+\mbox{$\ker f=\ens{0}$}.
+\end{proposition}
+
+\begin{definition}[utile=-3]
+On appelle image de $f\in\lin{E}{F}$ et on note $\im f$ l'ensemble
+\[\im f=\ensim{f(x)}{x\in E}\]
+C'est un sous-espace vectoriel de $F$.
+\end{definition}
+
+\begin{remarques}
+\remarque[utile=-3] $f$ est surjective si et seulement si $\im f=F$.
+\remarque[utile=1] Si $f\in\lin{E}{F}$ et $\lambda\in\Ks$, alors $\im\p{\lambda f}=\im f$. En particulier
+  $\im(-f)=\im f$.
+\end{remarques}
+
+
+\begin{proposition}[utile=-3]
+$\quad$
+\begin{itemize}
+\item La composée de deux applications linéaires est linéaire.
+\item La bijection réciproque d'un isomorphisme est un isomorphisme.
+\end{itemize}
+\end{proposition}
+
+\begin{remarques}
+\remarque Si $f,g\in\mathcal{L}(E)$, on dit que $f$ et $g$ \emph{commutent} lorsque $f\circ g=g\circ f$.
+  En général, deux endomorphismes ne commutent pas, comme le montre l'exemple des endomorphismes
+  \[\dspappli{f}{\K^2}{\K^2}{(x,y)}{(x, 0)} \quad\et\quad
+    \dspappli{g}{\K^2}{\K^2}{(x,y)}{(0,x)}\]
+\remarque Il est possible que $f\circ g=0$ sans que $f=0$ ou $g=0$.
+\end{remarques}
+
+\begin{exos}
+\exo Soit $E$ un \Kev et $f,g\in\Endo{E}$. Montrer que
+  \[\ker(g\circ f)=\ker f \quad\ssi\quad \ker g\cap\im f=\ens{0}.\]
+\exo Soit $f$ et $g$ deux endomorphismes de $E$ tels que
+  $f\circ g=g\circ f$. Montrer que $\ker f$ et $\im f$ sont stables par $g$.
+\end{exos}
+
+\section{L'algèbre $\Endo{E}$}
+
+\subsection{$\lin{E}{F}$}
+
+\begin{proposition}[utile=-3]
+% Soit $E$ et $F$ deux \Kevs. On définit sur $\lin{E}{F}$~:
+% \begin{itemize}
+% \item La loi de composition interne $+$ par~:
+%   \[\forall f,g\in\lin{E}{F} \quad \forall x\in E \quad
+%     \p{f+g}(x)=f(x)+g(x)\]
+% \item La loi de composition externe $\cdot$ par~:
+%   \[\forall f\in\lin{E}{F} \quad \forall \lambda\in\K \quad
+%     \forall x\in E \quad \p{\lambda\cdot f}(x)=\lambda f(x)\]
+% \end{itemize}
+$\p{\lin{E}{F},+,\cdot}$ est un \Kev.
+\end{proposition}
+
+\begin{proposition}
+Soit $E$, $F$ et $G$ trois \Kev. Alors
+\begin{eqnarray*}
+\forall f\in\lin{F}{G}\qsep \forall g,h\in\lin{E}{F}\qsep \forall \lambda,\mu\in\K,& &
+f\circ\p{\lambda g+\mu h}=\lambda f\circ g+\mu f\circ h\\
+\forall f,g\in\lin{F}{G}\qsep \forall \lambda,\mu\in\K \qsep \forall h\in\lin{E}{F},& &
+\p{\lambda f+\mu g}\circ h=\lambda f\circ h+\mu g\circ h.
+\end{eqnarray*}
+\end{proposition}
+
+
+\begin{definition}
+Soit $f\in\Endo{E}$. On définit $f^n$ pour tout $n\in\N$ par récurrence.
+\begin{itemize}
+\item $f^0\defeq{\rm Id}_E$
+\item $\forall n\in\N\qsep f^{n+1}\defeq f^n\circ f.$
+\end{itemize}
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque Attention, si $f\in\Endo{E}$ et $x\in E$, $f^2(x)=f(f(x))$ et non $f(x)^2$, expression qui n'a
+  d'ailleurs aucun sens.
+\end{remarqueUnique}
+
+\begin{proposition}
+\begin{itemize}
+\item Soit $f\in\Endo{E}$. Alors
+\begin{eqnarray*}
+\forall m,n\in\N, & & f^{m+n}=f^m\circ f^n\\
+                 & & \p{f^m}^n=f^{mn}.
+\end{eqnarray*}
+\item Soit $f,g\in \Endo{E}$ tels que $f\circ g=g\circ f$. Alors, pour tout $n,m\in\N$, $f^n$ et $g^m$ commutent. De plus
+\[\forall n\in\N \qsep \p{f\circ g}^n=f^n \circ g^n.\]
+\end{itemize}
+\end{proposition}
+
+\begin{exoUnique}
+  \exo Soit $E$ un \Kev et $f\in\Endo{E}$. Pour tout $n\in\N$, on définit
+    $K_n\defeq\ker f^n$ et $I_n\defeq\im f^n$. Montrer que les suites $\p{K_n}$ et
+    $\p{I_n}$ sont respectivement croissantes et décroissantes au sens de
+    l'inclusion.
+  \end{exoUnique}
+
+\begin{proposition}
+  Soit $f,g\in\Endo{E}$ tels que $f\circ g=g\circ f$.
+  Alors, pour tout $n\in\N$
+
+    \[\p{f+g}^n = \sum_{k=0}^n \binom{n}{k} f^{n-k} \circ g^k \quad\et\quad
+      f^n-g^n=\p{f-g}\circ\cro{\sum_{k=0}^{n-1} f^{\p{n-1}-k}\circ g^k}.\]
+  \end{proposition}
+
+
+
+% \begin{exoUnique}
+
+%   \exo Soit $E$ le \Rev des fonctions de $\R$ dans $\R$. On définit
+%     $\Delta,T\in\Endo{E}$ par
+%     \[\forall f\in E \qsep \forall x\in\R \qsep T(f)(x)=f\p{x+1} \et
+%       \Delta(f)(x)=f\p{x+1}-f(x).\]
+%     Calculer $T^k$ et $\Delta^k$ pour tout $k\in\N$.
+%   \end{exoUnique}
+
+
+%% Exemples :
+%% 1) La R-algèbre des fonctions de R dans R
+
+% \begin{definition}[utile=-1]
+% On dit qu'une partie $B$ de l'algèbre $\p{A,+,\cdot,\times}$ est une
+% sous-algèbre de $A$ lorsque c'est un sous-espace vectoriel de $A$ et un
+% sous-anneau de $A$, c'est-à-dire lorsque
+% \begin{eqnarray*}
+% \forall x,y\in B \qsep \forall \lambda,\mu\in\K, & &
+%   \lambda x+\mu y\in B\\
+% & & 1_A\in B\\
+% \forall x,y\in B, & & x\times y\in B.
+% \end{eqnarray*}
+% Si tel est le cas $\p{B,+,\cdot,\times}$ est une $\K$-algèbre.
+% \end{definition}
+
+% \begin{definition}[utile=-1]
+% On dit qu'une application $\phi$ d'une algèbre $\p{A,+,\cdot,\times}$ dans une
+% algèbre $\p{B,+,\cdot,\times}$ est un \emph{morphisme d'algèbre} lorsque $\phi$ est
+% une application linéaire et un morphisme d'anneau, c'est-à-dire lorsque
+% \begin{eqnarray*}
+% \forall x,y\in A \qsep \forall \lambda,\mu\in\K, & &
+%   \phi\p{\lambda x+\mu y}=\lambda\phi(x)+\mu\phi(y)\\
+% & & \phi\p{1_A}=1_B\\
+% \forall x,y\in A, & & \phi\p{x\times y}=\phi(x)\times\phi(y).
+% \end{eqnarray*}
+% \end{definition}
+
+% \begin{proposition}[utile=-3]
+% $\p{\Endo{E},+,\cdot,\circ}$ est une $\K$-algèbre.
+% \end{proposition}
+
+% \begin{remarqueUnique}
+% % \remarque Attention, si $f\in\Endo{E}$ et $x\in E$, $f^2(x)=f(f(x))$ et non $f(x)^2$, expression qui n'a
+% %   d'ailleurs aucun sens.
+% \end{remarqueUnique}
+
+\begin{exoUnique}
+\exo Soit $E$ le \Rev des fonctions de $\R$ dans $\R$. On définit
+  $\Delta,T\in\Endo{E}$ par
+  \[\forall f\in E \qsep \forall x\in\R \qsep T(f)(x)\defeq f\p{x+1} \et
+    \Delta(f)(x)\defeq f\p{x+1}-f(x).\]
+  Calculer $T^k$ et $\Delta^k$ pour tout $k\in\N$.
+\end{exoUnique}
+
+\subsection{Le groupe linéaire}
+
+\begin{definition}
+Un endomorphisme $u\in\Endo{E}$ est un automorphisme si et seulement si il existe $v\in\Endo{E}$ tel que
+\[u\circ v = \id_E \quad\text{et}\quad v\circ u=\id_E.\]
+Si tel est le cas, $v=u^{-1}$. On note $\gl{}{E}$ l'ensemble des automorphismes de $E$.
+% Autrement dit, les automorphismes de $E$ sont les éléments inversibles de l'anneau $\Endo{E}$.
+\end{definition}
+
+\begin{proposition}
+  $\gl{}{E}$ possède les propriétés suivantes.
+\begin{eqnarray*}
+& & \id\in\gl{}{E}\\
+\forall f,g\in\gl{}{E},& & g\circ f\in\gl{}{E}\\
+\forall f\in\gl{}{E},& & f^{-1}\in\gl{}{E}.
+\end{eqnarray*}
+Nous dirons que $(\gl{}{E},\circ)$ est un groupe, que l'on appelle \emph{groupe linéaire}.
+\end{proposition}
+
+\section{Somme, somme directe, projecteur, hyperplan}
+\subsection{Somme, somme directe}
+
+\begin{definition}[utile=-3]
+On appelle \emph{somme} de deux sous-espaces vectoriels $A$ et $B$ de $E$, et on
+note $A+B$, le plus petit sous-espace vectoriel contenant $A$ et $B$. On a
+\[A+B=\ensim{a+b}{a\in A \quad b\in B}.\]
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque[utile=1] Si $f$ et $g$ sont deux applications linéaires de $E$ dans $F$ qui
+  coïncident sur deux sous-espaces vectoriels $A$ et $B$ tels que $A+B=E$, alors
+  $f=g$.
+\end{remarqueUnique}
+
+\begin{exos}
+\exo Si $f,g\in\lin{E}{F}$, montrer que $\im\p{f+g}\subset\im f+\im g$.
+  Donner un exemple où l'inclusion est stricte.
+\exo Soit $A$, $B$, $C$ et $D$ des sous-espaces vectoriels de $E$ tels que
+  $A\subset C$, $B\subset D$ et $A+B=C+B$. Montrer que $A+D=C+D$.
+\end{exos}
+
+\begin{definition}[utile=-3]
+On dit que deux sous-espaces vectoriels $A$ et $B$ de $E$ sont en somme
+directe lorsque
+\[\forall a\in A\qsep \forall b\in B\qsep a+b=0 \quad\implique\quad \cro{a=0 \et b=0}.\]
+Si tel est le cas, la somme $A+B$ est notée $A\oplus B$.
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque Deux sous-espaces vectoriels $A$ et $B$ de $E$ sont en somme directe
+  si et seulement si, quel que soit $x\in A+B$, l'écriture $x=a+b$
+  (avec $a\in A$ et $b\in B$) est unique.
+\end{remarqueUnique}
+
+%% Exemple
+%% 1) Par exemple, dans R^3
+%%    Si A={(x,y,z) : x=0} et B={(x,y,z) : y=0}
+%%    Alors A+B=E 
+%%
+%% Remarque :
+%% 1) La décomposition n'est pas toujours unique. Par exemple
+%%    (0,0,0)=(0,0,0)+(0,0,0)
+%%           =(0,0,-1)+(0,0,1)
+
+\begin{proposition}[utile=3]
+Deux sous-espaces vectoriels $A$ et $B$ de $E$ sont en somme directe si
+et seulement si
+\[A\cap B=\ens{0}.\]
+\end{proposition}
+
+\begin{definition}[utile=-3]
+On dit que deux sous-espaces vectoriels $A$ et $B$ de $E$ sont \emph{supplémentaires}
+lorsque
+\[A\oplus B=E.\]
+\end{definition}
+
+%% Exemple
+%% 1) Les fonctions paires et les fonctions impaires dans l'ev des fonctions
+%%    de R dans R.
+%%    exp = cosh + sinh
+%%    Application au calcul de la somme des cosh(kx) (k=0..n)
+
+\begin{exoUnique}
+\exo Soit $f\in\Endo{E}$ tel que $f^3=f^2+f$. Montrer que
+  $E=\ker f\oplus\im f$.
+\end{exoUnique}
+
+\begin{remarques}
+\remarque On peut démontrer que tout sous-espace vectoriel admet (au moins) un supplémentaire. 
+  Nous démontrerons ce point dans un autre chapitre dans le cas particulier où $E$ est de dimension finie.
+\remarque Sauf si $A=\ens{0}$ ou $A=E$, un sous-espace vectoriel $A$ admet plusieurs supplémentaires.
+\end{remarques}
+
+\begin{proposition}[nom={Version géométrique du théorème du rang}]
+Soit $f\in\lin{E}{F}$, et $A$ un supplémentaire de $\ker f$ dans $E$. Alors
+\[\dspappli{\phi}{A}{\im f}{x}{f(x)}\]
+est un isomorphisme.
+\end{proposition}
+
+\subsection{Projecteur}
+
+\begin{definition}[utile=-3]
+Soit $A$ et $B$ deux sous-espaces vectoriels supplémentaires d'un \Kev $E$.
+Alors, il existe un unique endomorphisme $p\in\Endo{E}$ tel que
+\[\forall a\in A \qsep \forall b\in B \qsep p\p{a+b}=a.\]
+On l'appelle \emph{projecteur} sur $A$ parallèlement à $B$
+\end{definition}
+
+\begin{definition}[utile=1]
+Si $p$ est le projecteur sur $A$ parallèlement à $B$, le projecteur $q$ sur
+$B$ parallèlement à $A$ est appelé projecteur associé à $p$. On a
+\[p+q=\id \et p\circ q=q\circ p=0.\]
+De plus, pour tout $x\in E$
+\[x=\underbrace{p(x)}_{\in A}+\underbrace{q(x)}_{\in B}\]  
+est la décomposition de $x$ dans $E=A\oplus B$.
+\end{definition}
+
+\begin{proposition}[utile=1]
+Soit $p$ le projecteur sur $A$ parallèlement à $B$. Alors
+\[\ker p=B, \qquad \ker\p{p-\id}=A, \qquad \im p=A.\]
+De plus $p\circ p=p$.
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque[utile=1] En particulier, si $p\in\Endo{E}$ est un projecteur
+  \[E=\ker p\oplus\ker\p{p-\id} \et E=\ker p\oplus\im p.\]
+\end{remarqueUnique}
+
+\begin{proposition}[utile=3]
+$p\in\Endo{E}$ est un projecteur si et seulement si $p\circ p=p$.  
+\end{proposition}
+
+\begin{exos}
+\exo Soit $\Re$ l'application de $\C$ dans $\C$ qui à $z$ associe
+  $\Re(z)$. Montrer que $\Re$ est un projecteur de $\C$ lorsqu'il est considéré
+  comme un \Rev.
+\exo Soit $E$ le \Rev des fonctions de classe $\classec{1}$ de $\R$ dans
+  $\R$. On définit l'application $\phi$ de $E$ dans $E$ par
+  \[\forall f\in E \qsep \forall x\in\R \qsep \cro{\phi(f)}(x)\defeq f(0)+f'(0)x.\]
+  Montrer que $\phi$ est un projecteur. En déduire un supplémentaire du
+  sous-espace vectoriel de $E$ des fonctions affines.
+\end{exos}
+
+\begin{proposition}[utile=1]
+Soit $E$ et $F$ deux \Kevs et $A,B$ deux sous-espaces supplémentaires de $E$.
+Étant donnés $f_A\in\lin{A}{F}$ et $f_B\in\lin{B}{F}$, il existe une unique
+application linéaire $f$ de $E$ dans $F$ telle que
+\[\forall a\in A \qsep \forall b\in B \qsep f(a+b)=f_A(a)+f_B(b).\]
+\end{proposition}
+
+\subsection{Symétrie}
+
+\begin{definition}[utile=-3]
+Soit $A$ et $B$ deux sous-espaces vectoriels supplémentaires d'un \Kev $E$.
+Alors, il existe un unique endomorphisme $s\in\Endo{E}$ tel que
+\[\forall a\in A \qsep \forall b\in B \qsep s\p{a+b}=a-b.\]
+On l'appelle \emph{symétrie} par rapport à $A$ parallèlement à $B$.
+\end{definition}
+
+\begin{proposition}[utile=1]
+Soit $s$ la symétrie par rapport à $A$ parallèlement à $B$. Alors
+\[\ker \p{s-\id}=A, \qquad \ker\p{s+\id}=B.\]
+De plus $s\circ s=\id$. En particulier $s$ est un isomorphisme et $s^{-1}=s$.
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque[utile=1] En particulier, si $s\in\Endo{E}$ est une symétrie
+  \[E=\ker\p{s-\id}\oplus\ker\p{s+\id}.\]
+\end{remarqueUnique}
+
+\begin{proposition}[utile=3]
+$s\in\Endo{E}$ est une symétrie si et seulement si $s\circ s=\id$.  
+\end{proposition}
+
+\begin{exoUnique}
+\exo Soit $E=\mathcal{F}(\R,\R)$ et $\phi$ l'application de $E$ dans $E$
+  qui à $f$ associe le fonction $\phi(f)$ définie par
+	\[\forall x\in\R \qsep \cro{\phi(f)}(x)\defeq f(-x).\]
+	Montrer que $\phi$ est une symétrie et en déduire
+  que $E=\mathcal{I}\oplus\mathcal{P}$ où $\mathcal{I}$ désigne l'espace
+  vectoriel des fonctions impaires et $\mathcal{P}$ l'espace vectoriel
+  des fonctions paires.
+% \exo Donner une formule de trigonométrie hyperbolique donnant $\cosh(2x)$
+%   en fonction de $\cosh x$.
+\end{exoUnique}
+
+%% Exemple :
+%% 1) Si E=R^2, l'application phi : (x,y) -> (y,x)
+%%    est la symétrie par rapport à la droite vectorielle d'équation y=x
+%%    parallèlement à la droite vectorielle d'équation y=-x
+%% 2) Si E=F(R,R) et phi : f -> f(-x)
+%%    Alors phi est une symétrie. On retrouve le fait que les fonctions
+%%    paires et les fonctions impaires sont supplémentaires dans E.
+%% 3) Dans C considéré comme R-ev, la conjugaison est une symétrie
+%%    par rapport à R parallèlement à iR
+
+
+% \begin{remarques}
+% \remarque Soit $A$ et $B$ deux sous-espaces vectoriels supplémentaires d'un
+%   \Kev $E$ et $\lambda\in\K$. Alors, il existe un unique endomorphisme
+%   $f\in\Endo{E}$ tel que~:
+%   \[\forall a\in A \quad \forall b\in B \quad f\p{a+b}=a+\lambda b\]
+%   On l'appelle affinité de base $A$, de direction $B$ et de rapport $\lambda$.
+% \end{remarques}
+
+% \subsection{Valeurs propres}
+
+% \begin{definition}
+% Soit $E$ un \Kev et $f\in\Endo{E}$. On dit que $\lambda\in\K$ est une valeur
+% propre de $f$ lorsqu'il existe un vecteur $x\in E$ non nul tel que
+% $f(x)=\lambda x$. Si tel est le cas, $E_\lambda=\enstq{x\in E}{f(x)=\lambda x}$
+% est un sous-espace vectoriel de $E$ appelé espace propre associé à la valeur
+% propre $\lambda$ et ses éléments sont appelés vecteurs propres associés à la
+% valeur propre $\lambda$.
+% \end{definition}
+
+% \begin{exos}
+% \exo Déterminer les valeurs propres d'un projecteur, d'une symétrie.
+% \end{exos}
+
+\subsection{Hyperplan}
+
+\begin{definition}
+Soit $E$ un \Kev. On appelle \emph{hyperplan} de $E$ tout noyau d'une forme linéaire non
+nulle.
+\end{definition}
+
+\begin{proposition}
+Soit $E$ un \Kev.
+\begin{itemize}
+\item Si $H$ est un hyperplan de $E$ et $D$ est une droite vectorielle non contenue dans
+  $H$, alors
+  \[E=H\oplus D.\]
+\item Si $D$ est une droite vectorielle, tout supplémentaire de $D$ est un hyperplan.
+\end{itemize}
+\end{proposition}
+
+\begin{proposition}[utile=1]
+Soit $H$ un hyperplan de $E$ et $\phi_0$ une forme linéaire telle que $H=\ker \phi_0$.
+Alors l'ensemble des formes linéaires de $E$ dont le noyau est $H$ est
+\[\Ks\phi_0=\ensim{\lambda\phi_0}{\lambda\in\K^*}.\]  
+\end{proposition}
+
+\begin{preuve}
+Soit $E$ un \Kev de dimension finie, $H$ un hyperplan de $E$ et $\phi_0$
+une forme linéaire telle que $H=\ker \phi_0$.
+
+Montrons que $H=\ker\phi\Longleftrightarrow \exists \lambda\in \Ks \text{ tel que } \phi=\lambda\phi_0$.
+Le sens droite-gauche est aisée. Réciproquement, soit $\phi\in E^\star$ telle que $H=\ker\phi$. Considérons $(e_1,\ldots,e_{n-1})$ une base de $H$, qu'on complète avec $e_n$ en une base de $E$. Comme $e_n\notin H$, $\phi_0(e_n)\neq 0$. On pose $\displaystyle \lambda=\frac{\phi(e_n)}{\phi_0(e_n)}$. On montre que $\phi=\lambda\phi_0$ en montrant qu'elles coïncident sur une base (la base $(e_1,\ldots,e_n)$).
+\end{preuve}
+
+%END_BOOK
+
+\end{document}

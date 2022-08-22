@@ -1,0 +1,1477 @@
+\documentclass{magnolia}
+
+\magtex{tex_driver={pdftex},
+        tex_packages={xypic}}
+\magfiche{document_nom={Cours sur les matrices},
+          auteur_nom={François Fayard},
+          auteur_mail={fayard.prof@gmail.com}}
+\magcours{cours_matiere={maths},
+          cours_niveau={mpsi},
+          cours_chapitre_numero={9},
+          cours_chapitre={Matrices}}
+\magmisenpage{}
+\maglieudiff{}
+\magprocess
+
+\begin{document}
+
+%BEGIN_BOOK
+\magtoc
+
+\section{Matrice}
+
+\subsection{Matrice}
+
+\begin{definition}[utile=-3]
+Soit $\K$ un corps et $q,p\in\N$. On appelle \emph{matrice} à $q$ lignes et $p$
+colonnes à coefficients dans $\K$ toute famille
+\setbox0=\hbox{$A=\p{a_{i,j}}_{\substack{1\leq i\leq q\\ 1\leq j \leq p}}$}
+\dp0=0pt\box0\ d'éléments de $\K$ indexée par
+$\intere{1}{q}\times\intere{1}{p}$.
+\[\xymatrix @-0.7cm
+  {& &                                & & j\ar[ddd] & & \\
+   & &a_{1,1}\ar@{.}[dddd]\ar@{.}[rrrr]& &           & & a_{1,p}\ar@{.}[dddd]\\
+   & &                                & &           & & \\
+   A=&
+     \setbox0=\hbox{$\left(\rule[0pt]{0pt}{1.25cm}\right.$}
+     \ht0=0pt\dp0=0pt\wd0=0pt\lower4pt\box0
+     &                                & & a_{i,j}   & & &
+     \setbox0=\hbox{$\left.\rule[0pt]{0pt}{1.25cm}\right)$}
+     \ht0=0pt\dp0=0pt\wd0=0pt\kern-20pt\lower4pt\box0 & i\ar[llll]\\
+   & &                                & &           & & \\
+   & &            a_{q,1}\ar@{.}[rrrr]& &           & & a_{q,p}}\]
+On note $\mat{q,p}{\K}$ l'ensemble des matrices à $q$ lignes et $p$ colonnes
+à coefficients dans $\K$.
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque   On appelle \emph{matrice nulle} à $q$ lignes et $p$ colonnes et on
+note $0_{q,p}$ ou plus simplement $0$ la matrice de $\mat{q,p}{\K}$ dont tous
+les coefficients sont nuls.
+\end{remarqueUnique}
+
+
+% \begin{remarques}
+% \remarque On appelle matrice extraite de $A\in\mat{q,p}{\K}$ toute matrice
+%   obtenue en \og supprimant \fg certaines lignes et certaines colonnes de $A$.
+%   Lorsque les lignes et les colonnes conservées sont adjacentes, on dit
+%   que la matrice ainsi obtenue est une matrice bloc extraite de $A$.
+% \remarque Si $p',q'\in\Ns$ sont tels que $p'\leq p$ et $q'\leq q$, on dit
+%   qu'une matrice $B\in\mat{q',p'}{\K}$ est extraite de la matrice
+%   $A\in\mat{q,p}{\K}$ lorsque il existe deux applications
+%   $\phi_1:\intere{1}{p'}\to\intere{1}{p}$ et
+%   $\phi_2:\intere{1}{q'}\to\intere{1}{q}$ strictement croissantes telles que
+%   \[\forall i\in\intere{1}{q'} \quad \forall j\in\intere{1}{p'} \quad
+%     b_{i,j}=a_{\phi_1(i),\phi_2(j)}\]
+%   Visuellement, on peut dire que c'est une matrice obtenue en supprimant
+%   certaines lignes et certaines colonnes de $A$.
+% \end{remarques}
+
+
+
+\begin{definition}[utile=-3]
+Pour toute matrice $A\in\mat{q,p}{\K}$, on définit
+\begin{itemize}
+\item la famille $\p{l_1,\ldots,l_q}$ des \emph{vecteurs ligne} de $A$, où pour tout
+  $i\in\intere{1}{q}$, $l_i\defeq\p{a_{i,1},\ldots,a_{i,p}}\in\K^p$.
+\item la famille $\p{c_1,\ldots,c_p}$ des \emph{vecteurs colonne} de $A$, où pour tout
+  $j\in\intere{1}{p}$, $c_j\defeq\p{a_{1,j},\ldots,a_{q,j}}\in\K^q$.
+\end{itemize}
+\end{definition}
+
+\begin{definition}[utile=-3]
+On dit qu'une matrice $A$ est
+\begin{itemize}
+\item une \emph{matrice colonne} lorsqu'elle ne possède qu'une seule colonne.
+\item une \emph{matrice ligne} lorsqu'elle ne possède qu'une seule ligne.
+\end{itemize}
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque Si $n\in\N$, l'application $\phi$ de $\K^n$ dans $\mat{n,1}{\K}$, qui à
+  $(x_1,\ldots,x_n)$ associe
+  \[\begin{pmatrix}
+    x_1\\
+    \vdots\\
+    x_n
+  \end{pmatrix}\]
+  est une bijection. Elle permet d'identifier $\K^n$ et $\mat{n,1}{\K}$, identification
+  que nous ferons parfois dans ce cours. Cependant, on
+  ne se permettra pas d'identifier $\K^n$ et $\mat{1,n}{\K}$.
+\remarque Si $A\in\mat{q,p}{\K}$, cette identification permet de considérer que les vecteurs
+  colonne de $A$ sont des éléments de $\mat{q,1}{\K}$ et donc des matrices colonne. 
+\end{remarqueUnique}
+
+\begin{definition}[utile=-3]
+On appelle \emph{transposée} de $A\in\mat{q,p}{\K}$ et on note $\trans{A}$
+la matrice de $\mat{p,q}{\K}$ dont les vecteurs colonnes sont les vecteurs
+lignes de $A$. Autrement dit
+\[\forall i\in\intere{1}{p} \qsep \forall j\in\intere{1}{q} \qsep
+  \cro{\trans{A}}_{i,j}\defeq a_{j,i}.\]
+\end{definition}
+
+\begin{exempleUnique}
+\exemple Si on pose
+  \[A\defeq
+    \begin{pmatrix}
+    1 & 2 & 3\\
+    4 & 5 & 6
+    \end{pmatrix}\in\mat{2,3}{\K}, \quad\text{alors}\quad
+    \trans{A}=
+    \begin{pmatrix}
+    1 & 4\\
+    2 & 5\\
+    3 & 6
+    \end{pmatrix}\mat{3,2}{\K}.\]
+\end{exempleUnique}
+
+\begin{proposition}[utile=-3]
+Soit $A\in\mat{q,p}{\K}$. Alors
+\[\trans{\p{\trans{A}}}=A.\]
+\end{proposition}
+
+\begin{preuve}
+On dit que ça vit bien au même endroit avant de montrer l'égalité coefficients à coefficients.
+\end{preuve}
+
+
+
+\subsection{Matrice carrée}
+
+\begin{definition}[utile=-3]
+  On dit qu'une matrice est \emph{carrée} lorsqu'elle possède autant de lignes que de
+  colonnes. L'ensemble des matrices carrées à $n$ lignes et $n$ colonnes est noté
+  $\mat{n}{\K}$.
+  \end{definition}
+  
+  \begin{definition}[utile=-3]
+  On appelle \emph{matrice identité} et on note $I_n$ la matrice de $\mat{n}{\K}$
+  définie par
+  \[\forall i,j\in\intere{1}{n} \qsep \cro{I_n}_{i,j}\defeq \delta_{i,j}=
+    \begin{cases}
+    1 & \text{si $i=j$}\\
+    0 & \text{sinon.}
+    \end{cases}\]
+  \[\xymatrix @-0.85cm
+    {& &1\ar@{.}[drdrdrdr] & & & &  \\
+     & &  & & &(0)&  \\
+     I_n=&
+       \setbox0=\hbox{$\left(\rule[0pt]{0pt}{1.32cm}\right.$}
+       \ht0=0pt\dp0=0pt\wd0=0pt\kern-10pt\lower0pt\box0
+       &  & & & & &
+       \setbox0=\hbox{$\left.\rule[0pt]{0pt}{1.32cm}\right)$}
+       \ht0=0pt\dp0=0pt\wd0=0pt\kern-10pt\lower0pt\box0\\
+     & &  &(0) & & &  \\
+     & &  & & & & 1}\]
+  \end{definition}
+  
+
+
+\begin{definition}
+$\quad$
+\begin{itemize}
+\item On dit que $D\in\mat{n}{\K}$ est \emph{diagonale} lorsque
+  \[\forall i,j\in\intere{1}{n} \qsep i\neq j \implique d_{i,j}=0.\]
+  On note $\mathcal{D}_n\p{\K}$ l'ensemble des matrices diagonales à $n$ lignes
+  et $n$ colonnes.
+\item Si $\lambda_1,\ldots,\lambda_n\in\K$, on note
+  $\diag{\lambda_1,\ldots,\lambda_n}$ la matrice
+  \[\xymatrix @-0.85cm
+    {& &\lambda_1\ar@{.}[drdrdrdr] & & & &  \\
+     & &  & & &(0)&  \\
+     \diag{\lambda_1,\ldots,\lambda_n}=&
+       \setbox0=\hbox{$\left(\rule[0pt]{0pt}{1.38cm}\right.$}
+       \ht0=0pt\dp0=0pt\wd0=0pt\kern-10pt\lower0pt\box0
+       &  & & & & &
+       \setbox0=\hbox{$\left.\rule[0pt]{0pt}{1.38cm}\right)$}
+       \ht0=0pt\dp0=0pt\wd0=0pt\kern-10pt\lower0pt\box0\\
+     & &  &(0) & & &  \\
+     & &  & & & & \lambda_n}\]
+ \item Les matrices $\diag{\lambda,\ldots,\lambda}$ où $\lambda\in\K$ sont
+  appelées \emph{matrices scalaires}.
+\end{itemize}
+\end{definition}
+
+\begin{definition}[utile=-3]
+On dit que $T\in\mat{n}{\K}$ est \emph{triangulaire supérieure} lorsque
+\[\forall i,j\in\intere{1}{n} \qsep i>j \implique t_{i,j}=0.\]
+On note $\mathcal{T}_n\p{\K}$ l'ensemble des matrices triangulaires
+supérieures à $n$ lignes et $n$ colonnes.
+Graphiquement, une matrice triangulaire supérieure $T$ s'écrit
+\[\xymatrix @-0.85cm
+  {& &\lambda_1\ar@{.}[drdrdrdr] & \star\ar@{.}[drdrdr]\ar@{.}[rrr]& & &
+     \star\ar@{.}[ddd] \\
+   & &  & & & &  \\
+   T=&
+     \setbox0=\hbox{$\left(\rule[0pt]{0pt}{1.5cm}\right.$}
+     \ht0=0pt\dp0=0pt\wd0=0pt\kern-10pt\lower5pt\box0
+     &  & &\setbox0=\hbox{}\ht0=20pt\wd0=20pt\box0 & & &
+     \setbox0=\hbox{$\left.\rule[0pt]{0pt}{1.5cm}\right)$}
+     \ht0=0pt\dp0=0pt\wd0=0pt\kern-10pt\lower5pt\box0\\
+   & &  &(0) & & & \star \\
+   & &  & & & & \lambda_n}\]
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque On dit qu'une matrice $T\in\mat{n}{\K}$ est triangulaire inférieure
+  lorsque
+  \[\forall i,j\in\intere{1}{n} \qsep j>i \implique t_{i,j}=0.\]
+  Autrement dit $T$ est triangulaire inférieure si et seulement si $\trans{T}$
+  est triangulaire supérieure.
+\end{remarqueUnique}
+
+\begin{definition}[utile=-3]
+Soit $A\in\mat{n}{\K}$.
+\begin{itemize}
+\item On dit que $A$ est \emph{symétrique} lorsque $\trans{A}=A$ c'est-à-dire
+  lorsque
+  \[\forall i,j\in\intere{1}{n} \qsep a_{j,i}=a_{i,j}.\]
+  On note $\mathcal{S}_n\p{\K}$ l'ensemble des matrices symétriques à $n$
+  lignes et $n$ colonnes.
+\item On dit que $A$ est \emph{antisymétrique} lorsque $\trans{A}=-A$ c'est-à-dire
+  lorsque
+  \[\forall i,j\in\intere{1}{n} \qsep a_{j,i}=-a_{i,j}.\]
+  On note $\mathcal{A}_n\p{\K}$ l'ensemble des matrices antisymétriques à $n$
+  lignes et $n$ colonnes.
+\end{itemize}
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque Les formes générales d'une matrice symétrique
+  $A\in\mathcal{S}_n\p{\K}$ et d'une matrice antisymétrique 
+  $B\in\mathcal{A}_n\p{\K}$ sont
+  \[A=
+  \begin{pmatrix}
+  a_{1,1} & a_{1,2} &  \cdots & a_{1,n}\\
+  a_{1,2} & a_{2,2} &        & \vdots\\
+  \vdots  &     & \ddots & \vdots\\
+  a_{1,n} & \cdots  & \cdots & a_{n,n}
+  \end{pmatrix}
+  \et
+  B=
+  \begin{pmatrix}
+  0 & a_{1,2} &  \cdots & a_{1,n}\\
+  -a_{1,2} & 0 &        & \vdots\\
+  \vdots  &     & \ddots & \vdots\\
+  -a_{1,n} & \cdots  & \cdots & 0
+  \end{pmatrix}.\]
+\end{remarqueUnique}
+
+\begin{definition}[utile=-3]
+  Soit $A\in\mat{n}{\K}$. On appelle \emph{trace} de $A$ et on note $\tr(A)$ la somme de
+  ses coefficients diagonaux.
+  \[\tr(A)\defeq\sum_{k=1}^n a_{k,k}\]
+  \end{definition}
+
+\section{Opérations sur les matrices}
+
+\subsection{Combinaison linéaire}
+
+\begin{definition}[utile=-3]
+$\quad$
+\begin{itemize}
+\item Soit $A,B\in\mat{q,p}{\K}$. On définit $A+B$ comme la matrice
+  de $\mat{q,p}{\K}$ définie par
+  \[\forall i\in\intere{1}{q} \qsep \forall j\in\intere{1}{p} \qsep
+    \cro{A+B}_{i,j}\defeq a_{i,j}+b_{i,j}.\]
+\item Soit $A\in\mat{q,p}{\K}$ et $\lambda\in\K$. On définit 
+  $\lambda\cdot A$  comme la matrice de $\mat{q,p}{\K}$ définie par
+  \[\forall i\in\intere{1}{q} \qsep \forall j\in\intere{1}{p} \qsep
+    \cro{\lambda\cdot A}_{i,j}\defeq \lambda a_{i,j}.\]
+\end{itemize}
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque Les matrices scalaires sont les $\lambda I_n$ où $\lambda\in\K$.
+\end{remarqueUnique}
+
+\begin{proposition}[utile=-3]
+$\p{\mat{q,p}{\K},+,\cdot}$ est un \Kev dont l'élément neutre est la matrice
+nulle.
+\end{proposition}
+
+\begin{preuve}
+Pas obligé de la faire.
+Sinon, bonne façon de le voir :
+$\mat{q,p}{\K}$ est l'ensemble des familles d'éléments de $\K$ indexées par $X:=\llbracket 1,q\rrbracket \times \llbracket 1,p\rrbracket$ c'est-à-dire l'ensemble $\mathcal{F}(X, \K)$. L'addition et la loi externe que l'on vient de définir correspondent à l'addition et la loi externe sur $\mathcal{F}(X, \K)$ qui est un espace vectoriel pour ces lois. De plus, l'élément neutre de $\mathcal{F}(X, \K)$ est la fonction nulle, qui correspond à la matrice nulle.
+\end{preuve}
+
+\begin{definition}[utile=-3]
+Pour tout $i\in\intere{1}{q}$ et $j\in\intere{1}{p}$ on
+définit $E_{i,j}$ comme la matrice de $\mat{q,p}{\K}$ définie par
+\[\forall k\in\intere{1}{q} \qsep \forall l\in\intere{1}{p} \qsep
+  \cro{E_{i,j}}_{k,l}\defeq \delta_{i,k}\delta_{j,l}=
+  \begin{cases}
+  1 & \text{si $k=i$ et $l=j$}\\
+  0 & \text{sinon.}
+  \end{cases}\]
+Les matrices $E_{i,j}$ sont appelées \emph{matrices élémentaires}.
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque Pour toute matrice $A\in\mat{q,p}{\K}$, on a
+  \[A=\sum_{i=1}^q \sum_{j=1}^p a_{i,j}E_{i,j}.\]
+  En particulier, $\vect(E_{1,1},\ldots,E_{1,p},\ldots,E_{q,1},\ldots,E_{q,p})=\mat{q,p}{\K}$.
+\end{remarqueUnique}
+
+% \begin{proposition}[utile=-3]
+% La famille \setbox0=\hbox{$\p{E_{i,j}}_{\substack{1\leq i\leq q\\ 1\leq j \leq p}}$}
+% \dp0=0pt\box0\ est une base de $\mat{q,p}{\K}$. En particulier
+% \[\dim \mat{q,p}{\K}=qp.\]
+% \end{proposition}
+
+% \begin{preuve}
+% Libre et génératrice, à la main.
+% \end{preuve}
+
+\begin{proposition}[utile=-3]
+La transposition est linéaire
+\[\forall A,B\in\mat{q,p}{\K} \qsep \forall \lambda,\mu\in\K \qsep
+  \trans{\p{\lambda A+\mu B}}=\lambda\trans{A}+\mu\trans{B}.\]
+De plus cette application est un isomorphisme de $\mat{q,p}{\K}$ dans
+$\mat{p,q}{\K}$.
+\end{proposition}
+
+\begin{preuve}
+Pour montrer que c'est un isomorphisme, on exhibe sa bijection réciproque qui est la transposée dans le sens inverse au niveau des espaces.
+\end{preuve}
+
+\begin{proposition}[utile=-3]
+$\quad$
+\begin{itemize}
+\item $\mathcal{D}_n\p{\K}$ et $\mathcal{T}_n\p{\K}$ sont des sous-espaces
+  vectoriels de $\mat{n}{\K}$.
+\item $\mathcal{S}_n\p{\K}$ et $\mathcal{A}_n\p{\K}$ sont des sous-espaces
+  vectoriels supplémentaires de $\mat{n}{\K}$.
+\end{itemize}
+\end{proposition}
+
+% \begin{preuve}
+% Avec la caractérisation pour les deux premiers.
+% Pour les deux autres, on peut les voir comme les noyaux de $A\mapsto \trans{A}-A$ et $A\mapsto \trans{A}+A$.
+% Pour le caractère supplémentaire, on peut faire trois méthodes :
+% \begin{itemize}
+% \item [$\bullet$] Avec l'application $\phi$ qui est la transposée, on a $\phi\circ \phi=Id$ donc c'est une symétrie. Donc $\mat{n}{\K}=\ker(\phi-\id)\oplus\ker(\phi+\id)$.
+% \item [$\bullet$] Analyse-synthèse qui permet d'avoir la décomposition.
+% \item [$\bullet$] Avec les bases (cf.remarque) on a les dimensions donc somme des dimensions + intersection réduite à $\set{0}$.
+% \end{itemize}
+% \end{preuve}
+
+\begin{remarqueUnique}
+% \remarque La famille $(E_{1,1},\ldots,E_{n,n})$ est une base de
+%   $\mathcal{D}_n\p{\K}$. En particulier $\dim(\mathcal{D}_n\p{\K})=n$. De même
+%   $(E_{i,j})_{1\leq i\leq j\leq n}$ est une base de $\mathcal{T}_n\p{\K}$
+%   donc $\dim(\mathcal{T}_n\p{\K})=n(n+1)/2$.
+% \remarque La famille $\p{E_{i,j}+E_{j,i}}_{1\leq i\leq j\leq n}$ est une base de
+%   $\mathcal{S}_n\p{\K}$ donc $\dim\p{\mathcal{S}_n\p{\K}}=n(n+1)/2$. De même,
+%   si $\K$ n'est pas de caractéristique 2,
+%   $\p{E_{i,j}-E_{j,i}}_{1\leq i< j\leq n}$ est une base de
+%   $\mathcal{A}_n\p{\K}$ donc $\dim\p{\mathcal{A}_n\p{\K}}=n(n-1)/2$.
+\remarque Si $A\in\mat{n}{\K}$
+  \[A=\frac{1}{2}\p{A+\trans{A}}+\frac{1}{2}\p{A-\trans{A}}\]
+  est la décomposition de $A$ dans
+  $\mat{n}{\K}=\mathcal{S}_n\p{\K}\oplus\mathcal{A}_n\p{\K}$.
+\end{remarqueUnique}
+
+\begin{proposition}[utile=-3]
+La trace est une forme linéaire sur $\mat{n}{\K}$.
+\end{proposition}
+
+\subsection{Produit}
+
+\begin{definition}
+Soit $A\in\mat{r,q}{\K}$ et $B\in\mat{q,p}{\K}$. On définit $AB$
+comme la matrice de $\mat{r,p}{\K}$ définie par
+\[\forall i\in\intere{1}{r} \qsep \forall j\in\intere{1}{p} \qsep
+  \cro{AB}_{i,j}\defeq\sum_{k=1}^q a_{i,k}b_{k,j}.\]
+\end{definition}
+
+
+\[\shorthandoff{;:!?}
+  \xymatrix @-0.85cm
+  { & & & & & & & & &                               & &
+      j\ar[dd]                             & &                    &\\
+   & & & & & & & & &                               & &
+      \setbox0=\hbox{}\ht0=10pt\box0& &                    &\\
+    & & & & & & & & & b_{1,1}\ar@{.}[dd]\ar@{.}[rr] & &
+      b_{1,j}\ar@{.}[dd]\ar@{.}[rr] & & b_{1,p}\ar@{.}[dd] &\\
+    & & & & & & & & &         & \setbox0=\hbox{}\ht0=10pt\wd0=10pt\box0 &
+      & \setbox0=\hbox{}\ht0=10pt\wd0=10pt\box0 &         &\\
+    & & & & k\ar[dddddd]\ar[rrrrrrr]& & & &
+     \setbox0=\hbox{$\left(\rule[0pt]{0pt}{1.4cm}\right.$}
+     \ht0=0pt\dp0=0pt\wd0=4pt\kern0pt\lower5pt\box0
+      & b_{k,1}\ar@{.}[dd]\ar@{.}[rr] & &
+      b_{k,j}\ar@{.}[dd]\ar@{.}[rr] & & b_{k,p}\ar@{.}[dd] &
+     \setbox0=\hbox{$\left.\rule[0pt]{0pt}{1.4cm}\right)$}
+     \ht0=0pt\dp0=0pt\wd0=9pt\kern-5pt\lower5pt\box0\\
+    & & & & & & & & &         & \setbox0=\hbox{}\ht0=10pt\wd0=10pt\box0
+      &         & \setbox0=\hbox{}\ht0=10pt\wd0=10pt\box0 &         &\\
+    & & & & & & & & & b_{q,1}\ar@{.}[rr] & & b_{q,j}\ar@{.}[rr]\ar[dddd]
+      & & b_{q,p} &\\
+    & & & & & & & & &         & &         & &         &\\
+    & & a_{1,1}\ar@{.}[dd]\ar@{.}[rr] & & a_{1,k}\ar@{.}[dd]\ar@{.}[rr] & &
+        a_{1,q}\ar@{.}[dd] & & & c_{1,1}\ar@{.}[dd]\ar@{.}[rr] & &
+        c_{1,j}\ar@{.}[dd]\ar@{.}[rr] & & c_{1,p}\ar@{.}[dd] &\\
+    & & & \setbox0=\hbox{}\ht0=10pt\wd0=10pt\box0        & &
+      \setbox0=\hbox{}\ht0=10pt\wd0=10pt\box0
+      &         & & &         & &         & &         &\\
+    i\ar[rr]& \setbox0=\hbox{}\wd0=6pt\box0
+     \setbox0=\hbox{$\left(\rule[0pt]{0pt}{1.4cm}\right.$}
+     \ht0=0pt\dp0=0pt\wd0=4pt\kern0pt\lower5pt\box0
+      & a_{i,1}\ar@{.}[dd]\ar@{.}[rr] & &
+      a_{i,k}\ar@{.}[dd]\ar@{.}[rr] & &
+      a_{i,q}\ar@{.}[dd]\ar[rrrrr] &
+     \setbox0=\hbox{$\left.\rule[0pt]{0pt}{1.4cm}\right)$}
+     \ht0=0pt\dp0=0pt\wd0=9pt\kern-5pt\lower5pt\box0      
+      &     
+     \setbox0=\hbox{$\left(\rule[0pt]{0pt}{1.4cm}\right.$}
+     \ht0=0pt\dp0=0pt\wd0=4pt\kern0pt\lower5pt\box0
+      & c_{i,1}\ar@{.}[dd]\ar@{.}[rr] & &
+      c_{i,j}\ar@{.}[dd]\ar@{.}[rr] & & c_{i,p}\ar@{.}[dd] &
+     \setbox0=\hbox{$\left.\rule[0pt]{0pt}{1.4cm}\right)$}
+     \ht0=0pt\dp0=0pt\wd0=9pt\kern-5pt\lower5pt\box0      \\
+    & & \setbox0=\hbox{}\ht0=10pt\wd0=10pt\box0        & &
+      \setbox0=\hbox{}\ht0=10pt\wd0=10pt\box0
+      & &         & & &         & &         & & &\\
+    & & a_{r,1}\ar@{.}[rr] & & a_{r,k}\ar@{.}[rr] & & a_{r,q} & & &
+        c_{r,1}\ar@{.}[rr] & & c_{r,j}\ar@{.}[rr] & & c_{r,p} &
+    \save "3,12"."7,12"*[F-]\frm{} \restore
+    \save "11,3"."11,7"*[F-]\frm{} \restore
+    \save "11,12"."11,12"*[F-]\frm{} \restore}
+  \]
+
+\begin{remarques}
+\remarque Il est possible que le produit $AB$ ait un sens sans que le produit $BA$ en ait un.
+  Mais si ces deux produits en ont un, en général, $AB\neq BA$. Enfin, il est
+  possible que $AB=0$ sans que $A=0$ ou $B=0$.
+\remarque Si $A,B\in\mat{n}{\K}$, on dit que $A$ et $B$ \emph{commutent} lorsque $AB=BA$.
+\remarque Si $A\in\mat{q,p}{\K}$, $X\in\mat{p,1}{\K}$ et $Y\in\mat{q,1}{\K}$
+alors
+\[AX=Y \quad\ssi\quad
+  \syslin{a_{1,1}x_1&+a_{1,2}x_2&+\cdots&+a_{1,p}x_p&=&y_1\hfill\cr
+                 &          &       &          &\hfill\vdots\hfill&\cr
+        a_{q,1}x_1&+a_{q,2}x_2&+\cdots&+a_{q,p}x_p&=&y_q.\hfill}\]
+\begin{sol}
+Faire les calculs.
+\end{sol}
+\remarque Si on note $C_1,\ldots,C_p\in\mat{q,1}{\K}$ les
+  vecteurs colonne de $A\in\mat{q,p}{\K}$ et si $X\defeq\trans{(x_1\ \cdots\ x_p)}\in\mat{p,1}{\K}$, alors
+  \[AX=x_1 C_1+\cdots+x_p C_p.\]
+% \remarque $\mat{2}{\K}$ n'est ni commutative ni intègre.
+%     \begin{sol}
+%     \begin{itemize}
+%     \item[$\bullet$] Non commutativité : $A=\begin{pmatrix}0&0\\0&1\end{pmatrix}$ et $B=\begin{pmatrix}0&1\\0&0\end{pmatrix}$.
+%     \item[$\bullet$] Non intégrité : $A=\begin{pmatrix}0&0\\0&1\end{pmatrix}$ et $B=\begin{pmatrix}1&0\\0&0\end{pmatrix}$.
+%     \end{itemize}
+%     On peut montrer que c'est toujours le cas si $n\geq 2$.
+%     \end{sol}
+\end{remarques}
+
+\begin{preuve}
+Avec $E_{i,j}\in \mat{r,q}{\K}$, $E_{k,l}\in \mat{q,p}{\K}$, le produit est licite et arrive dans $\mat{r,p}{\K}$, et on a :
+$$E_{i,j}E_{k,l}=\delta_{j,k}E_{i,l}$$
+\end{preuve}
+
+\begin{exoUnique}
+\exo Soit $\lambda_1,\ldots,\lambda_n\in\K$ deux à deux distincts. Montrer qu'une
+matrice $A\in\mat{n}{\K}$ commute avec
+$B\defeq\diag{\lambda_1,\ldots,\lambda_n}$ si et seulement si elle est diagonale.
+% \remarque Multiplier une matrice $A\in\mat{q,p}{\K}$ par la droite par la
+% matrice diagonale $\diag{\lambda_1,\ldots,\lambda_p}\in\mat{p}{\K}$
+% revient à multiplier chacun de ses vecteurs colonne $C_k$ par $\lambda_k$.
+% La multiplier par la gauche par la matrice diagonale
+% $\diag{\lambda_1,\ldots,\lambda_q}\in\mat{q}{\K}$
+% revient à multiplier chacun de ses vecteurs ligne $L_k$ par $\lambda_k$.
+% \begin{sol}
+% On vérifie que les produits sont licites et on le fait.
+% \end{sol}
+\end{exoUnique}
+
+\begin{proposition}
+Soit $A\in\mat{q,p}{\K}$. Alors $A=0$ si et seulement si
+  \[\forall X\in\mat{p,1}{\K} \qsep AX=0.\]
+% Soit $A\in\mat{q,p}{\K}$. Alors~:
+% \begin{itemize}
+% \item $A=0$ si et seulement si~:
+%   \[\forall X\in\mat{p,1}{\K} \quad AX=0\]
+% \item $A=0$ si et seulement si~:
+%   \[\forall X\in\mat{q,1}{\K} \quad \trans{X}A=0\]
+% \end{itemize}
+\end{proposition}
+
+\begin{preuve}
+Double implication : Pour droite-gauche, c'est vrai pour $E_{j,1}$ pour tout $j\in \intere{1}{p}$ et $$AE_{j,1}=\begin{pmatrix}a_{1,j}\\ \vdots \\ a_{q_j}\end{pmatrix}.$$ donc $\forall j \in \intere{1}{q}, a_{i,j}=0$.
+\end{preuve}
+
+
+\begin{proposition}[utile=-3]
+\begin{eqnarray*}
+\forall A\in\mat{r,q}{\K} \qsep \forall B,C\in\mat{q,p}{\K} \qsep
+\forall \lambda,\mu\in\K, & & A\p{\lambda B+\mu C}=\lambda AB+\mu AC\\
+\forall A,B\in\mat{r,q}{\K} \qsep \forall C\in\mat{q,p}{\K} \qsep
+\forall \lambda,\mu\in\K, & & \p{\lambda A+\mu B}C=\lambda AC+\mu BC
+\end{eqnarray*}
+\begin{eqnarray*}
+\forall A\in\mat{s,r}{\K} \qsep \forall B\in\mat{r,q}{\K} \qsep
+\forall C\in\mat{q,p}{\K}, & & \p{AB}C=A\p{BC}\\
+\forall A\in\mat{q,p}{\K}, & & AI_p=A \et I_qA=A
+\end{eqnarray*}
+\end{proposition}
+
+\begin{preuve}
+On vérifie que les opérations sont licites et on calcule coefficients à coefficients.
+\end{preuve}
+
+\begin{proposition}[utile=-3]
+Soit $A\in\mat{r,q}{\K}$ et $B\in\mat{q,p}{\K}$. Alors
+\[\trans{\p{AB}}=\trans{B}\trans{A}.\]
+\end{proposition}
+
+\begin{preuve}
+On vérifie que les opérations sont licites et on calcule coefficients à coefficients.
+\end{preuve}
+
+\begin{proposition}[utile=-3]
+  Soit $r,q,p\in\N$, $i_2\in\intere{1}{r}$, $i_1,j_2\in\intere{1}{q}$ et
+  $j_1\in\intere{1}{p}$. Alors
+  \[E_{i_2,j_2}E_{i_1,j_1}=\delta_{j_2,i_1} E_{i_2,j_1}=
+    \begin{cases}
+    0 & \text{si $j_2\neq i_1$}\\
+    E_{i_2,j_1} & \text{si $j_2=i_1$.}
+    \end{cases}\]
+  \end{proposition}
+
+
+\begin{exoUnique}
+\exo Montrer qu'une matrice $A\in\mat{n}{\K}$ commute avec toutes les
+matrices de $\mat{n}{\K}$ si et seulement si c'est une matrice scalaire.
+\begin{sol}
+\begin{itemize}
+\item[$\bullet$]En particulier, elle commute avec les $n^2$ matrices de la base ce qui lorsqu'on fait le calcul nous conduit au résultat. En effet :
+$$\left[AE_{i,j}\right]{k,l}=a_{k,i}\delta_{j,l} \et \left[E_{i,j}A\right]{k,l}=\delta_{i,k}a_{j,l}$$ donc $$a_{k,i}\delta_{j,l}=\delta_{i,k}a_{j,l}.$$ Déjà, si $k=i$ et $l=j$, on obtient donc $a_{i,i}=a_{j,j}$ donc tous les coefficients diagonaux sont égaux. De plus, $\forall i\neq k$, avec par exemple $j=l=1$, cela donne $a_{k,i}=0$.
+\item[$\bullet$] Soit $\lambda_1,\ldots,\lambda_n\in\K$ deux à deux distincts. On pose $B=\diag{\lambda_1,\ldots,\lambda_n}$. Soit $A\in \mat{n}{\K}$ :
+\begin{eqnarray*}
+AB=BA &\Longleftrightarrow & ...\\
+&\Longleftrightarrow & \forall i,j \in \intere{1}{n}, (\lambda_i-\lambda_j)a_{i,j}=0\\
+&\Longleftrightarrow & \forall i\neq j \in \intere{1}{n}, a_{i,j}=0\\
+&\Longleftrightarrow & A \text{ est diagonale.}  
+\end{eqnarray*}
+\end{itemize}
+\end{sol}
+\end{exoUnique}
+
+
+\begin{proposition}[utile=-3]
+  $\quad$
+  \begin{itemize}
+  \item Si $D$ et $D'$ sont deux matrices diagonales dont les
+    coefficients diagonaux sont respectivement $\lambda_1,\ldots,\lambda_n$ et
+    $\mu_1,\ldots,\mu_n$, $D D'$ est diagonale et ses
+    coefficients diagonaux sont $\lambda_1 \mu_1,\ldots,\lambda_n \mu_n$.
+  \item Si $T$ et $T'$ sont deux matrices triangulaires supérieures dont les
+    coefficients diagonaux sont respectivement $\lambda_1,\ldots,\lambda_n$ et
+    $\mu_1,\ldots,\mu_n$, $T T'$ est triangulaire supérieure et ses
+    coefficients diagonaux sont $\lambda_1 \mu_1,\ldots,\lambda_n \mu_n$.
+  \end{itemize}
+  \end{proposition}
+  
+  \begin{preuve}
+  \begin{itemize}
+  \item RAS, sinon qu'on manipule bien les symboles de Kronecker.
+  \item On distingue les deux cas $i>j$ et $i=j$ et à chaque fois on sépare la somme à l'indice $i$.
+  \item On va montrer un résultat plus fort qui explique comment ça se passe pour ce genre de matrices. \\
+  Soit $n\in \N$. Pour tout $k\in \Z$ (et oui, $\Z$ fonctionne...), on pose
+  $$\mathcal{B}_k=\set{A\in \mat{n}{\K} : \forall i,j \in \intere{1}{n}, j<i+k\Rightarrow a_{i,j}=0}.$$
+  En particulier, $\mathcal{B}_0=\mathcal{T}_n(\K)$ et $\mathcal{B}_1$ est l'ensemble des matrices triangulaires supérieures à coefficients diagonaux nuls. On schématise également $\mathcal{B}_2$. Montrons que $$\forall k_1,k_2\in \Z, \forall A\in \mathcal{B}_{k_1}, \forall B \in \mathcal{B}_{k_2}, AB \in \mathcal{B}_{k_1+k_2}.$$
+  On prend de telles matrices. Et soit $i,j\in \intere{1}{n}$ tels que $j<i+k_1+k_2$. On a alors $$\left[AB\right]_{i,j}=\sum_{l=1}^n\underbrace{a_{i,l}}_{=0 \text{ si } l<i+k_1}\underbrace{b_{l,j}}_{=0 \text{ si } j<l+k_2}$$
+  Or, $j<i+k_1+k_2$ donc $i+k_1>j-k_2$ donc on est forcément dans une ou l'autre des situations. Ainsi, $\left[AB\right]_{i,j}=0$ et $AB\in \mathcal{B}_{k_1+k_2}$.\\
+  Si maintenant $N\in \mathcal{B}_1$, par récurrence immédiate $N^n\in \mathcal{B}_n=\set{0}$ ce qui correspond au résultat souhaité.
+  \end{itemize}
+  \end{preuve}
+
+
+
+
+  % \begin{exoUnique}
+  % \exo Montrer que lorsque $n\geq 2$, $\mat{n}{\K}$ n'est ni commutative ni
+  %   intègre.  
+  %   \begin{sol}
+  %   Suffit de prendre les exemples du cas $n=2$ en "prolongeant" la matrice avec des $0$ ailleurs.
+  %   \end{sol}
+  % \end{exoUnique}
+
+% \subsection{Matrices et systèmes linéaires}
+
+
+
+\subsection{Calcul dans l'algèbre $\mat{n}{\K}$}
+
+
+\begin{definition}
+  Soit $A\in\mat{n}{\K}$. On définit $A^p$ pour tout $p\in\N$ par récurrence.
+  \begin{itemize}
+  \item $A^0\defeq I_n$
+  \item $\forall p\in\N\qsep A^{p+1}\defeq A^p A.$
+  \end{itemize}
+  \end{definition}
+  
+  \begin{proposition}
+  \begin{itemize}
+  \item Soit $A\in\mat{n}{\K}$. Alors
+  \begin{eqnarray*}
+  \forall p,q\in\N, & & A^{p+q}=A^p A^q\\
+                   & & \p{A^p}^q=A^{pq}.
+  \end{eqnarray*}
+  \item Soit $A,B\in \mat{n}{\K}$ telles que $AB=BA$. Alors, pour tout $p,q\in\N$, $A^p$ et $B^q$ commutent. De plus
+  \[\forall p\in\N \qsep \p{A B}^p=A^p B^p.\]
+  \end{itemize}
+  \end{proposition}
+
+
+\begin{remarqueUnique}
+    % \remarque Si $D=\diag{\lambda_1,\ldots,\lambda_n}$ et $P\in\polyK$, alors
+    %   $P(D)=\diag{P\p{\lambda_1},\ldots,P\p{\lambda_n}}$.  
+    %   \begin{sol}
+    %   L'expliquer et ajouter qu'alors $P=\prod_{k=1}^n(X-\lambda_k)$ est un polynôme annulateur de $D$.
+    %   \end{sol}
+  \remarque Soit $\p{F_n}$ la suite définie par $F_0\defeq 0$, $F_1\defeq 1$
+  et la relation $F_{n+2}\defeq F_{n+1}+F_n$. On définit les matrices $X_n$
+  et $A$ par
+  \[X_n\defeq
+    \begin{pmatrix}
+    F_n \\ F_{n+1}
+    \end{pmatrix} \et
+    A\defeq
+    \begin{pmatrix}
+    0 & 1\\
+    1 & 1  
+    \end{pmatrix}.\]
+  Alors, $X_{n+1}=A X_n$. On en déduit que pour tout $n\in\N$, $X_n=A^n X_0$.
+  Puisque l'exponentiation rapide est
+  un algorithme ayant une complexité temporelle en ${\rm O}\p{\log n}$, on obtient ainsi un
+  algorithme pour calculer le $n$-ième terme de la suite de Fibonacci en ${\rm O}\p{\log n}$
+  opérations.
+\end{remarqueUnique}
+
+
+
+
+\begin{proposition}
+Soit $A,B\in\mat{n}{\K}$ telles que $AB=BA$. Alors, pour tout $p\in\N$
+\[\p{A+B}^p = \sum_{k=0}^p \binom{p}{k} A^{p-k} B^k \quad\et\quad
+   A^p-B^p=\p{A-B}\cro{\sum_{k=0}^{p-1} A^{\p{p-1}-k} B^k}.\]
+\end{proposition}
+
+\begin{definition}
+On dit qu'une matrice $N\in\mat{n}{\K}$ est \emph{nilpotente} lorsqu'il existe $p\in\N$ tel que $N^p=0$.
+\end{definition}
+
+\begin{proposition}
+Si $N\in\mat{n}{\K}$ est une matrice triangulaire supérieure dont tous les
+coefficients diagonaux sont nuls, alors $N^n=0$. En particulier, $N$ est nilpotente.
+\end{proposition}
+
+\begin{exos}
+  \exo On pose
+    \[A\defeq\begin{pmatrix}
+        2 & 3 & -1\\
+        0 & 2 & 1\\
+        0 & 0 & 2
+        \end{pmatrix}\]
+    Calculer $A^n$ pour tout $n\in\N$.
+    \begin{sol}
+    $A=2I_3+N$, etc...
+    On trouve~:
+    \[A^n=2^n
+    \begin{pmatrix}
+      1 & \frac{3n}{2} & \frac{n\p{3n-7}}{8}\\
+      0 & 1 & \frac{n}{2}\\
+      0 & 0 & 1
+      \end{pmatrix}\]
+    \end{sol}
+  \exo Montrer qu'il existe $B\in\mat{3}{\R}$ tel que $B^2=A$.
+    \begin{sol}
+    On tente en remplaçant $n$ par $1/2$ et on vérifie que ça fonctionne.
+    On trouve~:
+    \[B=\sqrt{2}
+      \begin{pmatrix}
+      1 & \frac{3}{4} & -\frac{11}{32}\\
+      0 & 1 & \frac{1}{4}\\
+      0 & 0 & 1
+      \end{pmatrix}\]
+    \end{sol}
+  \end{exos}
+
+
+  
+  \begin{proposition}[utile=-3]
+    Soit $A,B\in\mat{n}{\K}$. Alors
+    \[\tr\p{AB}=\tr\p{BA}.\]
+    \end{proposition}
+    
+    \begin{remarqueUnique}
+    \remarque Cependant, en général, $\tr(ABC)\neq\tr(ACB)$.
+      \begin{sol}
+      Par exemple
+      \[A=
+      \begin{pmatrix}
+      1 & 0\\
+      0 & 0
+      \end{pmatrix} \quad B=
+      \begin{pmatrix}
+      0 & 1\\
+      0 & 0
+      \end{pmatrix} \quad C=
+      \begin{pmatrix}
+      0 & 0\\
+      1 & 0
+      \end{pmatrix}\]  
+      \end{sol}
+    \end{remarqueUnique}
+    
+    \begin{exoUnique}
+    \exo Montrer qu'il n'existe pas de matrices $A,B\in\mat{n}{\R}$ telles que
+      $AB-BA=I_n$.
+      \begin{sol}
+      On raisonne par l'absurde et on prend la trace de l'égalité (PB si la caractéristique divise $n$).
+      \end{sol}
+    \end{exoUnique}
+
+\subsection{Matrice inversible}
+
+\begin{definition}[utile=-3]
+  On dit qu'une matrice $A\in\mat{n}{\K}$ est \emph{inversible} lorsqu'il existe
+  $B\in\mat{n}{\K}$ tel que
+  \[AB=I_n \et BA=I_n.\]
+  Si tel est le cas, $B$ est unique; on la note $A^{-1}$. On note $\gl{n}{\K}$
+  l'ensemble des matrices inversibles.
+  \end{definition}
+  
+\begin{remarqueUnique}
+\remarque Si $A\in\mat{n}{\K}$ est inversible, $A^{-1}$ l'est aussi et
+  $\p{A^{-1}}^{-1}=A$.
+  %   \remarque Soit $A\in\mat{n}{\K}$.
+  % \begin{itemize}
+  % \item   Si $A$ est inversible et $Y\in\mat{n,1}{\K}$, alors~:
+  %   \[\forall X\in\mat{n,1}{\K} \quad AX=Y \ssi X=A^{-1}Y\]
+  %   Le système linéaire à $n$ équations et $n$ inconnues $AX=Y$ admet donc une
+  %   unique solution.
+  % \item  Réciproquement, supposons qu'il existe une
+  %   matrice $B\in\mat{n}{\K}$ tel que quel que soit $X,Y\in\mat{n,1}{\K}$, on a
+  %   \[AX=Y \ssi X=BY\]
+  %   alors $A$ est inversible et $A^{-1}=B$.
+  % %     $X=BY$ est une solution du système $AX=Y$. Alors~:
+  % %     \[\forall Y\in\mat{n,1}{\K} \quad ABY=Y\]
+  % %     donc $AB=I_n$. D'après le théorème précédent $A$ est inversible et
+  % %     $A^{-1}=B$. En particulier $X=BY$ est l'unique solution du système $AX=Y$.
+  % \end{itemize}
+  % En résumé, la matrice $A$ est inversible si et seulement si quel que soit
+  % $Y\in\mat{n,1}{\R}$ le système linéaire à $n$ inconnues et $n$ équations
+  % $AX=Y$ admet une unique solution. Inverser $A$ revient à résoudre ce système.
+  % \begin{sol}
+  % Le premier point se prouve aisément. Pour le deuxième point, on montre d'abord que $AB=I_n$ car $\forall Y \in \mat{n,1}{\K}$, $(AB-I_n)Y=ABY-I_nY=Y-Y=0$ en appliquant l'hypothèse à $X=BY$. De même, on montre $BA=I_n$ car $\forall X \in \mat{n,1}{\K}$, $(BA-I_n)X=BAX-I_nX=X-X=0$ en appliquant l'hypothèse à $Y=AX$.
+  % \end{sol}
+\end{remarqueUnique}
+
+  \begin{exos}
+    \exo Soit $A\in\mat{n}{\K}$ telle que $A^2-5A+6I_n=0$. Montrer que $A$ est
+      inversible et calculer $A^{-1}$.
+    \exo Soit $N\in\mat{n}{\K}$ une matrice nilpotente. Montrer que $I_n+N$ est
+    inversible.
+    \begin{sol}
+    Méthode heuristique : $1/(1+x)=...$
+    On vérifie que $B=\displaystyle\sum_{k=0}^{m-1}(-1)^kN^k$ fonctionne à gauche et à droite.
+    \end{sol}
+    % \exo On pose
+    %   \[A=
+    %     \begin{pmatrix}
+    %     3 & 1\\
+    %     0 & 3
+    %     \end{pmatrix}\]
+    %   Montrer que $A$ est inversible et calculer $A^{-1}$.
+    %   \begin{sol}
+    %   Méthode 1 : On résout $AX=Y$.\\
+    %   Méthode 2 : $A=3(I+1/3N)$ et comme $(1/3N)^2=0$, d'après une remarque précédente $(I+1/3N)^{-1}=I-1/3N$ donc $A$ est inversible et $A^{-1}=1/3(I-1/3N)$.
+    %   On trouve
+    %   \[A^{-1}=
+    %   \begin{pmatrix}
+    %   \frac{1}{3} & -\frac{1}{9}\\
+    %   0 & \frac{1}{3}
+    %   \end{pmatrix}\]
+    %   \end{sol}
+    % \exo Soit $a \in\R$. Donner une condition nécessaire et suffisante
+    %   sur $a$ pour que
+    %   \[A=
+    %     \begin{pmatrix}
+    %     5 & 3\\
+    %     a & 2
+    %     \end{pmatrix}\]
+    %   soit inversible. Le cas échéant, calculer son inverse.
+    %   \begin{sol}
+    %   On résout le système et on étudie sa compatibilité.
+    %   On trouve
+    %   \[A^{-1}=\frac{1}{10-3a}
+    %     \begin{pmatrix}
+    %     2 & -3\\
+    %     -a & 5
+    %     \end{pmatrix}\]
+    %   \end{sol}
+    \end{exos}
+  
+  \begin{proposition}[utile=-3]
+  Si $A,B\in\mat{n}{\K}$ sont inversibles, il en est de même pour $AB$ et
+  \[\p{AB}^{-1}=B^{-1}A^{-1}.\]
+  \end{proposition}
+  
+  \begin{preuve}
+  On vérifie que ça fonctionne à gauche et à droite.
+  \end{preuve}
+ 
+\begin{proposition}
+$\gl{n}{\K}$ possède les propriétés suivantes.
+\begin{eqnarray*}
+& & I_n\in\gl{n}{\K}\\
+\forall A,B\in\gl{n}{\K},& & AB\in\gl{n}{\K}\\
+\forall A\in\gl{n}{\K},& & A^{-1}\in\gl{n}{\K}.
+\end{eqnarray*}
+Nous dirons que $(\gl{n}{\K},\times)$ est un groupe, que l'on appelle \emph{groupe linéaire}.
+\end{proposition}
+
+  % \begin{proposition}[utile=-3]
+  % $\p{\gl{n}{\K},\times}$ est un groupe.
+  % \end{proposition}
+  % \begin{preuve}
+  % C'est le groupe des inversibles de l'anneau $(\mat{n}{\K},+,\times)$. L'élément neutre est $I_n$.
+  % \end{preuve}
+
+  
+  \begin{proposition}[utile=-3]
+  Si $A\in\mat{n}{\K}$, $\trans{A}$ est inversible si et seulement si $A$ l'est.
+  De plus, si tel est le cas
+  \[\p{\trans{A}}^{-1}=\trans{\p{A^{-1}}}.\]
+  \end{proposition}
+  
+  \begin{preuve}
+  Soit $A\in\mat{n}{\K}$. On suppose que $A$ est inversible, on transpose les égalités d'inversibilité pour $A$, cela en donne pour $\trans{A}$ qui est donc inversibles. Réciproquement, si $\trans{A}$ est inversible, alors on applique le premier sens à $\trans{A}$.
+  \end{preuve}
+  
+
+
+
+
+
+
+
+% \begin{proposition}[utile=3]
+% $\p{\mat{n}{\K},+,\cdot,\times}$ est une $\K$-algèbre.
+% \end{proposition}
+
+% \begin{preuve}
+% Soit $n\in \Ns$.
+% \begin{itemize}
+% \item[$\bullet$] $\p{\mat{n}{\K},+,\cdot}$ est un $\Kev$.
+% \item[$\bullet$] $\times$ est interne sur $\mat{n}{\K}$.
+% \item[$\bullet$] $\times$ est associative.
+% \item[$\bullet$] $\times$ admet un élément neutre.
+% \item[$\bullet$] $\times$ est distributive.
+% \end{itemize}
+
+
+% \end{preuve}
+
+
+% \begin{exos}
+% \exo On pose
+%   \[A=
+%   \begin{pmatrix}
+%   1 & 1\\
+%   -1 & 0  
+%   \end{pmatrix} \et \com{A}=\enstq{X\in\mat{2}{\K}}{XA=AX}\]
+%   Montrer que $\com{A}$ est une sous-algèbre de $\mat{2}{\K}$.
+%   En donner une base.
+%   \begin{sol}
+%   Pour une sous-algèbre, on doit montrer que c'est un sev, qu'il contient l'identité et que c'est stable pour le produit.
+%   On trouve en partant avec une matrice $\begin{pmatrix}
+%   a & b\\
+%   c & d  
+%   \end{pmatrix}$ quelconque que 
+%   \[X_1=A \et X_2=I_2\] forme une base de $\com{A}$.
+%   \end{sol}
+
+
+% \end{exos}
+
+
+% \begin{remarqueUnique}
+% \remarque Si $D=\diag{\lambda_1,\ldots,\lambda_n}$ et $P\in\polyK$, alors
+%   $P(D)=\diag{P\p{\lambda_1},\ldots,P\p{\lambda_n}}$.  
+%   \begin{sol}
+%   L'expliquer et ajouter qu'alors $P=\prod_{k=1}^n(X-\lambda_k)$ est un polynôme annulateur de $D$.
+%   \end{sol}
+% \end{remarqueUnique}
+
+
+
+% \begin{proposition}[utile=-3]
+% $\quad$
+% \begin{itemize}
+% \item $\mathcal{D}_n\p{\K}$ est une sous-algèbre commutative de $\mat{n}{\K}$.
+% \item $\mathcal{T}_n\p{\K}$ est une sous-algèbre de $\mat{n}{\K}$.
+% \end{itemize}
+% \end{proposition}
+
+% \begin{preuve}
+% Pour une sous-algèbre, on doit montrer que c'est un sev, qu'il contient l'identité et que c'est stable pour le produit.
+% \end{preuve}
+
+% \begin{exoUnique}
+% \exo Montrer que l'ensemble des matrices triangulaires inférieures est une
+%   sous-algèbre de $\mat{n}{\K}$.
+%   \begin{preuve}
+%   On utilise la caractérisation des sous-algèbres et le fait que $A$ triangulaire inférieure ssi $\trans{A}$ est triangulaire supérieure.
+%   \end{preuve}
+% \end{exoUnique}
+
+
+\begin{proposition}[utile=-3]
+Une matrice diagonale $D\defeq\diag{\lambda_1,\ldots,\lambda_n}\in\mat{n}{\K}$ est
+  inversible si et seulement si
+  \[\forall k\in\intere{1}{n} \qsep \lambda_k\neq 0.\]
+  Si tel est le cas
+  \[D^{-1}=\diag{\frac{1}{\lambda_1},\ldots,\frac{1}{\lambda_n}}.\]
+\end{proposition}
+
+
+
+\subsection{Calcul par bloc}
+
+\begin{definition}
+Soit $q,p\in\N$ et $q_1,q_2,p_1,p_2\in\N$ tels que $q=q_1+q_2$ et $p=p_1+p_2$. On se donne,
+pour tout $i\in\intere{1}{2}$ et tout $j\in\intere{1}{2}$, une matrice
+$A_{i,j}\in\mat{q_i,p_j}{\K}$. On définit alors la matrice $A\in\mat{q,p}{\K}$ \emph{par blocs}
+en posant
+\[A\defeq
+  \begin{pmatrix}
+  A_{1,1} & A_{1,2}\\
+  A_{2,1} & A_{2,2}
+  \end{pmatrix}\]
+\end{definition}
+
+\begin{remarques}
+\remarque Inversement, on peut décomposer une matrice par blocs. Par exemple, la matrice
+\[A\defeq\begin{pmatrix}
+  1 & 2 & 3\\
+  4 & 5 & 6\\
+  7 & 8 & 9
+\end{pmatrix}\in\mat{3,3}{\K}\]
+se décompose par blocs à l'aide des matrices
+\[A_{1,1}\defeq\begin{pmatrix}
+  1 & 2\\
+  4 & 5\end{pmatrix}, \qquad
+  A_{1,2}\defeq\begin{pmatrix}
+  3\\
+  6\end{pmatrix}, \qquad
+  A_{2,1}\defeq\begin{pmatrix}
+  7 & 8
+  \end{pmatrix}, \qquad
+  A_{2,2}\defeq\begin{pmatrix}
+  9
+  \end{pmatrix}.\]
+  \remarque Si la matrice $A$ se décompose par blocs
+  \[A\defeq
+    \begin{pmatrix}
+    A_{1,1} & A_{1,2}\\
+    A_{2,1} & A_{2,2}
+    \end{pmatrix}\]
+    alors
+    \[\trans{A}\defeq
+    \begin{pmatrix}
+    A_{1,1}^\top  
+     & A_{2,1}^\top\\
+    A_{1,2}^\top \setbox0=\hbox{}\ht0=12pt\dp0=0pt\wd0=0pt\lower0pt\box0 & A_{2,2}^\top
+    \end{pmatrix}.\] 
+  \end{remarques}
+
+  
+\begin{proposition}[utile=-3]
+  Soit $A\in\mat{r,q}{\K}$ et $B\in\mat{q,p}{\K}$. On décompose $A$ et $B$ par blocs 
+  \[A=
+    \begin{pmatrix}
+    A_{1,1} & A_{1,2}\\
+    A_{2,1} & A_{2,2}
+    \end{pmatrix} \et
+   B=
+    \begin{pmatrix}
+    B_{1,1} & B_{1,2}\\
+    B_{2,1} & B_{2,2}
+    \end{pmatrix}\]
+où $r=r_1+r_2$, $q=q_1+q_2$, $p=p_1+p_2$, $A_{i,j}\in\mat{r_i,q_j}{\K}$ et $B_{i,j}\in\mat{q_i,p_j}{\K}$. Alors
+  \[AB=
+    \begin{pmatrix}
+    A_{1,1}B_{1,1}+A_{1,2}B_{2,1} & A_{1,1}B_{1,2}+A_{1,2}B_{2,2}\\
+    A_{2,1}B_{1,1}+A_{2,2}B_{2,1} & A_{2,1}B_{1,2}+A_{2,2}B_{2,2}
+    \end{pmatrix}.\]
+  \end{proposition}
+  
+  \begin{preuve}
+  On ne le fait pas. On peut parler du fait que les produits entre blocs doivent être licites. Tout se passe comme un produit matriciel normal, sauf que les opérations ne sont pas commutatives.
+  \end{preuve}
+
+\begin{remarqueUnique}
+\remarque Le calcul d'un produit par bloc s'effectue donc de la même manière qu'un produit classique.
+  Attention cependant au fait que le produit de deux matrices ne commute pas en général alors que le produit
+  de deux scalaires est commutatif.
+\end{remarqueUnique}
+\vspace{2ex}
+\begin{exoUnique}
+  \exo Soit $n\in\N$ et $p,q\in\N$ tels que $n=p+q$. Soit $A\in\mat{n}{\K}$
+    une matrice diagonale par blocs
+    \[A=
+      \begin{pmatrix}
+      A_{1,1} & 0\\
+      0 & A_{2,2}
+    \end{pmatrix} \qquad \text{où $A_{1,1}\in\mat{p}{\K}$ et $A_{2,2}\in\mat{q}{\K}$}.\]
+    Montrer que $A$ est inversible si et seulement si $A_{1,1}$ et $A_{2,2}$ le
+    sont. Si tel est le cas, montrer que
+    \[A^{-1}=
+      \begin{pmatrix}
+      A_{1,1}^{-1} & 0\\
+      0 & A_{2,2}^{-1}
+    \end{pmatrix}\]
+  \end{exoUnique}
+
+
+
+\section{Matrice et Système linéaire}
+
+
+\subsection{Interprétation matricielle}
+
+\begin{definition}
+On considère le \emph{système linéaire} à $q$ équations et $p$ inconnues
+\[\syslin{a_{1,1}x_1&+a_{1,2}x_2&+\cdots&+a_{1,p}x_p&=&y_1\hfill\cr
+                    &          &       &          &\hfill\vdots\hfill&\cr
+          a_{q,1}x_1&+a_{q,2}x_2&+\cdots&+a_{q,p}x_p&=&y_q.}\]
+La matrice $A\defeq\p{a_{i,j}}\in\mat{q,p}{\K}$ est appelée matrice du système.
+La matrice $Y\defeq\p{y_i}\in\mat{q,1}{\K}$ est appelée second membre. Si
+$X=\p{x_i}\in\mat{p,1}{\K}$, alors $\p{x_1,\ldots,x_p}$ est solution du
+système si et seulement si $AX=Y$.
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque Le système est homogène lorsque $Y=0$. On rappelle que dans ce cas,
+  $X=0$ est une solution, appelée solution triviale du système.
+\end{remarqueUnique}
+
+% \begin{remarqueUnique}
+% \remarque % Soit
+% \[\syslin{a_{1,1}x_1&+a_{1,2}x_2&+\cdots&+a_{1,p}x_p&=&b_1\cr
+%                    &          &       &          &\hfill\vdots\hfill&\cr
+%           a_{q,1}x_1&+a_{q,2}x_2&+\cdots&+a_{q,p}x_p&=&b_q}\]
+% un système linéaire à $q$ équations et $p$ inconnues.
+% \begin{itemize}
+% \item 
+% {\bf Interprétation matricielle~:}\\
+ 
+% \item {\bf Interprétation vectorielle~:}\\
+%   Si $c_1,\ldots,c_p\in\K^q$ sont les vecteurs colonnes de la matrice $A$ et
+%   $b=(b_1,\ldots,b_q)\in\K^q$ alors
+%   $\p{x_1,\ldots,x_p}$ est solution du système si et seulement si
+%   $x_1 c_1+\cdots+x_p c_p=b$.
+% \item {\bf Interprétation linéaire~:}\\
+%   Si $a$ est l'application linéaire de $\K^p$ dans $\K^q$ dont la matrice
+%   relativement aux bases canoniques est $A$, et si $b=\p{b_1,\ldots,b_q}\in\K^q$,
+%   alors $x=\p{x_1,\ldots,x_p}$ est solution du système si et seulement
+%   si $a(x)=b$.
+% \item {\bf Interprétation duale~:}\\
+%   On considère les formes linéaires $\phi_1,\ldots,\phi_q$ définies sur $\K^p$
+%   par~:
+%   \[\forall i\in\intere{1}{q} \quad \forall \p{x_1,\ldots,x_p}\in\K^p \quad
+%     \phi_i\p{x_1,\ldots,x_p}=a_{i,1}x_1+\cdots+a_{i,p}x_p\]
+%   Alors $x=\p{x_1,\ldots,x_p}$ est solution du système linéaire si et
+%   seulement si~:
+%   \[\forall i\in\intere{1}{q} \quad \phi_i(x)=b_i\]
+% \end{itemize}
+% \end{remarqueUnique}
+
+% \begin{exos}
+% \exo Soit $n\geq 2$ et $a,b\in\C$. Résoudre le système~:
+%   \[\syslin{x_2&=&a x_1+&b\hfill\cr
+%             x_3&=&a x_2+&b\hfill\cr
+%                &\hfill\vdots\hfill&\hfill\cr
+%             x_n&=&a x_{n-1}+&b\hfill\cr
+%             x_1&=&a x_n+&b\hfill}\]
+%   \begin{sol}
+%   On trouve~:
+%   \begin{itemize}
+%   \item Si $a\not\in\U[n]$, $x_k=b/(1-a)$.
+%   \item Si $a\in\U[n]\setminus\ens{1}$, $x_k=b/(1-a)+a^k t$.
+%   \item Si $a=1$ et $b=0$, $x_k=t$.
+%   \item Si $a=1$ et $b\neq 0$, il n'y a pas de solution.
+%   \end{itemize}
+%   \end{sol}
+% \end{exos}
+
+% \begin{definition}
+% On considère le système linéaire $AX=Y$.
+% \begin{itemize}
+% \item On dit que le système est \emph{homogène} lorsque $Y=0$.
+% \item On appelle \emph{système homogène associé}, le système $AX=0$.
+% \end{itemize}
+% \end{definition}
+
+\begin{definition}
+Soit $A\in\mat{q,p}{\K}$.
+\begin{itemize}
+\item On appelle \emph{noyau} de $A$ et on note $\ker A$ l'ensemble des solutions du
+  système homogène $AX=0$.
+  \[\ker A\defeq\enstq{X\in\mat{p,1}{\K}}{AX=0}.\]
+\item On note $C_1,\ldots,C_p\in\mat{q,1}{\K}$ les vecteurs colonne de $A$. On
+  appelle \emph{image} de $A$ et on note $\im A$ l'ensemble
+  \[\im A\defeq\ensim{x_1 C_1+\cdots+x_p C_p}{x_1,\ldots,x_p\in\K}.\]
+\end{itemize}
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque Ces définitions sont motivées par le fait que
+  \[\dspappli{\phi}{\mat{p,1}{\K}}{\mat{q,1}{\K}}{X}{AX}.\]
+  est une application linéaire dont le noyau et l'image sont respectivement
+  $\ker A$ et $\im A$.
+\end{remarqueUnique}
+
+\begin{proposition}
+On considère le système linéaire $AX=Y$ où $A\in\mat{q,p}{\K}$ et $Y\in\mat{q,1}{\K}$. 
+\begin{itemize}
+\item Ce système admet au moins une solution si et seulement si $Y\in\Im A$.
+\item Si c'est le cas, soit $X_0\in\mat{q,p}{\K}$ une solution particulière. Alors l'ensemble des solutions est 
+  \[\mathcal{S}=X_0 + \ker A\defeq
+  \ensim{X_0+X}{X\in\ker A}.\]
+\end{itemize}
+\end{proposition}
+
+
+\subsection{Calcul d'inverse, système de \nom{Cramer}}
+
+\begin{proposition}
+Soit $A\in\mat{n}{\K}$. Alors $A$ est inversible si et seulement si il existe
+$B\in\mat{n}{\K}$ tel que
+\[\forall X,Y\in\mat{n,1}{K}\qsep AX=Y \quad\ssi\quad X=BY.\]
+De plus, si tel est le cas, $B$ est l'inverse de $A$.
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque Étant donné $A\in\mat{n}{\K}$,
+  cette proposition affirme que s'il existe $B\in\mat{n}{\K}$ tel que quels que soient $x_1,\ldots,x_n$, $y_1,\ldots,y_n\in\K$
+\[\syslin{a_{1,1}x_1&+a_{1,2}x_2&+\cdots&+a_{1,n}x_n&=&y_1\cr
+                    &          &       &          &\hfill\vdots\hfill&\cr
+          a_{n,1}x_1&+a_{n,2}x_2&+\cdots&+a_{n,n}x_n&=&y_n} \quad\ssi\quad
+    \syslin{x_1&=&b_{1,1}y_1&+b_{1,2}y_2&+\cdots&+b_{1,n}y_n\hfill\cr
+              &\hfill\vdots\hfill&          &           &       &           \cr
+            x_n&=&b_{n,1}y_1&+b_{n,2}y_2&+\cdots&+b_{n,n}y_n\hfill}\]
+  alors $A$ est inversible et $A^{-1}=B$. Inverser une matrice revient donc à résoudre
+  un système linéaire.
+\end{remarqueUnique}
+\vspace{2ex}
+
+\begin{exoUnique}
+\exo Montrer que la matrice
+  \[A\defeq
+  \begin{pmatrix}
+  0 & 2 & 1\\
+  1 & 1 & 2\\
+  2 & 3 & -1
+  \end{pmatrix}\]
+  est inversible et calculer son inverse.
+  \begin{sol}
+  On trouve
+  \[A^{-1}=\frac{1}{11}
+    \begin{pmatrix}
+    -7 & 5 & 3\\
+    5 & -2 & 1\\
+    1 & 4 & -2
+    \end{pmatrix}\]
+  \end{sol}  
+\end{exoUnique}
+
+\begin{definition}
+  On dit qu'un système $AX=Y$ à $n$ équations et $n$ inconnues est de \emph{\nom{Cramer}}
+  lorsque $A\in\gl{n}{\K}$.
+  \end{definition}
+
+\begin{remarqueUnique}
+\remarque Le fait d'être de \nom{Cramer} est une propriété qui ne dépend pas du second
+  membre.
+\end{remarqueUnique}
+
+\begin{proposition}
+Un système de \nom{Cramer} admet une unique solution.
+\end{proposition}
+
+\subsection{Opérations élémentaires par produit matriciel}
+
+\begin{definition}[nom={Matrice de dilatation}]
+Soit $\mu\in\K^*$ et $k\in\intere{1}{n}$. Alors, il existe une et une seule matrice
+$D\in\mat{n}{\K}$ telle que~:
+\begin{itemize}
+\item Quel que soit $A\in\mat{n,p}{\K}$, la matrice $DA$
+  est obtenue en multipliant la $k$\up{ième} ligne de $A$ par $\mu$.
+\item Quel que soit $A\in\mat{q,n}{\K}$, la matrice $AD$
+est obtenue en multipliant la $k$\up{ième} colonne de $A$ par $\mu$. 
+\end{itemize}
+On la note $D_k(\mu)$ et on dit que c'est une \emph{matrice de dilatation}. De plus
+ \[\xymatrix @-0.9cm
+              {& & & &  &k\ar[dddd]& & & & \\
+               & &1\ar@{.}[rrdd]&  & &  &       &  &  & \\
+               & & & &  &       &  &(0)  & \\
+               & & & & 1&       &  &  & \\
+    D_k\p{\mu}=&
+    \setbox0=\hbox{$\left(\rule[0pt]{0pt}{1.75cm}\right.$}
+    \ht0=0pt\dp0=0pt\wd0=5pt\lower0pt\box0
+    & & &  &\mu&  &  & &
+    \setbox0=\hbox{$\left.\rule[0pt]{0pt}{1.75cm}\right)$}
+    \ht0=0pt\dp0=0pt\wd0=10pt\kern-5pt\lower0pt\box0
+    & k\ar[lllll]\\
+               & & & &  &       & 1\ar@{.}[rrdd]&  & \\
+               & & &(0) &  &       &  &  & \\
+               & & & &  &       &  &  & 1}\]
+\end{definition}
+
+\begin{proposition}
+  Soit $\mu\in\K^*$ et $k\in\intere{1}{n}$.
+  Alors, la matrice de
+  dilatation $D_k\p{\mu}$ est inversible et
+  \[\cro{D_k\p{\mu}}^{-1}=D_k\p{\frac{1}{\mu}}.\]
+\end{proposition}
+
+\begin{definition}[nom={Matrice de transvection}]
+Soit $\lambda\in\K$ et $i,j\in\intere{1}{n}$ tels que $i\neq j$. Alors, il existe une et
+une seule matrice $T\in\mat{n}{\K}$ telle que~:
+\begin{itemize}
+\item Quel que soit $A\in\mat{n,p}{\K}$, la matrice $TA$
+  est obtenue en ajoutant $\lambda$ fois la $j$\up{ième}
+  ligne de $A$ à sa $i$\up{ième} ligne.
+\item Quel que soit $A\in\mat{q,n}{\K}$, la matrice $AT$
+  est obtenue en ajoutant $\lambda$ fois la $i$-ième
+  colonne de $A$ à sa $j$-ième colonne.
+\end{itemize}
+On la note $T_{i,j}(\lambda)$ et on dit que c'est une \emph{matrice de transvection}. De plus
+\[\xymatrix @-0.9cm
+{& & &j\ar[dddd]\\
+ & &1\ar@{.}[rrrrdddd]&       & & & \\
+ & & &       & &(0) & \\
+ T_{i,j}\p{\lambda}=&
+ \setbox0=\hbox{$\left(\rule[0pt]{0pt}{1.65cm}\right.$}
+ \ht0=0pt\dp0=0pt\wd0=5pt\lower0pt\box0
+ & & & &\setbox0=\hbox{}\ht0=1cm\dp0=0cm\wd0=1cm\box0 & & &
+ \setbox0=\hbox{$\left.\rule[0pt]{0pt}{1.65cm}\right)$}
+ \ht0=0pt\dp0=0pt\wd0=22pt\kern-10pt\lower0pt\box0 \\
+ & & &\lambda& & & & & i\ar[lllll]\\
+ & & &       & & & 1\\}\]
+\end{definition}
+
+\begin{proposition}
+  Soit $\lambda\in\K$ et $i,j\in\intere{1}{n}$ tels que $i\neq j$. Alors, la
+  matrice de transvection $T_{i,j}\p{\lambda}$ est inversible et
+  \[\cro{T_{i,j}\p{\lambda}}^{-1}=T_{i,j}\p{-\lambda}.\]
+\end{proposition}
+
+\begin{definition}[nom={Matrice de transposition}]
+  Soit $k_1,k_2\in\intere{1}{n}$ tels que $k_1\neq k_2$.  Alors, il existe une et
+  une seule matrice $\tau\in\mat{n}{\K}$ telle que~:
+  \begin{itemize}
+    \item Quel que soit $A\in\mat{n,p}{\K}$, la matrice $\tau A$
+      est obtenue en échangeant les $k_1$\up{ième} et $k_2$\up{ième} lignes.
+    \item Quel que soit $A\in\mat{q,n}{\K}$, la matrice $A\tau$
+      est obtenue en échangeant les $k_1$\up{ième} et $k_2$\up{ième} colonnes.
+    \end{itemize}
+  
+    On la note $\tau_{k_1,k_1}$ et on dit que c'est une \emph{matrice de transposition}. De plus 
+  \[\xymatrix @-0.9cm
+    {& &  & &  &k_1\ar[dddd]& & & & k_2\ar[dddd]\\
+     & &1\ar@{.}[rrdd] & &  &  &  & &  &  &  & &\\
+     & &  & &  &  &  & &  &  &  & & \\
+     & &  & & 1&  &  & &  &  &  & & \\
+     & &  & &  & 0\ar[dddd]&  & &  & 1\ar[dddd]\ar[llll]& 
+       & & & & k_1\ar[lllll]\\
+     & &  & &  &  & 1\ar@{.}[rrdd]& &  &  &  & &\\
+     \tau_{k_1,k_2}=&
+     \setbox0=\hbox{$\left(\rule[0pt]{0pt}{2.1cm}\right.$}
+     \ht0=0pt\dp0=0pt\wd0=5pt\lower0pt\box0
+       &  & &  &  &  &\setbox0=\hbox{}\wd0=7pt\box0 &  &  &  & & &
+     \setbox0=\hbox{$\left.\rule[0pt]{0pt}{2.1cm}\right)$}
+     \ht0=0pt\dp0=0pt\wd0=9pt\kern-5pt\lower0pt\box0\\
+     & &  & &  &  &  & & 1&  &  & &\\
+     & &  & &  & 1&  & &  & 0\ar[llll]&  & & & & k_2\ar[lllll]\\
+     & &  & &  &  &  & &  &  & 1\ar@{.}[rrdd]& &\\
+     & &  & &  &  &  & &  &  &  & &\\
+     & &  & &  &  &  & &  &  &  & &1}\]
+  \end{definition}
+
+\begin{proposition}
+  Soit $k_1,k_2\in\intere{1}{n}$ tels que $k_1\neq k_2$. Alors, la matrice de
+  transposition $\tau_{k_1,k_2}$ est inversible et
+  \[\tau_{k_1,k_2}^{-1}=\tau_{k_1,k_2}\]
+\end{proposition}
+
+
+% \begin{remarques}
+% \remarque L'essentiel est de retenir la liste des opérations élémentaires et
+%   le fait que multiplier une matrice par la gauche par une matrice de
+%   dilatation/transvection/transposition agit sur les lignes alors que multiplier
+%   par la droite agit sur les colonnes. À partir de cela, il est
+%   aisé de retrouver ces matrices. Par
+%   exemple, si on souhaite retrouver la matrice $T\in\mat{n}{\K}$ telle que
+%   la matrice $TA\in\mat{n}{\K}$ est la matrice obtenue en ajoutant la
+%   $j$-ème ligne de $A$ à sa $i$-ème ligne, il suffit d'ajouter la $j$-ème ligne de
+%   $I_n$ à sa $i$-ème ligne. En effet $T=TI_n$ et $T I_n$ se calcule simplement
+%   en effectuant les opérations souhaitées sur la matrice $I_n$.
+% \end{remarques}
+
+% \subsection{Rang}
+
+\subsection{Matrice échelonnée}
+
+\begin{definition}
+On dit qu'une matrice $E\in\mat{q,p}{\K}$ est \emph{échelonnée à pivots diagonaux}
+lorsqu'il existe $p_1,\ldots,p_r\in\Ks$ tels que
+\[\xymatrix @-0.7cm
+              {& &p_1\ar@{.}[rdrd]& \star\ar@{.}[rdrd]\ar@{.}[rrrr]& & &
+                  &\star\ar@{.}[dd]\\
+                & &0\ar@{.}[rdrd]\ar@{.}[ddddd]&   &   &   & & \\
+                & &  &   & p_r & \star\ar@{.}[rr] & & \star &\\
+                E=&
+                  \setbox0=\hbox{$\left(\rule[0pt]{0pt}{1.95cm}\right.$}
+                  \ht0=0pt\dp0=0pt\wd0=0pt\lower-6pt\box0
+                  & & & 0\ar@{.}[ddd] & 0\ar@{.}[ddd]\ar@{.}[rr]& &
+                  0\ar@{.}[ddd]&
+                  \setbox0=\hbox{$\left.\rule[0pt]{0pt}{1.95cm}\right)$}
+                  \ht0=0pt\dp0=0pt\wd0=0pt\kern-18pt\lower-6pt\box0 & \\
+                & &  &   &   &   & & \\
+                & &  &   &   &   & & \\
+                & &0\ar@{.}[rr] &   & 0 & 0\ar@{.}[rr] & & 0}\]
+Les coefficients $p_1,\ldots,p_r$ sont appelés \emph{pivots} de la matrice $A$.
+\end{definition}
+
+\begin{proposition}
+Soit $A\in\mat{q,p}{\K}$.
+\begin{itemize}
+\item  Alors, il existe une succession d'opérations
+élémentaires sur les lignes et les colonnes transformant $A$ en une matrice
+échelonnée à pivots diagonaux.
+\item
+Autrement dit, il existe des familles $Q_1,\ldots,Q_n\in\gl{q}{\K}$ et $P_1,\ldots,P_m\in\gl{p}{\K}$ de
+matrices d'opérations élémentaires telles que $Q_n\cdots Q_1 A P_1\cdots P_m$
+est une matrice échelonnée à pivots diagonaux.
+\end{itemize}
+\end{proposition}
+
+\begin{remarques}
+\remarque Nous montrerons que le nombre $r$ de pivots de la matrice obtenue
+  ne dépend pas des opérations effectuées; on l'appelle \emph{rang} de $A$.
+\remarque En continuant les opérations sur les colonnes, il est possible
+  de réduire $A$ en une matrice du type
+  \[\xymatrix @-0.7cm
+              {& & & & r\ar[ddd]& & &\\
+               & &1\ar@{.}[rdrd]& 0\ar@{.}[rdrd]\ar@{.}[rrrr]& & &
+                 &0\ar@{.}[dd]\\
+               & &0\ar@{.}[rdrd]\ar@{.}[ddddd]&   &   &   & & \\
+               & &  &   & 1 & 0\ar@{.}[rr] & & 0 & & r\ar[lllll]\\
+               J_r\defeq&
+                 \setbox0=\hbox{$\left(\rule[0pt]{0pt}{1.81cm}\right.$}
+                 \ht0=0pt\dp0=0pt\wd0=0pt\lower-6pt\box0
+                 & & & 0\ar@{.}[ddd] & 0\ar@{.}[ddd]\ar@{.}[rr]& &
+                 0\ar@{.}[ddd]&
+                 \setbox0=\hbox{$\left.\rule[0pt]{0pt}{1.81cm}\right)$}
+                 \ht0=0pt\dp0=0pt\wd0=0pt\kern-18pt\lower-6pt\box0\\
+               & &  &   &   &   & & \\
+               & &  &   &   &   & & \\
+               & &0\ar@{.}[rr] &   & 0 & 0\ar@{.}[rr] & & 0}\]
+  Si $A\in\mat{n}{\K}$, on voit que $A$ est inversible si et seulement
+  si $r=n$, c'est-à-dire si et seulement si la matrice réduite ainsi obtenue est la matrice
+  $I_n$.
+\remarque Si l'on souhaite calculer effectivement les produits
+  $Q\defeq Q_n\cdots Q_1$ et $P\defeq P_1\cdots P_m$, il suffit de remarquer
+  que $Q=Q_n(\cdots(Q_2(Q_1 I_q)))$ et $P=(((I_p P_1)P_2)\cdots )P_m$. La matrice
+  $Q$ est donc obtenue en partant de la matrice $I_q$ que l'on transforme en effectuant les opérations
+  élémentaires sur les lignes utilisées pour transformer $A$. En partant de $I_p$ que
+  l'on transforme en effectuant les opérations élémentaires sur les colonnes
+  utilisées pour transformer $A$, on obtient la matrice $P$.
+\remarque Si l'on se restreint aux opérations élémentaires sur les lignes, on peut
+  transformer toute matrice $A\in\mat{q,p}{\K}$ en une \emph{matrice échelonnée
+  (par lignes)}, c'est-à-dire une matrice où chaque ligne commence par un nombre de zéros
+  strictement supérieur à celui de la ligne précédente, comme dans l'exemple
+  \[\begin{pmatrix}[ccccc]
+            0 & p_1     & \star &   \star & \star \\
+            0 &       0 &     0 &   p_2   & \star \\
+            0 &       0 &     0 &     0   & p_3\\
+            0 &       0 &     0 &     0   & 0
+  \end{pmatrix}\]
+  où les pivots $p_1, p_2$ et $p_3$ sont non nuls. Le nombre de pivots est
+  égal au rang de la matrice.
+ Pour toute matrice $A\in\mat{q,p}{K}$, il
+  existe donc une famille $Q_1,\ldots,Q_n\in\gl{q}{\K}$ de matrices d'opérations
+  élémentaires telle que $Q_n\cdots Q_1A$ est échelonnée par lignes.\\
+\remarque Si l'on se restreint aux opérations élémentaires sur les colonnes,
+  on peut transformer toute matrice $A\in\mat{q,p}{\K}$ en une
+  \emph{matrice échelonnée par colonnes},
+  c'est-à-dire une matrice où chaque colonne commence par un nombre de zéros
+  strictement supérieur à celui de la colonne précédente, comme dans l'exemple
+  \[\begin{pmatrix}[cccc]
+            p_1   &     0 &   0   & 0\\
+            \star &     0 &   0   & 0\\
+            \star &   p_2 &   0   & 0\\
+            \star & \star & p_3   & 0\\
+            \star & \star & \star & 0
+  \end{pmatrix}\]
+  où les pivots $p_1, p_2$ et $p_3$ sont non nuls. Le nombre de pivots est
+  égal au rang de la matrice.
+  Pour toute matrice $A\in\mat{q,p}{K}$, il
+  existe donc une famille $P_1,\ldots,P_m\in\gl{p}{\K}$ de matrices d'opérations
+  élémentaires telle que $A P_1\cdots P_m$ est échelonnée par colonnes.
+\end{remarques}
+
+% \begin{proposition}
+% Soit $A\in\mat{n}{\K}$. Alors $A$ est inversible si et seulement si $\rg(A)=n$.
+% \end{proposition}
+
+% \subsection{Système de \nom{Cramer}}
+
+% \begin{definition}
+%   Le système
+%   \[\syslin{a_{1,1}x_1&+a_{1,2}x_2&+\cdots&+a_{1,p}x_p&=&b_1\hfill\cr
+%     &          &       &          &\hfill\vdots\hfill&\cr
+%   a_{q,1}x_1&+a_{q,2}x_2&+\cdots&+a_{q,p}x_p&=&b_q}\]
+%   admet une et une seule solution si et seulement si $p=q$ et la matrice $A$
+%   est inversible. Si tel est le cas, on dit que le système est de \nom{Cramer}.
+% \end{definition}
+
+% % \begin{definition}
+% % On dit qu'un système $AX=B$ à $n$ équations et $n$ inconnues est de Cramer
+% % lorsque $A$ est inversible.
+% % \end{definition}
+
+% % \begin{proposition}
+% % Un système $AX=B$ à $n$ équations et $n$ inconnues est de Cramer si et
+% % seulement si il possède une unique solution. De plus, si tel est le cas, cette
+% % solution est $X=A^{-1}B$.
+% % \end{proposition}
+
+% \begin{proposition}
+% Un système $AX=B$ à $n$ équations et $n$ inconnues est de Cramer si et seulement si
+% \[\forall X\in\mat{n,1}{\K}\qsep AX=0 \implique X=0.\]
+% \end{proposition}
+
+% \begin{exoUnique}
+ 
+% \exo Soit $n\in\Ns$, $\omega=e^{\ii\frac{2\pi}{n}}$ et $b_0,\ldots,b_{n-1}\in\C$.
+%   Résoudre le système
+%   \[\forall i\in\intere{0}{n-1} \qsep
+%     \sum_{j=0}^{n-1} \omega^{ij} z_j=b_i\]
+% \end{exoUnique}
+
+
+
+%END_BOOK
+\end{document}
+
+

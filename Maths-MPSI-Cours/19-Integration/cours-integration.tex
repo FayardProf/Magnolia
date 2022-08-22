@@ -1,0 +1,1262 @@
+\documentclass{magnolia}
+
+\magtex{tex_driver={pdftex},
+        tex_packages={xypic}}
+\magfiche{document_nom={Cours sur l'intégration},
+          auteur_nom={François Fayard},
+          auteur_mail={fayard.prof@gmail.com}}
+\magcours{cours_matiere={maths},
+          cours_niveau={mpsi},
+          cours_chapitre_numero={19},
+          cours_chapitre={Intégration}}
+\magmisenpage{}
+\maglieudiff{}
+\magprocess
+
+\begin{document}
+
+%BEGIN_BOOK
+\magtoc
+
+\section{Intégration}
+
+
+
+\subsection{Fonctions en escalier}
+
+
+\begin{definition}[utile=-3]
+On appelle \emph{subdivision} du segment $\interf{a}{b}$ toute famille
+$\p{x_k}_{0\leq k\leq n}$ de réels telle que
+\[a=x_0<x_1<\dots<x_{n-1}<x_n=b.\]
+\end{definition}
+\begin{remarques}
+\remarque[utile=-3] On dit qu'une subdivision $\p{x_k}_{0\leq k\leq n}$ est \emph{régulière}
+  lorsque $x_{k+1}-x_k$ est indépendant de $k$. La subdivision
+  $\p{x_k}_{0\leq k\leq n}$ de $\interf{a}{b}$ définie par
+  \[\forall k\in\intere{0}{n} \qsep x_k\defeq a+k\cdot\frac{b-a}{n}\]
+  est dite régulière de \emph{pas} $\p{b-a}/n$.
+\remarque[utile=-1] Se donner une subdivision de $\interf{a}{b}$ revient à se donner
+  une partie finie de $\interf{a}{b}$ contenant $a$ et $b$.
+\end{remarques}
+
+
+\begin{definition}[utile=-1]
+Soit $\tau_1=\p{x_k}_{0\leq k\leq n}$ et $\tau_2=\p{y_k}_{0\leq k\leq m}$ deux
+subdivisions d'un même segment $\interf{a}{b}$. On dit que $\tau_2$ est \emph{plus
+fine} que $\tau_1$ lorsque tout élément de la famille $\tau_1$ est un élément de la
+famille $\tau_2$, c'est-à-dire lorsque
+\[\forall k\in\intere{0}{n} \qsep \exists i\in\intere{0}{m} \qsep
+  x_k=y_i.\]
+\end{definition}
+
+
+\begin{proposition}[utile=-1]
+Soit $\tau_1$ et $\tau_2$ deux subdivisions d'un même segment $\interf{a}{b}$.
+Alors, il existe une subdivision plus fine que $\tau_1$ et $\tau_2$.
+\end{proposition}
+
+\begin{preuve}
+Suffit de prendre l'union.
+\end{preuve}
+
+
+\begin{definition}[utile=-3]
+$\quad$
+\begin{itemize}
+\item Soit $\interf{a}{b}$ un segment. On dit qu'une fonction
+  $\phi : \interf{a}{b}\to\K$ est une \emph{fonction en escalier} sur
+  $\interf{a}{b}$ lorsqu'il existe une subdivision
+  \mbox{$\tau : a=x_0<\dots<x_n=b$}
+  du segment $\interf{a}{b}$ telle que $\phi$ est constante sur chaque
+  intervalle $\intero{x_k}{x_{k+1}}$~:
+  \[\forall k\in\intere{0}{n-1} \qsep \exists c_k\in\K \qsep
+    \forall x\in\intero{x_k}{x_{k+1}} \qsep \phi(x)=c_k.\]
+\item Soit $I$ un intervalle. On dit qu'une fonction $\phi : I\to\K$ est en
+  escalier sur $I$ lorsque sa restriction à tout segment $\interf{a}{b}$ de $I$
+  est en escalier sur $\interf{a}{b}$.
+\end{itemize}
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque Une fonction en escalier sur un segment prend un nombre fini de valeurs.
+  Une telle fonction est donc bornée.
+\remarque[utile=-2] Si on change la valeur d'une fonction en escalier en un nombre fini
+  de points, elle reste en escalier.
+\end{remarqueUnique}
+
+\begin{preuve}
+C'est clair. Elle l'est par le max des valeurs absolues des constantes et des valeurs en les points de la subdivision.
+\end{preuve}
+
+\begin{exoUnique}
+  \exo[utile=1] Soit $\phi$ la fonction définie sur $\RPs$ par
+    \[\forall x>0 \qsep \phi(x)\defeq\ent{\frac{1}{x}}.\]
+    $\phi$ est-elle en escalier sur $\RPs$~? Si on prolonge $\phi$ en $0$ en posant $\phi(0)=0$, la nouvelle fonction est-elle en escalier sur $\RP$~?
+    \begin{sol}
+    Oui pour la première question d'après la deuxième partie de la définition. Non, pour la deuxième partie de la question.
+    \end{sol}
+\end{exoUnique}
+  
+
+\begin{proposition}[utile=-3]
+Soit $I$ un intervalle.
+\begin{itemize}
+\item L'ensemble des fonctions en escalier sur $I$ est une
+  sous-algèbre de $\mathcal{F}\p{I,\K}$.
+\item Si $\phi$ est une fonction en escalier sur $I$, il en est de même pour $\abs{\phi}$ et $\conj{\phi}$.
+\end{itemize}
+\end{proposition}
+
+\begin{preuve}
+On utilise le fait que si $f$ et $g$ sont en escaliers, alors il existe une subdivision adaptée à la fois à $f$ et à $g$. Suffit de prendre l'union de deux subdivisions adaptées à chacune d'entre elles. Et que la constance passe aux propriétés demandées.
+\end{preuve}
+
+\subsection{Fonction continue par morceaux}
+
+
+\begin{definition}[utile=-3]
+$\quad$
+\begin{itemize}
+\item Soit $\interf{a}{b}$ un segment. On dit qu'une fonction
+  $f : \interf{a}{b}\to\K$ est une fonction \emph{continue par morceaux} sur
+  $\interf{a}{b}$ lorsqu'il existe une subdivision
+  \mbox{$\tau : a=x_0<\dots<x_n=b$}
+  du segment $\interf{a}{b}$ telle que~:
+  \begin{itemize}
+  \item Pour tout $k\in\intere{0}{n-1}$, $f$ est continue sur
+    $\intero{x_k}{x_{k+1}}$.
+  \item Pour tout $k\in\intere{0}{n-1}$, $f$ admet une limite finie
+    à droite (au sens strict) en $x_k$ et à gauche (au sens strict) en $x_{k+1}$.
+    Autrement dit, la restriction de $f$ à $\intero{x_k}{x_{k+1}}$ est
+    prolongeable par continuité sur $\interf{x_k}{x_{k+1}}$.
+  \end{itemize}
+\item Soit $I$ un intervalle. On dit qu'une fonction $f : I\to\K$ est
+  continue par morceaux sur $I$ lorsque sa restriction à tout segment
+  $\interf{a}{b}$ de $I$ est continue par morceaux sur $\interf{a}{b}$. On note
+  $\mathcal{C}_{{\rm m}}^0(I,\K)$ l'ensemble des fonctions continues par morceaux de $I$ dans $\K$.
+\end{itemize}
+\end{definition}
+
+\begin{remarques}
+\remarque Les fonctions en escalier sont continues par morceaux.
+\remarque[utile=-2] Si on change la valeur d'une fonction continue par morceaux en un
+  nombre fini de points, elle reste continue par morceaux.
+\remarque On dit qu'une fonction $f:\mathcal{D}\to\K$ définie sur une partie élémentaire $\mathcal{D}=I_1\cup\cdots\cup I_n$ est\
+  continue par morceaux lorsque sa restriction à chaque $I_k$ est continue par morceaux.
+\end{remarques}
+
+
+\begin{proposition}[utile=3]
+Soit $f$ une fonction continue par morceaux sur un segment $\interf{a}{b}$.
+Alors $f$ est bornée sur $\interf{a}{b}$.
+\end{proposition}
+
+\begin{preuve}
+Soient $f\in \mathcal{C}_{{\rm m}}^0(\interf{a}{b},\R)$ et $\sigma=(x_k)_{0\leq k\leq n}$ une subdivision adaptée à $f$. Pour $0\leq k \leq n-1$, $f_{|\intero{x_k}{x_{k+1}}}$ admet un prolongement continue $f_k$ à $\interf{x_k}{x_{k+1}}$. $f_k$ est donc bornée. On note $||f_k||_{\infty}:=\sup\set{f_k(x), x \in \interf{x_k}{x_{k+1}}}$, alors en posant $$K=\max\p{||f_0||_{\infty},\ldots,||f_{n-1}||_{\infty},|f(x_0)|,\ldots,|f(x_n)|},$$ on a $$\forall x \in [a,b], |f(x)|\leq K.$$
+\end{preuve}
+
+
+\begin{proposition}[utile=-3]
+Soit $I$ un intervalle.
+\begin{itemize}
+\item L'ensemble des fonctions continues par morceaux sur $I$ est une
+  sous-algèbre de $\mathcal{F}\p{I,\K}$.
+\item Si $\phi$ est une fonction continue par morceaux sur $I$, il en est de même pour $\abs{\phi}$ et $\conj{\phi}$.
+\end{itemize}
+\end{proposition}
+
+\begin{preuve}
+On utilise le fait que si $f$ et $g$ sont continues par morceaux, alors il existe une
+subdivision adaptée à la fois à $f$ et à $g$. Suffit de prendre l'union de deux subdivisions adaptées à chacune d'entre elles. Et que la continuité et les limites passent aux propriétés demandées.
+\end{preuve}
+
+\begin{proposition}[utile=3]
+  Soit $f$ une fonction continue par morceaux sur le segment $\interf{a}{b}$
+  et $\epsilon>0$. Alors, il existe une fonction en escalier $\phi$ définie sur
+  $\interf{a}{b}$ telle que
+  \[\forall x\in\interf{a}{b} \qsep \abs{f(x)-\phi(x)}\leq\epsilon.\]
+  \end{proposition}
+  \begin{preuve}
+  Commençons la démonstration dans le cas où $f$ est continue. Soit $f$ une
+  fonction continue sur le segment $\interf{a}{b}$. D'après le théorème de Heine,
+  elle y est donc uniformément continue. Soit $\epsilon>0$. Il existe donc
+  $\eta>0$ tel que
+  \[\forall x,y\in\interf{a}{b} \quad \abs{x-y}\leq\eta \implique
+    \abs{f(x)-f(y)}\leq\epsilon\]
+  Puisque $\p{b-a}/n$ tend vers 0 lorsque $n$ tend vers $+\infty$, il existe
+  $n\in\Ns$ tel que $\p{b-a}/n\leq\eta$. On considère la subdivision régulière
+  $\p{x_k}_{0\leq k\leq n}$ du segment $\interf{a}{b}$ de pas $\p{b-a}/n$. On
+  définit alors la fonctions en escalier $\phi$ sur $\interf{a}{b}$ par
+  \[\forall k\in\intere{0}{n-1} \quad \forall x\in\interfo{x_k}{x_{k+1}} \quad
+    \phi(x)=f\p{x_k}\]
+  et $\phi(b)=f(b)$. Alors
+  \[\forall x\in\interf{a}{b} \quad \abs{f(x)-\phi(x)}\leq\epsilon\]
+  En, effet, soit $x\in\interf{a}{b}$.
+  \begin{itemize}
+  \item Si il existe $k\in\intere{0}{n-1}$ tel que $x\in\interfo{x_k}{x_{k+1}}$,
+    alors
+    \[\abs{f(x)-\phi(x)}=\abs{f(x)-f\p{x_k}}\leq\epsilon\]
+    la dernière inégalité étant justifiée par le fait que
+    $\abs{x-x_k}\leq\p{b-a}/n\leq\eta$.
+  \item Sinon, $x=b$ et $\abs{f(b)-\phi(b)}=0\leq\epsilon$.
+  \end{itemize}
+  On obtient ainsi le résultat demandé.\\
+  Supposons maintenant que $f$ soit une fonction continue par morceaux sur le
+  segment $\interf{a}{b}$. Alors il existe une subdivision
+  $\p{x_k}_{0\leq k\leq n}$ adaptée à $f$. Il existe donc une famille
+  $\p{f_k}_{0\leq k\leq n-1}$ de fonctions continues sur $\interf{x_k}{x_{k+1}}$
+  telles que
+  \[\forall k\in\intere{0}{n-1} \quad \forall x\in\intero{x_k}{x_{k+1}} \quad
+    f(x)=f_k(x)\]
+  Soit $\epsilon>0$.
+  D'après la première partie de la démonstration, pour tout $k\in\intere{0}{n-1}$,
+  il existe une fonction en escalier $\phi_k$ sur $\interf{x_k}{x_{k+1}}$
+  telle que
+  \[\forall x\in\interf{x_k}{x_{k+1}} \quad \abs{f_k(x)-\phi_k(x)}
+    \leq\epsilon\]
+  On définit alors la fonction en escalier $\phi$ sur $\interf{a}{b}$ par
+  \[\cro{\forall k\in\intere{0}{n-1} \quad \forall x\in\intero{x_k}{x_{k+1}} \quad
+    \phi(x)=\phi_k(x)} \et 
+    \cro{\forall k\in\intere{0}{n} \quad \phi\p{x_k}=f\p{x_k}}\]
+  La fonction $\phi$ répond bien au problème posé.
+  \end{preuve}
+
+\subsection{Intégrale d'une fonction continue par morceaux}
+
+Dans la suite de ce chapitre, si $a_1,\ldots,a_n\in\R$, on définit
+  \[\text{\og$[a_1,\ldots,a_n]$\fg}\defeq[\min(a_1,\ldots,a_n),\max(a_1,\ldots,a_n)].\]
+
+\begin{definition}[utile=3]
+Il existe une unique famille $(I_{a,b})_{(a,b)\in\R^2}$ d'applications de $\mathcal{C}_{{\rm m}}^0(\text{\og$\interf{a}{b}$\fg},\K)$ dans $\K$, associant
+à $f\in\mathcal{C}_{{\rm m}}^0(\text{\og$\interf{a}{b}$\fg},\K)$ le nombre $I_{a,b}(f)\in\K$ noté
+\[\integ{a}{b}{f(x)}{x}\]
+et vérifiant les propriétés suivantes.
+\begin{itemize}
+\item Linéarité
+\[\forall a,b\in\R \qsep \forall \lambda, \mu\in\K \qsep \forall f,g\in\mathcal{C}_{{\rm m}}^0(\text{\og$\interf{a}{b}$\fg},\K),\]
+\[\integ{a}{b}{(\lambda f+\mu g)(x)}{x}=\lambda\integ{a}{b}{f(x)}{x}+\mu\integ{a}{b}{g(x)}{x}.\]
+% \item Conjugaison~:
+% \[\forall a,b\in\R \quad \forall f\in\mathcal{C}_{{\rm m}}^0({\rm Conv}(a,b),\C) \quad
+%   \conj{\integ{a}{b}{f(x)}{x}}=\integ{a}{b}{\conj{f(x)}}{x}\]
+\item Relation de \nom{Chasles}
+\[\forall a, b, c\in\R \qsep \forall f\in\mathcal{C}_{{\rm m}}^0(\text{\og$[a,b,c]$\fg},\K),\]
+\[\integ{a}{c}{f(x)}{x}=\integ{a}{b}{f(x)}{x} + \integ{b}{c}{f(x)}{x}.\]
+\item Positivité
+\[\forall a,b\in\R \qsep \forall f\in\mathcal{C}_{{\rm m}}^0(\text{\og$\interf{a}{b}$\fg},\R),\]% \qsep \integ{a}{b}{f(x)}{x} \in\R \quad\text{et}\]
+\[\cro{\p{a \leq b} \quad\text{et}\quad \p{\forall x\in\interf{a}{b} \qsep f(x)\geq 0}} \quad\implique\quad
+  \integ{a}{b}{f(x)}{x}\geq 0.\]
+\item Uniformité
+\[\forall z\in\K \qsep \forall a,b\in\R \qsep \integ{a}{b}{z}{x}=z(b-a).\]
+\end{itemize}
+\end{definition}
+
+\begin{remarques}
+\remarque Une conséquence de la relation de \nom{Chasles} est que, quel que soit $a\in\R$
+  \[\integ{a}{a}{f(x)}{x}=0.\]
+\remarque Soit $f\in\mathcal{C}_{{\rm m}}^0(\mathcal{D},\K)$ une fonction continue par morceaux
+  définie sur une partie élémentaire. Soit
+  $\mathcal{D}=I_1 \cup \cdots \cup I_n$ sa décomposition en composantes connexes.
+  Alors, pour tout $a,b\in\mathcal{D}$, s'il existe un même $k\in\intere{1}{n}$ tel que
+  $a,b\in I_k$, on peut définir
+  \[\integ{a}{b}{f(x)}{x}.\]
+  Cependant, il n'est pas possible de définir une telle intégrale si $a$ et $b$ n'appartiennent pas au même $I_k$. Par exemple, si $f$ est la fonction définie sur $\Rs$ par
+\[\forall x\in\Rs \qsep f(x)\defeq\frac{1}{x},\]
+alors $f$ est continue sur $\Rs$, mais l'intégrale
+\[\integinv{-1}{1}{x}{x}\]
+n'a aucun sens.
+\end{remarques}
+
+
+\begin{exoUnique}
+\exo[utile=2] Donner le domaine de définition de la fonction d'expression
+  \[\integinv{\frac{1}{x}}{x^2}{\sqrt[3]{1+t^3}}{t}\]
+  \begin{sol}
+  On trouve $\mathcal{D}=\intero{-\infty}{-1}\cup\intero{0}{+\infty}$
+  \end{sol}
+\end{exoUnique}
+
+\subsection{Positivité de l'intégrale}
+
+\begin{proposition}[nom={Croissance de l'intégrale}]
+Soit $f$ et $g:I\to\R$ deux fonctions continues par morceaux et $a,b\in I$. On suppose que
+\[a\leq b \quad\text{et}\quad \forall x\in\interf{a}{b} \qsep f(x)\leq g(x).\]
+Alors
+\[\integ{a}{b}{f(x)}{x}\leq\integ{a}{b}{g(x)}{x}.\]
+\end{proposition}
+
+\begin{preuve}
+Il suffit d'appliquer la positivé et la linéarité.
+\end{preuve}
+
+\begin{remarqueUnique}
+\remarque[utile=-2] Soit $f$ une fonction continue par morceaux sur le segment
+  $\interf{a}{b}$ et $m,M\in\R$ tels que
+  \[\forall x\in\interf{a}{b}\qsep m\leq f(x)\leq M.\]
+  Alors
+  \[m\p{b-a}\leq\integ{a}{b}{f(x)}{x}\leq M\p{b-a}.\]
+\end{remarqueUnique}
+
+\begin{exos}
+\exo[utile=2] Déterminer la limite, si elle existe, de la suite de terme général
+  \[\frac{1}{n!}\integ{0}{1}{\arcsin^n x}{x}.\]
+  \begin{sol}$0\leq u_n\leq \dfrac{\p{\dfrac{\pi}{2}}^n}{n!}$ donc tend vers $0$ d'après le théorème des gendarmes.
+  \end{sol}
+%%    \integ{0}{1}{\frac{e^t}{1+t^n}}{t}\]
+% \exo Déterminer le sens de variation puis la limite de la suite de terme
+%   général
+%   \[\integ{0}{1}{t^n e^t}{t}\]
+\exo[utile=2] Soit $f:\R\to\R$ une fonction continue telle que
+  \setbox0=\hbox{$f(x)\tendvers{x}{+\infty} l\in\R$}\dp0=0pt\box0. Déterminer la limite, si elle existe, de la suite de terme général
+  \[\integ{n}{n+1}{f(x)}{x}.\]
+  \begin{sol}
+  On fixe $\epsilon>0$. On coince $f(x)$ entre $l-\epsilon$ et $l+\epsilon$ à partir d'un certain $x_0$ donc à partir de $N=\ent{x_0}+1$, et en intégrant, on obtient $$-\epsilon\leq \integ{n}{n+1}{f(x)}{x}-l\leq \epsilon$$ d'où $u_n\tendvers{n}{+\infty}l$.
+  \end{sol}
+% \exo[utile=2] Déterminer les fonctions $f,g\in\mathcal{C}_{{\rm m}}^0([0,1],\R)$ telles que
+%   \[\forall x\in\interf{0}{1} \qsep f(x)=\integ{0}{x}{g(t)}{t} \quad\text{et}\quad g(x)=\integ{0}{x}{f(t)}{t}.\]
+%   \begin{sol}
+%   $g$ étant continue par morceaux, elle est bornée, il existe donc $m=\inf_{\interf{0}{1}}(g),M=\sup_{\interf{0}{1}}(g)\in \R$ et on a $\forall t \in \interf{0}{1}, m\leq g(t)\leq M$. Donc par positivité (croissance) de l'intégrale et parce-que $x\geq 0$, on a : $$mx\leq f(x)=\integ{0}{x}{g(t)}{t} \leq Mx,$$
+%   d'où à nouveau par positivité (croissance) de l'intégrale, $$\forall x \in\interf{0}{1}, m\frac{x^2}{2}=\integ{0}{x}{mt}{t}\leq g(x) \leq \integ{0}{x}{Mt}{t}=M\frac{x^2}{2}.$$
+%   \begin{itemize}
+%   \item[$\bullet$] Si $m\geq 0$, $M\geq 0$, $\forall x \in \interf{0}{1}, g(x)\leq M\frac{x^2}{2}\leq M/2$. Donc $M/2$ est un majorant de $g$ sur $\interf{0}{1}$ d'où $M\leq M/2$ donc $M\leq 0$. Finalement $M=0$. Et a fortiori $m= 0$.
+%   \item[$\bullet$] Si $m\leq 0$, de $x^2/2\leq 1/2$ on tire $$\forall x \in \interf{0}{1}, m/2\leq mx^2/2 \leq g(x)$$ donc $m/2$ minore $g$, ce qui prouve que $m/2\leq m$, d'où $m\geq 0$. Donc $m=M=0$ d'après le premier cas.
+%   \end{itemize}
+%   Finalement, $g$ est la fonction nulle et $f$ aussi.
+%   \end{sol}
+\end{exos}
+
+\begin{proposition}[utile=-3]
+Soit $f:I\to\K$ une fonction continue par morceaux et $a,b\in I$. Alors
+\[\integ{a}{b}{f(x)}{x}\]
+est invariant par tout changement de la valeur de $f$ en un nombre fini de points.
+\end{proposition}
+
+\begin{preuve}
+On démontre pour cela un lemme qui dit que l'intégrale de la fonction indicatrice de $x_0$ avec $x_0\in [a,b]$ vaut $0$. Pour cela, tout d'abord, on sait que la fonction est positive donc l'intégrale aussi. De plus, si on se donne $\epsilon>0$, on le prend suffisamment petit pour que les bornes restent dans $[a,b]$. On a donc $$0\leq \integ{a}{b}{\phi_{x_0}(x)}{x}=\integ{a}{x_0-\epsilon/2}{\underbrace{\phi_{x_0}(x)}_{=0}}{x}+\integ{x_0-\epsilon/2}{x_0+\epsilon/2}{\phi_{x_0}(x)}{x}+\integ{x_0+\epsilon/2}{b}{\underbrace{\phi_{x_0}(x)}_{=0}}{x}\leq \epsilon.$$ Et ce $\forall \epsilon>0$, d'où le résultat du lemme.
+
+Maintenant, si on change $f$ en un nombre fini de points, c'est changer $f$ en $g=f+\sum_{k=1}^n\lambda_k\phi_{x_k}$ et on passe à l'intégrale puis on utilise le lemme...
+\end{preuve}
+
+\begin{remarqueUnique}
+\remarque[utile=-3] Soit $\phi$ une fonction en escalier sur le segment $\interf{a}{b}$. Il existe donc une subdivision $a=x_0<\cdots<x_n=b$ et $c_0,\ldots,c_{n-1}\in\K$ tels que
+\[\forall k\in\intere{0}{n-1}\qsep \forall x\in\intero{x_k}{x_{k+1}} \qsep \phi(x)=c_k.\]
+Alors
+\[\integ{a}{b}{\phi(x)}{x}=\sum_{k=0}^{n-1} c_k(x_{k+1}-x_k).\]
+\end{remarqueUnique}
+
+
+\begin{proposition}[utile=2]
+Soit $f:I\to\R$ une fonction continue par morceaux et $a, b\in I$ tels que $a< b$. Si $f$ est positive sur $\interf{a}{b}$ et s'il existe
+$x_0\in\interf{a}{b}$ en lequel $f$ est continue et $f\p{x_0}>0$, alors
+\[\integ{a}{b}{f(x)}{x}>0.\]
+\end{proposition}
+
+\begin{preuve}
+On prend un intervalle sur lequel $f(x)\geq \dfrac{f(x_0)}{2}$.
+\end{preuve}
+
+
+\begin{proposition}[utile=2]
+Soit $f:I\to\R$ une fonction continue et $a,b\in I$ tels que $a< b$. Si $f$ est de
+signe constant sur $\interf{a}{b}$ et
+\[\integ{a}{b}{f(x)}{x}=0,\]
+alors
+\[\forall x\in\interf{a}{b} \qsep f(x)=0.\]
+\end{proposition}
+
+\begin{preuve}
+D'abord cas positif et par l'absurde en utilisant la proposition précédente. Ensuite, si $f\leq 0$, alors $-f\geq 0$.
+\end{preuve}
+
+\begin{exos}
+\exo[utile=3] Soit $P\in\polyR$ tel que
+  \[\integ{0}{1}{P^2(x)}{x}=0.\]
+  Montrer que $P=0$.
+  \begin{sol}
+  Application directe de la proposition précédente.
+  \end{sol}
+\exo Soit $f:[a,b]\to\R$ une fonction continue telle que
+  \[\integ{a}{b}{f(x)}{x}=0.\]
+  
+  Montrer qu'il existe $c\in\interf{a}{b}$ tel que $f(c)=0$.
+  \begin{sol}
+  Soit $f$ est de signe constant, soit TVI.
+  \end{sol}
+\exo[utile=1] Soit $f$ une fonction continue sur $\interf{0}{1}$ telle que
+  \[\integ{0}{1}{f(x)}{x}=\frac{1}{2}.\]
+  Montrer qu'il existe $c\in\interf{0}{1}$ tel que $f(c)=c$.
+  \begin{sol}
+  On introduit $g(x)=f(x)-x$ dont on calcule l'intégrale et on utilise (ou redémontre) la remarque.
+  \end{sol}
+% \exo Soit $f$ une fonction réelle continue sur $\interf{0}{1}$ telle que
+%   \[\forall k\in\intere{0}{n} \quad \integ{0}{1}{x^kf(x)}{x}=0\]
+%   Montrer que $f$ s'annule en au moins $n+1$ points sur $\interf{0}{1}$.
+\end{exos}
+
+\subsection{Inégalité triangulaire}
+
+\begin{proposition}[utile=-1]
+Soit $f:I\to\C$ une fonction continue par morceaux. Alors, pour tout $a,b\in I$
+\[\conj{\integ{a}{b}{f(x)}{x}}= \integ{a}{b}{\conj{f(x)}}{x}.\]
+\end{proposition}
+
+\begin{preuve}
+On utilise les fonctions $\Re(f)$ et $\Im(f)$ avec lesquelles on calcule chaque membre. On en tire notamment que la partie réelle de l'intégrale est l'intégrale de la partie réelle, ce qu'on utilisera dans la preuve suivante.
+\end{preuve}
+
+\begin{proposition}[utile=3,nom=Inégalité triangulaire]
+Soit $f:I\to\K$ une fonction continue par morceaux et $a,b\in I$. Si
+$a\leq b$, alors
+\[\abs{\integ{a}{b}{f(x)}{x}}\leq \integ{a}{b}{\abs{f(x)}}{x}.\]
+\end{proposition}
+
+\begin{preuve}
+\begin{itemize}
+\item[$\bullet$] Cas réel : On intègre $-|f|\leq f\leq |f|$ sur $[a,b]$ d'où $$-\integ{a}{b}{|f|(x)}{x}\leq \integ{a}{b}{f(x)}{x} \leq \integ{a}{b}{|f|(x)}{x}$$ d'où le résultat.
+\item[$\bullet$] Cas complexe : \'Ecrivons $\integ{a}{b}{f(x)}{x}=r\e^{i\theta}$. Alors $\e^{-i\theta}\integ{a}{b}{f(x)}{x}=r\in \R$. Donc $$\abs{\integ{a}{b}{f(x)}{x}}=r=\underbrace{\integ{a}{b}{e^{-i\theta}f(x)}{x}}_{\in \R}=\integ{a}{b}{\Re(\e^{-i\theta}f(x))}{x}\underbrace{\leq}_{\text{positivité}} \integ{a}{b}{\abs{\e^{-i\theta}f(x)}}{x}=\integ{a}{b}{\abs{f(x)}}{x}.$$
+\end{itemize}
+\end{preuve}
+
+%\begin{remarques}
+% \remarque Soit $f$ et $g$ deux fonctions continues par morceaux sur l'intervalle
+%   $I$ et $a,b\in I$ tels que
+%   \[\forall x\in\intergf{a}{b} \quad \abs{f(x)}\leq g(x)\]
+%   Alors
+%   \[\abs{\integ{a}{b}{f(x)}{x}}\leq\abs{\integ{a}{b}{g(x)}{x}}\]
+%   Même si $a$ n'est pas inférieurs à $b$. On retiendra~: Pour majorer
+%   une différence, on la met sous forme intégrale.\\
+% \remarque Par contre, il est tout à fait possible d'avoir $f(t)\leq g(t)$
+%   sans que
+%   \[\abs{\integ{a}{b}{f(t)}{t}}\leq\abs{\integ{a}{b}{g(t)}{t}}\]
+%\end{remarques}
+
+\begin{exos}
+% \exo Soit $f$ une fonction continue sur $\interf{0}{1}$. Montrer que
+%   \[\integ{0}{1}{\frac{f(x)}{1+nx}}{x}\tendvers{n}{+\infty}0\]
+\exo[utile=2] Soit $f:\interf{0}{1}\to\R$ une fonction continue par morceaux. On
+  définit la fonction $g$ sur $\R$ par
+  \[\forall x\in\R \qsep g(x)\defeq\integ{0}{1}{f(t)\sin\p{xt}}{t}.\]
+  Montrer que $g$ est lipschitzienne.
+  \begin{sol}
+  \`A l'aide de l'IT, on montre que $|g(x)-g(y)|\leq \integ{0}{1}{|f(t)||\sin(xt)-\sin(yt)|}{t}$. On montre ensuite que $\sin$ est $1$-lipschitzienne (sa dérivée est bornée par $1$) donc $$|g(x)-g(y)|\leq |x-y|\underbrace{\integ{0}{1}{|f(t)|t}{t}}_{:=K}.$$
+  \end{sol}
+  
+\exo[utile=2] Soit $n\in\N$. Montrer que
+  \[\forall x\geq 0 \qsep \frac{1}{1+x^2}=\sum_{k=0}^n (-1)^k x^{2k} +(-1)^{n+1} \frac{x^{2n+2}}{1+x^2}.\]
+  En déduire que
+  \[\abs{\pi-4\sum_{k=0}^n \frac{\p{-1}^k}{2k+1}}\leq\frac{4}{2n+3}.\]
+  \begin{sol}
+  Somme géométrique puis on intègre entre $0$ et $1$ et on majore l'intégrale tout à droite par inégalité triangulaire puis le dénominateur minoré par $1$.
+  \end{sol}
+\exo[utile=2] Soit $f$ une fonction réelle, continue sur $\RP$ et $a,b\in\R$ tels que $0<a<b$. Montrer que
+  \[\integ{ax}{bx}{\frac{f(t)}{t}}{t}\tendversdp{x}{0}f\p{0}\ln\p{\frac{b}{a}}.\]
+\begin{sol}
+On forme la différence en valeurs absolues qu'on réunit sous une seule intégrale en reconnaissant $\ln(b/a)=\integ{ax}{bx}{1/t}{t}$ et donc on a majoré par $\integ{ax}{bx}{\dfrac{\abs{f(t)-f(0)}}{t}}{t}$.
+On fixe ensuite $\epsilon>0$ et à l'aide de la continuité en $0$, on majore $\abs{f(t)-f(0)}$ par $\dfrac{\epsilon}{\ln(b/a)}$ pour $x\leq \eta_1=\eta/b$ et cela permet de majorer la valeur absolue initiale par $\epsilon$.
+
+\end{sol}  
+  
+  
+  
+% \exo Calcul d'une valeur approchée de $\pi$.
+%   Soit $n\in\N$. Alors, pour tout $t\in\R$~:
+%   \[\sum_{k=0}^n \p{-t^2}^k=\frac{1-\p{-t^2}^{n+1}}{1-\p{-t^2}}\]
+%   car $-t^2\neq 1$. Donc~:
+%   \[\frac{1}{1+t^2}=\sum_{k=0}^n \p{-1}^k t^{2k}+\p{-1}^{n+1}\frac{t^{2n+2}}{1+t^2}\]
+%   Donc~:
+%   \[\integinv{0}{1}{1+t^2}{t}
+%     =\sum_{k=0}^n \p{-1}^k \integ{0}{1}{t^{2k}}{t}+
+%      \integ{0}{1}{\p{-1}^{n+1}\frac{t^{2n+2}}{1+t^2}}{t}\]
+%   On en déduit que
+%   \[\frac{\pi}{4}-\sum_{k=0}^n \frac{\p{-1}^k}{2k+1}=
+%     \integ{0}{1}{\p{-1}^{n+1}\frac{t^{2n+2}}{1+t^2}}{t}\]
+%   Or
+%   \[\abs{\p{-1}^{n+1}\frac{t^{2n+2}}{1+t^2}}=\frac{t^{2n+2}}{1+t^2}\leq t^{2n+2}\]
+%   Donc~:
+%   \[\abs{\frac{\pi}{4}-\sum_{k=0}^n \frac{\p{-1}^k}{2k+1}}\leq
+%     \integ{0}{1}{t^{2n+2}}{t}=\frac{1}{2n+3}\]
+%   On en déduit que~:
+%   \[\abs{\pi-4\sum_{k=0}^n \frac{\p{-1}^k}{2k+1}}\leq\frac{4}{2n+3}\]
+\end{exos}
+
+
+% \begin{proposition}
+% Soit $\conj{x}$ une application affine du segment $\intergf{t_a}{t_b}$ sur le
+% segment $\intergf{x_a}{x_b}$ avec $x_a=\conj{x}\p{t_a}$ et
+% $x_b=\conj{x}\p{t_b}$ et $f$ une fonction continue par morceaux sur le segment
+% $\intergf{x_a}{x_b}$.
+% Alors~:
+% \[\integ{x_a}{x_b}{f(x)}{x}=\integ{t_a}{t_b}{f\p{\conj{x}(t)}
+%   \frac{d\conj{x}}{dt}}{t}\]
+% où $\frac{d\conj{x}}{dt}$ est la pente de $\conj{x}$, c'est-à-dire que si
+% $\conj{x}(t)=\alpha t+\beta$, $\frac{d\conj{x}}{dt}=\alpha$.
+% \end{proposition}
+
+
+
+\subsection{Sommes de \nom{Riemann}}
+
+\begin{proposition}[utile=3]
+Soit $f:[a,b]\to\K$ une fonction continue par morceaux.  Alors
+\[\frac{b-a}{n}\sum_{k=0}^{n-1} f\p{a+k\frac{b-a}{n}}
+  \tendvers{n}{+\infty} \integ{a}{b}{f(x)}{x}.\]
+\end{proposition}
+
+\begin{preuve}
+(ADMIS dans le cas général). On se contente de faire ici une preuve dans le cas où $f$ est croissante et continue par morceaux (cas $\classec{1}$ en TD). On prend une subdivision régulière et grâce à la croissance, on obtient $$\frac{b-a}{n}\sum_{k=0}^{n-1} f\p{x_k}\leq \integ{a}{b}{f(x)}{x}\leq \frac{b-a}{n}\sum_{k=1}^{n} f\p{x_k}=\frac{b-a}{n}\sum_{k=0}^{n-1} f\p{x_k}+\frac{b-a}{n}(f(b)-f(a))$$ d'où le résultat.
+\end{preuve}
+
+\begin{remarqueUnique}
+\remarque[utile=-3] Si $f:[a,b]\to\K$ est continue par morceaux, de même
+  \[\frac{b-a}{n}\sum_{k=1}^n f\p{a+k\frac{b-a}{n}}
+    \tendvers{n}{+\infty} \integ{a}{b}{f(x)}{x}.\]
+\end{remarqueUnique}
+
+\begin{exos}
+\exo[utile=3] Calculer la limite de la suite de terme général
+  \[\sum_{k=1}^n \frac{n+k}{n^2+k^2}.\]
+  \begin{sol}
+  Somme de \nom{Riemann} avec $f(x)=\dfrac{1+x}{1+x^2}$ et on trouve $I=\arctan(1)+\ln(2)/2=\pi/4+\ln(2)/2$.
+  \end{sol}
+\exo[utile=3] Soit $\alpha\in\RPs$. Trouver un équivalent simple de
+  \[\sum_{k=0}^n k^\alpha.\]
+  \begin{sol}
+  $$u_n=n^{\alpha+1}\frac{1}{n}\sum_{k=1}^n\p{\frac{k}{n}}^\alpha$$
+  On trouve donc que $\dfrac{u_n}{n^{\alpha+1}}\tendvers{n}{+\infty}\dfrac{1}{\alpha+1}$, d'où l'équivalent.
+  \end{sol}
+% \exo Soit $g$ une fonction convexe sur $\R$ et $f$ une fonction réelle, continue
+%   sur $\interf{0}{1}$. Montrer que
+%   \[g\p{\integ{0}{1}{f(t)}{t}}\leq\integ{0}{1}{g\p{f(t)}}{t}\]
+\end{exos}
+
+\section{Intégration et dérivation}
+\subsection{Continuité et dérivabilité}
+\begin{proposition}[utile=-3]
+Soit $f:I\to\K$ une fonction continue par morceaux, $a\in I$ et
+$F$ la fonction définie sur $I$ par
+\[\forall x\in I \qsep F(x)\defeq\integ{a}{x}{f(t)}{t}.\]
+On suppose qu'il existe un intervalle $J\subset I$ et un réel $M\in\RP$ tels
+que
+\[\forall x\in J \qsep \abs{f(x)}\leq M.\]
+Alors $F$ est $M$-lipschitzienne sur $J$.
+\end{proposition}
+
+\begin{preuve}
+Soit $x,y\in A$. Alors $$|F(x)-F(y)|=\abs{\integ{a}{x}{f(t)}{t}-\integ{a}{y}{f(t)}{t}}=\abs{\integ{y}{x}{f(t)}{t}}$$ puis on distingue bien les cas où $x\geq y$ et où $y\geq x$ pour appliquer proprement l'inégalité triangulaire.
+
+En particulier, ce caractère lipschitzien donne la continuité, ce qu'on va utiliser dans la preuve suivante.
+\end{preuve}
+
+\begin{proposition}[utile=-3]
+Soit $f:I\to\K$ une fonction continue par morceaux, $a\in I$ et $F$ la fonction
+définie sur $I$ par
+\[\forall x\in I \qsep F(x)\defeq\integ{a}{x}{f(t)}{t}.\]
+Alors $F$ est continue sur $I$.
+\end{proposition}
+
+\begin{preuve}
+Soit $x_0\in I$. On suppose (pour s'éviter des écritures différentes de $[x_0-\eta,x_0+\eta]$) que $x_0$ n'est pas une borne de $I$. Alors, il existe $\eta>0$ tel que $[x_0-\eta,x_0+\eta]\subset I$. Or $f$ est continue par morceaux sur $[x_0-\eta,x_0+\eta]$ donc elle y est bornée (par $M$) donc d'après la proposition précédente, elle y est $M$-lipschitzienne donc continue. En particulier, on a montré que $f$ était continue en $x_0$.
+
+\end{preuve}
+
+
+\begin{proposition}[utile=-3]
+Soit $f:I\to\K$ une fonction continue par morceaux, $a\in I$ et $F$ la fonction définie sur $I$ par
+\[\forall x\in I \qsep F(x)\defeq\integ{a}{x}{f(t)}{t}.\]
+Soit $x_0\in I$. Si $f$ est continue en $x_0$, alors $F$ est dérivable en $x_0$
+et
+\[F'\p{x_0}=f\p{x_0}.\]
+\end{proposition}
+
+\begin{preuve}
+Soit $f$ une fonction continue par morceaux sur un intervalle $I$ et
+$a\in I$. Soit $F$ la fonction définie sur $I$ par~:
+\[\forall x\in I \quad F(x)=\integ{a}{x}{f(t)}{t}.\]
+Soit $x_0\in I$. On suppose que $f$ est continue en $x_0$. Montrons que $F$ est dérivable en $x_0$
+et~:
+\[F'\p{x_0}=f\p{x_0}.\]
+
+On suppose (par simplicité) que $x_0$ n'est pas une borne de $I$. Il existe donc $\alpha>0$ tel que $\interf{x_0-\alpha}{x_0+\alpha}\subset I$. Soit $h\in \interf{-\alpha}{\alpha}\setminus\set{0}$, alors :
+$$\abs{\frac{F(x_0+h)-F(x_0)}{h}-f(x_0)}=\ldots=\abs{\frac{1}{h}\integ{x_0}{x_0+h}{(f(t)-f(x_0))}{t}}.$$
+Soit $\epsilon>0$. Par continuité de $f$ en $x_0$, il existe $\eta>0$ tel que $\forall t \in \interf{x_0-\eta}{x_0+\eta}, \abs{f(t)-f(x_0)}\leq \epsilon$. Grâce à cela, on montre que $\forall h \in \interf{-\eta}{\eta}\setminus\set{0}$, $$\abs{\frac{F(x_0+h)-F(x_0)}{h}-f(x_0)}\leq \epsilon$$ en distinguant bien $h>0$ et $h<0$ pour appliquer proprement l'inégalité triangulaire.
+
+\end{preuve}
+
+\begin{remarqueUnique}
+\remarque[utile=-3] Soit $f:I\to\K$ une fonction continue et $a,b:J\to I$ deux
+  fonctions dérivables. On définit la
+  fonction $g$ sur $J$ par
+  \[\forall x\in J \qsep g(x)\defeq\integ{a(x)}{b(x)}{f(t)}{t}.\]
+  Alors $g$ est dérivable sur $J$ et
+  \[\forall x\in J \qsep g'(x)=b'(x)f\p{b(x)}-a'(x)f\p{a(x)}.\]
+\end{remarqueUnique}
+
+% \begin{exoUnique}
+% \exo[utile=2] Déterminer les fonctions $f$, continues de $\intero{-1}{1}$ dans $\R$, telles que
+%   \[\forall x\in\intero{-1}{1} \qsep f(x)=1+\integ{0}{x}{f^2 (t)}{t}.\]
+
+% \end{exoUnique}
+
+%   \begin{sol}
+%   On fait une analyse-synthèse. Puisque $f$ est continue, $f^2$ aussi et donc on peut dériver la droite donc la gauche et $$\forall x \in \intero{-1}{1}, f'(x)=f^2(x).$$
+%   On a terriblement envie de diviser par $f^2(x)$ puis intégrer, mais il est assez chaud de voir que $f$ ne s'annule pas sur $\intero{-1}{1}$. En revanche, on sait que $f$ est croissante (dérivée positive) et que $f(0)=1$ donc si elle s'annule (procédons par l'absurde), c'est sur $\intero{-1}{0}$ et par croissance il existe $\alpha=\sup\set{x \text{ tel que } f(x)=0}$. Par continuité, on a aussi $f(\alpha)=0$. On peut résoudre notre problème sur $\intero{\alpha}{1}$ où elle ne s'annule pas. On a $$\forall x \in \intero{\alpha}{1}, \p{-\frac{1}{f}}'(x)=\dfrac{f'(x)}{f^2(x)}=1$$
+%   donc il existe $c\in \R$ tel que $-\dfrac{1}{f(x)}=x+c$, et on obtient $c=-1$ grâce à $f(0)=1$, d'où $f(x)=\dfrac{-1}{x-1}$. Et ceci ne tend pas vers $0$ en $\alpha$ d'où la contradiction. Donc elle ne s'annule pas, on peut finalement faire ce qu'on a fait sur tout l'intervalle et donc on trouve $$\forall x \in \intero{-1}{1}, f(x)=\dfrac{-1}{x-1}.$$
+%   Synthèse évidente.
+% \end{sol}  
+
+
+\subsection{Primitive}
+\begin{definition}[utile=-3]
+Soit $f$ une fonction définie sur une partie $\mathcal{D}$ de $\R$. On
+appelle \emph{primitive} de $f$ toute fonction dérivable $F:\mathcal{D}\to\K$ telle que
+\[\forall x\in\mathcal{D}\qsep \quad F'(x)=f(x).\]
+\end{definition}
+
+\begin{proposition}[utile=-3]
+Soit $f:I\to\K$ une fonction continue sur un intervalle $I$. Alors
+\begin{itemize}
+\item $f$ admet une primitive.
+\item Si $F:I\to\K$ est une primitive de $f$, une fonction $G:I\to\K$  est une primitive de $f$ si et seulement si il existe
+  $c\in\K$ tel que
+  \[\forall x\in I \qsep G(x)=F(x)+c.\]
+\end{itemize}
+\end{proposition}
+
+\begin{preuve}
+\begin{itemize}
+\item $f$ admet une primitive : la fonction $F$ définie sur $I$ par~:
+\[\forall x\in I \quad F(x)=\integ{a}{x}{f(t)}{t}\] fonctionne.
+\item Soit $F_1$ est une primitive de $f$. $F_2$ définie sur
+  $\mathcal{D}_f$ est une primitive de $f$ ssi $F_1'=F_2'$ ssi $(F_2-F_1)'=0$ ssi $F_2-F_1$ est constante ssi il existe
+  $c\in\K$ tel que~:
+  \[\forall x\in I \quad F_2(x)=F_1(x)+c.\]
+\end{itemize}
+\end{preuve}
+
+\begin{remarqueUnique}
+\remarque Si $f$ est une fonction continue sur une partie élémentaire
+$\mathcal{D}= I_1\cup\cdots\cup I_n$ (où $I_1,\ldots,I_n$ sont les composantes
+connexes de $\mathcal{D}$), alors $f$ admet une primitive. De plus, si $F:\mathcal{D}\to\K$ est
+une primitive de $f$, une fonction $G:\mathcal{D}\to\K$ est une primitive de $f$
+si et seulement si il existe $c_1,\ldots,c_n \in\K$ tels que
+\[\forall k\in\intere{1}{n} \qsep \forall x\in I_k \qsep
+ G(x)=F(x)+c_k.\]
+\end{remarqueUnique}
+
+\subsection{Calcul d'intégrales}
+\begin{theoreme}[nom={Théorème fondamental de l'analyse}]
+Soit $f:I\to\K$ une fonction continue, $a,b\in I$ et $F$ est
+une primitive de $f$. Alors
+\[\integ{a}{b}{f(x)}{x}=F(b)-F(a).\]
+\end{theoreme}
+
+\begin{preuve}
+Soit $x_0 \in I$.
+On définit la fonction $G$ sur $I$ par~:
+\[\forall x\in I \quad G(x)=\integ{x_0}{x}{f(t)}{t}.\]
+Puisque $f$ est continue sur $I$, $G$ est une primitive de $f$. Alors, puisque $I$ est un intervalle, il existe $c\in \C$ tel que $F=G+c$ sur $I$. Soient $a,b\in I$. Alors :
+$$F(b)-F(a)=(G(b)+c)-(G(a)+c)=G(b)-G(a)=\integ{x_0}{b}{f(x)}{x}-\integ{x_0}{a}{f(x)}{x}=\integ{a}{b}{f(x)}{x}.$$
+\end{preuve}
+
+\begin{remarques}
+\remarque Soit $f:I\to\K$ une fonction de classe $\classec{1}$  et
+  $a,b\in I$. Alors
+  \[f(b)-f(a)=\integ{a}{b}{f'(t)}{t}.\]
+\remarque[utile=3] Si $f$ est une fonction de classe $\classec{1}$ sur
+  l'intervalle $I$ et s'il existe $M\in\RP$ tel que
+  \[\forall x\in I \qsep \abs{f'(x)}\leq M,\]
+  alors $f$ est $M$-lipschitzienne. On retrouve donc l'inégalité des
+  accroissements finis dans le cas où $f$ est de classe $\classec{1}$.  
+\end{remarques}
+
+\begin{exoUnique}
+\exo[utile=2] Soit $n\in\Ns$, $a\in\RPs$ et $x,y\geq a$. Montrer que
+  \[\abs{\sqrt[n]{x}-\sqrt[n]{y}}\leq\frac{1}{na^{\frac{n-1}{n}}}\abs{x-y}.\]
+  \begin{sol}
+On introduit $\dspappli{f}{\RPs}{\R}{t}{\sqrt[n]{x}=t^{\frac{1}{n}}}$. $f$ est dérivable et $f'(t)=\frac{1}{t^{1-1/n}}$ donc $\forall t \geq a$, $$0\leq f'(t)\leq \frac{1}{a^{1-1/n}}$$ donc $\forall x,y\geq a$, si $y\geq x$
+$$\abs{f(y)-f(x)}=\abs{\integ{x}{y}{f'(t)}{t}}\leq \integ{x}{y}{\underbrace{\abs{f'(t)}}_{\leq \frac{1}{a^{1-1/n}}}}{t}\leq \frac{1}{na^{\frac{n-1}{n}}}\abs{x-y}$$ + symétrie des rôles.
+  \end{sol}
+\end{exoUnique}
+
+\begin{proposition}[nom={Intégration par parties}]
+Soit $f:I\to\K$ une fonction continue, $g:I\to\K$ une fonction
+de classe $\classec{1}$ et $a,b\in I$. Alors, si $F$ est une primitive de $f$
+\[\integppid{a}{b}{f(x)}{g(x)}{x}=\evaldiff{F(x)g(x)}{a}{b}-
+  \integ{a}{b}{F(x)g'(x)}{x}.\]
+\end{proposition}
+
+\begin{preuve}
+On introduit la fonction $\phi=Fg$ elle est $\classec{1}$ et $\phi'=fg+Fg'$ ce qu'on intègre entre $a$ et $b$ et on utilise le théorème fondamental de l'analyse pour la gauche.
+\end{preuve}
+
+\begin{exoUnique}
+\exo[utile=3] Pour tout $n\in\N$, on définit
+  \[I_n\defeq\integ{0}{\frac{\pi}{2}}{\sin^n x}{x}.\]
+  Calculer $I_n$.
+  \begin{sol}
+  Soit $n\in\N$. On effectue une IPP :
+\begin{eqnarray*}
+I_{n+2}&=&\integ{0}{\frac{\pi}{2}}{\sin^{n+1} (t)\sin (t)}{t}=\left[-\sin^{n+1} (t) \cos (t)\right]_0^{\frac{\pi}{2}}-\integ{0}{\frac{\pi}{2}}{(n+1)(-\cos (t) \sin^n (t))(-\cos(t))}{t}\\
+&=&0-(n+1)\integ{0}{\frac{\pi}{2}}{(1-\sin^2(t))\sin^n(t)}{t}\\
+&=&(n+1)(I_n-I_{n+2})
+\end{eqnarray*}
+D'où $$I_{n+2}=\frac{n+1}{n+2}I_n$$ On conclut alors grâce à un produit télescopique et les calculs de $I_0$ et $I_1$ : $I_0=\dfrac{\pi}{2}$ et $I_1=1$.
+  On trouve
+  \[I_{2n}=\frac{\p{2n}!}{\p{2^n n!}^2}\cdot\frac{\pi}{2} \et
+    I_{2n+1}=\frac{\p{2^n n!}^2}{\p{2n+1}!}\]
+  \end{sol}
+% \exo[utile=3] Soit $f$ une fonction de classe $\classec{1}$ sur le segment
+%   $\interf{a}{b}$. Montrer que
+%   \[\integ{a}{b}{f(x)\cos\p{nx}}{x}\tendvers{n}{+\infty} 0.\]
+%   Étant donnés $a,b\in\R$, calculer
+%   \[\integ{0}{\pi}{\p{ax^2+bx}\cos\p{nx}}{x}\]
+%   et en déduire que
+%   \[\sum_{k=1}^n \frac{1}{k^2}\tendvers{n}{+\infty}\frac{\pi^2}{6}.\]
+\end{exoUnique}
+
+\begin{proposition}[nom={Changement de variable}]
+Soit $\conj{x}:I\to J$ une fonction de classe
+$\classec{1}$, $x_a,x_b\in J$ et $t_a,t_b\in I$ tels que
+$\conj{x}\p{t_a}=x_a$ et $\conj{x}\p{t_b}=x_b$ et $f:J\to\K$ une fonction continue. Alors
+\[\integ{x_a}{x_b}{f(x)}{x}=\integ{t_a}{t_b}{f\p{\conj{x}(t)}
+  \frac{\text{d}\conj{x}}{\text{d}t}(t)}{t}.\]
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque Cette proposition reste vraie lorsque $\conj{x}$ est monotone et $f$ est continue par morceaux.
+\end{remarqueUnique}
+
+\begin{preuve}
+Soit $F$ une primitive de $f$ sur $J$. On définit $\phi$ sur $I$ par $$\forall t \in I, \phi(t)=F(\conj{x}(t)).$$
+D'après les TOC, $\phi$ est $\classec{1}$ et $$\forall t \in I, \phi'(t)=F'(\conj{x}(t))\conj{x}'(t)=f(\conj{x}(t))\conj{x}'(t).$$
+Ainsi, $$\integ{t_a}{t_b}{\phi'(t)}{t}=\evaldiff{\phi(t)}{t_a}{t_b}=F(\conj{x}(t_b))-F(\conj{x}(t_a))=F(x_b)-F(x_a)=\integ{x_a}{x_b}{f(t)}{t}.$$
+D'où le résultat en remplaçant $\phi'$ par son expression obtenue plus haut.
+\end{preuve}
+
+\begin{sol}
+\`A tout ceux qui pensent qu'un changement de variable doit être bijectif, NON!!! 
+D'ailleurs, si on considère $$I=\integ{0}{1}{\sqrt{1-t^2}}{t}$$ et qu'on souhaite faire le changement de variable $t=\cos(u)$, on souhaite juste que $0$ et $1$ (les bornes initiales) aient des antécédents par $\cos$ mais on prend ceux qu'on veut :
+$$I=\integ{\pi/2}{0}{\sqrt{1-\cos^2(u)}(-\sin(u))}{u}=\integ{\pi/2+10\pi}{-2\pi}{\sqrt{1-\cos^2(u)}(-\sin(u))}{u}$$. On comprend facilement qu'on peut revenir dans l'autre sens en posant $t=\cos(u)$.
+\end{sol}
+
+\begin{exos}
+\exo[utile=2] Soit $a,b\in\R$ tels que $a\leq b$. Calculer
+  \[\integ{a}{b}{\sqrt{\p{x-a}\p{b-x}}}{x}.\]
+  \begin{sol}
+  On fait d'abord le cdv $x=a+u(b-a)$ puis $v=2u-1$ puis plus tard $v=\sin(\theta)$ :
+  \begin{eqnarray*}
+  \integ{a}{b}{\sqrt{\p{x-a}\p{b-x}}}{x}&=&(b-a)^2\integ{0}{1}{\sqrt{u(1-u)}}{u}\\
+  &=&(b-a)^2\integ{0}{1}{\sqrt{-((u-1/2)^2-1/4)}}{u}\\
+  &=&\frac{(b-a)^2}{2}\integ{0}{1}{\sqrt{-((2u-1)^2-1)}}{u}\\
+  &=&\frac{(b-a)^2}{4}\integ{-1}{1}{\sqrt{1-v^2}}{v}\\
+  &=&\frac{(b-a)^2}{4}\integ{-\frac{\pi}{2}}{\frac{\pi}{2}}{\cos^2(\theta)}{\theta}\\
+  &=&\frac{(b-a)^2}{8}\integ{-\frac{\pi}{2}}{\frac{\pi}{2}}{1+\cos(2\theta)}{\theta}\\
+  &=&\frac{\p{b-a}^2}{8}\pi.
+  \end{eqnarray*}
+  \end{sol}
+\exo[utile=2] Soit $f:\R\to\R$ une fonction continue en $0$ telle
+  que
+  \[\forall x,y\in\R \qsep f\p{x+y}=f(x)+f(y).\]
+  Montrer que $f$ est linéaire.
+  \begin{sol}
+  On fait dans l'ordre~:
+  \begin{itemize}
+  \item On calcule $f\p{0}$ et on prouve que $f$ est continue sur $\R$.
+  \item On montre que
+    \[\forall x\in\R \quad \integ{x}{x+1}{f(t)}{t}=
+      f(x)+\integ{0}{1}{f(t)}{t}\] à l'aide du cdv $t=x+u$.
+  \item On en déduit que $f$ est dérivable et que $f'(x)=f\p{1}$.
+  \end{itemize}
+  \end{sol}
+\end{exos}
+
+\begin{proposition}[utile=-3]
+$\quad$
+\begin{itemize}
+\item Soit $a\geq 0$ et $f:[-a,a]\to\K$ une fonction continue par morceaux.
+  \begin{itemize}
+  \item Si $f$ est paire
+    \[\integ{-a}{0}{f(x)}{x}=\integ{0}{a}{f(x)}{x}.\]
+    En particulier
+    \[\integ{-a}{a}{f(x)}{x}=2\integ{0}{a}{f(x)}{x}.\]
+  \item Si $f$ est impaire
+    \[\integ{-a}{0}{f(x)}{x}=-\integ{0}{a}{f(x)}{x}.\]
+    En particulier
+    \[\integ{-a}{a}{f(x)}{x}=0.\]
+  \end{itemize}
+\item Soit $f:\R\to\K$ une fonction continue par morceaux, $T$-périodique. Alors
+  \[\integ{a}{a+T}{f(x)}{x}.\]
+  ne dépend pas du réel $a$.
+\end{itemize}
+\end{proposition}
+
+\begin{preuve}
+Pour les deux premières, changement de variable $u=-x$, pour le troisième point, on dérive cela comme une fonction de $a$.
+\end{preuve}
+
+% \begin{exoUnique}
+% \exo[utile=2] Donner une équivalent de la suite de terme général
+%   \[\integ{0}{n}{\abs{\sin x}}{x}.\]
+% % \exo Soit $f:\interf{a}{b}\to\C$ une fonction continue par morceaux et
+% %   $g:\R\to\R$ une fonction $1$-périodique, continue par morceaux. Montrer que
+% %   la suite de terme général
+% %   \[\integ{a}{b}{f(x)g\p{nx}}{x}\]
+% %   converge et calculer sa limite.
+% %   \begin{sol}
+% %   On trouve pour limite
+% %   \[\p{\integ{a}{b}{f(x)}{x}}\p{\integ{0}{1}{g(x)}{x}}\]
+% %   \end{sol}  
+% \end{exoUnique}
+
+\subsection{Formules de \nom{Taylor}}
+\subsubsection{Formule de \nom{Taylor} avec reste intégral}
+\begin{proposition}[utile=3, nom=Formule de \nom{Taylor} avec reste intégral]
+Soit $f:I\to\K$ une fonction de classe $\classec{n+1}$. Si $a,b\in I$, alors
+  \[f(b)=\sum_{k=0}^n \frac{f^{(k)}(a)}{k!}\p{b-a}^k+
+           \integ{a}{b}{\frac{\p{b-t}^n}{n!}f^{(n+1)}(t)}{t}.\]
+\end{proposition}
+
+\begin{preuve}
+Récurrence avec IPP sur l'intégrale.
+\end{preuve}
+
+\begin{exos}
+\exo[utile=2] Montrer que
+  \[\sum_{k=0}^n \frac{1}{k!}\tendvers{n}{+\infty}\e.\]
+  \begin{sol}
+  On applique Taylor reste intégrale à l'exponentielle entre $0$ et $1$. Puis pour l'intégrale, en majorant $e^t$ par $e$, on parvient à $$0\leq \integ{0}{1}{\frac{(1-t)^n}{n!}\e^t}{t}\leq e\evaldiff{\frac{-(1-t)^{n+1}}{(n+1)!}}{0}{1}=\frac{e}{(n+1)!}$$ puis gendarmisation.
+  \end{sol}
+\exo[utile=2] Soit $f$ une fonction de classe $\classec{2}$ sur $\interf{0}{1}$.
+  Montrer que
+  \[\frac{1}{n}\sum_{k=0}^{n-1} f\p{\frac{k}{n}}=\integ{0}{1}{f(x)}{x}+
+    \frac{f(0)-f(1)}{2n}+\petito{n}{+\infty}{\frac{1}{n}}.\]
+    \begin{sol}
+    On pose $x_k=\dfrac{k}{n}, \forall k \in \intere{0}{n}$ et on considère $F$ (qui sera donc $\classec{3}$) une primitive de $f$ sur $\interf{0}{1}$.
+    TRI entre $x_k$ et $x_{k+1}$ donne :
+    $$F(x_{k+1})=F(x_k)+\dfrac{1}{n}f(x_k)+\frac{1}{2n^2}f'(x_k)+\integ{x_k}{x_{k+1}}{\frac{(x_{k+1}-t)^2}{2}f''(t)}{t},$$
+    ce qui devient à l'aide du théorème fondamental de l'analyse :
+    $$\integ{x_k}{x_{k+1}}{f(t)}{t}=\dfrac{1}{n}f(x_k)+\frac{1}{2n^2}f'(x_k)+\integ{x_k}{x_{k+1}}{\frac{(x_{k+1}-t)^2}{2}f''(t)}{t}.$$
+    On somme alors cela entre $0$ et $n-1$ ce qui donne après réorganisation :
+    $$u_n:=\frac{1}{n}\sum_{k=0}^{n-1} f\p{\frac{k}{n}}=\integ{0}{1}{f(t)}{t}-\frac{1}{2n}\underbrace{\frac{1}{n}\sum_{k=0}^{n-1} f'\p{\frac{k}{n}}}_{:=v_n}-\sum_{k=0}^{n-1}\integ{x_k}{x_{k+1}}{\frac{(x_{k+1}-t)^2}{2}f''(t)}{t}.$$
+    Et d'après le théorème sur les sommes de \nom{Riemann}, $v_n\tendvers{n}{+\infty}{\integ{0}{1}{f'(t)}{t}}=f(1)-f(0)$ donc $$u_n=\integ{0}{1}{f(t)}{t}+\frac{f(0)-f(1)}{2n}+\petito{n}{+\infty}{\frac{1}{n}}-\sum_{k=0}^{n-1}\integ{x_k}{x_{k+1}}{\frac{(x_{k+1}-t)^2}{2}f''(t)}{t}.$$
+    Il reste à montrer que le dernier terme est un $\petito{n}{+\infty}{\frac{1}{n}}$ ce qu'on fait à coup d'IT et de $f''$ qui est $\classec{0}$ et donc bornée par $M$. On parvient à $$\abs{\sum_{k=0}^{n-1}\integ{x_k}{x_{k+1}}{\frac{(x_{k+1}-t)^2}{2}f''(t)}{t}}\leq M \sum_{k=0}^{n-1}\integ{x_k}{x_{k+1}}{\frac{(x_{k+1}-t)^2}{2}}{t}=M \sum_{k=0}^{n-1}\frac{(x_{k+1}-x_k)^3}{6}=\frac{1}{6}M\sum_{k=0}^{n-1}\p{\frac{1}{n}}^3=\frac{M}{6n^2}.$$
+    
+    \end{sol}
+\end{exos}
+
+\begin{proposition}[utile=3, nom=Inégalité de \nom{Taylor-Lagrange}]
+Soit $f:I\to\K$ une fonction de classe $\classec{n+1}$. On
+suppose qu'il existe $M\in\RP$ tel que
+\[\forall t\in I \qsep \abs{f^{(n+1)}(t)}\leq M.\]
+Si $a,b\in I$, alors
+  \[\abs{f(b)-\sum_{k=0}^n \frac{f^{(k)}(a)}{k!}\p{b-a}^k}\leq
+  \frac{M}{\p{n+1}!}\abs{b-a}^{n+1}.\]
+\end{proposition}
+
+\begin{preuve}
+Il n'y a qu'à majorer le reste intégral par IT en distinguant bien les cas pour les bornes soient dans le bon ordre.
+\end{preuve}
+
+\begin{sol}
+NB : On a toujours avec $f$ une fonction de classe $\classec{n+1}$ sur l'intervalle $I$ $$\abs{f(b)-\sum_{k=0}^n \frac{f^{(k)}(a)}{k!}\p{b-a}^k}\leq
+  \frac{\sup_{t\in\interf{a}{b}}\abs{f^{(n+1)}(t)}}{\p{n+1}!}\abs{b-a}^{n+1}.$$
+\end{sol}
+\subsubsection{Intégration de développement limité}
+\begin{proposition}[utile=1]
+Soit $f$ et $g:I\to\K$ deux fonctions continues par morceaux sur un intervalle
+contenant $0$. On suppose que $g$ est de signe constant au voisinage à gauche
+de $0$ et au voisinage à droite de $0$. Si
+\[f(x)=\petitozero{x}{g(x)},\]
+alors
+\[\integ{0}{x}{f(t)}{t}=\petitozero{x}{\integ{0}{x}{g(t)}{t}}.\]
+\end{proposition}
+
+\begin{proposition}[utile=3]
+Soit $f:I\to\K$ une fonction continue sur un intervalle contenant $0$. On
+suppose que $f$ admet un développement limité en $0$ à l'ordre $n$
+\[f(x)=\sum_{k=0}^n a_k x^k+\petitozero{x}{x^n}.\]
+Si $F$ est une primitive de $f$, alors elle admet un développement limité en 0 à
+l'ordre $n+1$ donné par
+\[F(x)=F\p{0}+\sum_{k=0}^n \frac{a_k}{k+1} x^{k+1}+
+                          \petitozero{x}{x^{n+1}}.\]
+\end{proposition}
+
+\begin{proposition}[utile=-3, nom=Formule de \nom{Taylor-Young}]
+Soit $n\in\Ns$ et $f:I\to\K$ une fonction de classe $\classec{n-1}$ sur un intervalle contenant $a\in\R$. On suppose de plus que $f$ est
+dérivable $n$ fois en $a$. Alors $f$ admet un développement limité en $a$ à
+l'ordre $n$ et
+\[f\p{a+h}=\sum_{k=0}^n \frac{f^{(k)}(a)}{k!}h^k+\petitozero{h}{h^n}.\]
+\end{proposition}
+
+
+%END_BOOK
+
+% \section{Intégrale de \nom{Riemann}}
+
+% \subsection{Uniforme continuité}
+
+% \begin{definition}[utile=-3]
+% On dit qu'une fonction $f$ est uniformément continue lorsque~:
+% \[\forall \epsilon>0 \quad \exists \eta>0 \quad \forall x,y\in\mathcal{D}_f\quad
+%   \abs{x-y}\leq\eta \implique \abs{f(x)-f(y)}\leq\epsilon\]
+% \end{definition}
+
+% \begin{remarqueUnique}
+% \remarque[utile=-3] Une fonction lipschitzienne est uniformément continue.
+% % \remarque Soit $\alpha\in\RPs$. On dit qu'une fonction $f$ est
+% %   $\alpha$-Hölderienne lorsqu'il existe $M\in\RP$ tel que
+% %   \[\forall x\in\mathcal{D}_f \quad \abs{f(x)-f(y)}\leq M\abs{x-y}^\alpha\]
+% %   Une fonction Hölderienne est uniformément continue.
+% \end{remarqueUnique}
+
+% \begin{exoUnique}
+% \exo[utile=2] Montrer que la fonction $x\mapsto\sqrt{x}$ est uniformément continue
+%   mais n'est pas lipschitzienne.
+% \end{exoUnique}
+
+% \begin{proposition}[utile=-3]
+% Si $f$ est uniformément continue, alors elle est continue.
+% \end{proposition}
+
+% \begin{remarques}
+% \remarque[utile=3] Soit $f$ une fonction continue. Alors
+%   \[\forall x\in\mathcal{D}_f \quad \forall \epsilon>0 \quad \exists \eta>0
+%     \quad \forall y\in\mathcal{D}_f \quad \abs{x-y}\leq\eta \implique
+%     \abs{f(x)-f(y)}\leq\epsilon\]
+%   Les deux premiers quantificateurs étant de même nature, on peut les échanger,
+%   donc
+%   \[\forall \epsilon>0 \quad \forall x\in\mathcal{D}_f \quad \exists \eta>0
+%     \quad \forall y\in\mathcal{D}_f \quad \abs{x-y}\leq\eta \implique
+%     \abs{f(x)-f(y)}\leq\epsilon\]
+%   Une fonction est donc uniformément continue lorsqu'on peut échanger les
+%   quantificateurs portant sur $x$ et $\eta$, c'est-à-dire lorsqu'il est
+%   possible de choisir $\eta$ indépendamment de $x$.
+% % \remarque Supposons que $f$ soit uniformément continue. Alors, si $\p{u_n}$
+% %   et $\p{v_n}$ sont deux suites d'éléments de $\mathcal{D}_f$ telles que
+% %   \[v_n-u_n\tendvers{n}{+\infty}0\]
+% %   on a $f\p{u_n}-f\p{v_n}\tendvers{n}{+\infty}0$. En effet, soit $\epsilon>0$.
+% %   Puisque $f$ est uniformément continue, il existe $\eta>0$ tel que
+% %   \[\forall x,y\in\mathcal{D}_f\quad
+% %     \abs{x-y}\leq\eta \implique \abs{f(x)-f(y)}\leq\epsilon\]
+% %   Puisque $u_n-v_n$ tend vers 0, il existe $N\in\N$ tel que
+% %   \[\forall n\geq N \quad \abs{u_n-v_n}\leq\eta\]
+% %   Donc, pour $n\geq N$, on a $\abs{f\p{u_n}-f\p{v_n}}\leq\epsilon$. En
+% %   conclusion
+% %   \[f\p{u_n}-f\p{v_n}\tendvers{n}{+\infty}0\]
+% %   En particulier, si on trouve deux suites $\p{u_n}$ et $\p{v_n}$ d'élements
+% %   de $\mathcal{D}_f$ telles que $u_n-v_n$ converge vers 0 et $f\p{u_n}-f\p{v_n}$
+% %   ne converge pas vers 0, on peut en conclure que $f$ n'est pas uniformément
+% %   continue.\\
+% %   On démontre ainsi que $x\mapsto x^2$ n'est pas uniformément continue.
+% %   En effet si $\p{u_n}$ et $\p{v_n}$ sont définies par
+% %   \[\forall n\in\Ns \quad u_n=n+\frac{1}{n} \et v_n=n\]
+% %   alors $v_n-u_n=1/n$ tend vers 0, et
+% %   \[u_n^2-v_n^2=\p{n+\frac{1}{n}}^2-n^2=2+\frac{1}{n^2}\tendvers{n}{+\infty}
+% %     2\neq 0\]
+% %   Donc $x\mapsto x^2$ n'est pas uniformément continue.
+% \end{remarques}
+
+% \begin{exoUnique}
+% \exo[utile=2] Montrer que la fonction $f$ définie sur $\R$ par $f(x)=x^2$
+%   n'est pas uniformément continue.
+%   \begin{sol}
+%   On souhaite montrer que
+%   \[\non\cro{\forall \epsilon>0 \quad \exists \eta>0 \quad
+%            \forall x,y\in\R\quad
+%            \abs{x-y}\leq\eta \implique \abs{x^2-y^2}\leq\epsilon}\]
+%   c'est-à-dire que
+%   \[\exists \epsilon>0 \quad \forall \eta>0 \quad \exists x,y\in\R
+%     \quad
+%     \begin{cases}
+%     \abs{x-y}\leq\eta \\
+%     \abs{x^2-y^2}>\epsilon
+%     \end{cases}\]
+%   On pose $\epsilon=1$. Soit $\eta>0$. Alors, il existe $n\in\Ns$ tel que
+%   $1/n\leq\eta$. On pose alors $x=n+1/n$ et $y=n$. Alors $\abs{x-y}=1/n\leq\eta$
+%   et $\abs{x^2-y^2}=2+1/n^2>1=\epsilon$. Donc $f$ est continue mais n'est pas
+%   uniformément continue.      
+%   \end{sol}
+% \end{exoUnique}
+
+% \begin{theoreme}[utile=3, nom=Théorème de Heine]
+% Sur un segment, toute fonction continue est uniformément continue.
+% \end{theoreme}
+
+% \begin{preuve}
+% Soit $f$ une fonction continue sur $\interf{a}{b}$. Montrons qu'elle y est
+% uniformément continue. On raisonne par l'absurde et on suppose que
+% \[\non\cro{\forall \epsilon>0 \quad \exists \eta>0 \quad
+%            \forall x,y\in\interf{a}{b}\quad
+%            \abs{x-y}\leq\eta \implique \abs{f(x)-f(y)}\leq\epsilon}\]
+% donc
+% \[\exists \epsilon>0 \quad \forall \eta>0 \quad \exists x,y\in\interf{a}{b}
+%   \quad
+%   \begin{cases}
+%   \abs{x-y}\leq\eta \\
+%   \abs{f(x)-f(y)}>\epsilon
+%   \end{cases}\]
+% Soit un tel $\epsilon$. Étant donné $n\in\N$, en posant $\eta=1/2^n>0$, il
+% existe $x_n,y_n\in\interf{a}{b}$ tels que $\abs{x_n-y_n}\leq 1/2^n$
+% et $\abs{f\p{x_n}-f\p{y_n}}\geq \epsilon$. On construit ainsi deux suites
+% $\p{x_n}$ et $\p{y_n}$ d'éléments de $\interf{a}{b}$. Comme $\p{x_n}$ est
+% bornée, d'après le théorème de Bolzano-Weierstrass, il existe une extractrice
+% $\phi$ et un réel $l$ tel que
+% \[x_{\phi(n)}\tendvers{n}{+\infty} l\]
+% Comme
+% \[\forall n\in\N \quad a\leq x_{\phi(n)}\leq b\]
+% on en déduit que $l\in\interf{a}{b}$. De plus
+% \begin{eqnarray*}
+% \forall n\in\N \quad \abs{y_{\phi(n)}-l}
+% &=& \abs{y_{\phi(n)}-x_{\phi(n)}+x_{\phi(n)}-l}\\
+% &\leq& \abs{y_{\phi(n)}-x_{\phi(n)}}+\abs{x_{\phi(n)}-l}\\
+% &\leq& \frac{1}{2^{\phi(n)}}+\abs{x_{\phi(n)}-l}\tendvers{n}{+\infty} 0
+% \end{eqnarray*}
+% Donc 
+% \[y_{\phi(n)}\tendvers{n}{+\infty} l\]
+% Par continuité de $f$ en $l$, on en déduit que
+% \[\abs{f\p{x_{\phi(n)}}-f\p{y_{\phi(n)}}}\tendvers{n}{+\infty}
+%   \abs{f(l)-f(l)}=0\]
+% C'est contradictoire avec le fait que
+% \[\forall n\in\N \quad \abs{f\p{x_{\phi(n)}}-f\p{y_{\phi(n)}}}\geq \epsilon\]
+% Donc $f$ est uniformément continue.
+% \end{preuve}
+
+% \subsection{Fonctions en escalier}
+
+
+% \begin{definition}[utile=-3]
+% $\quad$
+% \begin{itemize}
+% \item Soit $\interf{a}{b}$ un segment. On dit qu'une fonction
+%   $\phi : \interf{a}{b}\to\K$ est une fonction en escalier sur
+%   $\interf{a}{b}$ lorsqu'il existe une subdivision
+%   \mbox{$\tau : a=x_0<\dots<x_n=n$}
+%   du segment $\interf{a}{b}$ telle que $\phi$ soit constante sur chaque
+%   intervalle $\intero{x_k}{x_{k+1}}$~:
+%   \[\forall k\in\intere{0}{n-1} \quad \exists c_k\in\K \quad
+%     \forall x\in\intero{x_k}{x_{k+1}} \quad \phi(x)=c_k\]
+% \item Soit $I$ un intervalle. On dit qu'une fonction $\phi : I\to\K$ est en
+%   escalier sur $I$ lorsque sa restriction à tout segment $\interf{a}{b}$ de $I$
+%   est en escalier sur $\interf{a}{b}$.
+% \end{itemize}
+% \end{definition}
+
+% \begin{remarques}
+% \remarque[utile=-2] Si on change la valeur d'une fonction en escalier en un nombre fini
+%   de points, elle reste en escalier.
+% \end{remarques}
+
+% \begin{proposition}[utile=-3]
+% Soit $\phi$ une fonction en escalier sur un segment $\interf{a}{b}$. Alors
+% $\phi$ est bornée sur $\interf{a}{b}$.
+% \end{proposition}
+
+% \begin{proposition}[utile=-3]
+% Soit $I$ un intervalle.
+% \begin{itemize}
+% \item L'ensemble des fonctions réelles en escalier sur $I$ est une
+%   sous-algèbre de $\mathcal{F}\p{I,\R}$.
+% \item L'ensemble des fonctions complexes en escalier sur $I$ est une
+%   sous-algèbre de $\mathcal{F}\p{I,\C}$. De plus si $\phi$ est une fonction
+%   en escalier sur $I$, il en est de même pour $\conj{\phi}$ et $\abs{\phi}$.
+% \end{itemize}
+% \end{proposition}
+
+
+% \begin{proposition}[utile=3]
+% Soit $f$ une fonction continue par morceaux sur le segment $\interf{a}{b}$
+% et $\epsilon>0$. Alors, il existe une fonction en escalier $\phi$ définie sur
+% $\interf{a}{b}$ telle que~:
+% \[\forall x\in\interf{a}{b} \quad \abs{f(x)-\phi(x)}\leq\epsilon\]
+% \end{proposition}
+% \begin{preuve}
+% Commençons la démonstration dans le cas où $f$ est continue. Soit $f$ une
+% fonction continue sur le segment $\interf{a}{b}$. D'après le théorème de Heine,
+% elle y est donc uniformément continue. Soit $\epsilon>0$. Il existe donc
+% $\eta>0$ tel que
+% \[\forall x,y\in\interf{a}{b} \quad \abs{x-y}\leq\eta \implique
+%   \abs{f(x)-f(y)}\leq\epsilon\]
+% Puisque $\p{b-a}/n$ tend vers 0 lorsque $n$ tend vers $+\infty$, il existe
+% $n\in\Ns$ tel que $\p{b-a}/n\leq\eta$. On considère la subdivision régulière
+% $\p{x_k}_{0\leq k\leq n}$ du segment $\interf{a}{b}$ de pas $\p{b-a}/n$. On
+% définit alors la fonctions en escalier $\phi$ sur $\interf{a}{b}$ par
+% \[\forall k\in\intere{0}{n-1} \quad \forall x\in\interfo{x_k}{x_{k+1}} \quad
+%   \phi(x)=f\p{x_k}\]
+% et $\phi(b)=f(b)$. Alors
+% \[\forall x\in\interf{a}{b} \quad \abs{f(x)-\phi(x)}\leq\epsilon\]
+% En, effet, soit $x\in\interf{a}{b}$.
+% \begin{itemize}
+% \item Si il existe $k\in\intere{0}{n-1}$ tel que $x\in\interfo{x_k}{x_{k+1}}$,
+%   alors
+%   \[\abs{f(x)-\phi(x)}=\abs{f(x)-f\p{x_k}}\leq\epsilon\]
+%   la dernière inégalité étant justifiée par le fait que
+%   $\abs{x-x_k}\leq\p{b-a}/n\leq\eta$.
+% \item Sinon, $x=b$ et $\abs{f(b)-\phi(b)}=0\leq\epsilon$.
+% \end{itemize}
+% On obtient ainsi le résultat demandé.\\
+% Supposons maintenant que $f$ soit une fonction continue par morceaux sur le
+% segment $\interf{a}{b}$. Alors il existe une subdivision
+% $\p{x_k}_{0\leq k\leq n}$ adaptée à $f$. Il existe donc une famille
+% $\p{f_k}_{0\leq k\leq n-1}$ de fonctions continues sur $\interf{x_k}{x_{k+1}}$
+% telles que
+% \[\forall k\in\intere{0}{n-1} \quad \forall x\in\intero{x_k}{x_{k+1}} \quad
+%   f(x)=f_k(x)\]
+% Soit $\epsilon>0$.
+% D'après la première partie de la démonstration, pour tout $k\in\intere{0}{n-1}$,
+% il existe une fonction en escalier $\phi_k$ sur $\interf{x_k}{x_{k+1}}$
+% telle que
+% \[\forall x\in\interf{x_k}{x_{k+1}} \quad \abs{f_k(x)-\phi_k(x)}
+%   \leq\epsilon\]
+% On définit alors la fonction en escalier $\phi$ sur $\interf{a}{b}$ par
+% \[\cro{\forall k\in\intere{0}{n-1} \quad \forall x\in\intero{x_k}{x_{k+1}} \quad
+%   \phi(x)=\phi_k(x)} \et 
+%   \cro{\forall k\in\intere{0}{n} \quad \phi\p{x_k}=f\p{x_k}}\]
+% La fonction $\phi$ répond bien au problème posé.
+% \end{preuve}
+
+% \subsection{Construction de l'intégrale de \nom{Riemann}}
+
+
+% \begin{definition}[utile=-3]
+% Soit $\phi$ une fonction en escalier sur le segment ${\rm Conv}(a,b)$ et
+% \mbox{$\tau : \min\p{a,b}=x_0<\dots<x_n=\max\p{a,b}$} une subdivision adaptée à
+% $\phi$. Il existe donc $c_0,\ldots,c_{n-1}\in\K$ tels que
+% \[\forall k\in\intere{0}{n-1} \quad \forall x\in\intero{x_k}{x_{k+1}} \quad
+%   \phi(x)=c_k.\]
+% On définit alors l'intégrale de $\phi$ entre $a$ et $b$ par
+% \[\integ{a}{b}{\phi(x)}{x}=
+%   \begin{cases}
+%   \dsp{\sum_{k=0}^{n-1} c_k\p{x_{k+1}-x_k}} & \text{si $a\leq b$}\\
+%   \dsp{-\integ{b}{a}{\phi(x)}{x}} & \text{sinon.}
+%   \end{cases}\]
+% \end{definition}
+
+% \begin{remarqueUnique}
+% \remarque[utile=-2] Si on change la valeur d'une fonction en un nombre fini de points, on
+%   ne change pas la valeur de son intégrale.
+% \end{remarqueUnique}
+
+% \begin{proposition}[utile=-3]
+% Soit $\phi_1$ et $\phi_2$ deux fonctions en escalier sur un intervalle $I$ et
+% $a,b\in I$. Si $\lambda,\mu\in\K$, alors
+% \[\integ{a}{b}{\lambda\phi_1(x)+\mu\phi_2(x)}{x}=
+%   \lambda\integ{a}{b}{\phi_1(x)}{x}+\mu\integ{a}{b}{\phi_2(x)}{x}.\]
+% \end{proposition}
+
+% \begin{proposition}[utile=-3]
+% Soit $\phi$ une fonction en escalier sur un intervalle $I$ et $a,b,c\in I$.
+% Alors
+% \[\integ{a}{c}{\phi(x)}{x}=\integ{a}{b}{\phi(x)}{x}+
+%                              \integ{b}{c}{\phi(x)}{x}.\]
+% \end{proposition}
+
+% \begin{proposition}[utile=-3]
+% Soit $\phi$ une fonction réelle en escalier sur l'intervalle $I$ et $a,b\in\R$.
+% Si
+% \[a\leq b \et \p{\forall x\in\interf{a}{b} \quad \phi(x)\geq 0},\]
+% alors
+% \[\integ{a}{b}{\phi(x)}{x}\geq 0.\]
+% \end{proposition}
+
+% \begin{proposition}[utile=-3]
+% Soit $\phi$ une fonction (réelle ou complexe) en escalier sur l'intervalle $I$
+% et $a,b\in\R$. Si $a\leq b$, alors
+% \[\abs{\integ{a}{b}{\phi(x)}{x}}\leq \integ{a}{b}{\abs{\phi(x)}}{x}.\]
+% \end{proposition}
+
+% % \begin{proposition}
+% % Soit $\conj{x}$ une application affine du segment $\intergf{a'}{b'}$ sur le
+% % segment $\intergf{a}{b}$ avec $a=\conj{x}\p{a'}$ et $b=\conj{x}\p{b'}$
+% % et $f$ une fonction en escalier sur le segment $\intergf{a}{b}$. Alors~:
+% % \[\integ{a}{b}{f(x)}{x}=\integ{a'}{b'}{f\p{\conj{x}(t)}
+% %   \frac{d\conj{x}}{dt}}{t}\]
+% % où $\frac{d\conj{x}}{dt}$ est la pente de $\conj{x}$, c'est-à-dire que si
+% % $\conj{x}(t)=\alpha t+\beta$, $\frac{d\conj{x}}{dt}=\alpha$.
+% % \end{proposition}
+% % \subsection{Intégrale d'une fonction continue par morceaux}
+
+% \begin{definition}[utile=-3]
+% $\quad$
+% \begin{itemize}
+% \item Soit $I$ un intervalle, $f$ une fonction réelle sur $I$ et $a,b\in I$.
+%   \begin{itemize}
+%   \item Si $a\leq b$, on définit les ensembles $A$ et $B$ par
+%     \[A\defeq\enstq{\integ{a}{b}{\phi(x)}{x}}{\text{$\phi$ est en escalier sur
+%       $\interf{a}{b}$ et $\phi\leq f$}},\]
+%     \[B\defeq\enstq{\integ{a}{b}{\phi(x)}{x}}{\text{$\phi$ est en escalier sur
+%       $\interf{a}{b}$ et $f\leq\phi$}}.\]
+%     On dit que $f$ est intégrable au sens de \nom{Riemann} entre $a$ et $b$ lorsque $A$ admet une
+%     borne supérieure, $B$ admet une borne inférieure et $\sup A=\inf B$.
+%     Si c'est le cas, cette borne commune est notée
+%     \[\integ{a}{b}{f(x)}{x}.\]
+%   \item Si $b\leq a$, on dit que $f$ est intégrale au sens de \nom{Riemann} entre $a$ et $b$ lorsque $f$ est intégrable au sens de \nom{Riemann} entre $b$ et $a$. Si c'est le cas, on pose
+%     \[\integ{a}{b}{f(x)}{x}\defeq-\integ{b}{a}{f(x)}{x}.\]
+%   \end{itemize}
+%   On dit que $f$ est intégrable au sens de \nom{Riemann} sur $I$ lorsqu'elle est intégrable au sens de \nom{Riemann} entre tout $a$ et $b\in I$.
+% \item Soit $I$ un intervalle, $f$ une fonction complexe sur $I$ et $a,b\in I$. On dit que $f$ est
+%   intégrable au sens de \nom{Riemann} entre $a$ et $b$ lorsque $\Re(f)$ et $\Im(f)$ le sont. Si c'est le cas, on pose
+%   \[\integ{a}{b}{f(x)}{x}\defeq\integ{a}{b}{\Re\p{f(x)}}{x}+i
+%     \integ{a}{b}{\Im\p{f(x)}}{x}.\]
+%     On dit que $f$ est intégrable au sens de \nom{Riemann} sur $I$ lorsqu'elle est intégrable au sens de \nom{Riemann} entre tout $a$ et $b\in I$.
+% \end{itemize}
+% \end{definition}
+
+% \begin{exos}
+% \exo[utile=1] Montrer qu'une fonction intégrable au sens de \nom{Riemann} sur un segment $\interf{a}{b}$ est bornée.
+% \exo[utile=1] Montrer que si $a,b\in\R$ sont tels que $a<b$, alors la fonction caractéristique de $\Q$ n'est pas intégrable au sens de \nom{Riemann} entre $a$ et $b$.
+% \exo[utile=1] Soit $f$ la fonction définie sur $\R$ par
+%   \[\forall x\in\R \quad f(x)=
+%   \begin{cases}
+%   x^2 \sin\p{\frac{1}{x^2}} & \text{si $x\neq 0$}\\
+%   0 & \text{si $x=0$.}
+%   \end{cases}\]
+%   Montrer que $f$ est dérivable sur $\R$ mais que sa dérivée n'est pas intégrable au sens de \nom{Riemann} sur $\R$.
+% \end{exos}
+
+% \begin{proposition}[utile=-3]
+% Soit $f$ une fonction à valeurs dans $\C$, définie sur un intervalle $I$ et $a,b\in I$ tels que $a\leq b$. Alors $f$ est intégrable au sens de \nom{Riemann} entre $a$ et $b$ si et seulement si pour tout $\epsilon >0$, il existe une fonction en escalier $\phi$ de $\interf{a}{b}$ dans $\C$ et une fonction en escalier $\psi$ de $\interf{a}{b}$ dans $\RP$ tels que
+% \[\p{\forall x\in\interf{a}{b} \quad \abs{f(x)-\phi(x)}\leq \psi(x)} \quad\text{et}\quad
+%   \integ{a}{b}{\psi(x)}{x}\leq\epsilon\]
+% \end{proposition}
+
+% \begin{proposition}[utile=3]
+% Soit $f$ une fonction continue par morceaux sur un intervalle $I$ et $a,b\in I$. Alors $f$ est intégrable au sens de \nom{Riemann} entre $a$ et $b$.
+% \end{proposition}
+
+% \begin{proposition}[utile=-3]
+% Soit $f$ et $g$ deux fonctions intégrables au sens de \nom{Riemann} sur un intervalle $I$ et $\lambda,\mu\in\C$. Alors $\lambda f+\mu g$ est intégrable au sens de \nom{Riemann} et pour tout $a,b\in I$, on a
+% \[\integ{a}{b}{\lambda f(x)+\mu g(x)}{x}=
+%   \lambda\integ{a}{b}{f(x)}{x}+\mu\integ{a}{b}{g(x)}{x}.\]
+% \end{proposition}
+
+% \begin{proposition}[utile=-1]
+% Soit $f$ une fonction intégrable au sens de \nom{Riemann} sur un intervalle $I$. Alors $\conj{f}$ est
+% intégrable au sens de \nom{Riemann} sur $I$ et pour tout $a,b\in I$
+% \[\conj{\integ{a}{b}{f(x)}{x}}= \integ{a}{b}{\conj{f(x)}}{x}.\]
+% \end{proposition}
+
+% \begin{proposition}[utile=-3]
+% Soit $f$ une fonction intégrable au sens de \nom{Riemann} sur $I$ et $a,b,c\in I$. Alors
+% \[\integ{a}{c}{f(x)}{x}=\integ{a}{b}{f(x)}{x}+\integ{b}{c}{f(x)}{x}.\]
+% \end{proposition}
+
+% \begin{proposition}[utile=-3]
+% Soit $f$ et $g$ deux fonctions intégrables au sens de \nom{Riemann} sur $I$ et $a,b\in I$ tels que
+% \[a\leq b \quad\text{et}\quad \p{\forall x\in\interf{a}{b} \quad f(x)\leq g(x)}.\]
+% Alors
+% \[\integ{a}{b}{f(x)}{x}\leq\integ{a}{b}{g(x)}{x}.\]
+% \end{proposition}
+
+% \begin{proposition}[utile=-2]
+% Soit $f$ une fonction intégrable au sens de \nom{Riemann} sur le segment $\interf{a}{b}$. Si $f$ est positive sur $\interf{a}{b}$ et si il existe
+% $x_0\in\interf{a}{b}$ en lequel $f$ est continue et $f\p{x_0}>0$, alors
+% \[\integ{a}{b}{f(x)}{x}>0.\]
+% \end{proposition}
+
+
+% \begin{proposition}[utile=-3,nom=Inégalité triangulaire]
+% Soit $f$ une fonction intégrable au sens de \nom{Riemann} sur le segment $\interf{a}{b}$. Alors $\abs{f}$ est intégrable au sens de \nom{Riemann} et
+% \[\abs{\integ{a}{b}{f(x)}{x}}\leq \integ{a}{b}{\abs{f(x)}}{x}.\]
+% \end{proposition}
+
+\end{document}

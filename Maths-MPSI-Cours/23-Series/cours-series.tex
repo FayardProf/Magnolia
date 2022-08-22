@@ -1,0 +1,911 @@
+\documentclass{magnolia}
+
+\magtex{tex_driver={pdftex},
+        tex_packages={epigraph,xypic}}
+\magfiche{document_nom={Cours sur les séries},
+          auteur_nom={François Fayard},
+          auteur_mail={fayard.prof@gmail.com}}
+\magcours{cours_matiere={maths},
+          cours_niveau={mpsi},
+          cours_chapitre_numero={21},
+          cours_chapitre={Séries}}
+\magmisenpage{misenpage_presentation={tikzvelvia},
+          misenpage_format={a4},
+          misenpage_nbcolonnes={1},
+          misenpage_preuve={non},
+          misenpage_sol={non}}
+\magmisenpage{}
+\maglieudiff{}
+\magprocess
+
+\begin{document}
+
+%BEGIN_BOOK
+\setlength\epigraphwidth{.6\textwidth}
+\epigraph{\og Divergent series are the invention of the devil, and it is shameful to base on them any demonstration whatsoever. \fg}{--- {\sc Niels Abel (1802--1829)}}
+
+\setlength\epigraphwidth{.4\textwidth}
+\epigraph{$\dsp \sum_{k=1}^{+\infty} k=-\frac{1}{12}$}{--- {\sc Srinivasa Ramanujan (1887--1920)}}
+
+\magtoc
+\vspace{2ex}
+Dans ce chapitre, $\K$ désignera l'un des corps $\R$ ou $\C$.
+
+\section{Série}
+\subsection{Série}
+
+\begin{definition}
+Soit $(u_n)$ une suite d'éléments de $\K$. On appelle \emph{série de terme général $u_n$}
+et on note $\sum u_n$ la suite $(S_n)$ définie par
+\[\forall n\in\N\qsep S_n\defeq \sum_{k=0}^n u_k.\]
+Le terme $S_n$ est appelé \emph{somme partielle d'indice $n$} de la série.
+\end{definition}
+
+% \begin{remarqueUnique}
+% \remarque Soit $(v_n)$ une suite à valeurs dans $\RouC$. On définit la suite $(u_n)$ par
+%   \[\forall n\in\N\qsep u_n\defeq v_{n+1} - v_n.\]
+%   Alors
+%   \[\forall n\in\N\qsep v_n=v_0 + \sum_{k=0}^{n-1} u_k.\]
+%   L'étude de la suite $(v_n)$ se ramène donc à l'étude de la série $\sum u_n$. On dit que
+%   la suite $(u_n)$ est la suite \emph{dérivée} de la suite $(v_n)$. Il sera parfois utile
+%   d'exprimer une suite à l'aide d'une série afin d'appliquer des techniques propres à ces
+%   dernières.
+% \end{remarqueUnique}
+
+\begin{definition}
+On dit qu'une série $\sum u_n$ \emph{converge} lorsque la suite de ses sommes partielles
+converge. Si c'est le cas, sa limite $l\in\K$ est appelée \emph{somme} de la série. On
+la note
+\[\sum_{n=0}^{+\infty} u_n.\]
+Dans le cas contraire, on dit qu'elle \emph{diverge}.
+\end{definition}
+
+\begin{remarques}
+\remarque Si on change un nombre fini de termes de la suite $(u_n)$, on ne change pas
+  la nature de la série $\sum u_n$. Par contre, si elle converge, cela peut changer sa somme.
+\remarque Soit $\sum u_n$ une série convergente. Alors, quel que soit $n\in\N$
+  \[\sum_{k=0}^{+\infty} u_k=\sum_{k=0}^n u_k + \sum_{k=n+1}^{+\infty} u_k.\]
+\end{remarques}
+
+% \begin{remarques}
+% \remarque Lorsque la série $\sum u_n$ converge vers $l$, on définit la suite $(r_n)$ par
+%   \[\forall n\in\N\qsep r_n\defeq l-s_n.\]
+%   Quel que soit $n\in\N$, on a alors
+%   \[\sum_{k=n+1}^m u_k \tendvers{m}{+\infty} r_n\]
+%   et on note
+%   \[r_n=\sum_{k=n+1}^{+\infty} u_k.\]
+% \end{remarques}
+
+\begin{exoUnique}
+\exo Montrer que la série
+  \[\sum_{n\geq 1} \frac{1}{n(n+1)}\]
+  converge et calculer sa somme.
+\end{exoUnique}
+
+
+\begin{definition}
+Soit $\sum u_n$ une série convergente. On définit la suite $(R_n)$ par
+\begin{eqnarray*}
+\forall n\in\N\qsep R_n &\defeq& \sum_{k=0}^{+\infty} u_k - \sum_{k=0}^n u_k\\
+&=& \sum_{k=n+1}^{+\infty} u_k.
+\end{eqnarray*}
+Le terme $R_n$ est appelé \emph{reste d'indice $n$} de la série.
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque La suite $(R_n)$ des restes converge vers 0.
+\end{remarqueUnique}
+
+\begin{proposition}
+Soit $\sum u_n$ une série. Si elle est convergente, alors
+\[u_n\tendvers{n}{+\infty}0.\]
+Par contraposée, si la suite $(u_n)$ ne converge pas vers 0, la série $\sum u_n$ est
+divergente. On dit qu'elle diverge \emph{grossièrement}.
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque Il est possible qu'une série diverge sans diverger grossièrement.
+  Par exemple, si $(u_n)$ est la suite définie par
+  \[\forall n\in\N\qsep u_n\defeq\sqrt{n+1}-\sqrt{n}\]
+  alors, la série associée diverge alors que la suite $(u_n)$ converge vers 0.
+\end{remarqueUnique}
+
+\begin{proposition}
+La suite $(u_n)$ et la série $\sum (u_{n+1}-u_n)$ sont de même nature.
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque Si $(u_n)$ est une suite, la suite de terme général $u_{n+1}-u_n$ est appelée
+  \emph{dérivée} de la suite $(u_n)$. Par sommation télescopique
+  \[\forall n\in\N\qsep u_n=u_0 + \sum_{k=0}^{n-1} (u_{k+1}-u_k).\]
+  L'étude de la suite $(u_n)$ se ramène donc à l'étude de la série
+  $\sum (u_{n+1}-u_n)$.
+\end{remarqueUnique}
+
+\begin{proposition}
+Soit $\sum u_n$ et $\sum v_n$ deux séries convergentes et
+$\lambda,\mu\in\K$. Alors, la série \mbox{$\sum (\lambda u_n+\mu v_n)$} est convergente et
+\[\sum_{n=0}^{+\infty} \p{\lambda u_n+\mu v_n}=\lambda\sum_{n=0}^{+\infty} u_n
+  +\mu\sum_{n=0}^{+\infty} v_n.\]
+\end{proposition}
+
+\begin{remarques}
+\remarque Attention, il est possible que la série $\sum (\lambda u_n+\mu v_n)$ soit convergente
+  sans que les séries $\sum u_n$ et $\sum v_n$ le soient. Avant d'écrire
+  \[\sum_{n=0}^{+\infty} \p{\lambda u_n+\mu v_n}=\lambda\sum_{n=0}^{+\infty} u_n
+    +\mu\sum_{n=0}^{+\infty} v_n\]
+  il faudra donc toujours vérifier que les séries $\sum u_n$ et $\sum v_n$ soient convergentes.
+  Un tel oubli pourrait conduire à écrire des horreurs comme
+  \begin{eqnarray*}
+  0 = \sum_{n=0}^{+\infty} 0 &=& \sum_{n=0}^{+\infty} (1+(-1))\\
+  &=& \sum_{n=0}^{+\infty} 1 + \sum_{n=0}^{+\infty} (-1).
+  \end{eqnarray*}
+  La dernière expression n'a en effet aucun sens car les deux séries sont grossièrement divergentes.
+\remarque Si $\sum u_n$ est convergente et $\sum v_n$ est divergente, alors
+  $\sum (u_n+v_n)$ est divergente.
+\end{remarques}
+
+
+% \begin{exoUnique}
+% \exo Déterminer les $z\in\C$ pour lesquels la série
+%   \[\sum_{n\in\N} z^n\]
+%   converge. Lorsque c'est le cas, calculer sa somme.
+% \end{exoUnique}
+
+\begin{proposition}
+Soit $z\in\C$. Alors la série
+\[\sum z^n\]
+converge si et seulement si $\abs{z}<1$. Si tel est le cas, sa somme est
+\[\sum_{n=0}^{+\infty} z^n = \frac{1}{1-z}.\]
+\end{proposition}
+
+\begin{exoUnique}
+\exo Soit $(F_n)$ la suite de Fibonacci définie par
+  \[F_0\defeq 0, \quad F_1\defeq 1, \et \forall n\in\N \qsep F_{n+2}\defeq F_{n+1}+F_n.\]
+  Démontrer l'existence puis calculer
+  \[\sum_{n=0}^{+\infty} \frac{F_n}{2^n}.\]
+\begin{sol}
+On trouve 2.
+\end{sol}
+\end{exoUnique}
+
+% \begin{exoUnique}
+% \exo Pour tout $x\in\intero{-1}{1}$, calculer
+%   \[\sum (n+1)x^n.\]
+%   On pourra conjecturer le résultat avant de le prouver rigoureusement.
+% \end{exoUnique}
+
+\begin{proposition}
+Soit $z\in\C$. Alors la série
+\[\sum \frac{z^n}{n!}\]
+est convergente et
+\[\sum_{n=0}^{+\infty} \frac{z^n}{n!}=\e^z.\]
+\end{proposition}
+
+\begin{exoUnique}
+\exo Établir l'existence et calculer
+    \[\sum_{n=0}^{+\infty} \frac{n^2+1}{n!}.\]
+\begin{sol}
+On trouve $3\e$.
+\end{sol}
+\end{exoUnique}
+
+
+
+\subsection{Série à termes positifs}
+
+\begin{definition}
+On dit qu'une série réelle $\sum u_n$ est à termes positifs lorsque
+\[\forall n\in\N\qsep u_n\geq 0.\]
+\end{definition}
+
+\begin{remarques}
+\remarque La suite des sommes partielles d'une série à termes positifs est croissante.
+  Réciproquement, si $(u_n)$ est une suite croissante, sa suite dérivée $(u_{n+1}-u_n)$ est
+  une suite à termes positifs.
+\remarque Puisque la convergence d'une série ne dépend pas de ses premiers termes, les
+  théorèmes de convergence sur les séries à termes positifs s'appliquent même si la série
+  est à termes positifs à partir d'un certain rang. Bien entendu, des théorèmes similaires
+  aux théorèmes que nous allons énoncer existent pour les séries à termes négatifs.
+  Les théorèmes que nous allons énoncer dans cette section sont donc utiles pour étudier
+  les séries de signe constant à partir d'un certain rang.
+\end{remarques}
+
+\begin{proposition}
+Une série à termes positifs converge si et seulement si la suite de ses sommes partielles
+est majorée.
+\end{proposition}
+
+\begin{proposition}[nom={Série de \nom{Riemann}}]
+Soit $\alpha\in\R$. Alors, la série
+\[\sum \frac{1}{n^\alpha}\]
+est convergente si et seulement si $\alpha > 1$.
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque En particulier, la série harmonique $(H_n)$ définie par
+  \[\forall n\in\N\qsep H_n\defeq\sum_{k=1}^n \frac{1}{k}\]
+  diverge. Une comparaison série intégrale permet de montrer que
+  $H_n\equi{n}{+\infty} \ln n$.
+\end{remarqueUnique}
+
+\begin{exos}
+\exo Montrer que la série
+  \[\sum \frac{1}{n^2}\]
+  converge et donner un équivalent de son reste.
+\exo Prouver la divergence et donner un équivalent des sommes partielles de la série
+  \[\sum \frac{1}{n \ln n}.\]
+\end{exos}
+
+\begin{proposition}
+Soit $\sum u_n$ et $\sum v_n$ deux séries à termes positifs telles que
+\[\forall n\in\N\qsep u_n\leq v_n.\]
+\begin{itemize}
+\item Si la série $\sum v_n$ converge, alors il en est de même pour $\sum u_n$.
+\item Si la série $\sum u_n$ diverge, alors il en est de même pour $\sum v_n$.
+\end{itemize}
+\end{proposition}
+
+\begin{exos}
+\exo Donner la nature des séries
+  \[\sum\frac{\sin^2 n}{n^3},\qquad\sum\frac{\cos^2\p{\frac{n\pi}{3}}}{\sqrt{n}}.\]
+\exo Soit $r\in\RP$. Déterminer la nature de la série
+  \[\sum \frac{r^n}{n}\]
+  en fonction de $r$.
+\end{exos}
+
+\begin{proposition}
+Soit $\sum u_n$ et $\sum v_n$ deux séries à termes positifs. On suppose que
+\[u_n=\grando{n}{+\infty}{v_n}\]
+et que la série $\sum v_n$ est convergente. Alors la série $\sum u_n$ est convergente.
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque En particulier, pour des séries à termes positifs, si
+\[u_n=\petito{n}{+\infty}{v_n}\]
+et si $\sum v_n$ est convergente, alors $\sum u_n$ est convergente. 
+\end{remarqueUnique}
+
+\begin{exoUnique}
+\exo Déterminer la nature de la série
+  \[\sum \frac{\ln n}{n\sqrt{n}}.\]
+\end{exoUnique}
+
+\begin{proposition}
+Soit $\sum u_n$ et $\sum v_n$ deux séries réelles. On suppose que $\sum v_n$ est à termes
+positifs et que
+\[u_n\equi{n}{+\infty} v_n.\]
+Alors la série $\sum u_n$ est à termes positifs à partir d'un certain rang et les deux séries
+sont de même nature.
+\end{proposition}
+
+\begin{exos}
+\exo Établir la nature des séries suivantes
+  \[\sum \frac{1}{3n+1}, \qquad\sum \tan\p{\frac{1}{n}}, \qquad \sum \frac{1}{2^n-n}.\]
+\exo Donner la nature des séries
+  \[\sum \ln\p{\tan\frac{\pi n}{4n+1}},\qquad \sum \cro{\p{\tanh n}^{\frac{1}{n}}-1}.\]
+\exo Montrer qu'il existe $\gamma\in\R$ tel que
+  \[\sum_{k=1}^n \frac 1k = \ln n+ \gamma + \petito{n}{+\infty}{1}.\]
+  La constante $\gamma\approx 0.577$ est appelée constante d'\nom{Euler}.
+\end{exos}
+
+
+\subsection{Série absolument convergente}
+
+\begin{definition}
+Soit $\sum u_n$ une série d'éléments de $\K$. Si la série à termes positifs
+\[\sum \abs{u_n}\]
+converge, alors la série $\sum u_n$ converge. On dit dans ce cas que la série
+$\sum u_n$ est \emph{absolument convergente}.
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque Une série convergente qui n'est pas absolument convergente est appelée série
+  \emph{semi-convergente}.
+\end{remarqueUnique}
+
+\begin{exoUnique}
+\exo Montrer que la série
+  \[\sum\frac{\sin n}{n\sqrt{n}}\]
+  est convergente.
+\end{exoUnique}
+
+
+\begin{proposition}
+Soit $\sum u_n$ une série d'éléments de $\K$ et $\sum v_n$ une série à termes positifs
+telle que
+\[u_n=\grando{n}{+\infty}{v_n}.\]
+Si $\sum v_n$ est convergente, alors $\sum u_n$ est absolument convergente, donc convergente.
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque En particulier, si $(v_n)$ est une suite positive, si
+  \[u_n=\petito{n}{+\infty}{v_n}\]
+  et si $\sum v_n$ est convergente, alors $\sum u_n$ est absolument convergente, donc
+  convergente.
+\end{remarqueUnique}
+
+\begin{proposition}[nom={Règle de d'\nom{Alembert}}]
+Soit $\sum u_n$ une série d'éléments de $\K$ ne s'annulant pas. On suppose que
+\[\abs{\frac{u_{n+1}}{u_n}}\tendvers{n}{+\infty} \omega\in\RP\cup\ens{+\infty}.\]
+Alors
+\begin{itemize}
+\item Si $\omega<1$, la série $\sum u_n$ est absolument convergente.
+\item Si $\omega>1$, la série $\sum u_n$ est grossièrement divergente.
+\end{itemize}
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque Si $\omega=1$, la règle de d'\nom{Alembert} ne permet pas de conclure. Dans ce cas, il peut être
+  intéressant d'effectuer une comparaison avec une série de \nom{Riemann}.
+\end{remarqueUnique}
+
+\begin{exos}
+\exo Déterminer la nature de la série
+  \[\sum \frac{n^4}{3^n}.\]
+\exo Soit $z\in\C$. Retrouver le fait que la série
+  \[\sum \frac{z^n}{n!}\]
+  est convergente.
+  \exo Soit $a,b\in\R$. Donner une condition nécessaire et suffisante sur $a$ et $b$ pour que la série
+  \[\sum \cro{\frac{n^2+2}{n^2+2n+1}-\p{a+\frac{b}{n}}}\]
+  soit convergente.
+\end{exos}
+
+\subsection{Série semi-convergente}
+
+\begin{theoreme}[nom={Théorème des séries alternées}]
+Soit $(u_n)$ une suite à termes positifs, décroissante et convergeant vers 0.
+Alors la série
+\[\sum (-1)^n u_n\]
+converge. De plus, si $(R_n)$ est la suite des restes définie par
+\[\forall n\in\N\qsep R_n\defeq\sum_{k=n+1}^{+\infty} (-1)^k u_k\]
+alors, pour tout $n\in\N$, $R_n$ est du signe de $(-1)^{n+1}$ et $\abs{R_n}\leq u_{n+1}$.
+\end{theoreme}
+
+\begin{remarques}
+\remarque La série
+  \[\sum \frac{(-1)^n}{\sqrt{n}}\]
+  est convergente, mais n'est pas absolument convergente.
+\remarque Les séries alternées permettent de construire des suites $(u_n)$ et $(v_n)$
+  qui sont équivalentes en $+\infty$ mais qui ne sont pas de même nature. Par exemple,
+  si on définit les suites $(u_n)$ et $(v_n)$ par
+  \[\forall n\in\Ns\qsep u_n\defeq\frac{(-1)^n}{\sqrt{n}} \et
+    v_n\defeq\frac{(-1)^n}{\sqrt{n}}+\frac{1}{n}\]
+  alors $(u_n)$ et $(v_n)$ sont équivalentes en $+\infty$ bien que $\sum u_n$ soit convergente
+  et que $\sum v_n$ soit divergente.
+\end{remarques}
+
+\begin{exos}
+\exo Soit $\alpha\in\R$. Donner une condition nécessaire et suffisante sur $\alpha$ pour que
+  la série
+  \[\sum \frac{(-1)^n}{n^\alpha}\]
+  soit convergente.
+\exo Soit $\alpha>0$. Discuter, selon $\alpha$, de la nature de la série
+  \[\sum \frac{(-1)^n}{n^\alpha + (-1)^n}.\]
+\end{exos}
+
+\begin{remarqueUnique}
+\remarque Il arrive que l'on doive prouver la convergence de séries de la forme
+  $\sum a_n u_n$ où
+  \begin{itemize}
+  \item La suite $(u_n)$ est une suite positive, décroissante et convergeant vers 0.
+  \item La série de terme général $(a_n)$ est bornée.
+  \end{itemize}
+  Pour prouver la convergence d'une telle série on applique ce qu'on appelle une
+  \emph{transformée d'\nom{Abel}} qui est l'équivalent discret d'une intégration par
+  parties. On définit la suite $(A_n)$ par
+  \[\forall n\in\N\qsep A_n\defeq\sum_{k=0}^{n-1} a_k.\]
+  Alors
+  \begin{eqnarray*}
+  \forall n\in\N\qsep
+  \sum_{k=0}^n a_k u_k
+  &=& \sum_{k=0}^n (A_{k+1} - A_k)u_k\\
+  &=& \sum_{k=0}^n A_{k+1} u_k  - \sum_{k=0}^n A_k u_k\\
+  &=& \sum_{k=1}^{n+1} A_k u_{k-1}  - \sum_{k=0}^n A_k u_k\\
+  &=& \p{A_{n+1} u_n - A_0 u_0} - \sum_{k=1}^n A_k (u_{k}-u_{k-1}).
+  \end{eqnarray*}
+  On montre ensuite que $A_{n+1} u_n$ tend vers 0 lorsque $n$ tend vers $+\infty$ et
+  que la série $\sum A_n(u_n - u_{n-1})$ est absolument convergente, ce qui permet de prouver
+  la convergence de $\sum a_n u_n$.
+\end{remarqueUnique}
+
+\begin{exoUnique}
+\exo Soit $\theta\in\R\setminus 2\pi\Z$ et $\alpha\in\RPs$. Montrer que la série
+  \[\sum \frac{\cos(n\theta)}{n^\alpha}\]
+  est convergente.
+\end{exoUnique}
+
+
+% \subsection{Développement décimal d'un réel}
+
+% \begin{proposition}[utile=1, nom=Développement décimal propre d'un réel]
+% Soit $x$ un réel positif. Alors il existe un unique $a_0\in\N$ et une unique suite
+% $(a_n)_{n \geq 1}$ d'éléments de $\intere{0}{9}$, non stationnaire égale à $9$, telle que 
+% $$x=\sum\limits_{n=0}^{+\infty} \frac{a_n}{10^n}.$$
+% \end{proposition}
+
+
+% Le but de cette partie est de donner un sens aux écritures suivantes :
+% $$\pi = 3,14159265358979\dots \qquad - \frac{7}{11} = -0,6363636363 \dots $$
+
+
+% \begin{center}
+% \begin{tabular}{lr}
+% \begin{minipage}{6cm}
+% \begin{eqnarray*}
+% x & = & 3,14159265358979\dots \\
+% 10^3 x & = & 3141,59265358979\dots \\
+% \ent{10^3 x} & = & 3141 \\
+% \frac{\ent{10^3 x}}{10^3} &= & 3,141
+% \end{eqnarray*}
+% \end{minipage}
+
+% &
+% \begin{minipage}{6cm}
+% \begin{eqnarray*}
+% x & = & 3,14159265358979\dots \\
+% 10^4 x & = & 31415,9265358979\dots \\
+% \ent{10^4x} & = & 31415 \\
+% \frac{\ent{10^4x}}{10^4} &= & 3,1415
+% \end{eqnarray*}
+% \end{minipage}
+% \end{tabular}
+% \end{center}
+
+
+% On obtient donc une suite $S_n = \frac{\ent{10^n x}}{10^n}$ qui converge vers $x$ et les chiffres $a_n$ qui sont définis par 
+% $$a_0 = \ent{x} \text{ et } a_n = \ent{10^n x} - 10 \ent{10^{n-1}x} \text{ pour } n \geq 1$$
+% de sorte que 
+% $$x = \sum\limits_{n=0}^{\infty} \frac{a_n}{10^n}$$
+
+% Pour que ceci corresponde au développement décimal usuel, il faut prendre $x \geq 0$. Si $x<0$, $\ent{x}$ ne donne pas l'entier avant la virgule.
+% La convention, pour $x<0$, est de prendre le développement décimal de $-x$ puis de mettre un signe moins devant.
+% $a_0$ n'est pas un chiffre mais un entier quelconque.
+
+% Par contre, si $n \geq 1$ alors $a_n \in \intere{0}{9}$.
+% Malheureusement, il n'y a pas unicité d'une telle écriture. Par exemple,
+% $$1=1,000 \dots = 0,999\dots$$
+
+% Pour avoir l'unicité, il faut imposer que la suite $(a_n)$ n'est pas stationnaire égale à $9$ i.e. 
+% $$\forall N \in \N \qsep \exists n \geq N \qsep a_n \neq 9.$$
+% On dit alors que le développement décimal est propre. Montrons que l'on a bien alors l'unicité et l'existence de l'écriture décimale.
+
+% \begin{proposition}[utile=1, nom=Développement décimal propre d'un réel]
+% Soit $x$ un réel positif. Alors il existe un unique $a_0 \in \N$ et une unique suite $(a_n)_{n \geq 1}$ d'entiers entre $0$ et $9$ non stationnaire égale à $9$ telle que 
+% $$x=\sum\limits_{n=0}^{\infty} \frac{a_n}{10^n}.$$
+
+% \end{proposition}
+
+\section{Famille sommable}
+
+Les séries nous ont permis de donner un sens, lorsque c'est possible, à
+\[\sum_{n=0}^{+\infty} u_n.\]
+Cependant, de nombreux problèmes arrivent lorsque l'on souhaite sommer des familles $(u_{i,j})_{(i,j)\in\N^2}$
+indexées par deux entiers. Il serait naturel de définir une telle somme, lorsque les séries en jeu
+sont convergentes, par
+\[\sum_{i=0}^{+\infty} \sum_{j=0}^{+\infty} u_{i,j}.\]
+Mais on trouve rapidement des exemples pour lesquels
+\[\sum_{i=0}^{+\infty} \sum_{j=0}^{+\infty} u_{i,j} \quad\et\quad
+  \sum_{j=0}^{+\infty} \sum_{i=0}^{+\infty} u_{i,j}\]
+ont toutes deux un sens et des valeurs différentes. Par exemple, si on définit la famille $(u_{i,j})_{(i,j)\in\N^2}$
+par
+\[\forall i,j\in\N\qsep u_{i,j}\defeq\begin{cases}
+  1 & \text{si $i=j$,}\\
+  -1 & \text{si $i=j+1$,}\\
+  0 & \text{sinon,}\end{cases}\]
+les séries doubles définies plus haut ont toutes deux un sens, mais la première est égale à 1 tandis que la seconde
+vaut 0. Contrairement à ce qui se passe dans le cas des sommes finies, il arrive donc que la \og somme \fg des éléments
+d'une famille infinie dépende de l'ordre de sommation. L'objet de la théorie des \emph{familles sommables} est d'avoir
+un cadre dans lequel la somme de ces familles ne dépend pas de cet ordre.
+
+
+\subsection{Famille sommable de réels positifs}
+
+\begin{definition}
+On pose $[0,+\infty]\defeq [0,+\infty[\cup\ens{+\infty}$.
+\begin{itemize}
+\item On étend la définition de $+$ sur $[0,+\infty]$ en posant
+  \begin{eqnarray*}
+  \forall x\in[0,+\infty],& &x + (+\infty) \defeq +\infty\\ 
+                          & &(+\infty) + x \defeq +\infty
+  \end{eqnarray*}
+  On vérifie que $+$ est associative et commutative sur $[0,+\infty]$ et que 0 est élément
+  neutre. 
+\item On étend la définition de $\times$ en posant
+  \begin{eqnarray*}
+  \forall x\in]0,+\infty],& &x \times (+\infty) \defeq +\infty\\ 
+                          & &(+\infty) \times x \defeq +\infty
+  \end{eqnarray*}
+  On pose enfin $0\times(+\infty)\defeq 0$ et $(+\infty)\times 0\defeq 0$. On vérifie que $\times$
+  est associative et commutative sur $[0,+\infty]$ et que 1 est élément neutre. 
+\item On étend la définition de $\leq$ sur $[0,+\infty]$ en posant
+  \[\forall x\in[0,+\infty]\qsep x\leq +\infty.\]
+  Muni de $\leq$, $[0,+\infty]$ est un ensemble totalement ordonné.
+\end{itemize}
+\end{definition}
+
+\begin{remarques}
+\remarque Excepté $+\infty$, tous les éléments de $[0,+\infty]$ sont réguliers pour $+$.
+  Excepté 0 et $+\infty$, tous les éléments de $[0,+\infty]$ sont réguliers pour $\times$.
+\remarque La relation d'ordre $\leq$ reste compatible avec l'addition et la multiplication~:
+  il est toujours possible d'ajouter et de multiplier entre elles des inégalités puisque
+  ces dernières sont positives.
+\end{remarques}
+
+\begin{definition}
+Soit $A$ une partie de $[0,+\infty]$. On dit que $A$ admet une \emph{borne supérieure dans
+$[0,+\infty]$} lorsque l'ensemble des majorants de $A$ dans $[0,+\infty]$ admet un plus
+petit élément. Si tel est le cas, on le note $\supb A$.
+\end{definition}
+
+\begin{proposition}
+Toute partie de $[0,+\infty]$ admet une borne supérieure dans $[0,+\infty]$.
+\end{proposition}
+
+\begin{remarques}
+\remarque Soit $A$ une partie de $[0,+\infty]$. Si $+\infty\in A$, alors $\supb A=+\infty$. Sinon,
+  $A$ est une partie de $[0,+\infty[$ et
+  \begin{itemize}
+  \item Si $A$ est vide, alors $\supb A=0$.
+  \item Si $A$ n'est pas majorée, alors $\supb A=+\infty$. 
+  \item Sinon, $A$ est non vide majorée. Elle admet donc une borne supérieure $\sup A$
+    dans $\R$ et $\supb A=\sup A$.
+  \end{itemize}
+\remarque Soit $A$ une partie de $[0,+\infty]$.
+  \begin{itemize}
+  \item Si $B$ est une partie de $A$, alors $\supb B\leq\supb A$.
+  \item Si $x\in [0,+\infty]$, on définit $x+A$ par
+    \[x+A\defeq \ensim{x+a}{a\in A}.\]
+    Alors, si $A$ est non vide, $\supb(x+A)=x+\supb A$.
+  \item Si $\lambda\in[0,+\infty]$, on définit $\lambda A$ par
+    \[\lambda A\defeq \ensim{\lambda a}{a\in A}.\]
+    Alors, $\supb(\lambda A)=\lambda\supb A$.
+  \end{itemize}
+% L'ensemble vide admet une borne supérieure dans $[0,+\infty]$ qui est 0. Si $A$
+%   est une partie de $[0,+\infty[$ qui n'est pas majorée dans $[0,+\infty[$, alors elle
+%   admet une borne supérieure dans $[0,+\infty]$ qui est $+\infty$.
+% \remarque Si $A$ est une partie de $[0,+\infty[$ non vide majorée, elle admet une borne
+%   supérieure $\alpha\defeq\sup A\in\R$ au sens usuel. Alors $\alpha$ est la borne supérieure de $A$
+%   dans $[0,+\infty]$. 
+\end{remarques}
+
+\begin{definition}
+Soit $(u_i)_{i\in I}$ une famille d'éléments de $[0,+\infty]$. On appelle \emph{somme des $u_i$}
+pour $i\in I$ et on note $\sum_{i\in I} u_i$ la borne supérieure de
+\[A\defeq\ensim{\sum_{i\in K} u_i}{\text{$K$ est une partie finie de $I$}}\]
+dans $[0,+\infty]$.
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque Si $I$ est fini, la somme que l'on vient de définir n'est autre que la somme
+  $\sum_{i\in I} u_i$ définie de manière classique.
+% \remarque Soit $(u_i)_{i\in I}$ une famille de réels positifs.
+%   \begin{itemize}
+%   \item Alors $\sum_{i\in I} u_i=+\infty$ si et seulement si, quel que soit $m\in\RP$, il existe une partie
+%     finie $J$ de $I$ tel que
+%     \[\sum_{i\in J} u_i\geq m.\]
+%   \item De plus, si $l\in\RP$, alors $\sum_{i\in I} u_i=l$ si et seulement si, quel que
+%   soit la partie finie $J$ de $I$, on a
+%   \[\sum_{i\in J} u_i\leq l\]
+%   et quel que soit $\epsilon>0$, il existe une partie finie $J$ de $I$ telle que
+%   \[\sum_{i\in J} u_i\geq l-\epsilon.\] 
+%   \end{itemize}
+\end{remarqueUnique}
+
+\begin{exoUnique}
+\exo Montrer que
+  \[\sum_{(i,j)\in\Ns^2} \frac{1}{(i+j)^2}=+\infty.\]
+\end{exoUnique}
+
+\begin{definition}
+On dit qu'une famille $(u_i)_{i\in I}$ d'éléments de $[0,+\infty]$ est \emph{sommable} lorsque
+\[\sum_{i\in I} u_i < +\infty.\]
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque Si l'un des $x_i$ est égal à $+\infty$, alors
+  \[\sum_{i\in I} u_i=+\infty.\]
+  En particulier, tous les éléments d'une famille sommable sont réels.
+\end{remarqueUnique}
+
+
+\begin{proposition}
+Soit $(u_n)_{n\in\N}$ une suite réelle positive. Alors, la famille $(u_n)_{n\in\N}$ est
+sommable si et seulement si la série $\sum u_n$ est convergente. De plus, si tel est le
+cas
+\[\sum_{n\in\N} u_n=\sum_{n=0}^{+\infty} u_n.\]
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque Si la série à termes positifs $\sum u_n$ diverge, alors
+  \[\sum_{n\in\N} u_n=+\infty.\]
+  C'est pourquoi, certains auteurs se permettent d'écrire
+  $\sum_{n=0}^{+\infty} u_n=+\infty$.
+\end{remarqueUnique}
+
+\begin{proposition}
+Soit $(u_i)_{i\in I}$ une famille d'éléments de $[0,+\infty]$ et $J$ une partie de
+  $I$. Alors
+  \[\sum_{i\in J} u_i \leq \sum_{i\in I} u_i.\]  
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque En particulier, si $(u_i)_{i\in I}$ est sommable, alors $(u_i)_{i\in J}$ est sommable.
+\end{remarqueUnique}
+
+
+
+\begin{proposition}
+Soit $(u_i)_{i\in I}$ et $(v_i)_{i\in I}$ deux familles d'éléments de $[0,+\infty]$ et $\lambda,\mu\in[0,+\infty]$.
+Alors
+\[\sum_{i\in I} \p{\lambda u_i+\mu v_i}=\lambda \sum_{i\in I} u_i + \mu \sum_{i\in I} v_i.\]
+\end{proposition}
+
+  
+
+\begin{proposition}
+Soit $(u_i)_{i\in I}$ et $(v_i)_{i\in I}$ deux familles d'éléments de $[0,+\infty]$
+telles que
+\[\forall i\in I\qsep u_i\leq v_i.\]
+Alors
+\[\sum_{i\in I} u_i \leq \sum_{i\in I} v_i.\]
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque En particulier, si $(v_i)_{i\in I}$ est sommable, alors $(u_i)_{i\in I}$ est sommable.
+\end{remarqueUnique}
+
+
+\begin{proposition}
+Soit $(u_i)_{i\in I}$ une famille d'éléments de $[0,+\infty]$ et $\sigma:J\to I$ une bijection.
+Alors
+\[\sum_{i\in I} u_i=\sum_{j\in J} u_{\sigma(j)}.\]
+\end{proposition}
+
+
+\begin{proposition}[nom={Théorème de sommation par paquets}]
+Soit $(u_i)_{i\in I}$ une famille d'éléments de $[0,+\infty]$. Si $(I_j)_{j\in J}$ est
+une partition de $I$, alors
+\[\sum_{j\in J} \p{\sum_{i\in I_j} u_i}=\sum_{i\in I} u_i.\]
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque En particulier, si $(u_i)_{i\in I}$ une famille d'éléments de $[0,+\infty]$ et
+    $I_1,I_2\in\mathcal{P}(I)$ sont tels que $I=I_1 \sqcup I_2$, alors
+    \[\sum_{i\in I} u_i = \sum_{i\in I_1} u_i + \sum_{i\in I_2} u_i.\]
+\end{remarqueUnique}
+
+\begin{exoUnique}
+\exo Pour quelles valeurs de $\alpha\in\R$ la famille
+  \[\p{\frac{pq}{(p+q)^{\alpha}}}_{(p,q)\in\Ns^2}\]
+  est-elle sommable~?
+\begin{sol}
+Si et seulement si $\alpha>4$. 
+\end{sol}
+\end{exoUnique}
+
+\begin{proposition}[nom={Théorème de \nom{Fubini}}]
+Soit $(u_{i,j})_{(i,j)\in I\times J}$ une famille d'éléments de $[0,+\infty]$. Alors
+\[\sum_{j\in J} \p{\sum_{i\in I} u_{i,j}}=
+  \sum_{i\in I} \p{\sum_{j\in J} u_{i,j}}=
+  \sum_{(i,j)\in I\times J} u_{i,j}.\]
+\end{proposition}
+
+
+\begin{exos}
+\exo Soit $a,b\in\RPs$. Montrer que la famille
+  \[\p{\e^{-(ap+bq)}}_{(p,q)\in\N^2}\]
+  est sommable et calculer sa somme.
+\exo On considère la fonction $\zeta$ de \nom{Riemann} définie par
+  \[\zeta(x)\defeq\sum_{n\in\Ns} \frac{1}{n^x}.\]
+  \begin{questions}
+  \question Montrer que $\zeta(x)$ est fini si et seulement si $x>1$.
+  \question Montrer que
+    \[\sum_{n\geq 2} (\zeta(n)-1)=1.\] 
+  \end{questions}
+\end{exos}
+
+% \subsection{Familles sommables de réels positifs}
+
+
+
+
+% \begin{proposition}
+% Soit $(u_i)_{i\in I}$ et $(v_i)_{i\in I}$ deux familles d'éléments de $\RP$ telles que
+% \[\forall i\in I\qsep 0\leq u_i\leq v_i.\]
+% Si $(v_i)_{i\in I}$ est sommable, alors $(u_i)_{i\in I}$ est sommable et
+% \[\sum_{i\in I} u_i\leq\sum_{i\in I} v_i.\] 
+% \end{proposition}
+
+
+% \begin{proposition}
+% Soit $(u_i)_{i\in I}$ et $(v_i)_{i\in I}$ deux familles sommables d'éléments de $\RP$ et
+% $\lambda,\mu\in\RP$. Alors $(\lambda u_i+\mu v_i)_{i\in I}$ est sommable et
+% \[\sum_{i\in I} \p{\lambda u_i+\mu v_i} = \lambda \sum_{i\in I} u_i + \mu \sum_{i\in I} v_i.\]
+% \end{proposition}
+
+
+% \begin{proposition}[nom={Théorème de \nom{Fubini}}]
+% Soit $(u_{i,j})_{(i,j)\in I\times J}$ une famille d'éléments de $\RP$. Alors
+% \[\sum_{(i,j)\in I\times J} u_{i,j}=
+%   \sum_{j\in J} \p{\sum_{i\in I} u_{i,j}}=
+%   \sum_{i\in I} \p{\sum_{j\in J} u_{i,j}}.\]
+% \end{proposition}
+
+
+\subsection{Famille sommable d'éléments de $\K$}
+
+\begin{definition}
+On dit qu'une famille $(u_i)_{i\in I}$ d'éléments de $\K$ est \emph{sommable} lorsque
+la famille des réels positifs $(\abs{u_i})_{i\in I}$ est sommable.
+\end{definition}
+
+\begin{remarques}
+\remarque L'ensemble des familles sommables indexées par $I$ est noté $\ell(I,\K)$. C'est un sous-espace vectoriel de $\K^I$.
+\remarque Si $(u_i)_{i\in I}$ est une famille sommable et $J$ est une partie de $I$, alors $(u_i)_{i\in J}$ est sommable.
+\end{remarques}
+
+\begin{exos}
+\exo Montrer que la famille
+  \[\p{\frac{\sin(p+q)}{p^2 q^2}}_{(p,q)\in\Ns^2}\]
+  est sommable.
+\exo Montrer que la famille
+  \[\p{z^{ij}}_{(i,j)\in\Ns^2}\]
+  est sommable si et seulement si $\abs{z}<1$.
+\end{exos}
+
+\begin{definition}
+\begin{itemize}
+\item Soit $(u_i)_{i\in I}$ une famille de réels sommable. Alors, les familles $(u_i^{+})_{i\in I}$ et
+  $(u_i^{-})_{i\in I}$ sont sommables et on définit
+  \[\sum_{i\in I} u_i\defeq \sum_{i\in I} u_i^{+} - \sum_{i\in I} u_i^{-}.\]
+\item Soit $(u_i)_{i\in I}$ une famille de nombres complexes sommable. En décomposant $u_i = a_i + \ii b_i$ en sa
+  partie réelle et sa partie imaginaire, les familles $(a_i)_{i\in I}$ et $(b_i)_{i\in I}$ sont sommables et on définit
+  \[\sum_{i\in I} u_i\defeq \sum_{i\in I} a_i + \ii \sum_{i\in I} b_i.\]
+\end{itemize}
+\end{definition}
+
+
+\begin{proposition}
+Soit $(u_n)_{n\in\N}$ une suite d'éléments de $\K$. Alors, la famille $(u_n)_{n\in\N}$ est
+sommable si et seulement si la série $\sum u_n$ est absolument convergente. De plus, si tel est le
+cas
+\[\sum_{n\in\N} u_n=\sum_{n=0}^{+\infty} u_n.\]
+\end{proposition}
+  
+
+\begin{proposition}
+Soit $(u_i)_{i\in I}$ une famille sommable d'éléments de $\K$ et $l\in\K$. Alors
+\[\sum_{i\in I} u_i=l\]
+si et seulement si, quel que soit $\epsilon>0$, il existe une partie finie $K$ de $I$ telle que
+pour toute partie finie $L$ de $I$ telle que $K\subset L$, on a
+\[\abs{\sum_{i\in L} u_i - l}\leq\epsilon.\]
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque La définition \og historique \fg d'une famille sommable est la suivante~: on dit
+  qu'une famille $(u_i)_{i\in I}$ d'éléments de $\K$ est sommable lorsqu'il existe $l\in\K$ tel que quel
+  que soit $\epsilon>0$, il existe une partie finie $K$ de $I$ telle que pour toute partie finie $L$ de
+  $I$ telle que $K\subset L$, on a
+  \[\abs{\sum_{i\in L} u_i - l}\leq\epsilon.\]
+  Si c'est le cas, $l$ est unique, et est appelé somme de la famille $(u_i)_{i\in I}$. La proposition
+  précédente nous montre donc que si une famille est sommable pour le sens donné dans ce cours,
+  alors elle est sommable pour le sens \og historique \fg. Réciproquement, on peut montrer que si une famille
+  est sommable pour le sens \og historique \fg, elle est sommable pour le sens donné dans ce cours.
+  Ceci montre l'équivalence des deux approches.
+\end{remarqueUnique}
+
+\begin{proposition}
+Soit $(u_i)_{i\in I}$ et $(v_i)_{i\in I}$ deux familles sommables d'éléments de $\K$ et
+$\lambda,\mu\in\K$. Alors $(\lambda u_i+\mu v_i)_{i\in I}$ est sommable et
+\[\sum_{i\in I} \p{\lambda u_i+\mu v_i} = \lambda \sum_{i\in I} u_i + \mu \sum_{i\in I} v_i.\]
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque Attention, il est possible que $(\lambda u_i+\mu v_i)_{i\in I}$ soit sommable sans
+  que $(u_i)_{i\in I}$ et $(v_i)_{i\in I}$ le soient. Par exemple, bien que la famille
+  \[\p{\frac{1}{n(n+1)}}_{n\in\Ns}\] soit sommable, on ne peut pas écrire
+  \[\sum_{n\in\Ns} \frac{1}{n(n+1)}=\sum_{n\in\Ns} \p{\frac{1}{n}-\frac{1}{n+1}}=
+    \sum_{n\in\Ns} \frac{1}{n} - \sum_{n\in\Ns}\frac{1}{n+1}\]
+  puisque les familles $\p{\frac{1}{n}}_{n\in\Ns}$ et $\p{\frac{1}{n+1}}_{n\in\Ns}$ ne sont pas sommables.
+\end{remarqueUnique}
+
+\begin{proposition}
+  Soit $(u_i)_{i\in I}$ et $(v_i)_{i\in I}$ deux familles réelles sommables telles que
+  \[\forall i\in I\qsep u_i\leq v_i.\]
+  Alors
+  \[\sum_{i\in I} u_i \leq \sum_{i\in I} v_i.\]
+  \end{proposition}
+
+\begin{proposition}
+  Soit $(u_i)_{i\in I}$ une famille sommable d'éléments de $\K$. Alors
+  \[\abs{\sum_{i\in I} u_i}\leq\sum_{i\in I} \abs{u_i}.\]
+  \end{proposition}
+
+\begin{proposition}
+Soit $(u_i)_{i\in I}$ une famille sommable d'éléments de $\K$ et $\sigma:J\to I$ une bijection.
+Alors $\sum u_{\sigma(j)}$ est sommable et
+\[\sum_{i\in I} u_i=\sum_{j\in J} u_{\sigma(j)}.\]
+\end{proposition}
+
+\begin{remarques}
+\remarque Soit $\sum u_n$ une série absolument convergente. Alors, quel que soit
+  la bijection $\sigma:\N\to\N$, la série $\sum u_{\sigma(n)}$ est absolument convergente et
+  \[\sum_{n=0}^{+\infty} u_n=\sum_{n=0}^{+\infty} u_{\sigma(n)}.\]
+\remarque Cette propriété est fausse pour les séries semi-convergentes. En effet, le théorème de réarrangement
+  de \nom{Riemann} montre que si $\sum u_n$ est une série réelle semi-convergente, quel que soit
+  $l\in\R$, il existe une bijection $\sigma:\N\to\N$ telle que
+  \[\sum_{n=0}^{+\infty} u_{\sigma(n)} = l.\]
+\end{remarques}
+
+\begin{proposition}[nom={Théorème de sommation par paquets}]
+Soit $(u_i)_{i\in I}$ une famille sommable d'éléments de $\K$. Si $(I_j)_{j\in J}$ est
+une partition de $I$, alors la famille $(\sum_{i\in I_j} u_i)_{j\in J}$ est sommable et
+\[\sum_{j\in J} \p{\sum_{i\in I_j} u_i}=\sum_{i\in I} u_i.\]
+\end{proposition}
+
+\begin{proposition}[nom={Théorème de \nom{Fubini}}]
+Soit $(u_{i,j})_{(i,j)\in I\times J}$ une famille sommable d'éléments de $\K$. Alors, les
+familles $(\sum_{i\in I} u_{i,j})_{j\in J}$ et $(\sum_{j\in J} u_{i,j})_{i\in I}$ sont
+sommables et
+\[\sum_{j\in J} \p{\sum_{i\in I} u_{i,j}}=
+  \sum_{i\in I} \p{\sum_{j\in J} u_{i,j}}=
+  \sum_{(i,j)\in I\times J} u_{i,j}.\]
+\end{proposition}
+
+
+\begin{remarqueUnique}
+\remarque Soit $(u_{i,j})_{(i,j)\in\N^2}$ une famille sommable d'éléments de $\K$. Alors
+\begin{eqnarray*}
+\sum_{(i,j)\in\N^2} u_{i,j} &=&
+  \sum_{i\in\N} \sum_{j\in\N} u_{i,j} =
+  \sum_{j\in\N} \sum_{i\in\N} u_{i,j}\\
+  &=& \sum_{i=0}^{+\infty} \sum_{j=0}^{+\infty} u_{i,j} =
+  \sum_{j=0}^{+\infty} \sum_{i=0}^{+\infty} u_{i,j}.
+\end{eqnarray*}
+% \remarque Nous verrons qu'il existe des familles $(u_{i,j})_{(i,j)\in\N^2}$ telles que les sommes
+%   \[\sum_{i=0}^{+\infty} \sum_{j=0}^{+\infty} u_{i,j} \quad\et\quad 
+%     \sum_{j=0}^{+\infty} \sum_{i=0}^{+\infty} u_{i,j}\]
+%   soient bien définies et distinctes. Bien entendu, de telles familles ne sont pas sommables.
+\end{remarqueUnique}
+
+\begin{exoUnique}
+\exo Montrer que la famille
+  \[\p{\frac{\e^{\frac{2\ii k\pi}{n}}}{2^n}}_{k\in\Ns, n> k}\]
+  est sommable et calculer sa somme.
+% \exo On définit la famille $(u_{i,j})_{(i,j)\in\N^2}$ par
+%   \[\forall i,j\in\N\qsep u_{i,j}\defeq
+%     \begin{cases}
+%     1 & \text{si $i=j$,}\\
+%     -\frac{1}{2^{j-i}} & \text{si $i<j$,}\\
+%     0 & \text{sinon.}
+%     \end{cases}\]
+%   Calculer
+%   \[\sum_{i=0}^{+\infty} \sum_{j=0}^{+\infty} u_{i,j} \quad\et\quad
+%     \sum_{j=0}^{+\infty} \sum_{i=0}^{+\infty} u_{i,j}.\]
+\end{exoUnique}
+
+\begin{definition}
+Soit $(u_n)_{n\in\N}$ et $(v_n)_{n\in\N}$ deux suites. On appelle
+\emph{produit de \nom{Cauchy}} de ces suites la suite $(w_n)_{n\in\N}$
+définie par
+\[\forall n\in\N\qsep w_n\defeq\sum_{k=0}^n u_k v_{n-k}.\]
+\end{definition}
+
+\begin{proposition}
+Soit $\sum u_n$ et $\sum v_n$ deux séries absolument convergentes. Alors, leur produit de
+\nom{Cauchy} est absolument convergent et
+\[\sum_{n=0}^{+\infty} \p{\sum_{k=0}^n u_k v_{n-k}}=
+  \p{\sum_{n=0}^{+\infty} u_n}\p{\sum_{n=0}^{+\infty} v_n}.\]
+\end{proposition}
+
+\begin{exoUnique}
+\remarque Retrouver le fait que
+  \[\forall a,b\in\C\qsep \e^{a+b}=\e^a \e^b.\]
+% \remarque Montrer que
+%   \[\forall x\in\intero{-1}{1}\qsep \sum_{n=1}^{+\infty} n x^{n-1}=\frac{1}{(1-x)^2}.\]
+\end{exoUnique}
+
+
+%END_BOOK
+\end{document}

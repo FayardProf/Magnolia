@@ -1,0 +1,941 @@
+\documentclass{magnolia}
+
+\magtex{tex_driver={pdftex}}
+\magfiche{document_nom={Exercices de révision d'analyse},
+          auteur_nom={François Fayard},
+          auteur_mail={fayard.prof@gmail.com}}
+\magexos{exos_matiere={maths},
+         exos_niveau={mpsi},
+         exos_chapitre_numero={3},
+         exos_theme={Compléments d'analyse}}
+\magmisenpage{}
+\maglieudiff{}
+\magprocess
+
+\begin{document}
+
+%BEGIN_BOOK
+
+\magsection{Le corps ordonné $\R$}
+
+\magsubsection{La relation d'ordre sur $\R$}
+
+
+\exercice{nom={Inégalités}}
+\begin{questions}
+\question Montrer que pour $a,b,c\in\RP$
+  \[\p{a^2+1}\p{b^2+1}\p{c^2+1}\geq 8abc.\]
+\question Montrer que pour $a,b\in\R$ tels que $0<a\leq b$, on a
+  \[\frac{1}{8}\cdot\frac{\p{b-a}^2}{b}\leq\frac{a+b}{2}-\sqrt{ab}
+    \leq\frac{1}{8}\cdot\frac{\p{b-a}^2}{a}.\]
+\question Montrer que si $a,b,x,y\in\RPs$ sont tels que $a+b=1$, alors
+  \[\frac{a}{x}+\frac{b}{y}\geq\frac{1}{ax+by}.\]
+\end{questions}
+\begin{sol}
+$\quad$
+\begin{questions}
+\question Remarquer que $0\geq 2a\leq a^2+1$. Écrire les mêmes inégalités avec
+  $b$ et $c$ et faire le produit des inégalités obtenues.
+\question Écrire
+  \[\frac{a+b}{2}-\sqrt{ab}=\frac{(\sqrt{a}-\sqrt{b})^2}{2}=
+    \frac{(a-b)^2}{2(\sqrt{a}+\sqrt{b})^2}\]
+\question Raisonner par équivalence. On aboutit à
+  \[ab(x-y)^2\geq 0\]
+  qui est bien sur vrai.
+\end{questions}
+\end{sol}
+
+\exercice{nom={Puissances}}
+\begin{questions}
+\question Soit $n\in\Ns$ et $(x,y)\in\RP^2$. Montrer que
+  \[(x+y)^{\frac{1}{n}}\leq x^{\frac{1}{n}}+y^{\frac{1}{n}}.\]
+\question Soit $a\in\RP$ et $n\in\N$. Montrer que $(1+a)^n\geq 1+na$.
+\question Soit $a$ et $b$ deux nombres réels tels que $0\leq a\leq b$ et  
+  $n\in\Ns$. Montrer que
+  \[n(b-a)a^{n-1}\leq b^n-a^n\leq n(b-a)b^{n-1}.\]
+\question Soit $a,b,c\in\interf{0}{1}$. Montrer qu'au moins un des trois
+  nombres réels
+  \[a(1-b), \quad b(1-c), \quad c(1-a)\]
+  est inférieur à $\frac{1}{4}$.
+\end{questions}
+\begin{sol}
+$\quad$
+\begin{questions}
+\question Raisonner par équivalence.
+\question Binôme de Newton ou récurrence sur $n$.
+\question Factorisation de $a^n-b^n$.
+\question Utilisons le fait que $x(1-x)\leq\frac{1}{4}$ pour tout
+  $x\in\interf{0}{1}$.
+  \begin{itemize}
+  \item Si l'un est nul, par exemple $a$, alors $a(1-b)=0\leq 1/4$.
+  \item Sinon, prenons le plus grand des $3$. Si c'est par exemple $a$, alors $c(1-a)=\frac{c}{a}a(1-a)\leq 1/4 c/a \leq 1/4$.
+  \end{itemize}
+\end{questions}
+\end{sol}
+
+\exercice{nom={Système non linéaire}}
+Soit $x_1,\ldots,x_n$ des nombres réels tels que
+\[\sum_{i=1}^nx_i=n \et \sum_{i=1}^nx_i^2=n.\]
+Montrer que $x_i=1$ pour tout $i\in\intere{1}{n}$.
+
+\begin{sol}
+$$\sum_{i=1}^n(x_i-1)^2=\sum_{i=1}^nx_i^2-2\sum_{i=1}^nx_i+\sum_{i=1}^n 1=0$$
+\end{sol}
+
+\exercice{nom={Système non linéaire}}
+On suppose que $\p{x,y,z,t}\in\Rs^4$ vérifie le système
+\[\syslin{x          &+y          &          +z&=&t\cr
+          \frac{1}{x}&+\frac{1}{y}&+\frac{1}{z}&=&\frac{1}{t}}\]
+Établir que $\p{x+y}\p{y+z}\p{z+x}=0$, et en déduire la forme générale des
+solutions du système ci-dessus.
+
+\begin{sol}
+D'une part, $$(x+y)(y+z)(z+x)=2xyz+x^2(y+z)+y^2(x+z)+z^2(x+y).$$
+D'autre part, d'après la deuxième équation $$t(yz+xz+xy)=xyz$$ mais en en remplaçant $t$ par $x+y+z$ d'après la première équation, on obtient bien la nullité de $(x+y)(y+z)(z+x)$.
+Donc par équation produit nulle. Deux d'entre eux sont opposés et l'autre est égale à $t$. Réciproquement, cela fonctionne.
+\end{sol}
+
+
+
+% \exercice{nom={Racine carrée}}
+% \begin{questions}
+% \question Pour $a\in\interfo{1}{+\infty}$, simplifier 
+%   $\sqrt{a+2\sqrt{a-1}}+\sqrt{a-2\sqrt{a-1}}$.
+% \question Résoudre l'équation 
+%   $\sqrt{x+3-4\sqrt{x-1}}+\sqrt{x+8-6\sqrt{x-1}}=1$ d'inconnue $x\in\R$.
+% \end{questions}
+% \begin{sol}
+% \begin{questions}
+% \question En élevant au carré, on trouve que ça vaut $2$ si $a\in [1;2]$ et $2\sqrt{a-1}$ sinon.
+% \question 
+% \end{questions}
+% \end{sol}
+
+\magsubsection{Valeur absolue}
+
+\exercice{nom={Inégalité}}
+Montrer que pour tout $x\in \R$ et $n \in \N$
+\[|\sin(nx)| \leq n |\sin(x)|.\]
+\begin{sol}
+Récurrence et I.T
+\end{sol}
+
+\magsubsection{Intervalle}
+\magsubsection{Partie entière, approximation}
+
+\exercice{nom={Rationnels et irrationnels}}
+\begin{questions}
+\question Soit $a$ et $b$ deux éléments de $\R\setminus\Q$. Peut-on affirmer
+  que $a+b$ (respectivement $a\times b$) appartient à $\R\setminus\Q$~?
+  Et si $a\in\Q$ et $b\in\R\setminus\Q$~?
+\question Montrer, en raisonnant par l'absurde, que $\sqrt{6}-\sqrt{2}-\sqrt{3}$ et
+  $\sqrt{2}+\sqrt{3}+\sqrt{5}$ sont irrationnels.
+\end{questions}
+
+\exercice{nom={Intersection d'une famille infinie}}
+Déterminer 
+\[\cap_{n\in\Ns}\interf{-\frac{1}{n}}{\frac{1}{n}} \et
+  \cap_{n\in\Ns}\intero{-\frac{1}{n}}{\frac{1}{n}}.\]
+
+\exercice{nom={Autour de la partie entière}}
+Soit $x$ et $y$ deux nombres réels et $n\in\Ns$.
+\begin{questions}
+\question Montrer que
+  \[\ent{x+y}\geq \ent{x}+ \ent{y}.\]
+  Y a-t-il des cas d'égalité~? D'inégalité stricte~?
+\question Montrer que $\ent{\frac{\ent{nx}}{n}}=\ent{x}$.
+\end{questions}
+\begin{sol}
+\begin{questions}
+\question On a $$\ent{x}\leq x \qquad \text{et} \qquad \ent{y}\leq y $$ donc $$\ent{x}+\ent{y}\leq x+y$$ et $\ent{x}+\ent{y}$ est un entier donc $\ent{x+y}\geq \ent{x}+\ent{y}$.
+$x=1=y$ donne une égalité tandis que $x=y=1,5$ donne une inégalité stricte.
+\question On a $\ent{x}\leq x <\ent{x}+1$ donc $n\ent{x}\leq nx <n(\ent{x}+1)$. $n\ent{x}$ étant un entier, on en déduit : $n\ent{x}\leq \ent{nx}(\leq nx) <n(\ent{x}+1)$ d'où en divisant par $n$ :
+$$\ent{x}\leq \frac{\ent{nx}}{n} <\ent{x}+1.$$ L'unique entier vérifiant cette dernière inégalité étant $\ent{\frac{\ent{nx}}{n}}$, on en déduit :
+$$\ent{\frac{\ent{nx}}{n}}=\ent{x}.$$
+\end{questions}
+\end{sol}
+
+\exercice{nom={Calcul de somme}}
+\begin{questions}
+\question Montrer que
+  \[\forall x\in\R \qsep \ent{x}+\ent{-x}=
+    \begin{cases}
+    0  & \text{si $x\in\Z$}\\
+    -1 & \text{sinon.}
+    \end{cases}\]
+\question En déduire que si $p,q\in\Ns$ sont premiers entre eux
+  \[\sum_{k=1}^{q-1} \ent{k\cdot \frac{p}{q}}=\frac{\p{p-1}\p{q-1}}{2}\]
+\end{questions}
+\begin{sol}
+\begin{enumerate}
+  \item Soit $x \in \R$. 
+    \begin{itemize}
+      \item Si $x \in \Z$, alors $\ent{x} = x$ et, comme $-x \in \Z$, $\ent{-x} = -x$, donc $\ent{x} + \ent{-x} = 0$. 
+      \item Si $x \notin \Z$, alors on a $x-1 < \ent x < x$ et $-x-1 < \ent{-x} < -x$. En sommant cela, on obtient $-2 < \ent x + \ent{-x} < 0$. 
+	Comme le seul entier dans $]-2,0[$ est $-1$, on a bien $ \ent x + \ent{-x}$.
+    \end{itemize}
+    Ainsi, \fbox{$\displaystyle\forall x\in\R \quad \ent{x}+\ent{-x}=
+    \begin{cases}
+    0  & \text{ si }x\in\Z\\
+    -1 & \text{ sinon}\end{cases}.$}
+  \item On a, par le changement d'indices $\ell = q-k$ : 
+    \begin{align*}
+      \displaystyle\sum_{k=1}^{q-1} \ent{k \times \frac{p}{q}} &= \dfrac{1}{2} \displaystyle\sum_{k=1}^{q-1} \ent{k \times \frac{p}{q}} + \dfrac{1}{2}\displaystyle\sum_{\ell=1}^{q-1} \ent{(q-\ell) \times \frac{p}{q}} \\
+      \displaystyle\sum_{k=1}^{q-1} \ent{k \times \frac{p}{q}} &= \dfrac{1}{2} \displaystyle\sum_{k=1}^{q-1} \ent{k \times \frac{p}{q}} + \dfrac{1}{2}\displaystyle\sum_{k=1}^{q-1} \ent{p - k\times \frac{p}{q}} \\
+                                                       &= \dfrac{1}{2} \displaystyle\sum_{k=1}^{q-1} p + \ent{k \times \frac{p}{q}} + \ent{-k \times \frac{p}{q}}.
+    \end{align*}
+    Or, si $k \in \Z$, si $\dfrac{kp}{q}$ est entier, alors $q \mid kp$ et comme $p$ et $q$ sont premiers entre eux, par le lemme de Gauss, $q\mid p$.
+    Il n'y a aucun multiple de $q$ dans $\llbracket 1,q-1 \rrbracket$, donc si $k\in \llbracket 1,q-1 \rrbracket$, alors $\dfrac{kp}{q} \notin \Z$. 
+    Ainsi, par ce qui précède, 
+    \begin{equation*}
+      \boxed{\displaystyle\sum_{k=1}^{q-1} \ent{k \times \frac{p}{q}} = \dfrac{1}{2} \displaystyle\sum_{k=1}^{q-1} (p-1) = \dfrac{(p-1)(q-1)}{2}.}
+    \end{equation*}
+\end{enumerate}
+\end{sol}
+
+
+
+
+
+\magsection{Fonction réelle d’une variable réelle}
+
+\magsubsection{Définition}
+
+
+\exercice{nom={Bijection}}
+Montrer que \[\dspappli{f}{\R}{\R}{x}{\frac{x}{\sqrt{x^2+1}}}\] réalise une bijection de $\R$ sur un intervalle à préciser et calculer sa réciproque. On tracera le graphe des deux fonctions.
+\begin{sol}
+D'après les théorèmes usuels, $f$ est dérivable sur $\R$ et
+\begin{eqnarray*}
+\forall x \in \R\qsep f'(x)
+&=&\p{1+x^2}^{-1/2}+x(2x)\p{\frac{-1}{2}}\p{1+x^2}^{-3/2}\\
+&=&\frac{1}{(x^2+1)^{3/2}}>0
+\end{eqnarray*}
+donc $f$ est strictement croissante sur $\R$. Puisque
+\[\forall x\geq 0\qsep f(x)=\frac{x}{\sqrt{x^2+1}}=\frac{1}{\sqrt{1+\frac{1}{x^2}}}\tendvers{x}{+\infty} 1\]
+et que $f$ est impaire, on en déduit que
+\[\forall x\in\R\qsep -1<f(x)<1.\]
+Montrons que $f$ réalise une bijection de $\R$ dans $]-1,1[$. Puisque $f$ est strictement croissante, elle est injective. Montrons qu'elle réalise une surjection de $\R$ dans $]-1,1[$. Soit $y\in]-1,1[$. Puisque $f$ est continue d'après les théorèmes usuels, et que 
+\[f(x)\tendvers{x}{-\infty}-1 \et f(x)\tendvers{x}{+\infty}1\]
+on en déduit, d'après le théorème des valeurs intermédiaires, qu'il existe $x\in\R$ tel que $f(x)=y$. Donc $f$ réalise une bijection de $\R$ dans $]-1,1[$. On note désormais $f$ la fonction
+\[\dspappli{f}{\R}{]-1,1[}{x}{\frac{x}{\sqrt{x^2+1}}}\]
+Calculons sa bijection réciproque. Soit $y\in[0,1[$. Alors
+\begin{eqnarray*}
+\forall x\in\RP\qsep f(x)=y
+&\ssi& \frac{x}{\sqrt{x^2+1}}=y\\
+&\ssi& y\sqrt{x^2+1}=x\\
+&\ssi& y^2(x^2+1)=x^2 \quad\text{car $y\geq 0$ et $x\geq 0$}\\
+&\ssi& x^2=\frac{y^2}{1-y^2}\\
+&\ssi& x=\frac{y}{\sqrt{1-y^2}} \quad\text{car $x\geq 0$, $y\geq 0$ et $1-y^2\geq 0$.}
+\end{eqnarray*}
+Donc
+\[\forall y\in[0,1[\qsep f^{-1}(y)=\frac{y}{\sqrt{1-y^2}}.\]
+Puisque $f$ est impaire, on en déduit que $f^{-1}$ est impaire donc
+\[\forall y\in]-1,1[\qsep f^{-1}(y)=\frac{y}{\sqrt{1-y^2}}.\]
+\end{sol}
+
+\magsubsection{Symétries}
+
+\exercice{nom={Symétries de la bijection réciproque}}
+Soit $\app{f}{\R}{\R}$ impaire et bijective. Montrer que $f^{-1}$ est impaire.
+
+\exercice{nom={Une fonction périodique étrange}}
+Soit $f$ la fonction définie sur $\R$ par
+\[\forall x\in\R \qsep
+  f(x)\defeq
+  \begin{cases}
+  1 & \text{si $x\in\Q$}\\
+  0 & \text{si $x\in\R\setminus\Q$.}  
+  \end{cases}\]
+Montrer que l'ensemble des périodes de $f$ est $\Q$. On a donc trouvé une
+fonction périodique qui n'admet pas de plus petite période strictement positive.
+
+\magsubsection{Monotonie}
+
+
+\exercice{nom={Monotonie}}
+Soit $f:\R\mapsto\R$ une fonction telle que $f\circ f$ est croissante et
+$f\circ f\circ f$ est strictement décroissante. Montrer que $f$ est
+strictement décroissante.
+
+
+
+
+\exercice{nom={Monotonie et théorèmes usuels}}
+Donner la monotonie (si possible sans dériver) des fonctions d'expressions
+\[\e^{-1/x^2}, \qquad \e^{1/x^3}, \qquad x \ln\p{\cos x}
+  \ \text{sur $\interfo{0}{\frac{\pi}{2}}$},\]
+\[x\ln\p{1-\frac{1}{x}} \text{sur $\intero{1}{+\infty}$},\qquad
+  \sqrt[3]{x+1}-\sqrt[3]{x} \text{ sur $\RPs$},\]
+\[\sin\p{\p{\e^{-x}-1}\pi/2} \text{sur $\RP$.}\]
+\begin{sol}
+On ne peut pas obtenir la monotonie de
+$x\mapsto x \ln\p{1-1/x}$ sur $\intero{1}{+\infty}$.
+C'est le produit de deux fonctions croissantes mais on ne peut rien en dire même si la première est positive. On devra donc dériver la fonction.
+
+$a^3-b^3=(a-b)(a^2+ab+b^2)$ donne (ce qui est intéressant sur $\RPs$:
+$$\sqrt[3]{x+1}-\sqrt[3]{x}=\frac{\sqrt[3]{x+1}^3-\sqrt[3]{x}^3}{\sqrt[3]{x+1}^2+\sqrt[3]{x+1}\sqrt[3]{x}+\sqrt[3]{x}^2}=\frac{1}{\sqrt[3]{x+1}^2+\sqrt[3]{x+1}\sqrt[3]{x}+\sqrt[3]{x}^2}.$$
+
+Sur $\interfo{0}{\frac{\pi}{2}}$, $\ln(cos)$ est décroissant et négatif donc $-\ln(cos)$ est croissant et positif donc $x\mapsto -x\ln(cos(x))$ est croissant, d'où $x\mapsto x\ln(cos(x))$ croissant.
+
+\end{sol}
+
+\magsubsection{Fonction majorée, minorée, bornée}
+
+
+
+
+% \exercice{nom={Calcul de limites}}
+% Déterminer les limites, si elles existent, en $1$ des fonctions
+% d'expressions
+% \[\frac{\sqrt{x}-\sqrt{x-1}-1}{\sqrt{x^2-1}}, \qquad
+%   \frac{x^2-\sqrt{x}}{\sqrt{x}-1}.\]
+% Déterminer les limites, si elles existent, des fonctions
+% d'expressions
+% \[\frac{\sin x-\cos x}{x-\frac{\pi}{4}} \quad \text{en $\frac{\pi}{4}$}, \qquad
+%   \frac{\sin (3x)}{1-2\cos x} \quad \text{en $\frac{\pi}{3}$}.\]
+
+% \exercice{nom={Asymptotes}}
+% Étudier les variations de
+% \[\dspappli{f}{\R}{\R}{x}{\frac{2x^3}{1+x^2}}\]
+% ses asymptotes et la position de la courbe de $f$ par rapport à celles-ci. En déduire un graphe précis de $f$.
+
+% \begin{sol}
+% $f$ est dérivable sur $\R$ et on a:
+% $$\forall x \in \R, f'(x)=\dfrac{2x^4+6x^2}{(1+x^2)^2}\geq 0.$$
+% Donc $f$ est croissante sur $\R$.
+
+
+% Tout d'abord, on constate que $\dfrac{f(x)}{x}\tendvers{x}{\pm\infty}{2}$. On forme donc $$f(x)-2x=\dfrac{-2x}{x^2}\tendvers{x}{\pm\infty}{0},$$. Ainsi, la droite d'équation $y=2x$ est asymptote à $f$ en plus et moins l'infini. De plus, $f(x)-2x<0$ sur $]0;+\infty[$ et $f(x)-2x>0$ sur $]-\infty;0[$ donc la courbe est au-dessus de son asymptote en $-\infty$ et au-dessous en $+\infty$.
+
+% \end{sol}
+
+
+% \magsection{Continuité}
+
+% \exercice{nom={Résolution d'une équation}}
+% Résoudre, l'équation
+% \[2x \ln(x)+3(x-1)=0.\]
+
+\magsection{Fonction continue, fonction dérivable}
+
+
+
+\magsubsection{Continuité}
+\magsubsection{Dérivabilité}
+
+
+
+
+\exercice{nom={Bijection}}
+Soit $f$ la fonction définie sur $\RPs$ par
+\[\forall x\in\RPs\qsep f(x)\defeq\frac{\e^x}{\e^x-1}.\]
+\begin{questions}
+\question Montrer que $f$ réalise une bijection de $\RPs$ sur un intervalle $J$ à préciser.
+\enonce Dans la suite, on note $g:J\to\RPs$ la bijection réciproque de la corestriction de $f$
+  à $J$.
+\question Discuter de la monotonie de $g$, de sa continuité et sa dérivabilité. Expliciter
+  la dérivée de $g$ sur $J$.
+\question Expliciter $g(y)$ en résolvant directement l'équation $f(x)=y$ et retrouver les
+  propriétés établies à la question précédente.
+\end{questions}
+
+\magsubsection{Dérivation et monotonie}
+
+\exercice{nom={Études de variations}}
+Étudier les variations des fonctions suivantes
+\[x\mapsto\frac{\ln x}{x} \et x\mapsto\sin x-x+\frac{x^3}{6}.\]
+
+\magsubsection{Dérivation des fonctions à valeurs dans $\C$}
+
+% \exercice{nom={Fonction définie par morceaux}}
+% On considère une fonction $f$ dérivable sur le segment $\interf{0}{1}$ avec
+% $f\p{0}=f\p{1}$. La fonction $g$ définie par
+% \[g(x)\defeq
+%   \begin{cases}
+%   f\p{2x} & \text{si $0\leq x\leq\frac{1}{2}$}\\
+%   f\p{2x-1} & \text{si $\frac{1}{2}<x\leq 1$}
+%   \end{cases}\]
+% est-elle continue~? dérivable~? Si non, quelles hypothèses faut-il ajouter pour
+% que $g$ soit dérivable sur $\interf{0}{1}$~?
+
+% \exercice{nom={Dérivation et symétries}}
+% Soit $f$ une fonction dérivable sur $\R$.
+% \begin{questions}
+% \question On suppose que $f$ est paire. Que peut-on dire de $f'$~?
+% \question Même question lorsque $f$ est impaire ou périodique.
+% \question Réciproquement, on suppose que $f'$ est impaire
+%   (resp. paire, périodique). Que peut-on dire de $f$~?
+% \end{questions}
+
+
+
+
+
+
+% \exercice{nom={Calculs de dérivées $n$-ièmes}}
+% Calculer les dérivées $n$-ièmes des fonctions d'expressions
+% \[x\mapsto x^k \quad \text{où $k\in\N$}, \qquad x\mapsto\sin x, \qquad
+%   x\mapsto\cos x,\]
+% \[x\mapsto\frac{1}{x^k} \quad \text{où $k\in\N$}, \qquad x\mapsto x^\alpha
+%   \quad \text{où $\alpha\in\R$}.\]
+
+% \exercice{nom={Une fonction de classe $\classecinf$ définie par morceaux}}
+% Soit $f$ la fonction définie sur $\R$ par
+% \[\forall x\in\R \qsep f(x)\defeq
+%   \begin{cases}
+%   \e^{-\frac{1}{x}} & \text{si $x>0$}\\
+%   0 & \text{si $x\leq 0$}
+%   \end{cases}\]
+% \begin{questions}
+% \question Montrer que $f$ est dérivable sur $\R$ et calculer sa dérivée.
+% \question Montrer que $f$ est de classe $\classec{1}$ sur $\R$.
+% \question Montrer que $f$ est de classe $\classec{\infty}$ sur $\Rs$ et que pour tout $n\in\N$, il existe un polynôme $P_n\in\polyR$ tel que
+%   $$\forall x\in\Rs \qsep f^{(n)}(x)=
+%     \begin{cases}
+%     P_n\p{\frac{1}{x}}\e^{-\frac{1}{x}} & \text{si $x>0$}\\
+%     0 & \text{si $x<0$.}
+%     \end{cases}
+%   $$
+% % \question En déduire la limite, pour tout entier $n\in\N$, de $f^{(n)}(x)$ lorsque
+% %   $x$ tend vers $0$, tout en étant différent de $0$.
+% \question À l'aide d'une récurrence, montrer que $f$ est de classe $\classec{\infty}$ sur $\R$.
+% \end{questions}
+% \begin{sol}
+% \begin{questions}
+% \question Puisque
+% \[\forall x>0\qsep f(x)=\e^{-1/x}\]
+% d'après les théorèmes usuels, $f$ est dérivable sur $\RPs$ et
+% \[\forall x>0\qsep f'(x)=\frac{1}{x^2}\e^{-1/x}.\]
+% Comme de plus
+% \[\forall x\leq 0\qsep f(x)=0\]
+% on en déduit que $f$ est dérivable sur $\RMs$ et que
+% \[\forall x<0\qsep f'(x)=0.\]
+% De plus, $f$ est dérivable à gauche en 0 et $f_g'(0)=0$. Montrons que $f$ est dérivable à droite en 0 et que $f_d'(0)=0$. On a, pour $x>0$
+% \begin{eqnarray*}
+% \frac{f(x)-f(0)}{x}&=&\frac{\e^{-1/x}}{x} \qquad\text{on pose $u\defeq\frac{1}{x}\tendversdp{x}{0}+\infty$.}\\
+% &=& u\e^{-u} \tendvers{u}{+\infty} 0
+% \end{eqnarray*}
+% Donc $f$ est dérivable à droite en 0 et $f_d'(0)=0$. Donc $f$ est dérivable en 0 et $f'(0)=0$. En conclusion
+% \begin{conclusion}
+% $f$ est dérivable sur $\R$ et
+% \[\forall x\in\R\qsep f'(x)=\begin{cases}
+% \frac{1}{x^2}\e^{-1/x}&\text{si $x>0$}\\
+% 0 &\text{si $x\leq 0$}
+% \end{cases}\]
+% \end{conclusion}
+% \question Montrons que $f$ est de classe $\classec{1}$ sur $\R$. On sait déjà que $f$ est dérivable sur $\R$. Il reste à prouver que sa dérivée est continue. Puisque
+% \[\forall x>0\qsep f'(x)=\frac{1}{x^2}\e^{-1/x}\]
+% on en déduit, d'après les théorèmes usuels que $f'$ est continue sur $\RPs$. De plus, pour tout $x>0$
+% \begin{eqnarray*}
+% f'(x)
+% &=& \frac{1}{x^2}\e^{-1/x} \qquad\text{on pose $u\defeq\frac{1}{x}\tendversdp{x}{0}+\infty$.}\\
+% &=& u^2 \e^{-u} \tendvers{u}{+\infty} 0
+% \end{eqnarray*}
+% donc
+% \[f'(x)\tendversdp{x}{0}0=f'(0).\]
+% On en déduit que $f'$ est continue à droite en 0. De plus
+% \[\forall x\leq 0\qsep f'(x)=0\]
+% donc $f'$ est continue sur $\RMs$ et elle est continue à gauche en 0. En conclusion $f'$ est continue sur $\R$.
+% \begin{conclusion}
+% $f$ est de classe $\classec{1}$ sur $\R$.
+% \end{conclusion}
+% \question Puisque
+% \[\forall x<0\qsep f(x)=0\]
+% on en déduit que $f$ est de classe $\classec{\infty}$ sur $\RMs$ et
+% \[\forall n\in\N\qsep \forall x<0\qsep f^{(n)}(x)=0.\]
+% De même, puisque
+% \[\forall x>0\qsep f(x)=\e^{-1/x}\]
+% d'après les théorèmes usuels, $f$ est de classe $\classec{\infty}$ sur $\RPs$. Pour tout $n\in\N$, on pose
+% \[\mathcal{H}_n\defeq \text{\og Il existe $P_n\in\polyR$ tel que~:}
+%   \ \forall x>0\qsep f^{(n)}(x)=P_n\p{\frac{1}{x}}\e^{-1/x}. \text{\fg}\]
+% \begin{itemize}
+% \item $\mathcal{H}_0$ est vraie~: En effet, il suffit de poser $P_0\defeq 1$.
+% \item $\mathcal{H}_n\implique\mathcal{H}_{n+1}$~: Soit $n\in\N$. On suppose que $\mathcal{H}_n$ est vraie. Montrons que $\mathcal{H}_{n+1}$ est vraie. Puisque $\mathcal{H}_n$ est vraie, il existe $P_n\in\polyR$ tel que
+% \[\forall x>0\qsep f^{(n)}(x)=P_n\p{\frac{1}{x}}\e^{-1/x}\]
+% donc d'après les théorèmes usuels
+% \begin{eqnarray*}
+% \forall x>0\qsep f^{(n+1)}(x)
+% &=& -\frac{1}{x^2}P_n'\p{\frac{1}{x}}\e^{-1/x} +\frac{1}{x^2}P_n\p{\frac{1}{x}}\e^{-1/x}\\
+% &=& P_{n+1}\p{\frac{1}{x}}\e^{-1/x} \quad\text{en posant $P_{n+1}\defeq X^2(P_n-P_n')$.}
+% \end{eqnarray*}
+% Donc $\mathcal{H}_{n+1}$ est vraie.
+% \end{itemize}
+% Par récurrence sur $n$, on en déduit que $\mathcal{H}_n$ est vraie pour tout $n\in\N$. En conclusion
+% \begin{conclusion}
+% $f$ est de classe $\classec{\infty}$ sur $\Rs$ et, pour tout $n\in\N$, il existe $P_n\in\polyR$ tel que
+% \[\forall x\in\Rs \qsep f^{(n)}(x)=
+%     \begin{cases}
+%     P_n\p{\frac{1}{x}}\e^{-\frac{1}{x}} & \text{si $x>0$}\\
+%     0 & \text{si $x<0$.}
+%     \end{cases}\]
+% \end{conclusion}
+% \question Commençons par prouver que pour tout $P\in\polyR$
+%   \[P\p{\frac{1}{x}}\e^{-1/x}\tendversdp{x}{0}0.\]
+%   Soit $P\in\polyR$. Alors, il existe $a_0,\ldots,a_n\in\R$ tels que $P=a_0+a_1X+\cdots+a_n X^n$. Soit $k\in\intere{0}{n}$. Alors
+% \begin{eqnarray*}
+% \p{\frac{1}{x}}^k\e^{-1/x}&=&\frac{1}{x^k}\e^{-1/x} \qquad\text{on pose $u\defeq\frac{1}{x}\tendversdp{x}{0}+\infty$.}\\
+% &=& u^k\e^{-u} \tendvers{u}{+\infty} 0
+% \end{eqnarray*}
+% donc
+% \[\p{\frac{1}{x}}^k\e^{-1/x}\tendversdp{x}{0}0.\]
+% On en déduit que
+% \[P\p{\frac{1}{x}}\e^{-1/x}=\sum_{k=0}^n \frac{a_k}{x^k}\e^{-1/x}\tendversdp{x}{0}0.\]
+% Pour tout $n\in\N$, on pose désormais 
+% \[\mathcal{H}_n\defeq \text{\og $f$ est dérivable $n$ fois en 0 et $f^{(n)}(0)=0$. \fg}\]
+% \begin{itemize}
+% \item $\mathcal{H}_0$ est vraie~: On a bien $f(0)=0$.
+% \item $\mathcal{H}_n\implique\mathcal{H}_{n+1}$~: Soit $n\in\N$. On suppose que $\mathcal{H}_n$ est vraie. Montrons que $\mathcal{H}_{n+1}$ est vraie. Puisque $\mathcal{H}_n$ est vraie, $f$ est dérivable $n$ fois en 0 et $f^{(n)}(0)=0$. D'après la question précédente, on en déduit que 
+% \[\forall x\in\R\qsep f^{(n)}(x)=
+%   \begin{cases}
+%     P_n\p{\frac{1}{x}}\e^{-\frac{1}{x}} & \text{si $x>0$}\\
+%     0 & \text{si $x\leq 0$.}
+%     \end{cases}\]
+% On en déduit que $f^{(n)}$ est dérivable à gauche en 0 et que sa dérivée à gauche est nulle. De plus, pour tout $x>0$
+% \[\frac{f^{(n)}(x)-f^{(n)}(0)}{x}=\frac{f^{(n)}(x)}{x}=\frac{1}{x}P_n\p{\frac{1}{x}}\e^{-1/x}=Q\p{\frac{1}{x}}\e^{-1/x}\]
+% avec $Q\defeq XP_n$. On en déduit que
+% \[\frac{f^{(n)}(x)-f^{(n)}(0)}{x}\tendversdp{x}{0}0.\]
+% Donc $f^{(n)}$ est dérivable à droite en 0 et sa dérivée est nulle. On en deduit que $f$ est dérivable $n+1$ fois en 0 et que $f^{(n+1)}(0)=0$. Donc $\mathcal{H}_{n+1}$ est vraie.
+% \end{itemize}
+% Par récurrence sur $n$, on en déduit que pour tout $n\in\N$, $f$ est dérivable $n$ fois en 0. Donc, pour tout $n\in\N$, $f$ est dérivable $n$ fois sur $\R$. En conclusion
+% \begin{conclusion}
+% $f$ est de classe $\classec{\infty}$ sur $\R$.
+% \end{conclusion}
+%  % Soit $n\in\N$. Montrons que
+%  %  \[f^{(n)}(x)\tendversp{x}{0}0.\]
+%  %  Puisque $f^{(n)}(x)=0$ pour $x<0$, on en déduit que la limite pointée à gauche en 0 de $f^{(n)}(x)$ est 0. Montrons que la limite pointée de $f^{(n)}(x)$ à droite en 0 est aussi 0.
+% \end{questions}
+% \end{sol}
+
+\magsection{Intégration, primitive}
+
+
+\magsubsection{Primitive}
+
+\exercice{nom={Bijection}}
+
+Soit $f$ la fonction définie sur $\intero{-1}{1}$ par
+\[\forall x\in\intero{-1}{1}\qsep f(x)\defeq\frac{1}{\sqrt{1-x^2}}.\]
+
+\begin{questions}
+\question Montrer que $f$ admet une unique primitive $F$ s'annulant en 0.
+\question Montrer que $F(x)$ admet une limite $l\in\Rbar$ lorsque $x$ tend vers 1.
+\question Montrer que $F$ est impaire.
+\enonce On définit la fonction $\phi$ sur $\intero{-\pi/2}{\pi/2}$ par
+  \[\forall x\in\intero{-\pi/2}{\pi/2}\qsep \phi(x)\defeq F(\sin x).\]
+\question En dérivant $\phi$, montrer que
+	\[\forall x\in\intero{-\pi/2}{\pi/2}\qsep F(\sin x)=x.\]
+\question En déduire la valeur de $l$.
+\end{questions}
+
+\magsubsection{Intégration et régularité}
+
+
+
+\magsubsection{Intégration et inégalité}
+
+
+\exercice{nom={Étude d'une fonction définie par une intégrale}}
+Soit $g$ la fonction d'expression
+\[g(x)\defeq\integ{0}{\frac{\pi}{2}}{\frac{\e^t}{1+x\sin t}}{t}.\]
+\begin{questions}
+\question Montrer que $g$ est définie sur $\intero{-1}{+\infty}$.
+\question Montrer que $g$ est décroissante.
+% \question Dans cette question, on admet que $f$ est bornée et on se donne un réel
+%   $a>-1$. Montrer qu'il existe $M\in\RP$ tel que~:
+%   \[\forall x,y\in\interfo{a}{+\infty} \quad \abs{g(x)-g(y)}
+%     \leq M\abs{x-y}\]
+% \question En déduire que $g$ est continue sur $\intero{-1}{+\infty}$.
+\end{questions}
+
+\exercice{nom={Sommes de Riemann de fonctions monotones}}
+Soit $f$ une fonction continue et croissante sur $\interf{0}{1}$. On définit
+la suite $(u_n)$ par
+$$\forall n\in\Ns \qsep u_n\defeq\frac{1}{n}\sum_{k=1}^n f\p{\frac{k}{n}}.$$
+\begin{questions}
+\question Montrer que pour tout $n\geq 1$, et pour tout $k\in\intere{0}{n-1}$, on
+  a
+  \[\frac{1}{n}f\p{\frac{k}{n}}\leq\integ{\frac{k}{n}}{\frac{k+1}{n}}{f(t)}{t}
+    \leq \frac{1}{n}f\p{\frac{k+1}{n}}.\]
+\question En déduire que pour tout entier $n\geq 1$
+  \[u_n-\frac{1}{n}\p{f(1)-f(0)} \leq \integ{0}{1}{f(t)}{t}\leq u_n.\]
+\question En déduire que la suite $(u_n)$ converge vers
+  $\integ{0}{1}{f(t)}{t}$. En donner une interprétation géométrique.
+\question Soit $\alpha\in\RPs$. On considère la suite $(v_n)$ définie par
+  \[\forall n\in\N \qsep v_n\defeq\sum_{k=0}^n k^\alpha.\]
+  Montrer que
+  \[v_n\equiS \frac{n^{\alpha+1}}{\alpha+1}\]
+  c'est-à-dire que la suite de terme général
+  \[v_n\frac{\alpha+1}{n^{\alpha+1}}\]
+  converge vers $1$.
+\end{questions}
+\begin{sol}
+\begin{questions}
+\question Soit $n\in\Ns$ et $k\in\intere{0}{n-1}$. Alors
+  \[0\leq\frac{k}{n}\leq\frac{k+1}{n}\leq 1.\]
+  Par croissance de $f$, on en déduit que
+  \[\forall t\in\interf{\frac{k}{n}}{\frac{k+1}{n}}\qsep f\p{\frac{k}{n}}\leq f(t)\leq f\p{\frac{k+1}{n}}.\]
+  Puisque $k/n\leq (k+1)/n$, on peut intégrer cette inégalité et on obtient
+  \[\integ{\frac{k}{n}}{\frac{k+1}{n}}{f\p{\frac{k}{n}}}{t}\leq
+    \integ{\frac{k}{n}}{\frac{k+1}{n}}{f(t)}{t}\leq
+    \integ{\frac{k}{n}}{\frac{k+1}{n}}{f\p{\frac{k+1}{n}}}{t}\]
+  donc
+  \[\frac{1}{n}f\p{\frac{k}{n}}\leq\integ{\frac{k}{n}}{\frac{k+1}{n}}{f(t)}{t}
+    \leq \frac{1}{n}f\p{\frac{k+1}{n}}.\]
+\question Soit $n\in\Ns$. Alors
+  \[\forall k\in\intere{0}{n-1}\qsep \frac{1}{n}f\p{\frac{k}{n}}\leq
+    \integ{\frac{k}{n}}{\frac{k+1}{n}}{f(t)}{t}
+    \leq \frac{1}{n}f\p{\frac{k+1}{n}}.\]
+  En sommant cette inégalité pour $k$ allant de 0 à $n-1$, on obtient
+  \[\sum_{k=0}^{n-1} \frac{1}{n}f\p{\frac{k}{n}}\leq
+    \sum_{k=0}^{n-1} \integ{\frac{k}{n}}{\frac{k+1}{n}}{f(t)}{t}
+    \leq \sum_{k=0}^{n-1} \frac{1}{n}f\p{\frac{k+1}{n}}\]
+  donc d'après Chasles
+  \[\frac{1}{n}\sum_{k=0}^{n-1} f\p{\frac{k}{n}}\leq
+    \integ{0}{1}{f(t)}{t}
+    \leq \frac{1}{n} \sum_{k=0}^{n-1} f\p{\frac{k+1}{n}}.\]
+  En effectuant un changement de variable $k\to k-1$ dans la somme de droite, on obtient
+    \[\frac{1}{n}\sum_{k=0}^{n-1} f\p{\frac{k}{n}}\leq
+    \integ{0}{1}{f(t)}{t}
+    \leq \frac{1}{n}\sum_{k=1}^{n} f\p{\frac{k}{n}}\]
+  puis
+    \[\frac{1}{n}\cro{\sum_{k=1}^{n} f\p{\frac{k}{n}}-\cro{f(1)-f(0)}}\leq
+    \integ{0}{1}{f(t)}{t}
+    \leq \frac{1}{n}\sum_{k=1}^{n} f\p{\frac{k}{n}}.\]
+  En conclusion
+  \[\forall n\in\Ns\qsep u_n-\frac{1}{n}\cro{f(1)-f(0)} \leq \integ{0}{1}{f(t)}{t}\leq u_n.\]
+\question Soit $n\in\Ns$. D'après la question précédente
+  \[u_n\leq \integ{0}{1}{f(t)}{t}+\frac{1}{n}\cro{f(1)-f(0)}\]
+  et
+  \[\integ{0}{1}{f(t)}{t}\leq u_n.\]
+  Donc
+  \[\forall n\in\Ns\qsep \integ{0}{1}{f(t)}{t}\leq u_n \leq\integ{0}{1}{f(t)}{t}+\frac{1}{n}\cro{f(1)-f(0)}.\]
+  Or
+  \[\integ{0}{1}{f(t)}{t}+\frac{1}{n}\cro{f(1)-f(0)}\tendvers{n}{+\infty}\integ{0}{1}{f(t)}{t}\]
+  donc d'après le théorème des gendarmes
+  \[u_n\tendvers{n}{+\infty}\integ{0}{1}{f(t)}{t}.\]
+\question Soit $\alpha\in\RPs$. On définit la fonction $f$ sur $\interf{0}{1}$ par
+  \[\forall t\in\interf{0}{1}\qsep f(t)\defeq t^\alpha.\]
+  Alors $f$ est continue et croissante sur $[0,1]$ donc
+  \[u_n \tendvers{n}{+\infty} \integ{0}{1}{t^\alpha}{t}=\evaldiff{\frac{1}{\alpha+1}t^{\alpha+1}}{0}{1}=\frac{1}{\alpha+1}.\]
+  On définit la suite $(w_n)$ par
+  \[\forall n\in\Ns\qsep w_n\defeq \frac{\alpha+1}{n^{\alpha+1}}\sum_{k=0}^n k^\alpha.\]
+  Alors
+  \begin{eqnarray*}
+\forall n\in\Ns\qsep w_n
+&=& \frac{\alpha+1}{n}\sum_{k=0}^n \p{\frac{k}{n}}^\alpha\\
+&=& \frac{\alpha+1}{n}\sum_{k=0}^n f\p{\frac{k}{n}}\\
+&=& \frac{\alpha+1}{n}\sum_{k=1}^n f\p{\frac{k}{n}}\\
+&=& (\alpha+1)u_n \tendvers{n}{+\infty} 1.
+  \end{eqnarray*}
+  Donc
+\[\sum_{k=0}^n k^\alpha\equi{n}{+\infty}\frac{n^{\alpha+1}}{\alpha+1}.\]
+\end{questions}
+\end{sol}
+
+\magsubsection{Intégration par parties, changement de variable}
+
+\exercice{nom={Intégrales de Wallis}}
+Pour tout entier $n\in\N$, on définit $I_n$ et $J_n$ par
+\[I_n\defeq\integ{0}{\frac{\pi}{2}}{\sin^n t}{t} \qquad
+  J_n\defeq\integ{0}{\frac{\pi}{2}}{\cos^n t}{t}\]
+\begin{questions}
+\question Montrer que pour tout entier $n\in\N$, $I_n=J_n$.
+\question Montrer que les suites $(I_n)$ et $(J_n)$ sont positives et
+  décroissantes. Calculer $I_0$ et $I_1$.
+\question Montrer que pour tout entier $n\in\N$
+  \[I_{n+2}=\frac{n+1}{n+2}I_n.\]
+\question En déduire que pour tout entier $n\in\N$
+  \[I_n I_{n+1}=\frac{\pi}{2(n+1)}.\]
+\question En déduire que
+  \[I_n\equiS\sqrt{\frac{\pi}{2n}}\]
+  c'est-à-dire que la suite de terme général $I_n\sqrt{\frac{2n}{\pi}}$
+  converge vers $1$.
+\end{questions}
+\begin{sol}
+\begin{questions}
+\question On effectue le changement de variable $t=\dfrac{\pi}{2}-u$ ($dt=-du$). Cela donne :
+$$I_n=-\integ{\frac{\pi}{2}}{0}{\sin^n \p{\dfrac{\pi}{2}-u}}{u}=\integ{0}{\frac{\pi}{2}}{\cos^n (u)}{u}=J_n.$$
+\question La suite $(I_n)$ est positive car son intégrande l'est. De plus,
+$$I_{n+1}-I_n=\integ{0}{\frac{\pi}{2}}{\sin^{n+1} t-\sin^n t}{t}=\integ{0}{\frac{\pi}{2}}{\sin^{n} t(\sin t-1)}{t}\leq 0$$ donc la suite est décroissante. De même pour $J_n$ car $J_n=I_n$.
+ On a $I_0=\dfrac{\pi}{2}$ et $I_1=1$.
+\question Soit $n\in\N$. On effectue une IPP :
+\begin{eqnarray*}
+I_{n+2}&=&\integ{0}{\frac{\pi}{2}}{\sin^{n+1} (t)\sin (t)}{t}=\left[-\sin^{n+1} (t) \cos (t)\right]_0^{\frac{\pi}{2}}-\integ{0}{\frac{\pi}{2}}{(n+1)(-\cos (t) \sin^n (t))(-\cos(t))}{t}\\
+&=&0-(n+1)\integ{0}{\frac{\pi}{2}}{(1-\sin^2(t))\sin^n(t)}{t}\\
+&=&(n+1)(I_n-I_{n+2})
+\end{eqnarray*}
+D'où le résultat souhaité.
+\question Montrons par récurrence pour tout entier $n\in\N$, $H_n$ : "$I_n I_{n+1}=\dfrac{\pi}{2(n+1)}.$"
+\begin{itemize}
+\item [$\bullet$] $H_0$ est vraie d'après le calcul de $I_0$ et $I_1$ fait précédemment.
+\item [$\bullet$] Soit $n\in \N$. Supposons $H_n$ vraie. Alors $$I_{n+1}I_{n+2}=I_{n+1}I_n\frac{n+1}{n+2}\underset{H.R}{=}\frac{\pi}{2(n+1)}\frac{n+1}{n+2}=\frac{\pi}{2(n+2)}.$$ $H_{n+1}$ est donc vraie et on a donc bien démontré le résultat par récurrence.
+\end{itemize}
+\question Posons $u_n=I_n\sqrt{\frac{2n}{\pi}}$. On a
+$$\frac{n+1}{n+2}=\frac{I_{n+2}}{I_n}\leq \frac{I_{n+1}}{I_n}\leq 1 $$ donc $\frac{I_{n+1}}{I_n} \tendvers{n}{+\infty}{1}$ d'après le théorème des gendarmes.
+Ainsi, $$u_n^2=\frac{2}{\pi}n I_n^2=\frac{2}{\pi}\times\frac{n}{n+1}\times (n+1)I_n I_{n+1}\times \frac{I_n}{I_{n+1}}\tendvers{n}{+\infty}{\frac{2}{\pi}\frac{\pi}{2}}=1.$$
+On peut alors en déduire que $u_n \tendvers{n}{+\infty}{1}.$
+\end{questions}
+\end{sol}
+
+\exercice{nom={Intégrales}}
+Pour tout $n\in\N$, on pose
+\[I_n\defeq\integ{0}{1}{(1-x^2)^n}{x}.\]
+\begin{questions}
+\item Établir une relation de récurrence entre $I_{n}$ et $I_{n+1}$.
+\item Calculer $I_{n}$.
+\item En déduire \[\sum\limits_{k=0}^{n} \frac{(-1)^k}{2k+1}\binom{n}{k}.\]
+\end{questions}
+
+\begin{sol}
+\begin{questions}
+\item 
+\begin{eqnarray*}
+I_{n+1}&=&\primppdi{(1-x^2)^{n+1}}{1}{x}\\
+&\underset{IPP}{=}&\left[x(1-x^2)^{n+1}\right]_0^1-\integ{0}{1}{-(n+1)2x^2(1-x^2)^n}{x}\\
+&=&2(n+1)\left[\integ{0}{1}{(x^2-1)(1-x^2)^n}{x}+\integ{0}{1}{(1-x^2)^n}{x}\right]\\
+&=&2(n+1)(I_n-I_{n+1}) .
+\end{eqnarray*}
+Ainsi, $(2n+3)I_{n+1}=2(n+1)I_n$, d'où :
+$$\boxed{I_{n+1}=\frac{2n+2}{2n+3}I_n.}$$
+\item On a $$\displaystyle I_n=\prod_{k=0}^{n-1}\frac{I_{k+1}}{I_k}\times I_0=\prod_{k=0}^{n-1}\frac{2k+2}{2k+3}\times 1=\frac{2\times 4\times \ldots \times 2n }{3\times 5\times \ldots \times (2n+1)}=\frac{2^{2n}(n!)^2}{(2n+1)!}.$$
+\item 
+\begin{eqnarray*}
+I_{n}&=&\integ{0}{1}{\sum_{k=0}^n\binom{n}{k}(-1)^kx^{2k}}{x}\\
+&=&\sum_{k=0}^n\binom{n}{k}(-1)^k\integ{0}{1}{x^{2k}}{x}\\
+&=&\sum_{k=0}^n\binom{n}{k}(-1)^k\left[\frac{x^{2k+1}}{2k+1}\right]_0^1\\
+&=&\sum_{k=0}^{n} \frac{(-1)^k}{2k+1}\binom{n}{k} .
+\end{eqnarray*}
+\end{questions}
+\end{sol}
+
+\magsubsection{Calcul de primitive}
+
+%%\pagebreak
+
+% \exercice{nom={Inégalités}}
+% \begin{questions}
+% \question Soit $x,y\in\R$ tels que $0<x\leq y$. Montrer que~:
+%   \[\frac{y-x}{2\sqrt{y}}\leq\sqrt{y}-\sqrt{x}\leq\frac{y-x}{2\sqrt{x}}\]
+% \question Montrer que pour tout $x,y\in\R$~:
+%   \[\abs{\sqrt[3]{2+\sin y}-\sqrt[3]{2+\sin x}}\leq\frac{1}{3}\abs{y-x}\]
+% \end{questions}
+
+\exercice{nom={Calcul de primitives}}
+Donner le domaine de définition et calculer les primitives suivantes
+\[\prim{\p{x^2+x+1}\e^x}{x}, \qquad \prim{\p{x^2-1}\cos x}{x}, \qquad
+  \prim{x^3\ln x}{x},\]
+\[\prim{\sin^2 x\cos^3 x}{x}, \qquad \prim{\sin x\cos^2 x}{x}, \qquad
+  \prim{\sin^2 x\cos^2 x}{x},\]
+\[\prim{\frac{x}{x^2+1}}{x}, \qquad \prim{\frac{1}{x\ln x}}{x}, \qquad
+  \prim{\ln^n x}{x} \quad (\text{pour $n\in\N$}).\]
+
+
+\begin{sol}
+\begin{questions}
+\question On se place sur $\R$.
+\begin{eqnarray*}
+\primppdi{(x^2+x+1)}{e^x}{x}&\underset{IPP}{=}&(x^2+x+1)e^x-\primppdi{(2x+1)}{e^x}{x}\\
+&\underset{IPP}{=}&(x^2+x+1)e^x-(2x+1)e^x+2\prim{e^x}{x}\\
+&=&\boxed{(x^2-x+2)e^x} .
+\end{eqnarray*}
+\question On se place sur $\R$.
+\begin{eqnarray*}
+\primppdi{(x^2-1)}{\cos(x)}{x}&\underset{IPP}{=}&(x^2-1)\sin(x)-\primppdi{2x}{\sin(x)}{x}\\
+&\underset{IPP}{=}&(x^2-1)\sin(x)+2x\cos(x)-\prim{2\cos(x)}{x}\\
+&=&\boxed{(x^2-3)\sin(x)+2x\cos(x)} .
+\end{eqnarray*}
+\question On se place sur $\RPs$.
+\begin{eqnarray*}
+\primppid{x^3}{\ln(x)}{x}&\underset{IPP}{=}&\frac{x^4}{4}\ln(x)-\prim{\frac{x^4}{4}\frac{1}{x}}{x}\\
+&=&\boxed{\frac{x^4}{4}\ln(x)-\frac{1}{16}x^4} .
+\end{eqnarray*}
+
+\question On se place sur $\R$.
+\begin{equation*}
+    \begin{split}
+    \prim{\sin^2 x\cos^3 x}{x}&=\prim{\sin^2 x \p{1-\sin^2 x}\cos x}{x}\\
+                              &=\prim{t^2\p{1-t^2}}{t}\\
+                              &=\frac{1}{3}t^3-\frac{1}{5}t^5\\
+                              &=\frac{1}{3}\sin^3 x-\frac{1}{5}\sin^5 x\\
+    \end{split}
+    \end{equation*}    
+\question On se place sur $\R$.
+
+$$\prim{\sin(x)\cos^2(x)}{x}=-\frac{1}{3}\cos^3(x).$$
+\question On se place sur $\R$.
+    \begin{eqnarray*}
+    \cos^2 x\sin^2 x&=&\p{\frac{1}{2}\sin\p{2x}}^2\\
+     &=&\frac{1}{4}\frac{1-\cos\p{4x}}{2}\\
+     &=&\frac{1}{8}-\frac{1}{8}\cos\p{4x}
+    \end{eqnarray*}
+    Donc~:
+    $$\prim{\cos^2 x\sin^2 x}{x}=\frac{1}{8}x-\frac{1}{32}\sin\p{4x}$$
+\question On se place sur $\R$.
+$$\prim{\frac{x}{x^2+1}}{x}=\frac{1}{2}\prim{\frac{2x}{x^2+1}}{x}=\frac{1}{2}\ln(x^2+1).$$
+
+\question On se place sur $I=\intero{0}{1}$ ou sur $I=\intero{1}{+\infty}$.
+$$\prim{\frac{1}{x\ln(x)}}{x}=\ln|\ln x|.$$
+
+\question
+\[I_n=x\sum_{k=0}^n (-1)^k \frac{n!}{(n-k)!}\ln^{n-k} x\]   
+\end{questions}
+\end{sol}
+
+% \exercice{nom={Calcul d'une valeur approchée de $\sin 1$}}
+% \begin{questions}
+% \question Montrer que pour tout entier $n$ et tout réel $x$~:
+%   $$\sin x=\sum_{k=0}^n \frac{(-1)^k}{(2k+1)!}x^{2k+1}+
+%     \integ{0}{x}{\frac{\p{x-t}^{2n+2}}{\p{2n+2}!}\sin^{(2n+3)}(t)}{t}$$
+% \question En déduire que~:
+%   $$\forall x\in\R \quad \abs{\sin x-\sum_{k=0}^n
+%     \frac{(-1)^k}{(2k+1)!}x^{2k+1}} \leq \frac{\abs{x}^{2n+3}}{\p{2n+3}!}$$
+% \question En déduire une méthode pour calculer $\sin 1$ avec 100 chiffres exacts 
+%   après la virgule avec un ordinateur capable de calculer avec une précision
+%   illimitée.
+% \end{questions}
+% \exercice{nom={Primitives de fractions rationnelles}}
+% \begin{questions}
+% \question Calculer sur un intervalle $I$ que l'on précisera
+%   \[\priminv{1-x^4}{x}, \qquad \prim{\frac{x}{1+x^4}}{x}, \qquad \prim{\frac{x^2}{x^3-1}}{x}.\]
+% \question Calculer sur un intervalle $I$ que l'on précisera
+%   \[\priminv{1+x+x^2}{x}, \qquad \prim{\frac{2-5x}{1+x^2}}{x},\]
+%   \[\prim{\frac{3x+2}{2x^2-4x+3}}{x}, \qquad
+%     \prim{\frac{x+3}{x^2-2x+5}}{x}.\]
+% % \question Calculer
+% %   \[\integ{0}{1}{\frac{x^3+x}{(x^2+x+1)^2}}{x}.\]
+% \end{questions}
+% \begin{sol}
+% $\quad$
+% \begin{questions}
+% \question On décompose en éléments simples :
+% $$\frac{1}{1-X^4}=\frac{1}{2}\frac{1}{1+X^2}+\frac{1}{4}\frac{1}{1-X}+\frac{1}{4}\frac{1}{1+X},$$ d'où :
+%   \[\priminv{1-x^4}{x}=\frac{1}{2}\arctan x+\frac{1}{4}\ln\p{\frac{1+x}{1-x}} \]
+%   \[\prim{\frac{x}{1+x^4}}{x}=\frac{1}{2}\arctan\p{x^2}\]
+%   \[\prim{\frac{x^2}{x^3-1}}{x}=\frac{1}{3}\ln\abs{x^3-1}\]
+% \question Dans cette question, on a affaire à des éléments simples de seconde espèce :
+% \begin{eqnarray*}
+% \prim{\frac{1}{1+x+x^2}}{x}&=&\prim{\frac{1}{\p{x+\frac{1}{2}}^2+\frac{3}{4}}}{x}\\
+% &=&\prim{\frac{1}{\frac{3}{4}\p{(\frac{2}{\sqrt{3}}(x+\frac{1}{2}))^2+1}}}{x}\\
+% &\underset{u=\frac{2}{\sqrt{3}}(x+\frac{1}{2})}{=}&\frac{4}{3}\frac{\sqrt{3}}{2}\prim{\frac{1}{u^2+1}}{u}\\
+% &=&\boxed{\frac{2}{\sqrt{3}}\arctan(\frac{2}{\sqrt{3}}(x+\frac{1}{2})} .
+% \end{eqnarray*}
+
+% \begin{eqnarray*}
+% \prim{\frac{3x+2}{2x^2-4x+3}}{x}&=&\frac{3}{4}\prim{\frac{4x-4}{2x^2-4x+3}}{x}+\prim{\frac{5}{2x^2-4x+3}}{x}\\
+% &=&\frac{3}{4}\ln(2x^2-4x+3)+\frac{5}{2}\prim{\frac{1}{(x-1)^2+\frac{1}{2}}}{x}\\
+% &=&\frac{3}{4}\ln(2x^2-4x+3)+\frac{5}{2}\prim{\frac{1}{\frac{1}{2}\p{(\sqrt{2}(x-1))^2+1}}}{x}\\
+% &\underset{u=\sqrt{2}(x-1)}{=}&\frac{3}{4}\ln(2x^2-4x+3)+\frac{5}{\sqrt{2}}\prim{\frac{1}{u^2+1}}{u}\\
+% &=&\boxed{\frac{3}{4}\ln(2x^2-4x+3)+\frac{5}{\sqrt{2}}\arctan(\sqrt{2}(x-1))} .
+% \end{eqnarray*}
+% % \question Le mieux est de faire cet exercice en cherchant une primitive sous
+% %   une forme donnée.
+% %   \[\prim{\frac{x^3+x}{(x^2+x+1)^2}}{x}=\frac{1}{2} \ln\p{1+x+x^2}
+% %     -\frac{7\sqrt{3}}{9}
+% %     \arctan\p{\frac{2 x+1}{\sqrt{3}}}+\frac{x-1}{3 \p{1+x+x^2}}\]
+% %   On trouve
+% %   \[\frac{1}{54}\p{18+27\ln 3-7\sqrt{3}\pi}\]
+% \end{questions}
+% \end{sol}
+
+% \exercice{nom={Primitives de fractions rationnelles}}
+% On pose, pour tout $n \in \N$
+% \[I_n\defeq\priminv{(1+x^2)^n}{x}.\]
+% À l'aide d'une intégration par parties, obtenir une relation de récurrence entre $I_{n+1}$ et $I_n$. En déduire $I_1,I_2$ et $I_3$.
+
+% \begin{sol}
+% Par une IPP,
+% $$\priminv{(1+x^2)^n}{x}=\frac{x}{(1+x^2)^n}+2n\prim{\frac{x^2}{(1+x^2)^{n+1}}}{x}=\frac{x}{(1+x^2)^n}+2n\p{\prim{\frac{1+x^2}{(1+x^2)^{n+1}}}{x}-\prim{\frac{1}{(1+x^2)^{n+1}}}{x}}.$$
+%  D'où :
+%  $$I_{n+1}=\frac{x}{2n(1+x^2)^n}+\frac{2n-1}{2n}I_n.$$
+%  On trouve alors :
+%  $$I_1=\arctan(x)$$
+%  $$I_2=\frac{x}{2(1+x^2)}+\frac{1}{2}\arctan(x)$$
+%  $$I_3=\frac{x}{4(1+x^2)^2}+\frac{3}{8}\frac{x}{1+x^2}+\frac{3}{8}\arctan(x)$$
+% \end{sol}
+
+
+% \exercice{nom={Calcul de primitives}}
+% Calculer les primitives suivantes en précisant à chaque fois le ou les intervalles où ceci est légitime.
+% \[\prim{\exp(-\sqrt{x})}{x}, \qquad \prim{\cos(\ln (x))}{x}, \qquad \prim{\ln(1+x^2)}{x},\]
+% \[\prim{\arctan(x)}{x}, \qquad \prim{x\sin^2 (x)}{x}\]
+% %, \qquad \prim{\frac{x^2}{(x-1)^2 (x^2 + 4)}}{x},\]
+% \[\prim{\cos(2x) \cos^2(x)}{x}, \qquad \priminv{\sin(x)+\tan(x)}{x} \text{ sur $\intero{0}{\pi/2}$ en posant $u=\cos(t)$.}\]
+
+% \begin{sol}
+% \begin{questions}
+% \question On se place sur $\RPs$. On pose $u=\sqrt{x}$ donc $du=\dfrac{1}{2\sqrt{x}}dx=\dfrac{1}{2u}du$ d'où : 
+% \begin{eqnarray*}
+% \prim{\exp(-\sqrt{x})}{x}&=&\primppid{e^{-u}}{2u}{u}\\
+% &\underset{IPP}{=}&-2ue^{-u}-\prim{-2e^{-u}}{u}\\
+% &=&-2ue^{-u}-2e^{-u}\\
+% &=&-2(u+1)e^{-u}\\
+% &=&\boxed{-2(\sqrt{x}+1)e^{-\sqrt{x}}} .
+% \end{eqnarray*}
+% \question On se place sur $\RPs$. On pose $u=\ln{x}$ donc $du=\dfrac{1}{x}dx=\dfrac{1}{e^u}du$ d'où : 
+% \begin{eqnarray*}
+% \prim{\cos(\ln (x))}{x}&=&\prim{\cos(u)e^u}{u}\\
+% &=&\Re\p{\prim{e^{u+iu}}{u}}\\
+% &=&\Re\p{\frac{1}{1+i}e^{u+iu}}\\
+% &=&\Re\p{\frac{1-i}{2}e^{u}e^{iu}}\\
+% &=&\p{\frac{1}{2}\cos(u)+\frac{1}{2}\sin(u)}e^u\\
+% &=&\boxed{x\p{\frac{1}{2}\cos(\ln(x))+\frac{1}{2}\sin(\ln(x))}} .
+% \end{eqnarray*}
+
+% \question On se place sur $\R$.
+
+% \begin{eqnarray*}
+% \prim{\ln(1+x^2)}{x}&=&\primppid{1}{\ln(1+x^2)}{x}\\
+% &\underset{IPP}{=}&x\ln(1+x^2)-\prim{\frac{2x^2}{1+x^2}}{x}\\
+% &=&x\ln(1+x^2)-2\prim{\frac{1+x^2-1}{1+x^2}}{x}\\
+% &=&x\ln(1+x^2)-2\prim{1}{x}+2\prim{\frac{1}{1+x^2}}{x}\\
+% &=& \boxed{x\ln(1+x^2)-2x+2\arctan(x)} .
+% \end{eqnarray*}
+% \question \begin{equation*}
+%   \begin{split}
+%   \prim{\arctan x}{x}&=\primppid{1}{\arctan x}{x}\\
+%                  &=x\arctan x-\prim{\frac{x}{1+x^2}}{x}\\
+%                  &=\boxed{x\arctan x-\frac{1}{2}\ln(1+x^2)} .
+%   \end{split}
+%   \end{equation*}
+% \question
+% \question
+% \question
+% \end{questions}
+% \end{sol}
+
+
+% \exercice{nom={Primitives de fractions rationnelles en $\cos,\sin$}}
+% Calculer sur un intervalle $I$ que l'on précisera les primitives des
+% fonctions dont les expressions sont
+% \[\frac{1}{\cos x\sin^3 x}, \qquad \frac{1}{\sin x+\cos x}.\]
+% \begin{sol}
+% $\quad$
+% \begin{questions}
+%   \question On doit décomposer en éléments simples~:
+%   \[\frac{1}{X \left(X^2-1 \right)^2}=
+%     \frac{1}{4 (X-1)^2}-\frac{1}{2 (X-1)}+\frac{1}{X}-\frac{1}{4 \
+%     (X+1)^2}-\frac{1}{2 (X+1)}\]
+%   Puis~:
+%   \[\priminv{\cos x\sin^3 x}{x}=\ln\abs{\tan x}-\frac{1}{2\sin^2 x}\]
+% % \question
+% %   \[\priminv{1+2\cos x}{x}=
+% %     \frac{2\sqrt{3}}{3}\arctan\p{\frac{\sqrt{3}\tan\p{x/2}}{3}}\]
+% \question
+%   \[\priminv{\sin x+\cos x}{x}=\sqrt{2}
+%     \argth\p{\frac{\tan\p{\frac{x}{2}}-1}{\sqrt{2}}}\]
+% \end{questions}
+% \end{sol}
+
+
+% \exercice{nom={Primitive de fractions rationnelles en $\sh$}}
+% Exprimer $\th(x), \ch(x)$ et $\sh(x)$ en fonction de \[t=\th\p{\frac{x}{2}}.\]
+% Calculer \[\priminv{\sh(x)}{x}\] en posant $t\defeq\th(x/2)$.
+
+% \exercice{nom={Avec des radicaux}}
+% Calculer, sur un intervalle $I$ que l'on précisera
+% \[\prim{\frac{1}{2}x\sqrt{\frac{x-1}{x+1}}}{x}.\]
+%, \qquad \frac{x}{\sqrt{-x^2+x+2}}.\]
+%END_BOOK
+
+\end{document}

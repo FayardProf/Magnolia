@@ -1,0 +1,404 @@
+\documentclass{magnolia}
+
+\magtex{tex_driver={pdftex}}
+\magfiche{document_nom={Exercices sur la dérivation},
+          auteur_nom={François Fayard},
+          auteur_mail={fayard.prof@gmail.com}}
+\magexos{exos_matiere={maths},
+         exos_niveau={mpsi},
+         exos_chapitre_numero={11},
+         exos_theme={Dérivation}}
+\magmisenpage{}
+\maglieudiff{}
+\magprocess
+
+\begin{document}
+
+%BEGIN_BOOK
+\magsection{Fonction dérivable, dérivées successives}
+
+
+% \exercice{nom={Une fonction dont la dérivée n'est pas continue}}
+% Soit $f$ la fonction définie sur $\R$ par
+% $$\forall x\in\R \qsep f(x)\defeq
+%   \begin{cases}
+%   x^2\sin\p{\frac{1}{x}} & \text{si $x\not=0$}\\
+%   0 & \text{si $x=0$.}
+%   \end{cases}
+% $$
+% \begin{questions}
+%   \item Étudier la continuité de $f$
+%   \item Montrer que $f$ est dérivable sur $\R$ et calculer sa dérivée.
+%   \item Montrer que $f'$ n'est pas continue en $0$.
+% \end{questions}
+% \begin{sol}
+% \begin{questions}
+% \question Soit $f$ la fonction définie sur $\R$ par
+% \[\forall x\in\R \quad f(x)=
+%   \begin{cases}
+%   x^2\sin\p{\frac{1}{x}} & \text{si $x\not=0$}\\
+%   0 & \text{si $x=0$.}
+%   \end{cases}\]
+% D'après les théorèmes usuels, $f$ est continue sur $\Rs$. Montrons que $f$ est continue en 0. On a
+% \begin{eqnarray*}
+% \forall x\in\Rs\qsep \abs{f(x)}
+% &=& \abs{x^2\sin\p{\frac{1}{x}}}\\
+% &=& x^2\abs{\sin\p{\frac{1}{x}}}\\
+% &\leq& x^2\tendvers{x}{0} 0
+% \end{eqnarray*}
+% donc
+% \[f(x)\tendversp{x}{0}0=f(0).\]
+% On en déduit que $f$ est continue en 0.
+% \question D'après les théorèmes usuels, $f$ est dérivable sur $\Rs$ et
+% \[\forall x\in\Rs\qsep f'(x)=2x\sin\p{\frac{1}{x}}-\cos\p{\frac{1}{x}}.\]
+% Montrons que $f$ est dérivable en 0 et que $f'(0)=0$. On a
+% \begin{eqnarray*}
+% \forall x\in\Rs\qsep \abs{\frac{f(x)-f(0)}{x-0}}
+% &=& \abs{\frac{f(x)}{x}}\\
+% &=& \abs{x\sin\p{\frac{1}{x}}}\\
+% &=& \abs{x}\abs{\sin\p{\frac{1}{x}}}\\
+% &\leq& \abs{x}\tendvers{x}{0} 0
+% \end{eqnarray*}
+% donc 
+% \[\frac{f(x)-f(0)}{x-0}\tendvers{x}{0}0\]
+% ce qui prouve que $f$ est dérivable en 0 et que $f'(0)=0$. En conclusion, $f$ est dérivable sur $\R$ et
+% \[\forall x\in\R\qsep f'(x)=
+%   \begin{cases}
+%   2x\sin\p{\frac{1}{x}}-\cos\p{\frac{1}{x}} & \text{si $x\not=0$}\\
+%   0 & \text{si $x=0$.}
+%   \end{cases}\]
+% \question Montrons que $f'$ n'est pas continue en 0. On raisonne par l'absurde et on suppose que $f'$ est continue en 0. Alors, comme $f'(0)=0$
+% \[f'(x)\tendvers{x}{0}0\]
+% donc, puisque
+% \[2x\sin\p{\frac{1}{x}}\tendvers{x}{0}0\]
+% on en déduit que
+% \[\cos\p{\frac{1}{x}}=2x\sin\p{\frac{1}{x}}-f'(x)\tendvers{x}{0}0.\]
+% On définit la suite $(u_n)$ par
+% \[\forall n\in\Ns\qsep u_n\defeq\frac{1}{2\pi n}.\]
+% Alors
+% \[u_n\tendvers{n}{+\infty}0\]
+% mais
+% \[\cos\p{\frac{1}{u_n}}=\cos(2\pi n)=1\tendvers{n}{+\infty}1\neq 0.\]
+% C'est absurde. Donc $f'$ n'est pas continue en 0.
+% \end{questions}
+% \end{sol}
+
+\exercice{nom={Dérivabilité}}
+Soit $\alpha\in\R$. Étudier la dérivabilité sur $\R$ de la fonction $f_\alpha$
+définie par
+\[\forall x\in\R \qsep f_\alpha(x)\defeq
+  \begin{cases}
+  \abs{x}^\alpha \sin\p{\frac{1}{x}} & \text{si $x\neq 0$}\\
+  0 & \text{si $x=0$}
+  \end{cases}\]
+Préciser les nombres $\alpha$ pour lesquels $f_\alpha$ est de classe
+$\classec{1}$ sur $\R$.
+
+\exercice{nom={Suite}}
+Soit $f:\R\to\R$ une fonction dérivable en 0 telle que $f\p{0}=0$.
+Déterminer la limite éventuelle de la suite de terme général
+\[u_n\defeq \sum_{k=0}^n f\p{\frac{k}{n^2}}.\]
+
+\begin{sol}
+Fixons $\epsilon>0$. On sait qu'il existe $\delta>0$ tel que, pour tout $x\in[-\delta,\delta]$, on a
+$$|f(x)-f'(0)x|\leq \epsilon\times |x|.$$
+Soit $n$ assez grand pour que $\frac{1}{n}\leq \delta$. On applique
+alors la formule précédente à $x=\frac k{n^2}$, pour $k\in\{1,\dots,n\}$. On obtient
+$$-\epsilon\frac k{n^2}\leq f\left(\frac k{n^2}\right)-f'(0)\frac{k}{n^2}\leq \epsilon\frac k{n^2}.$$
+On somme ces inégalités pour $k$ allant de $1$ à $n$ et on trouve
+$$-\epsilon\frac{n+1}{2n}\leq \sum_{k=1}^n f\left(\frac k{n^2}\right)-f'(0)\frac{n+1}{2n}\leq \epsilon\frac{n+1}{2n}.$$
+En écrivant $\frac{n+1}{n}=1+\frac{1}{n}$ et en remarquant que $(n+1)/2n\leq 1$, on trouve
+$$-\epsilon+\frac{f'(0)}{2n}\leq \sum_{k=1}^n f\left(\frac k{n^2}\right)-\frac{f'(0)}2\leq \epsilon+\frac{f'(0)}{2n}.$$
+Pour $n$ assez grand, on en déduit que 
+$$-2\epsilon\leq \sum_{k=1}^n f\left(\frac k{n^2}\right)-\frac{f'(0)}2\leq 2\epsilon.$$
+On en conclut que la suite converge avec $$\lim_{n\to+\infty}\sum_{k=1}^n f\left(\frac k{n^2}\right)=\frac{f'(0)}{2}.$$
+
+\underline{Solution privilégiée par Victor :}
+$f$ est dérivable en $0$ donc admet un DL en $0$ d'ordre $1$ et il existe une fonction $\epsilon$ tel que $\epsilon(h)\tendvers{h}{0}0$ et :
+$$f(h)=\underbrace{f(0)}_{=0}+f'(0)h+h\epsilon(h).$$
+Ainsi, pour tout $n\in \N$ et pour tout $k\in \llbracket0,n\rrbracket$, en appliquant cela en $h=\dfrac{k}{n^2}$, il vient :
+$$f\p{\frac{k}{n^2}}=f'(0)\frac{k}{n^2}+\frac{k}{n^2}\epsilon\p{\frac{k}{n^2}}$$ et en sommant :
+$$\sum_{k=0}^nf\p{\frac{k}{n^2}}=\sum_{k=0}^nf'(0)\frac{k}{n^2}+\sum_{k=0}^n\frac{k}{n^2}\epsilon\p{\frac{k}{n^2}}.$$
+Pour le premier terme 
+$$\sum_{k=0}^nf'(0)\frac{k}{n^2}=\frac{f'(0)}{n^2}\sum_{k=0}^n k=f'(0) \frac{n+1}{2n}\tendvers{n}{+\infty}\frac{f'(0)}{2}.$$
+Montrons maintenant que le deuxième terme tend vers $0$. Soit alors $\delta>0$. Comme $\epsilon(h)\tendvers{h}{0}0$, il existe $\eta>0$ tel que $\forall h \in [-\eta,\eta]$, $\abs{\epsilon(h)}\leq \delta$. Soit alors $N_0 \in \N$ tel que $\forall n\geq N_0$, $\dfrac{1}{n}\leq \eta$. Pour un tel $n$, on a alors $\forall k\in \llbracket 0, n\rrbracket$, $\dfrac{k}{n^2}\leq \dfrac{n}{n^2}=\dfrac{1}{n}\leq \delta$, donc :
+$$\abs{\sum_{k=0}^n\frac{k}{n^2}\epsilon\p{\frac{k}{n^2}}}\leq \sum_{k=0}^n\frac{k}{n^2}\underbrace{\abs{\epsilon\p{\frac{k}{n^2}}}}_{\leq \delta}\leq \delta \frac{n(n+1)}{2n^2}=\frac{\delta}{2}\p{1+\frac{1}{n}}\leq \delta.$$
+On vient de montrer que le deuxième terme tendait vers $0$ donc $u_n\tendvers{n}{+\infty}\dfrac{f'(0)}{2}$.
+ 
+\end{sol}
+
+% \exercice{nom={Dérivabilité}}
+% Étudier la dérivabilité des fonctions $f$ et $g$ définies sur $\R$ par~:
+% \[\forall x\in\R \quad f(x)=
+%   \begin{cases}
+%   x^2\sin\p{\frac{\pi}{x}} & \text{si $x\neq 0$}\\
+%   0 & \text{sinon}
+%   \end{cases}\]
+% \[\forall x\in\R \quad g(x)=
+%   \begin{cases}
+%   f(x)\sin\p{\frac{\pi}{\sin\p{\frac{\pi}{x}}}} & \text{si
+%     $\sin\p{\frac{\pi}{x}}\neq 0$}\\
+%   0 & \text{sinon}
+%   \end{cases}\]
+
+\exercice{nom={Dérivabilité}}
+Pour tout entier naturel $n$ on définit la fonction $f_n$ sur
+$\R\setminus\pi\Z$ par
+\[\forall x\in\R\setminus\pi\Z \qsep
+  f_n(x)\defeq \frac{\sin\p{\p{2n+1}x}}{\sin x}.\]
+\begin{questions}
+\question Étudier le domaine de définition de $f_n$, sa parité, sa périodicité.
+\question Montrer que $f_n$ se prolonge par continuité sur~$\R$. 
+\question Montrer que la fonction ainsi prolongée est de classe
+  $\classec{\infty}$ sur $\R$ (on pourra établir une relation entre $f_{n+1}$
+  et $f_n$).
+\end{questions}
+
+\exercice{nom={Dérivabilité}}
+Soit $f$ une fonction de classe $\classec{2}$ sur $\interf{0}{1}$ et
+$a\in[0,1]$. 
+\begin{questions}
+\question Montrer que la fonction
+  \[\dspappli{\tau_a}{\interf{0}{1}\setminus\ens{a}}{\R}{x}{%
+    \frac{f(x)-f(a)}{x-a}}\]
+  se prolonge par continuité en $a$.
+\question Montrer que la fonction ainsi prolongée est de classe $\classec{1}$ sur
+  $[0,1]$.
+\end{questions}
+
+\exercice{nom={Calcul de dérivées $n$-ièmes}}
+Calculer les dérivées à l'ordre $n$ des fonctions d'expressions
+\[\sin^5(x), \qquad x^2\e^x, \qquad
+  x^{n-1}\ln(x), \qquad x^{n-1}\e^{\frac{1}{x}}.\]
+\begin{sol}
+\[\frac{\text{d}^5}{\text{d}x^5}\p{\sin^5 x}=
+  \frac{1}{16}\cro{5^n\sin\p{5x+\frac{n\pi}{2}}
+  -5\times 3^n\sin\p{3x+\frac{n\pi}{2}}+10\sin\p{x+\frac{n\pi}{2}}}\]
+\[\frac{\text{d}^n}{\text{d}x^n}\p{\ln\p{x^2-x+2}}=
+  (-1)^{n+1}(n-1)!\frac{\sum_{k=0}^n \binom{n}{k}(-1)^k
+  2^{\frac{k}{2}+1}\cos\p{k\arctan\sqrt{7}}x^{n-k}}{(x^2-x+2)^n}\]
+\[\frac{(n-1)!}{x}, \qquad (-1)^n\frac{\e^{1/x}}{x^{n+1}}\]
+Les deux derniers se font par récurrence.
+\end{sol}
+
+
+
+\magsection{Théorème de \nom{Rolle} et applications}
+
+
+\exercice{nom={Application directe du théorème de \nom{Rolle}}}
+\begin{questions}
+\question Soit $f$ une fonction dérivable sur $\R$. On suppose que $f$ est
+  1-périodique et admet $n$ zéros sur l'intervalle $\interfo{0}{1}$. Montrer
+  que $f'$ admet $n$ zéros sur ce même intervalle.
+\question Soit $n\in\N$ et $P\in\polyR$ un polynôme de degré inférieur ou égal à $n$. Majorer le nombre de zéros de la
+  fonction $g$ définie sur $\RPs$ par
+  \[\forall x\in\RPs \qsep g(x)\defeq P(x)-\ln x.\]
+\end{questions}
+
+\begin{sol}
+\begin{questions}
+\question On suppose que $f$ est $1$-périodique et admet $n$ zéros $a_1,\ldots a_n$ sur l'intervalle $\interfo{0}{1}$. D'après le théorème de Rolle, $\forall i \in \set{1,\ldots,n-1}$, $f'$ s'annule sur $\intero{a_i}{a_{i+1}}$ ce qui donne $n-1$ zéros $b_i$. De plus, par $1$-périodicité, il y en a un autre $b_n$ sur $\intero{a_n}{a_1+1}$. Ou bien, il est plus petit strict que $1$ auquel cas on gagné, ou bien, il est supérieur ou égal à $1$ auquel cas $b_n-1$ convient. 
+\question 
+\end{questions}
+
+\end{sol}
+
+
+\begin{questions}
+\question Soit $f$ une fonction dérivable $n$ fois sur un intervalle $I$. On
+  suppose que $f$ admet $n+1$ zéros distincts dans $I$. Montrer qu'il existe
+  $c\in I$ tel que $f^{(n)}(c)=0$.
+\question Soit $n\in\N$. On définit la fonction $P_n$ sur $\R$ par
+  \[\forall x\in\R \qsep P_n(x)\defeq\p{x^2-1}^n.\]
+  Montrer que $P_n^{(n)}$ admet $n$ racines distinctes dans $\intero{-1}{1}$.
+\end{questions}
+
+\begin{sol}
+\begin{questions}
+\question Classique. $\mathcal{H}_k$ : "$f^{(k)}$ admet $n+1-k$ zéros distincts".
+\question $-1$ et $1$ sont racines de multiplicités $n$ de $P_n$ donc $P_n^{(k)}(1)=0,  \forall k \in \set{0,1,\ldots,n-1}$. De même pour $-1$.\\
+$\mathcal{H}_k$ : "$f^{(k)}$ admet $k$ zéros distincts sur $]-1;1[$". On arrive toujours par augmenter d'un le nombre grâce à la première remarque.
+\end{questions}
+
+\end{sol}
+
+\exercice{nom={Application récursive du théorème de \nom{Rolle}}}
+Soit $n\in\Ns$ et $f$ la fonction définie sur $\interf{0}{\frac{\pi}{2}}$ par
+  \[\forall x\in\interf{0}{\frac{\pi}{2}} \qsep f(x)\defeq x^n\cos x.\]
+  \begin{questions}
+  \question Montrer que $f$ est de classe $\classec{\infty}$ et que, pour tout $k\in\intere{0}{n-1}$, $f^{(k)}(0)=0$.
+  \question En déduire qu'il existe $c\in\interof{0}{\frac{\pi}{2}}$ tel que $f^{(n)}(c)=0$.
+  \end{questions}
+
+\exercice{nom={Accroissements finis généralisés}}
+Soit $f$ et $g$ deux fonctions réelles, continues sur $\interf{a}{b}$ et
+dérivables sur $\intero{a}{b}$. Montrer qu'il existe $c\in\intero{a}{b}$ tel
+que
+\[(f(b)-f(a))g'(c)=(g(b)-g(a))f'(c).\]
+
+\begin{sol}
+Si $g(b)-g(a)=0$, on peut appliquer le théorème de Rolle à $g$ sur $\intero{a}{b}$ ce qui donne le résultat. Sinon, $g(b)-g(a)\neq 0$.
+Définissons alors $h$ sur $\interf{a}{b}$ par $h(x)=f(b)-f(x)-\frac{f(b)-f(a)}{g(b)-g(a)}\p{g(b)-g(x)}$. Cette fonction s'annule en $a$ et en $b$. On peut donc lui appliquer le théorème de Rolle. Il existe $c\in \intero{a}{b}$ tel que $h'(c)=0$, i.e $f'(c)=\frac{f(b)-f(a)}{g(b)-g(a)}g'(c)$.
+\end{sol}
+
+\exercice{nom={Théorème de \nom{Darboux}}}
+Le but de cet exercice est de montrer que toute fonction dérivée vérifie la
+propriété des valeurs intermédiaires (alors que l'on sait bien qu'elle peut
+ne pas être continue). On se donne donc $f$ une fonction dérivable sur un
+intervalle $I$, $a,b\in I$ et $y_0\in\interf{f'(a)}{f'(b)}$. On souhaite
+montrer qu'il existe $x_0\in\interf{a}{b}$ tel que $f'\p{x_0}=y_0$.
+\begin{questions}
+\question Résoudre le problème lorsque $y_0=0$.
+\question En déduire le cas général.
+\end{questions}
+
+\begin{sol}
+\begin{questions}
+\question 
+Comme dans cette question, $0\in \interf{f'(a)}{f'(b)}$ et qu'on cherche $x_0$ tel que $f'(x_0)=0$  si l'une des deux bornes vaut $0$, on l'a trouvé. Ainsi, on peut supposer $f'(a)<0$ et $f'(b)>0$. Supposons de plus $a<b$ (on s'intéresserait au max au lieu du min dans le cas contraire)\\
+$f$ est continue sur $[a,b]$ donc y est bornée et atteint ses bornes. Notons $c$ le point de $[a,b]$ tel que $f$ est minimale en $c$. Montrons alors que $c\in ]a,b[$, on aura alors un extremum local dans l'intérieur de $[a,b]$ et comme $f$ est dérivable en $c$, on aura $f'(c)=0$.\\
+\begin{itemize}
+\item[$\bullet$] On a $f'(a)<0$, i.e. $\underset{x\underset{>}{\to}a}{\lim}\dfrac{f(x)-f(a)}{x-a}<0$. On peut alors fixer $\delta>0$ tel que $\forall x \in ]a,a+\delta]$, $\dfrac{f(x)-f(a)}{x-a}<0$, d'où, comme $x>a$, $f(x)<f(a)$ et donc $f(a)$ n'est pas le minimum.
+\item[$\bullet$] On effectue la même chose à gauche de $b$ ce qui montrer que $f(b)$ n'est pas non plus le minimum. 
+\end{itemize}
+Finalement, $c\in ]a,b[$ et $f'(c)=0$. On choisit donc $x_0=c$.
+\question Définissons $\dspappli{\phi}{I}{\R}{x}{f(x)-y_0 x}$. $\phi$ est continue sur $I$, dérivable sur $I$ car $f$ l'est. On a $\phi'(a)=f'(a)-y_0\leq 0$ et $\phi'(b)=f'(b)-y_0\geq 0$. D'après la première question, il existe $x_0 \in "[a,b]"$ tel que $\phi'(x_0)=0=f'(x_0)-y_0$.
+\end{questions}
+
+\end{sol}
+
+\exercice{nom={Une équation différentielle non linéaire}}
+Rechercher les solutions réelles de l'équation
+différentielle $y'=\abs{y}$.
+
+
+\exercice{nom={Théorème de la corde}}
+Soit $f$ une fonction continue et dérivable sur $\interf{0}{1}$ telle que
+\[f\p{0}=0, \quad f\p{1}=1, \quad f'\p{0}=0, \et f'\p{1}=0.\]
+Le but de cet exercice est de montrer qu'il existe $c\in\intero{0}{1}$ tel
+que
+\[f'(c)=\frac{f(c)}{c}.\]
+\begin{questions}
+\question Soit $g$ la fonction définie sur $\interf{0}{1}$ par
+  \[\forall x\in\interf{0}{1} \qsep g(x)\defeq
+    \begin{cases}
+    \frac{f(x)}{x} & \text{si $x\neq 0$}\\
+    0 & \text{sinon.}
+    \end{cases}\]
+  Montrer que $g$ est continue sur $\interf{0}{1}$ et dérivable sur
+  $\interof{0}{1}$.
+\question En remarquant que $g'\p{1}<0$, montrer qu'il existe
+  $c\in\intero{0}{1}$ tel que $g'(c)=0$ puis conclure.
+\end{questions}
+
+\exercice{nom={Calcul numérique}}
+À l'aide du théorème des accroissements finis, majorer l'erreur commise lorsque
+l'on prend 100 comme valeur approchée de $\sqrt{10001}$.
+
+\begin{sol}
+Posons $f(x)=\sqrt x$ sur $[10000,10001]$. Alors, d'après le TAF, il existe $c \in ]10000,10001[$ tel que $$\sqrt{10001}-100=f'(c)=\frac{1}{2\sqrt c}\leq \frac{1}{2\sqrt{10000}}=\frac{1}{200}.$$
+\end{sol}
+
+\exercice{nom={Divergence d'une série}}
+En appliquant le théorème des accroissements finis à la fonction
+$x\mapsto\ln\abs{\ln x}$ sur $\interf{k}{k+1}$, montrer que la suite de terme
+général
+\[\sum_{k=2}^n \frac{1}{k\ln k}\]
+est divergente.
+
+\begin{sol}
+Soit $k\geq 2$. Considérons $\dspappli{f}{[k,k+1]}{\R}{x}{\ln(\ln(|x|))}$. $f$ est continue sur le fermé et dérivable sur l'ouvert donc on peut appliquer le théorème des accroissement finis, il existe $c\in ]k,k+1[$ tel que $$f(k+1)-f(k)=f'(c)=\frac{1}{c\ln(c)}\leq \dfrac{1}{k\ln(k)}$$ d'où le résultat par sommation télescopique puis théorème de comparaison.
+\end{sol}
+
+
+\magsection{Convexité}
+
+\exercice{nom={Inégalités en vrac}}
+\begin{questions}
+% \question Montrer que :
+%   \[\forall x\in\interfo{0}{\frac{\pi}{2}} \quad \tan x \geq x+
+%     \frac{x^3}{3}\]
+% \question Montrer que :
+%   \[\forall x\in\RP \quad 1-\frac{1}{3}x+\frac{2}{9}x^2
+%     -\frac{14}{81}x^3 \leq \frac{1}{\sqrt[3]{1+x}} \leq
+%     1-\frac{1}{3}x+\frac{2}{9}x^2\]
+\question Donner deux méthodes différentes pour montrer que quel que soit le
+  réel $x$
+  \[\e^x \geq 2\e^{\frac{x}{2}}-1.\]
+\question Soit $n\in\N$. Montrer que
+  \[\forall x\in\RP \qsep x^{n+1}-(n+1)x+n \geq 0.\]
+\question Soit $x\in\intero{1}{+\infty}$ et $n\in\Ns$. Montrer que
+  \[x^n-1 \geq n\p{x^{\frac{n+1}{2}}-x^{\frac{n-1}{2}}}.\]
+\end{questions}
+\begin{sol}
+$\quad$
+\begin{questions}
+\question Développer $(e^{x/2}-1)^2$ ou faire une inégalité de convexité avec
+  0,$x$ et $x/2$.
+\question Tangente en 1.
+\question Deux méthodes permettent de conclure~:
+  \begin{itemize}
+  \item Factoriser des deux côtés par $x-1$ et se rendre compte qu'une inégalité
+    arithmético-géométrique permet de conclure.
+  \item Factoriser par $e^{(n/2)\ln x}$ et utiliser la croissance de $\sinh u/u$.
+  \end{itemize}
+\end{questions}
+\end{sol}
+
+
+\exercice{nom={Opérations élémentaires sur les fonctions convexes}}
+\begin{questions}
+\question Étant donné une fonction $f$ convexe sur $\R$ et une fonction $g$
+  convexe et croissante sur $\R$, montrer que $g\circ f$ est convexe.
+\question Soit $f$ une fonction définie sur $\R$ à valeurs strictement
+  positives. Montrer que si $\ln(f)$ est convexe, alors $f$ est convexe.
+\end{questions}
+
+\exercice{nom={Fonctions convexes majorées}}
+\begin{questions}
+\question Soit $f$ une fonction convexe et majorée sur $\R$. Montrer que $f$
+  est constante.
+\question Donner un exemple de fonction convexe et majorée sur
+  $\intero{0}{+\infty}$ et qui ne soit pas constante.
+\end{questions}
+
+\exercice{nom={Moyenne arithmétique, harmonique et géométrique}}
+Soit $x_1,\ldots,x_n$ $n$ réels strictement positifs. On définit leurs
+moyennes arithmétique, géométrique et harmonique par
+\[a\defeq \frac{1}{n}\sum_{k=1}^n x_k, \quad g\defeq\sqrt[n]{\prod_{k=1}^n x_k},\]
+\[\frac{1}{h}\defeq \frac{1}{n}\sum_{k=1}^n \frac{1}{x_k}.\]
+Montrer que
+\[h\leq g\leq a.\]
+
+\exercice{nom={Inégalités de \nom{Hölder} et \nom{Minkowski}}}
+Soit $p$ et $q$ deux réels strictement supérieurs à $1$ tels que
+\[\frac{1}{p}+\frac{1}{q}=1.\]
+Soit $x_1,\ldots,x_n$ et $y_1,\ldots,y_n$ des réels positifs.
+\begin{questions}
+\question Le but de cette question est de montrer que
+  \[\sum_{k=1}^n x_k y_k \leq \p{\sum_{k=1}^n x_k^p}^{\frac{1}{p}}
+                              \p{\sum_{k=1}^n y_k^q}^{\frac{1}{q}}.\]
+  \begin{questions}
+  \question Montrer que
+    \[\forall x,y\in\RP \qsep xy\leq\frac{x^p}{p}+\frac{y^q}{q}.\]
+  \question Montrer le résultat demandé lorsque
+    \[\sum_{k=1}^n x_k^p=1 \quad \text{et} \quad \sum_{k=1}^n y_k^q=1.\]
+  \question En déduire le cas général
+  \end{questions}
+\question Montrer que
+  \[\p{\sum_{k=1}^n (x_k+y_k)^p}^{\frac{1}{p}} \leq
+    \p{\sum_{k=1}^n x_k^p}^{\frac{1}{p}}+
+    \p{\sum_{k=1}^n y_k^p}^{\frac{1}{p}}.\]
+\end{questions}
+\begin{sol}
+$\quad$
+\begin{questions}
+\question Écrire $\p{x_k+y_k}^p=\p{x_k+y_k}^{p-1}\p{x_k+y_k}=x_k\p{x_k+y_k}^{p-1}
+  +y_k\p{x_k+y_k}^{p-1}$.
+\end{questions}
+\end{sol}
+
+%END_BOOK
+
+\end{document}

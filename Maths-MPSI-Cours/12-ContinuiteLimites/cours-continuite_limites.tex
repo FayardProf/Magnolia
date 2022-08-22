@@ -1,0 +1,1524 @@
+\documentclass{magnolia}
+
+\magtex{tex_driver={pdftex},
+        tex_packages={epigraph,xypic}}
+\magfiche{document_nom={Continuité, limites},
+          auteur_nom={François Fayard},
+          auteur_mail={fayard.prof@gmail.com}}
+\magcours{cours_matiere={maths},
+          cours_niveau={mpsi},
+          cours_chapitre_numero={10},
+          cours_chapitre={Continuité, limites}}
+\magmisenpage{}
+\maglieudiff{}
+\magprocess
+
+\begin{document}
+
+%BEGIN_BOOK
+\setlength\epigraphwidth{.75\textwidth}
+\epigraph{\og Un mathématicien est une machine à transformer le café en théorèmes.\fg}{--- \textsc{Paul Erdös (1913-1996)}}
+\setlength\epigraphwidth{.65\textwidth}
+\epigraph{\og Si les gens ne croient pas que les mathématiques sont simples, c’est seulement parce qu’ils ne réalisent pas combien la vie est compliquée !\fg}{--- \textsc{John Von Neumann (1903--1957)}}
+
+\magtoc
+
+\section{Fonction numérique, topologie élémentaire}
+
+\begin{definition}[utile=-3]
+On appelle \emph{fonction numérique} toute fonction définie sur une partie $\mathcal{D}$
+de $\R$, à valeurs dans $\R$ ou $\C$.
+\end{definition}
+
+\begin{remarques}
+\remarque Dans la suite de ce chapitre, $\K$ désignera le corps $\R$ ou $\C$.
+\remarque Il arrive que l'on définisse une fonction par son expression \og $f(x)$ \fg. C'est
+  alors au lecteur de déterminer son domaine de définition, c'est-à-dire l'ensemble des
+  $x\in\R$ pour lesquels \og $f(x)$ \fg a un sens.
+\end{remarques}
+
+\begin{definition}[utile=-3]
+Soit $f:\mathcal{D}\to\K$ et $A$ une partie de $\mathcal{D}$. On dit que $f$
+\emph{vérifie la propriété $\mathcal{P}$ sur $A$} lorsque la restriction de $f$ à $A$ vérifie
+la propriété $\mathcal{P}$.
+\end{definition}
+
+% \subsection{Symétries, fonctions lipschitziennes}
+
+% \begin{definition}[utile=-3]
+% Soit $f$ une fonction dont le domaine de définition est symétrique par rapport
+% à 0, c'est-à-dire tel que
+% \[\forall x\in\mathcal{D} \qsep -x\in\mathcal{D}.\]
+% On dit que $f$ est
+% \begin{itemize}
+% \item \emph{paire} lorsque
+%   \[\forall x\in\mathcal{D} \qsep f\p{-x}=f(x).\]
+% \item \emph{impaire} lorsque
+%   \[\forall x\in\mathcal{D} \qsep f\p{-x}=-f(x).\]
+% \end{itemize}
+% \end{definition}
+
+% % \begin{remarques}
+% % \remarque Si $f$ est une fonction dérivable paire, alors $f'$ est impaire. De
+% %   même, si $f$ est une fonction dérivable  impaire, $f'$ est paire.
+% % \remarque Si $f$ est une fonction impaire (resp. paire) continue sur $\R$. Que
+% %   peut-on dire de ses primitives~?
+% % \end{remarques}
+
+% %% Si f est impaire, F est paire.
+% %% Si f est paire, seule la primitive s'annulant en 0 est impaire.
+
+% \begin{definition}[utile=-3]
+% Soit $T\in\R$ et $f$ une fonction dont le domaine de définition vérifie
+% \[\forall x\in\mathcal{D} \qsep \forall k\in\Z \qsep x+kT\in\mathcal{D}\]
+% On dit que $f$ est \emph{$T$-périodique}, ou que $T$ est une \emph{période} de $f$, lorsque
+% \[\forall x\in\mathcal{D} \qsep f\p{x+T}=f(x).\]
+% Lorsque $f$ admet une période non nulle, on dit que $f$ est \emph{périodique}.
+% \end{definition}
+
+% % \begin{remarques}
+% % \remarque L'ensemble $G$ des périodes d'une fonction $f$ est un sous-groupe de
+% %   $\p{\R,+}$. En particulier, si $T$ est une période de $f$ et si $k\in\Z$,
+% %   alors $kT$ est une période de $f$.
+% %   Lorsque $f$ admet une plus petite période strictement positive, notée
+% %   $T_0$, ont dit que $T_0$ est la période de $f$. On montre dans ce cas
+% %   que $G=T_0\Z$.
+% % \remarque Si $f$ est dérivable et $T$-périodique, il en est de même pour $f'$.
+% %   Cependant, il est possible que $f'$ soit $T$-périodique sans que $f$ le soit.
+% % \end{remarques}
+
+% % \begin{exos}
+% % \exo Les périodes de $\tan$ sont les $k\pi$, pour $k\in\Z$. Donc $\tan$
+% %   est périodique et sa période est $\pi$.
+% % \end{exos}
+
+% \begin{definition}[utile=-3]
+% Soit $k\in\RP$. On dit qu'une fonction $f$ est \emph{$k$-lipschitzienne} lorsque
+% \[\forall x,y\in \mathcal{D} \qsep \abs{f(x)-f(y)}\leq k\abs{x-y}.\] 
+% \end{definition}
+
+% \begin{exoUnique}
+% \exo Montrer que les fonctions \og valeur absolue\fg et \og sinus\fg sont
+%   1-lipschitziennes.
+% % \exo La fonction valeur absolue est $1$-lipschitzienne. En effet
+% %   \[\forall x,y\in\R \qsep \abs{\abs{x}-\abs{y}}\leq\abs{x-y}\]
+% % \exo La fonction $\sin$ est $1$-lipschitzienne.
+% \end{exoUnique}
+
+% % \begin{remarques}
+% % \remarque Si $f$ est une fonction dérivable et $k$-lipschitzienne,
+% %   alors
+% %   \[\forall x\in\mathcal{D} \qsep \abs{f'(x)}\leq k\]
+% %   Réciproquement, nous verrons que si $f$ est dérivable sur un intervalle $I$
+% %   et que
+% %   \[\forall x\in I \qsep \abs{f'(x)}\leq k\]
+% %   alors $f$ est $k$-lipschitzienne. Parmi les fonctions dérivable sur un
+% %   intervalle $I$, les fonctions lipschitziennes sont donc les fonctions dont
+% %   la dérivée est bornée.
+% % \remarque L'ensemble des fonctions lipschitziennes est un sous-espace vectoriel
+% %   de $\mathcal{F}\p{\R,\R}$, mais ce n'est pas une sous-algèbre. En effet, la
+% %   fonction $f:x\mapsto x$ est lipschitzienne, mais $f^2$ ne l'est pas.
+% % \end{remarques}
+
+
+
+
+\subsection{Propriété locale}
+
+% \begin{definition}[utile=-3]
+% \begin{itemize}
+% \item Soit $a\in\R$. On dit qu'une partie $\mathcal{V}$ de $\R$ est un \emph{voisinage
+%   fondamental} de $a$ lorsqu'il existe $\epsilon>0$ tel que 
+%   \[\mathcal{V}=\enstq{x\in\R}{\abs{x-a}\leq\epsilon} 
+%     =\interf{a-\epsilon}{a+\epsilon}.\]
+% \item On dit qu'une partie $\mathcal{V}$ de $\R$ est un \emph{voisinage fondamental} de $+\infty$
+%   lorsqu'il existe $m\in\R$ tel que
+%   \[\mathcal{V}=\interfo{m}{+\infty}.\]
+% \item On dit qu'une partie $\mathcal{V}$ de $\R$ est un \emph{voisinage fondamental} de $-\infty$
+%   lorsqu'il existe $M\in\R$ tel que
+%   \[\mathcal{V}=\interof{-\infty}{M}.\]
+% \item Soit $a\in\C$. On dit qu'une partie $\mathcal{V}$ de $\C$ est un \emph{voisinage
+%   fondamental} de $a$ lorsqu'il existe $\epsilon>0$ tel que
+%   \[\mathcal{V}=\enstq{z\in\C}{\abs{z-a}\leq\epsilon}.\]
+% \end{itemize}
+% \end{definition}
+
+% \begin{remarques}
+% \remarque Une intersection de deux voisinages fondamentaux d'un même élément est un voisinage fondamental. Plus
+%   généralement, une intersection d'un nombre fini de voisinages fondamentaux est un
+%   voisinage fondamental.
+% \begin{sol}
+% Attention, c'est faux pour une infinité de voisinages : $\displaystyle \bigcap_{n\in \Ns}\intero{a-\frac{1}{n}}{a+\frac{1}{n}}$.
+% \end{sol}
+% \remarque Une suite réelle (ou complexe) $\p{u_n}$ converge vers
+%   $l\in\RbarouC$ si
+%   et seulement si pour tout voisinage fondamental $\mathcal{V}$ de $l$, il existe un
+%   voisinage fondamental $\mathcal{W}$ de $+\infty$ tel que
+%   \[\forall n\in\N \qsep n\in\mathcal{W} \implique u_n\in\mathcal{V}.\]
+%   \begin{sol}
+%   C'est la définition de la limite pour chacun d'entre eux.
+%   \end{sol}
+% \remarque Une partie $A$ de $\R$ est dense dans $\R$ si et seulement si pour
+%   tout $x\in\R$ et tout voisinage $\mathcal{V}$ de $x$,
+%   $A\cap\mathcal{V}\neq\emptyset$.
+% \remarque En seconde année, vous verrez une autre définition des voisinages
+%   d'un élément $a\in\Rbar$ (ou $\C$). Les voisinages, tels qu'ils sont définis
+%   dans ce cours, seront toujours des voisinages l'année prochaine, mais la
+%   réciproque est fausse.
+% sont des voisinages tels qu'ils seront définis l'année prochaine,
+%   mais la réciproque est fausse.
+% \end{remarques}
+
+% \begin{definition}[utile=-3]
+% Soit $a\in\R$. On dit qu'une partie $\mathcal{V}$ de $\R$ est~:
+% \begin{itemize}
+% \item un voisinage à droite de $a$ lorsqu'il existe $\epsilon>0$ tel que~:
+%   \[\interof{a}{a+\epsilon} \subset \mathcal{V}\]
+% \item un voisinage à gauche de $a$ lorsqu'il existe $\epsilon>0$ tel que~:
+%   \[\interfo{a-\epsilon}{a} \subset \mathcal{V}\]
+% \end{itemize}
+% \end{definition}
+
+% \begin{exos}
+% \exo $\RPs$ est un voisinage à droite de 0.
+% \end{exos}
+
+% \begin{proposition}
+% L'intersection d'un nombre fini de voisinages fondamentaux de $a\in\RbarouC$ est un voisinage fondamental.
+% \end{proposition}
+
+\begin{definition}[utile=-3]
+On dit que $f:\mathcal{D}\to\K$ est \emph{définie au voisinage}
+de $a\in\Rbar$ lorsque, pour tout voisinage $\mathcal{V}$ de $a$, $\mathcal{D}\cap\mathcal{V}\neq\emptyset$.
+\end{definition}
+
+\begin{proposition}[utile=-3]
+Une fonction $f:\mathcal{D}\to\K$ est définie au voisinage de $a\in\Rbar$ si et seulement si il existe une
+suite d'éléments de $\mathcal{D}$ qui tend vers $a$.
+\end{proposition}
+
+\begin{preuve}
+On va faire le cas où $a\in \R$, les autres se traitent de la même façon.
+\begin{itemize}
+\item[$\bullet$] Si $f$ est définie au voisinage de $a$, alors pour tout voisinage $\mathcal{V}$ de $a$, $\mathcal{D}\cap\mathcal{V}\neq\emptyset$. En particulier, pour chaque $n\in \N$, on peut construire $u_n \in \mathcal{D}\cap \interf{a-\frac{1}{n}}{a+\frac{1}{n}}$. $(u_n)$ est une suite d'éléments de $\mathcal{D}$ qui converge vers $a$.
+\item[$\bullet$] Réciproquement, s'il existe une suite $(u_n) \in \mathcal{D}^\N$ qui converge vers $a$, alors pour chaque voisinage $\mathcal{V}$ de $a$, il existe $n\in N$ tel que $\forall n \geq N$, $u_n \in \mathcal{V}$. En particulier $u_N \in \mathcal{D}\cap\mathcal{V}$ qui est donc différent du vide.
+\end{itemize}
+\end{preuve}
+
+\begin{definition}[utile=-3]
+On dit que $f:\mathcal{D}\to\K$ vérifie la propriété $\mathcal{P}$ \emph{au voisinage de $a\in\Rbar$}
+lorsqu'il existe un voisinage $\mathcal{V}$ de $a$ tel que $f$ vérifie la propriété $\mathcal{P}$ sur $\mathcal{D}\cap\mathcal{V}$.
+% \begin{itemize}
+% \item On dit que $f$ est définie au voisinage de $a$ lorsque tout voisinage
+%   de $a$ admet une intersection non vide avec $\mathcal{D}$. 
+% \item On dit que $f$ vérifie la propriété $\mathcal{P}$ au voisinage de $a$
+%   lorsqu'il existe un voisinage $\mathcal{V}$ de $a$ tel que la restriction
+%   de $f$ à $\mathcal{D}\cap\mathcal{V}$ vérifie la propriété $\mathcal{P}$.
+% \end{itemize}
+\end{definition}
+
+%% Remarque :
+%% 1) Si f vérifie une propriété P_1  au voisinage de a et vérifie une
+%%    propriété P_2 au voisinage de a, alors f vérifie la propriété P_1 et P_2
+%%    au voisinage de a.
+%% 2) De même, si a\in\R, on dit que f est définie au voisinage à gauche
+%%    (resp. à droite) de a lorsque tout voisinage à gauche (resp. à droite) de
+%%    a rencontre \mathcal{D}.
+%%
+
+
+\begin{remarques}
+\remarque La fonction $\sin$ est croissante sur $\interf{-\pi/2}{\pi/2}$. Elle
+  est donc croissante au voisinage de 0.
+\remarque Une fonction $f:\mathcal{D}\to\K$ est bornée au voisinage de $a\in\R$ si et seulement si
+   \[\exists \eta>0 \qsep \exists M\in\RP \qsep \forall x\in\mathcal{D}
+     \qsep \abs{x-a}\leq\eta \implique \abs{f(x)}\leq M.\]
+  Une fonction $f:\mathcal{D}\to\K$ est bornée au voisinage de $+\infty$ si et seulement si
+   \[\exists m\in\R \qsep \exists M\in\RP \qsep \forall x\in\mathcal{D}
+     \qsep x\geq m \implique \abs{f(x)}\leq M.\]
+% \exo La fonction $\appli{f}{\RPs}{\R}{x}{1/x}$ est bornée au voisinage de
+%   $+\infty$ mais n'est pas bornée sur son ensemble de définition.
+\end{remarques}
+
+
+\begin{definition}[utile=-3]
+On dit qu'une propriété $\mathcal{P}$ est \emph{locale en $a\in\Rbar$} lorsque, quelles que
+soient les fonctions $f:\dom\to\R$ et $g:\dom\to\R$ définies au voisinage de $a$, si il
+existe un voisinage $\mathcal{V}$ de $a$ tel que
+\[\forall x\in\mathcal{D}\cap\mathcal{V} \qsep g(x)=f(x)\]
+alors $\mathcal{P}(f)$ est vrai si et seulement si $\mathcal{P}(g)$ est vrai.
+\end{definition}
+
+
+\begin{definition}
+On dit qu'un élément $x\in \mathcal{D}$ est \emph{intérieur} à $\mathcal{D}$ lorsqu'il existe un voisinage
+$\mathcal{V}$ de $a$ tel que $\mathcal{V}\subset\mathcal{D}$. 
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque Si $I$ est un intervalle, un élément $a\in I$ est intérieur à $I$ si et seulement si ce n'est pas
+  une de ses extrémités.
+\end{remarqueUnique}
+% \begin{remarques}
+% \remarque Toute personne comprenant les subtilités de cette définition gagnera
+%   une sucette géante.
+% \end{remarques}
+%% Remarque :
+%% 1) Locale à gauche, à gauche au sens large (dérivation)
+
+% \subsection{Ouvert}
+
+% \begin{preuve}
+% \begin{itemize}
+% \item[$\bullet$] On suppose que $\alpha=\sup A$. Pour chaque $n\geq 1$, $s-1/n$ ne majore pas $A$, on peut donc fixer $u_n\in A$ tel que $s-1/n<u_n(\leq s)$. Ainsi, $\forall n\in \Ns, |u_n-s|\leq 1/n$. La suite $u$ ainsi construite converge donc vers $s$.
+% \item[$\bullet$] Réciproquement, si $\alpha$ est un majorant de $A$. Soit $\epsilon>0$. Il existe $N\in \N$ tel que $\forall n\geq N$, $|u_n-\alpha|\leq \epsilon$. En particulier $\alpha-\epsilon \leq u_N$. Donc $\alpha$ est bien la borne supérieure de $A$ d'après la caractérisation de la borne supérieure.
+% \end{itemize}
+% \end{preuve}
+
+% \begin{remarqueUnique}
+% \remarque On a bien évidemment une proposition similaire avec la borne inférieure.
+% \end{remarqueUnique}
+
+
+% \begin{definition}[utile=-3]
+% On dit qu'une partie $O$ de $\R$ est un \emph{ouvert} lorsque c'est une réunion
+% d'intervalles ouverts.
+% \end{definition}
+
+% \begin{remarqueUnique}
+% \remarque Un intervalle $I$ est ouvert si et seulement si ses extremités ne sont pas des
+%   éléments de $I$.
+% \end{remarqueUnique}
+
+% \begin{definition}[utile=-3]
+% On dit qu'un réel $x_0$ est \emph{intérieur} à une partie $A$ de $\R$ lorsqu'il existe
+% $\eta>0$ tel que $[x_0-\eta,x_0+\eta]\subset A$.
+% \end{definition}
+
+% \begin{remarques}
+% \remarque Si $x_0$ est intérieur à $A$, alors $x_0\in A$. Cependant, la
+%   réciproque est fausse. Par exemple $0\in\ens{0}$ mais 0 n'est pas intérieur
+%   à $\ens{0}$.
+% \remarque Si $A$ est un ouvert, tous les points de $A$ sont intérieurs à $A$.
+% \end{remarques}
+
+% \begin{remarques}
+% \remarque Si la fonction $f$ est définie sur un intervalle $I$, $f$ est définie
+%   au voisinage de tous les points de $I$ et de ses bornes.
+% \end{remarques}
+
+% \subsection{Théorème de \nom{Bolzano-Weierstrass}}
+
+
+
+
+\section{Limite}
+
+\subsection{Définition, propriétés élémentaires}
+
+% \begin{definition}[utile=-3]
+% Soit $f$ une fonction définie au voisinage de $a\in\Rbar$ et $l\in\RbarouC$. On
+% dit que $f(x)$ tend vers $l$ lorsque $x$ tend vers $a$ lorsque pour tout
+% voisinage $\mathcal{W}$ de $l$, il existe un voisinage $\mathcal{V}$ de $a$ tel
+% que~:
+% \[\forall x\in\mathcal{D}\cap\mathcal{V} \qsep f(x)\in\mathcal{W}\]
+% Si tel est le cas, on note~:
+% \[f(x)\tendvers{x}{a} l\]
+% La propriété \og tend vers $l$ lorsque $x$ tend vers $a$ \fg est locale en $a$.
+% \end{definition}
+
+\begin{definition}[utile=-3]
+Soit $f:\mathcal{D}\to\K$ une fonction définie au voisinage de $a\in\Rbar$ et $l\in\K$.
+On dit que $f(x)$ \emph{tend} vers $l$ lorsque $x$ tend vers $a$ et on note
+\[f(x)\tendvers{x}{a} l\]
+lorsque, quel que soit le voisinage $\mathcal{W}$ de $l$, il existe un voisinage
+$\mathcal{V}$ de $a$ tel que
+\[\forall x\in\dom\qsep x\in\mathcal{V}\implique f(x)\in\mathcal{W}.\]
+La propriété \og tend vers $l$ lorsque $x$ tend vers $a$ \fg est locale en $a$.
+% lorsque pour tout
+% voisinage $\mathcal{W}$ de $l$, il existe un voisinage $\mathcal{V}$ de $a$ tel
+% que~:
+% \[\forall x\in\mathcal{D}\cap\mathcal{V} \qsep f(x)\in\mathcal{W}\]
+% Si tel est le cas, on note~:
+
+% La propriété \og tend vers $l$ lorsque $x$ tend vers $a$ \fg est locale en $a$.
+
+
+% Alors~:
+% \[f(x)\tendvers{x}{a}l\]
+% si et seulement si~:
+
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque En pratique, on utilisera les caractérisations suivantes~:
+\begin{itemize}
+  \item Pour $a\in\R$ et $l\in\K$
+    \[\forall \epsilon>0 \qsep \exists \eta>0 \qsep \forall x\in\mathcal{D}
+      \qsep \abs{x-a}\leq\eta \implique \abs{f(x)-l}\leq\epsilon.\]
+  \item Pour $a\in\R$ et $l=-\infty$
+    \[\forall M\in\R \qsep \exists \eta>0 \qsep \forall x\in\mathcal{D}
+      \qsep \abs{x-a}\leq\eta \implique f(x)\leq M.\]
+  \item Pour $a\in\R$ et $l=+\infty$
+    \[\forall m\in\R \qsep \exists \eta>0 \qsep \forall x\in\mathcal{D}
+      \qsep \abs{x-a}\leq\eta \implique f(x)\geq m.\]
+  \item Pour $a=-\infty$ et $l\in\K$
+    \[\forall \epsilon>0 \qsep \exists A\in\R \qsep \forall x\in\mathcal{D}
+      \qsep x\leq A \implique \abs{f(x)-l}\leq\epsilon.\]
+  \item Pour $a=-\infty$ et $l=-\infty$
+    \[\forall M\in\R \qsep \exists A\in\R \qsep \forall x\in\mathcal{D}
+      \qsep x\leq A \implique f(x)\leq M.\]
+  \item Pour $a=-\infty$ et $l=+\infty$
+    \[\forall m\in\R \qsep \exists A\in\R \qsep \forall x\in\mathcal{D}
+      \qsep x\leq A \implique f(x)\geq m.\]
+  \item Pour $a=+\infty$ et $l\in\K$
+    \[\forall \epsilon>0 \qsep \exists B\in\R \qsep \forall x\in\mathcal{D}
+      \qsep x\geq B \implique \abs{f(x)-l}\leq\epsilon.\]
+  \item Pour $a=+\infty$ et $l=-\infty$
+    \[\forall M\in\R \qsep \exists B\in\R \qsep \forall x\in\mathcal{D}
+      \qsep x\geq B \implique f(x)\leq M.\]
+  \item Pour $a=+\infty$ et $l=+\infty$
+    \[\forall m\in\R \qsep \exists B\in\R \qsep \forall x\in\mathcal{D}
+      \qsep x\geq B \implique f(x)\geq m.\]
+  \end{itemize}
+% \remarque On montre que $f(x)$ tend vers $l\in\RbarouC$ lorsque $x$ tend
+%   vers $a\in\Rbar$ si et seulement si pour tout voisinage $\mathcal{W}$ de $l$,
+%   il existe un voisinage $\mathcal{V}$ de $a$ tel que
+%   \[\forall x\in\mathcal{D}\cap\mathcal{V} \qsep f(x)\in\mathcal{W}.\]
+\end{remarqueUnique}
+
+\begin{exoUnique}
+\exo Soit $f:\R\to\R$ une fonction croissante telle que
+  \[f(n)\tendvers{n}{+\infty}+\infty.\]
+  Montrer que $f(x)$ tend vers $+\infty$ lorsque $x$ tend vers $+\infty$.
+  Que dire si $f$ n'est pas croissante~?
+% \exo En remarquant que $(\sin x)/x$ tend vers 1 lorsque $x$ tend vers
+%   0, donner la limite, si elle existe, de
+%   \[\sum_{k=0}^n \sin\frac{k}{n^2}\]
+%   lorsque $n$ tend vers $+\infty$.
+  %% Utiliser le fait que (sin x-x)/x^2 tend vers 0 lorsque x tend vers 0
+\end{exoUnique}
+
+
+\begin{proposition}[utile=-3]
+Soit $f:\mathcal{D}\to\K$ une fonction définie au voisinage de $a\in\Rbar$ et $l\in\K$.
+Alors
+\[f(x)\tendvers{x}{a} l\]
+si et seulement si, pour toute suite $\p{u_n}$ d'éléments de $\mathcal{D}$
+tendant vers $a$, la suite $\p{f\p{u_n}}$ tend vers $l$.
+\end{proposition}
+
+\begin{preuve}
+C'est la CARACTERISATION SEQUENTIELLE DE LA LIMITE :
+On va faire la preuve avec $a\in \R$ et $\ell \in \R$.
+\begin{itemize}
+\item[$\bullet$] Soit $\epsilon >0$. Si $f(x)\tendvers{x}{a} \ell$, il existe $\eta>0$ tel que $\forall x \in \mathcal{D}_f, \abs{x-a}\leq \eta \Longrightarrow \abs{f(x)-\ell}\leq \epsilon$. Considérons alors $(u_n)$ une suite d'éléments de $\mathcal{D}_f$ qui tend vers $a$. Il existe donc $N\in \N$ tel que $\forall n \geq N$, $\abs{u_n-a}\leq \eta$. Mais alors, $\abs{f(u_n)-\ell}\leq \epsilon$, ce qui prouve le sens gauche-droite.
+\item[$\bullet$] Réciproquement, on suppose que pour toute suite $\p{u_n}$ d'éléments de $\mathcal{D}_f$
+tendant vers $a$, la suite $\p{f\p{u_n}}$ tend vers $\ell$. On raisonne par l'absurde, c'est-à-dire qu'on suppose qu'il existe $\epsilon>0$ tel que $\forall \eta>0, \exists x \in \mathcal{D}_f$, on ait $\abs{x-a}\leq \eta$ et $\abs{f(x)-\ell}>\epsilon$.\\
+Soit $n\in \N$, avec $\eta=\frac{1}{n}$, il existe $x_n\in \mathcal{D}_f$ tel que $\abs{x_n-a}\leq \dfrac{1}{n}$ et $\abs{f(x_n)-\ell}>\epsilon$. $(x_n)$ converge vers $a$ donc par hypothèse, $(f(x_n))$ converge vers $\ell$, d'où $0\geq \epsilon$ par passage à la limite, ce qui fournit une contradiction.
+\end{itemize}
+
+\end{preuve}
+
+\begin{remarques}
+\remarque Si $f$ est définie en $a\in\R$ et admet une limite en $a$, cette
+  limite est $f(a)$.
+\exo Cette proposition est utile pour prouver qu'une fonction $f$ n'a pas
+  de limite en $a$. Pour cela, il suffit de trouver deux suites
+  $\p{u_n}$ et $\p{v_n}$ telles que
+  \[u_n\tendvers{n}{+\infty} a \et v_n\tendvers{n}{+\infty} a.\]
+  et telles que les suites de terme général $f\p{u_n}$ et $f\p{v_n}$ aient
+  des limites distinctes.
+%   Par exemple $x\mapsto 1/x$ n'a pas de limite en 0, et $x\mapsto \sin x$ n'a
+%   pas de limite en $+\infty$.
+\end{remarques}
+
+\begin{exos}
+\exo Soit $f:\R\to\R$ une fonction périodique admettant une limite finie en
+  $+\infty$. Montrer que $f$ est constante.
+  \begin{sol}
+  $(f(x+nT))$ tend vers $\ell$, mais cette suite est aussi égale à $f(x)$ donc $\ell=f(x)$ et ce peu importe $x$.
+  \end{sol}
+\exo Montrer que la fonction d'expression $\sin\p{\frac{1}{x}}$ n'a pas de
+  limite en 0.
+  \begin{sol}
+  Prendre $u_n=\dfrac{1}{\frac{\pi}{2}+2n\pi}$ et $v_n=\dfrac{1}{-\frac{\pi}{2}+2n\pi}$.
+  \end{sol}
+\end{exos}
+
+\begin{proposition}[utile=-3]
+Si $f$ admet une limite $l\in\RbarouC$ en $a\in\Rbar$, alors cette limite
+est unique. Si tel est le cas, on écrit
+\[\lim_{x\to a} f(x)=l.\]
+\end{proposition}
+
+\begin{preuve}
+\'Etant donné qu'on a démontré les résultats sur les suites, on va utiliser la caractérisation séquentielle de la limite pour obtenir chacun des résultats ci-dessous. Par exemple, pour celui-ci :
+On considère $a\in \Rbar$. On suppose qu'il existe $\ell_1, \ell_2$ tels que $f(x)\tendvers{x}{a} \ell_1$ et $f(x)\tendvers{x}{a} \ell_2$. Puisque $f$ est définie au voisinage de $a$, il existe une suite $(u_n)$ d'éléments de $\mathcal{D}_f$ telle que $u_n\tendvers{n}{+\infty}{a}$ donc $f(u_n)\tendvers{n}{+\infty}{\ell_1}$ et $f(u_n)\tendvers{n}{+\infty}{\ell_2}$. D'où : $\ell_1=\ell_2$ par unicité de la limite sur les suites.
+\end{preuve}
+
+\begin{proposition}[utile=-3]
+Soit $f$ une fonction définie au voisinage de $a\in\Rbar$
+et $l\in\K$. On suppose que
+\[f(x)\tendvers{x}{a} l.\]
+Alors
+\[\abs{f(x)}\tendvers{x}{a} \abs{l} \et
+  \conj{f}(x)\tendvers{x}{a} \conj{l}.\]
+\end{proposition}
+
+\begin{proposition}[utile=-3]
+Soit $f$ une fonction complexe définie au voisinage de $a\in\Rbar$ et $l\in\C$.
+Alors
+\[f(x)\tendvers{x}{a} l \quad\ssi\quad \cro{\Re\cro{f(x)}\tendvers{x}{a}\Re(l) \et
+  \Im\cro{f(x)}\tendvers{x}{a}\Im(l)}.\]
+\end{proposition}
+
+\begin{proposition}[utile=-3]
+\begin{itemize}
+\item Les théorèmes usuels portant sur les combinaisons linéaires, les produits
+  et les quotients de limites de suites restent vrais pour les fonctions.
+\item Soit $f$ une fonction définie au voisinage de $a\in\Rbar$ tendant vers $l_1\in\Rbar$
+  en $a$ et $g$ une fonction définie au voisinage de $l_1$ tendant vers
+  $l_2\in\RbarouC$ en $l_1$. Si $g\circ f$ est définie au voisinage de $a$, alors
+  \[\p{g\circ f}(x) \tendvers{x}{a} l_2.\]
+\end{itemize}
+\end{proposition}
+
+\begin{preuve}
+Pour la composition  :
+Soit $(u_n)$ une suite d'éléments de $\mathcal{D}_f$ telle que $u_n\tendvers{n}{+\infty}a$, on a $f(x)\tendvers{x}{a}\ell_1$ donc $f(u_n)\tendvers{n}{+\infty}\ell_1$. De plus, $g(x)\tendvers{x}{\ell_1}\ell_2$ donc $g(f(u_n))\tendvers{n}{+\infty}\ell_2$ et ce peu importe la suite qui tend vers $a$ donc $g(f(x))\tendvers{x}{a} \ell_2$.
+\end{preuve}
+
+\begin{remarques}
+\remarque Comme pour les suites, la somme d'une fonction admettant une limite
+  finie en $a$ et d'une fonction n'admettant pas de limite en $a$ n'admet pas de
+  limite en $a$.
+  Les autres théorèmes de ce type sont souvent faux;
+  par exemple, il est possible qu'une fonction $f$ n'admette pas de limite en
+  $a$ bien que $g\circ f$ admette une limite en $a$.
+\remarque Soit $f$ et $g$ sont deux fonctions réelles définies sur
+  $\mathcal{D}$. On définit les fonctions $\sup\p{f,g}$ et $\inf\p{f,g}$ par
+  \[\forall x\in\mathcal{D} \qsep \sup\p{f,g}(x)\defeq\max\p{f(x),g(x)} \et
+    \inf\p{f,g}(x)\defeq\min\p{f(x),g(x)}.\]
+  Si $f$ et $g$ admettent pour limites respectives $l_f$ et $l_g\in\R$ en
+  $a\in\Rbar$, alors
+  \[\sup\p{f,g}(x)\tendvers{x}{a}\max\p{l_f,l_g} \et 
+    \inf\p{f,g}(x)\tendvers{x}{a}\min\p{l_f,l_g}.\]
+\end{remarques}
+
+% \begin{exoUnique}
+% \exo Déterminer la limite, si elle existe de
+%   \[\frac{\sqrt{1+\sin x}-\sqrt{1-\sin x}}{x}\] en 0.
+% \end{exoUnique}
+% \begin{sol}
+% On passe à la quantité conjuguée et le tout tend vers $1$.
+% \end{sol}
+
+\subsection{Limite et ordre sur $\R$}
+
+\begin{proposition}[utile=-3]
+Soit $f:\mathcal{D}\to\K$ une fonction admettant une limite finie en $a$.
+Alors $f$ est bornée au voisinage de $a$.  
+\end{proposition}
+
+\begin{preuve}
+On écrit la définition de la limite avec $\epsilon=1$ puis I.T.
+\end{preuve}
+
+\begin{proposition}[utile=-3]
+Soit $f:\mathcal{D}\to\R$ une fonction telle que $f(x)$ tend vers $l\in\R$ lorsque
+$x$ tend vers $a\in\Rbar$.
+\begin{itemize}
+\item Si $f$ est majorée par $M\in\R$, alors $l\leq M$.
+\item Si $f$ est minorée par $m\in\R$, alors $l\geq m$.
+\end{itemize}
+\end{proposition}
+
+\begin{preuve}
+Cas majoré : On prend une suite $(u_n)$ d'éléments de $\mathcal{D}_f$ qui converge vers $a$. Alors $\forall n \in \N$, $f(u_n)\leq M$ d'où par passage à la limite (SUR LES SUITES), $\ell\leq M$.
+
+\end{preuve}
+
+%% Remarque :
+%% 1) Si f est croissante sur R et f(x) -> l_1 (en  -infini) et
+%%    f(x) -> l_2 (en +infini), alors l_1 <= f(x) <= l_2
+%% 2) Si f est strictement croissante et f(x) -> l_1 (en  -infini) et
+%%    f(x) -> l_2 (en +infini), alors l_1 < f(x) < l_2
+
+\begin{proposition}[utile=-3]
+Soit $f:\mathcal{D}\to\R$ une fonction telle que $f(x)$ tend vers $l\in\Rbar$ lorsque
+$x$ tend vers $a\in\Rbar$.
+\begin{itemize}
+\item Si $M$ est un réel tel que $l<M$, il existe un voisinage $\mathcal{V}$
+  de $a$ tel que
+  \[\forall x\in\mathcal{D} \qsep x\in\mathcal{V} \implique f(x)\leq M.\]
+\item Si $m$ est un réel tel que $l>m$, il existe un voisinage $\mathcal{V}$
+  de $a$ tel que
+  \[\forall x\in\mathcal{D} \qsep x\in\mathcal{V} \implique f(x)\geq m.\]
+\end{itemize}
+\end{proposition}
+
+\begin{preuve}
+Pour changer, faisons cette preuve avec $a=+\infty$ et $\ell \in \R$.
+On pose $\epsilon=M-\ell >0$. Alors, il existe $m\in \R$ tel que $\forall x\geq m, \abs{f(x)-\ell}\leq \epsilon$, i.e. $f(x)\leq \ell+\epsilon=M$.
+\end{preuve}
+
+\begin{remarques}
+\remarque En pratique, il conviendra d'expliciter les voisinages. Par
+  exemple, si $f(x)$ tend vers $l<M$ lorsque $x$ tend vers $a\in\R$, il
+  existe $\epsilon>0$ tel que
+  \[\forall x\in\mathcal{D} \qsep \abs{x-a}\leq\epsilon \implique
+    f(x)\leq M.\]
+\remarque Si une fonction complexe $f$ admet une limite $l\in\C$
+  non nulle en $+\infty$, il existe $m\in\R$ tel que
+  \[\forall x\in\mathcal{D} \qsep x\geq m \implique f(x)\neq 0.\] 
+\end{remarques}
+
+\begin{theoreme}[utile=-3, nom={Théorème des gendarmes}]
+Soit $f$, $g$ et $h:\mathcal{D}\to\R$ telles que
+\[\forall x\in\mathcal{D} \qsep f(x)\leq g(x)\leq h(x).\]
+On suppose que $f$ et $h$ admettent la même limite finie $l\in\R$ en $a\in\Rbar$.
+Alors
+\[g(x) \tendvers{x}{a} l.\]
+\end{theoreme}
+
+\begin{preuve}
+Soit $(u_n)$ une suite d'éléments de $\mathcal{D}$ qui tend vers $a$. On a d'une part $\forall n \in \N, f\p{u_n}\leq g\p{u_n}\leq h\p{u_n}$ et d'autre part par caractérisation séquentielle de la limite, $(f(u_n))$ et $(h(u_n))$ tendent vers $\ell$. Donc $(g(u_n))$ tend vers $\ell$ par théorème des gendarmes sur les suites, et ceci étant valable pour n'importe quelle suite $(u_n)$ convergeant vers $a$, on en déduit que $g(x) \tendvers{x}{a} \ell$ par caractérisation séquentielle de la limite.
+\end{preuve}
+
+
+\begin{proposition}[utile=-3]
+Soit $f$ et $g:\mathcal{D}\to\R$ telles que
+\[\forall x\in\mathcal{D} \qsep f(x)\leq g(x)\]
+et $a\in\Rbar$.
+\begin{itemize}
+\item Si $f(x)\tendvers{x}{a} +\infty$, alors $g(x)\tendvers{x}{a}+\infty$.
+\item Si $g(x)\tendvers{x}{a} -\infty$, alors $f(x)\tendvers{x}{a}-\infty$.
+\end{itemize}
+\end{proposition}
+
+\begin{preuve}
+Par caractérisation séquentielle.
+\end{preuve}
+
+\begin{proposition}[utile=-3]
+Soit $f:\mathcal{D}\to\K$ une fonction, $a\in\Rbar$, $l\in\K$ et $g$ une
+fonction réelle positive telle que
+\begin{itemize}
+\item $\forall x\in\mathcal{D} \qsep \abs{f(x)-l}\leq g(x)$,
+\item $g(x)\tendvers{x}{a} 0$.
+\end{itemize}
+Alors
+\[f(x)\tendvers{x}{a} l.\]
+\end{proposition}
+
+\begin{preuve}
+Par caractérisation séquentielle.
+\end{preuve}
+
+\begin{exoUnique}
+\exo Déterminer la limite, si elle existe, de la fonction d'expression
+  $\frac{x}{2+\sin\p{\frac{1}{x}}}$ en 0.
+\begin{sol}
+On le coince entre $x/3$ et $x$ si $x\geq 0$ et entre $x$ et $x/3$ si $x\leq 0$. Donc $\forall x \in \Rs, -\abs{x}\leq \frac{x}{2+\sin\p{\frac{1}{x}}} \leq \abs{x}$ + thm des gendarmes.
+\end{sol}
+% \exo On a
+%   \[\integ{0}{1}{\frac{e^{-xt}}{1+t^2}}{t}\tendvers{x}{+\infty}0\]
+\end{exoUnique}
+
+\subsection{Limite à gauche, à droite}
+
+\begin{definition}[utile=-3]
+
+\begin{itemize}
+\item Soit $f$ une fonction définie au voisinage à gauche de $a\in\R$ et
+  $l\in\RbarouC$. On dit que $f$ admet $l$ pour \emph{limite à gauche} en $a$ lorsque
+  la restriction de $f$ à $\mathcal{D}\cap\intero{-\infty}{a}$ admet $l$ pour
+  limite en $a$. Si tel est le cas, on note
+  \[f(x)\tendversgp{x}{a} l.\]
+  La propriété \og tend vers $l$ lorsque $x$ tend vers $a$ par la gauche \fg est
+  locale à gauche en $a$.
+\item Soit $f$ une fonction définie au voisinage à droite de $a\in\R$ et
+  $l\in\RbarouC$. On dit que $f$ admet $l$ pour \emph{limite à droite} en $a$ lorsque
+  la restriction de $f$ à $\mathcal{D}\cap\intero{a}{+\infty}$ admet $l$ pour
+  limite en $a$. Si tel est le cas, on note
+  \[f(x)\tendversdp{x}{a} l.\]
+  La propriété \og tend vers $l$ lorsque $x$ tend vers $a$ par la droite \fg est
+  locale à droite en $a$.
+\end{itemize}
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque On définit de même les notions de limite à gauche au sens large, de limite à
+  droite et de limite épointée (pour $x\neq a$). On écrit alors respectivement
+  \[f(x)\tendversg{x}{a} l, \qquad
+    f(x)\tendversd{x}{a} l, \qquad
+    f(x)\tendversp{x}{a} l.\]
+\end{remarqueUnique}
+
+
+\begin{proposition}[utile=-3]
+Soit $f$ une fonction définie au voisinage de $a$ et $l\in\RbarouC$. Alors
+$f(x)$ tend vers $l$ lorsque $x$ tend vers $a$ si et seulement si, les objets
+ci-dessous susceptibles d'avoir un sens
+\[\lim_{\substack{x\to a\\x<a}} f(x), \quad f(a) \et
+  \lim_{\substack{x\to a\\x>a}} f(x)\]
+existent et sont égaux à $l$.
+\end{proposition}
+
+\begin{preuve}
+Sens gauche-droite immédiat.
+Pour le sens droite-gauche, écrire les deux limites avec $\eta_1$ et $\eta_2$ puis prendre le $\min$.
+\end{preuve}
+
+\begin{remarqueUnique}
+\remarque On a bien entendu des théorèmes similaires pour les limites au sens large. Par
+  exemple, $f(x)$ tend vers $l$ lorsque $x$ tend vers $a$ si et seulement si, les  objets
+  ci-dessous susceptibles d'avoir un sens
+  \[\lim_{\substack{x\to a\\x\leq a}} f(x) \et
+    \lim_{\substack{x\to a\\x>a}} f(x)\]
+  existent et sont égaux à $l$.
+\end{remarqueUnique}
+
+\begin{exoUnique}
+\exo Soit $f$ la fonction définie sur $\R$ par
+  \[\forall x\in\R \qsep f(x)=
+    \begin{cases}
+    0 & \text{si $x\leq 0$}\\
+    \e^{-1/x} & \text{si $x>0$}
+    \end{cases}\]
+  Montrer que $f(x)\tendvers{x}{0} 0$.
+\end{exoUnique}
+
+
+
+\begin{theoreme}[nom={Théorème de la limite monotone}]
+Soit $f:I\to\R$ une fonction croissante sur un intervalle $I$.
+\begin{itemize}
+\item Si $a\in I$ n'est pas une borne de $I$, $f$ admet une limite finie 
+  à gauche et une limite finie à droite en $a$. De plus
+  \[\lim_{\substack{x\to a\\x<a}} f(x) \leq f(a) \leq
+    \lim_{\substack{x\to a\\x>a}} f(x).\]
+\item Si $a$ est la borne supérieure de $I$, $f$ admet une limite en $a$.
+  Cette limite est finie si $f$ est majorée, et est égale à $+\infty$ sinon.
+\item Si $a$ est la borne inférieure de $I$, $f$ admet une limite en $a$.
+  Cette limite est finie si $f$ est minorée, et est égale à $-\infty$ sinon.
+\end{itemize}
+\end{theoreme}
+
+\begin{preuve}
+Nous allons traiter seulement certains cas (plus simples) pour s'éviter des détails techniques superflus :
+\begin{itemize}
+\item[$\bullet$] Traitons le cas où $f:\R\mapsto \R$ est une fonction croissante et $a\in \R$. On veut montrer que $f$ admet une limite à gauche en $a$.
+\begin{itemize}
+\item Posons $A=\set{f(x), x<a}$. $A$ est non vide ($f(a-1)\in A$) et majorée par $f(a)$ par croissance. $A$ admet donc une borne supérieure que l'on note $\ell_1$. $f(a)$ étant un majorant, on a $\ell_1\leq f(a)$.
+\item Soit $\epsilon>0$. Alors, il existe $y_0\in A$ tel que $y_0\geq \ell_1-\epsilon$, i.e. il existe $x_0\in ]-\infty;a[$ tel que $f(x_0)\geq \ell_1-\epsilon$. Posons alors $\eta=a-x_0>0$. Pour tout $x\in [a-\eta;a[, a-\eta=x_0\leq x$ donc $f(x_0)\leq f(x)$ par croissance de $f$ donc $\ell_1-\epsilon\leq f(x)$. Et $f(x)\in A$ donc $f(x)\leq \ell_1$. Finalement, pour tout $x\in [a-\eta;a[, \abs{f(x)-\ell_1}\leq \epsilon$.\\
+\item $\ell_1$ est donc bien la limite à gauche de $f$ en $a$ et $\ell_1\leq f(a)$.
+\item On montre de même qu'il existe une limite à droite en $a$ et qu'elle est supérieure à $f(a)$.
+\end{itemize}
+\item[$\bullet$] Traitons le cas où $f:\RPs\mapsto \R$ est une fonction croissante et où $a=0$. Montrons que $f$ admet une limite à droite en $0$ qui soit ou bien finie (si elle est minorée) ou bien $-\infty$.\\
+On pose $A=\set{f(x), x\in \RPs}$.
+\begin{itemize}
+\item Si $A$ n'est pas minorée, montrons qu'alors la limite à droite vaut $-\infty$. Soit $M\in \R$. Puisque $A$ n'est pas minorée, il existe $x_0\in \RPs$ tel que $f(x_0)<M$. Mais alors, par croissance, pour tout $x\in ]0;x_0], f(x)(\leq f(x_0))\leq M$, ce qui prouve le résultat souhaité.
+\item Si $A$ est minorée, comme $A$ est non vide, il existe une borne inférieure qu'on note $\ell$. Soit $\epsilon>0$, il existe $a_0\in A$ tel que $ a_0 \leq \ell+\epsilon$. Mais $\exists x_0\in \RPs$ tel que $a_0=f(x_0)$ et pour tout $x\in ]0;x_0]$ par croissance et parce-que $f(x)\in A$, on a $\ell \leq f(x) \leq \ell+\epsilon$ d'où $\abs{f(x)-\ell}\leq \epsilon$.
+\end{itemize}
+\end{itemize}
+\end{preuve}
+
+\begin{remarques}
+\remarque Une proposition similaire existe pour les fonctions décroissantes.
+\remarque Si $f:\intero{-\infty}{a}\to\R$ est une fonction croissante admettant une limite $l\in\R$ en $a\in\R\cup\ens{+\infty}$, alors
+  \[\forall x\in\intero{-\infty}{a} \qsep f(x)\leq l.\]
+  De plus, si $f$ est strictement croissante, alors
+  \[\forall x\in\intero{-\infty}{a} \qsep f(x)< l.\]
+\end{remarques}
+
+\section{Continuité}
+
+\subsection{Continuité ponctuelle}
+
+\begin{definition}[utile=-3]
+On dit qu'une fonction $f:\mathcal{D}\to\K$ est \emph{continue} en $x_0\in\mathcal{D}$ lorsque
+\[f(x)\tendvers{x}{x_0} f\p{x_0}.\]
+La propriété \og est continue en $x_0$ \fg est locale en $x_0$. On appelle
+domaine de continuité de $f$ l'ensemble des $x_0\in\mathcal{D}$ en lesquels
+$f$ est continue.
+\end{definition}
+
+
+\begin{remarques}
+\remarque La continuité de $f$ en $x_0$ s'écrit 
+  \[\forall \epsilon>0 \qsep \exists \eta>0 \qsep \forall x\in\mathcal{D}
+    \qsep \abs{x-x_0}\leq\eta \implique \abs{f(x)-f\p{x_0}}\leq\epsilon.\]
+\remarque Une fonction $f:\mathcal{D}\to\K$ est continue en $x_0\in\mathcal{D}$ si et seulement si
+  elle admet une limite en $x_0$.
+\begin{sol}
+Sens gauche-droite évident. Si maintenant, il existe $\ell \in \Rbar$ tel que $f(x)\tendvers{x}{x_0} \ell$ alors $f$ étant définie en $x_0$, on obtient d'après la définition de la limite $\forall \epsilon>0, |f(x_0)-\ell|\leq \epsilon$ (étant donné que pour tout $\eta>0$, $|x_0-x_0|\leq \eta$) d'où $\ell=f(x_0)$.
+\end{sol}
+\remarque On dit qu'une fonction $f$ est \emph{continue à droite} en $x_0$ lorsque
+  \[f(x)\tendversdp{x}{x_0} f\p{x_0}.\]
+  De même, on définit la notion de \emph{continuité à gauche}. Une fonction est
+  continue en $x_0$ si et seulement si elle est continue à droite et à gauche
+  en $x_0$.
+\remarque On dit qu'une fonction $f$ admet une \emph{discontinuité de première
+  espèce} en $x_0$ lorsqu'elle admet des limites à droite et à gauche
+  et lorsque l'une de ces limites est différente de $f(x_0)$.
+  Par exemple, la fonction partie entière admet une discontinuité de première
+  espèce en tout point $x_0\in\Z$.
+% \remarque Toute fonction lipschitzienne est continue en tout point de son
+%   domaine de définition.
+%   \begin{sol}
+%   Soit $k>0$. On rappelle qu'une fonction est dite $k$-lipschitzienne si $\forall (x,y)\in \mathcal{D}^2, \abs{f(x)-f(y)}\leq k\abs{x-y}$. Pour voir qu'elle est continue, pour $\epsilon>0$, il suffit de prendre $\eta=\frac{\epsilon}{k}$.
+%   \end{sol}
+% \remarque La fonction $f$ définie sur $\R$ par $f(x)\defeq\sin\p{1/x}$ si
+%   $x\neq 0$ et $f\p{0}\defeq 0$ est discontinue en 0. Cette discontinuité n'est pas
+%   une discontinuité de première espèce.
+% \begin{sol}
+% On parle alors de discontinuité essentielle ou discontinuité de deuxième espèce lorsque au moins une des deux limites à gauche et à droite n'existe pas ou est infinie.
+% \end{sol}
+\remarque Les fonctions valeur absolue, puissance (en particulier les puissances
+  entières et les racines $n$-ièmes), $\ln$, $\exp$, les fonctions
+  trigonométriques circulaires et hyperboliques, directes et réciproques sont
+  continues en tout point de leur domaine de définition.
+  \begin{sol}
+La seule fonction "qui a un nom" qui admet des discontinuités (elles sont de première espèce) est la fonction partie entière.
+\end{sol} 
+\remarque Une fonction continue en $x_0$ est bornée au voisinage de $x_0$.
+\end{remarques}
+
+\begin{exoUnique}
+\exo Soit $f:\R\to\R$ la fonction définie par
+  \[\forall x\in\R\qsep f(x)\defeq\begin{cases}\sin\p{\frac{1}{x}} & \text{si $x\neq 0$}\\
+    0 & \text{si $x=0$.}\end{cases}\]
+  Montrer que $f$ est discontinue en 0 et que cette discontinuité n'est pas de première
+  espèce.
+\end{exoUnique}
+
+\begin{definition}[utile=-3]
+Soit $f:\mathcal{D}\to\K$ une fonction définie au voisinage d'un point $a\in\R$ n'appartenant pas
+à $\mathcal{D}$. Lorsque $f(x)$ admet une limite finie $l\in\K$ lorsque $x$
+tend vers $a$, on dit que $f$ est \emph{prolongeable par continuité} en $a$. La fonction
+\[\dspappli{\hat{f}}{\mathcal{D} \cup\ens{a}}{\K}{x}{
+  \begin{cases}
+  f(x) & \text{si $x\neq a$}\\
+  l      & \text{si $x=a$}  
+  \end{cases}}\]
+est alors appelée \emph{prolongement par continuité} de $f$ en $a$. C'est une fonction
+continue en $a$.
+\end{definition}
+  
+
+% \begin{applications}
+% \application Soit $f:\RPs\to\R$ une fonction croissante telle que
+%   $g:x\mapsto f(x)/x$ soit décroissante. Alors $f$ est continue sur $\RPs$.
+% \end{applications}
+\begin{proposition}[utile=-3]
+Soit $f:\mathcal{D}\to\K$ une fonction et $x_0\in\mathcal{D}$. Alors $f$ est continue en $x_0$
+si et seulement si pour toute suite $\p{u_n}$ d'éléments de $\mathcal{D}$
+convergeant vers $x_0$
+\[f\p{u_n} \tendvers{n}{+\infty} f\p{x_0}.\]
+\end{proposition}
+
+\begin{preuve}
+C'est la caractérisation séquentielle de la limite.
+\end{preuve}
+
+
+\begin{remarques}
+\remarque Soit $f$ une fonction continue sur l'intervalle $I$ et $\p{u_n}$
+  une suite telle que
+  \[\forall n\in\N \qsep u_{n+1}=f\p{u_n}\]
+  Alors, si $\p{u_n}$ admet une limite $l\in\Rbar$, c'est une borne de
+  $I$ ou un point fixe de $f$.
+  \begin{sol}
+  En effet, supposons que $\ell$ ne soit pas une borne de $I$.
+  Alors $\ell \in I$. Puisque $f$ est continue en $I$, $f(u_n)\tendvers{n}{+\infty}f(\ell)$. Or $u_{n+1}\tendvers{n}{+\infty}\ell$. Par unicité de la limite $f(\ell)=\ell$.
+  \end{sol}
+\remarque Soit $f$ et $g$ deux fonctions continues ent tout point de $\R$. Si elles coïncident
+  sur $\Q$, alors $f=g$.
+  \begin{sol}
+  Soit $x\in \R$, $\Q$ étant dense dans $\R$, il existe une suite $(u_n)$ de rationnels tendant vers $x$. Donc $\forall n\in \N, f(u_n)=g(u_n)$ et par passage à la limite $f(x)=g(x)$.
+  \end{sol}
+\remarque Cette proposition est utile pour prouver qu'une fonction $f$ n'est
+  pas continue en $x_0$. Pour cela, il suffit de trouver une suite $\p{u_n}$
+  convergeant vers $x_0$ telle que la suite de terme général $f\p{u_n}$ ait
+  une limite différente de $f\p{x_0}$.
+\end{remarques}
+
+\begin{exos}
+\exo Montrer que la fonction caractéristique de $\Q$ est discontinue en
+  tout point.
+  \begin{sol}
+  Soit $x\in \Q$, $\R\setminus\Q$ étant dense dans $\R$, il existe une suite $(u_n)$ d'irrationnels tendant vers $x$. Alors $\forall n \in N, f(u_n)=0\tendvers{n}{+\infty}0\neq f(x)=1$, donc $f$ est discontinue en $x$.\\
+  Soit $x\in \R\setminus\Q$, $Q$ étant dense dans $\R$, il existe une suite $(u_n)$ de rationnels tendant vers $x$. Alors $\forall n \in N, f(u_n)=1\tendvers{n}{+\infty}1\neq f(x)=0$, donc $f$ est discontinue en $x$.
+  \end{sol}
+\exo Quelles sont les fonctions $f:\R\to\R$, continues en tout point de $\R$, telles que
+  \[\forall x,y\in\R \qsep f\p{x+y}=f(x)+f(y).\]
+  \begin{sol}
+  \begin{itemize}
+  \item[$\bullet$] \underline{\textbf{Analyse :}} Soit $f$ continue de $\R$ dans $\R$ vérifiant $f(x+y)=f(x)+f(y), \forall (x,y)\in \R^2$.
+  \begin{itemize}
+  \item On montre d'abord par récurrence sur $n\in \N$ $H_n : "f(nx)=nf(x)"$.
+  \item Soit $n\in \Z$ tel que $n\leq 0$. Alors $-n\in \N$. D'où $f(nx)+f(-nx)=f(0)=0$ donc $f(nx)=-f(-nx)=-(-nf(x))=nf(x)$. On a donc montré que $\forall n \in \Z, f(nx)=nf(x)$.
+  \item Soit $r\in \Q$. Il existe $p\in \Z$ et $q\in \Ns$ tels que $r=p/q$. On a $pf(x)=f(px)=f(qrx)=qf(rx)$ d'où $f(rx)=p/qf(x)=rf(x)$.
+  Finalement, $\forall r\in \Q, f(r)=rf(1)$.
+  \item Soit $x\in \R$, il existe une suite $(r_n)$ de rationnels qui tend vers $x$ (par densité). Par continuité de $f$ en $x$, $r_nf(1)=f(r_n)\tendvers{n}{+\infty}f(x)$. Donc par unicité de la limite $f(x)=xf(1)$.
+  \item En posant $\alpha=f(1)$ on a donc $f(x)=\alpha x$.
+  \end{itemize}
+  \item[$\bullet$] \underline{\textbf{Synthèse :}} Soit $\alpha \in \R$. On définit $f$ sur $\R$ par $f(x)=\alpha x$. Alors $f$ est continue sur $\R$ et $\forall (x,y)\in \R^2$, on a $f(x+y)=\alpha(x+y)=\alpha x +\alpha y=f(x)+f(y)$.
+  \end{itemize}
+  \end{sol}
+\end{exos}
+
+\begin{proposition}[utile=-3, nom={Théorèmes usuels}]
+Soit $f$ et $g:\mathcal{D}\to\K$ deux fonctions continues en $x_0\in\mathcal{D}$. Alors
+\begin{itemize}
+\item Si $\lambda$, $\mu\in\K$, $\lambda f+\mu g$ est continue en $x_0$.
+\item $fg$ est continue en $x_0$.
+\item Si $g\p{x_0}\neq 0$, $g$ ne s'annule pas au voisinage de $x_0$ et
+  $f/g$ est continue en $x_0$.
+\end{itemize}
+\end{proposition}
+
+% \begin{remarques}
+% \remarque Si $\mathcal{D}$ est une partie de $\R$, l'ensemble
+%   $\mathcal{C}^0\p{\mathcal{D},\R}$ des fonctions continues de $\mathcal{D}$
+%   dans $\R$ est une $\R$-algèbre.
+% \end{remarques}
+
+\begin{proposition}[utile=-3,nom={Théorèmes usuels}]
+Soit $f:\mathcal{D}_f\to\R$ et $g:\mathcal{D}_g\to\K$ deux fonctions telles que
+$g\circ f$ est défini au voisinage de $x_0\in\mathcal{D}_f$. Si $f$ est continue en
+$x_0$ et $g$ est continue en $f\p{x_0}$, alors $g\circ f$ est continue en $x_0$.
+\end{proposition}
+
+\begin{preuve}
+Les deux résultats précédents viennent directement des propriétés d'opérations sur les limites.
+\end{preuve}
+
+\begin{remarqueUnique}
+% \remarque Les deux propositions précédentes sont regroupées sous la
+%   dénomination de \og théorèmes usuels \fg.
+\remarque La somme d'une fonction continue en $x_0$ et d'une fonction
+  discontinue en $x_0$ est discontinue en $x_0$. Les autres propositions de ce
+  type peuvent être fausses. Par exemple, si $f$ et $g$ sont les fonctions
+  définies sur $\R$ par
+  \[\forall x\in\R \qsep f(x)\defeq x \et g(x)\defeq
+    \begin{cases}
+    \sin\p{\frac{1}{x}} & \text{si $x\neq 0$}\\
+    0 & \text{si $x=0$,}
+    \end{cases}\]
+  alors $f$ est continue en 0 et $g$ ne l'est pas. Pourtant $f\cdot g$ l'est.
+  On retiendra que les réciproques des théorèmes usuels peuvent être
+  fausses.
+\end{remarqueUnique}
+
+\begin{sol}
+Pour voir que $fg$ est continue en $0$, $\abs{(fg)(x)}\leq |x|$.
+\end{sol}
+
+\begin{proposition}[utile=-3]
+Soit $f:\mathcal{D}\to\K$ une fonction continue en $x_0\in\mathcal{D}$. Alors $\conj{f}$ et $\abs{f}$ sont
+continues en $x_0$.  
+\end{proposition}
+
+%% Remarque
+%% 1) Si f et g sont continues sup(f,g) et inf(f,g) le sont.
+
+\begin{proposition}[utile=-3]
+Soit $f:\mathcal{D}\to\C$ une fonction et $x_0\in\mathcal{D}$. Alors
+\[\cro{\text{$f$ est continue en $x_0$}} \quad\ssi\quad
+  \cro{\text{$\Re(f)$ et $\Im(f)$ sont continues en $x_0$}}.\]
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque Si $f$ est une fonction à valeurs dans $\C$ continue en $x_0$, alors
+  $\e^f$ est continue en $x_0$.
+\end{remarqueUnique}
+\begin{sol}
+$\e^{f(x)}=\e^{\Re(f)(x)+\ii\Im(f(x))}=\cos(\Im(f(x)))\e^{\Re(f)(x)}+\ii\cos(\Im(f(x)))\e^{\Re(f)(x)}$ dont les parties réelle et imaginaire sont continues par TOC
+\end{sol}
+
+\begin{exos}
+\exo Soit $f$ la fonction définie sur $\R$ par
+  \[\forall x\in\R \qsep f(x)=
+    \begin{cases}
+    \frac{\e^{\ii x}-1}{x} & \text{si $x\neq 0$}\\
+    \ii & \text{si $x=0$.}
+    \end{cases}\]
+  Montrer que $f$ est continue en tout point de $\R$.
+\end{exos}
+
+\begin{sol}
+Taux d'accroissement.
+Sinon, pour voir la continuité en $0$, écrire pour $x\neq 0$, $$\frac{\e^{\ii x}-1}{x}=\frac{\cos(x)-1}{x}+i\frac{\sin(x)}{x}$$ donc $f(x)\tendversp{x}{0}f(0)$ d'où $f(x)\tendvers{x}{0}f(0)$ donc $f$ est continue en $0$.
+\end{sol}
+
+%% Exemple :
+%% 1) Prolongement par continuité en 0 de sin x/x. On obtient le sinus cardinal.
+
+
+
+\subsection{Continuité sur une partie}
+
+\begin{definition}[utile=-3]
+Soit $f:\dom\to\K$.
+\begin{itemize}
+\item On dit que $f$ est \emph{continue} lorsqu'elle est continue en tout point de
+  $\dom$.
+\item Si $A$ est une partie de $\dom$, on dit que $f$ est continue sur $A$ lorsque la
+ restriction de $f$ à $A$ est continue.
+\end{itemize}
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque Soit $f:\mathcal{D}\to\K$ et $A$ une partie de $\mathcal{D}$.
+  Si $f$ est continue en tout point de $A$, alors $f$ est continue sur $A$. Cependant,
+  la réciproque est fausse. En effet, si $f$ est la fonction de $\R$ dans $\R$ définie
+  par
+  \[\forall x\in\R\qsep f(x)\defeq\begin{cases}
+    1 & \text{si $x\geq 0$}\\
+    0 & \text{sinon}
+  \end{cases}\]
+  alors $f$ est continue sur $\RP$ mais n'est pas continue en 0.
+\end{remarqueUnique}
+
+\begin{definition}[utile=-3]
+Soit $k\in\RP$. On dit qu'une fonction $f:\mathcal{D}\to\K$ est \emph{$k$-lipschitzienne} lorsque
+\[\forall x,y\in \mathcal{D} \qsep \abs{f(x)-f(y)}\leq k\abs{x-y}.\] 
+\end{definition}
+
+\begin{exoUnique}
+\exo Montrer que les fonctions \og valeur absolue\fg et \og sinus\fg sont
+  1-lipschitziennes.
+% \exo La fonction valeur absolue est $1$-lipschitzienne. En effet
+%   \[\forall x,y\in\R \qsep \abs{\abs{x}-\abs{y}}\leq\abs{x-y}\]
+% \exo La fonction $\sin$ est $1$-lipschitzienne.
+\end{exoUnique}
+
+% \begin{definition}
+% On dit qu'une fonction $f:\mathcal{D}\to\RouC$ est \emph{lipschitzienne} lorsqu'il existe
+% $M\geq 0$ tel que
+% \[\forall x,y\in\mathcal{D}\qsep \abs{f(x)-f(y)}\leq M\abs{x-y}.\]
+% \end{definition}
+
+\begin{proposition}
+Une fonction lipschitzienne est continue.
+\end{proposition}
+
+Dans la suite du cours d'analyse, un s'intéressera le plus souvent à des fonctions dont
+le domaine de définition est une partie relativement simple de $\R$. Afin de formaliser cela,
+une partie de $\R$ sera dite \emph{élémentaire} lorsque c'est une réunion d'un nombre fini
+d'intervalles. Par exemple $\R$ et $\Rs=\intero{-\infty}{0}\cup\intero{0}{+\infty}$ sont des parties élémentaires
+de $\R$ alors que $\Q$ n'en est pas une. Notons que cette définition est propre à ce cours.
+Les parties élémentaires de $\R$ jouissent de nombreuses propriétés~:
+$\emptyset$ et $\R$ sont des parties élémentaires,
+une union finie de parties élémentaires est une partie élémentaire,
+une intersection finie de parties élémentaires est une partie élémentaire,
+le complémentaire d'une partie élémentaire est une partie élémentaire.
+Autrement dit, tout ensemble construit à partir de parties élémentaires à l'aide d'un nombre
+fini d'opérations est élémentaire.\\
+
+On dit que deux intervalles $I$ et $J$ sont \emph{bien disjoints} lorsque $I\cup J$ n'est
+pas un intervalle. En particulier deux intervalles bien disjoints sont disjoints. Mais
+la réciproque est fausse comme le montre l'exemple de $I=\interf{0}{1}$ et
+$J=\interof{1}{2}$ qui sont disjoints mais qui ne sont pas bien disjoints.
+On montre
+que si $A$ est une partie élémentaire de $\R$, à réordonnement près, il existe un unique
+$n$-uplet $(I_1,\ldots,I_n)$ d'intervalles deux à deux biens disjoints tels que
+$A=I_1\cup I_2\cup\cdots\cup I_n$. On dit que les $I_k$ sont les
+\emph{composantes connexes} de $A$. Enfin, on dit que $a\in\Rbar$ est
+une \emph{extrémité} de $A$ lorsque c'est l'extrémité d'un des $I_k$.\\
+
+Une fonction $f:\mathcal{D}\to\K$ définie sur une partie élémentaire $\mathcal{D}$
+  est définie au voisinage de $a\in\Rbar$ si et seulement si $a$ est une extrémité de $A$.
+  De plus $a\in\mathcal{D}$ est intérieur à $\mathcal{D}$ si et seulement si ce n'est pas
+  une extrémité de $\mathcal{D}$.\\
+  
+% \remarque Une partie élémentaire $\mathcal{D}$ est un ouvert si et seulement si
+%   elle ne contient pas ses extrémités.
+% \remarque Si $\mathcal{D}$ est une partie élémentaire de $\R$, les points intérieurs à
+%   $\mathcal{D}$ sont les éléments de $\mathcal{D}$ qui n'en sont pas des extrémités.
+
+
+
+\begin{proposition}
+Soit $f:\dom\to\K$ une fonction définie sur un domaine \emph{élémentaire} et
+$\dom=I_1\cup\cdots\cup I_n$ la décomposition de $\dom$ en composantes connexes. Alors $f$
+est continue si et seulement si, pour tout $k\in\intere{1}{n}$, $f$ est continue
+sur $I_k$.
+\end{proposition}
+
+\begin{proposition}
+Soit $f:I\to\K$ une fonction définie sur un intervalle $I$ et $a\in I$.
+\begin{itemize}
+\item Si $f$ est continue sur $I\cap\intero{a}{+\infty}$, elle est continue en tout
+  point de $I\cap\intero{a}{+\infty}$.
+\item Si $f$ est continue sur $I\cap\interfo{a}{+\infty}$, elle est continue à droite
+  en $a$ et en tout point de $I\cap\intero{a}{+\infty}$.
+\end{itemize}
+\end{proposition}
+
+
+\subsection{Théorème des valeurs intermédiaires}
+
+\begin{theoreme}[nom={Théorème des valeurs intermédiaires}]
+Soit $f$ une fonction réelle continue sur $\interf{a}{b}$. Si
+  $y_0\in\intergf{f(a)}{f(b)}$, il existe $x_0\in\interf{a}{b}$ tel
+  que $f(x_0)=y_0$.
+\end{theoreme}
+
+\begin{preuve}
+On définit la fonction $g$ sur $I$ par
+\[\forall x\in I \qsep g(x)=f(x)-y_0\]
+Alors, puisque $f$ est continue sur $I$, il en est de même pour $g$. Comme
+de plus $y_0\in\intergf{f(a)}{f(b)}$, on en déduit que $g(a)$ et
+$g(b)$ sont de signes distincts, c'est-à-dire que $g(a)g(b)\leq 0$.
+Quitte à les échanger, on peut supposer que $a\leq b$. Nous souhaitons
+montrer que $g$ s'annule en un point de $\interf{a}{b}$. Pour cela, nous
+allons utiliser le procédé dit de dichotomie et construire deux suites
+$\p{a_n}$ et $\p{b_n}$ telles que~:
+\begin{itemize}
+\item[$\bullet$] Pour tout $n\in\N$, $a_n\leq b_n$.
+\item[$\bullet$] La suite $\p{a_n}$ est croissante et la suite $\p{b_n}$ est décroissante.
+\item[$\bullet$] Pour tout $n\in\N$
+  \[b_{n+1}-a_{n+1}=\frac{b_n-a_n}{2}\]
+\item[$\bullet$] Pour tout $n\in\N$, $g\p{a_n}g\p{b_n}\leq 0$.
+\end{itemize}
+On construit ces deux suites de la manière suivante~:
+\begin{itemize}
+\item On pose $a_0=a$ et $b_0=b$. On a bien $a_0\leq b_0$ et
+  $g\p{a_0}g\p{b_0}\leq 0$.
+\item On suppose que les suites sont construites jusqu'au rang $n$. Construisons
+  $a_{n+1}$ et $b_{n+1}$. On pose $c=\p{a_n+b_n}/2$. Alors
+  $g\p{a_n}g(c)\leq 0$ ou $g(c)g\p{b_n}\leq 0$ (Autrement dit, soit
+  $g\p{a_n}$ et $g(c)$ sont de signes distincts, soit $g(c)$ et $g\p{b_n}$
+  sont de signes distincts). En effet, supposons que
+  $g\p{a_n}g(c)> 0$ et $g(c)g\p{b_n}> 0$. Alors
+  $g\p{a_n}g\p{b_n}g(c)^2>0$, donc $g\p{a_n}g\p{b_n}>0$ ce qui est absurde.
+  \begin{itemize}
+  \item Si $g\p{a_n}g(c)\leq 0$, on pose $a_{n+1}=a_n$ et $b_{n+1}=c$.
+    On vérifie bien que $a_n\leq a_{n+1}$ et que $b_{n+1}\leq b_n$, que
+    $a_{n+1}\leq b_{n+1}$, que $b_{n+1}-a_{n+1}=\p{b_n-a_n}/2$ et enfin
+    que $g\p{a_{n+1}}g\p{b_{n+1}}\leq 0$.
+  \item Sinon, $g(c)g\p{b_n}\leq 0$ et on pose $a_{n+1}=c$ et $b_{n+1}=b_n$.
+  \end{itemize}
+\end{itemize}
+On a donc ainsi construit deux suites vérifiant les quatre assertions données
+plus haut. Puisque
+\[\forall n\in\N \qsep b_{n+1}-a_{n+1}=\frac{b_n-a_n}{2}\]
+une récurrence immédiate nous donne
+\[b_n-a_n=\frac{b-a}{2^n}\tendvers{n}{+\infty} 0\]
+Comme de plus $a_n\leq b_n$ et que les suites $\p{a_n}$ et $\p{b_n}$ sont
+respectivement croissantes et décroissantes, elles sont adjacentes.
+Elles convergent donc
+vers la même limite $x_0$. De plus $x_0\in\interf{a_0}{b_0}=\interf{a}{b}$.
+Comme $g$ est continue en $x_0$, on en déduit que
+\[g\p{a_n}g\p{b_n}\tendvers{n}{+\infty} g\p{x_0}^2\]
+Or
+\[\forall n\in\N \qsep g\p{a_n}g\p{b_n}\leq 0\]
+Par passage à la limite $g\p{x_0}^2\leq 0$. On en déduit que $g\p{x_0}=0$
+donc que $f\p{x_0}=y_0$.
+\end{preuve}
+
+\begin{remarques}
+\remarque Une fonction réelle continue ne s'annulant pas sur un intervalle $I$ est
+  de signe constant.
+  \begin{sol}
+  En effet, procédons par l'absurde et supposons qu'il existe
+  $x_0\in I$ tel que $f\p{x_0}\geq 0$ et $x_1\in I$ tel que $f\p{x_1}\leq 0$.
+  Puisque $f$ est continue sur $I$, d'après le théorème des valeurs intermédiaires,
+  il existe $x\in I$ tel que $f(x)=0$. C'est absurde, donc $f$ est de signe
+  constant sur $I$.    
+  \end{sol}
+\remarque Soit $f$ une fonction continue sur un intervalle $I$ telle que
+  \[\forall x\in I \qsep \cro{f(x)=0 \ou f(x)=1}.\]
+  Alors $f$ est constante. Plus généralement, si sur un intervalle, une fonction
+  continue prend un nombre fini de valeurs, alors elle est constante.
+\end{remarques}
+
+\begin{exoUnique}
+\exo Soit $f$ une fonction continue de $\interf{0}{1}$ dans $\interf{0}{1}$.
+  Montrer que $f$ admet un point fixe.
+\begin{sol}
+$g(x)=f(x)-x$ puis $g(0)\geq 0$, $g(1)\leq 0$. Or $g$ continue donc d'après le TVI, il existe $x_0\in \interf{0}{1}$ tel que $g(x_0)=0$, d'où $f(x_0)=x_0$.
+\end{sol}
+% \exo Sur un intervalle, une fonction continue injective est strictement
+%   monotone.
+\end{exoUnique}
+
+\begin{proposition}[utile=-3]
+Soit $f$ une fonction réelle continue sur $\intero{a}{b}$ admettant
+  respectivement pour limite $l_a$ et $l_b\in\Rbar$ en $a$ et $b\in\Rbar$. 
+  Si $y_0\in\intergo{l_a}{l_b}$, il existe $x_0\in\intero{a}{b}$ tel que
+  $f(x_0)=y_0$.
+\end{proposition}
+
+\begin{preuve}
+Nous allons traiter le cas où $a=-\infty$, $b=+\infty$ et $l_a<l_b$, les autres
+cas se traitant de manière similaire. Soit $y_0\in\intero{l_a}{l_b}$. Puisque
+\[f(x)\tendvers{x}{-\infty} l_a<y_0\]
+il existe $A\in\R$ tel que
+\[\forall x\in\R \qsep x\leq A \implique f(x)\leq y_0\]
+En particulier $f(A)\leq y_0$. De même, puisque
+\[f(x)\tendvers{x}{+\infty} l_b>y_0\]
+il existe $B\in\R$ tel que
+\[\forall x\in\R \qsep x\geq B \implique f(x)\geq y_0\]
+En particulier $f(B)\geq y_0$. Puisque $f$ est continue sur $\R$, on en
+déduit, d'après le théorème des valeurs intermédiaires, qu'il existe
+$x_0\in\intergf{A}{B}$ tel que $f\p{x_0}=y_0$.
+\end{preuve}
+
+
+\begin{exoUnique}
+\exo Montrer que tout polynôme réel de degré impair admet au moins une racine réelle.
+\end{exoUnique}
+
+\begin{proposition}[utile=-3]
+L'image d'un intervalle par une fonction réelle continue est un intervalle.
+\end{proposition}
+
+\begin{preuve}
+Soit $f:I\mapsto\R$ une fonction continue sur un intervalle $I$. Montrons que $J=f(I)$ est un intervalle. Soit alors $y_0,y_1 \in J$ tels que $y_0\leq y_1$ et considérons $y\in [y_0,y_1]$. L'objectif est de montrer que $y\in J$.\\
+Comme $J=f(I)$, il existe $x_0$ et $x_1$ dans $I$ tels que $f(x_0)=y_0$ et $f(x_1)=y_1$. Ainsi, $y\in \interf{f(x_0)}{f(y_0)}$ et $f$ est continue sur $I$, donc d'après le TVI, il existe $x\in "\interf{x_0}{x_1}"$ tel que $f(x)=y$. Or, $I$ est un intervalle donc $x\in I$ et finalement $y\in f(I)=J$. $J$ est donc bien un intervalle.
+\end{preuve}
+
+\begin{remarques}
+\remarque Cette proposition est une reformulation du
+  théorème des valeurs intermédiaires.
+\remarque Il est possible que les intervalles $I$ et
+  $f(I)$ ne soient pas de même nature (ouvert, fermé, ouvert à gauche et
+  fermé à droite).
+  Par exemple, si $f$ est la fonction définie sur
+  $\R$ par \[\forall x\in\R \qsep f(x)\defeq \frac{1}{1+x^2}\]
+  on a $f\p{\intero{-\infty}{+\infty}}=\interof{0}{1}$.
+  \begin{sol}
+  En dérivant $f$, on a $f$ croissante jusqu'en $0$ de valeurs $1$ et décroissante ensuite.
+    \end{sol}
+\end{remarques}
+
+
+\begin{theoreme}[nom={Théorème de la bijection}]
+\begin{itemize}
+\item Soit $f$ une fonction continue, strictement croissante sur $[a,b]$. Alors elle réalise une bijection de $[a,b]$ sur \[f([a,b])=[f(a),f(b)].\]
+\item Soit $a,b\in\Rbar$ et $f$ une fonction continue, strictement croissante sur $]a,b[$. On pose
+\[l_a\defeq\lim_{x\to a} f(x) \et l_b\defeq\lim_{x\to b} f(x).\]
+Alors $f$ réalise une bijection de $]a,b[$ sur \[f\p{\intero{a}{b}}=\intero{l_a}{l_b}.\]
+\end{itemize}
+\end{theoreme}
+
+\begin{proposition}[utile=-3]
+Soit $I$ un intervalle de $\R$ et $f$ une fonction réelle continue strictement
+monotone sur $I$. Alors $f$ induit une bijection de l'intervalle $I$ sur
+l'intervalle $J\defeq f(I)$ et sa bijection réciproque $f^{-1}:J\to I$ est
+continue sur $J$.
+\end{proposition}
+
+\begin{preuve}
+On suppose que $f$ est strictement croissante sur $I$, la démonstration dans le
+cas où $f$ est strictement décroissante se faisant de même. Puisque $f$ est
+continue sur l'intervalle $I$, d'après la proposition précédente, $J=f(I)$
+est un intervalle. Puisque $f$ est strictement croissante, on en déduit
+qu'elle est injective. Sa corestriction à $J$ (que l'on notera encore $f$)
+est donc une bijection de $I$ dans $J$.\\
+Montrons que $f^{-1}$ est continue. On se donne $y_0\in J$ et on souhaite
+montrer que $f^{-1}$ est continue en $y_0$. Nous supposerons dans la suite que
+$y_0$ est intérieur à $J$, la démonstration dans le cas où $y_0$ est une borne
+de $J$ se faisant de même. Puisque $f$ est strictement croissante, il en est
+de même pour $f^{-1}$, donc $x_0=f^{-1}\p{y_0}$ n'est pas une borne de $I$. On
+se donne donc $\epsilon>0$ tel que
+$\interf{x_0-\epsilon}{x_0+\epsilon}\subset I$. Par stricte croissance de $f$,
+on a
+\[f\p{x_0-\epsilon}<f\p{x_0}=y_0<f\p{x_0+\epsilon}\]
+Il existe donc $\eta>0$ tel que $\interf{y_0-\eta}{y_0+\eta}\subset
+\interf{f\p{x_0-\epsilon}}{f\p{x_0+\epsilon}}$. Soit
+$y\in\interf{y_0-\eta}{y_0+\eta}$. Alors
+\begin{eqnarray*}
+y_0-\eta\leq y\leq y_0+\eta
+&\donc& f\p{x_0-\epsilon}\leq y\leq f\p{x_0+\epsilon}\\
+&\donc& x_0-\epsilon \leq f^{-1}(y) \leq x_0+\epsilon\\
+&     & \text{par croissance de $f^{-1}$}\\
+&\donc& \abs{f^{-1}(y)-x_0}\leq\epsilon\\
+&\donc& \abs{f^{-1}(y)-f^{-1}\p{y_0}}\leq\epsilon
+\end{eqnarray*}
+Donc $f^{-1}$ est continue en $y_0$.
+\end{preuve}
+
+\begin{remarqueUnique}
+\remarque La fonction $\sin$ est strictement croissante sur $\interf{-\pi/2}{\pi/2}$.
+  Comme $\sin\p{-\pi/2}=-1$ et $\sin\p{\pi/2}=1$, elle réalise une bijection
+  de $\interf{-\pi/2}{\pi/2}$ sur $\interf{-1}{1}$. Sa bijection réciproque,
+  la fonction $\arcsin$ est donc continue sur $\interf{-1}{1}$.
+\end{remarqueUnique}
+
+\begin{exoUnique}
+\exo Soit $f$ la fonction définie sur $\RP$ par
+  \[\forall x\in\RP \qsep f(x)\defeq x \e^x\]
+  Montrer que $f$ réalise une bijection continue de $\RP$ sur $\RP$, que
+  $f^{-1}$ est continue et que \[f^{-1}(x)\tendvers{x}{+\infty}+\infty.\]
+%   Alors $f$ est continue et strictement croissante sur $\interfo{-1}{+\infty}$.
+%   Comme $f\p{-1}=-1/e$ et
+%   \[f(x)\tendvers{x}{+\infty}+\infty\]
+%   on en déduit que $f$ réalise une bijection de $\interfo{-1}{+\infty}$ sur
+%   $\interfo{-1/e}{+\infty}$. Sa bijection réciproque, appelée fonction de Lambert,
+%   est donc continue sur $\interfo{-1/e}{+\infty}$.
+\end{exoUnique}
+
+\begin{proposition}
+Soit $f$ une fonction réelle, continue et injective sur un intervalle $I$. Alors $f$ est strictement monotone.
+\end{proposition}
+
+\begin{preuve}
+On procède par l'absurde et on suppose qu'il existe $(x_1,y_1) \in I^2, x_1<y_1 \et f(x_1)\geq f(y_1)$ et $(x_2,y_2) \in I^2, x_2<y_2 \et f(x_2)\leq f(y_2)$.
+
+Définissons alors $\phi : \interf{0}{1}
+\mapsto \R$ définie par $$\phi(t)=f((1-t)x_1+tx_2)-f((1-t)y_1+ty_2).$$
+$\phi$ est continue. $\phi(0)=f(x_1)-f(y_1)\geq 0$ et $\phi(1)=f(x_2)-f(y_2)\leq 0$ donc par le TVI, il existe $t\in [0,1]$ tel que $\phi(t)=0$. En posant $x_0=(1-t)x_1+tx_2$ et $y_0=(1-t)y_1+ty_2$, on a $x_0<y_0$ et $f(x_0)=f(y_0)$ ce qui contredit l'injectivité de $f$.
+\end{preuve}
+
+\subsection{Théorème de compacité}
+
+\begin{definition}[utile=-3]
+Soit $f$ une fonction réelle définie sur un ensemble non vide $X$. Si $f$ est
+majorée sur $X$, $\ensim{f(x)}{x\in X}$ est une partie non vide majorée de
+$\R$. Elle admet donc une borne supérieure notée
+\[\sup_{x\in X} f(x).\]
+On dit que cette borne est atteinte lorsqu'il existe $x_0\in X$ tel que
+\[f\p{x_0}=\sup_{x\in X} f(x)\]
+c'est-à-dire lorsque l'ensemble $\ensim{f(x)}{x\in X}$ admet un plus grand
+élément; si tel est le cas, la borne supérieure est notée
+\[\max_{x\in X} f(x).\]
+\end{definition}
+
+\begin{remarques}
+\remarque On définit de même la notion de borne inférieure.
+\remarque Soit $f$ la fonction définie sur $\R$  par
+  \[\forall x\in\R \qsep f(x)\defeq x\p{1-x}.\]
+  Alors $f$ est bornée et atteint ses bornes sur $\interf{0}{1}$.
+  \[\sup_{x\in\interf{0}{1}} x\p{1-x}=f\p{\frac{1}{2}}=\frac{1}{4} \et
+    \inf_{x\in\interf{0}{1}} x\p{1-x}=f\p{0}=f\p{1}=0.\]
+\remarque Soit $f$ la fonction définie sur $\RPs$ par
+  \[\forall x\in\RPs \qsep f(x)\defeq \frac{1}{x}.\]
+  Alors $f$ n'est pas majorée sur $\RPs$. De plus, elle est minorée mais
+  n'atteint pas sa borne inférieure sur $\RPs$.
+  \[\inf_{x\in\RPs} \frac{1}{x}=0.\]
+\end{remarques}
+
+\begin{theoreme}[nom={Théorème de compacité}]
+Sur un segment, une fonction réelle continue est bornée et atteint ses bornes.
+\end{theoreme}
+
+\begin{preuve}
+Soit $f$ une fonction continue sur le segment $\interf{a}{b}$.
+\begin{itemize}
+\item Montrons que $f$ est bornée.\\
+  Puisque $f$ est continue, il en est de même pour $\abs{f}$. Montrons que
+  $\abs{f}$ est majorée. On raisonne par l'absurde et on suppose que
+  \[\non\cro{\exists M\in\R \qsep \forall x\in\interf{a}{b} \qsep
+           \abs{f(x)}\leq M}\]
+   donc
+  \[\forall M\in\R \qsep \exists x\in\interf{a}{b} \qsep \abs{f(x)}>M\]
+   Étant donné $n\in\N$, on pose $M=n$. Il existe donc $x_n\in\interf{a}{b}$
+   tel que $\abs{f\p{x_n}}\geq n$. On construit ainsi une suite
+   $\p{x_n}$ d'éléments de $\interf{a}{b}$. Cette suite étant bornée, d'après
+   le théorème de Bolzano-Weierstrass, il existe une extractrice $\phi$ et un
+   réel $l$ tel que
+   \[x_{\phi(n)}\tendvers{n}{+\infty} l\]
+   Comme
+   \[\forall n\in\N \qsep a\leq x_{\phi(n)}\leq b\]
+   on en déduit que $l\in\interf{a}{b}$. En utilisant la continuité de
+   $\abs{f}$ en $l$, il vient
+   \[\abs{f\p{x_{\phi(n)}}}\tendvers{n}{+\infty} \abs{f(l)}\]
+   C'est contradictoire avec le fait que
+   \[\forall n\in\N \qsep \abs{f\p{x_{\phi(n)}}}\geq \phi(n)\geq n
+     \tendvers{n}{+\infty} +\infty\]
+   Donc $\abs{f}$ est majorée, donc $f$ est bornée.
+\item Montrons que $f$ atteint ses bornes.\\
+   Montrons d'abord que $f$ atteint sa borne supérieure. On pose
+   \[M=\sup_{x\in\interf{a}{b}} f(x)\]
+   Par définition de la borne supérieure
+   \[\forall \epsilon>0 \qsep \exists x\in\interf{a}{b} \qsep
+     f(x)\geq M-\epsilon\]
+   Étant donné $n\in\N$, en posant $\epsilon=1/2^n>0$, il existe donc
+   $x_n\in\interf{a}{b}$ tel que $f\p{x_n}\geq M-1/2^n$. 
+   On construit ainsi une suite $\p{x_n}$ d'éléments de $\interf{a}{b}$. Cette
+   suite étant bornée, d'après le théorème de Bolzano-Weierstrass, il existe
+   une extractrice $\phi$ et un réel $l$ tel que
+   \[x_{\phi(n)}\tendvers{n}{+\infty} l\]
+   Comme
+   \[\forall n\in\N \qsep a\leq x_{\phi(n)}\leq b\]
+   on en déduit que $l\in\interf{a}{b}$. Comme de plus
+   \[\forall n\in\N \qsep
+     \underbrace{M-\frac{1}{2^{\phi(n)}}}_{\tendvers{n}{+\infty} M}
+     \leq f\p{x_{\phi(n)}}\leq M\]
+   on en déduit, d'après le théorème des gendarmes, que
+   \[f\p{x_{\phi(n)}}\tendvers{n}{+\infty} M\]
+   Or, par continuité de $f$ en $l$
+   \[f\p{x_{\phi(n)}}\tendvers{n}{+\infty} f(l)\]
+   donc $M=f(l)$. La borne supérieure de $f$ est donc atteinte.\\
+   Comme $f$ est
+   continue, $-f$ est continue donc atteint sa borne supérieure. Donc $f$
+   atteint sa borne inférieure.
+\end{itemize}
+\end{preuve}
+
+\begin{remarqueUnique}
+\remarque Si $f:[a,b]\to\C$ est une fonction continue, on applique souvent ce théorème à la fonction $\abs{f}$.
+  On en déduit notamment que $f$ est bornée.
+\end{remarqueUnique}
+
+\begin{exoUnique}
+\exo Soit $f$ une fonction continue sur un segment $\interf{a}{b}$ telle
+  que $\forall x\in\interf{a}{b} \qsep 0\leq f(x)<1$. Montrer que si
+  $(u_n)$ est une suite d'éléments de $[a,b]$, alors
+  \[f(u_n)^n\tendvers{n}{+\infty} 0.\]
+  \begin{sol}
+  $f$ étant continue sur $\interf{a}{b}$, elle est majorée et atteint ses bornes. Il existe donc $\alpha\in \interf{a}{b}$ tel que $\forall x \in \interf{a}{b}, 0\leq f(x)\leq f(\alpha)<1$. D'où le résultat en élevant à la puissance $n$ et d'après le théorème des gendarmes.
+  \end{sol}
+\end{exoUnique}
+
+
+ 
+\begin{proposition}[utile=-3]
+L'image d'un segment par une fonction réelle continue est un segment.
+\end{proposition}
+
+\begin{preuve}
+Soit $f$ un fonction continue sur un segment $S$. Puisque $S$ est un
+intervalle, d'après le théorème des valeurs intermédiaires, $f(S)$ est
+un intervalle. D'après la proposition précédente, $f(S)$ est borné et contient
+ses bornes. C'est donc un segment.
+\end{preuve}
+
+\subsection{Continuité uniforme}
+
+\begin{definition}[utile=-3]
+On dit qu'une fonction $f:\mathcal{D}\to\K$ est \emph{uniformément continue} lorsque
+\[\forall \epsilon>0 \qsep \exists \eta>0 \qsep \forall x,y\in\mathcal{D}\qsep
+  \abs{x-y}\leq\eta \implique \abs{f(x)-f(y)}\leq\epsilon.\]
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque Une fonction lipschitzienne est uniformément continue.
+% \remarque Soit $\alpha\in\RPs$. On dit qu'une fonction $f$ est
+%   $\alpha$-Hölderienne lorsqu'il existe $M\in\RP$ tel que
+%   \[\forall x\in\mathcal{D} \qsep \abs{f(x)-f(y)}\leq M\abs{x-y}^\alpha\]
+%   Une fonction Hölderienne est uniformément continue.
+\end{remarqueUnique}
+
+\begin{exoUnique}
+\exo Montrer que la fonction $x\mapsto\sqrt{x}$ est uniformément continue
+  mais n'est pas lipschitzienne.
+\end{exoUnique}
+
+\begin{proposition}[utile=-3]
+Si $f$ est uniformément continue, alors elle est continue.
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque Soit $f$ une fonction continue. Alors
+  \[\forall x\in\mathcal{D} \qsep \forall \epsilon>0 \qsep \exists \eta>0
+    \qsep \forall y\in\mathcal{D} \qsep \abs{x-y}\leq\eta \implique
+    \abs{f(x)-f(y)}\leq\epsilon.\]
+  Les deux premiers quantificateurs étant de même nature, on peut les échanger,
+  donc
+  \[\forall \epsilon>0 \qsep \forall x\in\mathcal{D} \qsep \exists \eta>0
+    \qsep \forall y\in\mathcal{D} \qsep \abs{x-y}\leq\eta \implique
+    \abs{f(x)-f(y)}\leq\epsilon.\]
+  Une fonction est donc uniformément continue lorsqu'on peut échanger les
+  quantificateurs portant sur $x$ et $\eta$, c'est-à-dire lorsqu'il est
+  possible de choisir $\eta$ indépendamment de $x$.
+% \remarque Supposons que $f$ soit uniformément continue. Alors, si $\p{u_n}$
+%   et $\p{v_n}$ sont deux suites d'éléments de $\mathcal{D}$ telles que
+%   \[v_n-u_n\tendvers{n}{+\infty}0\]
+%   on a $f\p{u_n}-f\p{v_n}\tendvers{n}{+\infty}0$. En effet, soit $\epsilon>0$.
+%   Puisque $f$ est uniformément continue, il existe $\eta>0$ tel que
+%   \[\forall x,y\in\mathcal{D}\qsep
+%     \abs{x-y}\leq\eta \implique \abs{f(x)-f(y)}\leq\epsilon\]
+%   Puisque $u_n-v_n$ tend vers 0, il existe $N\in\N$ tel que
+%   \[\forall n\geq N \qsep \abs{u_n-v_n}\leq\eta\]
+%   Donc, pour $n\geq N$, on a $\abs{f\p{u_n}-f\p{v_n}}\leq\epsilon$. En
+%   conclusion
+%   \[f\p{u_n}-f\p{v_n}\tendvers{n}{+\infty}0\]
+%   En particulier, si on trouve deux suites $\p{u_n}$ et $\p{v_n}$ d'élements
+%   de $\mathcal{D}$ telles que $u_n-v_n$ converge vers 0 et $f\p{u_n}-f\p{v_n}$
+%   ne converge pas vers 0, on peut en conclure que $f$ n'est pas uniformément
+%   continue.\\
+%   On démontre ainsi que $x\mapsto x^2$ n'est pas uniformément continue.
+%   En effet si $\p{u_n}$ et $\p{v_n}$ sont définies par
+%   \[\forall n\in\Ns \qsep u_n=n+\frac{1}{n} \et v_n=n\]
+%   alors $v_n-u_n=1/n$ tend vers 0, et
+%   \[u_n^2-v_n^2=\p{n+\frac{1}{n}}^2-n^2=2+\frac{1}{n^2}\tendvers{n}{+\infty}
+%     2\neq 0\]
+%   Donc $x\mapsto x^2$ n'est pas uniformément continue.
+\end{remarqueUnique}
+
+\begin{exoUnique}
+\exo Montrer que la fonction $f$ définie sur $\R$ par $f(x)\defeq x^2$
+  n'est pas uniformément continue.
+  \begin{sol}
+  On souhaite montrer que
+  \[\non\cro{\forall \epsilon>0 \qsep \exists \eta>0 \qsep
+           \forall x,y\in\R\qsep
+           \abs{x-y}\leq\eta \implique \abs{x^2-y^2}\leq\epsilon}\]
+  c'est-à-dire que
+  \[\exists \epsilon>0 \qsep \forall \eta>0 \qsep \exists x,y\in\R
+    \qsep
+    \begin{cases}
+    \abs{x-y}\leq\eta \\
+    \abs{x^2-y^2}>\epsilon
+    \end{cases}\]
+  On pose $\epsilon=1$. Soit $\eta>0$. Alors, il existe $n\in\Ns$ tel que
+  $1/n\leq\eta$. On pose alors $x=n+1/n$ et $y=n$. Alors $\abs{x-y}=1/n\leq\eta$
+  et $\abs{x^2-y^2}=2+1/n^2>1=\epsilon$. Donc $f$ est continue mais n'est pas
+  uniformément continue.      
+  \end{sol}
+\end{exoUnique}
+
+\begin{theoreme}[nom=Théorème de \nom{Heine}]
+Sur un segment, une fonction continue est uniformément continue.
+\end{theoreme}
+
+\begin{preuve}
+Soit $f$ une fonction continue sur $\interf{a}{b}$. Montrons qu'elle y est
+uniformément continue. On raisonne par l'absurde et on suppose que
+\[\non\cro{\forall \epsilon>0 \qsep \exists \eta>0 \qsep
+           \forall x,y\in\interf{a}{b}\qsep
+           \abs{x-y}\leq\eta \implique \abs{f(x)-f(y)}\leq\epsilon}\]
+donc
+\[\exists \epsilon>0 \qsep \forall \eta>0 \qsep \exists x,y\in\interf{a}{b}
+  \qsep
+  \begin{cases}
+  \abs{x-y}\leq\eta \\
+  \abs{f(x)-f(y)}>\epsilon
+  \end{cases}\]
+Soit un tel $\epsilon$. Étant donné $n\in\N$, en posant $\eta=1/2^n>0$, il
+existe $x_n,y_n\in\interf{a}{b}$ tels que $\abs{x_n-y_n}\leq 1/2^n$
+et $\abs{f\p{x_n}-f\p{y_n}}\geq \epsilon$. On construit ainsi deux suites
+$\p{x_n}$ et $\p{y_n}$ d'éléments de $\interf{a}{b}$. Comme $\p{x_n}$ est
+bornée, d'après le théorème de Bolzano-Weierstrass, il existe une extractrice
+$\phi$ et un réel $l$ tel que
+\[x_{\phi(n)}\tendvers{n}{+\infty} l\]
+Comme
+\[\forall n\in\N \qsep a\leq x_{\phi(n)}\leq b\]
+on en déduit que $l\in\interf{a}{b}$. De plus
+\begin{eqnarray*}
+\forall n\in\N \qsep \abs{y_{\phi(n)}-l}
+&=& \abs{y_{\phi(n)}-x_{\phi(n)}+x_{\phi(n)}-l}\\
+&\leq& \abs{y_{\phi(n)}-x_{\phi(n)}}+\abs{x_{\phi(n)}-l}\\
+&\leq& \frac{1}{2^{\phi(n)}}+\abs{x_{\phi(n)}-l}\tendvers{n}{+\infty} 0
+\end{eqnarray*}
+Donc 
+\[y_{\phi(n)}\tendvers{n}{+\infty} l\]
+Par continuité de $f$ en $l$, on en déduit que
+\[\abs{f\p{x_{\phi(n)}}-f\p{y_{\phi(n)}}}\tendvers{n}{+\infty}
+  \abs{f(l)-f(l)}=0\]
+C'est contradictoire avec le fait que
+\[\forall n\in\N \qsep \abs{f\p{x_{\phi(n)}}-f\p{y_{\phi(n)}}}\geq \epsilon\]
+Donc $f$ est uniformément continue.
+\end{preuve}
+%END_BOOK
+
+\end{document}
+
+

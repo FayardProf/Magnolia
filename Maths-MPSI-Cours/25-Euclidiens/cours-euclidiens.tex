@@ -1,0 +1,1128 @@
+\documentclass{magnolia}
+
+\magtex{tex_driver={pdftex},
+        tex_packages={xypic}}
+\magfiche{document_nom={Cours sur les espaces euclidiens},
+          auteur_nom={François Fayard},
+          auteur_mail={fayard.prof@gmail.com}}
+\magcours{cours_matiere={maths},
+          cours_niveau={mpsi},
+          cours_chapitre_numero={22},
+          cours_chapitre={Espaces euclidiens}}
+\magmisenpage{}
+\maglieudiff{}
+\magprocess
+
+\begin{document}
+
+%BEGIN_BOOK
+\magtoc
+
+\section{Produit scalaire}
+\subsection{Produit scalaire}
+
+\begin{definition}[utile=-3]
+Soit $E$ un \Rev. On dit qu'une application
+\[\dspappli{\ps{.}{.}}{E\times E}{\R}{\p{x,y}}{\ps{x}{y}}\]
+est un \emph{produit scalaire} lorsqu'elle est
+\begin{itemize}
+\item \emph{bilinéaire}
+  \begin{eqnarray*}
+  \forall x,y,z\in E \qsep \forall \lambda,\mu\in\R,
+  &&\ps{x}{\lambda y+\mu z}=\lambda\ps{x}{y}+\mu\ps{x}{z}\\
+  &&\ps{\lambda x+\mu y}{z}=\lambda\ps{x}{z}+\mu\ps{y}{z}
+  \end{eqnarray*}
+\item \emph{symétrique}
+  \[\forall x,y\in E \qsep \ps{x}{y}=\ps{y}{x}\]
+\item \emph{positive}
+  \[\forall x\in E \qsep \ps{x}{x}\geq 0\]
+\item \emph{définie}
+  \[\forall x\in E \qsep \ps{x}{x}=0 \quad\implique\quad x=0\]
+\end{itemize}
+On appelle espace \emph{préhilbertien réel} tout \Rev muni d'un produit scalaire.
+\end{definition}
+
+\begin{remarques}
+\remarque Quel que soit $x\in E$, $\ps{x}{0}=0$ et $\ps{0}{x}=0$.
+\remarque Le produit scalaire $\ps{x}{y}$ est parfois noté $\left\langle x,y\right\rangle$, $(x|y)$,
+  $(x,y)$ ou $x\cdot y$.
+\end{remarques}
+
+\begin{exos}
+\exo Soit $n\in\N$. Montrer que l'application $\ps{.}{.}$ définie par
+  \[\forall \p{x_1,\ldots,x_n},\p{y_1,\ldots,y_n}\in\R^n \qsep
+    \ps{\p{x_1,\ldots,x_n}}{\p{y_1,\ldots,y_n}}\defeq\sum_{k=1}^n x_k y_k.\]
+  est un produit scalaire sur $\R^n$.
+\exo On pose $E\defeq\polyR$. Montrer que l'application $\ps{.}{.}$ définie par
+  \[\forall P,Q\in\polyR \qsep \ps{P}{Q}\defeq\integ{0}{1}{P(x)Q(x)}{x}\]
+  est un produit scalaire sur $\polyR$.
+\exo On pose $E\defeq\mat{q,p}{\R}$. Montrer que l'application $\ps{.}{.}$ définie par
+  \[\forall A,B\in\mat{q,p}{\R} \qsep \ps{A}{B}\defeq \tr\p{\trans{A}B}\]
+  est un produit scalaire sur $\mat{q,p}{\R}$.
+\end{exos}
+
+
+\subsection{Norme}
+
+\begin{definition}[utile=-3]
+Soit $x\in E$. On définit la \emph{norme} de $x$, notée $\norme{x}$, par
+\[\norme{x}=\sqrt{\ps{x}{x}}.\]
+On dit que $x$ est \emph{normé} lorsque $\norme{x}=1$.
+\end{definition}
+
+\begin{proposition}[utile=-3]
+\begin{eqnarray*}
+\forall x\in E \qsep \forall\lambda\in\R, & & \norme{\lambda x}=
+  \abs{\lambda}\norme{x}\\
+\forall x\in E, & & \norme{x}=0 \quad\ssi\quad x=0.
+\end{eqnarray*}
+\end{proposition}
+
+\begin{proposition}[utile=3, nom=Inégalité de \nom{Cauchy-Schwarz}]
+Soit $x,y\in E$. Alors
+\[\abs{\ps{x}{y}}\leq\norme{x}\norme{y}.\]
+De plus, l'égalité a lieu si et seulement si $x$ et $y$ sont colinéaires.  Plus précisément
+\begin{itemize}
+\item $\ps{x}{y}=\norme{x}\norme{y}$ si et seulement si il existe $\lambda\geq 0$ tel que
+$y=\lambda x$ ou $x=\lambda y$.
+\item $\ps{x}{y}=-\norme{x}\norme{y}$ si et seulement si il existe
+$\lambda\geq 0$ tel que $y=-\lambda x$  ou $x=-\lambda y$.
+\end{itemize}
+\end{proposition}
+
+\begin{remarques}
+\remarque En particulier, avec le produit scalaire usuel sur $\R^n$, on a
+  \[\forall (x_1,\ldots,x_n),(y_1,\ldots,y_n)\in\R^n\qsep
+    \abs{\sum_{k=1}^n x_k y_k} \leq \sqrt{\sum_{k=1}^n x_k^2}\sqrt{\sum_{k=1}^n y_k^2}.\]
+\remarque L'inégalité de \nom{Cauchy-Schwarz} s'adapte au cas où $\phi:E\times E\to\R$
+  est une forme bilinéaire symétrique positive quelconque, même lorsque cette
+  dernière n'est pas définie. Si $x,y\in E$, on a alors
+  \[\abs{\phi(x,y)}\leq\sqrt{\phi(x,x)}\sqrt{\phi(y,y)}.\]
+  Cependant, la condition d'égalité n'est plus valide.
+%   De plus, cette inégalité est une égalité si et seulement si il existe $\lambda\in\R$ et
+%   $a\in A$ tels que $x=\lambda y+a$ ou $y=\lambda x+a$. Plus précisément
+% \begin{itemize}
+% \item $\phi(x,y)=\sqrt{\phi(x,x)}\sqrt{\phi(y,y)}$ si et seulement si il existe
+%   $\lambda\geq 0$ et $a\in A$ tels que $x=\lambda y+a$ ou
+%   $y=\lambda x+a$.
+% \item $\phi(x,y)=-\sqrt{\phi(x,x)}\sqrt{\phi(y,y)}$ si et seulement si il existe
+%   $\lambda\geq 0$ et $a\in A$ tels que $x=-\lambda y+a$ ou
+%   $y=-\lambda x+a$.
+% \end{itemize}
+\end{remarques}
+
+
+\begin{preuve}
+Définissons $$\begin{array}{ccccc}
+f & : & \R & \to & \R \\
+ & & \lambda & \mapsto & ||y-\lambda x||^2 
+\end{array}.$$
+
+Si $x=0$ $\ldots$ sinon, $\Delta\le 0$, etc $\ldots$
+\end{preuve}
+
+\begin{exoUnique}
+\exo Montrer que
+  \[\forall x,y,z\in\R \qsep x^2+2y^2+3z^2\leq 1 \implique
+    \abs{x+y+z}\leq\sqrt{\frac{11}{6}}\]
+  Si on suppose que $x^2+2y^2+3z^2\leq 1$, à quelle condition a-t-on
+  $\abs{x+y+z}=\sqrt{11/6}$~?
+  \begin{sol}
+  Considérer le produit scalaire usuel sur $\R^3$ et les vecteurs
+  $u=(x,\sqrt{2}y,\sqrt{3}z)$ et $v=\p{1,\frac{1}{\sqrt{2}},\frac{1}{\sqrt{3}}}$.
+  \end{sol}
+\end{exoUnique}
+
+\begin{proposition}[utile=3, nom=Inégalité de \nom{Cauchy-Schwarz}]
+Soit $f,g$ deux fonctions réelles continues sur l'intervalle $I$
+et $a,b\in I$. Si $a\leq b$, alors
+\[\abs{\integ{a}{b}{f(x)g(x)}{x}}\leq
+  \p{\integ{a}{b}{f^2(x)}{x}}^{\frac{1}{2}}
+  \p{\integ{a}{b}{g^2(x)}{x}}^{\frac{1}{2}}.\]
+De plus, cette inégalité est une égalité si et seulement si il existe
+$\lambda\in\R$ tel que
+\[\cro{\forall x\in\interf{a}{b} \qsep f(x)=\lambda g(x)}
+  \quad\text{ou}\quad
+  \cro{\forall x\in\interf{a}{b} \qsep g(x)=\lambda f(x)}.\]
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque Cette inégalité reste vraie si $f$ et $g$ sont des fonctions continues
+  par morceaux. Cependant, dans ce cas, la condition d'égalité n'est plus valide.
+\end{remarqueUnique}
+
+\begin{exos}
+\exo Soit $f$ une fonction continue sur $\interf{a}{b}$,
+  à valeurs strictement positives. Montrer que
+  \[\p{\integ{a}{b}{f(x)}{x}}\p{\integinv{a}{b}{f(x)}{x}}\geq\p{b-a}^2.\]
+  Donner une condition nécessaire et suffisante sur $f$ pour que cette inégalité
+  soit une égalité.
+\exo Soit $a,b\in\RPs$ tels que $a\leq b$. Montrer que
+  \[\integinv{a}{b}{x}{x}\leq \frac{b-a}{\sqrt{ab}}.\]
+\end{exos}
+
+\begin{proposition}[utile=3, nom=Inégalité triangulaire]
+Soit $x,y\in E$.
+\begin{itemize}
+\item Alors
+  \[\norme{x+y}\leq\norme{x}+\norme{y}.\]
+  De plus, l'égalité a lieu si et seulement si $x$ et $y$ sont positivement
+  liés, c'est-à-dire si et seulement si il existe $\lambda\geq 0$ tel que
+  $y=\lambda x$ ou $x=\lambda y$.
+\item De plus
+  \[\abs{\norme{x}-\norme{y}}\leq\norme{x-y} \et
+    \norme{x+y}\geq\norme{x}-\norme{y}.\]
+\end{itemize}
+\end{proposition}
+
+\begin{preuve}
+Différence des deux termes élevés au carré + Cauchy-Schwarz
+\end{preuve}
+
+\begin{proposition}[utile=2]
+L'identité suivante est appelée identité du parallélogramme
+\[\forall x,y\in E, \quad \norme{x+y}^2+\norme{x-y}^2=
+  2\p{\norme{x}^2+\norme{y}^2}.\]
+\end{proposition}
+
+\begin{remarques}
+\remarque Dans un parallélogramme, la somme des carrés des longueurs des
+  diagonales est égale à la somme des carrés des côtés.
+\remarque Les identités suivantes sont appelées identités de polarisation.
+  \begin{eqnarray*}
+  \forall x,y\in E \qsep \ps{x}{y}
+  &=& \frac{1}{2}\p{\norme{x+y}^2-\p{\norme{x}^2+\norme{y}^2}}\\
+  &=& \frac{1}{2}\p{\p{\norme{x}^2+\norme{y}^2}-\norme{x-y}^2}\\
+  &=& \frac{1}{4}\p{\norme{x+y}^2-\norme{x-y}^2}.
+  \end{eqnarray*}
+% \remarque Soit $E$ un \Rev muni de deux produits scalaires $\ps{.}{.}_1$ et
+%   $\ps{.}{.}_2$ définissant respectivement les normes $\norme{.}_1$ et
+%   $\norme{.}_2$. On suppose que~:
+%   \[\forall x\in E \quad \norme{x}_1=\norme{x}_2\]
+%   Alors~:
+%   \[\forall x,y\in E \quad \ps{x}{y}_1=\ps{x}{y}_2\]
+\end{remarques}
+\begin{sol} Intérêt, on peut retrouver le produit scalaire à partir de la norme. En particulier si on dispose de deux p.s. sur $E$ qui donne une même norme alors les deux p.s. sont égaux.
+\end{sol}
+
+\begin{exos}
+\exo Soit $x,y\in E$ deux vecteurs distincts de normes inférieures ou égales
+  à 1. Montrer que
+  \[\norme{\frac{x+y}{2}}<1.\]
+  \begin{sol}
+  Faire un dessin dans $\R^2$ de la situation. Puis pour le prouver on va utiliser l'identité du parallélogramme :
+  $$\norme{x+y}^2+\norme{x-y}^2=
+  2\p{\norme{x}^2+\norme{y}^2}\leq 4$$ donc $$\norme{x+y}^2\leq 4-\norme{x-y}^2<4$$ car $x$ et $y$ sont distincts. D'où le résultat.
+  \end{sol}
+\exo Soit $u\in\Endo{E}$ tel que, pour tout $x\in E$, $\ps{u(x)}{x}=0$.
+  Montrer que
+  \[\forall x,y\in E \qsep \ps{u(x)}{y}=-\ps{x}{u(y)}.\]
+  \begin{sol} On applique l'hypothèse à $x+y$ et on développe le tout en utilisant à nouveau l'hypothèse on peut conclure.
+  \end{sol}
+\end{exos}
+
+\subsection{Notion d'orthogonalité}
+
+\begin{definition}[utile=-3]
+$\quad$
+\begin{itemize}
+\item Soit $x,y\in E$. On dit que $x$ et $y$ sont \emph{orthogonaux} lorsque
+  $\ps{x}{y}=0$.
+\item Soit $A$ et $B$ deux parties de $E$. On dit que $A$ et $B$ sont
+  \emph{orthogonales} lorsque
+  \[\forall a\in A \qsep \forall b\in B \qsep \ps{a}{b}=0.\]
+\end{itemize}
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque Le vecteur nul est orthogonal à tout vecteur.
+\end{remarqueUnique}
+
+\begin{definition}[utile=-3]
+Soit $(x_1,\ldots,x_n)$ une famille de $n$ vecteurs de $E$.
+\begin{itemize}
+\item On dit que cette famille est \emph{orthogonale} lorsque
+  \[\forall i,j\in\intere{1}{n} \qsep i\neq j \quad\implique\quad \ps{x_i}{x_j}=0.\]
+\item On dit que cette famille est \emph{orthonormée} lorsque
+  \[\forall i,j\in\intere{1}{n} \qsep \ps{x_i}{x_j}=\delta_{i,j}=
+  \begin{cases}
+  0 & \text{si $i\neq j$}\\
+  1 & \text{si $i=j$.}
+  \end{cases}\]
+\end{itemize}
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque Sur $\R^n$ muni du produit scalaire usuel, la base canonique est
+  orthonormée.
+\end{remarqueUnique}
+
+\begin{proposition}[utile=-3]
+Toute famille orthogonale ne contenant aucun vecteur nul est libre.
+\end{proposition}
+
+\begin{preuve}
+$$\sum_{i=1}^p\lambda_i x_i=0$$ puis produit scalaire avec $x_j$ donne le résultat car $x_j\neq 0$.
+\end{preuve}
+
+\begin{sol}
+Remarque : toute famille orthonormée est donc libre.
+\end{sol}
+
+\begin{remarqueUnique}
+\remarque En particulier, toute famille orthonormée est libre.
+\end{remarqueUnique}
+
+\begin{exoUnique}
+\exo Soit $E$ le \Rev des fonctions réelles continues, $2\pi$-périodiques sur $\R$.
+  On définit sur $E$ le produit scalaire
+  \[\forall f,g\in E \qsep \ps{f}{g}\defeq\integ{0}{2\pi}{f(x)g(x)}{x}.\]
+  Pour tout $k\in\Ns$, on définit la fonction $s_k$ par
+  $s_k(x)\defeq\sin\p{kx}$ et pour tout $k\in\N$, la fonction $c_k$ par
+  $c_k(x)\defeq\cos\p{kx}$. Montrer que pour tout $n\in\Ns$, la famille
+  $(c_0,s_1,c_1,\ldots,s_n,c_n)$ est orthogonale.
+\end{exoUnique}
+
+\begin{sol}
+Soit $k_1\neq k_2$ dans $\intere{1}{n}$ :
+\begin{eqnarray*}
+\ps{s_{k_1}}{s_{k_2}}&=&\int_{0}^{2\pi}\sin(k_1 x)\sin(k_2 x) dx \\
+&=& \frac{1}{2}\int_{0}^{2\pi}\p{\cos((k_1-k_2)x)-\cos((k_1+k_2)x)} dx\\
+&=&...=0
+\end{eqnarray*}
+De même, $\ps{c_{k_1}}{c_{k_2}}=0$ pour $k_1\neq k_2$ dans $\intere{0}{n}$.\\
+Soit maintenant $k_1\in \intere{1}{n}$, $k_2\in\intere{0}{n}$. Alors : 
+\begin{eqnarray*}
+\ps{s_{k_1}}{c_{k_2}}&=&\int_{0}^{2\pi}\sin(k_1 x)\cos(k_2 x) dx \\
+&=& \frac{1}{2}\int_{0}^{2\pi}\p{\sin((k_1+k_2)x)-\sin((k_2-k_1)x)} dx\\
+&=&-\frac{1}{2}\int_{0}^{2\pi}\sin((k_2-k_1)x) dx\\
+&=&0 \quad (\text{en séparant tout de même les cas } k_2\neq k_1 \et k_1=k_2).
+\end{eqnarray*}
+
+\end{sol}
+
+
+\begin{proposition}[utile=-3, nom=\nom{Pythagore}]
+Soit $(x_1,\ldots,x_n)$ une famille orthogonale. Alors
+\[\norme{x_1+\cdots+x_n}^2=\sum_{k=1}^n \norme{x_k}^2.\]
+\end{proposition}
+
+\begin{preuve}
+On développe la norme au carré par bilinéarité.
+\end{preuve}
+
+\begin{remarqueUnique}
+\remarque Si $x$ et $y$ sont deux vecteurs de $E$, alors
+  $\norme{x+y}^2=\norme{x}^2+\norme{y}^2$ si et seulement si $x$ et $y$ sont
+  orthogonaux. C'est le théorème de \nom{Pythagore}.
+\end{remarqueUnique}
+
+\begin{sol}
+La réciproque est vraie seulement pour deux vecteurs. On peut considérer $(1;2)$, $(0;2)$, $(0;-1)$ dans $\R^2$ pour un contre-exemple. Et dans tout $\R^n$, suffit de rajouter des $0$ à ces trois vecteurs.
+\end{sol}
+
+\begin{definition}[utile=-3]
+Soit $A$ une partie de $E$. On appelle \emph{orthogonal de $A$} et on note $A^{\perp}$
+l'ensemble des vecteurs orthogonaux à tous les éléments de $A$
+\[A^{\perp}\defeq\enstq{x\in E}{\forall a\in A \qsep \ps{a}{x}=0}.\]  
+En particulier $A$ et $A^\perp$ sont orthogonaux.
+\end{definition}
+
+\begin{remarques}
+\remarque $\ens{0}^\perp=E$ et $E^\perp=\ens{0}$.
+\remarque Si $A$ et $B$ sont deux parties de $E$ telles que $A\subset B$, alors
+  $B^\perp\subset A^\perp$.
+\end{remarques}
+
+\begin{sol}
+Très important de faire ces démos et notamment d'insister sur "quand on est orthogonal à tout le monde, on est en particulier orthogonal à soi-même".
+\end{sol}
+
+\begin{proposition}[utile=-3]
+Soit $A$ une partie de $E$.
+\begin{itemize}
+\item $A^{\perp}$ est un sous-espace vectoriel de $E$.
+\item $A^{\perp}=\p{\vect A}^{\perp}$.
+\end{itemize}
+\end{proposition}
+
+\begin{preuve}
+\begin{itemize}
+\item Par caractérisation des sous-espaces vectoriels.
+\item $A\subset \vect(A)$ donc $\p{\vect A}^{\perp}\subset A^{\perp}$. Réciproquement, on le fait à la main.
+\end{itemize}
+\end{preuve}
+
+\begin{remarqueUnique}
+\remarque Si $F$ est un sous-espace vectoriel de $E$, $F$ et $F^\perp$ sont en
+  somme directe.
+\end{remarqueUnique}
+
+\begin{sol}
+Suffit de montrer que l'intersection est réduite à $\set{0}$. Notons qu'en dimension finie, ils seront supplémentaires mais pas nécessairement en dimension infinie où on verra des contre-exemples, à commencer par l'exercice suivant.
+\end{sol}
+
+\begin{exoUnique}
+\exo Soit $E\defeq\classec{0}\p{\interf{-1}{1},\R}$ muni du produit scalaire
+  \[\forall f,g\in E \qsep \ps{f}{g}\defeq\integ{-1}{1}{f(x)g(x)}{x}.\]
+  On pose $F\defeq\enstq{f\in E}{\forall x\in\interf{0}{1} \qsep f(x)=0}$.
+  Calculer $F^\perp$, puis $F\oplus F^\perp$.
+  \begin{sol}
+  On pose $G=\enstq{g\in E}{\forall x\in\interf{-1}{0} \quad g(x)=0}$ et on montre que $F^\perp=G$. L'inclusion droite-gauche ne pose aucun soucis. Considérons maintenant $h\in F^\perp$. Montrons que $\forall x \in \interf{-1}{0}, h(x)=0$. Pour cela introduisons $$\dspappli{\phi}{\interf{-1}{1}}{\R}{x}{\begin{cases}|x| \text{ si } x\leq 0\\0 \text{ si } x\geq 0\end{cases}}.$$ $\phi$ est continue et $h\phi \in F$. Le fait que $h$ soit orthogonal à $f\phi$ nous conduit alors au résultat.\\
+  On montre ensuite que $F\oplus F^\perp=\set{f\in E, f(0)=0}$ par double inclusion.
+  \end{sol}
+\end{exoUnique}
+
+
+\section{Espace euclidien}
+
+\begin{definition}[utile=-3]
+On appelle \emph{espace euclidien} tout \Rev de dimension finie muni d'un produit
+scalaire.
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque Dans la suite de ce chapitre, excepté dans la section sur la minimisation de la distance à un
+  sous-espace vectoriel, $E$ désignera un espace euclidien.  
+\end{remarqueUnique}
+
+
+
+\subsection{Supplémentaire orthogonal}
+
+\begin{definition}[utile=2]
+Soit $F$ un sous-espace vectoriel de $E$. Alors
+\[E=F\oplus F^{\perp}.\]
+De plus, $F^\perp$ est l'unique supplémentaire de $F$ orthogonal à $F$; on
+l'appelle le \emph{supplémentaire orthogonal} de $F$.
+\end{definition}
+
+\begin{preuve}
+Soit $E$ un espace euclidien et $F$ un sev de $E$. Montrons que $E=F\oplus F^{\perp}$. On note $p=\dim(F)$ et $(e_1,\ldots,e_p)$ une base de $F$. Alors $$F^\perp=\p{\vect(e_1,\ldots,e_p)}^\perp=\set{e_1,\ldots,e_p}^\perp.$$
+Ainsi, en définissant $$\dspappli{\phi}{E}{\K^p}{x}{(\ps{e_1}{x},\ldots,\ps{e_p}{x})}$$ on montre que $\phi$ est linéaire et que $\ker(\phi)=F^\perp$. D'après le théorème du rang, on a alors :
+$$\dim(F^\perp)=\dim(E)-\dim(\im(\phi))\geq \dim(E)-p$$ donc comme la somme est directe :
+$$\dim(F\oplus F^{\perp})=\dim(F)+\dim(F^{\perp})\geq p+\dim(E)-p=\dim(E).$$ Donc on a égalité des dimensions et inclusion d'où $E=F\oplus F^{\perp}$.
+
+Montrons désormais l'unicité d'un tel supplémentaire orthogonal. Si on en considère $G$ un autre, comme tout élément de $G$ est orthogonal à $F$, on a $G\subset F^\perp$ et le fait qu'ils soient tous deux supplémentaires à $F$ dans $E$ nous donne l'égalité des dimensions.
+\end{preuve}
+
+
+\begin{remarqueUnique}
+\remarque Lorsque $E$ n'est pas de dimension finie, la somme $F+ F^\perp$ reste
+  directe, mais elle n'est pas toujours égale à $E$.
+\end{remarqueUnique}
+
+
+\begin{exoUnique}
+  \exo On considère $E\defeq\mat{n}{\R}$ muni du produit scalaire $\ps{.}{.}$ défini par
+    \[\forall A,B\in\mat{n}{\R} \qsep \ps{A}{B}\defeq\tr\p{\trans{A}B}.\]
+    Montrer que $\mathcal{S}_n\p{\R}^\perp=\mathcal{A}_n\p{\R}$.
+    \begin{sol}
+    On sait déjà qu'ils sont supplémentaires, reste à voir qu'ils sont orthogonaux pour ce produit scalaire là.
+    \end{sol}
+  \end{exoUnique}
+
+\begin{proposition}[utile=-3]
+Soit $F$ un sous-espace vectoriel de $E$. Alors
+\[\dim E=\dim F+\dim F^\perp.\]
+\end{proposition}
+
+
+
+\begin{proposition}[utile=2]
+Soit $F$ un sous-espace vectoriel de $E$. Alors
+\[\p{F^\perp}^\perp=F.\]
+\end{proposition}
+
+\begin{preuve}
+$F$ est un supplémentaire de $F^\perp$ qui lui est orthogonal, c'est donc SON supplémentaire orthogonal.
+\end{preuve}
+
+
+
+\subsection{Base orthonormée}
+
+\begin{proposition}[utile=-3]
+Soit $F$ un sous-espace vectoriel de $E$. Si $(f_1,\ldots,f_p)$ une base
+orthonormée de $F$ et $(g_1,\ldots,g_q)$ est une base orthonormée de $F^\perp$,
+alors $(f_1,\ldots,f_p,g_1,\ldots,g_q)$ est une base orthonormée de $E$.
+\end{proposition}
+
+\begin{proposition}[utile=-3]
+Tout espace euclidien admet une base orthonormée.  
+\end{proposition}
+
+\begin{preuve}
+Par récurrence sur $n=\dim(E)$. On peut commencer à $0$ avec la famille vide. Et sinon, pour l'hérédité, on se donne un élément $a\neq 0$ (possible car $n+1\geq 1$) et on pose $e_{n+1}=\dfrac{1}{\norme{a}}a$. On applique alors l'HR à $\p{\vect(e_{n+1})}^\perp$ et on applique la proposition précédente pour conclure.
+\end{preuve}
+
+
+\begin{proposition}[utile=-3,nom={Théorème de la base incomplète}]
+On peut compléter toute famille orthonormée de $E$ en une base orthonormée de $E$.
+\end{proposition}
+
+\begin{preuve}
+On complète en prenant une base orthogonale du supplémentaire orthogonal de $\vect(e_1,\ldots,e_m)$.
+\end{preuve}
+
+\begin{proposition}[utile=-3]
+Soit $\mathcal{B}\defeq\p{e_1,\ldots,e_n}$ une base orthonormée de $E$. Alors, pour
+tout $x\in E$
+\[x=\sum_{k=1}^n \ps{e_k}{x} e_k.\]
+% Autrement, dit~:
+% \[\forall k\in\intere{1}{n} \quad e_k^*(x)=\ps{e_k}{x}\]
+\end{proposition}
+
+\begin{preuve}
+Soit $x\in E$ qu'on écrit $x=\sum_{k=1}^n \lambda_k e_k$. On a le résultat en calculant le produit scalaire avec chaque $e_k$.
+\end{preuve}
+
+\begin{sol}
+Remarque : 
+Autrement, dit~:
+ \[\forall k\in\intere{1}{n} \quad e_k^*(x)=\ps{e_k}{x}\]
+\end{sol}
+
+\begin{remarques}
+\remarque Le calcul des coordonnées de $x\in E$ dans une base orthonormée se fait
+  donc en effectuant des produits scalaires.
+\remarque En termes de base duale, la proposition précédente s'énonce
+  \[\forall x\in E\qsep \forall k\in\intere{1}{n}\qsep e_k^{\star}(x)=\ps{e_k}{x}.\]
+\end{remarques}
+
+\begin{proposition}[utile=-3]
+Soit $\mathcal{B}\defeq\p{e_1,\ldots,e_n}$ une base orthonormée de $E$.
+\begin{itemize}
+\item Soit $x,y\in E$ dont les coordonnées dans la base $\mathcal{B}$ sont
+  respectivement $\p{x_1,\ldots,x_n}$ et $\p{y_1,\ldots,y_n}$. Alors
+  \[\ps{x}{y}=\sum_{k=1}^n x_k y_k.\]
+  Autrement dit, si $X\defeq\mat{\mathcal{B}}{x}$ et $Y\defeq\mat{\mathcal{B}}{y}$
+  \[\ps{x}{y}=\trans{X}Y.\]
+  En particulier
+  \[\norme{x}^2=\sum_{k=1}^n x_k^2=\trans{X}X.\]
+\item Soit $(x_1,\ldots,x_p)$ une famille de vecteurs de $E$ et
+  $M\defeq\mat{\mathcal{B}}{x_1,\ldots,x_p}\in\mat{n,p}{\R}$. Alors
+  \[\trans{M}M=\p{\ps{x_i}{x_j}}_{\substack{1\leq i\leq p\\ 1\leq j\leq p}}\]
+\end{itemize}
+\end{proposition}
+
+\begin{preuve}
+\begin{itemize}
+\item On a $$x=\sum_{i=1}^n x_i e_i \qquad ; \qquad y=\sum_{i=1}^n y_i e_i.$$
+On a alors $X=\begin{pmatrix}x_1\\ \vdots \\ x_n \end{pmatrix} \text{ et } Y=\begin{pmatrix}y_1\\ \vdots \\ y_n \end{pmatrix}$.
+Or, 
+\begin{eqnarray*}\ps{x}{y}&=&<\sum_{i=1}^n x_i e_i,\sum_{j=1}^n y_j e_j > \\
+&=& \sum_{i=1}^n x_i< e_i,\sum_{j=1}^n y_j e_j >\\
+&=& \sum_{i=1}^n\sum_{j=1}^n  x_i y_j< e_i, e_j >\\
+&=& \sum_{i=1}^n  x_i y_i\\
+&=& \trans{X}Y.
+\end{eqnarray*}
+\item $\forall j \in \intere{1}{n}$, $x_j=\sum_{i=1}^n m_{i,j}e_i$. Alors~:
+  \[\cro{\trans{M}M}_{i,j}=\sum_{k=1}^n \cro{\trans{M}}_{i,k}\cro{M}_{k,j}=\sum_{k=1}^n m_{k,i}m_{k,j}=\ps{x_i}{x_j}\]
+  
+  En particulier $x_1,\ldots,x_n$ est une base orthonormée de $E$ si et
+  seulement si $\forall i,j$, $\ps{x_i}{x_j}=\delta_{i,j}$, i.e. ssi $\trans{M}M=I_n$.
+\end{itemize}
+
+\end{preuve}
+
+\begin{proposition}
+Soit $\mathcal{B}$ une base orthonormée de $E$ de dimension $n$ et $(x_1,\ldots,x_n)$
+une famille de $n$ vecteurs de $E$. On pose $M\defeq\mat{\mathcal{B}}{x_1,\ldots,x_n}$. 
+Alors $(x_1,\ldots,x_n)$
+est une base orthonormée de $E$ si et seulement si
+\[\trans{M}M=I_n.\]
+\end{proposition}
+
+% \begin{remarqueUnique}
+% \remarque Puisqu'une matrice est inversible à gauche si et seulement si elle est
+%   inversible à droite, cette condition est équivalente à $M\trans{M}=I_n$.
+%   De telles matrices sont dites \emph{orthogonales}.
+% \end{remarqueUnique}
+
+% \subsection{Projecteurs et symétries orthogonaux}
+
+% \begin{definition}[utile=-3]
+% Soit $F$ un sous-espace vectoriel de $E$. On appelle \emph{symétrie orthogonale par
+% rapport à $F$}, la symétrie par rapport à $F$ parallèlement à $F^\perp$.
+% \end{definition}
+
+% \begin{proposition}[utile=-3]
+% Soit $s$ une symétrie orthogonale. Alors
+% \[\forall x\in E \qsep \norme{s(x)}=\norme{x}.\]
+% \end{proposition}
+
+% \begin{preuve}
+% En se munissant de $F$ tel que $s$ est la symétrie orthogonale par rapport à $F$, en décomposant $x$ sur $F\oplus F^\perp$ en $x=f+g$, on a $s(x)=f-g$ et $$\norme{s(x)}^2=\norme{f+(-g)}^2=\norme{f}^2+\norme{-g}^2=\norme{f}^2+\norme{g}^2=\norme{x}^2$$ où on a utilisé Pythagore.
+
+% \end{preuve}
+
+% \begin{definition}[utile=-3]
+% On appelle \emph{réflexion} toute symétrie orthogonale par rapport à un hyperplan.
+% \end{definition}
+
+
+% \begin{proposition}[utile=2]
+% Soit $H$ un hyperplan de $E$ et $u$ un vecteur non nul orthogonal à $H$.  Alors
+% \[\forall x\in E \qsep \rho(x)=x-2\frac{\ps{u}{x}}{\norme{u}^2}u.\]
+% \end{proposition}
+
+% \begin{preuve}
+% $H^\perp$ est de dimension $1$ et $u$ en est un vecteur unitaire (donc non nul) donc en est une BON. Tout $x$ de $E$ se décompose donc sur $H\oplus H^\perp$ en $x=h+g=h+\ps{u}{x}u$. 
+% Donc $$s(x)=h-g=h+g-2g=x-2\ps{u}{x}u.$$
+% \end{preuve}
+
+% \begin{remarques}
+% \remarque Soit $u$ est un vecteur non nul de $E$, et $H=\ens{u}^\perp$. Soit
+%   $p$ la projection orthogonale sur $H$ et $s$ la symétrie orthogonale par
+%   rapport à $H$. Alors
+%   \[\forall x\in E \quad s(x)=x-2\frac{\ps{x}{u}}{\norme{u}^2}u \et
+%                          p(x)=x-\frac{\ps{x}{u}}{\norme{u}^2}u\]
+% \end{remarques}
+
+% \begin{exos}
+% \exo Déterminer la matrice dans la base canonique de $\R^3$ de la
+%   réflexion par rapport au plan $P$ d'équation $ax+by+cz=0$ où $a,b,c\in\R$
+%   vérifient $a^2+b^2+c^2=1$.
+%   \begin{sol}
+%   On pose $u=(a,b,c)$, il s'agit alors de la symétrie par rapport à $\set{u}^\perp$ et on a $s(x)=x-2\ps{u}{x}u$ ce qu'on applique en chaque vecteur de la base canonique et on trouve
+%   \[S=\begin{pmatrix}
+%     1-2a^2 & -2ab & -2ac\\
+%     -2ab & 1-2b^2 & -2bc\\
+%     -2ac & -2bc & 1-2c^2
+%     \end{pmatrix}\]
+%   \end{sol}
+% \exo Dans $\R^3$, déterminer la matrice dans la base canonique de la
+%   réflexion par rapport au plan $P$ d'équation $x-y+z=0$.
+%   \begin{sol}
+%   On applique l'exercice précédent avec $a=\dfrac{1}{\sqrt{3}}$, $b=-\dfrac{1}{\sqrt{3}}$ et $c=\dfrac{1}{\sqrt{3}}$.
+%   On trouve
+%   \[S=\frac{1}{3}\begin{pmatrix}
+%     1 & 2 & -2\\
+%     2 & 1 & 2\\
+%     -2 & 2 & 1
+%     \end{pmatrix}\]
+%   \end{sol}
+% \end{exos}
+
+% \begin{proposition}[utile=2]
+% Soit $x$ et $y$ deux vecteurs distincts de même norme. Alors il existe une et
+% une seule réflexion $\rho$ telle que $\rho(x)=y$ et $\rho(y)=x$.
+% \end{proposition}
+
+% \begin{preuve}FAIRE UN DESSIN.\\
+% On procède par analyse-synthèse :
+% \begin{itemize}
+% \item[$\bullet$] Analyse : Supposons trouvé une telle réflexion. On a alors :
+% $$\rho(x-y)=\rho(x)-\rho(y)=y-x=-(x-y)$$ donc $x-y \in \ker(\rho+\id)$. Or $\rho$ étant une réflexion, c'est une symétrie par rapport à $\ker(\rho-\id)$ (de dimension $n-1$) parallèlement à $\ker(\rho+\id)$ qui est donc de dimension $1$. Comme $x\neq y$, $x-y$ est une base de $\ker(\rho+\id)$. Donc $\rho$ est la symétrie orthogonale par rapport à $\set{x-y}^\perp$, d'où l'unicité.
+% \item[$\bullet$] Synthèse : Considérons donc $\rho$ la symétrie orthogonale par rapport à $\set{x-y}^\perp$. Il s'agit bien d'une réflexion puisque $H:=\set{x-y}^\perp$ est un hyperplan. \\
+% Faisons un dessin des vecteurs $x$, $y$, $\dfrac{x+y}{2}$, et  $\dfrac{x-y}{2}$.\\
+% On a $\ps{\dfrac{x+y}{2}}{\dfrac{x-y}{2}}=\dfrac{1}{4}\p{\norme{x}^2-\norme{y}^2}=0$ par hypothèse.
+% Ainsi, on a $$x=\underbrace{\dfrac{x+y}{2}}_{\in H}+\underbrace{\dfrac{x-y}{2}}_{\in H^\perp}$$ donc $$\rho(x)=\dfrac{x+y}{2}-\dfrac{x-y}{2}=y.$$ On obtient de même $\rho(y)=x$.
+% \end{itemize}
+% \end{preuve}
+
+\subsection{Projecteur orthogonal}
+
+Dans cette section, et dans cette section seulement, $E$ désigne un espace préhilbertien réel.\\
+
+\begin{definition}
+Soit $F$ un sous-espace vectoriel de dimension finie de $E$. Alors
+\[E=F\oplus F^\perp.\]
+De plus, $F^\perp$ est l'unique supplémentaire de $F$ orthogonal à $F$; on l'appelle le \emph{supplémentaire orthogonal}
+de $F$.
+\end{definition}
+
+
+\begin{definition}[utile=-3]
+Soit $F$ un sous-espace vectoriel de dimension finie de $E$. On appelle \emph{projecteur orthogonal} sur
+$F$, le projecteur sur $F$ parallèlement à $F^\perp$.
+\end{definition}
+
+% \begin{remarqueUnique}
+% \remarque Soit $p\in\Endo{E}$ un projecteur sur $A$ parallèlement à $B$. Pour
+%   montrer que $p$ est un projecteur orthogonal, il suffit de vérifier que $A$
+%   et $B$ sont orthogonaux.
+% \end{remarqueUnique}
+
+\begin{proposition}[utile=-3]
+  Soit $p$ un projecteur orthogonal. Alors
+  \[\forall x\in E \qsep \norme{p(x)}\leq\norme{x}.\]
+  \end{proposition}
+  
+  \begin{preuve}
+  En se munissant de $F$ tel que $p$ est le projecteur orthogonal sur $F$, en décomposant $x$ sur $F\oplus F^\perp$ en $x=p_F(x)+(x-p_F(x))$, on a $$\norme{x}^2=\norme{p_F(x)+(x-p_F(x))}^2=\norme{p_F(x)}^2+\norme{x-p_F(x)}^2\geq \norme{p_F(x)}^2$$ où on a utilisé Pythagore.
+  \end{preuve}
+  
+  \begin{sol}
+  Faire un dessin pour expliquer que si $F$ n'est pas orthogonal, ce n'est pas vrai.
+  \end{sol}
+  
+  \begin{proposition}[utile=3]
+  Soit $F$ un sous-espace vectoriel de dimension finie de $E$, $(e_1,\ldots,e_r)$ une base orthonormée
+  de $F$ et $p$ le projecteur orthogonal sur $F$. Alors
+  \[\forall x\in E \qsep p(x)=\sum_{k=1}^r \ps{e_k}{x} e_k.\]
+  \end{proposition}
+  
+  \begin{preuve}
+  On décompose $x$ sur une base adaptée au problème.
+  \end{preuve}
+  
+  \begin{remarques}
+  \remarque Si la base $(e_1,\ldots,e_r)$ de $F$ est orthogonale, alors
+    \[\forall x\in E\qsep p(x)=\sum_{k=1}^r \frac{\ps{e_k}{x}}{\norme{e_k}^2}e_k.\]
+    De plus, si $q$ est le projecteur sur $F^\perp$ parallèlement à $F$, alors $p+q=\id$ donc 
+    \[\forall x\in E\qsep q(x)=x-\sum_{k=1}^r \frac{\ps{e_k}{x}}{\norme{e_k}^2}e_k.\]
+  \remarque En particulier, si $E$ est un espace euclidien, $u$ est un vecteur non nul de $E$ et
+    $p$ est le projecteur orthogonal sur $\vect(u)^\perp$, alors
+    \[\forall x\in E\qsep p(x)=x-\frac{\ps{u}{x}}{\norme{u}^2}u.\]
+  \end{remarques}
+  
+  \begin{exoUnique}
+  \exo Déterminer la matrice dans la base canonique de $\R^4$ de la
+    projection orthogonale sur le sous-espace vectoriel $F$ d'équation
+    \[\syslin{x&+y&+z&+t&=&0\hfill\cr
+              x&-y&+z&-t&=&0.}\]
+    \begin{sol}
+    En posant $u_1=(1,1,1,1)$ et $u_2=(1,-1,1,-1)$, on peut voir que $F=\set{u_1,u_2}^\perp=\p{\vect(u_1,u_2)}^\perp$. On orthonormalise facilement la famille $u_1, u_2$ (elle est déjà orthogonale) en $(b_1,b_2)$ qui est donc une BON de $\vect(u_1,u_2)=F^\perp$. On peut donc avoir facilement l'expression du projecteur sur $F^\perp$. Mais alors, utilisons qu'avec $p$ le projecteur orthogonal sur $F$ et $q$ le projecteur orthogonal sur $F^\perp$, on a $p+q=\id$. On obtient facilement la matrice de $q$ dans la base canonique et l'identité moins cette-dernière est bien la matrice de $p$ dans la base canonique et vaut
+    \[P=\frac{1}{2}
+      \begin{pmatrix}
+      1 & 0 & -1 & 0\\
+      0 & 1 & 0 & -1\\
+      -1 & 0 & 1 & 0\\
+      0 & -1 & 0 & 1
+      \end{pmatrix}\]
+    \end{sol}
+  \end{exoUnique}
+
+
+% \begin{remarqueUnique}
+% \remarque Si $F$ est un sous-espace vectoriel de dimension finie d'un espace préhilbertien $E$, on peut
+%   donc définir le projecteur orthogonal $p$ sur $F$ comme le projecteur sur $F$ parallèlement à $F^\perp$.
+% \end{remarqueUnique}
+
+
+% \begin{proposition}
+%   Soit $F$ un sous-espace vectoriel de dimension finie d'un espace préhilbertien $E$, $(e_1,\ldots,e_r)$ une base orthonormée
+%   de $F$ et $p$ le projecteur orthogonal sur $F$. Alors
+%   \[\forall x\in E \qsep p(x)=\sum_{k=1}^r \ps{e_k}{x} e_k.\]
+% \end{proposition}
+
+\begin{definition}[utile=-3]
+Soit $A$ une partie non vide de  $E$ et $x\in E$. On définit
+\emph{la distance de $x$ à $A$}, que l'on note ${\rm d}(x,A)$, par
+\[{\rm d}(x,A)\defeq\inf_{a\in A} \norme{x-a}.\]
+\end{definition}
+
+\begin{preuve}
+Le caractère non vide de $A$ est primordiale ici et justifie la définition.\\
+Parlons avec les élèves du caractère atteint ou non atteint...
+\end{preuve}
+
+\begin{proposition}[utile=3]
+Soit $F$ un sous-espace vectoriel de dimension finie de $E$ et $x\in E$. Alors, la borne
+inférieure
+\[{\rm d}(x,F)=\inf_{f\in F} \norme{x-f}\]
+est atteinte en un unique point. Ce point est le projeté orthogonal de $x$ sur $F$.  
+\end{proposition}
+
+\begin{preuve}
+$\forall f \in F$, $$\norme{x-f}^2=\norme{\underbrace{(x-p_F(x))}_{\in F^\perp}+\underbrace{\p{p_F(x)-f}}_{\in F}}^2=\norme{x-p_F(x)}^2+\norme{p_F(x)-f}^2\geq \norme{x-p_F(x)}^2$$ d'où le résultat et on a aussi l'unicité car on a égalité ssi $\norme{p_F(x)-f}^2=0$.
+\end{preuve}
+
+\begin{exoUnique}
+\exo Montrer que la borne inférieure
+  \[\inf_{(a,b)\in\R^2} \integ{-1}{1}{\cro{\e^x-\p{ax+b}}^2}{x}\]
+  est atteinte en un unique couple $(a,b)\in\R^2$ que l'on calculera.
+  \begin{sol}
+  On définit $\dspappli{g}{\interf{0}{1}}{\R}{x}{e^x}$, $\dspappli{f_1}{\interf{0}{1}}{\R}{x}{1}$ et $\dspappli{f_2}{\interf{0}{1}}{\R}{x}{x}$. On considère alors $E=\vect(f_1,f_2,g)$ muni du produit scalaire usuel et $F=\vect(f_1,f_2)$. La question est de calculer la distance de $g$ à $F$ et nous allons pouvoir pour cela déterminer la projection orthogonal de $g$ sur $F$ puisqu'on sait que c'est là où est atteint notre minimum et que celui vaut $\norme{g-p_F(g)}^2$. FAIRE UN DESSIN POUR EXPLIQUER TOUT CELA\\
+  Pour chercher $p_F(g)$ on a besoin d'une BON de $F$. Commençons par orthogonaliser $f_1,f_2$. On pose $u_1=f_1$ puis on cherche $u_2$ de la forme $u_2=f_2+\lambda f_1$ de sorte que $\ps{u_2}{u_1}=0$. On trouve $\lambda=-1/2$. Il reste alors à normaliser cette base. On trouve alors $b_1$ et $b_2$ définies par :
+  \[b_1(x)=1 \et b_2(x)=2\sqrt{3}\p{x-1/2}\]
+  On détermine alors $p_F(g)=\ps{g}{b_1}b_1+\ps{g}{b_2}b_2$ puis $g-p_F(g)$ dont on calcule la norme au carrée. On trouve $p_F(g)(x)=6(3-e)x+4e-10$ et pour la distance ... $\dfrac{1}{2}(e-3)(7e-19)$.
+  \end{sol}  
+\end{exoUnique}
+
+\subsection{Algorithme d'orthonormalisation de \nom{Gram-Schmidt}}
+
+Dans la suite de ce chapitre, $E$ désigne de nouveau un espace euclidien.\\
+
+\begin{proposition}[nom={Algorithme d'orthogonalisation de \nom{Gram-Schmidt}}]
+Soit $\mathcal{B}\defeq(e_1,\ldots,e_n)$ une base de $E$. Alors il existe une base
+orthogonale $(f_1,\ldots,f_n)$ de $E$ telle que pour tout
+$k\in\intere{0}{n}$,
+$(f_1,\ldots,f_k)$ est une base orthogonale de $E_k\defeq\vect(e_1,\ldots,e_k)$.
+\end{proposition}
+
+\begin{preuve}
+\begin{itemize}
+\item[$\bullet$] Existence : On va faire une preuve constructive.\\
+Pour $k\in \intere{1}{n}$, posons $F_k=\vect(e_1,\ldots,e_k)$.
+\begin{itemize}
+\item On commence par poser $f_1=\dfrac{1}{\norme{e_1}}e_1$ qui est bien de norme $1$. De plus, $\vect(f_1)=F_1$.
+\item Posons $u_2=p_{F_1^\perp}(e_2)=e_2-\ps{e_2}{f_1}f_1$. On a $u_2\neq 0$ car $(e_1,e_2)$ est libre. On a $u_2$ orthogonal à $f_1$ par définition. Donc $(u_2,f_1)$ est libre. Ainsi, $\vect(u_2,f_1)=F_2$ par inclusion plus égalité des dimensions. Il nous reste à normaliser $u_2$ en un vecteur $f_2$ ce qui ne change rien au vect.
+\item Soit $k\in \intere{1}{n-1}$. Supposons construit $(u_1,\ldots,u_k)$ une FON vérifiant $\vect(u_1,\ldots,u_k)=F_k$.\\
+Posons $$u_{k+1}=p_{F_k^\perp}(e_{k+1})=e_{k+1}-\sum_{i=1}^k\dfrac{\ps{e_{k+1}}{f_i}}{f_i}.$$
+$u_{k+1}$ est orthogonal à $f_1,\ldots,f_k$ par définition. De plus, $u_{k+1}\neq 0$ car sinon $e_{k+1}\in \vect(u_1,\ldots,u_k)=F_k$ par hypothèse, ce qui est faux. Ainsi, $(f_1,\ldots,f_k,u_{k+1})$ est une FOG de $F_{k+1}$ (sans vecteurs nuls) donc une famille libre donc une base (cardinal égal à la dimension) de $E_{k+1}$. Il nous reste à normaliser $u_{k+1}$ en $f_{k+1}$ ce qui ne change rien à toutes les propriétés énoncées. 
+\end{itemize}
+On a ainsi construit une BON $B'=(f_1,\ldots, f_n)$ et on observe finalement que la matrice de $B'$ dans $B$ est bien comme demandée.
+\item[$\bullet$] Pour l'unicité (on peut la zapper), si on a $B_1$, $B_2$ deux BON telles que $P(B,B_1)$ et $P(B,B_2)$ soient triangulaires supérieures à coefficients diagonaux strictement positifs, alors $$A:=P(B_1,B_2)=P(B_1,B)P(B,B_2)=P(B,B_1)^{-1}P(B,B_2)$$ est aussi triangulaire supérieure à coefficients diagonaux strictement positifs. De plus (cf. plus tard), comme on a passe d'une BON à une BON, la famille des colonnes est une BON. Et ce $\ps{c_i}{c_j}=\delta_{i,j}$ combiné au fait que c'est triangulaire supérieure à coefficients positifs nous permet de montrer en commençant par la gauche et en allant de proche en proche que $A=I_n$ ce qui signifie que $B_1=B_2$.
+\end{itemize}
+\end{preuve}
+
+\begin{remarques}
+% \remarque L'\emph{algorithme d'orthonormalisation de \nom{Gram-Schmidt}} permet de construire
+%   une famille $(f_1,\ldots,f_n)$ d'éléments de $E$ telle que pour tout
+%   $k\in\intere{0}{n}$, $(f_1,\ldots,f_k)$ est une base orthonormée de $E_k\defeq \vect(e_1,\ldots,e_k)$.
+%   Sa construction se fait de la manière suivante.
+%   \begin{itemize}
+%   \item On pose
+%     \[f_1\defeq \frac{1}{\norme{e_1}}e_1.\]
+%     La famille $(f_1)$ est alors une base orthonormée de $E_1$.
+%   \item Soit $k\in\intere{1}{n-1}$. On suppose qu'on a construit une base
+%     orthonormée $(f_1,\ldots,f_k)$ de $E_k$. On définit $p_{k+1}$ comme étant le projeté
+%     orthogonal de $e_{k+1}$ sur $E_k$. Puisque $(f_1,\ldots,f_k)$ est une base orthonormée
+%     de $E_k$, on a
+%     \[p_{k+1}= \sum_{i=1}^k \ps{f_i}{e_{k+1}} f_i.\]
+%     On note $g_{k+1}\defeq e_{k+1} - p_{k+1}$ le projeté orthogonal de $e_{k+1}$ sur
+%     $E_k^\perp$. On a alors
+%     \[g_{k+1}=e_{k+1} - \sum_{i=1}^k \ps{f_i}{e_{k+1}} f_i.\]
+%     Il ne reste plus qu'à normer ce vecteur en posant
+%     \[f_{k+1}\defeq\frac{1}{\norme{g_{k+1}}}g_{k+1}.\]
+%     On a ainsi une base orthonormée $(f_1,\ldots,f_{k+1})$ de $E_{k+1}$.
+%   \end{itemize}
+\remarque Une telle base est donnée par l'algorithme d'\emph{orthogonalisation de \nom{Gram-Schmidt}}.
+  \begin{itemize}
+  \item On pose $f_1\defeq e_1$. La famille $(f_1)$ est alors une base orthogonale de $E_1$.
+  \item Soit $k\in\intere{1}{n-1}$. On suppose qu'on a construit une base
+    orthogonale $(f_1,\ldots,f_k)$ de $E_k$. On définit $p_{k+1}$ comme le projeté
+    orthogonal de $e_{k+1}$ sur $E_k$. Puisque $(f_1,\ldots,f_k)$ est une base orthogonale
+    de $E_k$, on a
+    \[p_{k+1}= \sum_{i=1}^k \frac{\ps{f_i}{e_{k+1}}}{\norme{f_i}^2} f_i.\]
+    On note $f_{k+1}\defeq e_{k+1} - p_{k+1}$ le projeté orthogonal de $e_{k+1}$ sur
+    $E_k^\perp$. On a alors
+    \[f_{k+1}=e_{k+1} - \sum_{i=1}^k \frac{\ps{f_i}{e_{k+1}}}{\norme{f_i}^2} f_i.\]
+    On a ainsi construit une base orthogonale $(f_1,\ldots,f_{k+1})$ de $E_{k+1}$.
+  \end{itemize}
+  La base orthogonale $(f_1,\ldots,f_n)$ ainsi construite 
+  est solution de notre problème.
+\remarque Dans la proposition précédente, il n'y a pas unicité d'une telle base
+  $(f_1,\ldots,f_n)$. Cependant, une famille $(g_1,\ldots,g_n)$ est une autre solution
+  de notre problème si et seulement si il existe $\lambda_1,\ldots,\lambda_n\in\Rs$ tels
+  que
+  \[\forall k\in\intere{1}{n}\qsep g_k=\lambda_k f_k.\]
+\remarque L'algorithme d'orthogonalisation de Gram-Schmidt peut s'utiliser pour une
+  famille $(e_1,\ldots,e_n)$ quelconque d'un espace euclidien de dimension $n$.
+  \begin{itemize}
+  \item Si l'un des vecteurs $f_k$ est nul, alors $e_k \in\vect(e_1,\ldots,e_{k-1})$
+    et l'algorithme s'arrête.
+  \item Sinon, l'algorithme construit une base orthogonale de $E$ tout en prouvant
+    la liberté de $(e_1,\ldots,e_n)$.
+  \end{itemize}
+% \remarque Remarquons que si $(f_1,\ldots,f_n)$ est une base orthonormée telle que
+%   \[\forall k\in\intere{0}{n}\qsep \vect(f_1,\ldots,f_k)=E_k\]
+%   alors on a
+%   \[\forall k\in\intere{1}{n}\qsep \exists\lambda\in\Rs\qsep \exists x\in E_{k-1}\qsep f_k = \lambda e_k + x.\]
+%   La seconde condition de la proposition est donc uniquement présente pour imposer
+%   à $\lambda$ d'être strictement positif et assurer l'unicité de la base $(f_1,\ldots,f_n)$.
+%   Remarquons que si $k\in\intere{1}{n}$ et $\lambda\in\Rs, x\in E_{k-1}$
+%   sont tels que $f_k=\lambda e_k + x$, en effectuant le produit scalaire par
+%   $f_k$, on obtient
+%   \[\lambda=\frac{1}{\ps{f_k}{e_k}}.\]
+%   C'est la raison pour laquelle la proposition précédente est parfois énoncée avec 
+%   la condition $\ps{f_k}{e_k}>0$ comme condition d'unicité.
+% \remarque Si $(f_1,\ldots,f_n)$ est la base obtenue par le procédé
+%   d'othonormalisation de \nom{Gram-Schmidt}, alors une famille $(f_1',\ldots,f_n')$
+%   est une base orthonornée de $E$ vérifiant
+%   \[\forall k\in\intere{0}{n}\qsep \vect(f_1',\ldots,f_k')=E_k\]
+%   si et seulement si il existe $\epsilon_1,\ldots,\epsilon_n\in\ens{-1,1}$ tels que
+%   \[\forall k\in\intere{1}{n}\qsep f_k'=\epsilon_k f_k.\]
+  % Dans la proposition précédente, c'est donc le second point qui assure l'unicité.
+% \remarque Il est possible de remplacer le second point par la condition
+%   \[\forall k\in\intere{1}{n}\qsep \ps{f_k}{e_k}>0.\]
+%   On a toujours unicité et la base ainsi construite est la même que dans la proposition
+%   d'origine.
+% \remarque La matrice de passage de $\mathcal{B}$ à $\mathcal{B}'$ est une matrice
+%   triangulaire supérieure dont les coefficients diagonaux sont strictement positifs.
+% \remarque Si $\mathcal{B}=(e_1,\ldots,e_n)$ est une base de $E$, on construit la
+%   base $\mathcal{B}'=(f_1,\ldots,f_n)$ de la manière suivante.
+%   \begin{itemize}
+%   \item On pose $f_1\defeq e_1/\norme{e_1}$.
+%   \item On suppose que l'on a construit $(f_1,\ldots,f_k)$. Soit $c_{k+1}$ le
+%     projeté orthogonal de $e_{k+1}$ sur $\vect\p{f_1,\ldots,f_k}$. Comme
+%     $(f_1,\ldots,f_k)$ est une base orthonormée de $\vect\p{f_1,\ldots,f_k}$, on
+%     a
+%     \[c_{k+1}=\sum_{l=1}^k \ps{f_l}{e_{k+1}}f_l\]
+%     On pose ensuite $f_{k+1}'\defeq e_{k+1}-c_{k+1}$, puis
+%     $f_{k+1}\defeq f_{k+1}'/\norme{f_{k+1}'}$.
+%   \end{itemize}
+% \remarque Il arrive que la construction d'une base orthogonale suffise. On
+%   utilise alors la variante suivante du théorème précédent~: \og 
+%   Soit $\mathcal{B}=(e_1,\ldots,e_n)$ une base de $E$. Alors, il existe une unique
+%   base orthogonale $\mathcal{B}''=(g_1,\ldots,g_n)$ de $E$ telle que
+%   $P\p{\mathcal{B},\mathcal{B}''}$ soit une matrice triangulaire supérieure
+%   dont les coefficients diagonaux sont égaux à 1. On dit que $\mathcal{B}''$ est
+%   la base orthogonale de $E$ obtenue à partir de $\mathcal{B}$ par le procédé
+%   d'orthogonalisation de Schmidt. \fg
+% \remarque
+%   Si $\mathcal{B}=(e_1,\ldots,e_n)$ est une base de $E$, on construit la
+%   base orthogonale $\mathcal{B}''=(g_1,\ldots,g_n)$ de la manière suivante.
+%   \begin{itemize}
+%   \item On pose $g_1\defeq e_1$.
+%   \item On suppose que l'on a construit $(g_1,\ldots,g_k)$. Soit $c_{k+1}$ le
+%     projeté orthogonal de $e_{k+1}$ sur $\vect\p{g_1,\ldots,g_k}$. Comme
+%     $(g_1,\ldots,g_k)$ est une base orthogonale de $\vect\p{g_1,\ldots,g_k}$, on
+%     a
+%     \[c_{k+1}=\sum_{l=1}^k \frac{\ps{g_l}{e_{k+1}}}{\norme{g_l}^2}g_l.\]
+%     On pose ensuite $g_{k+1}\defeq e_{k+1}-c_{k+1}$.
+%   \end{itemize}
+%   Une fois la base orthogonale $\mathcal{B}''=(g_1,\ldots,g_n)$ obtenue, on définit
+%   la base $\mathcal{B}'=(f_1,\ldots,f_n)$ par
+%   \[\forall k\in\intere{1}{n}\qsep f_k\defeq \frac{g_k}{\norme{g_k}}.\]
+\end{remarques}
+
+\begin{exoUnique}
+\exo On pose $E\defeq\polyR[n]$, que l'on munit du produit scalaire
+  \[\forall P,Q\in\polyR[n]\qsep \ps{P}{Q}\defeq\integ{-1}{1}{P(x)Q(x)}{x}.\]
+  Montrer qu'il existe une unique base orthogonale de $E$ formée de
+  polynômes unitaires $P_0,\ldots,P_n$ telle que
+  \[\forall k\in\intere{0}{n}\qsep \deg P_k=k.\]
+  Calculer cette base pour $n=3$.
+\end{exoUnique}
+
+\begin{proposition}[nom={Algorithme d'orthonormalisation de \nom{Gram-Schmidt}}]
+Soit $\mathcal{B}\defeq(e_1,\ldots,e_n)$ une base de $E$. Alors il existe base
+orthonormée $(g_1,\ldots,g_n)$ de $E$ telle que pour tout
+$k\in\intere{0}{n}$,
+$(g_1,\ldots,g_k)$ est une base orthonormée de $E_k\defeq\vect(e_1,\ldots,e_k)$.
+\end{proposition}
+
+\begin{remarques}
+\remarque Si l'on souhaite obtenir une telle base,
+  il suffit de normer les vecteurs de la famille $(f_1,\ldots,f_n)$
+  obtenue par l'algorithme d'orthogonalisation de \nom{Gram-Schmidt} en posant
+  \[\forall k\in\intere{1}{n}\qsep g_k=\frac{1}{\norme{f_k}}f_k.\]
+  On dit qu'on a obtenu la base $(g_1,\ldots,g_n)$ par l'algorithme
+  d'\emph{orthonormalisation de \nom{Gram-Schmidt}}.
+\remarque Dans la proposition précédente, il n'y a pas unicité d'une telle base
+  $(g_1,\ldots,g_n)$. Cependant, une famille $(h_1,\ldots,h_n)$ est une autre solution
+  de notre problème si et seulement si il existe $\epsilon_1,\ldots,\epsilon_n\in\ens{-1,1}$ tels
+  que
+  \[\forall k\in\intere{1}{n}\qsep h_k=\epsilon_k g_k.\]
+\remarque Pour avoir l'unicité, il suffit de rajouter la condition
+  \[\forall k\in\intere{1}{n}\qsep \ps{e_k}{g_k}>0.\]
+  L'unique famille solution de ce problème est la famille obtenue par le procédé
+  d'orthonormalisation de \nom{Gram-Schmidt}.
+\end{remarques}
+
+
+\begin{exoUnique}
+\exo Dans $\R^3$ muni du produit scalaire usuel, orthonormaliser la
+  famille
+  \[e_1\defeq\p{1,-2,2}, \qquad e_2\defeq\p{-1,0,-1}, \qquad e_3\defeq\p{5,-3,7}.\]
+  \begin{sol}
+  On trouve
+  \[b_1=\frac{1}{3}\p{1,-2,2}, \quad b_2=\frac{1}{3}\p{-2,-2,-1}, \quad
+    b_3=\frac{1}{3}\p{-2,1,2}.\]
+  \end{sol}
+\end{exoUnique}
+
+% \begin{remarques}
+
+% \item Si $(f_1,\ldots,f_n)$ est une base orthonormée de $E$ telle que 
+% \[\forall k\in\intere{0}{n}\qsep \vect(f_1,\ldots,f_k)=\vect(e_1,\ldots,e_k)\]
+%   alors, la famille $(g_1,\ldots,g_n)$ est une base orthonormée de $E$ telle que
+%   $\vect(g_1,\ldots,g_k)=\vect(e_1,\ldots,e_k)$ pour tout $k\in\intere{0}{n}$, si et
+%   seulement si il existe $\epsilon_1,\ldots,\epsilon_n\in\ens{-1,1}$ tels que
+%   \[\forall k\in\intere{1}{n}\qsep g_k=\epsilon_k f_k.\]
+% \end{itemize}
+% \remarque On peut ainsi démontrer le théorème de Gram-Schmidt qui s'énonce de la
+%   manière suivante.
+%   Soit $\mathcal{B}\defeq(e_1,\ldots,e_n)$ une base de $E$. Alors, il
+%   existe une unique base orthonormée $\mathcal{B}'\defeq(f_1,\ldots,f_n)$ de $E$ telle que~:
+%   \begin{itemize}
+% \item $\forall k\in\intere{0}{n}\qsep \vect(f_1,\ldots,f_k)=\vect(e_1,\ldots,e_k)$.
+% \item $\forall k\in\intere{1}{n}\qsep \ps{e_k}{f_k}>0$.
+%   \end{itemize}
+%   C'est la base donnée par l'algorithme d'orthonormalisation de \nom{Gram-Schmidt}.
+% \end{remarques}
+
+% \begin{exos}
+% \exo Soit $E$ le \Rev des fonctions réelles continues sur $\interf{0}{1}$
+%   muni du produit scalaire $\ps{.}{.}$ défini par
+%   \[\forall f,g\in E \quad \ps{f}{g}=\integ{0}{1}{f(x)g(x)}{x}\]
+%   Soit $n\in\Ns$, $A_n$ le sous-espace vectoriel de $E$ des fonctions
+%   polynôme de degré inférieur ou égal à $n$ et $f\in E$ un vecteur
+%   orthogonal à $A_n$. Monter que $f$ s'annule au moins $n+1$ fois sur
+%   $\intero{0}{1}$.
+% \end{exos}
+
+% \begin{proposition}
+% Soit $\mathcal{B}\defeq(e_1,\ldots,e_n)$ une base de $E$. Alors il existe une unique base
+% orthonormée $(f_1,\ldots,f_n)$ de $E$ telle que pour tout $k\in\intere{0}{n}$,
+% $(f_1,\ldots,f_k)$ est une base orthonormée de $E_k\defeq\vect(e_1,\ldots,e_k)$ et
+% $\ps{e_k}{f_k}>0$. Une telle base est donnée par l'algorithme
+% d'\emph{orthonormalisation de \nom{Gram-Schmidt}}.
+% \end{proposition}
+
+% \begin{remarqueUnique}
+% \remarque 
+% \end{remarqueUnique}
+
+
+\subsection{Dual}
+
+\begin{proposition}[utile=3]
+  Pour toute forme linéaire $\phi$ sur $E$, il existe un unique $a\in E$ tel que
+  \[\forall x\in E \qsep \phi(x)=\ps{a}{x}.\]
+  \end{proposition}
+
+% Soit $\mathcal{B}\defeq\p{e_1,\ldots,e_n}$ une base orthonormée de $E$ et
+% $\p{a_1,\ldots,a_n}\in\R^n$ un $n$-uplet non nul. On pose
+% \[a\defeq \sum_{k=1}^n a_k e_k.\]
+% Alors, si $H$ est une partie de $E$, les trois propositions suivantes sont équivalentes~:
+% \begin{itemize}
+% \item $H$ est le noyau de la forme linéaire $x\mapsto\ps{a}{x}$.
+% \item $H$ admet pour équation dans $\mathcal{B}$
+%   \[\sum_{k=1}^n a_k x_k=0.\]
+% \item $a$ est un vecteur orthogonal à $H$.
+% \end{itemize}
+% Si tel est le cas, $H$ est un hyperplan de $E$.
+
+% \begin{proposition}[utile=3]
+%   Pour toute forme linéaire $\phi$ sur $E$, il existe un unique $a\in E$ tel que
+%   \[\forall x\in E \qsep \phi(x)=\ps{a}{x}.\]
+%   \end{proposition}
+
+% \begin{preuve}
+% On montre que $$\dspappli{\psi}{E}{E*}{a}{\dspappli{\phi_a}{E}{\R}{x}{\ps{a}{x}}}$$ est bien définie, linéaire, injective. Donc c'est un isomorphisme par égalité des dimensions, ce qui correspond au résultat souhaité.
+% \end{preuve}
+
+% \begin{proposition}[utile=-3]
+% Soit $\mathcal{B}\defeq\p{e_1,\ldots,e_n}$ une base orthonormée de $E$ et
+% $\p{a_1,\ldots,a_n}\in\R^n$ un $n$-uplet non nul. On pose
+% \[a\defeq \sum_{k=1}^n a_k e_k.\]
+% Alors, si $H$ est une partie de $E$, les trois propositions suivantes sont équivalentes~:
+% \begin{itemize}
+% \item $H$ est le noyau de la forme linéaire $x\mapsto\ps{a}{x}$.
+% \item $H$ admet pour équation dans $\mathcal{B}$
+%   \[\sum_{k=1}^n a_k x_k=0.\]
+% \item $a$ est un vecteur orthogonal à $H$.
+% \end{itemize}
+% Si tel est le cas, $H$ est un hyperplan de $E$.
+% \end{proposition}
+
+% \begin{preuve}
+% On montre $(i)\Rightarrow (ii)\Rightarrow (iii) \Rightarrow (i)$. Pour $(iii) \Rightarrow (i)$, on montre l'inclusion et l'égalité des dimensions, le noyau de la forme linéaire étant de dimension $1$* puisque $a\neq 0$ nous assure que la forme linéaire est non nulle.
+% \end{preuve}
+%END_BOOK
+\end{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Démonstration du procédé de Gram-Schmidt
+\begin{preuve}
+Montrons ce résultat par récurrence sur la dimension $n$ de $E$.
+\begin{center}
+$\mathcal{P}_n$ : \flqq\ 
+\parbox[t]{0.75\linewidth}{%
+Soit $E$ un espace euclidien de dimension $n$ et $e_1,\ldots,e_n$ une base de
+$E$. Alors, il existe une unique base orthonormée $b_1,\ldots,b_n$ de $E$ telle
+que quelque soit $k\in\intere{1}{n}$, $b_1,\ldots,b_k$ est une base de
+$\vect\p{e_1,\ldots,e_k}$ et $\ps{e_k}{b_k}\geq 0$\ \frqq}
+\end{center}
+\begin{itemize}
+\item $\mathcal{P}_0$ est vraie. En effet, si $E$ est un espace euclidien de
+  dimension nulle, alors $E=\ens{0}$ et l'unique base de $E$ est la famille
+  ne contenant aucun élément. Cette base est orthonormée et vérifie bien les
+  conditions demandées (puisqu'il n'y a rien à vérifier).
+\item $\mathcal{P}_n \implique \mathcal{P}_{n+1}$. On suppose que
+  $\mathcal{P}_n$ est vraie et on souhaite montrer que $\mathcal{P}_{n+1}$ est
+  vraie. Soit $E$ un espace euclidien de dimension $n+1$ et $e_1,\ldots,e_{n+1}$
+  une base de $E$.
+  \begin{itemize}
+  \item {\it unicité}\\
+    Soit $b_1,\ldots,b_{n+1}$ et $b_1',\ldots,b_{n+1}'$ deux bases orthonormées
+    de $E$ répondant au problème posé. Montrons que ces deux bases sont
+    identiques.\\
+    Soit $F=\vect\p{e_1,\ldots,e_n}$. Alors $F$ est un espace euclidien de
+    dimension $n$ et $b_1,\ldots,b_n$ et $b_1',\ldots,b_n'$ sont deux bases
+    orthonormées de $F$ répondant au problème posé. Puisque $\mathcal{P}_n$
+    est vraie, on en déduit que~:
+    \[\forall k\in\intere{1}{n} \quad b_k=b_k'\]
+    Montrons désormais que $b_{n+1}=b_{n+1}'$. Puisque
+    $b_{n+1}\in\vect\p{e_1,\ldots,e_{n+1}}$ et que
+    $\vect\p{e_1,\ldots,e_n}=\vect\p{b_1,\ldots,b_n}$, on en déduit que
+    $b_{n+1}\in\vect\p{b_1,\ldots,b_n,e_{n+1}}$. Il existe donc
+    $\lambda_1,\ldots,\lambda_n\in\R$ et $\lambda\in\R$ tels que~:
+    \[b_{n+1}=\sum_{k=1}^n \lambda_k b_k + \lambda e_{n+1}\]
+    De plus, $b_{n+1}\not\in\vect\p{b_1,\ldots,b_n}$ car sinon, la famille
+    $b_1,\ldots,b_{n+1}$ ne serait pas libre; donc $\lambda\neq 0$. On définit
+    alors pour tout $k\in\intere{1}{n}$, $\mu_k=\lambda_k/\lambda$. On a donc~:
+    \[b_{n+1}=\lambda\p{\sum_{k=1}^n \mu_k b_k + e_{n+1}}\]
+    Puisque $b_{n+1}$ est orthogonal à tous les $b_k$ pour $k\in\intere{1}{n}$,
+    on en déduit que~:
+    \begin{eqnarray*}
+    \forall k\in\intere{1}{n} \quad
+               & & \ps{b_k}{b_{n+1}}=0\\
+    \text{donc}& & \ps{b_k}{\lambda\p{\sum_{i=1}^n \mu_i b_i + e_{n+1}}}=0\\
+    \text{donc}& & \lambda\ps{b_k}{\sum_{i=1}^n \mu_i b_i + e_{n+1}}=0\\
+    \text{donc}& & \ps{b_k}{\sum_{i=1}^n \mu_i b_i + e_{n+1}}=0 \quad
+                   \text{car $\lambda\neq 0$}\\
+    \text{donc}& & \sum_{i=1}^n \mu_i\underbrace{\ps{b_k}{b_i}}_{\delta_{k,i}} +
+                   \ps{b_k}{e_{n+1}}=0\\
+    \text{donc}& & \mu_k+\ps{b_k}{e_{n+1}}=0\\
+    \text{donc}& & \mu_k=-\ps{b_k}{e_{n+1}}
+    \end{eqnarray*}
+    De plus, $b_{n+1}$ est normé donc~:
+    \[\abs{\lambda}\norme{\sum_{k=1}^n \mu_k b_k + e_{n+1}}=1\]
+    Donc~:
+    \[\abs{\lambda}=\frac{1}{\norme{\sum_{k=1}^n \mu_k b_k + e_{n+1}}}\]
+    Enfin, $\ps{e_{n+1}}{b_{n+1}}\geq 0$ donc~:
+    \begin{eqnarray*}
+    \ps{\frac{1}{\lambda}\p{b_{n+1}-\sum_{k=1}^n \lambda_k b_k}}{b_{n+1}}
+    &=& \frac{1}{\lambda}\p{\norme{b_{n+1}}^2-
+                    \underbrace{\ps{\sum_{k=1}^n \lambda_k b_k}{b_{n+1}}}_{=0}}\\
+    &=& \frac{1}{\lambda}\geq 0
+    \end{eqnarray*}
+    Donc $\lambda\geq 0$. On en déduit que~:
+    \[\lambda=\frac{1}{\norme{\sum_{k=1}^n \mu_k b_k + e_{n+1}}}\]
+    On a donc démontré que les $\mu_k$ et $\lambda$ sont entièrement
+    déterminés les vecteurs $b_1,\ldots,b_n,e_{n+1}$. Puisque $b_k=b_k'$ pour
+    tout $k\in\intere{1}{n}$, on en déduit que $b_{n+1}=b_{n+1}'$. D'où l'unicité
+    de la base $b_1,\ldots,b_{n+1}$.
+  \item {\it existence}\\
+    Soit $F=\vect\p{e_1,\ldots,e_n}$. Puisque $F$ est un espace euclidien de
+    dimension $n$, il existe une base orthonormée $b_1,\ldots,b_n$ de
+    $F$ telle que pour tout $k\in\intere{1}{n}$, $b_1,\ldots,b_k$ est une base de
+    $\vect\p{e_1,\ldots,e_k}$ et $\ps{e_k}{b_k}\geq 0$.\\
+    Soit $\mu_1,\ldots,\mu_n\in\R$ et $u$ le vecteur~:
+    \[u=\sum_{k=1}^n \mu_kb_k + e_{n+1}\]
+    Soit $k\in\intere{1}{n}$. Alors $u$ est orthogonal à $b_k$ si et seulement
+    si~:
+    \begin{eqnarray*}
+    \ps{b_k}{u}=0
+    &\ssi& \ps{b_k}{\sum_{i=1}^n \mu_ib_i + e_{n+1}}=0\\
+    &\ssi& \sum_{i=1}^n \mu_i \underbrace{\ps{b_k}{b_i}}_{\delta_{k,i}}+
+            \ps{b_k}{e_{n+1}}\\
+    &\ssi& \mu_k=-\ps{b_k}{e_{n+1}}
+    \end{eqnarray*}
+    On choisit de tels $\mu_k$ et on pose enfin~:
+    \[b_{n+1}=\frac{u}{\norme{u}}\]
+    Alors $b_{n+1}$ est normé et est orthogonal à  la famille $b_1,\ldots,b_n$.
+    La famille $b_1,\ldots,b_{n+1}$ est donc une famille orthonormée; elle
+    est donc libre. Puisqu'elle possède $n+1$ éléments, c'est une base de $E$.
+    Enfin~:
+    \begin{eqnarray*}
+    \ps{e_{n+1}}{b_{n+1}}
+    &=& \frac{1}{\norme{u}}\ps{e_{n+1}}{u}\\
+    &=& \frac{1}{\norme{u}}\ps{u-\sum_{k=1}^n \mu_k b_k}{u}\\
+    &=& \frac{1}{\norme{u}}\p{\norme{u}^2-
+           \underbrace{\ps{\sum_{k=1}^n \mu_k b_k}{u}}_{=0}}\\
+    &=& \norme{u}\geq 0
+    \end{eqnarray*}
+    D'où l'existence d'une telle base.
+  \end{itemize}
+  En conclusion $\mathcal{P}_{n+1}$ est vraie.
+\end{itemize}
+Par récurrence sur $n$, on en déduit que $\mathcal{P}_n$ est vraie pour tout
+$n\in\N$.
+\end{preuve}

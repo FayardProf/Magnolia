@@ -1,0 +1,728 @@
+\documentclass{magnolia}
+
+
+\magtex{tex_driver={pdftex},
+        tex_packages={xypic}}
+\magfiche{document_nom={Cours sur le dénombrement},
+          auteur_nom={François Fayard},
+          auteur_mail={fayard.prof@gmail.com}}
+\magcours{cours_matiere={maths},
+          cours_niveau={mpsi},
+          cours_chapitre_numero={10},
+          cours_chapitre={Dénombrement}}
+\magmisenpage{}
+\maglieudiff{}
+\magprocess
+
+
+\begin{document}
+
+%BEGIN_BOOK
+\hfill\includegraphics[width=0.45\textwidth]{../../Commun/Images/maths-cours-gaston.png}
+
+\magtoc
+
+\section{Cardinal}
+
+\subsection{Équipotence}
+
+\begin{definition}
+Soit $A$ et $B$ deux ensembles. On dit que $A$ est \emph{équipotent} à $B$
+lorsqu'il existe une bijection de $A$ dans $B$.
+\end{definition}
+
+\begin{proposition}
+La relation \og est équipotent à \fg est une relation d'équivalence.
+\end{proposition}
+
+\begin{remarques}
+\remarque Une fois que nous aurons défini le cardinal d'un ensemble fini, nous verrons que deux ensembles
+  finis sont équipotents si et seulement si ils ont le même nombre d'éléments.
+\remarque Il existe des ensembles infinis qui ne sont pas équipotents. Par exemple, on peut montrer que,
+  quel que soit l'ensemble $X$, les ensembles $X$ et $\mathcal{P}(X)$ ne sont pas équipotents. En particulier
+  $\N$ et $\mathcal{P}(\N)$ ne sont pas équipotents. Il existe donc des ensembles infinis qui ont
+  \og plus d'éléments \fg que d'autres.
+\remarque Il est possible qu'un ensemble soit équipotent à l'une de ses parties strictes. Par exemple
+  l'application $f$ de $\N$ dans $\Ns$ qui à $n$ associe $n+1$ est une bijection, ce qui montre que $\N$
+  est équipotent à $\Ns$. Pourtant $\Ns$ est une partie stricte de $\N$. De même, l'application $f$
+  de $\interf{0}{1}$ dans $\interf{0}{2}$ qui à $x$ associe $2x$ est une bijection. Pourtant
+  $\interf{0}{1}$ est une partie stricte de $\interf{0}{2}$.
+\remarque On dit qu'un ensemble est \emph{dénombrable} lorsqu'il est équipotent à $\N$. On peut montrer
+  que $\Z$, $\N^n$ (pour $n\in\Ns$) et $\Q$ sont dénombrables. On peut montrer cependant que $\R$ n'est
+  pas dénombrable.  On dit qu'un ensemble est \emph{au plus dénombrable} lorsqu'il est fini ou dénombrable. 
+\end{remarques}
+
+\subsection{Ensemble fini, cardinal}
+
+On rappelle que pour tout $n\in\N$, on a $\intere{1}{n}\defeq\enstq{k\in\N}{1\leq k\leq n}$.
+En particulier $\intere{1}{0}=\emptyset$, $\intere{1}{1}=\ens{1}$,
+$\intere{1}{2}=\ens{1, 2}$, $\intere{1}{3}=\ens{1, 2, 3}$, etc. 
+\vspace{2ex}
+\begin{definition}
+On dit qu'un ensemble $A$ est \emph{fini} lorsqu'il existe $n\in\N$ tel que $A$ est
+équipotent à $\intere{1}{n}$. On dit qu'il est \emph{infini} dans le cas contraire.
+\end{definition}
+
+\begin{definition}
+Soit $A$ un ensemble fini. Alors il existe un unique $n\in\N$ tel que $A$ est
+équipotent à $\intere{1}{n}$. On l'appelle \emph{cardinal} de $A$ et on le note
+$\card(A)$ ou $|A|$.
+\end{definition}
+
+\begin{preuve}
+On commence par l'admettre sur le dessin. Ensuite~:
+\begin{itemize}
+\item Existence : par définition
+\item Unicité : On dit que A est de cardinal n lorsqu'il existe une bijection
+  entre [1,n] et A.
+  On va montrer par récurrence sur n que [1,n] ne peut être de
+  cardinal n et de cardial p avec n<p.
+  \begin{itemize}
+  \item $H_0$ : A ne peut être vide et non vide
+  \item $H_n \implique H_(n+1)$ : Supposons que A soit de cardinal n+1 et de
+     cardinal p avec
+     n+1<p. Si x est un élément de A $A\setminus\ens{x}$ est de cardinal n et de
+     cardinal p-1 avec n<p-1. C'est absurde
+  \end{itemize}
+\end{itemize}
+\end{preuve}
+
+\begin{remarques}
+  \remarque L'ensemble vide est fini et son cardinal est nul.
+  \remarque Soit $a,b\in\Z$ tels que $a\leq b + 1$. L'ensemble $\intere{a}{b}$ est de
+  cardinal $b-a+1$.
+\end{remarques}
+
+\begin{proposition}
+Soit $A$ un ensemble fini et $B$ un ensemble. Alors, $A$ et $B$ sont équipotents si et
+seulement si $B$ est fini et $\card(A)=\card(B)$.  
+\end{proposition}
+
+
+\begin{exoUnique}
+\exo Dénombrer les couples $(a,b) \in \N^2$ tels que $3a + b = 833$.
+\exo On a utilisé 6921 chiffres (les caractères d'imprimerie) pour numéroter les
+  pages d'un dictionnaire. Combien de pages ce dictionnaire contient-il~?
+  Chaque page est numérotée une seule fois, la première portant le numéro 1.
+  \begin{sol}
+  La réponse est 2007.
+  \end{sol}
+\end{exoUnique}
+
+\begin{definition}
+Soit $A$ une partie de $\N$.
+\begin{itemize}
+\item Si $A$ est fini, il est l'image d'une unique application
+  strictement croissante de $\intere{1}{\card(A)}$ dans $\N$.
+\item Sinon, $A$ est infini et il est l'image d'une unique application strictement
+  croissante de $\N$ dans $\N$.
+\end{itemize}
+Une telle application est appelée une \emph{énumération} de $A$.
+\end{definition}
+
+\begin{preuve}
+Utiliser l'algorithme de construction
+\end{preuve}
+
+% \begin{remarqueUnique}
+% \remarque Si $\phi$ est une application strictement croissante de $\N$ dans
+%   $\N$, alors, pour tout $k\in\N$, $\phi(k) \geq k$.
+% \end{remarqueUnique}
+
+\begin{proposition}
+Une partie de $\N$ est finie si et seulement si elle est majorée.
+\end{proposition}
+
+\begin{preuve}
+Si elle est finie, elle est majorée.
+Réciproquement, si elle est majorée, elle est incluse dans $[1,n]$ donc il ne
+peut y avoir d'application strictement croissante de $N$ dans $A$.  
+\end{preuve}
+
+% \begin{proposition}
+% Toute partie non vide majorée de $\N$ admet un plus grand élément.
+% \end{proposition}
+
+% \begin{exoUnique}
+% \exo Soit $P$ un prédicat sur $\N$ tel que
+%   \begin{itemize}
+%   \item $P(n)$ est vrai pour une infinité de $n$.
+%   \item Pour tout $n\in\Ns$, si $P(n)$ est vrai, alors $P(n-1)$ est vrai.
+%   \end{itemize}
+%   Montrer que $P(n)$ est vrai pour tout $n\in\N$.
+% \end{exoUnique}
+
+\begin{proposition}
+Soit $E$ un ensemble fini et $A$ une partie de $E$. Alors
+\begin{itemize}
+\item $A$ est un ensemble fini et $\card(A)\leq\card(E)$.
+\item $A=E$ si et seulement si $\card(A)=\card(E)$.
+\end{itemize}
+\end{proposition}
+
+\begin{preuve}
+Admis (voir Tissier, Acx, Desnoux page 33) :
+1) On sa ramène à la démonstration du fait que toute partie de [1,n] est
+   finie de cardinal inférieur à n. C'est est évident car elle est majorée.
+    et on utilise l'application strictement croissante.
+\end{preuve}
+
+
+\begin{proposition}
+Soit $E$ et $F$ deux ensembles. Alors
+\begin{itemize}
+\item Si $F$ est fini, il existe une injection de $E$ dans $F$ si et seulement
+  si $E$ est fini et $\card (E)\leq\card (F)$.
+\item Si $E$ est fini et $F$ est non vide, il existe une surjection de $E$ dans $F$ si et seulement
+  si $F$ est fini et $\card (F)\leq\card (E)$.
+\item Si l'un des ensembles est fini, il existe une bijection de $E$ dans $F$ si
+  et seulement si l'autre est fini et $\card(E)=\card(F)$.
+\end{itemize}
+\end{proposition}
+
+\begin{proposition}[nom={Principe des tiroirs}]
+Soit $E$ et $F$ deux ensembles finis tels que $\card(F)<\card(E)$ et $f$ une application de $E$ dans $F$. Alors, il existe
+$x_1,x_2\in E$ tels que $x_1\neq x_2$ et $f(x_1)=f(x_2)$.
+\end{proposition}
+
+% \begin{remarqueUnique}
+% % \remarque Si $A$ et $B$ sont finis, il existe une injection de $A$ dans $B$ si
+% %   et seulement si $\card A=\card B$.
+% \remarque Soit $E$ et $F$ deux ensembles finis et $f\in\mathcal{F}(E,F)$. Si $\card(F)< \card(E)$, alors il existe deux éléments distincts de
+%   $E$ qui ont même image par $f$. Cet énoncé est connu sous le nom de \og
+%   principe des tiroirs \fg ou \og pigeonhole principle \fg.
+% \end{remarqueUnique}
+
+\begin{exos}
+\exo Soit $n \geq 2$. En supposant que la relation \og est ami avec \fg est
+  symétrique, montrer que dans une assemblée de $n$ personnes, il y en a au moins deux qui
+  ont le même nombre d'amis.
+% \exo De combien de personnes a-t-on besoin pour pouvoir affirmer avec certitude que $2$ sont nées le même jour de l'année ? De même avec $3$.
+% \exo Montrer qu'il existe des entiers $a,b,c$ non tous nuls de valeur absolue strictement inférieure à $10^{6}$ tels que $|a+b \sqrt{2}+ c \sqrt{3}| < 10^{-11}$.
+\exo Soit $x_1,\ldots,x_{n+1}\in\interf{0}{1}$. Montrer qu'il existe
+  $i,j\in\intere{1}{n+1}$ tels que $i\neq j$ et
+  \[\abs{x_i-x_j}\leq\frac{1}{n}.\]
+% A mettre dans le cours sur les réels
+%
+
+\end{exos}
+
+\begin{proposition}
+Soit $E$ un ensemble fini, $F$ un ensemble et $f$ une application de $E$ dans
+$F$. Alors
+\begin{itemize}
+\item $f(E)$ est un ensemble fini et $\card\p{f(E)} \leq \card(E)$
+\item $\card\p{f(E)}=\card(E)$ si et seulement si $f$ est injective.
+\end{itemize}
+Si de plus $F$ est un ensemble fini.
+\begin{itemize}
+\item $\card\p{f(E)}\leq\card(F)$
+\item $\card\p{f(E)}=\card(F)$ si et seulement si $f$ est surjective.
+\end{itemize}
+\end{proposition}
+
+
+
+
+
+\begin{proposition}
+Soit $E$ et $F$ deux ensembles finis et $f$ une application de $E$ dans $F$.
+\begin{itemize}
+\item Si $f$ est injective et $\card(E)=\card(F)$, alors $f$ est bijective.
+\item Si $f$ est surjective et $\card(E)=\card(F)$, alors $f$ est bijective.
+\end{itemize}
+Autrement dit, si $\card(E)=\card(F)$, alors
+\[\text{$f$ est injective} \quad\ssi\quad \text{$f$ est bijective} \quad\ssi\quad
+  \text{$f$ est surjective}.\]
+\end{proposition}
+
+\section{Dénombrement}
+
+\subsection{Dénombrement élémentaire}
+
+\begin{proposition}
+Soit $E$ un ensemble fini et $A$, $B$ deux parties disjointes de $E$, c'est-à-dire telles
+que $A\cap B=\emptyset$. Alors
+\[\card\p{A\cup B}=\card (A)+\card(B).\]
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque Le \og ou exclusif \fg se traduit donc par un $ + $ en dénombrement.
+\remarque Si $A$ et $B$ sont deux parties disjointes, leur réunion est parfois notée $A\sqcup B$.
+\end{remarqueUnique}
+
+\begin{proposition}
+Soit $E$ un ensemble fini.
+\begin{itemize}
+\item Si $A$ est une partie de $E$
+  \[\card\p{\bar{A}}=\card(E)-\card(A).\]
+\item Si $A$ et $B$ sont deux parties de $E$
+  \[\card\p{A\cup B}=\card(A)+\card(B)-\card\p{A\cap B}.\]
+\item Si $(A_1,\ldots,A_n)$ est une partition de $E$, alors
+  \[\card(E)=\card\p{A_1}+\cdots+\card\p{A_n}.\]
+\end{itemize}
+\end{proposition}
+
+%% Preuve :
+%% 1) On pourrait le faire
+%% 2) On pourrait le faire : commencer par le cas ou A et B sont disjoints
+%% 3) Faire une récurrence sur n
+
+
+\begin{remarqueUnique}
+\remarque L'avantage du passage au complémentaire est qu'il permet de prendre la négation
+  de la propriété qui définit l'ensemble. Cela donne parfois une phrase plus simple à
+  manipuler et donc un ensemble plus simple à dénombrer.
+\end{remarqueUnique}
+
+\begin{exos}
+\exo Quel est le nombre d'entiers entre $1$ et $100$ qui ne sont pas divisibles par $3$~?
+\exo Dénombrer \[A\defeq\enstq{n \in \intere{1}{100}}{2 |n \text{ ou } 3 |n}.\]
+\exo Quel est le nombre de rythmes de $n$ temps que l'on peut composer uniquement avec
+  des noires (1~temps) et des blanches (2~temps)~?
+\end{exos}
+
+\begin{proposition}[nom={Formule du crible}]
+Soit $A_1,\ldots,A_n$ des parties d'un même ensemble fini $E$. Alors
+  \[\card\p{\bigcup_{i=1}^n A_n}=\sum_{k=1}^n (-1)^{k+1}
+    \sum_{1\leq i_1<\cdots<i_k\leq n}
+    \card\p{A_{i_1}\cap\cdots\cap A_{i_k}}.\]
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque   Par exemple, pour $n=3$, la formule du crible s'écrit
+\begin{eqnarray*}
+\card\p{A_1\cup A_2\cup A_3}&=&\card(A_1)+\card(A_2)+\card(A_3)\\
+  & & - \cro{\card(A_2\cap A_3)+\card(A_1\cap A_3)+\card(A_1\cap A_2)}\\
+& &+\card(A_1\cap A_2\cap A_3).
+\end{eqnarray*}
+\end{remarqueUnique}
+
+\begin{proposition}
+\begin{itemize}
+\item Si $A$ et $B$ sont deux ensembles finis, alors $A\times B$ est fini et
+  \[\card\p{A\times B}=\card(A)\card(B).\]
+  Plus généralement, si $A_1,\ldots,A_n$ sont des ensembles finis,
+  $A_1\times\cdots\times A_n$ est fini et
+  \[\card(A_1\times \cdots\times A_n)=\prod_{k=1}^n \card(A_k).\]
+\item Si $A$ est un ensemble fini et $n\in\N$, alors $A^n$ est fini et
+  \[\card\p{A^n}=\card(A)^n.\]
+\end{itemize}
+\end{proposition}
+
+
+\begin{remarqueUnique}
+\remarque La formule $\card\p{A_1 \times \dots \times A_n}=\card(A_1)\cdots\card(A_n)$ dit
+  simplement que lorsque l'on doit faire une succession \og et \fg de choix indépendants,
+  on dénombre ces choix et on les multiplie.
+\end{remarqueUnique}
+
+\begin{exos}
+\exo Montrer que dans un village de 700 personnes, deux au moins ont les mêmes initiales.
+%   \begin{sol}
+%   Il y en a $26^2$.
+%   \end{sol}
+% \exo On lance 5 dés. Combien de résultats possibles~?
+\exo Combien de menus différents peut-on faire avec 4 entrées, 6 plats et 2 desserts~?
+\exo Quel est le nombre de mots de 4 lettres contenant au moins un \og e\fg ? 
+% \exo Quel est le nombre de mots de 5 lettres contenant un seul \og f\fg, un seul \og z\fg et pas de \og t\fg ? 
+\end{exos}
+  
+
+\begin{proposition}
+\begin{itemize}
+\item Soit $E$ et $F$ deux ensembles finis. Alors $\mathcal{F}\p{E,F}=F^E$ est fini et
+  \[\card\p{\mathcal{F}\p{E,F}}=\card\p{F^E}=\card(F)^{\card(E)}.\]
+\item Soit $E$ un ensemble fini. Alors $\mathcal{P}(E)$ est fini et
+  \[\card\p{\mathcal{P}(E)}=2^{\card(E)}.\]
+\end{itemize}
+\end{proposition}
+
+\begin{preuve}
+\begin{itemize}
+\item Utiliser le 3 de la question précédente
+\item si $E$ est de cardinal $E$, construire une bijection de $F(E,F)$ dans $F^n$
+\item Bijection entre $P(E)$ est les applications de $E$ dans $\{0,1\}$
+\end{itemize}
+\end{preuve}
+
+\begin{exoUnique}
+\exo Quel est le nombre de possibilités de répartir $p$ boules distinctes
+  dans $n$ urnes distinctes~?
+  \begin{sol}
+  Il y en a $n^p$.
+  \end{sol}
+\exo Une urne contient $n$ boules distinctes. On effectue $p$ tirages
+  successifs avec remise (c'est-à-dire que l'on remet la boule dans l'urne
+  après chaque tirage). Combien y-a-t-il de possibilités~?
+  \begin{sol}
+  Il y en a $n^p$.
+  \end{sol}
+\exo De combien de manières peut-on descendre $n+1$ marches (donc $n$
+  \og paliers \fg), en en sautant éventuellement certaines~?
+  \begin{sol}
+  C'est l'ensemble des paliers qui seront sautés. Donc $2^n$.
+  \end{sol}
+\end{exoUnique}
+
+\begin{proposition}[nom={Lemme des bergers}]
+Soit $E$ et $F$ deux ensembles finis et $f$ une surjection de $E$ dans $F$. On
+suppose que
+\[\forall y_1,y_2\in F \qsep \card\p{f^{-1}\p{\ens{y_1}}}=
+  \card\p{f^{-1}\p{\ens{y_2}}}\]
+et on note $p$ cette valeur commune. Alors
+\[\card(E)=p\card(F).\]
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque Soit $E$ est l'ensemble des pattes de mouton foulant un pré, $F$
+  l'ensemble des moutons du près et $f$ l'application de $E$ dans $F$ qui à chaque
+  patte associe son propriétaire. Comme chaque mouton a 4 pattes, $p=4$.
+  On en déduit que le nombre de pattes foulant le près est égal à quatre fois
+  le nombre de moutons. C'est de cet exemple que la proposition précédente
+  tire son nom de \og principe des bergers \fg.
+\end{remarqueUnique}
+
+% \begin{exoUnique}
+% \exo Soit $E$ un ensemble de cardinal $n$. Combien existe-t-il de couples
+%   $(a,b)\in E^2$ avec $a \neq b$~? Combien existe-t-il de parties de $E$ de cardinal $2$~?
+% \end{exoUnique}
+  
+\subsection{Arrangements, nombre de parties}
+
+% On commence par compter le nombre de manières de choisir $p$ éléments parmi $n$ lorsque
+% l'ordre compte.
+
+\begin{definition}[nom={$p$-listes}]
+Soient $E$ un ensemble et $p\in\N$. On appelle \emph{$p$-liste} d'éléments de $E$ tout
+$p$-uplet $(a_1,\ldots,a_p)\in E^p$.
+\end{definition}
+
+\begin{exoUnique}
+\exo Si $E=\ens{1,2,3}$, donner les $2$-listes d'éléments de $E$.
+\end{exoUnique}
+
+\begin{remarques}
+\remarque Les $p$-listes d'éléments de $E$ sont les fonctions de $\intere{1}{p}$ dans $E$.
+\remarque Choisir une $p$-liste, c'est choisir $p$ éléments de $E$ en tenant
+  compte de  l'\emph{ordre} et en autorisant les \emph{répétitions}.
+\end{remarques}
+
+\begin{proposition}[nom={Nombre de listes}]
+Soit $E$ un ensemble de cardinal $n$ et $p\in\N$. Alors, il existe
+\[n^p\]
+$p$-listes d'éléments de $E$.
+\end{proposition}
+
+% On compte maintenant le nombre de manières de choisir $p$ éléments \emph{distincts} parmi $n$ où l'\emph{ordre compte}.
+
+\begin{definition}[nom={$p$-arrangements}]
+Soit $E$ un ensemble et $p \in \N$. On appelle \emph{$p$-arrangement} d'éléments de $E$
+toute $p$-liste $(a_1,\dots,a_p)\in E^p$ telle que
+\[\forall i,j\in\intere{1}{p}\qsep i\neq j\quad\implique\quad a_i \neq a_j.\]
+\end{definition}
+
+\begin{exoUnique}
+\exo Si $E=\ens{1,2,3,4}$, donner toutes les $2$-listes d'éléments distincts de $E$.
+\end{exoUnique}
+
+\begin{remarques}
+\remarque Les $p$-arrangements d'éléments de $E$ sont les fonctions injectives $\intere{1}{p}$ dans $E$.
+\remarque Choisir un $p$-arrangement, c'est choisir $p$ éléments de $E$ en tenant
+  compte de  l'\emph{ordre} et en n'autorisant pas les \emph{répétitions}.
+% \remarque C'est aussi le nombre de possibilités de choisir de manière ordonnée $p$
+%   objets parmi $n$ objets.
+\end{remarques}
+
+\begin{proposition}[nom={Nombre d'arrangements}]
+Soit $E$ un ensemble de cardinal $n$ et $p\in\N$. Alors il existe
+\[A_n^p\defeq
+  \begin{cases}
+  \dsp\frac{n!}{\p{n-p}!} & \text{si $p\leq n$}\\
+  0 & \text{si $p>n$}
+  \end{cases}\]
+  $p$-arrangements d'éléments de $E$.
+\end{proposition}
+
+\begin{preuve}
+Récurrence sur $k$. On démontre facilement en utilisant le principe des bergers
+que $A(n,k+1)=n.A(n-1,k)$.
+\end{preuve}
+
+\begin{exos}
+\exo On répartit $p$ boules distinctes dans $n$ urnes distinctes. Quel est
+  le nombre de répartitions pour lesquelles aucune urne ne contient plus d'une
+  boule~?
+  \begin{sol}
+  C'est $A_n^p$.
+  \end{sol}
+\exo Une urne contient $n$ boules distinctes. On effectue $p$ tirages
+  successifs sans remise. Combien y-a-t-il de possibilités~?
+  \begin{sol}
+  C'est $A_n^p$.
+  \end{sol}
+\end{exos}
+
+\begin{proposition}
+Soit $E$ un ensemble à $n$ éléments. Alors, il existe $n!$ bijections de
+$E$ dans $E$.  
+\end{proposition}
+
+\begin{preuve}
+Prendre $k=n$ dans la proposition précédente.
+\end{preuve}
+
+\begin{exoUnique}
+\exo Combien d'anagrammes peut-on former avec les mots \og maths \fg, \og chimie \fg et
+  \og anagramme \fg~?
+% \exo $2n$ personnes doivent se placer autour d'une table ronde. Combien de dispositions
+%   sont possibles~? On suppose que ces $2n$ personnes sont constituées de $n$ hommes et $n$
+%   femmes. Combien de dispositions sont possibles si l'on veut respecter l'alternance
+%   homme/femme~?
+%   \begin{sol}
+%   Si on numérote les places, il y a $(2n)!$ possibilités. Si on ne les numérote pas, il y a
+%   $2n$ rotations possibles, donc $(2n-1)!$ possibilités. Si on considère en plus les
+%   symétries par rapport à une droite, et $n\geq 2$, il y a $(2n-1)!/2$ possibilités.\\
+%   Si on numérote les places et on place une femme sur la première place, il y a $n!^2$
+%   possibilités. Sans la contrainte de la première place, il y a $2 n!^2$. Si on ne
+%   numérote plus les place, il y a $(n!)^2/(2n)$ possibilités.
+%   \end{sol}
+\end{exoUnique}
+
+\begin{definition}[nom={$p$-combinaisons}]
+Soit $E$ un ensemble et $p\in\N$. On appelle \emph{$p$-combinaison} d'éléments de $E$ toute
+partie de $E$ à $p$ éléments.
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque Choisir une $p$-combinaison, c'est choisir $p$ éléments de $E$ sans tenir compte
+  de l'\emph{ordre} et en n'autorisant pas les \emph{répétitions}.
+\end{remarqueUnique}
+
+\begin{proposition}[nom={Nombre de combinaisons}]
+Soit $E$ un ensemble de cardinal $n$ et $p\in\N$. Alors il existe
+\[\binom{n}{p}=
+    \begin{cases}
+    \dsp\frac{n!}{p!\p{n-p}!} & \text{si $p\leq n$}\\
+    0 & {\text{si $p>n$}}
+    \end{cases}\]
+$p$-combinaisons d'éléments de $E$.
+\end{proposition}
+
+
+\begin{preuve}
+  Utiliser le principe des Bergers avec l'application phi qui a une injection
+  de $\intere{1}{k}$ dans $E$ associe son image.
+  \end{preuve}
+
+\begin{exos}
+\exo Une urne contient $6$ boules numérotées de $1$ à $6$. Dénombrer les tirages
+  possibles si on tire $3$ boules
+  \begin{itemize}
+  \question successivement et avec remise.
+  \question successivement et sans remise.
+  \question simultanément.
+  \end{itemize}
+\exo Un code de coffre-fort est composé de 6 chiffres entre $0$ et $9$ dont l'ordre
+  compte. Dénombrer 
+  \begin{itemize}
+  \item tous les codes possibles.
+  \item les codes dont tous les chiffres sont distincts.
+  \item les codes ne contenant pas $0$.
+  \item les codes contenant au plus deux fois le chiffre $1$.
+  \item les codes contenant autant de chiffres pairs que de chiffres impairs.
+  \item les codes contenant la succession $123$ quelque-part.
+  \item les codes strictement croissants.
+  \end{itemize}
+% \exo On dispose de $n\in\Ns$ joueurs et l'on souhaite constituer une équipe de $p\in\Ns$ joueurs dont l'un sera désigné capitaine.
+%   Dénombrer de deux fa\c{c}ons les équipes possibles et en d\'eduire
+%   \[\binom{n}{p}=\frac{n}{p}\binom{n-1}{p-1}.\]
+  % \exo Montrer que si $q \leq n, p$ alors \[{n+p \choose q}=
+  % \sum\limits_{k = 0}^q {n \choose q-k} {p \choose k}.\]
+  %   Cette identité est appelée identité de Vandermonde.
+% À mettre en exo
+% \exo Soit $n\in\Ns$. Combien y a-t-il de parties de $\intere{1}{n}$ ne contenant pas
+%   deux entiers consécutifs~?
+\exo On lance 5 dés. Combien y a-t-il de possibilités pour faire l'une des
+  figures suivantes~?
+  \begin{itemize}
+  \item Un Yam's~: les 5 dés ont la même valeur.
+  \item Une suite~: $(1,2,3,4,5)$ ou $(2,3,4,5,6)$.
+  \item Un Full~: 3 dés identiques et les 2 autres identiques mais différents des premiers.
+  \end{itemize}
+\exo Quel est le nombre de manières de répartir $p$ boules indiscernables
+dans $n$ urnes distinctes sachant qu'on ne peut pas mettre plus d'une boule par urne~?
+  \begin{sol}
+  C'est $\binom{n}{p}$.
+  \end{sol}  
+\exo Déterminer le nombre de solutions de l'équation $x_1+\cdots+x_n=p$ dans
+  $\ens{0,1}^n$.
+  % , puis dans $\Ns^n$ (on commencera par considérer l'inéquation
+  % $x_1+\cdots+x_n\leq p$)~?
+  \begin{sol}
+  Pour la première question, il y a $\binom{n}{p}$ solutions. Si on associe
+  à une solution de $x_1+\cdots+x_n\leq p$ le $n$-uplet
+  $(x_1,x_1+x_2,\ldots,x_1+\cdots+x_n)$ on remarque que le nombre de solution
+  de l'inéquation est le nombre de fonctions strictement croissantes de
+  $\intere{1}{n}$ dans $\intere{1}{p}$. C'est donc $\binom{p}{n}$. Le nombre
+  de solutions cherchées est donc
+  $\binom{p}{n}-\binom{p-1}{n}=\binom{p-1}{n-1}$.
+  \end{sol}
+\exo Combien peut-on former de mots contenant $p$ fois
+  la lettre O et $q$ fois la lettre I~?
+  \begin{sol}
+  C'est $\binom{n}{p}$.
+  \end{sol}
+\exo Quel est le nombre de manières de répartir $p$ boules indiscernables
+  dans $n$ urnes distinctes~?
+  \begin{sol}
+  On peut modéliser cela par \og $..||...|.|..$ \fg. On est ramené un problème
+  d'anagramme. On trouve donc $\binom{n+p-1}{p}$.
+  \end{sol}
+\exo Déterminer le nombre de solutions de l'équation $x_1+\cdots+x_n=p$ dans
+  $\N^n$.
+\exo Combien y a-t-il d'applications strictement
+  croissantes de $\intere{1}{p}$ dans $\intere{1}{n}$~?
+  \begin{sol}
+  C'est $\binom{n}{p}$.
+  \end{sol}
+\exo Combien y a-t-il d'applications croissantes de $\intere{1}{p}$ dans $\intere{1}{n}$~?
+  \begin{sol}
+  Une application croissante est déterminée par le nombre d'antécédents de
+  chaque élément de $\intere{1}{n}$. Le cardinal recherché est
+  $\binom{n+p-1}{p}$.
+  \end{sol}
+\exo Soit $n\in\Ns$. Combien y a-t-il de surjections de $\intere{1}{n+1}$
+  dans $\intere{1}{n}$~?
+\end{exos}
+
+\begin{proposition}
+\begin{eqnarray*}
+\forall n\in\N \qsep \forall p\in\intere{0}{n}, & &
+  \binom{n}{p}=\binom{n}{n-p}\\
+\forall n,p\in\N, & & \binom{n}{p}+\binom{n}{p+1}=\binom{n+1}{p+1}\\
+\forall n,p\in\Ns, & & \binom{n}{p}=\frac{n}{p}\binom{n-1}{p-1}.
+\end{eqnarray*}
+\end{proposition}
+
+\begin{preuve}
+Utiliser des considérations ensemblistes
+\end{preuve}
+
+\begin{remarqueUnique}
+\remarque La dernière formule est parfois appelée \og formule du capitaine \fg ou formule du
+  \og comité président \fg.
+\end{remarqueUnique}
+
+\begin{proposition}
+\begin{eqnarray*}
+\forall n\in\N, & & \sum_{p=0}^n \binom{n}{p}=2^n\\
+\forall a,b,n\in\N, & & \sum_{p=0}^n \binom{a}{p}\binom{b}{n-p}=\binom{a+b}{n}. 
+\end{eqnarray*}
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque La seconde formule est appelée formule de \nom{Vandermonde}.
+\end{remarqueUnique}
+
+\begin{proposition}[nom={Binôme de \nom{Newton}}]
+\[\forall a,b\in\C\qsep \forall n\in\N\qsep \p{a+b}^n =\sum_{p=0}^n \binom{n}{p} a^{n-p} b^p.\]
+\end{proposition}
+
+
+% \subsection{Quelques exercices}
+
+% \begin{exos}
+% \exo Soit $k \in \N^*$. Combien existe-t-il de manières de colorier les
+% arêtes d'un carré avec $k$ couleurs sans que deux arêtes
+% adjacentes aient la même couleur ?
+% \exo On lance $5$ dés. Quelle est la probabilité de faire l'une des figures suivantes :
+% \begin{enumerate}
+% \item Yam's : les $5$ dés ont la même valeur.
+% \item Suite : $(1,2,3,4,5)$ ou $(2,3,4,5,6)$.
+% \item Full : $3$ dés identiques et les $2$ autres identiques mais différents des premiers.
+% \end{enumerate}
+% \exo Dans le jeu des tours de Hanoï avec $3$ piquets et $n$ disques, de combien de manières peut-on disposer les $n$ disques ?
+% \exo Calculer le nombre de parties de $\intere{1}{n}$ ne contenant pas deux entiers
+% consécutifs.
+% \exo Soit $n \in \N^*$. Combien existe-t-il de surjections de $I_{n+1}$ dans $I_n$ ?
+% \exo Soit $n$ et $p \in \N^*$. Dénombrer les applications de $\intere{1}{p}$ dans $\intere{1}{n}$ :
+% \begin{enumerate}
+% \item strictement croissantes,
+% \item croissantes,
+% \item monotones.
+% \end{enumerate}
+% \exo 
+% Soient $E$ et $F$ deux ensembles de cardinaux respectifs $n$ et $p$. On note
+% $S_n^p$ le nombre de surjections de $E$ dans $F$.
+% \begin{enumerate}
+% \item Calculer $S_n^1$, $S_n^n$ et $S_n^p$ pour $p>n$.
+% \item On suppose $p \leq n$ et on considère $a$ un élément de $E$. En observant qu'une surjection de $E$ dans $F$ réalise ou ne réalise pas
+% une surjection de $E \setminus \{a\}$ dans $F$, montrer que
+% $$S_n^p=p \left( S_{n-1}^{p-1} + S_{n-1}^p \right)$$
+% \item En déduire \[S_n^p=\sum\limits_{k=0}^p (-1)^{p-k} {p \choose k} k^n.\]
+% \end{enumerate}
+% \end{exos}
+%END_BOOK
+
+% \begin{proposition}
+% On a la formule du binôme de Newton~:
+% \[\forall z_1,z_2\in\C \quad \forall n\in\N \quad
+%   \p{z_1+z_2}^n=\sum_{k=0}^n \binom{n}{k} z_1^{n-k} z_2^k\]  
+% \end{proposition}
+
+% \begin{exos}
+% \exo Soit $n\in\N$. Calculer
+%   \[\sum_{\substack{k=0\\k\equiv 0\ [2]}}^n \binom{n}{k} \et
+%     \sum_{\substack{k=0\\k\equiv 1\ [2]}}^n \binom {n}{k}\]
+% \end{exos}
+%END_BOOK
+
+% \subsection{Problèmes classiques de dénombrement}
+
+% \subsubsection{Applications de $\intere{1}{p}$ dans $\intere{1}{n}$}
+
+% \subsubsection{Injections de $\intere{1}{p}$ dans $\intere{1}{n}$}
+
+% \subsubsection{Parties à $p$ éléments d'un ensemble à $n$ éléments}
+
+
+\end{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \begin{itemize}
+% \item {\bf Applications strictement croissantes de $\intere{1}{p}$ dans
+%   $\intere{1}{n}$}~:\\
+%   Étant donnés $n,p\in\Ns$, on cherche le cardinal de l'ensemble $E$ des fonctions
+%   strictement croissantes de $\intere{1}{p}$ dans $\intere{1}{n}$. De telles
+%   applications étant injectives, $\card E=0$ dès que $p>n$. On suppose donc dans
+%   la suite que $p\leq n$.On remarque alors que l'application (où
+%   $\mathcal{P}_p\p{\intere{1}{n}}$ désigne l'ensemble des parties de
+%   $\intere{1}{n}$ à $p$ éléments)~:
+%   \[\dspappli{\phi}{E}{\mathcal{P}_p\p{\intere{1}{n}}}{f}{\im f}\]
+%   est une bijection. En effet~:
+%   \begin{itemize}
+%   \item $\phi$ est à valeurs dans $\mathcal{P}_p\p{\intere{1}{n}}$~:\\
+%     En effet, soit $f$ une application strictement croissante de $\intere{1}{p}$
+%     dans $\intere{1}{n}$. Alors $f$ est injective, donc
+%     $\card\p{\im f}=\card \p{f\p{\intere{1}{p}}}=p$.
+%   \item $\phi$ est injective~:\\
+%     En effet, soit $f_1$ et $f_2$ deux applications strictement croissantes de
+%     $\intere{1}{p}$ dans $\intere{1}{n}$ telles que $\im f_1=\im f_2$. Alors $f_1$
+%     et $f_2$ sont des énumérations de $Y=\im f_1=\im f_2$, donc $f_1=f_2$.
+%   \item $\phi$ est surjective~:\\
+%     En effet, soit $Y$ une partie à $p$ éléments de $\intere{1}{n}$. Alors, il
+%     existe une énumération de $Y$, c'est-à-dire une application strictement 
+%     croissante $f$ de $\intere{1}{p}$ dans $\intere{1}{n}$ dont l'image est $Y$.
+%     Alors $f\in E$ et $\phi(f)=Y$.
+%   \end{itemize}
+%   $\phi$ est bijection, donc~:
+%   \[\card E=\card\p{\mathcal{P}_p\p{\intere{1}{n}}}=\binom{n}{p}\]
+% \end{itemize}
+
+
+% \end{document}
+
+

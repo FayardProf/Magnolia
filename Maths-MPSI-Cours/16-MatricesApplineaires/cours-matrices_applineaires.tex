@@ -1,0 +1,1052 @@
+\documentclass{magnolia}
+
+\magtex{tex_driver={pdftex},
+        tex_packages={xypic}}
+\magfiche{document_nom={Cours sur les matrices},
+          auteur_nom={François Fayard},
+          auteur_mail={fayard.prof@gmail.com}}
+\magcours{cours_matiere={maths},
+          cours_niveau={mpsi},
+          cours_chapitre_numero={19},
+          cours_chapitre={Matrices}}
+\magmisenpage{misenpage_format={a4},
+          misenpage_nbcolonnes={1},
+          misenpage_preuve={non},
+          misenpage_sol={non}}
+\magmisenpage{}
+\maglieudiff{}
+\magprocess
+
+\begin{document}
+
+%BEGIN_BOOK
+\magtoc
+
+\section{Matrice, vecteur et application linéaire}
+\subsection{Matrice d'une famille de vecteurs}
+
+\begin{definition}[utile=-3]
+Soit $\mathcal{B}\defeq(e_1,\ldots,e_n)$ une base de $E$ et $x\in E$.
+On appelle \emph{matrice} de $x$ relativement à la base $\mathcal{B}$ et on note
+$\mat{\mathcal{B}}{x}$ la matrice colonne constituée des coordonnées de $x$
+relativement à la base $\mathcal{B}$. Autrement dit,
+si $x=x_1 e_1+\cdots+x_n e_n$, alors
+\[\mat{\mathcal{B}}{x}\defeq
+  \begin{pmatrix}
+  x_1\\ \vdots\\ x_n
+  \end{pmatrix}\in\mat{n,1}{\K}.\]
+\end{definition}
+
+\begin{exoUnique}
+\exo Soit $\alpha\in\K$ et
+  $\mathcal{B}\defeq(1,\p{X-\alpha},\p{X-\alpha}^2,\ldots,\p{X-\alpha}^n)$. Donner
+  la matrice de $P\in\polyK[n]$ relativement à la base $\mathcal{B}$.
+  \begin{sol}
+  $\mathcal{B}$ est une base car c'est une famille libre (de degrés échelonnés) de bon cardinal et d'après la formule de Taylor, $$P=\sum_{k=0}^n\frac{P^{(k)}(\alpha)}{k!}(X-\alpha)^k$$ donc \[\mat{\mathcal{B}}{x}=
+  \begin{pmatrix}
+  P(\alpha)\\P'(\alpha)\\\frac{P''(\alpha)}{2}\\ \vdots\\ \frac{P^{(n)}(\alpha)}{n!}
+  \end{pmatrix}\]
+  \end{sol}
+\end{exoUnique}
+
+\begin{proposition}[utile=-3]
+Soit $E$ un \Kev de dimension $n$ et $\mathcal{B}$ une base de $E$.
+Alors, l'application
+\[\dspappli{\Phi}{E}{\mat{n,1}{\K}}{x}{\mat{\mathcal{B}}{x}}\]
+est un isomorphisme d'espaces vectoriels.
+\end{proposition}
+
+\begin{preuve}
+On montre que c'est linéaire, puis injectif puis égalité des dimensions.
+\end{preuve}
+
+\begin{remarqueUnique}
+% \remarque L'isomorphisme $\Phi$ n'est pas canonique car il dépend de la base
+%   $\mathcal{B}$.
+% \remarque On prendra bien garde à ne pas confondre le vecteur $x$ et la matrice
+%   $\mat{\mathcal{B}}{x}$ de ses coordonnées relativement à la base
+%   $\mathcal{B}$. Cependant, cette identification est souvent faite lorsque
+%   $E=\K^n$; elle revient à identifier une matrice colonne avec son (unique)
+%   vecteur colonne.
+\remarque Dans le cas où $E\defeq\K^n$ et $\mathcal{B}$ est sa base canonique,
+  l'application
+  $\Phi$ associe au vecteur $x=(x_1,\ldots,x_n)\in\K^n$ la matrice colonne
+  \[\mat{\mathcal{B}}{x}=
+    \begin{pmatrix}
+    x_1\\ \vdots\\x_n
+    \end{pmatrix}.\]
+  Cet isomorphisme justifie l'identification souvent faite entre $\K^n$ et
+  $\mat{n,1}{\K}$.
+  Cependant, lorsque $E$ est différent de $\K^n$, on se gardera bien de
+  confondre $x\in E$ avec la matrice colonne $\mat{\mathcal{B}}{x}$.
+\end{remarqueUnique}
+
+
+\begin{definition}[utile=-3]
+Soit $\mathcal{B}\defeq(e_1,\ldots,e_n)$ une base de $E$ et $(x_1,\ldots,x_p)$ une
+famille de $p$ vecteurs de $E$. On appelle matrice de la famille
+$(x_1,\ldots,x_p)$
+relativement à la base $\mathcal{B}$ et on note $\mat{\mathcal{B}}{x_1,\ldots,x_p}$
+la matrice à $n$ lignes et $p$ colonnes dont les vecteurs colonnes $C_j$ sont les
+coordonnées des vecteurs $x_j$ relativement à la base $\mathcal{B}$.
+Autrement dit, la famille
+\setbox0=\hbox{$\p{a_{i,j}}_{\substack{1\leq i\leq n\\ 1\leq j \leq p}}$}
+\dp0=0pt\box0\ des coefficients de $\mat{\mathcal{B}}{x_1,\ldots,x_p}$ est
+caractérisée par
+\[\forall j\in\intere{1}{p} \qsep x_j=\sum_{i=1}^n a_{i,j}e_i.\]
+\end{definition}
+
+\begin{exoUnique}
+\exo Donner la matrice de la famille $((X+1)^k)_{0\leq k\leq n}$
+  relativement à la base canonique de $\polyK[n]$.
+  \begin{sol}
+  \[\mat{\mathcal{B}}{1,X+1,\ldots,(X+1)^n}=
+    \begin{pmatrix}
+    1&1&1&\ldots&\ldots&1\\0&1&2&&&\vdots\\\vdots&0&1&&\binom{j-1}{i-1}&\vdots\\\vdots&\vdots&0&\ddots&&\vdots\\\vdots&\vdots&\vdots&\ddots&\ddots&\vdots\\0&0&0&\ldots&0&1
+    \end{pmatrix}=\p{\binom{j-1}{i-1}}_{1\leq i,j\leq n+1}\]
+    d'après le binôme de Newton.
+  
+  \end{sol}
+\end{exoUnique}
+
+\subsection{Matrice d'une application linéaire}
+
+\begin{definition}[utile=-3]
+Soit $\mathcal{B}_E\defeq(e_1,\ldots,e_p)$ une base de $E$ et
+$\mathcal{B}_F\defeq(f_1,\ldots,f_q)$ une base de $F$. Étant donné $u\in\lin{E}{F}$, on
+appelle \emph{matrice de $u$ relativement aux bases $\mathcal{B}_F$ et $\mathcal{B}_E$} et
+on note $\mat{\mathcal{B}_F\gets\mathcal{B}_E}{u}$ la matrice à $q$ lignes et $p$
+colonnes de la famille $(u\p{e_1},\ldots,u\p{e_p})$ relativement à la base
+$\mathcal{B}_F$
+\[\mat{\mathcal{B}_F\gets\mathcal{B}_E}{u}\defeq
+  \mat{\mathcal{B}_F}{u\p{e_1},\ldots,u\p{e_p}}.\]
+Autrement dit, la famille
+\setbox0=\hbox{$\p{a_{i,j}}_{\substack{1\leq i\leq q\\ 1\leq j \leq p}}$}
+\dp0=0pt\box0\ des coefficients de
+$\mat{\mathcal{B}_F\gets\mathcal{B}_E}{u}$ est caractérisée par
+\[\forall j\in\intere{1}{p} \qsep u\p{e_j}=\sum_{i=1}^q a_{i,j}f_i.\]
+\end{definition}
+
+\begin{remarques}
+\remarque La matrice $\mat{\mathcal{B}_F\gets\mathcal{B}_E}{u}$ est parfois notée
+  $\mat{\mathcal{B}_E,\mathcal{B}_F}{u}$ ou
+  $\mathcal{M}_{\mathcal{B}_F}^{\mathcal{B}_E}(u)$.
+\remarque Si $E=F$, on choisit le plus souvent $\mathcal{B}_E=\mathcal{B}_F$, bien
+  que cela ne soit pas obligatoire. Dans ce cas on parle de la matrice de
+  l'endomorphisme $u$ relativement à la base $\mathcal{B}_E$. Cette matrice
+  est notée $\mat{\mathcal{B}_E}{u}$.
+\exo Soit $\mathcal{B}\defeq(e_1,\ldots,e_n)$ une base de $E$ et $u\in\Endo{E}$.
+  \begin{enumerate}
+  \item $\mat{\mathcal{B}}{u}$ est scalaire si et seulement si $u$ est une
+    homothétie.
+  \item $\mat{\mathcal{B}}{u}=\diag{\lambda_1,\ldots,\lambda_n}$ si et
+    seulement si
+    \[\forall k\in\intere{1}{n} \qsep u\p{e_k}=\lambda_k e_k.\]
+  \item Pour tout $k\in\intere{0}{n}$, on note $E_k\defeq\vect\p{e_1,\ldots,e_k}$.
+    Alors $\mat{\mathcal{B}}{u}$ est triangulaire supérieure si et seulement si
+    \[\forall k\in\intere{1}{n} \qsep u\p{E_k}\subset E_k.\]
+    Par exemple, si $E\defeq\polyK[n]$ et $\mathcal{B}$ est sa base canonique,
+    $\mat{\mathcal{B}}{u}$ est triangulaire supérieure si et seulement si
+    \[\forall P\in\polyK[n] \qsep \deg\p{u(P)}\leq\deg P.\]
+    
+  \end{enumerate}
+  \begin{sol}
+  Chacun de ces points peut se montrer par double implication.
+  \end{sol}
+\remarque Soit $p$ un projecteur de $E$, $A\defeq\ker\p{p-\id}$ et $B\defeq\ker p$.
+  Puisque $p$ est un projecteur, $E=A\oplus B$. Soit $(e_1,\ldots,e_q)$ une base
+  de $A$ et $(e_{q+1},\ldots,e_n)$ une base de $B$. Alors
+  $\mathcal{B}\defeq(e_1,\ldots,e_n)$ est une base de $E$. Comme
+  \[\forall k\in\intere{1}{q} \qsep p\p{e_k}=e_k \quad\et\quad
+    \forall k\in\intere{q+1}{n} \qsep p\p{e_k}=0\]
+  on en déduit que
+  \[\mat{\mathcal{B}}{p}=
+    \begin{pmatrix}
+    I_q & 0\\
+    0 & 0
+    \end{pmatrix}\in\mat{n}{\K}.\]
+% \remarque Soit $\mathcal{B}=e_1,\ldots,e_p$ une base de $E$. Si $\phi$ est une
+%   forme linéaire sur $E$, on appelle matrice de $\phi$ relativement à la base
+%   $\mathcal{B}$ et on note $\mat{\mathcal{B}}{\phi}$ la matrice de $\phi$
+%   relativement aux bases $\mathcal{B}$ de $E$ et $1$ de $\K$. Autrement dit
+%   \[\mat{\mathcal{B}}{\phi}=
+%     \begin{pmatrix}
+%     \phi\p{e_1} & \cdots & \phi\p{e_p}
+%     \end{pmatrix}\in\mat{1,p}{\K}\]
+%   Si $\phi_1,\ldots,\phi_q$ sont des formes linéaires sur $E$, on appelle
+%   matrice de $\phi_1,\ldots,\phi_q$ relativement à la base $\mathcal{B}$
+%   et on note $\mat{\mathcal{B}}{\phi_1,\ldots,\phi_q}$ la matrice de
+%   $\mat{q,p}{\K}$ telle que pour tout $i\in\intere{1}{q}$, le vecteur ligne
+%   $L_i$ est le vecteur ligne de $\mat{\mathcal{B}}{\phi_i}$. Autrement dit
+%   \[\mat{\mathcal{B}}{\phi_1,\ldots,\phi_q}=
+%     \begin{pmatrix}
+%     \phi_1\p{e_1} & \cdots & \phi_1\p{e_p}\\
+%     \vdots & & \vdots\\
+%     \phi_q\p{e_1} & \cdots & \phi_q\p{e_p}
+%     \end{pmatrix}\in\mat{q,p}{\K}\]
+\end{remarques}
+
+\begin{exos}
+\exo Soit $\phi$ l'endomorphisme de $\R^3$ dont la matrice relativement
+  à la base canonique de $\R^3$ est
+  \[\begin{pmatrix}
+    1 & 2 & 3\\
+    4 & 5 & 6\\
+    7 & 8 & 9
+    \end{pmatrix}\]
+  Déterminer une base de $\ker \phi$ ainsi qu'une base de $\im \phi$.
+  \begin{sol}
+  Avec $x=(x_1,x_2,x_3)\in \R^3$, on résout $\phi(x)=0$ ce qui conduit à un système...\\
+ On trouve que $(1,-2,1)$ est une base de $\ker\phi$ et les deux premières colonnes de $A$
+  donnent une base de $\im\phi$.
+  \end{sol}
+\exo Calculer la matrice de l'application linéaire
+  \[\dspappli{\phi}{\polyR[n]}{\polyR[n]}{P}{P\p{X+1}}\]
+  relativement à la base canonique de $\polyR[n]$.
+  \begin{sol}
+  C'est la matrice de l'exo précédent.
+  \end{sol}
+\end{exos}
+
+
+\begin{proposition}[utile=-3]
+Soit $\mathcal{B}_E$ et $\mathcal{B}_F$ des bases respectives de $E$ et $F$. Si on
+note $p\defeq\dim E$ et $q\defeq\dim F$, l'application
+\[\dspappli{\phi}{\lin{E}{F}}{\mat{q,p}{\K}}{u}{\mat{\mathcal{B}_F\gets
+  \mathcal{B}_E}{u}}\]
+est un isomorphisme d'espaces vectoriels.
+\end{proposition}
+
+\begin{preuve}
+On note $\mathcal{B}_E=(e_1,\ldots,e_p)$ une base de $E$ et $\mathcal{B}_F=(f_1,\ldots,f_q)$ une base de $F$.
+\begin{itemize} 
+\item[$\bullet$] On montre d'abord que $\Phi$ est linéaire. Soit $\lambda,\mu \in \K$ et $u,v\in \lin{E}{F}$. On pose $A=\mat{\mathcal{B}_F\gets
+  \mathcal{B}_E}{u} \in \mat{q,p}{\K}$ et $B=\mat{\mathcal{B}_F\gets
+  \mathcal{B}_E}{v}\mat{q,p}{\K}$.
+  Alors $\forall j\in \intere{1}{p}$,$$u(e_j)=\sum_{i=1}^qa_{i,j}f_i \et v(e_j)=\sum_{i=1}^qb_{i,j}f_i.$$
+  Donc $$(\lambda u+\mu v)(e_j)=\sum_{i=1}^q(\lambda a_{i,j}+\mu b_{i,j})f_i$$ ce qui signifie que $$\forall (i,j)\in \intere{1}{q}\times \intere{1}{p}, \left[\mat{\mathcal{B}_F\gets
+  \mathcal{B}_E}{\lambda u+\mu v}\right]_{i,j}=\lambda a_{i,j}+\mu b_{i,j}=\left[\lambda A+\mu B\right]_{i,j}.$$ On vient donc de montrer que $$\mat{\mathcal{B}_F\gets
+  \mathcal{B}_E}{\lambda u+\mu v}=\lambda \mat{\mathcal{B}_F\gets
+  \mathcal{B}_E}{u}+\mu \mat{\mathcal{B}_F\gets
+  \mathcal{B}_E}{v}$$ ce qui correspond bien à $$\Phi(\lambda u +\mu v)=\lambda \Phi(u)+\mu \Phi(v).$$
+\item[$\bullet$] On montre ensuite que $\Phi$ est injective car une application du noyau est nulle sur une base.
+\item[$\bullet$] On en déduit la bijectivité grâce aux dimensions.
+\item[$\bullet$] On aurait pu avoir directement la bijectivité car si $A\in \mat{q,p}{\K}$, en considérant les $p$ éléments $\displaystyle\sum_{i=1}^qa_{i,j}f_i$, il existe une unique application linéaire $u:E\to F$ tel que $\forall j \in \llbracket1,p\rrbracket, u(e_j)=\displaystyle\sum_{i=1}^qa_{i,j}f_i$, i.e $\Phi(u)=A$.
+\end{itemize}
+\end{preuve}
+
+\begin{remarqueUnique}
+\remarque Si $A\in\mat{q,p}{\K}$, il existe donc une unique application
+  linéaire $u\in\lin{E}{F}$ telle que
+  $\mat{\mathcal{B}_F\gets\mathcal{B}_E}{u}=A$.
+% \remarque Soit $E$ et $F$ sont des espaces vectoriels de bases respectives
+%   $\mathcal{B}_E=e_1,\ldots,e_p$ et $\mathcal{B}_F=f_1,\ldots,f_q$.
+%   Si $i\in\intere{1}{p}$ et $j\in\intere{1}{q}$, l'application linéaire
+%   $u_{i,j}\in\lin{E}{F}$ associée à la matrice $E_{i,j}$ est définie par
+%   \[\forall k\in\intere{1}{p} \quad u_{i,j}\p{e_k}=\delta_{j,k}f_i\]
+\end{remarqueUnique}
+
+% \begin{definition}
+% Soit $\mathcal{B}=(e_1,\ldots,e_p)$ une base de $E$ et $(\phi_1,\ldots,\phi_q)$ une
+% famille de $q$ formes linéaires sur $E$. On appelle matrice de la famille
+% $(\phi_1,\ldots,\phi_q)$ relativement à la base $\mathcal{B}$ la matrice
+% de $\mat{q,p}{\K}$ définie par
+% \[\xymatrix @-0.7cm
+%   {& &                                & & j\ar[ddd] & & \\
+%    & &\phi_1\p{e_1}\ar@{.}[dddd]\ar@{.}[rrrr]& &  & & \phi_1\p{e_p}\ar@{.}[dddd]\\
+%    & &                                & &           & & \\
+%    \mat{\mathcal{B}}{\phi_1,\ldots,\phi_q}=&
+%      \setbox0=\hbox{$\left(\rule[0pt]{0pt}{1.35cm}\right.$}
+%      \ht0=0pt\dp0=0pt\wd0=0pt\lower4pt\box0
+%      &                                & & \phi_i\p{e_j}   & & &
+%      \setbox0=\hbox{$\left.\rule[0pt]{0pt}{1.35cm}\right)$}
+%      \ht0=0pt\dp0=0pt\wd0=0pt\kern-20pt\lower4pt\box0 & i\ar[llll]\\
+%    & &                                & &           & & \\
+%    & &            \phi_q\p{e_1}\ar@{.}[rrrr]& &           & & \phi_q\p{e_p}}\]
+% % $\mat{\mathcal{B}}{\phi_1,\ldots,\phi_q}\in\mat{q,p}{\K}$ définie par
+% % \[\forall i\in\intere{1}{q} \quad \forall j\in\intere{1}{p} \quad
+% %   \cro{\mat{\mathcal{B}}{\phi_1,\ldots,\phi_q}}_{i,j}=\phi_i\p{e_j}\]
+% \end{definition}
+
+
+
+% \begin{remarques}
+% \remarque Dans le cas où $E=\K^n$, $\mathcal{B}=(e_1,\ldots,e_n)$ est sa base
+%   canonique, et $\phi\in E^\star$, on a
+%   \[\mat{\mathcal{B}}{\phi}=
+%     \begin{pmatrix}
+%     \phi\p{e_1} & \cdots & \phi\p{e_n}
+%     \end{pmatrix}\in\mat{1,n}{\K}\]
+%   De plus, l'application $\Phi$ de $E^\star$ dans $\mat{1,n}{\K}$ qui à $\phi$
+%   associe $\mat{\mathcal{B}}{\phi}$ est un isomorphisme. Il justifie
+%   l'identification souvent faite entre $\p{\K^n}^\star$ et $\mat{1,n}{\K}$.
+% \end{remarques}
+
+% \begin{exos}
+% \exo Soit $\alpha_0,\ldots,\alpha_n\in\K$. Pour tout $k\in\intere{0}{n}$,
+%   on définit la forme linéaire $\phi_k$ sur $E=\polyK[n]$ par
+%   \[\forall P\in\polyK[n] \quad \phi_k(P)=P\p{\alpha_k}\]
+%   $\mathcal{B}$ étant la base canonique de $\polyK[n]$, calculer
+%   $\mat{\mathcal{B}}{\phi_0,\ldots,\phi_n}$.  
+% \end{exos}
+
+\begin{proposition}[utile=-3]
+$\quad$
+\begin{itemize}
+\item Soit $u\in\lin{E}{F}$ et $x\in E$. Si $\mathcal{B}_E$ et $\mathcal{B}_F$ sont
+  des bases respectives de $E$ et $F$, alors
+  \[\mat{\mathcal{B}_F}{u(x)}=\mat{\mathcal{B}_F\gets\mathcal{B}_E}{u}
+    \mat{\mathcal{B}_E}{x}.\]
+% \item Soit $\phi\in E^*$ et $x\in E$. Si $\mathcal{B}$ est une base de $E$, alors~:
+%   \[\phi(x)=\mat{\mathcal{B}}{\phi}\mat{\mathcal{B}}{x}\]
+\item Soit $u\in\lin{E}{F}$ et $v\in\lin{F}{G}$. Si $\mathcal{B}_E$,
+  $\mathcal{B}_F$ et $\mathcal{B}_G$ sont des bases respectives de $E$, $F$ et $G$,
+  alors
+  \[\mat{\mathcal{B}_G\gets\mathcal{B}_E}{v\circ u}=
+    \mat{\mathcal{B}_G\gets\mathcal{B}_F}{v}
+    \mat{\mathcal{B}_F\gets\mathcal{B}_E}{u}.\]
+\end{itemize}
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque Si $E\defeq\K^p$,
+  $F\defeq\K^q$, $\mathcal{B}_E$ et $\mathcal{B}_F$ sont leurs bases canoniques,
+  et $A\in\mat{q,p}{\K}$,
+  il existe une unique application linéaire $u\in\lin{\K^p}{\K^q}$
+  telle que $\mat{\mathcal{B}_F\gets\mathcal{B}_E}{u}=A$. On dit que c'est
+  l'application linéaire canoniquement associée à $A$. En identifiant
+  $\mat{n,1}{\K}$ et $\K^n$ (pour $n=p$ et $n=q$), si $x\in\K^p$, on a
+  $u(x)=Ax$. Ceci conduit à confondre $A$ et $u$ et explique la définition
+  du noyau et de l'image de $A$ donnée dans le précédent cours sur les matrices.
+\end{remarqueUnique}
+
+\begin{exoUnique}
+\exo Retrouver le fait que le produit de deux matrices triangulaires
+  supérieures est triangulaire supérieure.  
+\end{exoUnique}
+
+\begin{proposition}[utile=-3]
+Soit $\mathcal{B}_E$ et $\mathcal{B}_F$ des bases respectives des \Kevs $E$ et $F$
+de dimension $n$ et $u\in\lin{E}{F}$. Alors $\mat{\mathcal{B}_F\gets\mathcal{B}_E}{u}$ est
+inversible si et seulement si $u$ est un isomorphisme. De plus, si
+tel est le cas
+\[\cro{\mat{\mathcal{B}_F\gets\mathcal{B}_E}{u}}^{-1}=\mat{\mathcal{B}_E\gets\mathcal{B}_F}{u^{-1}}.\]
+\end{proposition}
+
+\begin{exoUnique}
+\exo Soit $n\in\N$. Montrer que la matrice $A\in\mat{n+1}{\R}$ définie par
+  \[\forall i,j\in\intere{1}{n+1} \qsep a_{i,j}\defeq\binom{j-1}{i-1}.\]
+  est inversible et calculer son inverse.
+  \begin{sol}
+  Considérer l'application $\phi:\polyR[n]\to\polyR[n]$ définie par
+  $\phi(P)=P\p{X+1}$ et montrer que $\phi$ est un isomorphisme. Si on pose
+  $B=A^{-1}$, alors
+  \[\forall i,j\in\intere{1}{n+1} \quad b_{i,j}=\p{-1}^{i-1}\binom{j-1}{i-1}\]
+  \end{sol}
+%   \[A=
+%     \begin{pmatrix}
+%     \binom{0}{0} & \binom{0}{1} & \binom{0}{2} & \cdots & \binom{0}{n}\\
+%                  & \binom{1}{1} & \binom{1}{2} &        & \binom{1}{n}\\
+%                  &              & \binom{2}{2} &        & \binom{2}{n}\\
+%                  &  \p{0}       &              & \ddots & \vdots\\
+%                  &              &              &        & \binom{n}{n}
+%     \end{pmatrix}\]
+\end{exoUnique}
+
+\begin{proposition}[utile=-3]
+Soit $\mathcal{B}$ une base d'un \Kev $E$ de dimension $n$ et
+$(x_1,\ldots,x_n)$ une famille de $n$ vecteurs de $E$. Alors
+$\mat{\mathcal{B}}{x_1,\ldots,x_n}$ est inversible si et seulement si
+$(x_1,\ldots,x_n)$ est une base de $E$.
+\end{proposition}
+
+\begin{proposition}[utile=-3]
+Soit $E$ un \Kev de dimension $n$ et $\mathcal{B}$ une base de $E$. Alors,
+l'application
+\[\dspappli{\phi}{\Endo{E}}{\mat{n}{\K}}{u}{\mat{\mathcal{B}}{u}}\]
+est un isomorphisme d'algèbres.
+\end{proposition}
+
+\begin{preuve}
+C'est déjà un isomorphisme de $\K$-ev. Il manque 
+\begin{itemize}
+\item[$\bullet$] $\Phi(\id_E)=\mat{\mathcal{B}}{\id_E}=I_n$.
+\item[$\bullet$]$\Phi(f\circ g)=\mat{\mathcal{B}}{f\circ g}=\mat{\mathcal{B}}{f}\mat{\mathcal{B}}{g}=\Phi(f)\Phi(g)$.
+\end{itemize}
+\end{preuve}
+
+\begin{remarqueUnique}
+\remarque En conservant les mêmes notations, l'application
+  \[\dspappli{\psi}{\gl{}{E}}{\gl{n}{\K}}{u}{\mat{\mathcal{B}}{u}}\]
+  est un isomorphisme de groupes.
+\remarque
+Soit $u\in\mathcal{L}(E)$ et $E_1, E_2$ deux sous-espaces vectoriels
+supplémentaires de $E$, de dimensions respectives $n_1$ et $n_2$. Soit $\mathcal{B}_1$ une base de $E_1$ et
+$\mathcal{B}_2$ une base de $E_2$. Alors $\mathcal{B}\defeq\mathcal{B}_1,\mathcal{B}_2$ est une base de $E$
+adaptée à la décomposition $E=E_1\oplus E_2$. On note $p_1$ le projecteur sur $E_1$ parallèlement à $E_2$
+et $p_2$ le projecteur sur $E_2$ parallèlement à $E_1$. On définit, pour tout $i,j\in\intere{1}{2}$ l'application
+linéaire $u_{i,j}$ de $E_j$ dans $E_i$ par
+\[\forall x\in E_j\qsep u_{i,j}(x)\defeq (p_i\circ u)(x).\]
+On pose enfin $A\defeq\mat{\mathcal{B}}{u}\in\mat{n}{\K}$ et, pour tout $i,j\in\intere{1}{2}$,
+$A_{i,j}\defeq\mat{\mathcal{B}_i\gets\mathcal{B}_j}{u_{i,j}}\in\mat{n_i,n_j}{\K}$. On a alors
+\[A=\begin{pmatrix}A_{1,1}&A_{1,2}\\A_{2,1}&A_{2,2}\end{pmatrix}\]
+De nombreuses propriétés géométriques de $u$ se traduisent sur la décomposition par blocs de $A$. Notamment~:
+\begin{itemize}
+\item $E_1$ est stable par $u$ si et seulement si $A_{2,1}=0$. Si tel est le cas, $A_{1,1}$ est la matrice de
+  l'endomorphisme $u$ induit à $E_1$, relativement à la base $\mathcal{B}_1$.
+\item $E_2$ est stable par $u$ si et seulement si $A_{1,2}=0$. Si tel est le cas, $A_{2,2}$ est la matrice de
+  l'endomorphisme $u$ induit à $E_2$, relativement à la base $\mathcal{B}_2$.
+\end{itemize}
+On utilisera souvent cette décomposition lorsque $E_1$ est un sous-espace vectoriel de $E$ stable par $u$, et
+$E_2$ est un supplémentaire de $E_1$. Il est important de noter que dans ce cas $A_{2,1}=0$, mais que
+$A_{1,2}$ n'a aucune raison d'être nul. Autrement dit $E_2$ n'a aucune raison d'être stable par $u$. Ce serait
+donc une erreur de dire que $A_{2,2}$ est la matrice de l'endomorphisme $u$ induit à $E_2$; on peut seulement
+dire que c'est la matrice de l'endomorphisme $p_2\circ u$, induit à $E_2$.
+\end{remarqueUnique}
+
+\begin{exoUnique}
+\exo Soit $E$ un \Kev de dimension finie. Montrer que les endomorphismes de
+  $E$ qui commutent avec tous les endomorphismes de $E$ sont les homothéties.
+\end{exoUnique}
+
+% \subsection{Décomposition par blocs}
+
+% Soit $u$ une application linéaire d'un \Kev de dimension finie $E$ de dimension $r$
+% dans un \Kev de dimension finie $F$ de dimension $s$. On suppose que $E_1$ et $E_2$ sont deux sous-espaces
+% vectoriels supplémentaires dans $E$, de dimensions respectives $r_1$ et $r_2$, et que
+% $F_1$ et $F_2$ sont deux sous-espaces vectoriels supplémentaires dans $F$ de dimensions respectives
+% $s_1$ et $s_2$.\\
+
+% Si $\mathcal{B}_{E_1}$ est une base de $E_1$ et $\mathcal{B}_{E_2}$ est une base de $E_2$, alors
+% $\mathcal{B}_E\defeq \mathcal{B}_{E_1},\mathcal{B}_{E_2}$ est une base de $E$ adaptée à la décomposition
+% $E=E_1\oplus E_2$. De même, si $\mathcal{B}_{F_1}$ et une base de $F_1$ et $\mathcal{B}_{F_2}$ est une base
+% de $F_2$, alors $\mathcal{B}_F\defeq \mathcal{B}_{F_1},\mathcal{B}_{F_2}$ est une base adaptée à la décomposition
+% $F=F_1\oplus F_2$.\\
+
+% On note $q_1$ le projecteur sur $F_1$ parallèlement à $F_2$ et $q_2$ le projecteur sur
+% $F_2$ parallèlement à $F_1$.
+% Enfin, pour $i,j\in\intere{1}{2}$, on définit l'application linéaire $u_{i,j}$ de $E_j$ dans $F_i$ par
+% \[\forall x\in E_j\qsep u_{i,j}(x)\defeq(q_i \circ u)(x).\]
+% On pose enfin $A\defeq\mat{\mathcal{B}_F\gets\mathcal{B}_E}{u}\in\mat{s,r}{\K}$ et, pour tout
+% $i,j\in\intere{1}{2}$, $A_{i,j}\defeq\mat{\mathcal{B}_{F_i}\gets\mathcal{B}_{E_j}}{u_{i,j}}\in\mat{s_j,r_i}{\K}$.
+% On a alors
+% \[A=\begin{pmatrix}A_{1,1}&A_{1,2}\\A_{2,1}&A_{2,2}\end{pmatrix}\]
+% De nombreuses propriétés de $A$ se traduisent géométriquement sur $u$.
+% \begin{itemize}
+% \item $A_{2,1}=0$ si et seulement si $u(E_1)\subset F_1$.
+% \item $A_{1,2}=0$ si et seulement si $u(E_2)\subset F_2$.
+% \end{itemize}
+
+% \vspace{2ex}
+% On utilisera le plus souvent ces propriétés lorsque $E=F$, $E_1=F_1$ et $E_2=F_2$. 
+
+\subsection{Matrice de passage, changement de base}
+
+\begin{definition}[utile=-3]
+Soit $\mathcal{B}$ et \mbox{$\mathcal{B}'\defeq(e_1',\ldots,e_n')$} deux bases de $E$.
+On appelle \emph{matrice de passage de $\mathcal{B}$ à $\mathcal{B}'$} et on note
+$P\p{\mathcal{B},\mathcal{B}'}$ la matrice de la famille $(e_1',\ldots,e_n')$
+relativement à la base $\mathcal{B}$
+\[P\p{\mathcal{B},\mathcal{B}'}\defeq\mat{\mathcal{B}}{e_1',\ldots,e_n'}\in\gl{n}{\K}.\]
+\end{definition}
+
+\begin{proposition}[utile=-3]
+$\quad$
+\begin{itemize}
+\item Si $\mathcal{B}$ et $\mathcal{B}'$ sont deux bases de $E$, alors
+  \[P\p{\mathcal{B},\mathcal{B}'}=\mat{\mathcal{B}\gets\mathcal{B}'}{\id_E}.\]
+\item Si $\mathcal{B}$, $\mathcal{B}'$ et $\mathcal{B}''$ sont des bases de
+  $E$, alors
+  \[P\p{\mathcal{B},\mathcal{B}''}=P\p{\mathcal{B},\mathcal{B}'}
+    P\p{\mathcal{B}',\mathcal{B}''}.\]
+\item Si $\mathcal{B}$ et $\mathcal{B}'$ sont deux bases de $E$,
+  $P\p{\mathcal{B},\mathcal{B}'}$ est inversible et
+  \[\cro{P\p{\mathcal{B},\mathcal{B}'}}^{-1}=P\p{\mathcal{B}',\mathcal{B}}.\]
+\end{itemize}
+\end{proposition}
+
+\begin{exoUnique}
+\exo Soit $E\defeq\K^2$ et $\mathcal{B}\defeq(e_1,e_2)$ la base canonique de $\K^2$.
+  On pose $f_1\defeq\p{5,3}$ et $f_2\defeq\p{3,2}$. Montrer que $\mathcal{B}'\defeq(f_1,f_2)$
+  est une base de $\K^2$, puis calculer $P\p{\mathcal{B},\mathcal{B}'}$ et
+  $P\p{\mathcal{B}',\mathcal{B}}$.
+\end{exoUnique}
+
+\begin{proposition}[utile=-3]
+Soit $\mathcal{B}$ une base de $E$. Alors
+pour toute matrice inversible $A\in\gl{n}{\K}$, il existe une unique base
+$\mathcal{B}'$ de $E$ telle que $A=P\p{\mathcal{B},\mathcal{B}'}$.
+\end{proposition}
+
+\begin{proposition}[utile=-3]
+Soit $\mathcal{B}$ et $\mathcal{B}'$ deux bases de $E$ et $x\in E$. Alors
+\[\mat{\mathcal{B}'}{x}=P\p{\mathcal{B}',\mathcal{B}}\mat{\mathcal{B}}{x}.\]
+\end{proposition}
+
+
+\begin{proposition}[utile=-3]
+Soit $\mathcal{B}_E$ et $\mathcal{B}_E'$ deux bases de $E$ et $\mathcal{B}_F$ et
+$\mathcal{B}_F'$ deux bases de $F$. Si $u\in\lin{E}{F}$, on a
+\begin{eqnarray*}
+\mat{\mathcal{B}_F'\gets\mathcal{B}_E'}{u}
+&=& P\p{\mathcal{B}_F',\mathcal{B}_F}\mat{\mathcal{B}_F\gets\mathcal{B}_E}{u}
+    P\p{\mathcal{B}_E ,\mathcal{B}_E'}\\
+&=& \cro{P\p{\mathcal{B}_F,\mathcal{B}_F'}}^{-1}
+    \mat{\mathcal{B}_F\gets\mathcal{B}_E}{u}
+    P\p{\mathcal{B}_E ,\mathcal{B}_E'}.
+\end{eqnarray*}
+\end{proposition}
+
+\begin{proposition}[utile=-3]
+Soit $\mathcal{B}$ et $\mathcal{B}'$ deux bases de $E$ et $u\in\Endo{E}$. Alors
+\begin{eqnarray*}
+\mat{\mathcal{B}'}{u}
+&=& P\p{\mathcal{B}',\mathcal{B}}\mat{\mathcal{B}}{u}
+    P\p{\mathcal{B},\mathcal{B}'}\\
+&=& \cro{P\p{\mathcal{B},\mathcal{B}'}}^{-1}\mat{\mathcal{B}}{u}
+    P\p{\mathcal{B},\mathcal{B}'}.
+\end{eqnarray*}
+\end{proposition}
+
+\subsection{Caractérisation des matrices inversibles}
+
+\begin{proposition}[utile=3]
+Soit $A\in\mat{n}{\K}$. Alors
+\begin{itemize}
+\item $A$ est inversible si et seulement si $A$ est inversible à gauche,
+  c'est-à-dire si et seulement si il existe $B\in\mat{n}{\K}$ tel que $BA=I_n$.
+  Si tel est le cas, $B=A^{-1}$ et en particulier $AB=I_n$.
+\item $A$ est inversible si et seulement si $A$ est inversible à droite,
+  c'est-à-dire si et seulement si il existe $B\in\mat{n}{\K}$ tel que $AB=I_n$.
+  Si tel est le cas, $B=A^{-1}$ et en particulier $BA=I_n$.
+\end{itemize}
+\end{proposition}
+
+\begin{proposition}[utile=3]
+$A\in\mat{n}{\K}$ est inversible si et seulement si
+\[\forall X\in\mat{n,1}{\K} \qsep AX=0 \quad\implique\quad X=0.\]
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque Autrement dit, une matrice $A\in\mat{n}{\K}$ est inversible si et
+  seulement si la famille de ses vecteurs colonne est libre. Comme $A$ est
+  inversible si et seulement si $\trans{A}$ l'est, on en déduit que $A$ est
+  inversible si et seulement si la famille de ses vecteurs ligne est libre.
+\end{remarqueUnique}
+
+\begin{proposition}
+Soit $A\in\mat{n}{\K}$. Alors $A$ est inversible si et seulement si il existe
+$B\in\mat{n}{\K}$ tel que
+\[\forall X,Y\in\mat{n,1}{K}\qsep AX=Y \quad\implique\quad X=BY.\]
+De plus, si tel est le cas, $B$ est l'inverse de $A$.
+\end{proposition}
+
+
+\begin{remarqueUnique}
+\remarque Soit $A\in\mat{n}{\K}$ les coefficients d'un système linéaire à $n$ équations et $n$ inconnues.
+  Supposons qu'il existe $B\in\mat{n}{\K}$ tel que quels que soient $x_1,\ldots,x_n,y_1,\ldots,y_n\in\K$
+\[(S) \quad \syslin{a_{1,1}x_1&+a_{1,2}x_2&+\cdots&+a_{1,n}x_n&=&y_1\cr
+                    &          &       &          &\hfill\vdots\hfill&\cr
+          a_{n,1}x_1&+a_{n,2}x_2&+\cdots&+a_{n,n}x_n&=&y_n} \quad\implique\quad
+    \syslin{x_1&=&b_{1,1}y_1&+b_{1,2}y_2&+\cdots&+b_{1,n}y_n\hfill\cr
+              &\hfill\vdots\hfill&          &           &       &           \cr
+            x_n&=&b_{n,1}y_1&+b_{n,2}y_2&+\cdots&+b_{n,n}y_n.\hfill}\]
+  Alors, quels que soient $y_1,\ldots,y_n\in\K$
+  \[\syslin{x_1&\defeq&b_{1,1}y_1&+b_{1,2}y_2&+\cdots&+b_{1,n}y_n\hfill\cr
+              &\hfill\vdots\hfill&          &           &       &           \cr
+            x_n&\defeq&b_{n,1}y_1&+b_{n,2}y_2&+\cdots&+b_{n,n}y_n\hfill}\]
+  est l'unique solution du système linéaire $(S)$.
+\end{remarqueUnique}
+
+\begin{exos}
+\exo Soit $n\geq 2$. Montrer que
+  \[A=
+    \begin{pmatrix}
+    0 & 1 & \cdots & \cdots & 1\\
+    1 & 0 & \ddots &        & \vdots\\
+    \vdots & \ddots & \ddots & \ddots & \vdots\\
+    \vdots &        & \ddots & \ddots & 1\\
+    1 & \cdots & \cdots & 1 & 0 
+    \end{pmatrix}\in\mat{n}{\K}\]
+  est inversible et calculer son inverse.
+  \begin{sol}
+   $A^{-1}$ est la matrice dont les coefficients diagonaux sont
+   $-(n-2)/(n-1)$ et les coefficients hors diagonale sont $1/(n-1)$. 
+  \end{sol}
+  \exo Soit $n\in\Ns$, $\omega\defeq\e^{\ii\frac{2\pi}{n}}$ et $b_0,\ldots,b_{n-1}\in\C$.
+  Résoudre le système
+  \[\forall i\in\intere{0}{n-1} \qsep
+    \sum_{j=0}^{n-1} \omega^{ij} z_j=b_i.\]
+\end{exos}
+
+\begin{proposition}[utile=-3]
+Une matrice triangulaire supérieure $T\in\mat{n}{\K}$ de la forme
+  \[\xymatrix @-0.85cm
+    {&\lambda_1\ar@{.}[drdrdrdr] & \star\ar@{.}[drdrdr]\ar@{.}[rrr]& & &
+       \star\ar@{.}[ddd] \\
+     &  & & & &  \\
+       \setbox0=\hbox{$\left(\rule[0pt]{0pt}{1.45cm}\right.$}
+       \ht0=0pt\dp0=0pt\wd0=0pt\kern-10pt\lower5pt\box0
+       &  & &\setbox0=\hbox{}\ht0=20pt\wd0=20pt\box0 & & &
+       \setbox0=\hbox{$\left.\rule[0pt]{0pt}{1.45cm}\right)$}
+       \ht0=0pt\dp0=0pt\wd0=0pt\kern-10pt\lower5pt\box0\\
+     &  &(0) & & & \star \\
+     &  & & & & \lambda_n}\]
+  est inversible si et seulement si
+  \[\forall k\in\intere{1}{n} \qsep \lambda_k\neq 0.\]
+  Si tel est le cas
+  \[\xymatrix @-0.85cm
+    {& &\frac{1}{\lambda_1}\ar@{.}[drdrdrdr] &
+       \star\ar@{.}[drdrdr]\ar@{.}[rrr]& & &
+       \star\ar@{.}[ddd] \\
+     & &  & & & &  \\
+     T^{-1}=&
+       \setbox0=\hbox{$\left(\rule[0pt]{0pt}{1.6cm}\right.$}
+       \ht0=0pt\dp0=0pt\wd0=0pt\kern-10pt\lower5pt\box0
+       &  & &\setbox0=\hbox{}\ht0=20pt\wd0=20pt\box0 & & &
+       \setbox0=\hbox{$\left.\rule[0pt]{0pt}{1.6cm}\right)$}
+       \ht0=0pt\dp0=0pt\wd0=0pt\kern-10pt\lower5pt\box0\\
+     & &  &(0) & & & \star \\
+     & &  & & & & \frac{1}{\lambda_n}}\]
+\end{proposition}
+\begin{preuve}
+Pour montrer que l'inverse d'une triangulaire supérieure est triangulaire
+supérieure, il suffit de considérer la multiplication par $T$ dans l'algèbre
+des matrices triangulaires supérieures est injective (car $T$ est inversible),
+donc surjective.
+\end{preuve}
+
+
+
+
+
+\subsection{Rang d'une matrice}
+
+\begin{definition}[utile=-3]
+On définit le \emph{rang} de $A\in\mat{q,p}{\K}$, que l'on note $\rg A$, comme étant le rang de la
+famille de ses vecteurs colonne.
+\end{definition}
+
+\begin{exoUnique}
+\remarque Montrer que les matrices de rang 1 de $\mat{n}{\K}$  sont les
+  $X\trans{Y}$ où $X,Y\in\mat{n,1}{\K}\setminus\ens{0}$.
+\end{exoUnique}
+
+
+\begin{proposition}[utile=-3]
+\begin{itemize}
+\item Soit $\mathcal{B}$ une base de $E$ et $(x_1,\ldots,x_p)$ une famille de $p$
+   vecteurs de $E$. Alors
+  \[\rg\p{x_1,\ldots,x_p}=\rg\p{\mat{\mathcal{B}}{x_1,\ldots,x_p}}.\]
+\item Soit $\mathcal{B}_E$ et $\mathcal{B}_F$ des bases respectives de $E$ et $F$
+  et $u\in\lin{E}{F}$. Alors
+  \[\rg u=\rg \p{\mat{\mathcal{B}_F\gets\mathcal{B}_E}{u}}.\]
+\end{itemize}
+\end{proposition}
+
+\begin{proposition}[utile=-3]
+$A\in\mat{n}{\K}$ est inversible si et seulement si $\rg(A)=n$.
+\end{proposition}
+
+\begin{proposition}
+\begin{itemize}
+\item Soit $A\in\mat{r,q}{\K}$ et $B\in\mat{q,p}{\K}$. Alors
+  \[\rg(AB)\leq \rg(A) \quad\et\quad \rg(AB)\leq \rg(B).\]
+\item On ne change pas le rang d'une matrice si on la multiplie 
+  par la droite ou par la gauche par une matrice inversible.
+\end{itemize}
+\end{proposition}
+
+\begin{proposition}
+Les opérations élémentaires sur les lignes et les colonnes transforment
+une matrice en une autre de même rang.
+\end{proposition}
+
+% \begin{remarqueUnique}
+% \remarque Plus précisément, si $A\in\mat{q,p}{\K}$, on ne change pas $\ker A$ en effectuant des opérations sur les lignes et on ne change pas $\im A$ en effectuant des opérations sur les colonnes.
+% \end{remarqueUnique}
+
+\begin{proposition}
+Soit $E\in\mat{q,p}{\K}$ une matrice échelonnée à coefficients diagonaux de la forme
+\[\xymatrix @-0.7cm
+              {& &p_{1}\ar@{.}[rdrd]& \star\ar@{.}[rdrd]\ar@{.}[rrrr]& & &
+                  &\star\ar@{.}[dd]\\
+                & &0\ar@{.}[rdrd]\ar@{.}[ddddd]&   &   &   & & \\
+                & &  &   & p_{r} & \star\ar@{.}[rr] & & \star &\\
+                &
+                  \setbox0=\hbox{$\left(\rule[0pt]{0pt}{1.81cm}\right.$}
+                  \ht0=0pt\dp0=0pt\wd0=0pt\lower-6pt\box0
+                  & & & 0\ar@{.}[ddd] & 0\ar@{.}[ddd]\ar@{.}[rr]& &
+                  0\ar@{.}[ddd]&
+                  \setbox0=\hbox{$\left.\rule[0pt]{0pt}{1.81cm}\right)$}
+                  \ht0=0pt\dp0=0pt\wd0=0pt\kern-18pt\lower-6pt\box0 & \\
+                & &  &   &   &   & & \\
+                & &  &   &   &   & & \\
+                & &0\ar@{.}[rr] &   & 0 & 0\ar@{.}[rr] & & 0}\]
+où $p_1,\ldots,p_r\in\Ks$. Alors $\rg(E)=r$.
+\end{proposition}
+
+\begin{remarques}
+\remarque L'algorithme du pivot de Gauss permet de transformer toute matrice en une
+  matrice échelonnée à pivots diagonaux et permet donc de calculer son rang.
+\remarque Les matrices échelonnées par lignes et par colonnes ont aussi un rang égal
+  au nombre de pivots qu'elles possèdent.
+\end{remarques}
+
+
+\begin{exos}
+  \exo Calculer le rang de $P_1\defeq X^2+X+1$, $P_2\defeq X^2-X-1$, $P_3\defeq X^2+3X+2$.
+  \exo Calculer le rang de
+    \[\dspappli{\phi}{\mat{2}{\R}}{\mat{2}{\R}}{X}{AX}\]
+    où
+    \[A\defeq
+    \begin{pmatrix}
+    1 & 2\\
+    2 & 4
+    \end{pmatrix}\]
+  \exo Calculer le rang de la famille $e_1\defeq\p{1,x,-1}$, $e_2\defeq\p{x,1,x}$,
+    $e_3\defeq\p{-1,x,1}$ où $x\in\R$.
+  \exo Soit $a,b\in\R$. Calculer le rang de la matrice
+    \[
+    \begin{pmatrix}
+    a & b & b\\
+    b & a & b\\
+    b & b & a
+    \end{pmatrix}\]
+  % \exo Trouver une base de
+  %   \[F=\enstq{P\in\polyK[2]}{\integ{0}{1}{P(t)}{t}=0}\]
+  %   \begin{sol}
+  %   On trouve $P_0=X-1/2$ et $P_1=X^2-1/3$.
+  %   \end{sol}
+  \end{exos}
+
+\begin{proposition}
+\begin{itemize}
+\item Les opérations élémentaires sur les lignes transforment une matrice en une autre de même noyau.
+\item Les opérations élémentaires sur les colonnes transforment une matrice en une autre de même image.
+\end{itemize}
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque Pour calculer une base de l'image d'une matrice $A\in\mat{q,p}{\K}$, il suffit donc
+  de réduire $A$ en une matrice échelonnée par colonnes à l'aide d'opérations élémentaires
+  sur les colonnes.
+  Le nombre de colonnes non nulles est alors égal au rang de $A$ et ces colonnes forment
+  une base de $\im(A)$.
+\end{remarqueUnique}
+
+\begin{exoUnique}
+  \exo Dans $\mat{2}{\R}$, on pose
+    \[A\defeq
+    \begin{pmatrix}
+    1 & 1\\
+    2 & 0
+    \end{pmatrix}, \quad B\defeq
+    \begin{pmatrix}
+    2 & 3\\
+    -1 & 2
+    \end{pmatrix}\]
+    et $F\defeq\vect\p{A,B}$. Déterminer une équation de $F$.
+    \begin{sol}
+    Si
+    \[X=
+    \begin{pmatrix}
+    a & b\\
+    c & d
+    \end{pmatrix}\]
+    On trouve pour équations de $F$~: $-7a+5b+c=0$ et $2a-2b+d=0$.
+    \end{sol}
+\end{exoUnique}
+
+\section{Matrices équivalentes, matrices semblables}
+
+\subsection{Matrices équivalentes}
+
+\begin{definition}[utile=-3]
+Soit $A,B\in\mat{q,p}{\K}$. On dit que $A$ est \emph{équivalente} à $B$ lorsqu'il
+existe $Q\in\gl{q}{\K}$ et $P\in\gl{p}{\K}$ tels que
+\[A=QBP.\]
+\end{definition}
+
+\begin{proposition}[utile=-3]
+La relation \flqq\ est équivalente à \frqq\ est une relation d'équivalence sur
+$\mat{q,p}{\K}$.
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque Les opérations élémentaires sur les lignes et les colonnes transforment une
+  matrice en une matrice équivalente.
+\end{remarqueUnique}
+
+\begin{proposition}[utile=-3]
+Soit $A\in\mat{q,p}{\K}$, $E$ un \Kev de dimension $p$, $\mathcal{B}_E$ une
+base de $E$, $F$ un \Kev de dimension $q$, $\mathcal{B}_F$ une base de $F$ et
+$u$ l'application linéaire de $E$ dans $F$ définie par
+\[\mat{\mathcal{B}_F\gets\mathcal{B}_E}{u}=A.\]
+Alors $B\in\mat{q,p}{\K}$ est équivalente à $A$ si et seulement si il existe
+une base $\mathcal{B}_E'$ de $E$ et une base $\mathcal{B}_F'$ de $F$ telles
+que
+\[\mat{\mathcal{B}_F'\gets\mathcal{B}_E'}{u}=B.\]
+\end{proposition}
+
+\begin{proposition}[utile=3]
+Soit $A\in\mat{q,p}{\K}$ une matrice de rang $r$. Alors $A$ est équivalente
+à la matrice
+\[\xymatrix @-0.7cm
+              {& & & & r\ar[ddd]& & &\\
+               & &1\ar@{.}[rdrd]& 0\ar@{.}[rdrd]\ar@{.}[rrrr]& & &
+                 &0\ar@{.}[dd]\\
+               & &0\ar@{.}[rdrd]\ar@{.}[ddddd]&   &   &   & & \\
+               & &  &   & 1 & 0\ar@{.}[rr] & & 0 & & r\ar[lllll]\\
+               J_r\defeq &
+                 \setbox0=\hbox{$\left(\rule[0pt]{0pt}{1.81cm}\right.$}
+                 \ht0=0pt\dp0=0pt\wd0=0pt\lower-6pt\box0
+                 & & & 0\ar@{.}[ddd] & 0\ar@{.}[ddd]\ar@{.}[rr]& &
+                 0\ar@{.}[ddd]&
+                 \setbox0=\hbox{$\left.\rule[0pt]{0pt}{1.81cm}\right)$}
+                 \ht0=0pt\dp0=0pt\wd0=0pt\kern-18pt\lower-6pt\box0\\
+               & &  &   &   &   & & \\
+               & &  &   &   &   & & \\
+               & &0\ar@{.}[rr] &   & 0 & 0\ar@{.}[rr] & & 0}\]
+\end{proposition}
+
+\begin{remarques}
+\remarque En toute rigueur, une telle matrice devrait être notée $J_{r,q,p}$.
+\remarque L'algorithme du pivot de Gauss permet le calcul effectif de
+  $Q\in\gl{q}{\K}$ et $P\in\gl{p}{\K}$ tels que $PAQ=J_r$.
+\end{remarques}
+
+\begin{exoUnique}
+\exo Soit $A\in\mat{n}{\K}$. On pose
+  \[\dspappli{\phi}{\mat{n}{\K}}{\mat{n}{\K}}{X}{XA}\]
+  Calculer le rang de $\phi$ en fonction de celui de $A$.
+% \exo Montrer que dans $\mat{n}{\K}$, toute matrice est la somme de deux
+%   matrices inversibles.
+% \exo Soit $A\in\mat{n}{\K}$. Montrer qu'il existe $B\in\gl{n}{\K}$ tel que
+%   $\p{BA}^2=BA$.
+\end{exoUnique}
+
+\begin{proposition}[utile=3]
+Deux matrices $A,B\in\mat{q,p}{\K}$ sont équivalentes si et seulement si elles
+ont même rang.
+\end{proposition}
+
+\begin{proposition}[utile=2]
+Soit $A\in\mat{q,p}{\K}$. Alors $\trans{A}$ et $A$ ont même rang.
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque 
+Le rang de $A\in\mat{q,p}{\K}$ est donc égal à la fois au rang de la famille de ses
+  vecteurs colonne et au rang de la famille de ses vecteurs ligne.
+\end{remarqueUnique}
+
+% \begin{exoUnique}
+% \exo Soit $A\in\mat{q,p}{\K}$. Montrer que le rang de $A$ est la taille de
+%   la plus grande matrice extraite inversible de $A$.
+% \end{exoUnique}
+
+% \begin{proposition}
+% Soit $\mathcal{B}$ une base de $E$ et $\phi_1,\ldots,\phi_q$ une famille de $q$
+% formes linéaires sur $E$. Alors
+% \[\rg\p{\phi_1,\ldots,\phi_q}=\rg\p{\mat{\mathcal{B}}{\phi_1,\ldots,\phi_q}}\]
+% \end{proposition}
+
+\begin{definition}[utile=-3]
+  On appelle \emph{matrice extraite} de $A\in\mat{q,p}{\K}$ toute matrice obtenue en \og supprimant \fg certaines lignes et certaines colonnes de $A$.
+  \end{definition}
+
+
+\begin{exempleUnique}
+\exemple Soit $A$ et $B$ les matrices
+  \[A\defeq
+    \begin{pmatrix}
+    1 & 2 & 3\\
+    4 & 5 & 6
+    \end{pmatrix}\in\mat{2,3}{\K} \et
+    B\defeq
+    \begin{pmatrix}
+    1 & 3
+    \end{pmatrix}\in\mat{1,2}{\K}.\]
+  Alors $B$ est une matrice extraite de $A$.
+\end{exempleUnique}
+
+\begin{proposition}
+Soit $A\in\mat{q,p}{\K}$.
+\begin{itemize}
+\item Si $B$ est une matrice extraite de $A$, alors $\rg(B)\leq\rg(A)$.
+\item Le rang de $A$ est le plus grand entier $r$ tel qu'il existe une matrice $B\in\mat{r}{\K}$ extraite de $A$ qui est inversible.
+\end{itemize}
+\end{proposition}
+
+\begin{preuve}
+Soit $r=\rg(B)$ où $B$ est une matrice extraite de $A$. Il existe alors $B_{i_1},\ldots,B_{i_r}$ $r$ colonnes de $B$ qui forme une famille libre. Montrons qu'alors les colonnes associées $A_{i_1},\ldots,A_{i_r}$ de $A$ sont libres, auquel cas $r\leq \rg(A)$.\\
+Soient $\lambda_1,\ldots, \lambda_r \in \K$ tels que $$\lambda_1A_{i_1}+\ldots+\lambda_rA_{i_r}=0.$$ Cela implique immédiatement $$\lambda_1B_{i_1}+\ldots+\lambda_rB_{i_r}=0,$$ ce qui par liberté de ces colonnes de $B$ conduit à $$\forall i \in \intere{1}{r}, \lambda_i=0,$$ et on a bien prouvé le résultat souhaité.
+\end{preuve}
+
+\begin{preuve}
+Pour commencer, si $B$ est une matrice extraite inversible de taille $r\times r$, comme elle est inversible, $r=\rg(B)\leq \rg(A)$ d'après la proposition précédente. Ainsi, le rang de $A$ est plus grand que la taille de toute matrice extraite inversible. \\
+Notons maintenant $r=\rg(A)$. Il reste à montrer qu'il existe une matrice extraite d'ordre $r$ inversible. Comme $A$ est de rang $r$, il existe $r$ colonnes $A_{i_1},\ldots,A_{i_r}$ de $A$ qui forme une famille libre. On considère alors $C$ la matrice extraite de $A$ où on a gardé seulement ces colonnes. $C\in \mat{q,r}{\K}$ et son rang est $r$ donc d'après la proposition précédente, le rang de la famille des vecteurs lignes de $C$ est $r$. Il existe donc $r$ vecteurs lignes libres de cette matrice $C$. Alors, la matrice extraite de $C$ en gardant ces $r$ lignes et les $r$ colonnes (toutes) de $C$ est carrée de taille $r\times r$ et de rang $r$. Elle est donc inversible et c'est bien une matrice extraite de $A$, ce qui achève la démonstration.
+\end{preuve}
+
+
+\subsection{Matrices semblables}
+\begin{definition}[utile=-3]
+Soit $A,B\in\mat{n}{\K}$. On dit que $A$ est \emph{semblable} à $B$ lorsqu'il existe
+$P\in\gl{n}{\K}$ telle que
+\[A=PBP^{-1}.\]
+\end{definition}
+
+\begin{proposition}[utile=-3]
+  La relation \flqq\ est semblable à \frqq\ est une relation d'équivalence sur
+  $\mat{n}{\K}$.
+  \end{proposition}
+
+
+\begin{remarques}
+\remarque Si $A\in\mat{n}{\K}$ est une matrice scalaire, c'est la seule
+  matrice semblable à elle-même.
+\remarque Deux matrices semblables sont équivalentes. La réciproque est fausse.
+\remarque Soit $P\in\gl{n}{\K}$. Alors
+  \[\dspappli{\phi}{\mat{n}{\K}}{\mat{n}{\K}}{X}{PXP^{-1}}\]
+  est un isomorphisme d'algèbres. En particulier, si $A=PBP^{-1}$, quel que soit
+  $k\in\N$, $A^k=PB^kP^{-1}$. Plus généralement, si $Q\in\polyK$,
+  $Q(A)=PQ(B)P^{-1}$.
+\end{remarques}
+
+
+
+\begin{proposition}[utile=-3]
+Soit $A\in\mat{n}{\K}$, $E$ un \Kev de dimension $n$, $\mathcal{B}$ une base de
+$E$ et $u$ l'endomorphisme de $E$ défini par
+\[\mat{\mathcal{B}}{u}=A.\]
+Alors $B\in\mat{n}{\K}$ est semblable à $A$ si et seulement si il existe une
+base $\mathcal{B}'$ de $E$ telle que
+\[\mat{\mathcal{B}'}{u}=B.\]
+\end{proposition}
+
+% \begin{remarqueUnique}
+Soit $E$ un \Kev de dimension finie et $u\in\Endo{E}$. On appelle
+  \emph{valeur propre} de $u$ tout $\lambda\in\K$ tel qu'il existe $x\in E\setminus\ens{0}$
+  tel que $u(x)=\lambda x$. Si $\lambda\in\K$ est une valeur propre de $u$, l'ensemble
+  $E_\lambda$ des $x\in E$ tels que $u(x)=\lambda x$ est appelé \emph{espace propre}
+  associé à la valeur propre $\lambda$ et ses éléments sont appelés \emph{vecteurs propres} de $u$. Remarquons que
+  $E_\lambda=\ker\p{u-\lambda\id}$.
+  
+  % On peut démontrer que le nombre de valeurs
+  % propres de $u$ est fini. Si $\lambda_1,\ldots,\lambda_r$ sont ces valeurs, on se
+  % donne $\mathcal{B}_1,\ldots,\mathcal{B}_r$ des bases respectives de
+  % $E_{\lambda_1},\ldots,E_{\lambda_r}$. On note $\mathcal{B}$ la famille obtenue par concaténation des
+  % familles $\mathcal{B}_1,\ldots,\mathcal{B}_r$.
+  % On peut montrer que $\mathcal{B}$ est une famille libre. Cependant, elle n'est
+  % pas toujours génératrice dans $E$. On dit que $u$ est \emph{diagonalisable} lorsque
+  % $\mathcal{B}$ est une base de $E$. Si c'est le cas, la matrice de $u$ relativement
+  % à $\mathcal{B}$ est une matrice diagonale.
+
+
+  % est
+  % une base de $E$, on dit que $u$ est diagonalisable. Dans ce cas, la matrice de
+  % $u$ relativement à $\mathcal{B}$ est diagonale.\\
+  % Étant donné $A\in\mat{n}{\K}$, cette méthode permet, lorsque c'est possible, de
+  % trouver une matrice diagonale semblable à $A$. En effet, en considérant
+  % l'endomorphisme $u$ de $\K^n$ canoniquement associé à $A$, la recherche des
+  % valeurs et des vecteurs propres de $A$ revient à résoudre l'équation
+  % $AX=\lambda X$ pour $\lambda\in\K$ et $X\in\mat{n,1}{\K}$.
+  % On trouve ainsi les valeurs propres de $u$ ainsi que des bases de ses espaces
+  % propres. Dans le cas ou la réunion de ces bases forme une base $\mathcal{B}'$
+  % de $\K^n$, $\mat{\mathcal{B}'}{u}$ est diagonale. $A$ est alors semblable
+  % à une matrice diagonale.
+%  Supposons que $u$ admette $n$  valeurs propores
+%   deux à deux distinctes $\lambda_1,\ldots,\lambda_n\in\K$. Alors, il existe
+%   des vecteurs non nuls de $E$ notés $e_1,\ldots,e_n$ tels que
+%   \[\forall k\in\intere{1}{n} \quad u\p{e_k}=\lambda_k e_k\]
+%   On peut montrer que la famille $e_1,\ldots,e_n$ est libre. C'est donc une base de
+%   $E$. Si on note $\mathcal{B}$ cette base, alors
+%   \[\mat{\mathcal{B}}{u}=\diag\p{\lambda_1,\ldots,\lambda_n}\]
+% \end{remarqueUnique}
+
+\begin{exos}
+\exo Déterminer les valeurs propres d'un projecteur non trivial, c'est-à-dire
+  différent de $0$ et de $\id$.
+\exo Soit $x_1,\ldots,x_p$ des vecteurs propres d'un endomorphisme $u$
+  associés à des valeurs propres deux à deux distinctes. Montrer que la
+  famille $(x_1,\ldots,x_p)$ est libre.
+\end{exos}
+
+Nous utiliserons ces concepts pour montrer que certaines matrices
+$A\in\mat{n}{\K}$ sont semblables à une matrice diagonale. Pour cela, on note
+$\mathcal{B}$ la base canonique de $\K^n$ et on introduit
+l'endomorphisme $u\in\mathcal{L}(\K^n)$ canoniquement associé à $A$.
+\begin{itemize}
+\item \emph{On commence par déterminer les valeurs propres de $u$}. Pour $\lambda\in\K$
+\begin{eqnarray*}
+\text{$\lambda$ est valeur propre de $u$}
+&\ssi& \exists x\in \K^n \setminus\ens{0} \qsep u(x)=\lambda x\\
+&\ssi& \exists x\in \K^n \setminus\ens{0} \qsep (u-\lambda \id)(x)=0\\
+&\ssi& \ker(u-\lambda \id)\neq\ens{0}\\
+&\ssi& \text{$u-\lambda \id$ n'est pas injective}\\
+&\ssi& \text{$u-\lambda \id$ n'est pas un isomorphisme}\\
+&\ssi& \text{$A-\lambda I_n$ n'est pas inversible.}
+\end{eqnarray*}
+Déterminer les valeurs propres de $u$ revient donc à déterminer les $\lambda\in\K$
+tels que $A-\lambda I_n$ n'est pas inversible, ce qui se fait simplement en calculant
+le rang de $A-\lambda I_n$ par la méthode du pivot de Gauss.
+\item Ensuite, pour toute valeur propre $\lambda\in\K$ de $u$, \emph{on détermine une base
+  de l'espace propre $E_\lambda=\ker(u-\lambda \id)$}.
+\item Enfin, \emph{on concatène les bases des espaces propres ainsi obtenus}. On obtient
+  alors une famille $\mathcal{V}\defeq(e_1,\ldots,e_p)$ d'éléments de $\K^n$. Dans le cas où $p=n$, on montre
+  que cette famille est libre (ce qui sera toujours le cas), ce qui
+  prouve que $\mathcal{V}$ est une base de $\K^n$. En posant
+  $P\defeq P(\mathcal{B},\mathcal{V})$ et $D\defeq \mat{\mathcal{V}}{u}$, on a
+  donc $A=PDP^{-1}$. Or $D$ est une matrice
+  diagonale, car les éléments de $\mathcal{V}$ sont des vecteurs propres de $u$.
+  On a donc prouvé que $A$ est semblable à une matrice diagonale; on dit que
+  $A$ est \emph{diagonalisable}. Dans le cas où $p<n$, la matrice $A$ n'est pas
+  diagonalisable.
+\end{itemize}
+
+\begin{exoUnique}
+\exo Montrer que la matrice
+  \[A\defeq
+    \begin{pmatrix}
+    -2 & 6\\
+    -1 & 3
+    \end{pmatrix}\]
+  est semblable à une matrice diagonale $D$ et déterminer une matrice
+  $P\in\gl{2}{\R}$ telle que $A=PDP^{-1}$.
+  \begin{sol}
+  \[D=
+    \begin{pmatrix}
+    1 & 0\\
+    0 & 0
+    \end{pmatrix}\]    
+  \end{sol}
+\end{exoUnique}
+
+\begin{proposition}[utile=2]
+Soit $A$ et $B\in\mat{n}{\K}$ deux matrices semblables. Alors $\tr A=\tr B$.
+\end{proposition}
+
+\begin{definition}[utile=-3]
+Soit $E$ un \Kev de dimension finie et $u\in\Endo{E}$. Alors la trace de
+$\mat{\mathcal{B}}{u}$ ne dépend pas de la
+base $\mathcal{B}$ de $E$ choisie. On l'appelle \emph{trace} de $u$ et on la note $\tr(u)$.
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque La trace est une forme linéaire sur $\mathcal{L}(E)$.
+\end{remarqueUnique}
+
+\begin{exoUnique}
+\exo Soit $p\in\Endo{E}$ un projecteur. Montrer que $\tr(p)=\rg(p)$.  
+\end{exoUnique}
+
+\begin{proposition}
+Soit $E$ un \Kev de dimension finie et $u,v\in\mathcal{L}(E)$. Alors
+\[\tr(u\circ v)=\tr(v\circ u).\]
+\end{proposition}
+
+%END_BOOK
+\end{document}
+
+

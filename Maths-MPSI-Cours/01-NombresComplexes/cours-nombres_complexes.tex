@@ -1,0 +1,1973 @@
+\documentclass{magnolia}
+
+\magtex{tex_driver={pdftex},
+        tex_packages={epigraph,pgfplots,caption,float,xypic}}
+\magfiche{document_nom={Cours sur les nombres complexes},
+          auteur_nom={François Fayard},
+          auteur_mail={fayard.prof@gmail.com}}
+\magcours{cours_matiere={maths},
+          cours_niveau={mpsi},
+          cours_chapitre_numero={1},
+          cours_chapitre={Nombres Complexes}}
+\magmisenpage{}
+\maglieudiff{}
+\magprocess
+
+\begin{document}
+
+%BEGIN_BOOK
+\setlength\epigraphwidth{.6\textwidth}
+\epigraph{\og La voie la plus courte et la meilleure entre deux vérités du domaine réel passe souvent par le domaine imaginaire. \fg}{--- \textsc{Jacques Hadamard (1865--1963)}}
+\bigskip
+\hfill\includegraphics[width=0.2\textwidth]{../../Commun/Images/maths-cours-imaginary_numbers.png}
+
+\magtoc
+
+\section{Le corps des nombres complexes}
+\subsection{Définition, conjugaison, module}
+Le carré de tout nombre réel étant positif, l'équation
+$$x^2=-1$$
+n'admet aucune solution réelle. Nous admettrons qu'il existe un ensemble de
+nombres $A$ ayant les propriétés suivantes.
+\begin{itemize}
+  \item $\R\subset A$.
+  \item On peut additionner, soustraire et multiplier les éléments de $A$ en
+    utilisant les règles usuelles de l'algèbre.
+  \item L'équation $z^2=-1$ admet au moins une solution sur $A$.
+\end{itemize}
+On note $\ii$ une solution de cette équation.
+
+\begin{definition}[utile=-3]
+  On appelle corps des nombres complexes l'ensemble des nombres $x+\ii y$ où
+  $x$ et $y$ sont réels.
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque $\C$ est stable par les opérations d'addition, de soustraction et
+  de multiplication.
+\begin{preuve}
+Soit $z$ et $z'$ deux nombres complexes. Il existe donc
+$x,y,x',y'\in\R$ tels que $z=x+\ii y$ et $z'=x'+\ii y'$. Alors
+\begin{eqnarray*}
+z+z' &=& x+\ii y+x'+\ii y'\\
+     &=& \underbrace{\p{x+x'}}_{\in\R}
+         +\ii \underbrace{\p{y+y'}}_{\in\R}\in\C,\\
+z-z' &=& \underbrace{\p{x-x'}}_{\in\R}
+         +\ii \underbrace{\p{y-y'}}_{\in\R}\in\C,\\
+z z' &=& \p{x+\ii y}\p{x'+\ii y'}\\
+     &=& x x'+\ii x y'+\ii x' y+\underbrace{\ii^2}_{=-1} y y'\\
+     &=& \underbrace{\p{x x'-y y'}}_{\in\R} +
+         \ii\underbrace{\p{x y'+x' y}}_{\in\R} \in\C.
+\end{eqnarray*}
+\end{preuve}
+\end{remarqueUnique}
+
+\begin{definition}[utile=-3]
+  Pour tout nombre complexe $z$, il existe un unique couple de réels $(x,y)$ 
+  tel que $z=x+\ii y$. Les réels $x$ et $y$ sont respectivement appelés \emph{partie réelle} et \emph{partie imaginaire} de $z$. On note
+  $$\Re(z)\defeq x \quad \text{et} \quad \Im(z)\defeq y.$$
+\end{definition}
+\begin{preuve}
+  Soit $z$ un nombre complexe.
+  \begin{itemize}
+  \item \emph{Existence}~:
+    Par définition de $\C$, il existe $x,y\in\R$ tels que $z=x+\ii y$.
+  \item \emph{Unicité}~:
+    Soit $x_1,y_1,x_2,y_2\in\R$ tels que $z=x_1+\ii y_1$ et $z=x_2+\ii y_2$. Alors
+    \begin{equation*}\begin{split}
+    & x_1+\ii y_1=x_2+\ii y_2\\
+    \text{donc}\quad  & x_1-x_2=\ii\p{y_2-y_1}\\
+    \text{donc}\quad  & \p{x_1-x_2}^2=\ii^2\p{y_2-y_1}^2\\   
+    \text{donc}\quad  & \p{x_1-x_2}^2=-\p{y_2-y_1}^2\\   
+    \text{donc}\quad  & \underbrace{\p{x_1-x_2}^2}_{\geq 0}+
+                        \underbrace{\p{y_2-y_1}^2}_{\geq 0}=0
+    \end{split}\end{equation*}
+    La somme de deux réels positifs n'étant nulle que si ces deux réels sont
+    nuls, on en déduit que $x_1=x_2$ et $y_1=y_2$.
+  \end{itemize}
+\end{preuve}
+
+\begin{remarques}
+\remarque On appelle \emph{forme cartésienne} de $z\in\C$, toute écriture de la forme $z=x+\ii y$ où $x,y\in\R$. La proposition précédente affirme que, quel que soit $z\in\C$, cette écriture existe et est unique.
+\remarque Si $x_1,y_1,x_2,y_2\in\R$ sont tels que
+  \[x_1+\ii y_1=x_2+\ii y_2,\]
+  alors $x_1=x_2$ et $y_1=y_2$. On dit souvent qu'on procède par \emph{identification}, mais cette terminologie est abusive. On utilise en fait la proposition précédente.
+\remarque Un nombre complexe est réel si et seulement si sa partie imaginaire est nulle. On dit qu'un nombre complexe
+  est \emph{imaginaire pur} lorsque sa partie réelle est nulle. L'ensemble des nombres imaginaires purs est
+  donc
+  \[\ii\R\defeq\ensim{\ii y}{y\in\R}.\]
+\remarque Soit $\mathcal{R}=\p{O,\ve{e_1},\ve{e_2}}$ un repère orthonormé
+  direct du plan. À tout nombre complexe $z=x+\ii y$, on associe le point $M$ dont les coordonnées dans le repère
+  $\mathcal{R}$ sont $\p{x,y}$. On a donc
+  \[\ve{OM}=x\ve{e_1}+y\ve{e_2}\]
+  et on dit que $M$ a pour affixe $z$. Pout tout point $M$ du plan, il existe un unique $z\in\C$ tel que
+  $M$ a pour affixe $z$; on dit alors que $z$ est \emph{l'affixe} du point $M$. On a ainsi identifié
+  $\C$ avec l'ensemble des points du plan.
+\remarque De même qu'on ne peut pas écrire d'inégalités entre les points du plan, les inégalités entre nombres
+  complexes n'ont aucun sens.
+\end{remarques}
+
+\begin{proposition}[utile=-3]
+Un nombre complexe est nul si et seulement si sa partie réelle et sa partie imaginaire le sont.
+\end{proposition}
+
+\begin{preuve}
+Soit $z$ un nombre complexe. Alors $z=\Re(z)+\ii \Im(z)$. 
+\begin{itemize}
+\item Si $\Re(z)=0$ et $\Im(z)=0$, alors $z=0$.
+\item Réciproquement, si $z=0$, alors $\Re(z)+\ii \Im(z)=0+\ii 0$. Par unicité de la forme cartésienne, on en déduit que
+  \[\Re(z)=0 \et \Im(z)=0.\]
+\end{itemize}
+\end{preuve}
+
+\begin{proposition}[utile=-3]
+Soit $z$ et $z'$ deux nombres complexes, $\lambda$ et $\mu$ deux réels. Alors
+\begin{itemize}
+\item $\Re(\lambda z+\mu z')=\lambda\Re(z)+\mu\Re(z'),$
+\item $\Im(\lambda z+\mu z')=\lambda\Im(z)+\mu\Im(z').$
+\end{itemize}
+\end{proposition}
+
+\begin{preuve}
+Soit $z$ et $z'$ deux nombres complexes, $\lambda$ et $\mu$ deux réels.
+Il existe donc $x,y,x',y'\in\R$ tels que $z=x+\ii y$ et $z'=x'+\ii y'$. Alors
+\begin{eqnarray*}
+\lambda z+\mu z'
+&=& \lambda\p{x+\ii y}+\mu\p{x'+\ii y'}\\
+&=& \underbrace{\p{\lambda x+\mu x'}}_{\in\R}+\ii
+    \underbrace{\p{\lambda y+\mu y'}}_{\in\R}
+\end{eqnarray*}
+Puisque $x=\Re(z)$, $y=\Im(z)$, $x'=\Re(z')$, $y'=\Im(z')$, on en déduit que
+\[\Re(\lambda z+\mu z')=\lambda\Re(z)+\mu\Re(z') \et
+  \Im\p{\lambda z+\mu z'}=\lambda\Im(z)+\mu\Im(z').\]
+\end{preuve}
+
+\begin{remarqueUnique}
+\remarque Attention, l'identité $\Re(z z')=\Re(z)\Re(z')$ est fausse.
+  Par exemple $\Re(\ii\cdot \ii)=-1$ et $\Re(\ii)\Re(\ii)=0$.
+\end{remarqueUnique}
+
+\begin{definition}[utile=-3]
+  Soit $z$ un nombre complexe. On appelle \emph{conjugué} de $z$ et on note
+  $\conj{z}$ le nombre complexe
+  $$\conj{z}\defeq x-\ii y$$
+  où $x$ et $y$ sont respectivement la partie réelle et imaginaire de $z$.
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque Si $M$ est le point d'affixe $z\in\C$, le point $M'$ d'affixe $\conj{z}$ est le symétrique de $M$ par rapport à l'axe $(Ox).$
+\end{remarqueUnique}
+
+\begin{proposition}[utile=-3]
+  Soit $z,z'\in\C$. Alors
+ \[\conj{z+z'}=\conj{z}+\conj{z}', \quad \conj{z z'}=\conj{z}\ \conj{z}', \et \conj{\conj{z}}=z.\]
+\end{proposition}
+\begin{preuve} Soit $z,z'\in\C$. Il existe donc $x,y,x',y'\in\R$ tels que
+    $z=x+\ii y$ et $z'=x'+\ii y'$
+  \begin{itemize}
+  \item On a $z+z'=\p{x+x'}+\ii \p{y+y'}$ donc
+    \[\conj{z+z'}=\p{x+x'}-\ii \p{y+y'}.\] Or
+    \begin{eqnarray*}
+    \conj{z}+\conj{z}'
+    &=& x-\ii y+x'-\ii y'\\
+    &=& \p{x+x'}-\ii \p{y+y'}\\
+    &=& \conj{z+z'}
+    \end{eqnarray*}
+  \item
+    De même $zz'=\p{xx'-yy'}+\ii \p{xy'+x'y}$, donc
+    \[\conj{zz'}=\p{xx'-yy'}-\ii \p{xy'+x'y}.\] Or
+    \begin{eqnarray*}
+    \conj{z}\ \conj{z}'
+    &=& \p{x-\ii y}\p{x'-\ii y'}\\
+    &=& xx'-\ii xy'-\ii x'y-yy'\\
+    &=& \p{xx'-yy'}-\ii \p{xy'+x'y}\\
+    &=& \conj{z z'}
+    \end{eqnarray*}
+  \item Enfin $\conj{z}=x-\ii y=x+\ii(-y)$, donc
+    $\conj{\conj{z}}=x-\ii(-y)=x+\ii y=z$.
+  \end{itemize}
+\end{preuve}
+
+\begin{definition}[utile=-3]
+Soit $z$ un nombre complexe. On appelle \emph{module} de $z$ et on note $\abs{z}$ le nombre réel positif
+\[\abs{z}\defeq\sqrt{x^2+y^2}\]
+où $x$ et $y$ sont respectivement la partie réelle et imaginaire de $z$.
+\end{definition}
+
+\begin{remarques}
+% \item On voit directement que $\overline{z\conj{z}}=\conj{z}\conj{\conj{z}}=\conj{z}z$.
+%   En particulier $z\conj{z}\in\R$. Par contre cette méthode ne permet pas de
+%   montrer que $z\conj{z}$ est positif.
+\remarque Si $z\in\R$, le module de $z$ est sa valeur absolue.
+\remarque Si $M$ est le point d'affixe $z$, le module de $z$ est la distance $OM$. Si $A$ et $B$ sont deux points d'affixes respectives $a$ et $b$, alors $AB=\abs{b-a}$.
+\remarque Si $a\in\C$ et $r>0$
+  \begin{itemize}
+  \item $\enstq{z\in\C}{\abs{z-a}=r}$ est le \emph{cercle} de centre $a$ et de rayon $r$.
+  \item $\enstq{z\in\C}{\abs{z-a}\leq r}$ est le \emph{disque fermé} de centre $a$ et de rayon $r$.
+  \item $\enstq{z\in\C}{\abs{z-a}<r}$ est le \emph{disque ouvert} de centre $a$ et de rayon $r$.
+  \end{itemize}
+\end{remarques}
+
+\begin{definition}[utile=-3]
+On note $\U$ l'ensemble des nombres complexes de module $1$.
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque L'identification entre $\C$ et le plan complexe nous amène à identifier $\U$
+  avec le cercle de centre $O$ et de rayon 1, appelé \emph{cercle trigonométrique}.
+\end{remarqueUnique}
+
+\begin{proposition}
+Soit $z$ un nombre complexe. Alors
+\[\abs{z}^2=z \conj{z}.\]
+De plus, $\abs{z}=0$ si et seulement si $z=0$.
+\end{proposition}
+\begin{preuve}
+Soit $z\in\C$. Il existe $x,y\in\R$ tels que $z=x+\ii y$. On a donc
+\begin{eqnarray*}
+\abs{z}=0
+&\ssi& \abs{z}^2=0\\
+&\ssi& \underbrace{x^2}_{\geq 0}+\underbrace{y^2}_{\geq 0}=0\\
+&\ssi& x^2=0 \et y^2=0\\
+&\ssi& x=0 \et y=0\\
+&\ssi& z=0.
+\end{eqnarray*}
+\end{preuve}
+
+\begin{remarques}
+\remarque Afin d'exploiter cette identité, on cherchera souvent à travailler avec le carré des modules.
+\remarque Si $\mathcal{C}$ est le cercle de centre $a\in\C$ et de rayon $r>0$, alors
+  \begin{eqnarray*}
+  \forall z\in\C\qsep z\in\mathcal{C}
+  &\ssi& \abs{z-a}=r\\
+  &\ssi& \abs{z-a}^2=r^2\\
+  &\ssi& (z-a)\conj{(z-a)}=r^2\\
+  &\ssi& z\conj{z}-\conj{a}z-a\conj{z}+\p{a\conj{a}-r^2}=0.
+  \end{eqnarray*}
+  Réciproquement, si $a\in\C$ et $b\in\R$, l'ensemble d'équation $z\conj{z}-\conj{a}z-a\conj{z}+b=0$ est soit un cercle de centre $a$, soit réduit au point $a$, soit l'ensemble vide.
+  \begin{sol}
+Soit $a\in\C$ et $b\in\R$.
+\begin{eqnarray*}
+\forall z\in\C\qsep z\conj{z}-\conj{a}z-a\conj{z}+b=0
+&\ssi& z\conj{z}-\conj{a}z-a\conj{z}+a\conj{a}=a\conj{a}-b\\
+&\ssi& (z-a)\conj{(z-a)}=a\conj{a}-b\\
+&\ssi& \abs{z-a}^2=\underbrace{a\conj{a}-b}_{\eqdef c\in\R}
+\end{eqnarray*}
+\begin{itemize}
+\item Si $c>0$, on pose $r\defeq\sqrt{c}$. Alors
+  \[\forall z\in\C\qsep z\conj{z}-\conj{a}z-a\conj{z}+b=0 \quad\ssi\quad \abs{z-a}^2=r^2 \quad\ssi\quad \abs{z-a}=r\]
+  donc l'ensemble cherché est le cercle de centre $a$ et de rayon $r$.
+\item Si $c=0$, alors
+  \[\forall z\in\C\qsep z\conj{z}-\conj{a}z-a\conj{z}+b=0 \quad\ssi\quad \abs{z-a}=0 \quad\ssi\quad z=a\]
+  donc l'ensemble cherché est réduit au point $a$.
+\item Si $c<0$, l'ensemble est vide.
+\end{itemize}
+  \end{sol}
+\end{remarques}
+
+% \begin{exoUnique}
+% \exo Donner une condition nécessaire et suffisante sur $z\in\C\setminus\ens{\ii}$ pour que
+%   \[\frac{z+2}{1+\ii z}\]
+%   soit réel.
+%   \begin{sol}
+%   Soit $z\in\C$. Alors
+%   \begin{eqnarray*}
+% \abs{z+\ii}=\abs{z-\ii}
+% &\ssi& \abs{z+\ii}^2=\abs{z-\ii}^2\\
+% &\ssi& (z+\ii)(\conj{z}-\ii)=(z-\ii)(\conj{z}+\ii)\\
+% &\ssi& z=\conj{z} \ssi z\in\R
+%   \end{eqnarray*}
+%   Donc $z$ est solution de l'équation $\abs{z+\ii}=\abs{z-\ii}$ si et seulement si $z$ est réel.
+%   \end{sol}
+% \end{exoUnique}
+
+\begin{proposition}[utile=-3]
+  Soit $z,z'\in\C$. Alors
+  \[\abs{z z'}=\abs{z}\abs{z'} \et \abs{\conj{z}}=\abs{z}.\]
+\end{proposition}
+
+\begin{preuve}
+Soit $z,z'\in\C$. Alors
+\[|z z'|^2=z z'\conj{z z'}=z z'\conj{z}\ \conj{z}'=z\conj{z}z'\conj{z}'=|z|^2|z'|^2=\p{|z||z'|}^2.\]
+Ainsi, $\abs{z z'}$ et $\abs{z}\abs{z'}$ sont deux réels positifs qui ont même carré, ils sont donc égaux. De plus $|\conj{z}|^2=\conj{z}\ \conj{\conj{z}}=\conj{z}z=|z|^2$. Puisque $\abs{\conj{z}}$ et $\abs{z}$ sont deux réels positifs ayant même carrés, ils sont égaux. Donc $\abs{\conj{z}}=\abs{z}$.
+\end{preuve}
+
+% \subsection{Inverse}
+
+\begin{proposition}
+  Si $z$ et $z'$ sont deux nombres complexes tels que $z z'=0$, alors
+  $z=0$ ou $z'=0$. On dit que $\C$ est \emph{intègre}.
+\end{proposition}
+
+\begin{preuve}
+Soit $z,z'\in\C$ tels que $zz'=0$. Alors $|zz'|=0$, donc $|z||z'|=0$. Puisque $\R$ est intègre, l'un des deux modules est nul. D'après la proposition précédente, on en déduit que $z=0$ ou $z'=0$.
+
+\end{preuve}
+\begin{proposition}
+  Soit $z$ un nombre complexe non nul. Alors il existe un unique nombre
+  complexe $z'$ tel que $zz'=1$. On note ce nombre $z^{-1}$ ou $1/z$. De plus
+  \[\frac{1}{z}=\frac{\conj{z}}{\abs{z}^2}.\]
+\end{proposition}
+
+\begin{preuve}
+Soit $z$ un nombre complexe non nul.
+\begin{itemize}
+\item \emph{Unicité}~: Soit $z_1,z_2\in\C$ tels que $z z_1=1$ et $z z_2=1$. Alors $z z_1=z z_2$, donc $z(z_1-z_2)=0$. Puisque $z$ est non nul et que $\C$ est intègre, on en déduit que $z_1-z_2=0$, donc $z_1=z_2$.
+\item \emph{Existence}~: On pose
+\[z'= \conj{z} \cdot \frac{1}{\abs{z}^2}.\]
+Alors
+\[z z'=z\conj{z}\cdot\frac{1}{\abs{z}^2} =1.\]
+\end{itemize}
+\end{preuve}
+
+\begin{remarqueUnique}
+\remarque Si $z\in\U$, alors $1/z=\conj{z}$. Pour inverser un nombre complexe de module 1, il suffit donc de le conjuguer.
+\end{remarqueUnique}
+
+\begin{exoUnique}
+\exo Calculer l'inverse de $1+\ii$.
+  \begin{sol}
+  On a
+  \[\frac{1}{1+\ii}=\frac{1-\ii}{(1+\ii)(1-\ii)}=\frac{1-\ii}{\abs{1+\ii}^2}=\frac{1-\ii}{2}=\frac{1}{2}-\frac{1}{2}\ii.\]
+  \end{sol}
+\end{exoUnique}
+
+\begin{proposition}
+  Soit $z$ un nombre complexe non nul. Alors
+  $$\conj{\p{\frac{1}{z}}}=\frac{1}{\conj{z}} \quad \text{et} \quad
+    \abs{\frac{1}{z}}=\frac{1}{\abs{z}}.$$
+\end{proposition}
+
+\begin{preuve}
+Soit $z$ un nombre complexe non nul. D'une part
+\[\conj{z}\conj{\p{\frac{1}{z}}}=\conj{z\cdot\frac{1}{z}}=\conj{1}=1\]
+d'où le premier résultat. D'autre part
+\[\abs{\frac{1}{z}}\abs{z}=\abs{\frac{1}{z}\cdot z}=\abs{1}=1\]
+d'où le deuxième résultat.
+\end{preuve}
+
+\begin{exoUnique}
+\exo Soit $a,b\in\C$ tels que $\abs{a}<1$ et $\abs{b}<1$. Montrer que
+  \[\abs{\frac{a-b}{1-\conj{a}b}}<1.\]
+\begin{sol}
+Montrons d'abord que le dénominateur est non nul. On a
+\[\abs{\conj{a}b}=\abs{\conj{a}}\abs{b}=\abs{a}\abs{b}<1\]
+donc $\conj{a}b\neq 1$. De plus
+ \begin{eqnarray*}
+ \abs{\frac{a-b}{1-\conj{a}b}}<1&\Longleftrightarrow &|a-b|<|1-\conj{a}b|\\
+ &\Longleftrightarrow & |a-b|^2<|1-\conj{a}b|^2\\
+ &\Longleftrightarrow & (a-b)\conj{(a-b)}<(1-\conj{a}b)\conj{(1-\conj{a}b)}\\
+ &\Longleftrightarrow & \ldots \\
+ &\Longleftrightarrow & \abs{a}^2+\abs{b}^2<1+\abs{a}^2\abs{b}^2 \\
+ &\Longleftrightarrow & (\abs{a}^2-1)(\abs{b}^2-1)>0
+ \end{eqnarray*}
+  Le résultat à droite de l'équivalence étant vrai grâce aux hypothèses, le résultat au départ l'est.
+  \end{sol}
+\end{exoUnique}
+
+\begin{proposition}[utile=-3]
+Soit $z$ un nombre complexe. Alors
+\[\Re(z)=\frac{z+\conj{z}}{2} \et
+  \Im(z)=\frac{z-\conj{z}}{2\ii}.\]
+En particulier
+\begin{itemize}
+\item $z$ est réel si et seulement si $\conj{z}=z$.
+\item $z$ est imaginaire pur si et seulement si $\conj{z}=-z$.
+\end{itemize}
+\end{proposition}
+\begin{preuve}
+Soit $z$ un nombre complexe. Il existe donc $x,y\in\R$ tels que $z=x+\ii y$. Alors $\conj{z}=x-\ii y$, donc
+\[z+\conj{z}=2x \et z-\conj{z}=2\ii y.\]
+\end{preuve}
+
+\begin{remarqueUnique}
+\remarque En pratique, pour montrer qu'un nombre complexe est réel, une
+  bonne méthode est de montrer qu'il est égal à son conjugué. La méthode
+  consistant à montrer que sa partie imaginaire est nulle est à proscrire.
+\end{remarqueUnique}
+
+\begin{exos}
+\exo Soit $a$ et $b$ deux nombres complexes de module 1 tels que $ab\neq -1$. Montrer que
+  \[\frac{a+b}{1+ab}\]
+  est un nombre réel.
+\begin{sol}
+Soit $a$ et $b$ deux nombres complexes de module 1 tels que $ab\neq -1$. Alors
+\begin{eqnarray*}
+\conj{\p{\frac{a+b}{1+ab}}}
+&=& \frac{\conj{a}+\conj{b}}{1+\conj{a}\conj{b}}\\
+&=& \frac{\frac{1}{a}+\frac{1}{b}}{1+\frac{1}{ab}} \quad \text{car $\abs{a}=\abs{b}=1$.}\\
+&=& \frac{b+a}{ab+1} = \frac{a+b}{1+ab}.
+\end{eqnarray*}
+Donc $(a+b)/(1+ab)$ est réel.
+\end{sol}
+\exo Donner une condition nécessaire et suffisante sur $z\in\C\setminus\ens{\ii}$ pour que
+  \[\frac{z+2}{1+\ii z}\]
+  soit réel.
+  \begin{sol}
+Cette expression a un sens pour tout $z\in\C\setminus\ens{\ii}$. Soit donc un tel $z$.
+\begin{eqnarray*}
+ \frac{z+2}{1+\ii z} \in \R&\Longleftrightarrow &\conj{\frac{z+2}{1+\ii z}}=\frac{z+2}{1+\ii z}\\
+ &\Longleftrightarrow & (\conj{z}+2)(1+iz)=(z+2)(1-i\conj{z})\\
+ &\Longleftrightarrow & \ldots \\
+ &\Longleftrightarrow & z\conj{z}-\p{-1-\frac{1}{2}i}z-\p{-1+\frac{1}{2}i}\conj{z}=0 
+ \end{eqnarray*}
+Avec la remarque de la page précédente, on peut conclure que le lieu cherché est le cercle de centre $-1+\ii/2$ et de rayon $\sqrt{5/4}$ privé de $\ii$. Il passe par l'origine et par $z=-2$. 
+  \end{sol}
+\end{exos}
+
+
+
+\subsection{Inégalité triangulaire}
+
+
+\begin{proposition}[utile=-3]
+Soit $a\in\C$. Alors
+\[\Re(a)\leq\abs{\Re(a)}\leq\abs{a} \et
+  \Im(a)\leq\abs{\Im(a)}\leq\abs{a}.\]
+De plus, $\Re(a)=\abs{a}$ si et seulement si $a$ est réel positif.
+\end{proposition}
+
+% \begin{exoUnique}
+% \exo Résoudre sur $\C$ le système
+%   \[\begin{cases}
+%     \abs{1+z}\leq 1 &\\
+%     \abs{1-z}\leq 1. &
+%     \end{cases}\]
+%   \begin{sol}
+% On raisonne par analyse-synthèse. Commençons par l'analyse et donnons-nous une solution $z\in\C$ du système. Alors $\abs{1+z}\leq 1$ et $\abs{1-z}\leq 1$ donc, en élevant au carré, $1+\abs{z}^{2}+2\Re{z}\leq 1$ et $1+\abs{z}^{2}-2\Re{z}\leq 1$. En ajoutant ces deux inégalités, on obtient $ \abs{z}^{2}\leq 0 $ donc $z=0$. La synthèse est immédiate car $z=0$ est bien solution de ce système. En conclusion l'ensemble des solutions est
+% \[\mathcal{S}=\ens{0}.\]
+% \end{sol}
+% \end{exoUnique}
+
+\begin{proposition}[utile=3, nom=Inégalité triangulaire]
+Soit $a$ et $b$ deux nombres complexes. Alors
+\[\abs{a+b}\leq\abs{a}+\abs{b}.\]
+De plus, l'égalité a lieu si et seulement si  $a$ et $b$ sont positivement
+liés, c'est-à-dire lorsque $a=0$ ou lorsqu'il existe $\lambda\in\RP$ tel que
+$b=\lambda a$.
+\end{proposition}
+
+\begin{preuve}
+Soit $a$ et $b$ deux nombres complexes. Alors
+\begin{eqnarray*}
+\abs{a+b}\leq\abs{a}+\abs{b}
+&\ssi& \abs{a+b}^2\leq\p{\abs{a}+\abs{b}}^2, \quad\text{car $\abs{a+b}$ et $\abs{a}+\abs{b}$ sont positifs}\\
+&\ssi& \p{a+b}\conj{\p{a+b}}\leq\p{\abs{a}+\abs{b}}^2\\
+&\ssi& \p{a+b}\p{\conj{a}+\conj{b}}\leq\p{\abs{a}+\abs{b}}^2\\
+&\ssi& a\conj{a}+a\conj{b}+\conj{a}b+b\conj{b}\leq\abs{a}^2+2\abs{a}\abs{b}+\abs{b}^2\\
+&\ssi& \abs{a}^2+2\Re\p{\conj{a}b}+\abs{b}^2\leq\abs{a}^2+2\abs{a}\abs{b}+\abs{b}^2\\
+&\ssi& \Re\p{\conj{a}b}\leq \abs{\conj{a}b}.
+\end{eqnarray*}
+Or, d'après la proposition précédente, ce dernier point est vrai. Donc $\abs{a+b}\leq\abs{a}+\abs{b}$.\\
+
+En reprenant les équivalences précédentes, on a
+\begin{eqnarray*}
+\abs{a+b}=\abs{a}+\abs{b}
+&\ssi& \Re\p{\conj{a}b}= \abs{\conj{a}b}\\
+&\ssi& \conj{a}b\in\RP.
+\end{eqnarray*}
+Montrons que ce dernier point est vrai si et seulement si $a=0$ ou qu'il existe $\lambda\in\RP$ tel que $b=\lambda a$.
+\begin{itemize}
+\item Supposons que $\conj{a}b\in\RP$. On pose $\mu\defeq\conj{a}b\in\RP$. Si $a\neq 0$, alors
+\[b=\frac{\mu}{\conj{a}}=\frac{\mu a}{a\conj{a}}=\underbrace{\frac{\mu}{\abs{a}^2}}_{\eqdef\lambda\in\RP}a.\]
+\item Réciproquement, supposons que $a=0$ ou qu'il existe $\lambda\in\RP$ tel que $b=\lambda a$. Si $a=0$, alors $\conj{a}b=0\in\RP$. S'il existe $\lambda\in\RP$ tel que $b=\lambda a$, alors $\conj{a}b=\conj{a}\lambda a=\abs{a}^2 \lambda\in\RP$.
+\end{itemize}
+En conclusion $\abs{a+b}=\abs{a}+\abs{b}$ si et seulement si $a=0$ ou s'il existe $\lambda\in\RP$ tel que $b=\lambda a$.
+\end{preuve}
+
+\begin{remarqueUnique}
+\remarque Si $(ABC)$ est un triangle, alors $AC\leq AB+BC$. En effet, si on note $a$, $b$, $c$ les affixes respectives de $A$, $B$, $C$
+\[AC=\abs{c-a}=\abs{c-b+b-a}\leq\abs{c-b}+\abs{b-a}=BC+AB.\]
+Cette inégalité explique le nom d'inégalité triangulaire donné à la proposition précédente.
+\end{remarqueUnique}
+
+
+%% Soit $a$ et $b$ deux nombres complexes.
+%% \begin{itemize}
+%% \item Montrons que~:
+%% $$\abs{a+b}\leq\abs{a}+\abs{b}$$
+%% Remarquons, que le résultat est immédiat lorsque $b=0$. On suppose donc
+%% désormais que $b\not=0$. Soit $t\in\R$.
+%% \begin{eqnarray*}
+%%   \abs{a+tb}^2 &=& \p{a+tb}\conj{\p{a+tb}}\\
+%%                    &=& \p{a+tb}\p{\conj{a}+t\conj{b}}\\
+%%                    &=& a\conj{a}+ta\conj{b}+tb\conj{a}+
+%%                        t^2b\conj{b}\\
+%%                    &=& b\conj{b} t^2 + \p{a\conj{b}+
+%%                        \conj{a\conj{b}}}t+a\conj{a}\\
+%%                    &=& \abs{b}^2 t^2 + 2\Re\p{a\conj{b}} t
+%%                        +\abs{a}^2
+%% \end{eqnarray*}
+%% Or $\abs{a+tb}^2\geq 0$ quelque soit $t\in\R$. On en déduit donc que le
+%% discriminant du trinôme en $t$ est négatif. Puisque $\abs{b}^2\not= 0$,
+%% on en déduit que le discriminant de ce trinôme est négatif. En effet, si tel
+%% n'était pas le cas, le trinôme aurait deux racines distinctes et changerait
+%% de signe. On a donc~:
+%% $$\Delta=\p{2\Re\p{a\conj{b}}}^2-4\abs{b}^2 \abs{a}^2 \leq 0$$
+%% Donc~:
+%% $$\abs{\Re\p{a\conj{b}}}^2 \leq \abs{a}^2\abs{b}^2$$
+%% Puisque $\abs{\Re\p{a\conj{b}}}$ et $\abs{a}\abs{b}$ sont positifs,
+%% on en déduit que~:
+%% $$\abs{\Re{\p{a\conj{b}}}} \leq \abs{a}\abs{b}$$
+%% Calculons maintenant~:
+%% \begin{eqnarray*}
+%%   \abs{a+b}^2-\p{\abs{a}+\abs{b}}^2 &=&
+%%       \p{a+b}\conj{\p{a+b}}-\p{\abs{a}+\abs{b}}^2\\
+%%   &=& \abs{a}^2+\abs{b}^2+2\Re\p{a\conj{b}}-
+%%       \p{\abs{a}^2+\abs{b}^2+2\abs{a}\abs{b}}\\
+%%   &=& 2\p{\Re\p{a\conj{b}}-\abs{a}\abs{b}}
+%% \end{eqnarray*}
+%% Or $\abs{\Re{\p{a\conj{b}}}} \leq \abs{a}\abs{b}$, donc puisque
+%% $\Re{\p{a\conj{b}}} \leq \abs{\Re{\p{a\conj{b}}}}$, on en déduit
+%% que~:
+%% $$\abs{a+b}^2-\p{\abs{a}+\abs{b}}^2 \leq 0$$
+%% et donc~:
+%% $$\abs{a+b}^2\leq\p{\abs{a}+\abs{b}}^2$$
+%% Or $\abs{a+b}$ et $\abs{a}+\abs{b}$ sont tous deux positifs, donc~:
+%% $$\abs{a+b}\leq\abs{a}+\abs{b}$$
+%% \item Montrons désormais que cette inégalité devient une égalité si et
+%% seulement si $a$ et $b$ sont positivements liés.\\
+%% \begin{itemize}
+%% \item Si $a$ et $b$ sont positivement liés,il existe $\lambda\in\RP$ tel
+%% que $a=\lambda b$ ou $b=\lambda a$. Quitte à les échanger, on peut
+%% supposer que $b=\lambda a$. Alors~:
+%% \begin{eqnarray*}
+%%   \abs{a+b} &=& \abs{a+\lambda a}\\
+%%                 &=& \abs{(1+\lambda)a}\\
+%%                 &=& \abs{1+\lambda}\abs{a}\\
+%%                 &=&\p{1+\lambda}\abs{a}\quad\text{car $1+\lambda\geq 0$}\\
+%%                 &=& \abs{a}+\lambda\abs{a}\\
+%%                 &=& \abs{a}+\abs{\lambda}\abs{a}
+%%                     \quad\text{car $\lambda\geq 0$}\\
+%%                 &=& \abs{a}+\abs{\lambda a}\\
+%%                 &=& \abs{a}+\abs{b}
+%% \end{eqnarray*}
+%% \item Réciproquement, supposons que $\abs{a+b}=\abs{a}+\abs{b}$ et
+%% montrons que $a$ et $b$ sont positivement liés.\\
+%% Si $b$ est nul, $a$ et $b$ sont positivement liés, car $b=0 a$. On
+%% suppose donc que $b$ est non nul. En remontant les calculs qui ont permis
+%% la démonstration de l'inégalité triangulaire, de l'égalité
+%% $\abs{a+b}=\abs{a}+\abs{b}$, il découle que~:
+%% $$\Re\p{a\conj{b}}=\abs{a}\abs{b}$$
+%% Donc le discriminant du trinôme considéré plus haut est nul.Ce trinôme admet
+%% donc une unique racine $\mu$. Par définition $\abs{a+\mu b}=0$, donc
+%% $a=-\mu b$. On pose $\lambda=-\mu$. Il reste alors à montrer que
+%% $\lambda \geq 0$. Or~:
+%% $$\Re\p{a\conj{b}}=\abs{a}\abs{b}$$
+%% Donc, un réinjectant dans cette égalité la relation $a=\lambda b$, on
+%% trouve~:
+%% $$\lambda \abs{b}^2=\abs{\lambda}\abs{b}^2$$
+%% Puisque $b\not=0$, on peut simplifier par $\abs{b}^2$, et il vient
+%% $\lambda=\abs{\lambda}\geq 0$.
+%% \end{itemize}
+%% \end{itemize}
+%% \end{preuve}
+
+\begin{proposition}[utile=-3,nom={Seconde inégalité triangulaire}]
+Soit $a$ et $b$ deux nombres complexes. Alors
+\[\abs{\abs{a}-\abs{b}}\leq\abs{a+b}\leq\abs{a}+\abs{b}.\]  
+\end{proposition}
+
+\begin{preuve}
+$|a|=|a+b-b|\leq |a+b|+|-b|$ ... + changement des rôles.
+
+\end{preuve}
+
+\begin{remarqueUnique}
+% \remarque Si $ABC$ est un triangle,alors
+%   \[\abs{AB-BC}\leq AC\leq AB+BC\]
+\remarque La première inégalité est appelée seconde inégalité triangulaire.
+  Elle a plusieurs variantes.
+  \begin{itemize}
+  \item Si on remplace $b$ par $-b$, on obtient l'inégalité
+    \[\abs{\abs{a}-\abs{b}}\leq\abs{a-b}\]
+    qui affirme que deux nombres complexes proches ont des modules proches.
+  \item En remarquant que si $x$ est réel, $\abs{x}\geq x$, on obtient
+    \[\abs{a+b}\geq\abs{a}-\abs{b}.\]
+    Cette inégalité affirme que si $b$ a un module petit par rapport à celui de $a$, alors $a+b$ est éloigné de~0.
+  \end{itemize}
+\end{remarqueUnique}
+
+\begin{exos}
+\exo Soit $a$ et $b$ deux nombres complexes distincts. On pose $\delta\defeq\abs{a-b}$. Montrer que les disques ouverts de centre $a$ et $b$ et de rayon $\delta/2$ sont disjoints.
+\exo Que peut-on dire de $\abs{z}$ si $\abs{1-z}\leq 1/4$~? Faire un dessin puis une preuve.
+\begin{sol}
+Par l'absurde, si $z$ est dans l'intersection des deux disques, $|a-b|\leq|a-z|+|z-b|<\delta$.
+
+$|1|\leq |1-z|+|z|$ et $|z|\leq |z-1|+|1|$ donnent $5/4\geq \abs{z}\geq 3/4$.
+\end{sol}
+% \exo Soit $z_0,a,\ldots,z_n$ des nombres complexes de module 1. Montrer
+%   que
+%   \[\sum_{k=0}^n \frac{z_k}{2^k}\neq 0\]
+%   \begin{sol}
+%   Il suffit de remarquer que
+%   \[\abs{\sum_{k=0}^n \frac{z_k}{2^k}}\geq
+%     1-\abs{\sum_{k=1}^n \frac{z_k}{2^k}}\geq \frac{1}{2^n}\]
+%   \end{sol}
+\end{exos}
+
+\begin{proposition}
+Soit $a_1,\ldots,a_n\in\C$. Alors
+\[\abs{\sum_{k=1}^n a_k}\leq \sum_{k=1}^n \abs{a_k}.\]
+\end{proposition}
+
+
+\subsection{Puissance entière, binôme de \nom{Newton}}
+
+\begin{definition}[utile=-3]
+  Soit $a\in\C$. On définit $a^n$ pour tout entier naturel $n\in\N$ en posant
+  \begin{itemize}
+    \item $a^0\defeq 1$,
+    \item $\forall n\in\N \qsep a^{n+1}\defeq a^n a$.
+  \end{itemize}
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque En particulier $0^0=1$.
+\end{remarqueUnique}
+
+\begin{proposition}[utile=-3]
+  Soit $a,b$ deux nombres complexes, $n$ et $m$ deux entiers
+  naturels. Alors
+  \[\p{ab}^n=a^n b^n, \quad a^{n+m}=a^n a^m \et 
+    \p{a^n}^m=a^{nm}.\]
+\end{proposition}
+
+\begin{preuve}
+Soit $a\in\C$ et $n\in\N$. Pour tout $m\in\N$, on pose
+\[\mathcal{H}_m\defeq\mog a^{n+m}=a^n a^m\mfg.\]
+Pour tout $m\in\N$, on pose
+\[\mathcal{H}_m\defeq\mog \p{a^n}^m=a^{nm}\mfg.\]
+\end{preuve}
+
+\begin{proposition}[utile=-3]
+  Soit $a\in\C$ et $n\in\N$. Alors
+  \[\conj{a^n}=\conj{a}^n \et \abs{a^n}=\abs{a}^n.\]
+\end{proposition}
+
+\begin{exoUnique}
+\exo Montrer que si $P\defeq a_n X^n+\cdots+a_1 X+a_0$ est un polynôme à coefficients réels, l'ensemble de ses racines est stable par conjugaison.
+\end{exoUnique}
+
+\begin{sol}
+Soit $\alpha$ une racine. On a $P(\alpha)=0$, il suffit alors d'écrire $0=\conj{P(\alpha)}=\ldots=P(\conj{\alpha})$ grâce aux règles de calcul de la conjugaison.
+\end{sol}
+
+\begin{definition}
+  Soit $a$ un nombre complexe non nul. On étend la définition de
+  $a^n$ à $n\in\Z$ en posant
+  $$a^n\defeq \frac{1}{a^{-n}}$$
+  lorsque $n<0$.
+\end{definition}
+
+\begin{proposition}
+Soit $a,b$ deux nombres complexes non nuls, $n$ et $m$ deux entiers
+relatifs. Alors
+\[\p{ab}^n=a^n b^n,\quad
+  a^{n+m}=a^n a^m \et
+  \p{a^n}^m=a^{nm}.\]
+\end{proposition}
+
+\begin{proposition}
+Soit $a$ un nombre complexe non nul et $n\in\Z$. Alors
+\[\conj{a^n}=\conj{a}^n \et \abs{a^n}=\abs{a}^n.\]
+\end{proposition}
+
+\begin{definition}
+Soit $a\in\Z$ et $b\in\Ns$. Alors il existe un unique couple $\p{q,r}\in\Z^2$
+tel que
+\[a=qb+r \et 0\leq r<b.\]
+$q$ est appelé \emph{quotient} de la division euclidienne de $a$ par $b$, $r$ son
+\emph{reste}.
+\end{definition}
+
+\begin{preuve}
+\begin{itemize}
+\item[$\bullet$] \textbf{Unicité :} Supposons trouvés deux couples $(q_1,r_1)$ et $(q_2,r_2)$. On obtient alors $$b|q_1-q_2|=|r_2-r_1|.$$ Supposons un instant $q_1\neq q_2$, alors $$b\leq b|q_1-q_2|=|r_2-r_1|\leq b-1$$ d'où la contradiction.
+\item[$\bullet$] \textbf{Existence :} Commençons par le cas $a\geq 0$ et considérons l'ensemble~:
+\[A=\enstq{k\in\N}{kb\leq a}\]
+Cet ensemble est non vide ($0\in A$), majoré (par $a$) donc admet un plus grand
+élément $q$. Comme $q\in A$ et $q+1 \notin A$, on a $bq\leq a <b(q+1)$ d'où $0\leq a-bq<b$. Il reste à poser $r=a-bq$.\\
+Si $a\leq 0$, il suffit d'appliquer ce qui précède à $-a$. Il existe donc $q\in \N$ et $r\in \N$ vérifiant \[-a=qb+r \et 0\leq r<b.\]
+Donc $a=(-q)b+(-r)$ ce qui convient si $r=0$ et si $0<r<b$, alors $-b<-r<0$ donc $0<-r+b<b$ et dans ce cas $a=(-q-1)b+(-r+b)$ est de la forme recherchée.
+\end{itemize}
+\end{preuve}
+
+\begin{exoUnique}
+\exo On pose $\jj\defeq-\frac{1}{2}+\ii\frac{\sqrt{3}}{2}$. Calculer $\jj^3$, puis en déduire
+  $\jj^{2022}$.
+\end{exoUnique}
+  
+
+\begin{definition}[utile=-3]
+Pour tout entier naturel $n$, on définit la \emph{factorielle} de $n$ que l'on note
+$n!$ par
+\begin{itemize}
+\item $0!\defeq 1$,
+\item $\forall n\in\N \qsep \p{n+1}!\defeq\p{n+1}n!$.
+\end{itemize}
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque Si $n\in\Ns$
+  \[n!=n\times(n-1)\times\cdots\times 2\times 1.\]
+\end{remarqueUnique}
+
+\begin{definition}[utile=-3]
+Pour tout couple $\p{k,n}$ d'entiers naturels, on définit $\binom{n}{k}$ que l'on prononce \og $k$ parmi $n$ \fg, comme étant le nombre de parties à $k$ éléments d'un ensemble
+à $n$ éléments.
+\end{definition}
+
+\begin{remarques}
+\remarque Si $k>n$, alors $\binom{n}{k}=0$.
+\remarque Si $n\in\N$, alors
+\[\binom{n}{0}=1 \et \binom{n}{n}=1.\]
+\end{remarques}
+
+\begin{proposition}[utile=-3]
+Soit $n\in\N$ et $k\in\intere{0}{n}$. Alors
+\[\binom{n}{k}=\binom{n}{n-k}.\]
+\end{proposition}
+
+\begin{preuve}
+On remarque que choisir $k$ éléments parmi $n$ revient à sélectionner les $n-k$ éléments qu'on ne choisira pas.\end{preuve}
+
+\begin{proposition}[utile=2, nom=Relation de \nom{Pascal}]
+Soit $k$ et $n$ deux entiers naturels. Alors
+\[\binom{n}{k}+\binom{n}{k+1}=\binom{n+1}{k+1}.\]
+\end{proposition}
+
+\begin{preuve}
+\'Evacuons tout d'abord certains cas en fonction des valeurs de $k$ : $k>n$, $k=n$.
+
+Désormais on considère $k<n$. Démontrons ce résultat de manière combinatoire. Considérons l'ensemble $\ens{1, 2, . . . ,n+1}$ et dénombrons ses sous-ensembles à $k+1$ éléments. On distingue les ensembles qui contiennent l'élément $n+1$ et les ensembles qui ne le contiennent pas. Il y a$\binom{n}{k+1}$ ensembles qui ne contiennent pas $n+1$ (on choisit $k+1$ éléments dans $\ens{1, 2, . . . ,n}$ et il y en a $\binom{n}{k}$ qui contiennent $n+1$, ce qui fait bien le total souhaité.
+
+\end{preuve}
+
+\begin{remarqueUnique}
+\remarque Cette formule est appelée relation de \nom{Pascal}. Elle permet de calculer
+  efficacement les $\binom{n}{k}$ en construisant le triangle de \nom{Pascal}. Dans ce
+  tableau contenant les $\binom{n}{k}$, où $n$ désigne la ligne et $k$ désigne la colonne,
+  on commence par placer une colonne de 1 indiquant le fait que $\binom{n}{0}=1$, puis une diagonale
+  de 1 indiquant le fait que $\binom{n}{n}=1$. Les coefficients au-dessus de la diagonale sont nuls
+  et ne sont généralement pas représentés. Ceux en dessous de la diagonale sont complétés, ligne
+  après ligne en utilisant la relation de Pascal qui affirme que chaque coefficient est la somme
+  du coefficient se situant au-dessus de lui et de celui au-dessus à gauche.
+  \[\begin{matrix}
+    1 &   &    &    &   &  \\
+    1 & 1 &    &    &   &  \\
+    1 & 2 &  1 &    &   &  \\
+    1 & 3 &  3 &  1 &   &  \\
+    1 & 4 &  6 &  4 & 1 &  \\
+    1 & 5 & 10 & 10 & 5 & 1
+    \end{matrix}\]
+  Ce triangle permet par exemple de lire sur la dernière ligne que $\binom{5}{1}=5$ et $\binom{5}{2}=10$.
+\end{remarqueUnique}
+
+\begin{proposition}[utile=-3]
+Soit $n$ un entier naturel et $k\in\intere{0}{n}$. Alors
+\[\binom{n}{k}=\frac{n!}{k!\p{n-k}!}.\]
+\end{proposition}
+
+\begin{preuve}
+Utilisons  le  principe  de double-comptage, très  important  en  combinatoire.  Il consiste à établir une égalité en comptant de deux manières différentes une certaines quantité. Ici, comptons le nombre de suites à $k$ éléments différents qu'on peut créer en utilisant les $n$ éléments de $\ens{1, 2, . . . ,n}$. D'une part, nous avons $n$ choix pour le premier terme de la suite, $n-1$ choix pour le deuxième, et ainsi de suite jusqu'au $k$-ième élément pour lequel nous avons $n-k+1$ choix. Finalement, il y a en tout $n(n-1)\ldots(n-k+1) =\dfrac{n!}{(n-k)!}$ telles suites. D'autre part, pour créer une suite à $k$ éléments, on peut commencer par choisir les $k$ éléments qui vont constituer la suite ($\binom{n}{k}$ possibilités), puis les ordonner ($k!$ manières possibles de les ordonner). Il y a donc en tout $k!\binom{n}{k}$ telles suites.
+
+Ainsi, $\dfrac{n!}{(n-k)!}=k!\binom{n}{k}$, d'où le résultat souhaité.
+
+\end{preuve}
+
+\begin{preuve}
+On peut maintenant redémontrer les deux propositions précédentes à l'aide de la "formule" du coefficient binomial que l'on vient d'obtenir :
+Laissé en exercice aux élèves.
+
+\end{preuve}
+\begin{remarques}
+% \remarque Cette formule est très mauvaise pour calculer effectivement
+%   $\binom{n}{k}$. Par exemple, si l'on souhaite calculer $\binom{13}{2}$ à
+%   l'aide de cette formule, on est amené à calculer $13!$. Si on dispose d'un
+%   ordinateur codant les entiers sur 32 bits, le calcul de $13!$ donnera un
+%   résultat erroné car $13!\geq 2^{32}$. L'explosion d'\nom{Ariane} 5 lors de
+%   son décollage le 4 juin 1996 est due à une erreur de ce type.
+\remarque On peut simplifier l'écriture de $\binom{n}{k}$ en
+  \[\binom{n}{k}=\frac{n!}{k!\p{n-k}!}=\frac{\frac{n!}{\p{n-k}!}}{k!}=
+    \frac{\overbrace{n\p{n-1}\cdots\p{n-(k-1)}}^{\text{$k$ termes}}}{k!}.\]
+  En particulier
+  \[\binom{n}{1}=n \et \binom{n}{2}=\frac{n\p{n-1}}{2}.\]
+\remarque Si $k,n\in\Ns$, on a la formule dite \og du capitaine \fg
+  \[\binom{n}{k}=\frac{n}{k}\cdot\binom{n-1}{k-1}.\]
+\end{remarques}
+
+\begin{exoUnique}
+\exo Soit $k,n\in\N$. Montrer que
+  \[\binom{n}{k}\leq\frac{n^k}{k!}.\]
+  \begin{sol}
+  Soit $k,n\in\N$. Si $k\leq n$, alors
+  \[\binom{n}{k}=
+    \frac{\overbrace{n\p{n-1}\cdots\p{n-k+1}}^{\text{$k$ termes inférieurs ou égaux à $n$}}}{k!}\leq \frac{n^k}{k!}.\]
+  Sinon, l'inégalité est triviale.
+  \end{sol}
+\end{exoUnique}
+
+
+\begin{proposition}[utile=3, nom=Binôme de \nom{Newton}]
+Soit $a$ et $b$ deux nombres complexes et $n$ un entier naturel. Alors
+\[\p{a+b}^n=\sum_{k=0}^n \binom{n}{k}a^{n-k} b^k.\]
+\end{proposition}
+\begin{preuve}
+Soit $a$ et $b$ deux nombres complexes. Montrons ce résultat par récurrence
+sur $n$~:
+\begin{recurrence}
+test $$\p{a+b}^n=\sum_{k=0}^n a^k b^{n-k}$$
+\recinit En effet~:
+  $$\p{a+b}^0=1 \et a^0 b^0=1$$
+\rechere On suppose que $\mathcal{H}_n$ est vraie. Montrons que
+  $\mathcal{H}_{n+1}$ est vraie.
+  On écrit $(a+b)^{n+1}=(a+b)(a+b)^n$ puis on applique l'H.R, on distribue, on réindexe la première somme...
+\end{recurrence}
+\end{preuve}
+
+
+\begin{proposition}[utile=-3]
+  Soit $a$ et $b$ deux nombres complexes. Alors
+  \begin{itemize}
+  \item $a^2-b^2=\p{a-b}\p{a+b}.$
+  \item Plus généralement, pour tout $n\in\Ns$
+    \begin{eqnarray*}
+  a^n-b^n
+  &=& \p{a-b}\p{a^{n-1}+a^{n-2}b+\dots+
+      ab^{n-2}+b^{n-1}}\\
+  &=& \p{a-b}\p{\sum_{k=0}^{n-1} a^{n-1-k}b^k}.
+  \end{eqnarray*}
+  \end{itemize}
+\end{proposition}
+
+\begin{preuve}
+On distribue dans le membre de droite puis on réindexe la deuxième somme.
+\end{preuve}
+
+\begin{proposition}[utile=-3]
+Soit $a$ un nombre complexe et $n$ un entier naturel. Alors
+\[\sum_{k=0}^n a^k=1+a+a^2+\cdots+a^n=
+  \begin{cases}
+  \dsp\frac{1-a^{n+1}}{1-a} & \text{si $a\neq 1$}\\
+  n+1                  & \text{si $a=1$.}
+  \end{cases}\]
+\end{proposition}
+
+\section{Forme trigonométrique}
+
+\subsection{Exponentielle $\ii\theta$}
+
+\begin{definition}[utile=-3]
+Pour tout réel $\theta$, on définit l'exponentielle de $\ii\theta$ par
+\[\e^{\ii\theta}\defeq\cos\theta+\ii\sin\theta.\]
+\end{definition}
+
+\begin{proposition}[utile=-3]
+Soit $\theta_1$ et $\theta_2$ deux réels. Alors
+\[\e^{\ii 0}=1 \qquad\text{et}\qquad \e^{\ii\p{\theta_1+\theta_2}}=\e^{\ii\theta_1}\e^{\ii\theta_2}.\]
+\end{proposition}
+
+\begin{preuve}
+Immédiat avec $\cos(a+b)=\cos a\cos b-\sin a\sin b$ et $\sin(a+b)=\sin a\cos b+\cos a\sin b$.
+\end{preuve}
+
+\begin{proposition}[utile=-3]
+Soit $\theta\in\R$. Alors
+\[\overline{\e^{\ii\theta}}=\e^{-\ii\theta}.\]
+De plus, $\e^{\ii\theta}$ est non nul et si $n\in\Z$, alors
+\[\frac{1}{\e^{\ii\theta}}=\e^{-\ii\theta} \qquad\text{et}\qquad \e^{\ii n\theta}=
+  \p{\e^{\ii \theta}}^n.\]  
+\end{proposition}
+
+
+\begin{proposition}[utile=-3, nom={Formules d'\nom{Euler} et \nom{Moivre}}]
+Soit $\theta$ un réel. Alors les formules d'\nom{Euler} s'écrivent
+\[\cos\theta=\frac{\e^{\ii \theta}+\e^{-\ii\theta}}{2} \et
+  \sin\theta=\frac{\e^{\ii \theta}-\e^{-\ii\theta}}{2\ii}.\]
+Pour $n\in\Z$, la formule de \nom{Moivre} nous donne
+\[\cos \p{n\theta}+\ii\sin\p{n\theta}=\p{\cos \theta+\ii\sin \theta}^n.\]
+\end{proposition}
+
+% \exo Montrer que tout $z\in\U\setminus\ens{-1}$ il existe $a\in\R$ tel que
+%   \[z=\frac{1+\ii a}{1-\ii a}.\]
+%   \begin{sol}
+% Soit $z\in\U\setminus\ens{-1}$. Alors
+% \begin{eqnarray*}
+% \forall a \in \R\qsep \frac{1+\ii a}{1-\ii a}=z
+% &\ssi& a=\frac{z-1}{i(1+z)}
+% \end{eqnarray*}
+% Montrons que
+% \[a\defeq \frac{z-1}{i(1+z)}\]
+% est réel. On a
+% \begin{eqnarray*}
+% \conj{a}
+% &=& \conj{\frac{z-1}{i(1+z)}}\\
+% &=& -\frac{\conj{z}-1}{i(1+\conj{z})}\\
+% &=& -\frac{\frac{1}{z}-1}{i\p{1+\frac{1}{z}}} \quad\text{car $z\in\U$}\\
+% &=& \frac{1-z}{\ii\p{z+1}} = a
+% \end{eqnarray*}
+% Donc $a\in\R$.
+%   \end{sol}
+% \end{exoUnique}
+
+\begin{proposition}[utile=-3]
+\begin{itemize}
+\item Soit $\theta\in\R$. Alors $\e^{\ii\theta}=1$ si et seulement si
+  $\theta\equiv 0\ \cro{2\pi}$.
+\item Plus précisément, étant donnés $\theta_1$ et $\theta_2\in\R$,
+  $\e^{\ii\theta_1}=\e^{\ii\theta_2}$ si et seulement si
+  $\theta_1\equiv\theta_2\ \cro{2\pi}$.
+\end{itemize}
+\end{proposition}
+
+\begin{exoUnique}
+\exo Déterminer la partie réelle de
+  \[\frac{1}{1-\cos\theta-\ii\sin\theta}.\]
+  \begin{sol}
+  On commence par chercher le domaine de définition de l'expression. On a, pour tout $\theta\in\R$
+  \begin{eqnarray*}
+1-\cos\theta-\ii\sin\theta=0
+&\ssi& 1-\e^{\ii \theta}=0\\
+&\ssi& \e^{\ii \theta}=1\\
+&\ssi& \theta\equiv 0\ \cro{2\pi}.
+  \end{eqnarray*}
+  Pour $\theta\in\R\setminus 2\pi\Z$, on a
+  \begin{eqnarray*}
+\frac{1}{1-\cos\theta-\ii\sin\theta}
+&=& \frac{1}{1-\e^{\ii\theta}}\\
+&=& \frac{1-\e^{-\ii\theta}}{(1-\e^{\ii\theta})(1-\e^{-\ii\theta})}\\
+&=& \frac{1-\cos\theta+\ii\sin\theta}{2(1-\cos\theta)}
+  \end{eqnarray*}
+  donc
+  \[\Re\p{\frac{1}{1-\cos\theta-\ii\sin\theta}}=\frac{1}{2}.\] 
+  \end{sol}
+\end{exoUnique}
+
+
+\begin{proposition}[utile=-3,nom={Paramétrisation de $\U$ par \og l'exponentielle $\ii\theta$ \fg}]
+L'application qui à $\theta$ associe $\e^{\ii\theta}$ est une surjection de $\R$
+dans $\U$. Autrement dit~:
+\begin{itemize}
+\item Si $\theta\in\R$, $\e^{\ii\theta}\in\U$.
+\item Pour tout $u\in\U$, il existe $\theta\in\R$ tel que $u=\e^{\ii\theta}$.
+\end{itemize}
+\end{proposition}
+
+\begin{preuve}
+La première partie vient du fait que $\cos^2+\sin^2=1$.
+
+Soit $u\in \U$, $u=a+ib$. On a $|a|=|\Re(u)|\leq |u|=1$ donc $a\in [-1;1]$. On peut donc fixer $\theta\in \R$ tel que $a=\cos \theta$. Mais alors $b^2=1-\cos^2(\theta)$ donc $b=\pm \sin \theta=\sin(\pm \theta)$. Ce $\theta'$ convient alors.
+
+On voit par la preuve que ce $\theta$ est unique à $2\pi$ près. \underline{Insister là-dessus en vue de la preuve d'après}
+\end{preuve}
+
+
+
+\subsection{Application à la trigonométrie}
+\begin{applications}
+\application {\it Factorisation par l'arc moitié}\\
+  Étant donné un réel $\theta$
+  \begin{eqnarray*}
+  1+\e^{\ii\theta} &=& \e^{\ii\frac{\theta}{2}}\p{ \e^{-\ii\frac{\theta}{2}}
+                                            +\e^{ \ii\frac{\theta}{2}}}\\
+                &=& 2\cos\p{\frac{\theta}{2}}\e^{\ii\frac{\theta}{2}}.
+  \end{eqnarray*}
+  De même
+  \begin{eqnarray*}
+  1-\e^{\ii\theta} &=& \e^{\ii\frac{\theta}{2}}\p{ \e^{-\ii\frac{\theta}{2}}
+                                            -\e^{ \ii\frac{\theta}{2}}}\\
+                &=& -2\ii\sin\p{\frac{\theta}{2}}\e^{\ii\frac{\theta}{2}}.
+  \end{eqnarray*}
+  Plus généralement, étant donnés $\theta_1,\theta_2\in\R$
+  \[\e^{\ii\theta_1}+\e^{\ii\theta_2}=\e^{\ii\frac{\theta_1+\theta_2}{2}}\p{\e^{\ii\frac{\theta_1-\theta_2}{2}}+\e^{-\ii\frac{\theta_1-\theta_2}{2}}}=
+    2\cos\p{\frac{\theta_1-\theta_2}{2}}\e^{\ii\frac{\theta_1+\theta_2}{2}},\]
+   \[\e^{\ii\theta_1}-\e^{\ii\theta_2}=\e^{\ii\frac{\theta_1+\theta_2}{2}}\p{\e^{\ii\frac{\theta_1-\theta_2}{2}}-\e^{-\ii\frac{\theta_1-\theta_2}{2}}}=
+    2\ii\sin\p{\frac{\theta_1-\theta_2}{2}}\e^{\ii\frac{\theta_1+\theta_2}{2}}.\]   
+\application {\it Calcul de sommes trigonométriques}\\
+  Soit $\theta\in\R$ et $n\in\N$. Calculer
+   \[C_n\defeq\sum_{k=0}^n \cos(k\theta) \quad \text{et} \quad
+    S_n\defeq\sum_{k=0}^n \sin(k\theta).\]
+  \begin{sol}
+  On a
+  \begin{eqnarray*}
+  C_n+\ii S_n &=& \sum_{k=0}^n \cos k\theta+\ii\sin k\theta\\
+           &=& \sum_{k=0}^n \e^{\ii k\theta}\\
+           &=& \sum_{k=0}^n \p{\e^{\ii\theta}}^k
+  \end{eqnarray*}
+  \begin{itemize}
+  \item Lorsque $\e^{\ii\theta}\neq 1$, c'est-à-dire lorsque
+    $\theta\not\equiv 0\ \cro{2\pi}$, on a
+    \begin{eqnarray*}
+    C_n+\ii S_n &=& \frac{1-\p{\e^{\ii\theta}}^{n+1}}{1-\e^{\ii\theta}}\\
+             &=& \frac{1-\e^{\ii \p{n+1}\theta}}{1-\e^{\ii\theta}}\\
+             &=& \frac{\e^{\ii\frac{n+1}{2}\theta}}{\e^{\ii\frac{\theta}{2}}}
+                 \frac{\e^{-\ii\frac{n+1}{2}\theta}-\e^{\ii\frac{n+1}{2}\theta}}
+                      {\e^{-\ii\frac{\theta}{2}}-\e^{\ii\frac{\theta}{2}}}\\
+             &=& \e^{\ii\frac{n\theta}{2}}\frac{-2\ii\sin\p{\frac{n+1}{2}\theta}}
+                 {-2\ii\sin\p{\frac{\theta}{2}}}\\
+             &=& \e^{\ii\frac{n\theta}{2}}\frac{\sin\p{\frac{n+1}{2}\theta}}
+                 {\sin\p{\frac{\theta}{2}}}.
+    \end{eqnarray*}
+    En identifiant parties réelles et imaginaires, on obtient
+    $$C_n=\frac{\sin\p{\frac{n+1}{2}\theta}\cos\p{\frac{n}{2}\theta}}
+          {\sin\p{\frac{\theta}{2}}} \quad \text{et} \quad
+      S_n=\frac{\sin\p{\frac{n+1}{2}\theta}\sin\p{\frac{n}{2}\theta}}
+          {\sin\p{\frac{\theta}{2}}}.$$
+  \item Dans le cas où $\theta\equiv 0\ \cro{2\pi}$, $\cos (k\theta)=1$ et
+    $\sin(k\theta)=0$, donc
+    $$C_n=n+1 \quad \text{et} \quad S_n=0.$$
+  \end{itemize}      
+  \end{sol}
+\application {\it Linéarisation de $\cos^n \theta \sin^m \theta$}\\
+  Étant donné deux entiers naturels $n$ et $m$, on cherche à exprimer
+  $\cos^n \theta \sin^m \theta$ comme combinaison linéaire des $\cos(k\theta)$
+  et $\sin(k\theta)$ pour $k\in\N$. Pour cela, on peut utiliser les formules
+  d'\nom{Euler} avant de développer l'expression par la formule
+  du binôme de \nom{Newton} et de regrouper les termes en utilisant à nouveau
+  les formules d'\nom{Euler}. Cette opération sera utile lors
+  du calcul de primitives.\\
+  {\bf Exemple~:} Linéariser $\sin^6 \theta$ et $\sin\theta \cos^4 \theta$.
+    \begin{sol}
+    On a
+    \begin{eqnarray*}
+    \sin^6 \theta &=& \p{\frac{\e^{\ii\theta}-\e^{-\ii\theta}}{2\ii}}^6\\
+    &=& -\frac{1}{64}\p{\e^{\ii 6\theta}-6\e^{\ii 4\theta}+15\e^{\ii 2\theta}-20
+                        +15\e^{-i2\theta}-6\e^{-i4\theta}+\e^{-i6\theta}}\\
+    &=& -\frac{1}{64}\p{\p{\e^{\ii 6\theta}+\e^{-i6\theta}}
+                        -6\p{\e^{\ii 4\theta}+\e^{-i4\theta}}
+                        +15\p{\e^{\ii 2\theta}+\e^{-i2\theta}}-20}\\
+    &=& -\frac{1}{32}\p{\cos 6\theta-6\cos 4\theta+15\cos 2\theta-10}
+    \end{eqnarray*}
+    \begin{eqnarray*}
+    \sin \theta \cos^4 \theta
+    &=& \p{\frac{\e^{\ii\theta}-\e^{-\ii\theta}}{2\ii}}
+        \p{\frac{\e^{\ii\theta}+\e^{-\ii\theta}}{2}}^4\\
+    &=& -\frac{i}{32}\p{\e^{\ii\theta}-\e^{-\ii\theta}}
+                     \p{\e^{\ii\theta}+\e^{-\ii\theta}}^4\\
+    &=& -\frac{i}{32}\p{\e^{\ii\theta}-\e^{-\ii\theta}}
+        \p{\e^{\ii 4\theta}+4\e^{\ii 2\theta}+6+4\e^{-i2\theta}+\e^{-i4\theta}}\\
+    &=& -\frac{i}{32}\p{\e^{\ii 5\theta}+3\e^{\ii 3\theta}+2\e^{\ii\theta}-2\e^{-\ii\theta}
+                        -3\e^{-i3\theta}-\e^{-i5\theta}}\\
+    &=& -\frac{i}{32}\p{2\ii\sin 5\theta+6\ii\sin 3\theta+4\ii\sin \theta}\\
+    &=& \frac{1}{16}\p{\sin 5\theta+3\sin 3\theta+2\sin \theta}
+    \end{eqnarray*}      
+    \end{sol}
+\application {\it Expression  de $\cos(n\theta)$ et $\sin(n\theta)$ comme
+  polynôme en $\cos \theta$ et $\sin \theta$}\\
+  Pour cette opération, une méthode consiste à utiliser la formule de
+  \nom{Moivre} avant de développer l'expression obtenue à l'aide du binôme de
+  \nom{Newton}.\\
+  {\bf Exemple~:} Exprimer $\cos(5\theta)$ comme un polynôme en $\cos\theta$. 
+\end{applications}
+
+\begin{exos}
+\exo Exprimer $\tan\p{5\theta}$ en fonction de $\tan\theta$.
+\begin{sol}
+On a
+\begin{eqnarray*}
+\cos\p{5\theta}+\ii\sin\p{5\theta}
+&=& \p{\cos\theta+\ii\sin\theta}^5\\
+&=& (\cos^{5}\theta-10\cos^{3}\theta\sin^{2}\theta+5\cos\theta\sin^{4}\theta)+\\
+& & \ii(5\cos^{4}\theta\sin\theta-10\cos^{2}\theta\sin^{3}\theta+\sin^{5}).
+\end{eqnarray*}
+Donc, en exploitant le fait que
+\[\tan (5\theta)=\frac{\sin (5\theta)}{\cos (5\theta)}\]
+et en divisant le numérateur et le dénominateur par $ \cos^{5}\theta $, on trouve
+  \[\tan\p{5\theta}=
+    \frac{5\tan\theta-10\tan^3\theta+\tan^5\theta}%
+    {1-10\tan^2\theta+5\tan^4\theta}.\]
+\end{sol}
+\exo Soit $n\in\N$ et $\theta\in\R$. Calculer
+  \[\sum_{k=0}^n \binom{n}{k}\sin\p{k\theta}.\]
+  \begin{sol}
+  On a
+  \begin{eqnarray*}
+ \sum_{k=0}^{n}\binom{n}{k}\e^{\ii k\theta}
+ &=& \sum_{k=0}^{n}\binom{n}{k}(\e^{\ii\theta})^k\\
+ &=& \p{1+\e^{\ii\theta}}^n\\
+ &=& \cro{\e^{\frac{\ii\theta}{2}}\p{\e^{\frac{\ii\theta}{2}}+\e^{\frac{-\ii\theta}{2}}}}^n\\
+ &=& \e^{\ii\frac{n\theta}{2}}\p{ \e^{\ii\frac{-n\theta}{2}}+\e^{\ii\frac{n\theta}{2}}}^{n}\\
+ &=& \e^{\ii\frac{n\theta}{2}}\left( 2\cos\left( \frac{\theta}{2}\right) \right) ^{n}\\
+ &=& 2^n \cos^n\p{\frac{\theta}{2}}\e^{\ii\frac{n\theta}{2}}.
+  \end{eqnarray*}
+  En prenant la partie imaginaire, on en déduit que
+  \[\sum_{k=0}^n \binom{n}{k}\cos\p{k\theta}=2^n \cos^n\p{\frac{\theta}{2}}\sin\p{\frac{n\theta}{2}}.\]
+  \end{sol}
+\exo Exprimer $\cos\p{\frac{\pi}{10}}$ à l'aide de radicaux.
+\begin{sol}
+On commence par exprimer $\cos(5\theta)$ comme polynôme en $\cos\theta$. On a
+\[\cos (5\theta)=\cos \theta(16\cos^{4}\theta -20\cos^{2}\theta +5).\]
+Pour $\theta=\pi/10$, en posant $x\defeq\cos(\pi/10)$, on obtient $x(16x^4-20x^2+5)=0$. Or $\theta\in\interfo{0}{\pi/2}$ donc $x>0$, donc $16x^4-20x^2+5=0$. Or
+\begin{eqnarray*}
+\forall u\in\R\qsep 16u^4-20u^2+5=0
+&\ssi& u^2=\frac{5-\sqrt{5}}{8} \quad\text{ou}\quad  u^2=\frac{5+\sqrt{5}}{8}\\
+&\ssi& u=\pm\sqrt{\frac{5-\sqrt{5}}{8}} \quad\text{ou}\quad  u=\pm\sqrt{\frac{5+\sqrt{5}}{8}}
+\end{eqnarray*}
+Or $x>0$ donc
+\[x=\sqrt{\frac{5-\sqrt{5}}{8}} \quad\text{ou}\quad x=\sqrt{\frac{5+\sqrt{5}}{8}}.\]
+Puisque $\pi/10\in[0,\pi/6]$, on en déduit que $x>\sqrt{3/4}$. Or, si on évalue $16u^4-20u^2+5$ en $3/4$, on obtient $-19/16<0$, donc $3/4$ est entre les deux racines donc
+\[\frac{5-\sqrt{5}}{8}<\frac{3}{4}.\]
+En conclusion
+\[\cos\p{\frac{\pi}{10}}=\sqrt{\frac{5+\sqrt{5}}{8}}.\]
+\end{sol}
+\end{exos}
+
+
+
+\subsection{Forme trigonométrique}
+
+\begin{definition}
+Soit $z\in\Cs$. On appelle \emph{forme trigonométrique} de $z$ toute écriture
+\[z=r \e^{\ii\theta}\]
+où $r\in\RPs$ et $\theta\in\R$.
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque Si $z=r\e^{\ii\theta}$ est une forme trigonométrique, alors $r=\abs{z}$.
+\end{remarqueUnique}
+
+\begin{definition}[utile=-3]
+On appelle \emph{argument} de $z\in\Cs$ tout réel
+$\theta$ tel que
+\[z=\abs{z}\e^{\ii\theta}.\]
+\end{definition}
+
+\begin{proposition}[utile=-3]
+Tout nombre complexe non nul $z\in\Cs$ admet un argument. Si $\theta$ est un de ses arguments, l'ensemble de ses arguments est
+$\theta+2\pi\Z\defeq\ensim{\theta+k2\pi}{k\in\Z}$. On écrit
+\[\arg(z)\equiv\theta\ \cro{2\pi}.\]
+\end{proposition}
+
+\begin{preuve}
+Si $z\neq 0$, alors $z/|z| \in \U$ et on utilise la proposition précédente.
+\end{preuve}
+
+\begin{remarques}
+\remarque En particulier, tout nombre complexe non nul admet une forme trigonométrique. En pratique, on force la factorisation de $z$ par $\abs{z}$ et on écrit le second terme sous la forme $\e^{\ii\theta}$.
+\remarque Soit $r_1,r_2>0$ et $\theta_1,\theta_2\in\R$ tels que
+  \[r_1\e^{\ii\theta_1}=r_2\e^{\ii\theta_2}.\]
+  Alors $r_1=r_2$ et $\theta_1\equiv\theta_2\ [2\pi]$. Contrairement à la forme cartésienne, il n'y a pas unicité de la forme trigonométrique.
+% \remarque Si $z=a+\ii b$ est non nul, alors~:
+%   \begin{itemize}
+%   \item si $a=0$, $\arg(z)\equiv \frac{\pi}{2}\ \cro{\pi}$. L'argument est donné par le
+%     signe de $b$.
+%   \item sinon, $\tan\theta=b/a$ ce qui permet de connaitre l'argument de
+%     $z$ modulo $\pi$. Pour le connaitre modulo $2\pi$, il suffit de regarder
+%     le signe de $a$.
+%   \end{itemize}
+\remarque Si $z$ est un nombre complexe non nul, il existe un unique
+  $\theta\in\interof{-\pi}{\pi}$ tel que $\arg z\equiv \theta\ [2\pi]$.
+  On dit que $\theta$ est l'\emph{argument principal} de $z$ et on le note
+  $\Arg(z)$.
+\end{remarques}
+
+
+\begin{exos}
+\exo Quelle est la forme trigonométrique de $-2-2\sqrt{3}\ii$~? Celle de $1+2\ii$~?
+\begin{sol}
+On a
+\[-2-2\sqrt{3}\ii=4\p{-\frac{1}{2}-\ii\frac{\sqrt{3}}{2}}=4\e^{-\ii\frac{2\pi}{3}}.\]
+De même
+\[1+2\ii=\sqrt{5}\underbrace{\p{\frac{1}{\sqrt{5}}+\ii\frac{2}{\sqrt{5}}}}_{\eqdef u}\]
+Puisque $(1/\sqrt{5})^2+(2/\sqrt{5})^2=1$, il existe $\theta\in\interf{0}{\pi/2}$ tel que $u=\e^{\ii\theta}$. Alors
+\[1+2\ii=\sqrt{5}\e^{\ii\theta}.\]
+\end{sol}
+\exo Mettre sous forme trigonométrique
+  \[\p{\frac{1+\ii \sqrt{3}}{1-\ii}}^{20}.\]
+\begin{sol}
+\begin{eqnarray*}
+\p{\frac{1+\ii \sqrt{3}}{1-\ii}}^{20}
+&=& \p{\frac{2\e^{\ii\frac{\pi}{3}}}{\sqrt{2}\e^{-\ii\frac{\pi}{4}}}}^{20}\\
+&=& 1024\e^{-\ii\frac{\pi}{3}}\\
+&=& 512(1-\ii\sqrt{3}).
+\end{eqnarray*}
+\end{sol}
+\end{exos}
+
+\begin{proposition}[utile=-3]
+Soit $\rho_1,\rho_2$ deux réels non nuls et $\theta_1,\theta_2$ deux réels.
+Alors $\rho_1 e^{i\theta_1}=\rho_2 e^{i\theta_2}$ si et seulement si
+\[\cro{\rho_1=\rho_2 \et \theta_1\equiv\theta_2\ \cro{2\pi}} \quad \text{ou}
+  \quad \cro{\rho_1=-\rho_2 \et \theta_1\equiv\theta_2+\pi\ \cro{2\pi}}.\]
+\end{proposition}
+
+
+\begin{remarques}
+% \remarque Si $z=r \e^{\ii\theta}$ est une forme trigonométrique de $z\in\Cs$, alors
+%   $r$ est le module de $z$ et $\theta$ est un argument de $z$.
+\remarque Étant donné un nombre complexe $z$, on appelle
+   {\it forme trigonométrique généralisée} de $z$ toute écriture du type
+    $z=\rho \e^{\ii\theta}$ où $\rho\in\R$ et $\theta\in\R$. Attention, même si $z\neq 0$, on n'a pas nécessairement
+    $\arg{z}\equiv\theta\ \cro{2\pi}$. En effet~:
+    \begin{itemize}
+    \item {Si $\rho>0$}, alors $\rho=\abs{z}$ et
+      $\arg{z}\equiv\theta\ \cro{2\pi}$.
+    \item {Si $\rho<0$}, alors $\rho=-\abs{z}$ et
+      $\arg{z}\equiv\theta+\pi\ \cro{2\pi}$.
+    \end{itemize}
+  Lorsque l'énoncé demandera explicitement
+  de mettre un nombre complexe sous forme trigonométrique, c'est bien
+  sous la forme $z=r \e^{\ii\theta}$ avec $r>0$ qu'il faudra le mettre.
+  Cependant, lorsqu'on demandera de mettre $z$ sous forme trigonométrique pour
+  conduire des calculs, une forme trigonométrique généralisée suffira le plus
+  souvent.
+\remarque Il existe deux moyens de représenter un même nombre
+  complexe~: la forme cartésienne et la forme trigonométrique. La première
+  est particulièrement adaptée aux calculs de sommes, tandis que la seconde
+  est particulièrement adaptée aux calculs de produits.
+  % Nous verrons cependant, que lorsqu'ils ont même module, il existe un moyen
+  % simple pour mettre sous forme trigonométrique la somme de deux nombres
+  % complexes écrits sous forme trigonométrique.
+\end{remarques}
+
+\begin{exos}
+% \exo Résoudre l'équation $z^2=\conj{z}$.
+\exo Résoudre l'équation
+  \[z^2=\conj{z}\]
+  en utilisant la forme cartésienne, puis la forme trigonométrique de $z$.
+  \begin{sol}
+Avec la forme cartésienne, on a
+\begin{eqnarray*}
+z^2=\conj{z}
+&\ssi& (x+\ii y)^2=x-\ii y\\
+&\ssi& (x^2-y^2)+2\ii x y=x-\ii y\\
+&\ssi& x^2-y^2=x \et 2xy=-y\\
+&\ssi& x^2-y^2=x \et y(2x+1)=0\\
+&\ssi& x^2-y^2=x \et \cro{y=0 \ou x=-\frac{1}{2}}\\
+&\ssi& \cro{x^2-y^2=x \et y=0} \ou \cro{x^2-y^2=x \et x=-\frac{1}{2}}\\
+&\ssi& z=1 \ou z=0 \ou z=-\frac{1}{2}+\ii\frac{\sqrt{3}}{2} \ou z=-\frac{1}{2}-\ii\frac{\sqrt{3}}{2}.
+\end{eqnarray*}
+  Avec la forme trigonométrique. On sait que 0 est solution. On cherche donc les solutions non nulles. Soit $z\in\Cs$, alors il existe $r\in\RPs$ et $\theta\in\R$ tels que $z=r\e^{\ii\theta}$. On a
+\begin{eqnarray*}
+z^2=\conj{z}
+&\ssi& r^2 \e^{2\ii\theta} = r \e^{-\ii\theta}\\
+&\ssi& r^2=r \et 2\theta\equiv -\theta\ [2\pi]\\
+&\ssi& r=1 \et \theta\equiv 0\ \cro{\frac{2\pi}{3}}\\
+\end{eqnarray*}
+Les solutions sont donc $0$, $1$ et $\e^{\pm\ii\frac{2\pi}{3}}$.
+  \end{sol}
+\exo Résoudre l'équation $z^5=1/\conj{z}$.
+\begin{sol}
+Cette équation a pour domaine de définition $\Cs$. On cherche donc les solutions non nulles. Soit $z\in\Cs$, alors il existe $r\in\RPs$ et $\theta\in\R$ tels que $z=r\e^{\ii\theta}$. On a
+\begin{eqnarray*}
+z^5=\frac{1}{\conj{z}}
+&\ssi& r^5 \e^{5\ii\theta} = \frac{1}{r} \e^{\ii\theta}\\
+&\ssi& r^6=1 \et 5\theta\equiv \theta\ [2\pi]\\
+&\ssi& r=1 \et \theta\equiv 0\ \cro{\frac{\pi}{2}}\\
+&\ssi& z=1 \ou z=\ii \ou z=-1 \ou z=-\ii.
+\end{eqnarray*}
+  \end{sol}
+\end{exos}
+
+\begin{proposition}[utile=-3]
+  Soit $z,z'\in\Cs$ et $n\in\Z$. Alors
+  \[\arg(z z')\equiv\arg(z)+\arg(z')\ \cro{2\pi}, \qquad
+    \arg\p{\frac{z}{z'}}\equiv\arg(z)-\arg(z')\ \cro{2\pi},\]
+  \[\arg(z^n)\equiv n\arg(z)\ \cro{2\pi}, \qquad
+    \arg(\conj{z})\equiv -\arg(z)\ [2\pi].\]
+\end{proposition}
+
+\begin{preuve}
+Il suffit d'écrire la forme trigonométrique.
+\end{preuve}
+
+\begin{remarqueUnique}
+\remarque En général,
+  $\Arg(z z')\neq\Arg(z)+\Arg(z')$. Par exemple $\Arg((-1)(-1))=0$ et $\Arg(-1)+\Arg(-1)=2\pi$.
+\end{remarqueUnique}
+
+\subsection{Exponentielle complexe}
+
+\begin{definition}[utile=-3]
+Soit $z=x+\ii y$ un nombre complexe où $x$ et $y$ sont respectivement la partie
+réelle et imaginaire de $z$. On appelle exponentielle de $z$ et on note $\e^z$
+le nombre complexe défini par
+\[\e^z\defeq\e^{x}\p{\cos y +\ii \sin y}.\]
+\end{definition}
+
+\begin{proposition}[utile=-3]
+Soit $z$ et $z'$ deux nombres complexes. Alors
+\[\e^{0}=1 \qquad \text{et} \qquad \e^{z+z'}=\e^{z} \e^{z'}.\]
+\end{proposition}
+
+\begin{preuve}
+On écrit $a$ et $b$ sous forme cartésienne et on déroule.
+\end{preuve}
+
+\begin{proposition}[utile=-3]
+Soit $z$ un nombre complexe, et $n\in\Z$ . Alors $\e^z$ est non nul,
+\[\frac{1}{\e^z}=\e^{-z} \qquad \text{et} \qquad \e^{nz}=\p{\e^z}^n.\]
+\end{proposition}
+
+\begin{preuve}
+Voir la première partie comme un corollaire de la proposition précédente. 
+\end{preuve}
+
+\begin{proposition}[utile=-3]
+Soit $z$ un nombre complexe. Alors
+\[\conj{\e^z}=\e^{\conj{z}} \qquad \text{et} \qquad \abs{\e^z}=\e^{\Re(z)}.\]
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque Si $z\in\C$, alors
+  \[\abs{\e^z}=\e^{\Re(z)} \quad\et\quad \arg(\e^z)\equiv \Im(z)\ [2\pi].\]
+\end{remarqueUnique}
+
+\begin{proposition}[utile=-3]
+\begin{itemize}
+\item Soit $z\in\C$. Alors $\e^z=1$ si et seulement si il existe
+  $k\in\Z$ tel que $z=\ii k2\pi$.
+\item  Plus précisément, étant donnés $z_1$ et $z_2$ deux nombres
+  complexes, $\e^{z_1}=\e^{z_2}$ si et seulement si il existe
+  $k\in\Z$ tel que $z_1=z_2+\ii k2\pi$.
+\end{itemize}
+\end{proposition}
+
+\begin{proposition}[utile=-3]
+L'exponentielle est une surjection de $\C$ dans $\Cs$. Autrement dit~:
+\begin{itemize}
+\item Pour tout $z\in\C$, $\e^{z}\in\Cs$.
+\item Pour tout $z'\in\Cs$, il existe $z\in\C$ tel que $\e^{z}=z'$.
+\end{itemize}
+\end{proposition}
+
+\begin{preuve}
+Soit $a\in \Cs$ que l'on écrit $a=re^{i\theta}$ avec $r>0$ et $\theta \in \R$.
+\begin{eqnarray*}
+\forall z=x+iy \in \C, \quad e^z=a & \Longleftrightarrow &e^z=re^{i\theta} \\
+& \Longleftrightarrow & \begin{cases}
+    e^x=r\\
+    y-\theta \in 2\pi\Z
+    \end{cases}\\
+& \Longleftrightarrow & \begin{cases}
+    x=\ln(r)\\
+    \exists k \in \Z, y=\theta+2k\pi
+    \end{cases}
+\end{eqnarray*}
+$a$ admet donc un seul $x$ mais une infinité de $y$ donc une infinité d'antécédents qui sont exactements les $\set{\ln(r)+i(\theta+2k\pi), k\in \Z}$.
+
+
+\end{preuve}
+
+\begin{remarqueUnique}
+\remarque Si $z\in\Cs$, nous venons de voir qu'il existe $z'\in\C$ tel que
+  $e^{z'}=z$. Cependant, $z'$ n'est pas unique, ce qui nous empêche de définir
+  le logarithme de $z$. Par contre, on peut montrer qu'il existe un unique $z'\in\C$ tel que $\e^{z'}=z$ et
+  $\Im(z')\in\interof{-\pi}{\pi}$. Ce nombre est appelé logarithme
+  principal de $z$ et noté $\Ln(z)$. De plus $\Ln(z)=\ln\abs{z}+\ii\Arg(z)$. C'est le logarithme calculé par les logiciels de calcul formel ainsi que vos calculatrices. Malheureusement, l'identité $\Ln\p{z z'}=\Ln(z)+\Ln(z')$ est fausse;
+  elle n'est vraie que modulo $\ii2\pi$. C'est pourquoi, nous n'emploierons
+  jamais de logarithme avec les nombres complexes.
+\end{remarqueUnique}
+
+\begin{exoUnique}
+\exo Résoudre sur $\C$ l'équation $\e^z=\sqrt{3}+3\ii$.
+  \begin{sol}
+  $\sqrt{3}+3i=2\sqrt{3}\p{\dfrac{1}{2}+\dfrac{\sqrt 3}{2}i}=2\sqrt{3}e^{i\frac{\pi}{3}}$ donc on trouve $\ln\p{2\sqrt{3}}+\ii\frac{\pi}{3}+\ii k2\pi$.
+  \end{sol}
+\end{exoUnique}
+
+\section{Racines d'un nombre complexe}
+\subsection{L'équation du second degré}
+
+\begin{definition}[utile=-3]
+Soit $a$ un nombre complexe. On appelle \emph{racine} de $a$ tout nombre complexe $z$
+tel que
+\[z^2=a.\]
+\end{definition}
+
+\begin{remarques}
+\remarque Si $a$ est un réel positif, les racines de $a$ sont $\sqrt{a}$ et $-\sqrt{a}$.
+  Si $a$ est un réel négatif, ses racines sont $\ii\sqrt{\abs{a}}$ et
+  $-\ii\sqrt{\abs{a}}$.
+\remarque Si $a\in\C$, on parlera de racine de $a$, mais on n'écrira jamais $\sqrt{a}$. Cette notation est réservée aux réels positifs.
+\end{remarques}
+
+\begin{proposition}[utile=-3]
+Soit $a$ un nombre complexe non nul. Alors $a$ admet exactement deux
+racines distinctes opposées l'une à l'autre.
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque En pratique, pour trouver les racines d'un nombre complexe $a$, on procède ainsi
+  \begin{itemize}
+    \item {\it Si $a$ s'exprime facilement sous forme trigonométrique.}
+      On connait donc $r>0$ et $\theta$ tels que $a=r\e^{\ii\theta}$. Alors
+      les racines de $a$ sont $\sqrt{r}\e^{\ii\frac{\theta}{2}}$
+      et $-\sqrt{r}\e^{\ii\frac{\theta}{2}}$.
+    \item {\it Si $a$ est sous forme cartésienne et qu'il n'est pas
+      simple de le mettre sous forme trigonométrique.}
+      On recherche les racines de $a$ sous la forme $z\defeq x+\ii y$ en
+      effectuant une analyse~: on suppose que $z$ est une racine de $a$
+      et on exploite le fait que $\abs{z}^2=\abs{a}$ et que $z^2$ et $a$
+      ont même partie réelle. On obtient donc
+      \begin{align*}
+        x^2+y^2&=\abs{a},\\
+        x^2-y^2&=\Re(a).
+      \end{align*}
+      En résolvant ce système linéaire en $x^2$ et $y^2$, on obtient $4$
+      couples $(x,y)$ de solutions parmi lesquelles se trouvent les racines de 
+      $a$. Un argument de signe sur les parties imaginaires de $z^2$ et
+      $a$ permet d'éliminer deux candidats. La proposition précédente
+      nous assure que les deux candidats restants sont bien des racines de
+      $a$.
+  \end{itemize}
+\end{remarqueUnique}
+
+\begin{exos}
+\exo Calculer les racines carrées de $1+\ii\sqrt{3}$.
+  \begin{sol}
+  On trouve après mise sous forme trigonométrique
+  \[\pm\sqrt{2}e^{i\frac{\pi}{6}}=\pm\frac{\sqrt{6}+\ii\sqrt{2}}{2}.\]
+  \end{sol}
+\exo Calculer les racines de $1+\ii$ de deux manières différentes.
+  En déduire une expression avec des radicaux emboîtés de
+  $\cos(\pi/8)$, $\sin(\pi/8)$ et $\tan(\pi/8)$.
+  \begin{sol}
+  Avec la forme cartésienne, on doit résoudre $x^2+y^2=\sqrt{2}$ et $x^2-y^2=1$. On trouve 4 couples mais on doit avoir $xy\geq 0$ ce qui fait qu'on garde 
+  \[\sqrt{\frac{1+\sqrt{2}}{2}}+i\sqrt{\frac{-1+\sqrt{2}}{2}} \et
+    -\sqrt{\frac{1+\sqrt{2}}{2}}-i\sqrt{\frac{-1+\sqrt{2}}{2}}\]
+  et par la forme trigonométrique, on trouve $\pm 2^{\frac{1}{4}}e^{i\frac{\pi}{8}}$. Donc
+  \[\cos\frac{\pi}{8}=\frac{1}{2^{\frac{1}{4}}}\sqrt{\frac{1+\sqrt{2}}{2}}=
+    \frac{\sqrt{2+\sqrt{2}}}{2} \qquad
+    \sin\frac{\pi}{8}=\frac{1}{2^{\frac{1}{4}}}\sqrt{\frac{-1+\sqrt{2}}{2}}=
+    \frac{\sqrt{2-\sqrt{2}}}{2}\]
+  \[\tan\frac{\pi}{8}=\sqrt{2}-1\]
+  \end{sol}
+\end{exos}
+
+\begin{proposition}[utile=-3]
+Soit $a,b,c\in\C$ avec $a\neq 0$.
+% \begin{itemize}
+%\item 
+On considère l'équation
+  \[(E) \qquad az^2+bz+c=0.\]
+  On appelle discriminant de $(E)$ le nombre complexe $\Delta=b^2-4ac$.
+  \begin{itemize}
+  \item Si $\Delta\not=0$, le trinôme admet deux racines distinctes
+    \[z_1\defeq\frac{-b+\delta}{2a} \qquad \text{et} \qquad
+      z_2\defeq\frac{-b-\delta}{2a}.\]
+    où $\delta$ est une racine carrée de $\Delta$.
+  \item Si $\Delta=0$, le trinôme admet une seule racine, appelée racine
+    double
+    \[z_0\defeq-\frac{b}{2a}.\]
+  \end{itemize}
+% \item Lorsque l'équation s'écrit sous la forme~:
+%   \[az^2+2bz+c=0\]
+%   on utilise le discriminant réduit $\Delta'=b^2-ac$. Dans ce cas~:
+%   \begin{itemize}
+%   \item Si $\Delta'=0$, le trinôme admet une et une seule racine appelée racine
+%     double~:
+%     \[z_0=-\frac{b}{a}\]
+%   \item Si $\Delta'\not=0$, le trinôme admet exactement deux racines distinctes~:
+%     \[a=\frac{-b+\delta'}{a} \qquad \text{et} \qquad
+%       b=\frac{-b-\delta'}{a}\]
+%     où $\delta'$ est une racine carrée de $\Delta'$.
+%   \end{itemize}
+% \end{itemize}
+\end{proposition}
+
+\begin{preuve}
+$\displaystyle z^2+\frac{b}{a}z+\frac{c}{a}=\p{z+\frac{b}{2a}}^2-\p{\frac{\delta}{2a}}^2=\p{z+\frac{b+\delta}{2a}}\p{z+\frac{b-\delta}{2a}}=0$.
+\end{preuve}
+
+\begin{remarqueUnique}
+\remarque Soit $a,b,c\in\R$ avec $a\neq 0$. On considère l'équation
+  \[(E) \qquad az^2+bz+c=0.\]
+  \begin{itemize}
+  \item Si $\Delta>0$, le trinôme admet deux racines réelles distinctes
+    \[z_1\defeq\frac{-b+\sqrt{\Delta}}{2a} \qquad \text{et} \qquad
+      z_2\defeq\frac{-b-\sqrt{\Delta}}{2a}.\]
+  \item Si $\Delta=0$, le trinôme admet une seule racine réelle, appelée racine
+    double
+    \[z_0\defeq-\frac{b}{2a}.\]
+  \item Si $\Delta<0$, le trinôme admet deux racines complexes conjuguées
+    \[z_1\defeq\frac{-b+\ii\sqrt{\abs{\Delta}}}{2a} \qquad \text{et} \qquad
+      z_2\defeq\frac{-b-\ii\sqrt{\abs{\Delta}}}{2a}.\]
+  \end{itemize}     
+\end{remarqueUnique}
+
+\begin{exoUnique}
+\exo Soit $\theta\in\R$. Résoudre sur $\C$ l'équation
+  $z^2-2\cos(\theta)z+1=0$.
+  \begin{sol}
+  Les racines sont $\e^{\ii\theta}$ et $\e^{-\ii\theta}$.
+  \end{sol}
+\end{exoUnique}
+
+\begin{proposition}
+Soit $a,b,c\in\C$ avec $a\not=0$ et $z_1,z_2$ deux nombres complexes. Alors $z_1$
+et $z_2$ sont les deux racines, éventuellement égales, de l'équation
+$az^2+bz+c=0$ si et seulement si
+\[z_1+z_2=-\frac{b}{a} \qquad \text{et} \qquad z_1 z_2=\frac{c}{a}.\]
+\end{proposition}
+
+\begin{preuve}
+$\displaystyle z^2+\frac{b}{a}z+\frac{c}{a}=(z-z_1)(z-z_2)$.
+\end{preuve}
+\begin{remarqueUnique}
+\remarque Si $P,S\in\C$, les solutions du système
+  \[\syslin{z_1+z_2&=&S\hfill\cr
+             z_1 z_2&=&P,\hfill}\]
+  sont $\p{\omega_1,\omega_2}$ et $\p{\omega_2,\omega_1}$ où $\omega_1$
+  et $\omega_2$ sont les racines du trinôme $z^2-Sz+P=0$.
+\end{remarqueUnique}
+\begin{exos}
+\exo Déterminer les solutions de l'équation $3z^2-5z+2=0$.
+\exo Résoudre sur $\C$ le système
+  \[\syslin{u^2+v^2&=&3-2\ii\hfill\cr
+                 uv&=&3+\ii.\hfill}\]
+  \begin{sol}
+  On résout le système                 
+  \[\syslin{a+b&=&3-2\ii\hfill\cr
+             ab&=&8+6\ii\hfill}\]
+  On obtient l'équation du second degré $z^2-\p{3-2\ii}z+\p{8+6\ii}=0$ dont le
+  discriminant est $-27-36\ii$. $3-6\ii$ en est une racine donc les racines
+  du trinôme sont $3-4\ii$ et $2\ii$. Donc $a=3-4\ii$ et $b=2\ii$, ou le contraire.
+  Les racines de $3-4\ii$ sont $\pm\p{2-\ii}$ et les racines de $2\ii$ sont
+  $\pm\p{1+\ii}$. Ce qui nous donne au final 4 solutions dans le premier cas.
+  On en élimine 2 en regardant le signe de la partie réelle de $uv$. Il
+  reste $\p{u,v}=\p{2-\ii,1+\ii}$ et $\p{u,v}=\p{-2+\ii,-1-\ii}$. On rajoute bien sûr
+  les deux autres solutions.
+  \end{sol}
+\end{exos}
+
+\subsection{Racines $n$-ièmes}
+
+\begin{definition}[utile=-3]
+Étant donné $n\in\Ns$ et $a\in\C$, on appelle \emph{racine $n$-ième} de $a$ tout
+nombre complexe $z$ tel que $z^n=a$. Les racines $n$-ièmes de 1 sont appelées
+\emph{racines $n$-ièmes de l'unité} et l'ensemble de ces racines est noté $\U[n]$.
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque Les racines $n$-ièmes de 1 sont de module 1. Autrement dit, $\U[n]\subset\U$.
+\end{remarqueUnique}
+
+
+% \subsection{Division euclidienne}
+
+\begin{proposition}[utile=-3]
+Soit $n\in\Ns$. Il existe exactement $n$ racines $n$-ièmes de l'unité. En posant $\omega\defeq\e^{\ii\frac{2\pi}{n}}$, ce sont
+\[1,\omega,\ldots,\omega^{n-1}.\]
+\end{proposition}
+
+\begin{preuve}
+Soit $z\in\R$. On peut fixer $\theta\in\R$ tel que $z=e^{i\theta}$.
+\begin{eqnarray*}
+z^n=1 &\Longleftrightarrow& e^{in\theta}=1 \text{ d'après Moivre}\\
+&\Longleftrightarrow& \exists k\in \Z, n\theta=2k\pi \\
+&\Longleftrightarrow& \exists k\in \Z, \theta=\dfrac{2k\pi}{n}
+\end{eqnarray*}
+On a montré ainsi que $\U[n]=\ens{e^{\frac{2ik\pi}{n}}, k\in \Z}$.
+
+Soit $k\in \Z$. \'Ecrivons la division euclidienne de $k$ par $n$. $\exists ! (q,r) \in \Z^2 \text{ tel que } k=qn+r \text{ et } 0\leq r<n$. On a alors :
+\[e^{\frac{2ik\pi}{n}}=e^{\frac{2i(qn+r)\pi}{n}}=e^{2iq\pi}e^{\frac{2ir\pi}{n}}=e^{\frac{2ir\pi}{n}},\]
+ce qui montre que $\U[n]\subset\ens{e^{\frac{2ik\pi}{n}}, 0\leq k\leq n-1}$. L'autre inclusion étant claire, on a bien l'égalité.
+
+Il reste à voir qu'elles sont bien toutes distinctes (et qu'on en a donc exactement $n$). Pour cela, supposons qu'il existe $k$ et $\ell$ dans $\llbracket0,n-1\rrbracket$ tels que $e^{\frac{2ik\pi}{n}} =e^{\frac{2i\ell\pi}{n}}$. Ainsi, $e^{\frac{2i(k-\ell)\pi}{n}}=1$ et donc il existe $m\in\Z$ tel que $\dfrac{2(k-\ell)\pi}{n}=2m\pi$. Mais alors, $n$ divise $k-\ell$. Or $-(n-1)\leq k-\ell \leq n-1$ donc $k-l=0$.
+\end{preuve}
+
+\begin{remarques}
+\remarque Lorsque l’on doit calculer sur des racines $n$-ièmes, il est souvent plus efficace de les manipuler via leur propriété ($z^n = 1$) plutôt que par leur description ($z=\omega^k$). On ne se rabat sur la description que lorsque la relation $z^n = 1$ ne suffit pas, ou en toute fin de calcul.
+\remarque Dans le cas où $n=3$, $\omega$ est noté $\jj$. Les racines
+  3-ièmes de l'unité sont donc $1,\jj,\jj^2$. Lorsqu'on travaille avec le nombre
+  complexe $\jj$, on exploite les relations
+  \[\jj^3=1, \qquad 1+\jj+\jj^2=0 \et \frac{1}{\jj}=\conj{\jj}=\jj^2.\]
+% \remarque Attention, si $n\geq 2$, l'égalité $a^n=b^n$ n'implique pas $a=b$.
+\remarque Les racines $n$-ièmes de l'unité forment un polygone régulier à $n$ côtés.
+\pgfplotsset{
+    standard/.style={
+        axis x line=middle,
+        axis y line=middle,
+        enlarge x limits=0.15,
+        enlarge y limits=0.15,
+        every axis x label/.style={at={(current axis.right of origin)},anchor=north west},
+        every axis y label/.style={at={(current axis.above origin)},anchor=north east}
+    }
+}
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[standard,axis equal,mark=none,
+  ymax=1,ymin=-1,
+  domain=0:3,samples=4,disabledatascaling,
+  xtick=0,xticklabels=0,
+  ytick=0,yticklabels=0,colormap={slategraywhite}{rgb255=(0,0,0) rgb255=(0,0,0)}]
+\addplot[scatter,color=black]({cos(2*pi*deg(x)/3)},{sin(2*pi*deg(x)/3)});
+\draw[help lines] (0,0) circle (1);
+\node[above right] at (1,0) {$1$};
+\node[above left] at (-0.5,0.8660) {$\jj$};
+\node[below left] at (-0.5,-0.8660) {$\jj^2$};
+\end{axis}
+\end{tikzpicture}
+$\qquad$
+\begin{tikzpicture}
+\begin{axis}[standard,axis equal,mark=none,
+  ymax=1,ymin=-1,
+  domain=0:7,samples=8,disabledatascaling,
+  xtick=0,xticklabels=0,
+  ytick=0,yticklabels=0,colormap={slategraywhite}{rgb255=(0,0,0) rgb255=(0,0,0)}]
+\addplot[scatter,color=black]({cos(2*pi*deg(x)/7)},{sin(2*pi*deg(x)/7)});
+\draw[help lines] (0,0) circle (1);
+\node[above right] at (1,0) {$1$};
+\node[above right] at (0.62349,0.781831) {$\omega$};
+\node[above] at (-0.2225,0.9749) {$\omega^2$};
+\node[below right] at (0.62349,-0.781831) {$\omega^{n-1}$};
+\node[below] at (-0.2225,-0.9749) {$\omega^{n-2}$};
+\end{axis}
+\end{tikzpicture}
+\end{figure}
+% \remarque Si $\omega\defeq\e^{\ii 2\pi/n}$, alors~:
+%   $\forall k\in\Z\qsep \omega^k=1 \quad\ssi\quad k\equiv 0\ [n].$
+\end{remarques}
+
+\begin{exos}
+% \exo Soit $f$ la fonction d'expression
+%   \[f(z)\defeq\frac{z^{12}+3z^7-4z^4+6z+1}{z^6+z^4+z^2-1}.\]
+%   Calculer $f(\ii)$, $f(\jj)$ et $f(\jj^2)$.
+\exo Que dire de deux nombres complexes $a,b\in\C$ tels que $a^3=b^3$~?
+
+\begin{sol}
+Ou bien ils sont nuls, ou bien $a/b \in \ens{1,j,j^2}$.
+\end{sol}
+\exo Soit $n\in\Ns$. Résoudre sur $\C$ l'équation
+  \[\p{z+1}^n=\p{z-1}^n.\]
+  \begin{sol}
+  Déjà, $z\neq 1$.
+  \begin{eqnarray*}
+  \p{\frac{z+1}{z-1}}^n=1 &\Longleftrightarrow & \exists k\in \llbracket 0,n-1\rrbracket\text{ tel que } \frac{z+1}{z-1}= e^{\frac{2ik\pi}{n}}\\
+  &\Longleftrightarrow & z(1-e^{\frac{2ik\pi}{n}})=-1-e^{\frac{2ik\pi}{n}}\\
+  &\Longleftrightarrow & z=\frac{1+e^{\frac{2ik\pi}{n}}}{e^{\frac{2ik\pi}{n}}-1} \text{ en reprenant les équivalences avec }k\neq 0
+  \end{eqnarray*}
+  On trouve $z=-\ii\cotan\p{\frac{k\pi}{n}}$ pour $k\in\intere{1}{n-1}$ en passant finalement à l'angle moitié.
+  \end{sol}
+
+\exo Calculer
+  \[\sum_{z\in\U[n]} \abs{z-1}.\]
+  \begin{sol}
+\begin{eqnarray*}
+  \sum_{z\in\U[n]} \abs{z-1}&=& \sum_{k=0}^{n-1} \abs{e^{\frac{2ik\pi}{n}}-1}\\
+  &=& \sum_{k=0}^{n-1} \abs{e^{\frac{ik\pi}{n}}\p{e^{\frac{ik\pi}{n}}-e^{\frac{-ik\pi}{n}}}}\\
+  &=& \sum_{k=0}^{n-1}2\abs{\sin\p{\frac{k\pi}{n}}}\\
+  &=& 2\sum_{k=0}^{n-1}\sin\p{\frac{k\pi}{n}}\\
+  &=& 2\sum_{k=0}^{n-1}\Im\p{e^{\frac{ik\pi}{n}}}\\
+  &=& 2\Im\p{\sum_{k=0}^{n-1}\p{e^{\frac{i\pi}{n}}}^k}\\
+  &=& 2\Im\p{\frac{1-e^{i\pi}}{1-e^{i\pi/n}}}\\
+  &=& 2\frac{2}{-e^{\frac{i\pi}{2n}}2i\sin(\frac{\pi}{2n})}\\
+  &=& 2\frac{ie^{\frac{-i\pi}{2n}}}{\sin(\frac{\pi}{2n})}\\
+  &=& 2\cotan\p{\frac{\pi}{2n}}
+\end{eqnarray*}
+  On peut vérifier avec $n=4$ et le résultat obtenu dans l'exercice 12 :  $2\cotan\p{\frac{\pi}{8}}=\dfrac{2}{\sqrt{2}-1}$.
+  \end{sol}
+% \exo Résoudre sur $\C$ l'équation $z^2=27\conj{z}$.
+%   \begin{sol}
+%   On trouve $z=0,27,27j,27j^2$.
+%   \end{sol}
+\end{exos}
+
+\begin{proposition}[utile=-3]
+Soit $n\geq 2$ et $\zeta$ une racine $n$-ième de l'unité, différente de $1$.
+Alors
+\[1+\zeta+\dots+\zeta^{n-1}=0.\]
+En particulier, la somme des racines $n$-ièmes de l'unité est nulle.
+\end{proposition}
+
+\begin{preuve}
+Somme géométrique et/ou développement du polynôme factorisé.
+\end{preuve}
+
+% \begin{exos}
+% \exo Calculer
+%   \[\cos\frac{\pi}{11}+\cos\frac{3\pi}{11}+\cos\frac{5\pi}{11}+
+%     \cos\frac{7\pi}{11}+\cos\frac{9\pi}{11}\]
+% \end{exos}
+
+\begin{proposition}[utile=-3]
+Soit $a\in\Cs$ et $n\in\Ns$. Alors $a$ admet exactement $n$ racines $n$-ièmes. En posant $\omega\defeq\e^{\ii\frac{2\pi}{n}}$, si $z_0$ est une racine $n$-ième de $a$, les racines $n$-ièmes de $a$ sont
+\[z_0,\omega z_0,\ldots,\omega^{n-1}z_0.\]
+\end{proposition}
+
+\begin{preuve}
+$z_0\neq 0$ et $z/z_0 \in \U[n]$.
+
+\end{preuve}
+
+\begin{remarques}
+\remarque Si $a=r\e^{\ii\theta}$ est sous forme trigonométrique, alors 
+  \[z_0=\sqrt[n]{r}\e^{\ii\frac{\theta}{n}}\]
+  est une racine $n$-ième de $a$.
+\remarque Si $n\geq 2$, la somme des racines $n$-ièmes d'un nombre complexe est
+  nulle.
+\end{remarques}
+
+\begin{exos}
+\exo Résoudre sur $\C$ l'équation
+  \[27\p{z-1}^6+\p{z+1}^6=0.\]
+  \begin{sol}
+  Comme $z\neq 1$, cela revient à $\displaystyle \p{\frac{z+1}{z-1}}^6=-27$. $z_0=\sqrt{3}e^{i\pi/6}$ en est une solution. D'où $\frac{z+1}{z-1}=\sqrt{3}e^{i\pi/6}e^{2ik\pi/6}$.
+  On trouve
+  \[z=\frac{\sqrt{3}\e^{\ii\frac{(1+2k)\pi}{6}}+1}{\sqrt{3}\e^{\ii\frac{(1+2k)\pi}{6}}-1}\]
+   pour $k\in\intere{0}{5}$
+  % On trouve
+  % \[z=-\frac{1+i\sqrt{3}\omega^k}{1-i\sqrt{3}\omega^k}(faute)=
+  %   \frac{1-i\sqrt{3}\cos\p{\frac{k\pi}{3}}}{2+\sqrt{3}\sin\p{\frac{k\pi}{3}}}
+  %   (juste)\]
+  % avec $k\in\intere{0}{5}$ et $\omega=e^{i\frac{\pi}{3}}$.
+  \end{sol}
+\exo Montrer que
+  \[\cos\frac{\pi}{7}-\cos\frac{2\pi}{7}+\cos\frac{3\pi}{7}=\frac{1}{2}.\]
+  \begin{sol}
+  On résout $z^7=-1$ en prenant $z_0=e^{i\pi/7}$. On exploite le fait que la somme des racines est nulle en en prenant la partie réelle. On regroupe les cosinus identiques et on conclut en remarquant que $\cos(5\pi/7)=-\cos(2\pi/7)$.
+  \end{sol}
+\end{exos}
+
+
+\section{Nombres complexes et géométrie plane}
+
+\subsection{Le plan complexe}
+\begin{definition}
+Soit $\mathcal{P}$ le plan euclidien orienté et $\mathcal{R}=\p{O,\ve{e_1},\ve{e_2}}$ un repère orthonormé direct.
+\begin{itemize}
+\item Si $M$ est un point du plan de coordonnées $(x,y)\in\R^2$
+  \[\ve{OM}=x \ve{e_1}+y \ve{e_2}\]
+  on appelle \emph{affixe} de $M$ le nombre complexe $x+\ii y$.
+\item Si $\ve{u}$ est un vecteur de coordonnées $(x,y)\in\R^2$
+  \[\ve{u}=x \ve{e_1}+y \ve{e_2}\]
+  on appelle \emph{affixe} de $\ve{u}$ le nombre complexe $x+\ii y$.
+\end{itemize}
+\end{definition}
+
+\begin{proposition}
+\begin{itemize}
+\item Soit $A$ et $B$ deux points du plan d'affixes respectives $a$ et $b\in\C$. Alors $\ve{AB}$ a pour affixe $b-a$.
+\item Soit $\ve{u}$ et $\ve{v}$ deux vecteurs d'affixes respectives $u$ et $v\in\C$ et $\lambda,\mu\in\R$. Alors $\lambda\ve{u}+\mu\ve{v}$ a pour affixe $\lambda u+\mu v$.
+\end{itemize}
+\end{proposition}
+
+% \begin{definition}
+% Soit $A_1,\ldots,A_n$ des points du plan d'affixes respectifs $a_1,\ldots,a_n\in\C$ et $\lambda_1,\ldots,\lambda_n\in\R$ tels que
+% $\lambda_1+\cdots+\lambda_n\neq 0$. On appelle \emph{barycentre} des points pondérés $(A_1,\lambda_1),\ldots,(A_n,\lambda_n)$ le point d'affixe
+% \[z\defeq\frac{\lambda_1 a_1+\cdots+\lambda_n a_n}{\lambda_1+\cdots+\lambda_n}.\]
+% \end{definition}
+
+% \begin{remarques}
+% \remarque Le milieu de $[AB]$ est le barycentre du système $(A,1), (B,1)$. En particulier, si $a$ et $b$ sont les affixes respectifs de $A$ et $B$, l'affixe du milieu de $[AB]$ est $(a+b)/2$.
+% \remarque Si $A$ et $B$ sont deux points du plan, le segment $[AB]$ est l'ensemble des barycentres du système $(A,\lambda)$, $(B,1-\lambda)$ pour $\lambda\in\interf{0}{1}$. La droite $(AB)$ est l'ensemble des barycentres du système $(A,\lambda)$, $(B,1-\lambda)$ pour $\lambda\in\R$.
+% \remarque Si $A_1,\ldots,A_n$ sont des points du plan, $\lambda_1,\ldots,\lambda_n\in\R$ sont tels que
+% $\lambda_1+\cdots+\lambda_n\neq 0$ et $\lambda\in\Rs$, le barycentre du système $(A_1,\lambda \lambda_1),\ldots,(A_n,\lambda \lambda_n)$ est égal au barycentre du système $(A_1,\lambda_1),\ldots,(A_n,\lambda_n)$.
+% \remarque On dit qu'un point $M$ est dans l'\emph{enveloppe convexe} de $A_1,\ldots,A_n$ lorsqu'il existe $\lambda_1,\ldots,\lambda_n\in\RP$ tels que $M$ est le barycentre du système $(A_1,\lambda_1),\ldots,(A_n,\lambda_n)$.
+% \end{remarques}
+
+
+\begin{proposition}[utile=-3]
+Soit $a$ et $b$ deux nombres complexes. Alors $\abs{a-b}$ est la distance entre les points d'affixes $a$ et $b$.
+\end{proposition}
+
+\begin{proposition}[utile=-3]
+Soit $A,B,C$ trois points deux à deux distincts d'affixes respectives $a,b,c$. Alors
+\[\abs{\frac{c-a}{b-a}} = \frac{AC}{AB} \quad\text{et}\quad   \arg\p{\frac{c-a}{b-a}}\equiv\p{\overrightarrow{AB}, \overrightarrow{AC}}\  [2 \pi].\]
+\end{proposition}
+
+\begin{preuve}
+Le premier point est immédiat Le second découle de l'interprétation géométrique de l'argument. En notant $\overrightarrow{i}$ le vecteur d'affixe $1$ et en posant $\theta=\arg(z)$, on a $z=|z|(\cos(\theta)+i\sin(\theta))$ donc $\p{\overrightarrow{i}, \overrightarrow{u}})\equiv \arg(z)[2\pi]$. De même, $\p{\overrightarrow{i}, \overrightarrow{u'}})\equiv \arg(z')[2\pi]$. D'où :
+
+
+\begin{eqnarray*}
+\p{\overrightarrow{u}, \overrightarrow{u'}}=& \p{\overrightarrow{i}, \overrightarrow{u'}}-\p{\overrightarrow{i}, \overrightarrow{u}}&[2\pi]\\
+=&  \arg(z')-\arg(z)   &[2\pi]\\
+=& \arg\p{\frac{z'}{z}} &[2\pi]
+\end{eqnarray*}
+\end{preuve}
+
+\begin{proposition}[utile=-3]
+Soit $A,B,C$ trois points deux à deux distincts d'affixes respectives $a,b,c$. Alors
+\begin{itemize}
+\item $A,B,C$ sont alignés si et seulement si
+  \[\frac{c-a}{b-a}\in\R.\]
+\item $(AC)$ et $(AB)$ sont orthogonales si et seulement si
+  \[\frac{c-a}{b-a}\in\ii\R.\]
+\end{itemize}
+\end{proposition}
+
+\begin{remarques}
+\remarque Soit $A$, $B$, $C$ trois points d'affixes respectives $a$, $b$, $c\in\C$. Si $A$, $B$, $C$ sont deux à deux distincts, alors
+  \begin{eqnarray*}
+  \text{$A$, $B$, $C$ sont alignés}
+  &\ssi& \frac{c-a}{b-a}\in\R\\
+  &\ssi& \frac{c-a}{b-a}=\conj{\p{\frac{c-a}{b-a}}}\\
+  &\ssi& (c-a)\conj{(b-a)}=\conj{(c-a)}(b-a).
+  \end{eqnarray*}
+  On vérifie facilement que même si $A$, $B$, $C$ ne sont pas deux à deux distincts
+  \[\text{$A$, $B$, $C$ sont alignés} \quad\ssi\quad (c-a)\conj{(b-a)}=\conj{(c-a)}(b-a).\]
+\remarque La proposition précédente étant essentiellement utilisée de cette manière, on pourra tolérer exceptionnellement de l'appliquer, même si $A$, $B$, $C$ ne sont pas deux à deux distincts. Ce genre de \og division par zéro \fg est parfois tolérée en géométrie. Bien entendu, dans tout autre domaine des mathématiques, ces horreurs ne seront pas tolérées.
+\end{remarques}
+
+\begin{exoUnique}
+\exo Soit $ABCD$ un quadrilatère non croisé. On construit $A_1$ extérieur
+au quadrilatère tel que le triangle $BA_1C$ est isocèle et
+rectangle en $A_1$. De même pour $B_1,C_1,D_1$. Montrer que les
+segments $[A_1C_1]$ et $[D_1B_1]$ ont même longueur et sont
+orthogonaux.
+\begin{sol}
+On suppose que $(ABCD)$ est dans le sens direct. Alors
+\[a_1=c+\frac{1}{2}(1+\ii)(b-c), \qquad
+  b_1=d+\frac{1}{2}(1+\ii)(c-d),\]
+\[c_1=a+\frac{1}{2}(1+\ii)(d-a), \qquad
+  d_1=b+\frac{1}{2}(1+\ii)(a-b)\]
+donc $a_1-c_1=\ii(d_1-y)$.
+
+Sol. Victor :
+$c-a_1=i(b-a_1)$ donc $a_1=\frac{1}{1-i}(c-ib)$. De même $b_1=\frac{1}{1-i}(d-ic)$, $c_1=\frac{1}{1-i}(a-id)$ et $d_1=\frac{1}{1-i}(b-ia)$. D'où $a_1-c_1=i(b_1-d_1)$.
+\end{sol}
+\end{exoUnique}
+
+\subsection{Les similitudes directes}
+
+\begin{definition}
+Soit $\ve{u}$ un vecteur. On appelle \emph{translation} de vecteur $\ve{u}$ l'application qui au point $M$ associe l'unique point $M'$ tel que
+\[\ve{MM'}=\ve{u}.\]
+\end{definition}
+
+\begin{proposition}
+Soit $\ve{u}$ un vecteur d'affixe $u\in\C$. La translation de vecteur $\ve{u}$ transforme le point $M$ d'affixe $z$ en le point $M'$ d'affixe
+\[z'=z+u.\]
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque Une translation conserve les distances et les angles.
+\end{remarqueUnique}
+
+\begin{definition}
+Soit $\Omega$ un point du plan et $\rho\in\Rs$. On appelle \emph{homothétie} de centre $\Omega$ et de rapport $\rho$ l'application qui au point $M$ associe l'unique point $M'$ tel que
+\[\ve{\Omega M'}=\rho\ve{\Omega M}.\]
+\end{definition}
+
+\begin{proposition}
+Soit $\Omega$ un point du plan d'affixe $\omega\in\C$ et $\rho\in\Rs$. L'homothétie de centre $\Omega$ et de rapport $\rho$ transforme le point $M$ d'affixe $z$ en le point $M'$ d'affixe
+\[z'=\rho(z-\omega)+\omega.\]
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque Une homothétie de rapport $\rho\in\Rs$ multiplie les distances par $\abs{\rho}$
+	et conserve les angles.
+\end{remarqueUnique}
+
+\begin{definition}
+Soit $\Omega$ un point du plan et $\theta\in\R$. On appelle \emph{rotation} de centre $\Omega$ et d'angle $\theta$ l'application qui au point $M$ associe
+\begin{itemize}
+\item $\Omega$ si $M=\Omega$.
+\item l'unique point $M'$ tel que
+  \[\Omega M'=\Omega M \et \p{\ve{\Omega M}, \ve{\Omega M'}}\equiv\theta\,\cro{2\pi}\]
+  sinon.
+\end{itemize}
+\end{definition}
+
+\begin{proposition}
+Soit $\Omega$ un point du plan d'affixe $\omega\in\C$ et $\theta\in\R$. La rotation de centre $\Omega$ et d'angle $\theta$ transforme le point $M$ d'affixe $z$ en le point $M'$ d'affixe
+\[z'=\e^{\ii\theta}(z-\omega)+\omega.\]
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque Une rotation conserve les distances et les angles.
+\end{remarqueUnique}
+
+\begin{exoUnique}
+\exo Quelle est l'expression en notation complexe des transformations suivantes~?
+\begin{itemize}
+\item La symétrie centrale de centre $0$.
+\item L'homothétie de centre $0$ et de rapport $2$.
+\item L'homothétie de centre $2$ et de rapport $1/2$.
+\item La composée des deux dernières transformations.
+\item La rotation de centre $0$ et d'angle $\pi/2$.
+\item La rotation de centre $1+\ii$ et d'angle $\pi/2$.
+\item La composée des deux dernières transformations.
+\item La symétrie orthogonale d'axe $(Ox)$.
+\item La symétrie orthogonale dont l'axe $\mathcal{D}_\theta$ fait un angle $\theta$ avec l'axe $(Ox)$.
+\end{itemize}
+\begin{sol}
+\begin{itemize}
+\item $f(z)=-z$.
+\item $h_1(z)=2z$.
+\item $h_2(z)=(1/2)(z-2)+2$.
+\item $[h_1\circ h_2](z)=2+z$, $[h_2\circ h_1](z)=1+z$.
+\item $r_1(z)=\ii z$.
+\item $r_2(z)=\ii(z-(1+\ii))+(1+\ii)$.
+\item $[r_1\circ r_2](z)=2\ii-z=-(z-\ii)+\ii$ (symétrie de centre $\ii$ ou rotation de centre $\ii$ et d'angle $\pi$), $[r_2\circ r_1](z)=2-z=-(z-1)+1$ (symétrie de centre $1$).
+\item $f(z)=\conj{z}$.
+\item $f(z)=\e^{2\ii\theta}\conj{z}$.
+\end{itemize}
+\end{sol}
+\end{exoUnique}
+
+\begin{definition}[utile=-3]
+Soit $\Omega$ un point du plan, $r\in\RPs$ et $\theta\in\R$. On appelle \emph{similitude} de centre $\Omega$, de rapport $r$ et d'angle $\theta$ la composée (commutative) de l'homothétie de centre $\Omega$ et de rapport $r$ et de la rotation de centre $\Omega$ et d'angle $\theta$.
+\end{definition}
+
+\begin{proposition}[utile=-3]
+Soit $\Omega$ un point du plan d'affixe $\omega$, $r\in\RPs$ et $\theta\in\R$. La similitude de centre $\Omega$, de rapport $r$ et d'angle $\theta$ transforme le point $M$ d'affixe $z$ en le point $M'$ d'affixe
+\[z'=r\e^{\ii\theta}(z-\omega)+\omega.\]
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque Une similitude de rapport $r>0$ et d'angle $\theta$ multiplie les distances par
+  $r$ et conserve les angles.
+\end{remarqueUnique}
+
+Dans la suite, on confondra un point et son affixe, un vecteur et son affixe. On identifie ainsi le plan à $\C$.
+
+\begin{definition}
+On appelle \emph{similitude directe} toute application $f$ de $\C$ dans $\C$ telle qu'il existe $a\in\Cs$ et $b\in\C$ tels que
+\[\forall z\in\C\qsep f(z)=az+b.\]
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque Les translations et les similitudes de centre $\Omega$ de rapport $r\in\RPs$ et d'angle $\theta\in\R$ sont des similitudes directes. Nous allons voir que ce sont les seules.
+\end{remarqueUnique}
+
+\begin{proposition}
+La composée de deux similitudes directes est une similitude directe.
+\end{proposition}
+
+\begin{proposition}
+Soit $f$ une similitude directe et $a\in\Cs$, $b\in\C$ tels que
+\[\forall z\in\C\qsep f(z)=az+b.\]
+\begin{itemize}
+\item Si $a=1$, $f$ est la translation de vecteur $b$.
+\item Sinon, il existe $r\in\RPs$ et $\theta\in\R$ tels que $a=r\e^{\ii\theta}$. $f$ admet un unique point fixe $\omega$ et
+\[\forall z\in\C\qsep f(z)=r\e^{\ii\theta}(z-\omega)+\omega.\]
+Autrement dit $f$ est la similitude de centre $\omega$, de rapport $r$ et d'angle $\theta$.
+\end{itemize}
+\end{proposition}
+
+\begin{preuve}
+Soit $a\in\Cs$, $b\in\C$ et $f$ l'application de $\C$ dans $\C$ définie par
+\[\forall z\in\C\qsep f(z)\defeq az+b.\]
+Alors $f$ est une similitude. En effet~:
+\begin{itemize}
+\item Si $a=1$, alors $f(z)=z+b$ donc $f$ est la translation du vecteur d'affixe $b$.
+\item Sinon, $f$ admet un unique point fixe. En effet
+\begin{eqnarray*}
+\forall z\in\C\qsep f(z)=z
+&\ssi& az+b = z\\
+&\ssi& (1-a)z=b\\
+&\ssi& z=\frac{b}{1-a}.
+\end{eqnarray*}
+On pose $\omega\defeq b/(1-a)$. En mettant $a$ sous forme trigonométrique $a= r\e^{\ii\theta}$, on vérifie que
+\[\forall z\in\C\qsep f(z)=r\e^{\ii\theta}\p{z-\omega}+\omega.\]
+Donc $f$ est la similitude de centre d'affixe $\omega$, de rapport $r$ et d'angle $\theta$.
+\end{itemize}
+\end{preuve}
+
+\begin{exoUnique}
+\exo {\`A} quelle transformation géométrique correspond la fonction $f : z \mapsto
+(3-\ii)+2\ii z$~?
+\begin{sol}
+C'est la similitude de centre $1+\ii$ d'angle $\pi/2$ et de rapport 2.
+\end{sol}
+\end{exoUnique}
+
+
+%END_BOOK
+
+\end{document}

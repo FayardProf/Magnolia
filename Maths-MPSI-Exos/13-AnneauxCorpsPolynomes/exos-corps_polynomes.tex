@@ -1,0 +1,231 @@
+\documentclass{magnolia}
+
+\magtex{tex_driver={pdftex}}
+\magfiche{document_nom={Corps, polynomes},
+          auteur_nom={Emmanuel Roblet, François Fayard},
+          auteur_mail={fayard.prof@gmail.com}}
+\magexos{exos_matiere={maths},
+         exos_niveau={mpsi},
+         exos_chapitre_numero={12},
+         exos_theme={Corps, polynomes}}
+\magmisenpage{}
+\maglieudiff{}
+\magprocess
+
+
+\begin{document}
+%BEGIN_BOOK
+
+\magsection{Anneau, corps}
+
+\exercice{nom={Anneau de Boole}}
+Soit $E$ un ensemble. Pour tout $A,B\in\mathcal{P}(E)$, on définit $A\Delta B$ par
+\[A\Delta B\defeq(A\setminus B)\cup(B\setminus A).\]
+Pour tout $A\in\mathcal{P}(E)$, on définit la fonction caractéristique de $A$ comme
+l'application $\mathds{1}_A:A\to\mathbb{F}_2$ définie par
+\[\forall x\in E \qsep \mathds{1}_A(x)\defeq
+\begin{cases}
+\bar{1} & \text{si $x\in A$}\\
+\bar{0} & \text{sinon.}
+\end{cases}\]
+\begin{questions}
+\question Montrer que pour tout $A,B\in\mathcal{P}(E)$,
+  $\mathds{1}_{A\Delta B}=\mathds{1}_A + \mathds{1}_B$ et
+  $\mathds{1}_{A\cap B}=\mathds{1}_A \mathds{1}_B$.
+\question En déduire que $(\mathcal{P}(E),\Delta,\cap)$ est un anneau commutatif.
+\question Montrer que cet anneau est intègre si et seulement si $E$ possède un unique
+  élément.
+\end{questions}
+
+\exercice{nom={Fonction définie sur un anneau}}
+Soit $(A,+,\times)$ un anneau et $f$ une application de $A$ dans $\RP$ telle
+que
+\begin{itemize}
+\item $\forall x\in A \qsep f(x)=0 \ssi x=0$.
+\item $\forall x,y\in A \qsep f(xy)=f(x)f(y)$.
+\item $\forall x,y\in A \qsep f(x+y)\leq \max\p{f(x),f(y)}$.
+\end{itemize}
+Montrer que $\enstq{x\in A}{f(x)\leq 1}$ est un sous-anneau de~$A$.
+
+
+\exercice{nom={Exemple de corps}}
+On définit sur $\R$ deux lois $\oplus$ et $\otimes$ par
+\begin{eqnarray*}
+\forall(x,y)\in\R^2\qsep x\oplus y&\defeq&x+y-1\>,\\
+\forall(x,y)\in\R^2\qsep x\otimes y&\defeq&x+y-xy\>.
+\end{eqnarray*}
+Montrer que $(\R,\oplus,\otimes)$ est un corps commutatif.
+
+\exercice{nom={Morphisme de corps}}
+Montrer qu'un morphisme de corps est toujours injectif. Trouver un morphisme
+d'anneaux non injectif.
+
+\begin{sol}
+Soient $K_1, K_2$ des corps et $f$ un morphisme de $K_1$ dans $K_2$. Comme $f$ est un morphisme de corps, $f(1)=1$. Supposons $f(a)=f(b)$. On a alors $f(a-b)=0$. Si jamais on avait $a \neq b$, on aurait $a-b$ inversible (notons $c$ son inverse) et par suite $1=f(1)=f(c(a-b))=f(c)f(a-b)=f(c)\times 0=0$, ce qui n'est pas possible (dans un corps, $0$ et $1$ sont distincts). On a donc nécessairement $a=b$. Cela signifie bien que $f$ est injective.
+\end{sol}
+
+\exercice{nom={Extension quadratique}}
+Soit $\alpha\in\N$ tel que $\sqrt{\alpha}\not\in\Q$. On pose 
+\[\Q(\sqrt{\alpha})\defeq\ensim{a+b\sqrt{\alpha}}{(a,b)\in\Q^2}\]
+\begin{questions}
+\question Soit $x\in\Q\p{\sqrt{\alpha}}$. Montrer qu'il existe un unique
+  couple $\p{a,b}\in\Q^2$ tel que $x=a+b\sqrt{\alpha}$.
+\question Montrer que $\Q(\sqrt{\alpha})$ est un sous-corps de $(\R,+,\times)$.
+% \enonce Dans la suite, on suppose que $\alpha=2$ et on note $\K$ le corps
+%   $\Q(\sqrt{2}) $.
+\question Pour $x=a+b\sqrt{\alpha}\in\Q(\sqrt{\alpha})$, on pose
+  $\overline{x}=a-b\sqrt{\alpha}$; on l'appelle le conjugué de $x$. Montrer que
+  l'application  $x\mapsto \overline{x}$ est bien définie et est un
+  automorphisme du corps $\Q(\sqrt{\alpha})$.
+\question Montrer que l'automorphisme construit à la question précédente est
+  le seul automorphisme non trivial de $\Q(\sqrt{\alpha})$.
+% \question Pour $x\in\K$, on pose $N(x)=x\overline{x}$. Pour tous  $x$ et $y$
+%   dans~$\K$, montrer que 
+%   \begin{itemize}
+%   \item $N(x)=0$ si et seulement si $x=0$ ;
+%   \item $N(xy)=N(x)N(y)$.
+%   \end{itemize}
+%   Que dire de l'application $N$ de $(\Ks,\times)$ dans $(\Qs,\times)$~?
+%   Calculer $N(1/x)$ lorsque $x$ est un élément non nul de~$\K$.
+% \question Soit $A=\enstq{a+b\sqrt{2}}{(a,b)\in\Z^2}$. Montrer que $A$ est un
+%   sous-anneau intègre du corps $\K$. Montrer que $x\in A$ admet un inverse dans
+%   $A$ si et seulement si $|N(x)|=1$ ; que vaut alors l'inverse de $x$~?
+%    Donner un exemple non trivial d'élément de~$A$ inversible dans $A$.
+\end{questions}
+
+% \exercice{nom={Théorème de Wilson}}
+% Soit $p$ un nombre premier.
+% \begin{questions}
+% \question Montrer que l'application $\phi$ de $(\Z/p\Z)^*$ dans $(\Z/p\Z)^*$
+%   qui à $x$ associe $1/x$ est une bijection. Quels sont les points fixes de
+%   cette bijection~?
+% \question En déduire que $(p-1)!\equiv -1\ [p]$.
+% \end{questions}
+
+% \begin{sol}
+% \begin{questions}
+% \question C'est une bijection d'inverse elle-même. Elle a pour point fixe $1$ et $-1$.
+% \question On a un nombre pair d'éléments dans ce produit. En regroupant chaque élément avec son inverse, il reste $1$ et $-1$ dont le produit fait bien $-1$.
+% \end{questions}
+% \end{sol}
+
+\magsection{Espace vectoriel, algèbre}
+\magsubsection{Espace vectoriel}
+\magsubsection{Algèbre}
+
+
+\magsection{L'algèbre $\polyK$}
+% \exercice{nom={Calcul de degré}} %%Tout-en-un (2ème édition), p.749
+% Soit $P$ un polynôme de $\polyR$. Déterminer le degré du polynôme
+% $$P(X+1)-P(X)$$
+% en fonction du degré de $P$.
+
+\exercice{nom={Équations sur $\polyR$}}
+\begin{questions}
+\question Déterminer les polynômes $P\in\polyR$ tels que
+  \[P\p{2X}=P'(X)P''(X).\]
+\question Déterminer les polynômes $P\in\polyR$ tels que
+  \[X\p{X+1}P''+\p{X+2}P'-P=0.\]
+\end{questions}
+\begin{sol}
+$\quad$
+\begin{questions}
+\question Regarder le degré du polynôme. On trouve qu'il est inférieur ou égal
+  à 3. Finalement, les solutions sont $0$ et $\frac{4}{9}X^3$.
+\question Regarder le coefficient dominant. Cela implique que le degré du
+  polynôme est inférieur ou égal à 1. On trouve finalement les solutions
+  suivantes~: les $\lambda(X+2)$ avec $\lambda\in\R$.
+\end{questions}
+\end{sol}
+
+% \exercice{nom={Une base de $\polyK[n]$}}
+% Soit $n\in\N$. On définit pour tout $k\in\intere{0}{n}$~:
+% \[P_k=X^k\p{1-X}^{n-k}\]
+% Montrer que $P_0,\ldots,P_n$ est une base de $\polyK[n]$.
+
+\exercice{nom={Coefficients binomiaux}}
+On donne un entier $n\geq 1$.
+\begin{questions}
+\question Pour $a,b\in\R$, calculer la dérivée $n$-ième du polynôme
+  $P=\p{X-a}^n\p{X-b}^n$.
+\question En déduire une expression simplifiée de la somme
+  \[S=\sum_{k=0}^n \binom{n}{k}^2\]
+\end{questions}
+
+% \exercice{nom={Polynômes de Hilbert}}
+% Soit $n\in\N$. Pour tout $k\in\intere{0}{n}$, on définit le polynôme $P_k$ par~:
+% \[P_k=\frac{1}{k!}\prod_{l=0}^{k-1} \p{X-l}\]
+% \begin{questions}
+% \question Montrer que la famille $P_0,\ldots,P_n$ est une base de $\polyR[n]$.
+% \question On définit l'application $\Delta$ par~:
+%   \[\dspappli{\Delta}{\polyR[n]}{\polyR[n]}{P}{P\p{X+1}-P(X)}\]
+%   \begin{questions}
+%   \question Montrer que $\Delta$ est linéaire.
+%   \question Pour tout $k\in\intere{0}{n}$, calculer $\Delta\p{P_k}$.
+%   \question En déduire $\ker \Delta$ et $\im \Delta$.
+%   \end{questions}
+% \question
+%   \begin{questions}
+%   \question Montrer que~:
+%     \[\forall P\in\polyR[n] \quad P=\sum_{k=0}^n \p{\Delta^k P}\p{0}P_k\]
+%   \question Montrer que~:
+%     \[\forall k\in\intere{0}{n} \quad \forall l\in\Z \quad P_k(l)\in\Z\]
+%   \question En déduire que si $P\in\polyR[n]$~:
+%     \[\cro{\forall l\in\Z \quad P(l)\in\Z} \quad \ssi\]
+%     \[\cro{\text{Les coordonnées de $P$ dans la base $P_0,\ldots,P_n$ sont
+%       entières.}}\]
+%   \end{questions}
+% \end{questions}
+
+
+\exercice{nom={Polynômes de \nom{Tchebychev}}}
+On définit la suite de polynômes $\p{T_n}$ par
+\[T_0\defeq 1, \quad T_1\defeq X \et \forall n\in\N \qsep T_{n+2}\defeq 2XT_{n+1}-T_n.\]
+\begin{questions}
+\question Calculer les polynômes $T_n$ pour $n\in\intere{0}{5}$.
+\question Calculer le degré de $T_n$ et son coefficient dominant.
+\question Montrer que pour tout $n\in\N$, $T_n$ est l'unique polynôme
+  tel que
+  \[\forall x\in\R \qsep T_n\p{\cos x}=\cos\p{nx}.\]
+\question En déduire les racines de $T_n$.
+\end{questions}
+\begin{sol}
+$\quad$
+\begin{questions}
+\question On trouve $P_0=1$, $P_1=X$, $P_2=2X^2-1$, $P_3=4X^3-3X$,
+  $P_4=8X^4-8X^2+1$, $P_5=16X^5-20X^3+5X$.
+\question Faire une récurrence double sur $n$.
+\question Ce sont les
+  \[\cos\p{\frac{\pi}{2n}\p{1+2k}}\]
+  pour $k\in\intere{0}{n-1}$. Ce sont des racines et il faut démontrer par
+  récurrence sur $n$ que le degré de $P_n$ est $n$.
+\end{questions}
+\end{sol}
+
+% \exercice{nom={Bases de $\polyR[n]$}}
+% \begin{questions}
+% \question Soit $n\in\N$ et $P_0,\ldots,P_n$ $n+1$ polynômes tels que :
+%   $$\forall k\in\intere{0}{n} \quad \deg P_k=k$$
+%   Montrer que la famille $P_0,\ldots,P_n$ est une base de $\polyR[n]$.
+% \question Soit $\alpha\in\R$. Montrer que la famille
+%   $\p{(X-\alpha)^n}_{n\in\N}$ est une base de $\polyR$.
+% \end{questions}
+
+
+% \exercice{nom={Inversion d'une matrice}}
+% Soit $n\in\N$. On considère l'application $\phi$ qui au polynôme $P$
+% associe le polynôme $P(X+1)$.
+% \begin{questions}
+% \question Montrer que $\phi$ est un isomorphisme de $\polyC[n]$ et déterminer
+%   $\phi^{-1}$.
+% \question Expliciter la matrice de $\phi$ dans la base canonique de
+%   $\polyC[n]$.
+% \question Montrer que cette matrice est inversible et calculer son inverse.
+% \end{questions}
+
+
+%END_BOOK
+
+
+\end{document}
+

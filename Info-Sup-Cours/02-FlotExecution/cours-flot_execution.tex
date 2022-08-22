@@ -1,0 +1,1251 @@
+\documentclass{magnolia}
+
+\magtex{tex_driver={pdftex},
+        tex_packages={xypic}}
+\magfiche{document_nom={Flot d'exécution},
+          auteur_nom={François Fayard},
+          auteur_mail={francois.fayard@auxlazaristeslasalle.fr}}
+\magcours{cours_matiere={python},
+          cours_niveau={mpsi},
+          cours_chapitre_numero={2},
+          cours_chapitre={Flot d'exécution}}
+\magmisenpage{}
+\maglieudiff{}
+\magprocess
+
+\usepackage{minted}
+\usemintedstyle{xcode}
+
+\begin{document}
+%BEGIN_BOOK
+\magtoc
+
+
+
+\section{Programmation procédurale}
+
+La \emph{programmation procédurale} consiste à découper un programme en fonctions ou
+procédures élémentaires afin de rendre le programme modulaire. Chaque fonction a une
+responsabilité bien déterminée. Cela permet la réutilisation du programme ainsi défini~:
+on dit que l'on \emph{factorise} le code.
+Ainsi, il est plus facile de faire évoluer notre programme en
+remplaçant par exemple une fonction par une version plus efficace.
+
+
+\subsection{Fonction}
+
+ Dans sa forme la plus simple, une fonction prend en entrée une valeur et en renvoie une autre. Par exemple, la fonction
+
+\begin{pythoncodeline}
+def carre(n):
+    return n * n
+\end{pythoncodeline}
+
+\noindent prend en entrée la valeur $n$ et renvoie $n^2$. On utilise
+ensuite la fonction de la manière suivante~:
+
+\begin{pythoncode}
+In [1]: carre(3)
+Out[1]: 9
+\end{pythoncode}
+
+\noindent Bien entendu, il est possible d'utiliser le résultat renvoyé par une fonction à
+l'intérieur d'une expression.
+
+\begin{pythoncode}
+In [2]: carre(3) + carre(4)
+Out[2]: 25 
+\end{pythoncode}
+
+Une fonction peut prendre en entrée plusieurs paramètres~:
+
+\begin{pythoncodeline}
+def somme(a, b):
+    return a + b
+\end{pythoncodeline}
+
+\begin{pythoncode}
+In [3]: somme(3, 5)
+Out[3]: 8
+\end{pythoncode}
+
+\noindent
+Les fonctions que nous avons vues jusqu'à présent sont dites \emph{pures}, dans la mesure où elles ne changent pas l'état du système.\\
+
+Une fonction peut aussi ne rien renvoyer (en pratique elles renvoient \verb!None!, mais c'est un détail que
+nous pouvons ignorer pour le moment). Elle fonctionne alors par effet de bord; on dit que
+c'est une \emph{procédure}. On peut par exemple afficher du texte sur la console~:
+
+\begin{pythoncodeline}
+def greetings(nom):
+    print("Hello", nom)
+\end{pythoncodeline}
+
+\begin{pythoncode}
+In [4]: greetings("Paul")
+(*@\textcolor{purple}{Hello Paul}@*)
+\end{pythoncode}
+
+
+
+\subsection{Liste}
+
+Bien que les listes n'aient pas de lien avec la programmation procédurale, nous les introduisons ici
+afin d'avoir des exemples plus intéressants dans la suite de ce chapitre.
+Une liste est une succession ordonnée de valeurs. Pour définir une liste, on
+énumére ses éléments entre crochets, en les séparant par des virgules. Les listes ont leur type
+\verb!list! et il est possible de connaitre leur longueur à l'aide de la fonction
+\verb!len!.
+
+\begin{pythoncode}
+In [1]: note = [9, 10, 14]
+
+In [2]: type(note)
+Out[2]: list
+
+In [3]: len(note)
+Out[3]: 3
+\end{pythoncode}
+
+\noindent
+Si $t$ est une liste de longueur $n$, ses valeurs sont indexées de 0 à $n-1$ et il
+est possible d'accéder directement à la valeur d'indice $k$ grâce à \verb_t[k]_.
+On peut imaginer que ses valeurs sont stockées dans un tableau les unes à la suite des
+autres~: une liste peut ainsi avoir un accès direct à son $k$-ième élément.
+
+\begin{pythoncode}
+In [4]: note[0]
+Out[4]: 9
+
+In [5]: moyenne = (note[0] + note[1] + note[2]) / len(note)
+
+In [6]: moyenne
+Out[6]: 11.0
+\end{pythoncode}
+
+\noindent
+Si l'on dépasse les bornes d'une liste, Python lève l'exception \og list index out of range\fg. Par exemple \verb_note[3]_ va lever une telle exception. Même s'il est possible d'avoir des listes contenant des objets de types
+différents, en pratique, nous n'utiliserons que des listes constituées d'objets du même type.\\
+
+Notons 
+que les chaines de caractères ont un comportement comparable aux listes~: si $s$ est une chaine de
+caractères, \verb!s[k]! permet d'accèder au caractère d'indice $k$. À noter que contrairement à de nombreux
+langages, il n'existe pas de type \og caractère \fg et \verb!s[k]! est tout simplement une chaine de
+caractères de longueur 1.\\
+
+% \begin{pythoncode}
+% In [9]: t = [9, 3.14159, "Hello", True, [3, 8]]
+% \end{pythoncode}
+
+% \noindent
+% Cependant, en pratique, contrairement aux \verb_tuple_, on utilisera des listes
+% contenant des valeurs ayant le même type.\\
+
+Les listes peuvent contenir d'autres listes.
+Par exemple, pour représenter une matrice, on utilise le plus souvent une liste
+formée des listes de ses vecteurs ligne. Par exemple, pour représenter
+la matrice
+\[M\defeq\begin{pmatrix}
+  0 & 1 & 2\\
+  3 & 4 & 5
+\end{pmatrix}\in\mat{2,3}{\R}\]
+on utilise~:
+\begin{pythoncode}
+In [7]: m = [[0, 1, 2], [3, 4, 5]]
+\end{pythoncode}
+On accède à l'élément $m_{i,j}$ à l'aide de
+\verb!m[i][j]!. Si \verb!m! représente une matrice à $q$ lignes et
+$p$ colonnes alors $0\leq i<q$ et $0\leq j <q$, contrairement à l'usage
+mathématique où $1\leq i\leq q$ et $1\leq j\leq p$. Si l'on souhaite
+récupérer le nombre de lignes et de colonnes, il suffit d'écrire~:
+\begin{pythoncode}
+In [8]: q = len(m)
+
+In [9]: p = len(m[0])
+\end{pythoncode}
+
+
+\subsection{Ordre d'évaluation}
+
+Lors de l'évaluation d'une fonction comportant des expressions comme arguments, Python évalue ces
+expressions avant d'appeler la fonction. Par exemple, si l'on évalue
+l'expression \verb_f(2 + 3)_, Python va d'abord évaluer \verb_2 + 3_ en \verb_5_
+puis appeler la fonction \verb_f_ avec l'argument \verb_5_. Presque tous les langages
+de programmation fonctionnent de cette manière et seuls certains langages fonctionnels
+de niche comme Haskell ont un comportement différent. \\
+
+Les opérateurs \verb_and_ et \verb_or_ ont la particularité de fonctionner
+différemment. Étant donné que \verb_a and b_ est faux dès que \verb_a_ est faux,
+l'opérateur \verb_and_ évalue d'abord sa première opérande. Dans le cas où celle-ci
+s'évalue en \verb_False_, \emph{la seconde opérande n'est pas évaluée} et la valeur \verb_False_
+est renvoyée. On dit que l'opérateur \verb_and_ est \emph{paresseux} (\emph{lazy} en
+anglais). Cette particularité est importante, notamment lorsque l'évaluation de la seconde
+opérande peut provoquer une erreur si la première est fausse. Par exemple, si $x=0$, l'expression
+\verb_x != 0 and 1 / x <= 1_ ne lève pas d'exception et s'évalue en \verb_False_.
+De même, l'opérateur \verb_or_ évalue d'abord sa première opérande. Si le résultat
+de cette évaluation est \verb_True_, la seconde opérande n'est pas évaluée et le
+résultat est \verb_True_. Si par contre, l'évaluation de la
+première opérande est \verb_False_, la seconde opérande est évaluée.
+\vspace{2ex}
+\begin{exoUnique}
+\exo Quel est le résultat de l'expression \verb_k < len(t) and t[k] == 1_
+  si les variables \verb_k_ et \verb_t_ contiennent respectivement les valeurs
+	3 et \verb_[1, 1, 0, 1]_~? Et si \verb_k_ contient la valeur 2~? Si elle contient la
+	valeur 4~?
+\end{exoUnique}
+
+
+
+
+% \section{Fonctions}
+% \subsection{Fonctions pures}
+
+% Afin de b\^atir des logiciels complexes, il est essentiel de décomposer notre programme en briques logicielles indépendantes. Les fonctions nous permettent une telle décomposition. Dans sa forme la plus simple, une fonction prend en entrée une valeur et renvoie une valeur calculée à partir de la valeur d'entrée. Par exemple, la fonction
+
+% \begin{pythoncode}
+% >>> def carre(n):
+%         return n * n
+% \end{pythoncode}
+
+% \noindent prend en entrée la valeur \verb_n_ et renvoie la valeur \verb_n * n_. On accède ensuite à la fonction de la manière suivante~:
+
+% \begin{pythoncode}
+% >>> carre(3)
+%  9
+% \end{pythoncode}
+
+% \noindent Bien entendu, il est possible d'utiliser le résultat renvoyé par une fonction à l'intérieur d'une expression.
+
+% \begin{pythoncode}
+% >>> carre(3) + carre(4)
+%  25 
+% \end{pythoncode}
+
+% \noindent Ces fonctions sont dites pures, dans la mesure où elles ne changent pas l'état du système. Attention, ce n'est pas la fonction qui a choisi d'afficher son résultat, mais la boucle interactive qui a appelé la fonction \verb_print_ sur le résultat obtenu en évaluant l'expression. Les fonctions pures n'ont aucun effet de bord et le résultat qu'elles renvoient ne dépend pas de l'état du système. Elles sont donc très proches des fonctions mathématiques.\\
+
+% Une fonction peut utiliser des variables dites \emph{locales} pour produire le résultat demandé. Par exemple, la fonction
+
+% \begin{pythoncode}
+% >>> def est_premier(n):
+%         if n <= 1:
+%             res = False
+%         else:
+%             res = True
+%             for k in range(2, n):
+%                 if n % k == 0:
+%                     res = False
+%         return res
+% >>> est_premier(19)
+%  True
+% \end{pythoncode}
+
+% \noindent renvoi \verb_True_ si l'entier passé en paramètre est premier et \verb_False_ dans le cas contraire. L'algorithme teste tous les nombres $2, 3,\ldots, n-1$ et si un de ces nombres est un diviseur de $n$, la variable \verb_res_ est changée en \verb_False_. La valeur de cette variable est ensuite renvoyée.\\
+
+% L'instruction \verb_return_ interrompt le flot d'instructions de la fonction et renvoie donc la valeur indiquée par le premier \verb_return_ rencontré. La fonction précédente peut donc se simplifier en~:
+
+% \begin{pythoncode}
+% >>> def est_premier(n):
+%         if n <= 1:
+%             return False
+%         for k in range(2, n):
+%             if n % k == 0:
+%                 return False
+%         return True
+% \end{pythoncode}
+
+% \noindent Cependant, pour des raisons de lisibilité, il est préférable de ne pas trop multiplier les \verb_return_ et donc les points de sortie.
+
+% Fonctions appelant d'autres fonctions
+
+% \begin{exercicepython}{}
+% Soit les fonctions définies en Python par~: 
+% \begin{pythoncode}
+% def f(n):
+%     res = 0
+%     for i in range(1, n + 1):
+%         res = res + 2 * i
+%     for j in range(1, n + 1):
+%         res = res + 3 * j
+%     return(res)
+% \end{pythoncode}
+
+% \begin{pythoncode}
+% def g(n):
+%     res = 0
+%     for i in range(1, n + 1):
+%         for j in range(1, n + 1):
+%             res = res + 2 * i + 3 * j
+%     return(res)
+% \end{pythoncode}
+
+% \begin{questions}
+% \question Que font ces fonctions~? 
+% \question Exprimer en fonction de $n$, le nombre d'additions effectuées par chacune de ces deux fonctions.
+% \end{questions}
+% \end{exercicepython}
+
+% \begin{exercicepython}{}
+% On cherche à créer une fonction \verb_binome_ qui pour $n$ et $p$ entiers renvoie~:
+
+%  \[\begin{pmatrix} n \\p \end{pmatrix}= \begin{cases}
+%  \dfrac{n!}{p! (n-p)!} & \text{si $0 \leq p \leq n$}\\
+%  0  & \text{sinon}
+%  \end{cases}.\]
+
+%  \begin{questions}
+% \question   On note $H_{i}$ l'hypothèse  \og \verb_res_ contient $(i-1)!$ \fg. Compléter les fonctions suivantes de sorte que la fonction \verb+binome_naif+ ait l'effet recherché: 
+% \begin{pythoncode}
+% def factorielle(n):
+%     res = __ # H_1 est  vraie 
+%     for i in range(__):
+%         # Si H_i est vraie,
+%         res = __
+%         # alors H_(i+1) est vraie.
+%     # H_(n+1) est vraie 
+%     return(res)
+    
+% def binome_naif(k, n):
+%     if 0 <= k and k <= n:
+%         return factorielle(n) / (factorielle(k) * factorielle(n-k))
+%     else:
+%         return _
+
+% \end{pythoncode}
+% \question En étudiant le nombre de multiplications et de divisions effectuées et le type du résultat renvoyé par cette fonction, expliquer ses inconvénients. 
+% \question Pour remédier à ces inconvénients, on peut remarquer que si $n$ et $p$ sont deux entiers tels que $1 \leq p \leq n$, alors~: 
+% \[\begin{pmatrix} n \\ p \end{pmatrix} = \dfrac{n}{p} \begin{pmatrix} n-1 \\ p-1 \end{pmatrix}.\]
+% En déduire une fonction \verb_binome(n, p)_ plus efficace que la fonction pr\'ec\'edente. On fera en sorte que ce programme utilise moins de $2p$ opérations de multiplication ou division.
+% \end{questions} 
+% \end{exercicepython}
+
+
+
+% \subsection{Arguments multiples}
+
+% Une fonction peut prendre en entrée des arguments multiples. Par exemple, le calcul du pgcd de deux entiers positifs peut se faire par la fonction~:
+
+% \begin{pythoncode}
+% >>> def pgcd(a, b):
+%         while b != 0:
+%             c = a % b
+%             a = b
+%             b = c
+%         return a
+% >>> pgcd(21, 42)
+%  7
+% \end{pythoncode}
+
+% Une fonction peut avoir autant d'arguments que l'on le souhaite. Elle peut même n'avoir aucun argument.
+
+% \begin{pythoncode}
+% >>> def greetings():
+%         return "Bonjour"
+% \end{pythoncode}
+
+% \subsection{Renvoi de valeurs multiples, tuples}
+
+% Une fonction ne peut techniquement renvoyer qu'une seule valeur. C'est parfois problèmatique. Supposons par exemple que l'on souhaite écrire une fonction qui nous donne l'heure en fonction du nombre de secondes qui se sont écoulées depuis minuit. On doit pour cela renvoyer trois entiers~: $h$, $m$ et $s$.\\
+
+% Pour cela, Python propose un nouveau type appelé \verb_tuple_. Il permet de stocker plusieurs valeurs élémentaires dans une valeur \og conteneur\fg. Par exemple, on peut écrire~:
+
+% \begin{pythoncode}
+% >>> heure = (18, 59, 37)    
+% \end{pythoncode}
+
+% On peut ensuite accéder aux différentes composantes de notre conteneur avec l'opérateur \og\verb_[]_\fg. Le premier composant est indexé par 0, le second par 1 et le troisième par 2.
+
+% \begin{pythoncode}
+% >>> type(heure)
+%  tuple
+% >>> heure[0]
+%  18
+% \end{pythoncode} 
+
+% \noindent Attention cependant, les tuples sont immutables et il n'est pas autorisé à changer une de ses valeurs élémentaires avec une instruction du type \og \verb_heure[0] =_\fg. Les tuples sont si utiles, que l'on omet souvent d'écrire les parenthèses~:
+
+% \begin{pythoncode}
+% >>> heure = 18, 59, 37
+% \end{pythoncode}
+
+% Mais le meilleur est qu'il est possible de les déconstruire et d'effectuer une affectation multiple~:
+
+% \begin{pythoncode}
+% >>> h, m, s = heure
+% # Ce qui est equivalent a
+% >>> h = heure[0]
+%     m = heure[1]
+%     s = heure[2]
+% \end{pythoncode}
+
+% Nous avons maintenant à notre disposition d'une instruction très utile pour échanger facilement deux variables~:
+
+% \begin{pythoncode}
+% >>> a, b = b, a
+% \end{pythoncode}
+
+% \noindent Enfin, sachez qu'un tuple peut contenir des valeurs de types différents.\\
+
+% Pour en revenir à notre problème initial, voici une fonction qui renvoie l'heure à partir du nombre de secondes qui se sont écoulées depuis minuit.
+
+% \begin{pythoncode}
+% >>> def heure_depuis_secondes(n):
+%         s = n % 60
+%         n = n // 60
+%         m = n % 60
+%         h = n // 60
+%         return h, m, s  
+% \end{pythoncode}
+
+
+% \subsection{Les fonctions comme valeur}
+
+% Les fonctions sont des valeurs comme les autres. Leur type est \verb_function_.
+
+% \begin{pythoncode}
+% >>> def next(n):
+%         return n + 1
+% >>> type(next)
+%  function
+% \end{pythoncode}
+
+% En particulier, il est possible de passer une fonction en argument \`a une fonction.
+
+% \begin{exercicepython}{}
+% \begin{questions}
+% \question On considère une suite $(u_n)$  définie par son premier terme $u_0=a$ et la relation de récurrence 
+% \[\forall n \in \N \quad u_{n+1}=f(u_n)\] 
+% \'Ecrire une fonction \verb_u(a, n, f)_ qui calcule et renvoie $u_n$.
+% \question On considère une suite $(v_n)$  définie par ses premiers termes $u_0=a$, $u_1=b$, $u_2=c$ et la relation de récurrence
+% \[\forall n \in\N \quad u_{n+3}=f(u_n,u_{n+1},u_{n+2})\] 
+% \'Ecrire une fonction \verb_u(a, b, c, n, f)_ qui calcule et renvoie $u_n$. Combien cette fonction utilise-t-elle d'appels de $f$~? 
+% \end{questions}
+% \end{exercicepython}
+
+% \begin{exercicepython}{}
+% On suppose que $f$ est une fonction codée en Python par la fonction \verb_f_.
+% \begin{questions} 
+% \question \'Ecrire une fonction \verb_somme(f, n, m)_ qui calcule $\sum_{k=n}^m f(k)$.
+% \question \'Ecrire une fonction \verb_produit(f, n, m)_ qui calcule $\prod_{k=n}^m f(k)$.
+% \end{questions}
+% \end{exercicepython}
+
+% Voici enfin une liste d'exercices sur les fonctions~:
+
+% \begin{exercicepython}{}
+% Quel est l'effet des fonctions suivantes~? 
+
+% \begin{pythoncode}
+% def f(n):
+%     for i in range(1, n + 1):
+%         print(i * i)
+% \end{pythoncode}
+
+
+
+% \begin{pythoncode}
+% def g(n):
+%     res=0
+%     for i range(1, n + 1): 
+%         res = res + i 
+%     return res
+% \end{pythoncode}
+
+
+% \begin{pythoncode}
+% def h(n):
+%     res=1
+%     for i range(1, n + 1): 
+%         res = res * i 
+%     return res
+% \end{pythoncode}
+
+% \begin{pythoncode}
+% def h(n, x):
+%     res = 1
+%     for i range(n - 1):
+%         res = res * x
+%     return res 
+% \end{pythoncode}
+
+
+% \begin{pythoncode}
+% def s(n, valdeb):
+%     res = valdeb
+%     for i in range(1, n + 1) 
+%         res = 3 * res**2 + 1
+%     return res
+% \end{pythoncode}
+
+% \begin{pythoncode}
+% def calculsuite(n, valdeb, f):
+%     res = valdeb
+%     for i in range(1, n + 1):
+%         res = f(res)
+%     return res
+% def g(x):
+%     return(3 * x * x + 1)
+% calculsuite(4, 0, g)
+% \end{pythoncode}
+% \end{exercicepython}
+
+\section{Programmation structurée}
+
+En programmation impérative, l'ordre dans lequel les différentes instructions sont
+exécutées est essentiel. Jusqu'à présent, nous avons écrit des programmes dans lesquels
+les instructions s'exécutaient les unes après les autres, toujours dans le même ordre.
+Afin de changer cet ordre, les programmes sont
+capables d'effectuer des sauts dans ce flot d'instructions. Les premiers langages de
+programmation utilisaient une instruction nommée \verb_goto_ qui leur permettait,
+sous condition, de sauter d'un endroit à l'autre du programme. Bien que totalement
+adaptée à la manière dont fonctionne un processeur, cette instruction est beaucoup trop
+permissive et a abouti à l'écriture de \og code spaghetti \fg, difficilement
+compréhensible par des humains, et donc source de nombreux bugs.
+Dans un célèbre article publié en 1968 sous le titre \og Goto statement considered harmful \fg,
+Edsger Dijkstra a plaidé pour l'utilisation essentielle
+d'instructions conditionnelles (\verb_if_) et de boucles (\verb_for_/\verb_while_).
+Parallèlement, on a montré que ces structures de contrôle suffisent pour l'écriture des
+programmes les plus complexes. Les années 1970 donnent ainsi naissance à la
+\emph{programmation structurée}.
+
+\subsection{Branchement}
+
+L'instruction \verb_if_ permet de soumettre l'exécution d'une instruction ou d'un bloc d'instructions à une condition.
+
+\begin{pythoncodeline}
+def banquier(solde):
+    if solde < 0:
+        print("Vous êtes à découvert.")
+        print("Veuillez passer à la banque.")
+    print("Bonne journée.")
+\end{pythoncodeline}
+    
+\begin{pythoncode}
+In [1]: banquier(100)
+(*@\textcolor{purple}{Bonne journée.}@*)
+
+In [2]: banquier(-10)
+(*@\textcolor{purple}{Vous êtes à découvert.}@*)
+(*@\textcolor{purple}{Veuillez passer à la banque.}@*)
+(*@\textcolor{purple}{Bonne journée.}@*)
+\end{pythoncode}
+
+\noindent Le bloc d'instructions soumis à condition est délimité par l'\emph{indentation}. Par rapport à l'instruction \verb_if_, on décale d'un même nombre d'espaces chaque instruction faisant partie de ce bloc. Par convention, nous choisissons une indentation de 4 espaces. L'instruction suivant la fin du bloc doit avoir le même niveau d'indentation que l'instruction \verb_if_. Le programme précédent vous souhaitera donc une bonne journée quel que soit l'état de votre compte.\\
+
+\begin{exoUnique}
+\exo Expliquer ce que font les deux fonctions suivantes.
+\begin{pythoncodeline}
+def foo(n):
+    if n % 2 == 1:
+        n = n - 1
+    print(n)
+
+def bar(n):
+    if n % 2 == 1:
+        n = n - 1
+        print(n)
+\end{pythoncodeline}
+\end{exoUnique}
+\bigskip
+
+Il est possible d'exécuter un autre bloc d'instructions dans le cas où la condition n'est pas vérifiée.
+
+\begin{pythoncodeline}
+def salutation(est_femme):
+    if est_femme:
+        genre = "Madame"
+    else:
+        genre = "Monsieur"
+    return "Bonjour " + genre + "."
+\end{pythoncodeline}
+
+\begin{pythoncode}
+In [3]: salutation(True)
+Out[3]: 'Bonjour Madame.'
+
+In [4]: salutation(False)
+Out[4]: 'Bonjour Monsieur.'
+\end{pythoncode}
+
+
+Enfin, il est possible d'exécuter différents blocs si l'on a plusieurs conditions.
+
+\begin{pythoncodeline}
+def bac(note):
+    if note >= 16:
+        print("Mention Tres Bien.")
+    elif note >= 14:
+        print("Mention Bien.")
+    elif note >= 12:
+        print("Mention Assez Bien.")
+    elif note >= 10:
+        print("Vous avez votre Bac.")
+    else:
+        print("Same player shoot again!")
+\end{pythoncodeline}
+
+\begin{pythoncode}
+In [5]: bac(13)
+(*@\textcolor{purple}{Mention Assez Bien.}@*)
+\end{pythoncode}
+
+\noindent
+Dans ce cas, seul le bloc correspondant à la première condition qui est vraie est exécuté. 
+
+\begin{exoUnique}
+\exo Une agence de voyages propose un voyage organisé où l'on peut s'inscrire en groupe.
+Le prix par personne est dégressif selon le nombre de personnes~: 80 euros
+pour une ou deux personnes, 70 euros pour 3 à 5 personnes, 60 euros pour 6 à 9 personnes et
+50 euros à partir de 10 personnes. On souhaite écrire une fonction ayant pour argument le 
+nombre $n$ de personnes et renvoyant le prix total pour l'ensemble du groupe.
+\begin{questions}
+\question Écrire une fonction qui effectue au plus 3 comparaisons à chaque exécution.
+\question Écrire une nouvelle fonction qui effectue au plus 2 comparaisons.
+\end{questions}
+% \exo Que fait le programme suivant~?
+% \begin{pythoncode}
+% def mystere(a, b, c):
+%     if a > b:
+% 		    if a > c:
+%             m = a
+%         else:
+%             m = c
+%     else:
+%         if b > c:
+%             m = b
+%         else:
+%             m = c
+%     return m
+% \end{pythoncode}
+\end{exoUnique}
+
+\subsection{Boucle for}
+
+Il est possible de répéter plusieurs fois la même séquence d'instructions en utilisant une boucle \verb_for_.
+Comme pour l'instruction \verb_if_, le bloc d'instructions à exécuter dans la boucle est indenté.
+La première instruction ne faisant pas partie de la boucle doit utiliser le même niveau d'indentation que la ligne du \verb_for_. 
+
+\begin{pythoncodeline}
+def the_shining(n):
+    for _ in range(n):
+        print("All work and no play")
+        print("makes Jack a dull boy.")
+    print("Jack Torrance")
+\end{pythoncodeline}
+
+\begin{pythoncode}
+In [1]: the_shining(3)
+(*@\textcolor{purple}{All work and no play}@*)
+(*@\textcolor{purple}{makes Jack a dull boy.}@*)
+(*@\textcolor{purple}{All work and no play}@*)
+(*@\textcolor{purple}{makes Jack a dull boy.}@*)
+(*@\textcolor{purple}{All work and no play}@*)
+(*@\textcolor{purple}{makes Jack a dull boy.}@*)
+(*@\textcolor{purple}{Jack Torrance}@*)
+\end{pythoncode}
+\noindent
+Comme le nombre de fois où le corps de la boucle s'exécute est connu avant de
+rentrer dans la boucle, on parle de boucle \emph{inconditionnelle}. En particulier, nous
+sommes certains d'en sortir avant même d'y rentrer; on dit qu'elles
+sont \emph{bornées}.\\
+
+Pour calculer le $n$-ième terme de la suite $(u_n)$ définie par
+\[u_0 \defeq \alpha \qquad\text{et}\qquad \forall n\in\N \qsep u_{n+1}\defeq \cos(u_n)\]
+on peut utiliser le programme suivant~:
+
+\begin{pythoncodeline}
+import math
+
+def suite(alpha, n):
+    u = alpha
+    for _ in range(n):
+        u = math.cos(u)
+    return u
+\end{pythoncodeline}
+
+\begin{pythoncode}
+In [1]: suite(1.0, 1)
+Out[1]: 0.5403023058681398
+
+In [2]: suite(1.0, 10)
+Out[2]: 0.7442373549005569
+
+In [3]: suite(1.0, 100)
+Out[3]: 0.7390851332151608
+\end{pythoncode}
+
+
+\begin{exoUnique}
+\exo On définit la suite de Fibonacci par
+\[F_0\defeq 0\qsep F_1\defeq 1\qsep \text{et}\quad \forall n\in\N\qsep F_{n+2}\defeq F_{n+1}+F_n.\]
+Écrire une fonction \verb!fibo(n)! renvoyant $F_n$. Notre fonction pourra utiliser deux
+variables \verb_a_ et \verb_b_ contenant respectivement les valeurs $F_k$ et $F_{k+1}$.
+\end{exoUnique}
+
+\vspace{2ex}
+Il est souvent utile d'avoir une variable prenant des valeurs entières successives lors d'une
+boucle. Ainsi, dans le programme suivant, la variable \verb_k_ va prendre successivement
+les 10 valeurs~: $0, 1, 2, 3,\ldots, 9$.
+
+\begin{pythoncodeline}
+def table(n):
+    for k in range(10):
+        print(k, "*", n, "=", k * n)
+\end{pythoncodeline}
+
+\begin{pythoncode}
+In [4]: table(8)
+(*@\textcolor{purple}{0 * 8 = 0}@*)
+(*@\textcolor{purple}{1 * 8 = 8}@*)
+(*@\textcolor{purple}{2 * 8 = 16}@*)
+(*@\textcolor{purple}{3 * 8 = 24}@*)
+(*@\textcolor{purple}{4 * 8 = 32}@*)
+(*@\textcolor{purple}{5 * 8 = 40}@*)
+(*@\textcolor{purple}{6 * 8 = 48}@*)
+(*@\textcolor{purple}{7 * 8 = 56}@*)
+(*@\textcolor{purple}{8 * 8 = 64}@*)
+(*@\textcolor{purple}{9 * 8 = 72}@*)
+\end{pythoncode}
+\noindent Remarquons que dans les exemples précédents, \verb!_! désigne un nom de
+variable qu'il est coutume d'utiliser en Python lorsque sa valeur ne nous est pas utile.\\
+
+Les boucles \verb_for_ sont très utiles pour calculer des sommes.
+Par exemple, pour calculer les premiers termes de la suite $(u_n)$ définie par
+\[\forall n\in\N \qsep u_n \defeq \sum_{k=1}^n \frac{1}{k^2},\]
+on utilise la fonction suivante~:
+\begin{pythoncodeline}
+def suite(n):
+    s = 0.0
+    for k in range(1, n + 1):
+        s = s + 1 / k**2
+    return s
+\end{pythoncodeline}
+Dans cette fonction, on dit que \verb_s_ est un \emph{accumulateur}.
+\begin{pythoncode}
+In [1]: suite(1)
+Out[1]: 1.0
+
+In [2]: suite(10)
+Out[2]: 1.5497677311665408
+
+In [3]: suite(100)
+Our[3]: 1.6349839001848923
+\end{pythoncode}
+De manière générale, la boucle \verb!for k in range(a, b)! permet à la variable \verb_k_ de prendre successivement
+les valeurs $a, a+1, \ldots, b-1$. Dans notre cas, $k$ va prendre les valeurs
+$1, 2, \ldots, n$ pour ajouter les valeurs $1, 1/2^2,\ldots,1/n^2$ à $s$.\\
+
+Plus généralement, si $\delta > 0$, \verb_range(a, b, delta)_ est utilisé pour boucler sur les entiers $a, a+\delta, a+2\delta$ jusqu'au plus grand entier de la forme $a + k\delta$ strictement inférieur à $b$.
+\vspace{2ex}
+\begin{exos}
+\exo Donner dans chacun des cas suivants les valeurs générées par le \verb_range_~:
+\begin{questions}
+\question \verb_range(7)_
+\question \verb_range(2, 5)_
+\question \verb_range(3, 7, 2)_
+\end{questions}
+\exo Écrire une fonction permettant de calculer la somme de tous les nombres impairs
+  entre $1$ et $n$ inclus.
+\exo Écrire une fonction permettant de calculer $n!$.
+% \exo Le but de ce exercice est de prouver que quel que soit $n\in\N$ le programme suivant
+% \begin{pythoncode}
+% def f(n):
+% 		ans = 1
+% 		for k in range(1, n + 1):
+% 				ans = ans * k 
+% 		return ans
+% \end{pythoncode}
+% renvoie bien $n!$. Pour tout $k\in\intere{1}{n+1}$, on définit
+% \begin{center}
+% $\mathcal{H}_k \defeq$ \og La variable \verb_ans_ contient la valeur
+% $\displaystyle\prod_{i=1}^{k-1} i$. \fg
+% \end{center}
+% \begin{questions}
+% \question Montrer que $\mathcal{H}_1$ est vraie avant de rentrer dans la boucle et donc au début du
+%   corps de la première itération de la boucle.
+% \question Montrer que pour tout $k\in\intere{1}{n}$, si $\mathcal{H}_k$ est vraie au
+%   début du corps de la boucle $\mathcal{H}_{k+1}$ est vraie à la fin du corps de la
+% 	boucle.
+% \question Conclure.
+% \end{questions}
+\end{exos}
+\bigskip
+
+% Afin de dessiner une spirale avec notre tortue
+% \textsc{Logo} en partant de l'intérieur et en commençant par tracer 2 segments de longeur
+% 10, puis 2 segments de longueur 20, jusqu'à deux segments de longueur 90, il suffit
+% d'utiliser le programme suivant.
+
+% \begin{pythoncode}
+% import turtle as lg
+
+% def spirale(a, b, delta):
+%     """spirale(a: int, b:int, delta:int) -> NoneType"""
+%     for k in range(a, b, delta):
+%         lg.forward(k)
+%         lg.left(90)
+%         lg.forward(k)
+%         lg.left(90)
+% \end{pythoncode}
+
+% \begin{pythoncode}
+% In [1]: spirale(10, 100, 10)
+% \end{pythoncode}
+
+% \begin{center}
+% \includegraphics[width=0.15\textwidth]{../../Commun/Images/python-cours-structuree-1.pdf}
+% \end{center}
+
+% \begin{exoUnique}
+% \exo Écrire un programme permettant de dessiner des spirales \og triangulaires \fg de
+%   la forme suivante.
+% 	\begin{center}
+% 	\includegraphics[width=0.2\textwidth]{../../Commun/Images/python-cours-structuree-2.pdf}
+% 	\end{center}
+% \begin{sol}
+% \begin{pythoncode}
+% def triangle(a, b, delta):
+% for k in range(a, b):
+% 		lg.forward(k)
+% 		lg.left(120)
+
+% lg.reset()
+% triangle(10, 150, 10)
+% \end{pythoncode}
+% \end{sol}
+% \end{exoUnique}
+% \bigskip
+
+% Lorsque $\delta < 0$, un \verb_range(a, b, delta)_ permet d'itérer sur les entiers
+% $a, a+\delta, a+2\delta$ jusqu'au plus petit entier de la forme $a+k\delta$ strictement
+% supérieur à $b$. 
+
+% \begin{exos}
+% \exo Donner dans chacun des cas suivant les valeurs générées par le \verb_range_~:
+% \begin{questions}
+% \question \verb_range(1, 5, -1)_
+% \question \verb_range(5, 1, -1)_
+% \question \verb_range(5, -1)_
+% \end{questions}
+% \exo Écrire une fonction \verb_inverse_ prenant en entrée une chaîne de caractères et
+%   renvoyant la même chaîne dans l'ordre inverse. Par exemple \verb_inverse("Hello")_ doit
+% 	renvoyer \verb_"olleH"_.
+% \begin{sol}
+% En particulier, le programme suivant permet de calculer la même somme en sommant dans l'ordre inverse.
+
+% \begin{pythoncode}
+% def inverse(s):
+% 		"""inverse(s: string) -> string"""
+% 		n = len(s)
+% 		ans = ""
+% 		for k in range(n - 1, -1, -1):
+% 			ans = ans + s[k]
+% 		return ans
+
+% >>> inverse("Hello")
+% olleH
+% \end{pythoncode}
+% \end{sol}
+% \end{exos}
+
+
+
+% \begin{exercicepython}{}
+% \begin{questions}
+% \question Écrire une boucle permettant de calculer $n!$.
+% \question Écrire une boucle permettant de calculer le produit de tous les nombres impairs entre $0$ et $100$.
+% \end{questions}
+% \end{exercicepython}
+
+% \begin{exercicepython}{}
+% \begin{questions}
+% \question Écrire une boucle qui calcule la valeur de
+%   \[B_n=\sum_{k=0}^{n} \frac{(-1)^{k}}{k!}\]
+% \question Écrire une boucle qui calcule $B_n$ et utilise moins de $n$ multiplications.
+% \end{questions}
+% \end{exercicepython}
+
+
+% \begin{exercicepython}{}
+% Complétez ce programme pour que les entiers qu'il affiche soient dans l'ordre croissant.
+% \begin{pythoncode}
+% for _ in range(10):
+%     for _ in range(10):
+%         for _ in range(10):
+%             print(a + 10 * b + 100 * c) 
+% \end{pythoncode}
+
+    
+% \end{exercicepython}
+
+\subsection{Réduction}
+
+Si l'on souhaite calculer la somme des éléments d'une liste d'entiers $a$, on peut initialiser
+une variable \verb_acc_ à 0 et lui ajouter successivement tous les éléments de $a$. On obtient
+alors la fonction~:
+
+\begin{pythoncodeline}
+def somme(a):
+    acc = 0
+    for i in range(len(a)):
+        acc = acc + a[i]
+    return acc
+\end{pythoncodeline}
+\noindent
+Pour prouver que cette fonction nous renvoie bien
+la somme des éléments de $a$, on définit, pour tout $i\in\intere{0}{n}$
+
+\begin{center}
+$\mathcal{H}_i \defeq$ \og La variable \verb_acc_ contient la valeur
+$\displaystyle\sum_{k=0}^{i-1} a_k$. \fg
+\end{center}
+\noindent
+$\mathcal{H}_0$ est vraie avant de rentrer dans la boucle, et si $\mathcal{H}_i$ est vraie au début du
+corps de la boucle, alors $\mathcal{H}_{i+1}$ est vraie à la fin du corps de la boucle. Cela prouve que $\mathcal{H}_n$ est vraie
+en sortie de boucle et donc que la fonction renvoie bien la valeur souhaitée
+\[\sum_{k=0}^{n-1} a_k.\]
+On dit que $\mathcal{H}_i$ est un \emph{invariant de boucle}.\\
+
+On peut de même écrire une fonction calculant le produit des éléments d'une liste. Cette fois, la variable
+\verb_prod_ est initialisée à 1. En effet, 0 était l'élément neutre pour l'addition, puisque pour tout
+$v\in\N$, $0+v=v$. Son équivalent pour la multiplication est 1, puisque pour tout $v\in\N$, $1\times v=v$.
+On écrit donc~:
+\begin{pythoncodeline}
+def produit(a):
+    prod = 1
+    for i in range(len(a)):
+        prod = prod * a[i]
+    return prod
+\end{pythoncodeline}
+Dans ce cas, l'invariant de boucle est
+\begin{center}
+$\mathcal{H}_i \defeq$ \og La variable \verb_prod_ contient la valeur
+$\displaystyle\prod_{k=0}^{i-1} a_k$. \fg
+\end{center}
+et prouve que la fonction renvoie bien le produit des éléments de $a$.\\
+
+\begin{exoUnique}
+\exo Écrire une fonction prenant en entrée une liste de booléens et renvoyant \verb!True! si tous ces booléens
+  sont égaux à \verb_True_, et \verb!False! sinon.
+\end{exoUnique}
+\vspace{2ex}
+De la même manière, on peut écrire une fonction calculant le plus grand élément d'une liste non vide d'entiers.
+
+\begin{pythoncodeline}
+def maximum(a):
+    v_max = a[0] 
+    for i in range(1, len(a)):
+        v_max = max(v_max, a[i])
+    return v_max
+\end{pythoncodeline}
+
+\noindent
+On peut aussi adapter le programme afin qu'il nous renvoie l'indice de ce maximum~:
+
+\begin{pythoncodeline}
+def indice_maximum(a):
+    v_max = a[0]
+    i_max = 0
+    for i in range(1, len(a)):
+        if a[i] > v_max:
+            v_max = a[i]
+            i_max = i
+    return i_max
+\end{pythoncodeline}
+
+\subsection{Boucle while}
+
+Les boucles \verb_for_ nous ont permis d'exécuter plusieurs fois un bloc d'instructions dans
+le cas où le nombre d'itérations est connu avant de rentrer dans la boucle. Lorsque ce nombre n'est pas connu à priori, typiquement lorsque l'on doit exécuter un bloc tant qu'une condition est vérifiée, on utilise l'instruction \verb_while_.\\
+
+Supposons que l'on souhaite calculer la racine carrée
+entière de $n\in\N$, c'est-à-dire le plus grand $a\in\N$ tel que $a^2 \leq n < (a+1)^2$.
+Autrement dit, on souhaite calculer $\ent{\sqrt{a}}$, mais sans utiliser de nombre
+flottant. Pour cela, on initialise $a$ à 0 et on l'incrémente de 1 tant que $a^2 \leq n$.
+Dès que ce n'est plus le cas, on renvoie $a-1$ qui est la valeur cherchée. On obtient
+ainsi le code~:
+\begin{pythoncodeline}
+def int_sqrt(n):
+    a = 0
+    while a * a <= n:
+        a = a + 1
+    return a - 1
+\end{pythoncodeline}
+
+% Par exemple, le programme suivant calcule le nombre de chiffres utilisés pour écrire l'entier $n\geq 1$ en base 10.
+
+% \begin{pythoncodeline}
+% def nb_chiffres(n):
+%     ans = 0
+%     u = 1
+%     while u <= n:
+%         u = u * 10
+%         ans = ans + 1
+%     return ans
+% \end{pythoncodeline}
+\begin{pythoncode}
+In [1]: int_sqrt(15)
+Out[1]: 3
+\end{pythoncode}
+% \noindent
+% La condition \og\verb_u <= n_\fg est évaluée en début de boucle. Si elle est vérifiée, le
+% bloc d'instruction est exécuté. Puis la condition est à nouveau évaluée. La boucle s'arrête
+% dès que la condition est fausse. Si on exécute cette fonction avec la valeur de 123, la
+% variable \verb_u_ prend successivement les valeurs 1, 10, 100 et 1000. On passe donc 3 fois
+% dans la boucle et on renvoie donc la valeur 3.\\
+
+% \begin{exercicepython}{}
+% \begin{questions}
+% \question Écrire une boucle de calcul du quotient et du reste de la Division euclidienne de $m=15466$ par $p=243$, par l'algorithme des 
+% différences successives.
+% \question On suppose que \verb_n_ et \verb_p_ sont des variables entières (naturelles et non nulles) préalablement définies. Écrire une boucle qui détermine,  la plus grande puissance de $p$  qui divise $n$.
+% \end{questions}
+% \end{exercicepython}
+
+
+\begin{exos}
+\exo Après avoir remarqué que
+  \[n \e^{-n}\tendvers{n}{+\infty}0,\]
+  écrire un programme prenant en entrée $\epsilon>0$ et permettant de trouver le plus petit entier $n\in\N$ tel que
+  $n \e^{-n} \leq \epsilon$.
+\exo Montrer comment une boucle \verb_for_
+\begin{pythoncode}
+for k in range(a, b):
+(*@\textcolor{purple}{\ \ \ \ \ bloc....................}@*)
+(*@\textcolor{purple}{\ \ \ \ \ ..........d'instructions}@*)
+\end{pythoncode}
+peut s'écrire à l'aide d'une boucle \verb_while_.
+\end{exos}
+\vspace{2ex}
+Contrairement aux boucles inconditionnelles pour lesquelles on est assuré
+de sortir de la boucle, il est possible qu'une boucle conditionnelle ne termine jamais.
+On dit alors que le programme part en \emph{boucle infinie}. 
+
+\begin{pythoncodeline}
+def un_jour_sans_fin():
+    while True:
+        print("This is Groundhog day!")
+\end{pythoncodeline}
+
+\begin{pythoncode}
+In [2]: un_jour_sans_fin()
+(*@\textcolor{purple}{This is Groundhog day!}@*)
+(*@\textcolor{purple}{This is Groundhog day!}@*)
+(*@\textcolor{purple}{This is Groundhog day!}@*)
+(*@\textcolor{purple}{...}@*)
+\end{pythoncode}
+\noindent Vous pouvez interrompre un tel programme en appuyant à la fois sur la touche \og \textsc{Ctrl} \fg et la touche \og c\fg.\\
+
+Une boucle \verb_while_ a donc le défaut de ne pas être assurée de terminer. Il est
+cependant essentiel de pouvoir prouver que dans les conditions normales d'exécution, votre boucle se termine bien. Pour cela,
+on cherche souvent une grandeur entière positive qui diminue strictement à chaque itération. Comme
+il n'existe pas de suite infinie strictement décroissante d'entiers positifs, on aura
+ainsi prouvé que la boucle termine. Une telle grandeur est appelé un \emph{variant}.\\
+
+Le calcul du pgcd par l'algorithme d'Euclide est basé sur le principe suivant~:
+si $a,b\in\N$, le pgcd de $a$ et $b$ est $a$ lorsque $b=0$ et est égal au pgcd de
+$b$ et du reste de la division euclidienne de $a$ par $b$ lorsque $b>0$. Le programme
+suivant permet donc de calculer ce pgcd.
+
+\begin{pythoncodeline}
+def pgcd(a, b):
+    while b > 0:
+        a, b = b, a % b
+    return a
+\end{pythoncodeline}
+
+\begin{pythoncode}
+In [3]: pgcd(15, 21)
+Out[3]: 3
+\end{pythoncode}
+
+\begin{exoUnique}
+\exo Prouver que le programme précédent termine.
+\end{exoUnique}
+% \noindent
+% Il termine puisqu'à la fin de chaque itération la valeur de $b$ est strictement inférieure à sa valeur
+% au début de l'itération.\\
+
+% \begin{exoUnique}
+% \exo Déterminer un variant dans le programme du calcul du pgcd.
+% \end{exoUnique}
+
+% La suite de Syracuse est définie en initialisant $u_0$ avec un entier $i\in\Ns$
+% et en posant
+% \[\forall n\in\N \qsep u_{n+1}\defeq \begin{cases}
+% u_n / 2 & \text{si $u_n$ est pair,}\\
+% 3 u_n + 1 & \text{si $u_n$ est impair.}  
+% \end{cases}\]
+% L'expérience montre que, quel que soit l'entier $i$ choisi, la suite finit par prendre les valeurs 1, 4, 2, 1, 4, 2, 1, etc. Afin de vérifier ce phénomène, on écrit un programme permettant d'afficher toutes les valeurs de la suite, jusqu'à ce que $u_n=1$.
+
+% \begin{pythoncode}
+% def syracuse(i):
+%     """syracuse(i:int) -> NoneType"""
+%     while i != 1:
+%         if i % 2 == 0:
+%             i = i // 2
+%         else:
+%             i = 3 * i + 1
+%         print(i)
+% \end{pythoncode}
+
+% \begin{pythoncode}
+% In [1]: syracuse(6)
+% (*@\textcolor{purple}{3}@*)
+% (*@\textcolor{purple}{10}@*)
+% (*@\textcolor{purple}{5}@*)
+% (*@\textcolor{purple}{16}@*)
+% (*@\textcolor{purple}{8}@*)
+% (*@\textcolor{purple}{4}@*)
+% (*@\textcolor{purple}{2}@*)
+% (*@\textcolor{purple}{1}@*)
+% \end{pythoncode}
+
+% \noindent À ce jour, personne n'a pu montrer que la suite de Syracuse finissait
+% par prendre la valeur 1 quelle que soit la première valeur choisie. On a cependant vérifié
+% que c'était bien le cas pour de nombreux entiers.
+
+\subsection{Boucles imbriquées}
+
+Il est possible d'imbriquer les boucles les unes dans les autres. Vous pouvez par exemple générer les tables de multiplication très facilement de la manière suivante~:
+
+\begin{pythoncodeline}
+def tables(n):
+    for a in range(2, n + 1):
+        for b in range(2, n + 1):
+            print(a, "*", b, "=", a * b)
+\end{pythoncodeline}
+\begin{pythoncode}
+In [1]: tables(4)
+(*@\textcolor{purple}{2 * 2 = 4}@*)
+(*@\textcolor{purple}{2 * 3 = 6}@*)
+(*@\textcolor{purple}{2 * 4 = 8}@*)
+(*@\textcolor{purple}{3 * 2 = 6}@*)
+(*@\textcolor{purple}{3 * 3 = 9}@*)
+(*@\textcolor{purple}{3 * 4 = 12}@*)
+(*@\textcolor{purple}{4 * 2 = 8}@*)
+(*@\textcolor{purple}{4 * 3 = 12}@*)
+(*@\textcolor{purple}{4 * 4 = 16}@*)
+\end{pythoncode}
+Comme les produits \verb!2 * 3! et \verb!3 * 2! sont égaux, ont peut chercher à limiter
+ces produits aux cas où $a \leq b$. On écrit alors~:
+\begin{pythoncodeline}
+def tables_bis(n):
+    for a in range(2, n + 1):
+        for b in range(a, n + 1):
+            print(a, "*", b, "=", a * b)
+\end{pythoncodeline}
+\begin{pythoncode}
+In [2]: tables_bis(4)
+(*@\textcolor{purple}{2 * 2 = 4}@*)
+(*@\textcolor{purple}{2 * 3 = 6}@*)
+(*@\textcolor{purple}{2 * 4 = 8}@*)
+(*@\textcolor{purple}{3 * 3 = 9}@*)
+(*@\textcolor{purple}{3 * 4 = 12}@*)
+(*@\textcolor{purple}{4 * 4 = 16}@*)
+\end{pythoncode}
+
+Les boucles imbriquées nous seront utiles pour parcourir les éléments d'une matrice. Notons au
+passage, qu'il est possible de mélanger les boucles \verb!for! et \verb!while!.
+Supposons par exemple qu'étant donnée une matrice de 0 et de 1, on souhaite calculer le
+nombre de lignes possèdant au moins un 1.
+
+\begin{pythoncodeline}
+def nb_lignes_avec_un(m):
+    q = len(m)
+    p = len(m[0])
+    nb = 0
+    for i in range(q):
+        j = 0
+        while j < p and m[i][j] != 1:
+            j = j + 1
+        if j < p:
+            nb = nb + 1
+    return nb
+\end{pythoncodeline}
+
+\begin{exoUnique}
+\exo Écrire une fonction prenant en entrée une matrice de 0 et de 1
+  et renvoyant l'indice d'une des lignes possédant le plus de 1.
+\end{exoUnique}
+
+
+% \begin{exercicepython}{}
+
+% Que font les programmes suivants~?
+
+% \begin{pythoncode}
+% res = 0
+% n = 30
+% for i in range(n):
+%     res = res + i
+% print(res)
+% \end{pythoncode}
+                
+ 
+% \begin{pythoncode}
+% a = 3
+% res = a 
+% n = 30
+% for i range(1, n + 1):
+%     res = res * a  
+% print(res) 
+% \end{pythoncode}
+ 
+ 
+% \begin{pythoncode}
+% a = 3
+% res = a 
+% n = 10
+% for i in range(n + 1):
+%     res = res + a  
+%     print(res)
+% \end{pythoncode}
+                
+
+% \begin{pythoncode}
+% res = 1
+% a = 13
+% n = 50
+% for i in range(1, n + 1):
+%     res = res * a
+%     print(res)
+% \end{pythoncode}
+
+% \begin{pythoncode}
+% res = 1
+% a = 13
+% n = 50 
+% for i in range(2, n + 1, 2):
+%     res = res * a 
+% \end{pythoncode}
+
+
+% \begin{pythoncode}
+% n = 30
+% res = 0
+% for i in range(1, n + 1):  
+%     if i % 2 == 0:
+%         res = res + i
+%     else:
+%         res = res - i 
+% print(res)
+% \end{pythoncode}
+
+
+% \begin{pythoncode}
+% res = 0 
+% i = 0
+% a = 4 
+% n = 100 
+% while i <= n:
+%     res = res + i
+%     i = i + 1
+% print(res)
+% \end{pythoncode}
+% \end{exercicepython}
+
+
+
+%END_BOOK
+
+\end{document}

@@ -1,0 +1,1034 @@
+%% 31/1/2006 : Suppression des idéaux.
+%% 16/3/2007 : Ajout des exemples et des remarques
+
+\documentclass{magnolia}
+
+\magtex{tex_driver={pdftex},
+        tex_packages={xypic}}
+\magfiche{document_nom={Cours sur les polynômes},
+          auteur_nom={François Fayard},
+          auteur_mail={fayard.prof@gmail.com}}
+\magcours{cours_matiere={maths},
+          cours_niveau={mpsi},
+          cours_chapitre_numero={15},
+          cours_chapitre={Polynômes}}
+\magmisenpage{}
+\maglieudiff{}
+\magprocess
+
+\begin{document}
+
+%BEGIN_BOOK
+\magtoc
+
+
+\section{Arithmétique des polynômes}
+
+\subsection{Relation de divisibilité, division euclidienne}
+
+\begin{definition}
+Soit $A,B\in\polyK$. On dit que $A$ divise $B$ lorsqu'il existe $P\in\polyK$ tel
+que $B=PA$.  
+\end{definition}
+
+\begin{remarques}
+\remarque Si $A,B\in\polyK$ et $B\neq 0$, alors $B$ divise $A$ si et seulement
+    si le reste de la division euclidienne de $A$ par $B$ est nul.
+\remarque Si $P\in\polyK$ et $\alpha\in\K$, $X-\alpha$ divise $P$ si et
+  seulement si $\alpha$ est une racine de $P$.
+\end{remarques}
+
+\begin{proposition}
+La relation de divisibilité
+\begin{itemize}
+\item est réflexive~: $\forall A\in\polyK \qsep A|A.$
+\item est transitive~: $\forall A,B,C\in\polyK \qsep \cro{A|B \et B|C}\implique
+      A|C.$
+\item n'est pas antisymétrique. Cependant
+  \[\forall A,B\in\polyK \qsep \cro{A|B \et B|A}\quad\ssi\quad
+    \cro{\exists \lambda\in\Ks \qsep A=\lambda B}.\]
+  Si tel est le cas, on dit que $A$ et $B$ sont \emph{associés}.
+\end{itemize}
+\end{proposition}
+
+\begin{proposition}
+Soit $A,B,C\in\polyK$ et $P,Q\in\polyK$, alors
+\[\cro{A|B \et A|C}\quad\implique\quad A|\p{PB+QC}.\]
+\end{proposition}
+
+\begin{proposition}
+Soit $A,B\in\polyK$.
+\begin{itemize}
+\item Si $B\neq 0$, alors
+  \[A|B \quad\implique\quad \deg A\leq\deg B.\]
+\item Si $A|B$ et $\deg A=\deg B$, alors $A$ et $B$ sont associés.
+\end{itemize}
+\end{proposition}
+
+
+
+%   Lorsque $B$ est de degré $n$ et
+%   admet $n$ racines deux à deux distinctes, le calcul est simple. En effet, nous
+%   savons que $R$ est de degré $n-1$ donc il existe $a_0,\ldots,a_{n-1}\in\K$
+%   tels que
+%   \[R=\sum_{l=0}^{n-1} a_l X^l\]
+%   Si on note $\alpha_1,\ldots,\alpha_n$ les racines de $B$, comme $A=QB+R$, on
+%   en déduit que
+%   \[\forall k\in\intere{1}{n} \quad
+%     A\p{\alpha_k}=Q\p{\alpha_k}\underbrace{B\p{\alpha_k}}_{=0}+R\p{\alpha_k}\]
+%   donc~:
+%   \[\forall k\in\intere{1}{n} \quad
+%     \sum_{l=0}^{n-1} a_l \alpha_k^l=A\p{\alpha_k}\]
+%   On obtient ainsi un système linéaire à $n$ équations et $n$ variables (les
+%   $a_l$). On peut montrer que ce système admet une unique solution.
+%   Il permet donc de calculer les $a_l$ et donc $R$.
+
+
+% \begin{definition}
+% On dit qu'un partie $\mathcal{I}$ de $\polyK$ est un idéal lorsque~:
+% \begin{itemize}
+% \item $0\in\mathcal{I}$
+% \item $\forall A,B\in\mathcal{I} \quad \forall U,V\in\polyK \quad
+%        UA+VB\in\mathcal{I}$
+% \end{itemize}
+% \end{definition}
+
+% \begin{proposition}
+% Si $P\in\polyK$
+% \[P\polyK=\enstq{QP}{Q\in\polyK}\]
+% est un idéal de $\polyK$. Tout idéal de ce type est appelé idéal principal.
+% \end{proposition}
+
+% \begin{proposition}
+% L'intersection d'une famille d'idéaux est un idéal.
+% \end{proposition}
+
+% \begin{proposition}
+% $\quad$
+% \begin{itemize}
+% \item Soit $\mathcal{I}_1,\ldots,\mathcal{I}_n$ une famille d'idéaux.
+%   Alors il existe un plus petit idéal $\mathcal{I}$ contenant
+%   $\mathcal{I}_1\cup\dots\cup\mathcal{I}_n$; on l'appelle
+%   idéal engendré par $\mathcal{I}_1,\ldots,\mathcal{I}_n$ et on le note
+%   $\mathcal{I}_1+\cdots+\mathcal{I}_n$.
+% \item Soit $P_1,\ldots,P_n\in\polyK$. Alors~:
+%   \[P_1\polyK+\cdots+P_n\polyK=
+%     \enstq{Q_1 P_1+\cdots+Q_n P_n}{Q_1,\ldots,Q_n\in\polyK}\]
+% \end{itemize}
+% \end{proposition}
+
+% \begin{theoreme}
+% Tout idéal de $\polyK$ est principal; on dit que $\polyK$ est un anneau
+% principal.
+% \end{theoreme}
+
+% \begin{proposition}
+% Soit $\mathcal{I}$ un idéal de $\polyK$. Alors, il existe un unique polynôme
+% unitaire ou nul $P$ tel que $\mathcal{I}=P\polyK$.
+% \end{proposition}
+
+\subsection{Plus grand commun diviseur}
+
+\begin{definition}
+Soit $A,B\in\polyK$. Il existe un unique polynôme unitaire ou nul $P$ tel que
+\begin{itemize}
+\item $P|A \et P|B$.
+\item $\forall Q\in\polyK \qsep \cro{Q|A \et Q|B} \implique Q|P$.
+\end{itemize}
+On l'appelle $\pgcd$ (plus grand commun diviseur) de $A$ et de $B$ et on le note
+$\pgcd\p{A,B}$, $\p{A,B}$ ou $A\wedge B$.
+\end{definition}
+
+\begin{preuve}
+Pour l'unicité, s'il y en a deux, ils se divisent l'un l'autre donc sont associés, mais sont unitaires donc sont égaux.
+
+Pour l'existence, on définit pour tout $n\in \N\cup\set{-1}$, on définit $H_n$:"$\forall A,B \in \polyK \text{ tq } \deg A+\deg B\leq n$, il existe un polynôme unitaire ou nul $P$ tel que~:
+\begin{itemize}
+\item $P|A \et P|B$
+\item $\forall Q\in\polyK \quad \cro{Q|A \et Q|B} \implique Q|P$"
+\end{itemize}.
+\begin{itemize}
+\item[$\bullet$] $H_{-1}$ : Soit $A,B \in \polyK \text{ tq } \deg A+\deg B\leq -1$. Alors $A$ ou $B$ est nul. Quitte à les échanger, supposons que ce soit $B$, alors avec $\lambda$ le coefficient dominant de $A$. On pose $$P=A_u=\begin{cases}\frac{1}{\lambda}A \text{ si } A\neq 0\\
+0 \text{ sinon.}\end{cases}$$
+Et on vérifie que $P$ fonctionne bien.
+\item[$\bullet$] On suppose $H_n$ vraie. Si l'un des deux est nul, on fonctionne exactement comme pour $H_{-1}$. Sinon, $A\neq 0$ et $B\neq 0$. Quitte à les échanger, on peut supposer $\deg A\geq \deg B$. On fait alors la DE de $A$ par $B$ et on applique l'HR à $R$ et $B$. On vérifie que ce même polynôme fonctionne pour $A$ et $B$.
+\end{itemize}
+\end{preuve}
+
+\begin{remarqueUnique}
+\remarque Soit $A, B\in\polyK$. Si l'un des deux polynômes est non nul, le $\pgcd$ de $A$ et $B$ est le polynôme unitaire de plus grand degré qui divise $A$ et $B$.
+\end{remarqueUnique}
+
+\begin{proposition}
+\begin{eqnarray*}
+\forall A\in\polyK, & & A\wedge 0=A_u\\
+\forall A\in\polyK, & & A\wedge 1=1\\
+\forall A,B\in\polyK, & & A\wedge B=0 \ssi \cro{A=0 \et B=0}
+\end{eqnarray*}
+\end{proposition}
+
+\begin{proposition}
+\begin{eqnarray*}
+\forall A,B\in\polyK, & & A\wedge B=B\wedge A\\
+\forall A,B\in\polyK \qsep \forall\lambda,\mu\in\Ks,& &
+  A\wedge B=\p{\lambda A}\wedge\p{\mu B}=A_u\wedge B_u\\
+\forall A,B,P\in\polyK, & & \p{PA}\wedge\p{PB}=P_u\p{A\wedge B}\\
+\end{eqnarray*}
+\end{proposition}
+
+% \begin{proposition}
+% Soit $A,B,C\in\polyK$. Alors~:
+% \[\p{A\wedge B}\wedge C=A\wedge\p{B\wedge C}\]
+% Ce polynôme est appelé $\pgcd$ de $A,B,C$ et est noté $\pgcd\p{A,B,C}$ ou
+% $A\wedge B\wedge C$. On définit alors, par récurrence sur $n$, le $\pgcd$ d'une
+% famille de $n$ polynômes.
+% \end{proposition}
+
+\begin{definition}
+Soit $A_1,\ldots,A_n\in\polyK$. Il existe un unique polynôme unitaire ou nul $P$ tel que
+\begin{itemize}
+\item $\forall i\in\intere{1}{n}\qsep P|A_i$.
+\item $\forall Q\in\polyK \qsep \cro{\forall i\in\intere{1}{n}\qsep Q|A_i} \implique Q|P$.
+\end{itemize}
+On l'appelle $\pgcd$ (plus grand commun diviseur) de la famille $(A_1,\ldots,A_n)$ et on le note
+$\pgcd\p{A_1,\ldots,A_n}$, ou $A_1\wedge\cdots\wedge A_n$.
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque Le $\pgcd$ d'une famille $(A_1,\ldots,A_n)$ de polynômes ne dépend pas de l'ordre de
+  ces derniers.
+\end{remarqueUnique}
+
+\begin{proposition}
+Soit $A_1,\ldots,A_n\in\polyK$ et $p\in\intere{1}{n-1}$. Alors
+\[A_1\wedge\cdots\wedge A_n=(A_1\wedge\cdots\wedge A_p)\wedge(A_{p+1}\wedge\cdots\wedge A_n).\]
+\end{proposition}
+
+
+\subsection{Algorithme d'\nom{Euclide}}
+
+\begin{proposition}
+Soit $A,B,P\in\polyK$. Alors
+\[A\wedge B=A\wedge\p{B+PA}=\p{A+PB}\wedge B.\]
+En particulier, si $B\neq 0$ et $R$ est le reste de la division euclidienne de
+$A$ par $B$, on a
+\[A\wedge B=B\wedge R.\]
+\end{proposition}
+
+\begin{preuve}
+On pose $S=A\wedge B$. Déjà, $S$ est unitaire ou nul. On vérifie ensuite aisément que $S$ vérifie $(i)$ et $(ii)$ pour $A$ et $B+PA$.
+\end{preuve}
+
+\begin{exoUnique}
+\exo Calculer $A\wedge B$ où $A\defeq X^4-X^3+X^2+X-2$ et $B\defeq X^3+X^2-X-1$.
+  \begin{sol}
+  On fait des DE et on trouve $A\wedge B=X^2-1$.
+  \end{sol}
+\end{exoUnique}
+
+
+\subsection{Relation de \nom{Bézout}}
+
+\begin{proposition}
+Si $A,B\in\polyK$, alors il existe $U,V\in\polyK$ tels que
+\[UA+VB=A\wedge B.\]
+\end{proposition}
+
+\begin{preuve}
+Pour tout $n\in \N$, on définit $H_n$ : "Soit $A,B \in \polyK$ tels que $\deg A+\deg B<n$. Alors, il existe $U,V \in \polyK$ tel que $UA+VB=A\wedge B$".
+\begin{itemize}
+\item[$\bullet$] $H_0$ : Soit $A,B \in \polyK$ tels que $\deg A+\deg B<0$. Alors $A=0$ ou $B=0$. Quitte à les échanger, on suppose que $B=0$. On a alors $A\wedge B=A_u$. Il existe $\lambda \in \Ks$ tel que $A=\lambda A_u$. Alors $\frac{1}{\lambda}A+0B=A_u=A\wedge B$.
+\item[$\bullet$] Soit $n\in \N$. On suppose que $H_n$ est vraie. Montrons que $H_{n+1}$ est vraie. Soit $A,B \in \polyK$ tels que $\deg A+\deg B<n+1$. Si $A=0$ ou $B=0$, on utilise $H_0$. Sinon, quitte à les échanger, on peut supposer que $\deg A\geq \deg B$. Or $B\neq 0$ donc il existe $P,R\in \polyK$ tels que $\deg R < \deg B$ et $A=PB+R$. Alors $A\wedge B= B\wedge R$. Or $\deg B+\deg R <\deg B+\deg B\leq \deg B+\deg A \leq n$. Par H.R, il existe $U,V \in \polyK$ tel que $UB+VR=B\wedge R=A\wedge B$. Reste à remplacer $R$ et c'est gagné.
+\end{itemize}
+\end{preuve}
+
+\begin{remarques}
+\remarque Les polynômes $U$ et $V$ sont appelés polynômes de \nom{Bézout}.
+\remarque Le couple $\p{U,V}$ n'est pas unique. En effet,
+  si $\p{U_0,V_0}\in\polyK^2$ est un couple de polynômes de \nom{Bézout}, alors pour
+  tout $P\in\polyK$, $\p{U_0+PB,V_0-PA}$ en est un autre.
+\end{remarques}
+
+\begin{exoUnique}
+\exo Calcul d'un couple de polynômes de \nom{Bézout} pour $A=\p{X-1}^2$ et
+  $B=\p{X+2}^2$.
+  \begin{sol}
+  Algorithme d'Euclide étendu :
+   On trouve $U=\p{2X+7}/27$ et $V=-\p{2X-5}/27$.    
+  \end{sol}
+\end{exoUnique}
+
+\begin{definition}
+Soit $A,B\in\polyK$. On dit que $A$ et $B$ sont premiers entre eux lorsque
+$A\wedge B=1$.
+\end{definition}
+
+\begin{remarques}
+\remarque Si $\alpha,\beta\in\K$ sont distincts, alors
+  $\p{X-\alpha}\wedge\p{X-\beta}=1$.
+\remarque Deux polynômes premiers entre eux n'admettent aucune racine commune.
+  Cependant, la réciproque est fausse. En effet, si $\K=\R$, $P\defeq X^2+1$ n'admet
+  aucune racine réelle, donc aucune racine commune avec lui-même.
+  Pourtant $P\wedge P=P\neq 1$.
+\end{remarques}
+
+\begin{exoUnique}
+\exo Montrer que si $A$ et $B$ sont premiers entre eux, il en est de même
+  pour $A-B$ et $A+B$.
+  \begin{sol}
+  $(A-B)\wedge (A+B)=(2A)\wedge (A+B)=A\wedge (A+B)=A\wedge B$.
+  \end{sol}
+\end{exoUnique}
+
+\begin{proposition}
+Soit $A,B\in\polyK$. Alors $A$ et $B$ sont premiers entre eux si et seulement
+si il existe $U,V\in\polyK$ tels que
+\[UA+VB=1.\]
+\end{proposition}
+
+\begin{preuve}
+Sens gauche-droite déjà fait (Bezout).
+Si il existe $U,V\in\polyK$ tels que~:
+\[UA+VB=1\]
+Alors $A\wedge B$ divise la gauche donc $1$. Or, il est unitaire ou nul donc $A\wedge B=1$.
+\end{preuve}
+% \begin{remarqueUnique}
+% \remarque Nous avons déjà vu que le couple $\p{U,V}\in\polyK^2$ n'est pas
+%   unique. Cependant, si $A$ et $B$ sont premiers entre eux et non constants,
+%   il existe un unique couple $\p{U,V}\in\polyK^2$ de polynômes de \nom{Bézout} tel que
+%   $\deg U<\deg B$ et $\deg V<\deg A$. On peut vérifier que c'est le couple
+%   donné par l'algorithme d'Euclide.
+% \end{remarqueUnique}
+
+\begin{proposition}
+$\quad$
+\begin{itemize}
+\item Soit $A,B,C\in\polyK$ tels que $A\wedge B=1$ et $A\wedge C=1$. Alors
+  $A\wedge \p{BC}=1$.
+\item Plus généralement, si $A\in\polyK$ est premier avec chaque élément d'une
+  famille de polynômes $B_1,\ldots,B_n\in\polyK$, alors $A$ est premier avec leur
+  produit.
+\item Soit $A,B\in\polyK$ deux polynômes premiers entre eux et $m,n\in\N$. Alors
+  $A^m\wedge B^n=1$.
+\end{itemize}
+\end{proposition}
+
+\begin{preuve}
+Similaire chapitre arithmétique.
+\end{preuve}
+
+
+\begin{definition}
+Soit $A_1,\ldots,A_n\in\polyK$.
+\begin{itemize}
+\item On dit que $A_1,\ldots,A_n$ sont deux à deux premiers entre eux lorsque
+  \[\forall i,j\in\intere{1}{n} \qsep i\neq j \implique A_i\wedge A_j=1.\]
+\item On dit que $A_1,\ldots,A_n$ sont premiers entre eux dans leur ensemble lorsque
+  \[A_1\wedge\cdots\wedge A_n=1.\]
+\end{itemize}
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque Si les polynômes $A_1,\ldots,A_n$ sont deux à deux premiers entre eux, alors
+  ils sont premiers entre eux dans leur ensemble. Cependant, la réciproque est fausse.
+  Par exemple, les polynômes $A_1=(X-2)(X-3)$, $A_2=(X-1)(X-3)$ et $A_3=(X-1)(X-2)$
+  sont premiers entre eux dans leur ensemble mais ne sont pas deux à deux premiers
+  entre eux.
+\end{remarqueUnique}
+
+
+\begin{proposition}
+Soit $A_1,\ldots,A_n\in\polyK$. Alors $A_1,\ldots,A_n$ sont premiers entre eux dans leur
+ensemble si et seulement si il existe $U_1,\ldots,U_n\in\polyK$ tels que
+\[U_1 A_1+\cdots+U_n A_n=1.\]
+\end{proposition}
+
+
+\subsection{Lemme de \nom{Gauss}}
+
+\begin{proposition}[nom={Lemme de \nom{Gauss}}]
+Soit $A,B,C\in\polyK$. Alors
+\[\cro{A|BC \et A\wedge B=1}\quad\implique\quad A|C.\]  
+\end{proposition}
+
+\begin{preuve}
+$A\mid BC$ donc il existe $W \in \polyK$ tel que $AW=BC$. De $UA+VB=1$ on déduit $UAC+VBC=C=UAC+VWA=A(UC+VW)$ donc $A\mid C$.
+\end{preuve}
+
+
+\begin{remarqueUnique}
+\exo Si $A,B\in\polyK$ sont premiers entre eux et le couple
+  $\p{U_0,V_0}\in\polyK^2$ est tel que $U_0A+V_0B=1$, l'ensemble des couples de
+  polynômes de \nom{Bézout} pour $A$ et $B$ est
+  \[\enstq{\p{U_0+PB,V_0-PA}}{P\in\polyK}\]
+\end{remarqueUnique}
+
+\begin{proposition}
+$\quad$
+\begin{itemize}
+\item Soit $A,B,C\in\polyK$. On suppose que $A|C$, $B|C$ et $A\wedge B=1$.
+  Alors $AB|C$.
+\item Plus généralement si $A\in\polyK$ est divisé par chaque élément d'une
+  famille $B_1,\ldots,B_n\in\polyK$ de polynômes deux à deux premiers entre eux,
+  alors il est divisé par leur produit.
+\end{itemize}
+\end{proposition}
+
+\begin{preuve}
+$C=UA$ donc $B\mid UA$. D'après \nom{Gauss}, $B\mid U$ donc $U=BV$ donc $C=BVA$, i.e $AB\mid C$.
+\end{preuve}
+\subsection{Plus petit commun multiple}
+
+\begin{definition}
+Soit $A,B\in\polyK$. Il existe un unique polynôme unitaire ou nul $P$ tel que
+\begin{itemize}
+\item $A|P \et B|P$.
+\item $\forall Q\in\polyK \qsep \cro{A|Q \et B|Q} \implique P|Q$.
+\end{itemize}
+On l'appelle $\ppcm$ (plus petit commun multiple) de $A$ et de $B$ et on le note
+$\ppcm\p{A,B}$, ou $A\vee B$.
+\end{definition}
+
+\begin{preuve}
+Unicité classique.
+Existence : Si $A$ ou $B$ est nul, on montre que $P=0$ convient. Sinon, on considère $E=\set{\deg Q, q\in \polyK\setminus\set{0} \et A\mid Q \et B\mid Q}$. Comme $-\infty\notin E$, $E$ est bien une partie de $\N$ non vide ($\deg AB \in E$). On prend alors $Q$ unitaire tel que $\deg Q=\min E$. On montre alors que $Q$ convient (grâce à la DE).
+\end{preuve}
+
+\begin{proposition}
+\begin{eqnarray*}
+\forall A\in\polyK, & & A\vee 0=0\\
+\forall A\in\polyK,& & A\vee 1=A_u\\
+\forall A,B\in\polyK, & & A\vee B=0 \ssi \cro{A=0 \ou B=0}
+\end{eqnarray*}
+\end{proposition}
+
+\begin{proposition}
+\begin{eqnarray*}
+\forall A,B\in\polyK, & & A\vee B=B\vee A\\
+\forall A,B\in\polyK \qsep \forall \lambda,\mu\in\Ks, & &
+  A\vee B=\p{\lambda A}\vee\p{\mu B}=A_u\vee B_u\\
+\forall A,B,P\in\polyK, & & \p{PA}\vee\p{PB}=P_u\p{A\vee B}
+\end{eqnarray*}
+\end{proposition}
+
+% \begin{proposition}
+% Soit $A,B,C\in\polyK$. Alors~:
+% \[\p{A\vee B}\vee C=A\vee\p{B\vee C}\]
+% Ce polynôme est appelé $\ppcm$ de $A,B,C$ et est noté $\ppcm\p{A,B,C}$ ou
+% $A\vee B\vee C$. On définit alors, par récurrence sur $n$, le $\ppcm$ d'une
+% famille de $n$ polynômes.
+% \end{proposition}
+
+\begin{proposition}
+Soit $A,B\in\polyK$.
+\begin{itemize}
+\item Si $A\wedge B=1$, alors
+  \[A\vee B=\p{AB}_u.\]
+\item De manière générale
+  \[\p{A\wedge B}\p{A\vee B}=\p{AB}_u.\]
+\end{itemize}
+\end{proposition}
+
+\begin{preuve}
+\begin{itemize}
+\item Si $A\wedge B=1$, alors on pose $P=(AB)_u$ et on montre qu'il convient.
+\item Si $A$ ou $B$ est nul, OK. Sinon, on écrit $A=A_1(A\wedge B)$ et $B=B_1(A\wedge B)$. On a alors $$A\wedge B=((A\wedge B)A_1\wedge (A\wedge B)B_1)=(A\wedge B)(A_1\wedge B_1)$$
+donc comme $A\wedge B\neq 0$, $A_1\wedge B_1=1$.
+Mais alors :
+\begin{eqnarray*}
+\p{A\wedge B}\p{A\vee B}&=&\p{A\wedge B}\p{(A\wedge B)A_1\vee (A\wedge B)B_1}\\
+&=&\p{A\wedge B}^2(A_1\vee B_1)\\
+&=&\p{A\wedge B}^2 (A_1B_1)_u \text{ d'après le premier cas}\\
+&=&\p{(A\wedge B)A_1 (A\wedge B)B_1}_u \text{ car $A\wedge B$ est unitaire}\\
+&=& (AB)_u.
+\end{eqnarray*}
+\end{itemize}
+
+\end{preuve}
+
+\subsection{Polynôme irréductible}
+
+\begin{definition}
+On dit qu'un polynôme $P\in\polyK$ de degré supérieur ou égal à 1 est
+irréductible lorsque ses seuls diviseurs sont les polynômes associés à 1
+ou à $P$.
+\end{definition}
+
+\begin{remarques}
+\remarque Un polynôme $P$ de degré supérieur ou égal à 1 est irréductible
+  si et seulement si ses diviseurs sont de degré 0 ou de même degré
+  que $P$.
+\remarque Si $\alpha\in\K$, $P\defeq X-\alpha$ est irréductible.
+\remarque Un polynôme $P\in\polyK$ de degré 2 ou 3 n'admettant aucune racine dans $\K$ est irréductible.
+  En particulier, les polynômes de $\polyR$ de degré 2 dont le discriminant est strictement
+  négatif sont irréductibles.
+  Cependant, il existe des polynômes $P\in\polyK$ n'admettant aucune racine
+  dans $\K$ et qui ne sont pas irréductibles. Par exemple le polynôme
+  $P=(X^2+1)^2$ n'admet aucune racine dans $\R$ sans être irréductible.
+\end{remarques}
+
+\begin{proposition}
+Soit $P$ un polynôme irréductible et $A\in\polyK$. Alors $P|A$ ou
+$P\wedge A=1$.
+\end{proposition}
+
+\begin{preuve}
+$P\wedge A$ est un diviseur de $P$. Il est donc associé à $1$ (donc égal à $1$ car unitaire) ou à $P$ auquel cas comme il divise $A$, $P\mid A$.
+\end{preuve}
+
+\begin{proposition}
+Soit $P\in\polyK$ un polynôme irréductible.
+\begin{itemize}
+\item Si $A,B\in\polyK$
+  \[P|AB \quad\ssi\quad \cro{P|A \ou P|B}.\]
+\item Plus généralement, $P$ divise un produit si et seulement si il divise
+  un de ses facteurs.
+\end{itemize}
+\end{proposition}
+
+\begin{proposition}
+Tout polynôme non constant admet un diviseur irréductible.
+\end{proposition}
+
+\begin{preuve}
+Soit $P \in \polyK\setminus\polyK[0]$. Alors $\deg P\geq 1$.
+Considérons alors $E=\set{\deg Q, Q \in \polyK\setminus\polyK[0] \text{ tq } Q\mid P}$. C'est une partie de $\Ns$ non vide (contient $\deg P$). Considérons $Q$ un polynôme de degré $\min E$ tel que $Q\mid P$. Montrons que $Q$ est irréductible. Soit $A\in \polyK$ tel que $A\mid Q$. Ou bien $\deg A=0$ auquel cas $A$ est associé à $1$ ou bien $\deg A \in E$ mais comme $\deg A \leq \deg Q$ (car $A\mid Q$), $\deg A=\deg Q$ par minimalité. Ainsi, $A$ est associé à $Q$.
+\end{preuve}
+
+\begin{remarqueUnique}
+\remarque En particulier, un polynôme est associé à 1 si et seulement si il n'admet
+  aucun diviseur irréductible.
+\end{remarqueUnique}
+
+% \begin{remarques}
+% \remarque On retrouve le fait que si $A$ et $B\in\polyK$ sont premiers entre eux
+%   et $n,m\in\N$, alors $A^n$ et $B^m$ sont premiers entre eux.
+% \end{remarques}
+
+\begin{definition}
+Lorsque $A\in\polyK\setminus\ens{0}$ et $P$ est un polynôme unitaire irréductible, on appelle \emph{valuation de
+$P$ relativement à $A$} et on note ${\rm Val}_P(A)$ le plus grand
+$\alpha\in\N$ tel que $P^\alpha|A$.
+\end{definition}
+
+\begin{remarques}
+\remarque Si $A\in\polyK\setminus\ens{0}$, il n'existe qu'un nombre fini de polynômes unitaires irréductibles
+  $P$ que ${\rm Val}_P(A)>0$.
+\remarque Soit $P$ et $Q$ sont deux polynômes unitaires irréductibles. Alors
+  \[{\rm Val}_P(Q)=\begin{cases}
+    1 & \text{si $P=Q$,}\\
+    0 & \text{sinon.}
+  \end{cases}\]
+\end{remarques}
+
+\begin{proposition}
+Soit $A,B\in\polyK\setminus\ens{0}$ et $P$ un polynôme unitaire irréductible. Alors
+\[{\rm Val}_P\p{AB}={\rm Val}_P(A)+{\rm Val}_P(B).\]
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque Plus généralement, si $P$ est un polynôme unitaire irréductible, $A_1,\ldots,A_n\in\polyK\setminus\ens{0}$ et $\alpha_1,\ldots,\alpha_r\in\N$, alors
+\[{\rm Val}_P\p{\prod_{k=1}^k A_k^{\alpha_k}}=\sum_{k=1}^r \alpha_k {\rm Val}_P\p{A_k}.\]
+\end{remarqueUnique}
+
+\begin{proposition}
+Soit $A\in\polyK\setminus\ens{0}$. Alors, il existe $\lambda\in\Ks$,
+$P_1,\ldots,P_r$ des polynômes unitaires irréductibles deux à deux distincts et
+$\alpha_1,\ldots,\alpha_r\in\Ns$ tels que
+\[A=\lambda \prod_{k=1}^r P_k^{\alpha_k}.\]
+De plus, à permutation près des $P_k$, cette décomposition est unique.
+\end{proposition}
+
+\begin{preuve}
+idem décomposition en produits de nombres premiers (récurrence forte sur le degré de $A$).
+\end{preuve}
+
+
+\begin{remarques}
+\remarque Si $A\in\polyK\setminus\ens{0}$, il n'existe qu'un nombre fini de polynômes unitaires irréductibles $P$ tels que
+  ${\rm Val}_P(A)\neq 0$. Ce sont les polynômes unitaires irréductibles apparaissant dans la décomposition
+  de $A$ en polynômes irréductibles.
+\remarque Si $\lambda\in\Ks$ est le coefficient dominant de $A$, la décomposition de $n$ en polynômes
+  unitaires irréductibles s'écrit
+  \[A=\lambda \prod_{P\in\mathcal{I}} P^{{\rm Val}_P(A)}\]
+  où $\mathcal{I}$ désigne l'ensemble des polynômes unitaires irréductibles
+  de $\polyK$.
+\end{remarques}
+
+\begin{proposition}
+Soit $A,B\in\polyK\setminus\ens{0}$. Alors
+\begin{itemize}
+\item $A|B$ si et seulement si
+  \[\forall P\in\mathcal{I} \qsep {\rm Val}_P(A)\leq {\rm Val}_P(B).\]
+\item $A$ et $B$ sont associés si et seulement si
+  \[\forall P\in\mathcal{I} \qsep {\rm Val}_P(A)= {\rm Val}_P(B).\]
+\end{itemize}
+\end{proposition}
+
+\begin{proposition}
+Soit $A,B\in\polyK\setminus\ens{0}$. Alors le $\pgcd$ et le $\ppcm$ de $A$ et $B$ est donné par les relations
+  \begin{eqnarray*}
+  \forall P\in\mathcal{I} \qsep {\rm Val}_P \p{A\wedge B}&=&\min\p{{\rm Val}_P(A),{\rm Val}_P(B)},\\
+  {\rm Val}_P \p{A\vee B}&=&\max\p{{\rm Val}_P(A),{\rm Val}_P(B)}.
+  \end{eqnarray*}
+\end{proposition}
+
+% \begin{remarques}
+% \remarque Lorsque $A\in\polyK$ est un polynôme non nul et $P$ est un polynôme
+%   unitaire irréductible, on appelle valuation de $P$ relativement à $A$ et on
+%   note $\text{Val}_P(A)$ le plus grand $\alpha\in\N$ tel que $P^\alpha|A$.
+% \remarque Si $A$ est un polynôme non nul et si $\lambda\in\Ks$ est le coefficient
+%   dominant de $A$, alors la décomposition de $A$ en facteurs irréductibles s'écrit
+%   \[A=\lambda \prod_{P\in\mathcal{I}} P^{\text{Val}_P(A)}\]
+%   où $\mathcal{I}$ désigne l'ensemble des polynômes unitaires irréductibles
+%   de $\polyK$.
+% \end{remarques}
+
+\begin{exoUnique}
+\exo Soit $A$ et $B\in\polyK$ deux polynômes premiers entre eux. Montrer
+  que si $AB$ est un carré, alors il en est de même pour $A$ et $B$.
+\end{exoUnique}
+
+\subsection{Changement de corps}
+
+\begin{definition}
+Soit $P=a_0+a_1 X+\cdots+a_n X^n\in\polyC$. On définit le polynôme
+$\conj{P}\in\polyC$ par
+% \[\conj{P}\defeq \conj{{\rule{0pt}{4.75pt}} a_0}+\conj{{\rule{0pt}{4.75pt}}a_1}X+\cdots+\conj{{\rule{0pt}{4.75pt}}a_n}X^n.\]
+\[\conj{P}\defeq \conj{a_0}+\conj{a_1}X+\cdots+\conj{a_n}X^n.\]
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque Si $P\in\polyC$ et $z\in\C$, alors
+  % \[\conj{P(z)}=\conj{P}\p{\,\conj{\rule{0pt}{6.85pt}z}\,}.\]
+  \[\conj{P(z)}=\conj{P}(\conj{z}).\]
+\end{remarqueUnique}
+
+\begin{proposition}
+Soit $P,Q\in\polyC$.
+\begin{itemize}
+\item  Si $\lambda,\mu\in\C$, alors
+\begin{eqnarray*}
+  \conj{\lambda P+\mu Q}&=&\conj{\lambda}\, \conj{P}+\conj{\rule{0pt}{6.75pt}\mu}\, \conj{Q}\\
+  \conj{P Q}&=&\conj{P}\,\conj{Q}
+  \end{eqnarray*}
+\item $\deg\conj{P}=\deg P$.
+\end{itemize}
+\end{proposition}
+
+\begin{proposition}
+Soit $P\in\polyC$. Alors
+\[\conj{\conj{P}}=P \quad\et\quad \cro{P\in\polyR \quad\ssi\quad \conj{P}=P}.\]
+\end{proposition}
+
+\begin{proposition}
+Soit $\KL$ un corps, $\K$ un sous-corps de $\KL$ et $P,Q\in\polyK$.
+Alors
+\begin{itemize}
+\item $P$ divise $Q$ dans $\polyK$ si et seulement si $P$ divise $Q$ dans
+  $\polyL$.
+\item Le $\pgcd$ et le $\ppcm$ de $P$ et $Q$ dans $\polyK$ sont les mêmes que ceux dans $\polyL$.
+\end{itemize}
+\end{proposition}
+
+\begin{preuve}
+Le sens droite-gauche est le point important. On suppose que $P\mid Q$ dans $\polyL$. Alors le reste de la DE de $Q$ par $P$ dans $\polyL$ est nul. On effectue la DE de $Q$ par $P$ dans $\polyK$ si $P\neq 0$. Celle-ci étant valable dans $\polyL$, c'est la même par unicité et $R=0$. D'où le résultat.
+Le pgcd et se calcule par l'algorithme d'Euclide, qui utilise la DE indépendante du corps donc le pgcd ne dépend pas du corps.
+\end{preuve}
+
+\section{Racines d'un polynôme}
+
+\subsection{Racines multiples}
+
+
+\begin{proposition}
+Soit $P\in\polyK$ et $\alpha\in\K$. Alors $\alpha$ est une racine de $P$ si et
+seulement si $X-\alpha$ divise $P$.
+\end{proposition}
+
+\begin{preuve}
+Sens droite-gauche OK.
+Sens gauche-droite, on fait la DE de $P$ par $X-\alpha$. Le reste est constant puis évaluation en $\alpha$.
+\end{preuve}
+
+\begin{remarqueUnique}
+\remarque Si $P=a_0+a_1X+\cdots+a_n X^n\in\polyZ$ et $x=p/q$ est une racine
+  rationnelle
+  de $P$ mise sous forme irréductible, alors $q|a_n$ et $p|a_0$. Cette relation
+  nous permet de trouver les racines rationnelles de
+  $P$. Par exemple, si $P=2X^3+5X^2+X-3$ et $p/q$ est une racine rationnelle
+  de $P$ mise sous forme irréductible, alors $q|2$ et $p|3$ donc
+  $p\in\ens{-3,-1,1,3}$ et $q\in\ens{1,2}$. Réciproquement, on constate
+  que seul $-3/2$ est une racine de $P$. On peut donc factoriser $P$ par $2X+3$.
+  On obtient $P=\p{2X+3}\p{X^2+X-1}$, ce qui permet d'obtenir toutes les
+  racines de $P$.
+\end{remarqueUnique}
+
+
+\begin{definition}
+Soit $P\in\polyK$ un polynôme non nul et $\alpha\in\K$. On appelle \emph{ordre} de la racine $\alpha$ relativement à $P$
+le plus grand entier $\omega\in\N$ tel que $(X-\alpha)^\omega|P$.
+\end{definition}
+
+\begin{remarques}
+\remarque L'ordre de $\alpha$ relativement à $P$ n'est autre que la valuation de $X-\alpha$ relativement à $P$.
+\remarque $\alpha$ est racine de $P$ d'ordre $\omega\in\N$ si
+  et seulement si il existe $Q\in\polyK$ tel que $P=\p{X-\alpha}^\omega Q$ et
+  $Q\p{\alpha}\neq 0$.
+\remarque $\alpha$ est racine de $P$ d'ordre 0 si et seulement si $\alpha$ n'est pas racine
+  de $P$. Autrement dit, $\alpha$ est racine de $P$ si et seulement si il est racine
+  de $P$ d'ordre $\omega\geq 1$.
+\end{remarques}
+
+\begin{proposition}
+Soit $\K$ un corps de caractéristique nulle, $P\in\polyK$ un polynôme non nul et $\alpha\in\K$. Si $\alpha$ est racine de $P$
+d'ordre $\omega\in\Ns$, alors $\alpha$ est racine de $P'$ d'ordre $\omega-1$.
+\end{proposition}
+
+\begin{preuve}
+On écrit $P=(X-\alpha)^\omega Q$ avec $Q(\alpha)\neq 0$. Puis on dérive...
+\end{preuve}
+
+\begin{proposition}
+Soit $\K$ un corps de caractéristique nulle, $P\in\polyK$ un polynôme non nul,
+$\alpha\in\K$ et $\omega\in\N$. Alors les
+deux assertions suivantes sont équivalentes.
+\begin{itemize}
+\item $\alpha$ est racine de $P$ d'ordre $\omega$.
+\item $P\p{\alpha}=0,P'\p{\alpha}=0,\ldots,P^{(\omega-1)}\p{\alpha}=0$ et
+  $P^{(\omega)}\p{\alpha}\neq 0$.
+\end{itemize}
+\end{proposition}
+
+\begin{preuve}
+On déduit de la proposition précédente l'implication haut-bas.
+Réciproquement, on écrit la formule de Taylor qui par hypothèse ne démarre qu'à l'indice $\omega$ puis on factorise par $(X-\alpha)^\omega$, le polynôme en facteur évalué en $\alpha$ est non nul d'après l'hypothèse.
+\end{preuve}
+
+\begin{exoUnique}
+\exo Calculer l'ordre de 1 relativement à $P\defeq X^4-2X^3+2X^2-2X+1$.
+  \begin{sol}
+  On trouve 2.
+  \end{sol}  
+\end{exoUnique}
+
+\begin{proposition}
+Soit $P\in\polyC$ et $\alpha\in\C$. Alors $\alpha$ est racine de $P$ d'ordre $\omega\in\N$
+si et seulement si $\conj{\alpha}$ est racine de $\conj{P}$ d'ordre $\omega$.
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque En particulier, si $\alpha\in\C$ est une racine de $P\in\polyR$, alors $\conj{\alpha}$ est
+  une racine de $P$ et son ordre relativement à $P$ est le même que celui de $\alpha$.
+\end{remarqueUnique}
+
+\begin{proposition}
+Soit $P\in\polyK$ un polynôme non nul de degré $n\in\N$. On suppose que $P$ admet
+au moins $r$ racines $\alpha_1,\ldots,\alpha_r\in\K$ deux à deux distinctes d'ordres respectifs au moins $\omega_1,\ldots,\omega_r\in\N$.
+Alors, il existe $Q\in\polyK$ tel que
+\[P=\p{X-\alpha_1}^{\omega_1}\cdots\p{X-\alpha_r}^{\omega_r} Q.\]
+En particulier $\omega_1+\cdots+\omega_r\leq n$. \end{proposition}
+
+\begin{preuve}
+On utilise que les $(X-\alpha_{k})$ sont premiers entre eux deux à deux et divisent chacun $P$ donc leurs produits aussi.
+\end{preuve}
+
+\begin{remarques}
+\remarque On dit qu'un polynôme $P$  de degré $n\in\N$ admet au plus $n$ racines comptées avec leurs ordres de multiplicité.
+\remarque En conséquence, un polynôme de degré inférieur ou égal à $n\in\N$ admettant au moins $n+1$ racines comptées
+  avec leur ordres de multiplicité est nul.
+% \remarque Si les $\alpha_1,\ldots,\alpha_r\in\K$ sont d'ordres exactement $\omega_1,\ldots,\omega_r\in\N$, alors les $Q(\alpha_k)$ sont non nuls.
+\end{remarques}
+
+\begin{definition}
+Soit $P\in\polyK$ un polynôme non nul de degré $n\in\N$.
+\begin{itemize}
+\item On dit que $P$ est \emph{scindé} lorsqu'il admet exactement $n$ racines comptées avec
+  leur ordre de multiplicité, c'est-à-dire lorsqu'il existe $\lambda\in\Ks$,
+  $\alpha_1,\ldots,\alpha_r\in\K$ et $\omega_1,\ldots,\omega_r\in\Ns$ tels que
+  \[P=\lambda\prod_{k=1}^r(X-\alpha_k)^{\omega_k}.\]
+\item On dit que $P$ est \emph{scindé simple} lorsqu'il admet exactement $n$ racines simples,
+  c'est-à-dire lorsqu'il existe
+  $\lambda\in\Ks$ et $\alpha_1,\ldots,\alpha_n\in\K$ deux à deux distincts tels que
+  \[P=\lambda\prod_{k=1}^n(X-\alpha_k).\]
+\end{itemize}
+\end{definition}
+
+\begin{remarques}
+\remarque Un polynôme non nul $P\in\polyK$ de degré $n$ est scindé si et seulement si il existe
+  $\lambda\in\Ks$ et $\alpha_1,\ldots,\alpha_n\in\K$ tels que
+  \[P=\lambda \prod_{k=1}^n (X-\alpha_k).\]
+  Dans ce cas, $P$ est scindé simple si et seulement si les $\alpha_k$ sont deux à deux distincts.
+\remarque La notion de polynôme scindé dépend du corps considéré. Par exemple,
+  le polynôme $P\defeq X^2+1$ est scindé (simple) sur $\C$ car $P=(X-\ii)(X+\ii)$. Cependant, il
+  n'est pas scindé sur $\R$, car il n'admet aucune racine réelle.
+\end{remarques}
+
+\begin{proposition}
+Soit $P\in\polyK$ un polynôme non nul de degré $n\in\N$.
+\begin{itemize}
+\item On suppose que
+$P$ admet au moins $r$ racines $\alpha_1,\ldots,\alpha_r\in\K$ deux à deux distinctes d'ordres
+respectifs au moins $\omega_1,\ldots,\omega_r\in\N$ tels que $\omega_1+\cdots+\omega_r=n$.
+Alors $P$ est scindé et en notant  $\lambda\in\Ks$ le coefficient dominant de $P$, on a
+\[P=\lambda\prod_{k=1}^r \p{X-\alpha_k}^{\omega_k}.\]
+\item On suppose que
+$P$ admet au moins $n$ racines $\alpha_1,\ldots,\alpha_n\in\K$ deux à deux distinctes. Alors
+$P$ est scindé simple et en notant $\lambda\in\Ks$ le coefficient dominant de $P$,
+on a
+\[P=\lambda\prod_{k=1}^n \p{X-\alpha_k}.\]
+\end{itemize}
+\end{proposition}
+
+\begin{exoUnique}
+\exo Soit $n\in\Ns$. Factoriser $X^n-1$ sur $\polyC$.
+  \begin{sol}
+  Soit $n\in\Ns$ et $P=X^n-1$. Les racines complexes de $P$ sont
+  $1,\omega,\ldots,\omega^{n-1}$ où $\omega=e^{i2\pi/n}$. Ces $n$ racines étant
+  deux à deux distinctes, elles sont simples et
+  \[P=\prod_{k=0}^{n-1} \p{X-\omega^k}\]  
+  \end{sol}
+\end{exoUnique}
+
+
+\subsection{Théorème fondamental de l'algèbre}
+
+\begin{theoreme}[nom={Théorème de d'\nom{Alembert}-\nom{Gauss}}]
+Tout polynôme de $\polyC$ de degré supérieur ou égal à 1 admet au moins une
+racine dans $\C$.  
+\end{theoreme}
+
+\begin{preuve}
+ADMIS.
+\end{preuve}
+
+\begin{exoUnique}
+\exo Soit $P\in\polyC$ est de degré supérieur ou égal à 1. Montrer que
+  l'application
+  $\tilde{P}$ de $\C$ dans $\C$ qui à $z$ associe $P(z)$ est surjective.
+  \begin{sol}
+  $\forall \beta \in \C$, $P(z)=\beta$ équivaut à $P-\beta$ admet une racine.
+  \end{sol}
+\end{exoUnique}
+
+\begin{proposition}
+Les polynôme unitaires irréductibles de $\polyC$ sont les $X-\alpha$ avec
+$\alpha\in\C$.
+\end{proposition}
+
+\begin{proposition}
+Soit $P\in\polyC$ un polynôme non nul. Alors, il existe
+$\alpha_1,\ldots,\alpha_r\in\C$ deux à deux distincts,
+$\omega_1,\ldots,\omega_r\in\Ns$ et $\lambda\in\Cs$ tels que
+\[P=\lambda \prod_{k=1}^r \p{X-\alpha_k}^{\omega_k}.\]
+De plus, à permutation près de $(\alpha_k,\omega_k)$, cette décomposition est unique.
+\end{proposition}
+
+\begin{preuve}
+C'est la décomposition en polynômes unitaires irréductibles déjà vu précédemment, écrites ici dans $\polyC$.
+\end{preuve}
+
+\begin{remarques}
+\remarque Les polynômes non nuls de $\polyC$ sont donc scindés.
+  \remarque En pratique, cette décomposition est équivalente à la recherche du
+  coefficient dominant de $P$, de ses racines et de leur ordre de
+  multiplicité.
+% \remarque Nous savons qu'il existe des formules pour calculer les racines des
+%   polynômes dont le degré est 2, 3 (méthode de Cardan) ou 4 (méthode de Ferrari).
+%   Cependant les méthodes de Cardan et de Ferrari donnent lieu à des formules
+%   tellement complexes qu'elles sont inexploitables. De plus, Galois et
+%   Abel ont prouvé qu'il existe des polynômes de degré 5 dont les racines ne sont pas
+%   exprimables avec des radicaux (et donc qu'il n'existe pas de formule donnant
+%   les racines de ces polynômes avec des radicaux).
+% \remarque Sur $\C$, un polynôme de degré $n\in\N$ admet exactement $n$ racines
+%   comptées avec leur ordre de multiplicité.
+  \remarque Deux polynômes non nuls de $\polyC$ sont égaux si et seulement si ils ont
+  le même coefficient dominant et les mêmes racines avec les mêmes ordres de
+  multiplicité.
+\remarque Soit $P$ et $Q$ deux polynômes non nuls de $\polyC$. Alors $P$ divise
+  $Q$ si et seulement si pour toute racine $\alpha$ de $P$, $\alpha$ est racine
+  de $Q$ et son ordre relativement à $P$ est inférieur ou égal à son ordre
+  relativement à $Q$.
+  \begin{preuve} On note $\mathcal{I}$ l'ensemble des polynômes irréductibles de $\polyC$.
+  \begin{eqnarray*}
+  P\mid Q &\Longleftrightarrow & \forall A\in \mathcal{I}, {\rm Val}_A(P)\leq {\rm Val}_A(Q)\\
+  &\Longleftrightarrow & \forall \alpha\in\C, {\rm Val}_{X-\alpha}(P)\leq {\rm Val}_{X-\alpha}(Q)
+  \end{eqnarray*}
+  \end{preuve}
+\remarque Dans $\polyC$, deux polynômes sont premiers entre eux si
+  et seulement si ils n'admettent aucune racine commune. En particulier, deux
+  polynômes de $\polyR$ sont premiers entre eux si et seulement si ils
+  n'admettent aucune racine commune dans $\C$.
+\remarque Un polynôme non nul $P\in\polyC$ est scindé simple si et
+  seulement si $P$ et $P'$ sont premiers entre eux.
+\end{remarques}
+
+\begin{exos}
+  \exo Montrer que $X^2+1$ divise $X^n+X$ si et seulement si $n\equiv 3 \ [4]$.
+  \begin{sol}
+  Il divise ssi $i$ est racine de $X^n+X$.
+  
+  \end{sol}
+  \exo Soit $n,m\in\N$. Montrer que $\p{X^n-1}\wedge\p{X^m-1}=X^{n\wedge m}-1$.
+  \end{exos}
+
+\begin{proposition}
+Les polynômes unitaires irréductibles de $\polyR$ sont les
+\begin{itemize}
+\item $X-\alpha$ avec $\alpha\in\R$.
+\item $X^2+bX+c$ avec $\Delta=b^2-4c<0$.
+\end{itemize}
+\end{proposition}
+
+\begin{preuve}
+Ces polynômes sont bien irréductibles. Réciproquement, on se plonge dans $\C$ où il existe une racine. Si elle est réelle, c'est gagné. Sinon, comme le polynôme est réel, la racine conjuguée fournit une deuxième racine donc $(X-\alpha)(X-\overline{\alpha})\mid P$ et c'est un polynôme réel qui divise $P$ donc il lui est associé et c'est lui (car unitaire).
+\end{preuve}
+
+\begin{proposition}
+Soit $P\in\polyR$ un polynôme non nul. Alors, il existe
+$\alpha_1,\ldots,\alpha_r\in\R$ deux à deux distincts,
+$\omega_1,\ldots,\omega_r\in\Ns$,
+$\p{b_1,c_1},\ldots,\p{b_s,c_s}\in\R^2$ deux à deux distincts tels que
+$\Delta_l=b_l^2-4c_l<0$ pour tout $l\in\intere{1}{s}$,
+$\omega_1',\ldots,\omega_s'\in\Ns$ et $\lambda\in\Rs$ tels que
+\[P=\lambda \prod_{k=1}^r \p{X-\alpha_k}^{\omega_k}
+    \prod_{l=1}^s \p{X^2+b_lX+c_l}^{\omega_l'}.\]
+De plus, à permutation près des $(\alpha_k,\omega_k)$ et des $\p{b_l,c_l,\omega_l'}$, cette
+décomposition est unique.
+\end{proposition}
+
+\begin{preuve}
+C'est la décomposition en polynômes unitaires irréductibles déjà vu précédemment, écrites ici dans $\polyR$.
+\end{preuve}
+
+\begin{remarqueUnique}
+\remarque En pratique, si on a effectué la décomposition de $P\in\polyR$
+  en produit de polynômes unitaires irréductibles dans $\polyC$, il suffit
+  de regrouper les racines conjuguées et de développer ces produits pour
+  obtenir la décomposition dans $\polyR$. En effet, si $\alpha\in\C$
+  \[\p{X-\alpha}\p{X-\conj{\alpha}}=X^2-2\Re\p{\alpha}X+\abs{\alpha}^2
+    \in\polyR\]
+  Cependant, il est parfois possible d'aboutir plus rapidement à la
+  décomposition dans $\polyR$ en utilisant les identités algébriques.
+\end{remarqueUnique}
+
+\begin{exos}
+\exo Factoriser $X^6-1$ et $X^4+1$ sur $\polyR$.
+  \begin{sol}
+  On a
+  \begin{eqnarray*}
+  X^6-1
+  &=& \p{X^3-1}\p{X^3+1}\\
+  &=& \p{X-1}\p{X^2+X+1}\p{X+1}\p{X^2-X+1}
+  \end{eqnarray*}
+  Les deux polynômes du second degré étant de discriminant négatif, ils
+  sont irréductibles sur $\polyR$.  
+
+  On a
+  \begin{eqnarray*}
+  X^4+1
+  &=& \p{X^2+1}^2-2X^2\\
+  &=& \p{X^2+\sqrt{2}X+1}\p{X^2-\sqrt{2}X+1}
+  \end{eqnarray*}
+  Comme $X^4+1$ n'a pas de racine réelle, ces deux polynômes du second degré
+  n'ont pas de racines réelles. Étant de degré 2, ils sont irréductibles
+  sur $\polyR$.  
+  \end{sol}
+\exo Soit $n\in\Ns$. Factoriser $X^n-1$ sur $\polyR$.
+  \begin{sol}
+  Si $n\in\Ns$ est pair, on a
+  \[X^n-1=\p{X-1}\p{X+1}\prod_{k=1}^{\frac{n}{2}-1}
+    \cro{X^2-2\cos\p{\frac{2k\pi}{n}}X+1}\]
+  Si $n$ est impair
+  \[X^n-1=\p{X-1}\prod_{k=1}^{\frac{n-1}{2}}
+    \cro{X^2-2\cos\p{\frac{2k\pi}{n}}X+1}\]  
+  \end{sol}
+\end{exos}
+
+\subsection{Fonctions symétriques élémentaires}
+
+% \begin{remarqueUnique}
+% \remarque
+Soit $P\defeq X^3+aX^2+bX+c\in\polyK$ un polynôme unitaire scindé de degré 3 et $\alpha,\beta,\gamma\in\K$ ses racines comptées avec leur ordre de multiplicité. Alors
+  \begin{eqnarray*}
+  P&=&X^3+aX^2+bX+c\\
+  &=&\p{X-\alpha}\p{X-\beta}\p{X-\gamma}\\
+  &=& X^3-\p{\alpha+\beta+\gamma}X^2+\p{\alpha\beta+\alpha\gamma+\beta\gamma}X
+      -\alpha\beta\gamma\\
+  &=& X^3-\sigma_1 X^2+\sigma_2 X-\sigma_3.
+  \end{eqnarray*}
+  où $\sigma_1\defeq\alpha+\beta+\gamma$,
+  $\sigma_2\defeq\alpha\beta+\alpha\gamma+\beta\gamma$ et $\sigma_3\defeq\alpha\beta\gamma$.
+  Par unicité des coefficients de $P$, on a $\sigma_1=-a$, $\sigma_2=b$ et $\sigma_3=-c$.
+  Remarquons que $\sigma_1,\sigma_2$ et $\sigma_3$ sont des expressions symétriques en $\alpha,\beta,\gamma$,
+  c'est-à-dire qu'elles sont invariantes par permutation de ces 3 variables.
+  On peut montrer que toute expression polynomiale symétrique en
+  $\alpha,\beta,\gamma$ peut s'exprimer comme un polynôme en ces 3 quantités.
+  Par exemple $\Sigma\defeq\alpha^2+\beta^2+\gamma^2$ est symétrique en $\alpha,\beta,\gamma$
+  et on remarque que
+  \begin{eqnarray*}
+  \sigma_1^2
+  &=& \p{\alpha+\beta+\gamma}^2\\
+  &=& \alpha^2+\beta^2+\gamma^2+2\p{\alpha\beta+\alpha\gamma+\beta\gamma}\\
+  &=& \Sigma+2\sigma_2
+  \end{eqnarray*}
+  donc $\Sigma=\sigma_1^2-2\sigma_2$. Ainsi, toute expression symétrique en les racines de
+  $P$ s'exprime en fonction des coefficients de $P$. Dans notre cas, on trouve
+  $\Sigma=a^2-2b$.
+% \end{remarqueUnique}
+
+\begin{definition}
+Soit $\alpha_1,\ldots,\alpha_n\in\K$. On définit les \emph{polynômes symétriques
+élémentaires} en les $\alpha_1,\ldots,\alpha_n$ par
+\begin{eqnarray*}
+  \sigma_1 &\defeq& \alpha_1+\cdots+\alpha_n\\
+  \sigma_2 &\defeq& \sum_{i_1<i_2} \alpha_{i_1}\alpha_{i_2}\\
+           &\vdots& \\
+  \sigma_n &\defeq& \alpha_1\cdots \alpha_n.
+\end{eqnarray*}
+Plus précisément, pour tout $k\in\intere{1}{n}$
+\[\sigma_k \defeq \sum_{i_1<\cdots<i_k} \alpha_{i_1}\cdots \alpha_{i_k}.\]
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque On peut montrer que tout
+  polynôme symétrique en les $\alpha_1,\ldots,\alpha_n$ s'écrit comme un polynôme
+  en les $\sigma_1,\ldots,\sigma_n$. Cette propriété justifie leur appellation
+  de polynômes symétriques \textit{élémentaires}. 
+\end{remarqueUnique}
+
+\begin{proposition}[nom={Relations coefficients-racines, formules de \nom{Viète}}]
+Soit $P\in\polyK$ un polynôme scindé de degré $n$. Alors il
+existe $a_0,\ldots,a_n\in\K$ et $\alpha_1,\ldots,\alpha_n\in\K$
+tels que
+\begin{eqnarray*}
+P &=& a_0+a_1 X+\cdots+a_n X^n\\
+  &=& a_n \prod_{k=1}^n \p{X-\alpha_k}.
+\end{eqnarray*}
+Alors
+\[\forall k\in\intere{1}{n} \qsep \sigma_k=\p{-1}^k\frac{a_{n-k}}{a_n}.\]
+\end{proposition}
+
+\begin{preuve}
+On développe brutalement, mais faisons les exercices d'abord pour maitriser cela en pratique avant le résultat théorique plus brutal.
+\end{preuve}
+
+\begin{exos}
+\exo Soit $z_1,z_2,z_3\in\C$ les racines de $P\defeq 2X^3+3X^2+X+1$. Calculer
+  \[a\defeq\sum_{k=1}^3 z_k^2, \qquad b\defeq\sum_{k=1}^3 z_k^3, \qquad
+    c\defeq\sum_{k=1}^3 \frac{1}{z_k}.\]
+  \begin{sol}
+  On trouve $a=\sigma_1^2-2\sigma_2=5/4$, $b=\sigma_1^3-3\sigma_1\sigma_2+3\sigma_3=-21/8$ et $c=\dfrac{\sigma_2}{\sigma_3}=-1$.      
+  \end{sol}
+\exo Montrer que si $n\geq 2$, la somme des racines $n$-ièmes
+  de l'unité est nulle et le produit des racines $n$-ièmes de l'unité
+  est égal à $\p{-1}^{n-1}$.
+% \exo Soit $\p{\mathcal{C}}$ la courbe paramétrée par
+%   \[x=\frac{t^2-1}{t} \et y=\frac{t+1}{t\p{t-1}}\]
+%   Alors, si $t_1,t_2,t_3\in\R\setminus\ens{0,1}$, les points
+%   $M_1\p{t_1},M_2\p{t_2},M_3\p{t_3}$ sont alignés si et seulement si
+%   $\sigma_1-\sigma_2-\sigma_3=3$.
+\end{exos}
+%END_BOOK
+
+\end{document}

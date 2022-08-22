@@ -1,0 +1,556 @@
+\documentclass{magnolia}
+
+\magtex{tex_driver={pdftex}}
+\magfiche{document_nom={Exercices sur les nombres complexes},
+          auteur_nom={François Fayard},
+          auteur_mail={fayard.prof@gmail.com}}
+\magexos{exos_matiere={maths},
+         exos_niveau={mpsi},
+         exos_chapitre_numero={1},
+         exos_theme={Nombres Complexes}}
+\magmisenpage{}
+\maglieudiff{}
+\magprocess
+
+\begin{document}
+
+%BEGIN_BOOK
+\magsection{Le corps des nombres complexes}
+\magsubsection{Définition, conjugaison, module}
+
+\exercice{nom={Lieu}}
+\begin{questions}
+\question On note $f$ la fonction définie sur $\C\setminus\ens{2}$ par
+  \[f(z)\defeq\frac{z+1}{z-2}.\]
+  Pour quels nombres $z\in\C\setminus\ens{2}$ a-t-on $\abs{f(z)}=1$~? $\Re\p{f(z)}=0$~?
+\question On note $g$ la fonction définie sur $\C\setminus\ens{2\ii}$ par
+  \[g(z)\defeq\frac{2z-\ii}{z-2\ii}.\]
+  Pour quels nombres $z\in\C\setminus\ens{2\ii}$ a-t-on $g(z)\in\R$~? $g(z)\in\U$~?
+\end{questions}
+\begin{sol}
+\begin{questions}
+\question $\abs{f(z)}=1$ si et seulement si $z+\conj{z}=1$. On obtient la droite d'équation $x=1/2$.\\
+$\Re(f(z))=0$ si et seulement si $\conj{f(z)}=-f(z)$ ce qui conduit à $z\conj{z}-1/2z-1/2\conj{z}+(1/4-(3/2)^2)=0$ d'où :
+\[\abs{z-\frac{1}{2}}^2=\p{\frac{3}{2}}^2.\]
+On obtient le cercle de centre $1/2$ et de rayon $3/2$, privé de $2$.
+\question  $\Im(g(z))=0$ si et seulement si $\conj{g(z)}=g(z)$ ce qui conduit à $\conj{z}=-z$. On obtient donc $\ii\R\setminus\ens{2\ii}$.
+
+$\abs{g(z)}=1$ si et seulement si $|z|=1$.
+
+\end{questions}
+\end{sol}
+
+\magsubsection{Inégalité triangulaire}
+
+\exercice{nom={Inégalité}}
+Soit $a$ et $b$ deux nombres complexes. Montrer que
+\[\abs{a}+\abs{b}\leq\abs{a+b}+\abs{a-b}.\]
+Déterminer les cas d'égalité.
+\begin{sol}
+\begin{itemize}
+\item On peut raisonner par équivalence, tout élever au carré. On est ramené à
+\[\p{\abs{a}-\abs{b}}^2+2\abs{a^2-b^2} \geq 0.\]
+(je ne suis plus sur des coefficients), ce qui est trivial. Il y a égalité si et seulement si ces termes sont nuls, c'est-à-dire lorsque $a=b$ ou $a=-b$.
+\item On peut aussi écrire $2a=\p{a+b}+\p{a-b}$ puis utiliser l'inégalité triangulaire.
+Écrire ensuite $2b=\p{a+b}-\p{a-b}$ avant d'utiliser l'inégalité
+triangulaire. Sommer ensuite les deux inégalités. Le cas d'égalité est
+$a=b$ ou $a=-b$.
+\end{itemize}
+\end{sol}
+
+\exercice{nom={Majoration}}
+Soit $z\in\C$. On suppose que
+\[1+z+z^2+\dots+z^{n-1}=nz^n.\]
+Montrer que $\abs{z}\leq 1$.
+\begin{sol}
+On divise par $z^n$ puis I.T et on raisonne pas l'absurde pour arriver à une contradiction.
+\end{sol}
+
+\exercice{nom={Somme}}
+Soit $z_0,z_1,\ldots,z_n$ des nombres complexes de module 1. Montrer que
+  \[\sum_{k=0}^n \frac{z_k}{2^k}\neq 0.\]
+\begin{sol}
+Il suffit de remarquer que
+\[\abs{\sum_{k=0}^n \frac{z_k}{2^k}}\geq
+  1-\abs{\sum_{k=1}^n \frac{z_k}{2^k}}\geq 1-\sum_{k=1}^n \abs{\frac{z_k}{2^k}} \geq \frac{1}{2^n}\]
+\end{sol}
+
+\magsubsection{Puissance entière, binôme de \nom{Newton}}
+
+\exercice{nom={Majorations}}
+\begin{questions}
+\question Soit $a$ et $b$ deux nombres complexes et $n$ un entier naturel
+  non nul. Montrer que si on pose $M\defeq\max(\abs{a},\abs{b})$, alors
+  $$\abs{a^n-b^n}\leq nM^{n-1}\abs{a-b}.$$
+\question Soit $z\in\C$ et $n$ un entier non nul. Montrer que
+  $$\abs{\sum_{k=0}^n \frac{z^k}{k!} - \p{1+\frac{z}{n}}^n}\leq
+    \sum_{k=0}^n \frac{\abs{z}^k}{k!}-\p{1+\frac{\abs{z}}{n}}^n.$$
+\end{questions}
+
+\begin{sol}
+\begin{questions}
+\question Formule $a^n-b^n$.
+\question Binôme de Newton + on réunit les deux sommes puis I.T et le terme devant $|z|^k$ est positif puis on fais le chemin inverse.
+\end{questions}
+\end{sol}
+
+\magsection{Forme trigonométrique}
+\magsubsection{Exponentielle $\ii\theta$}
+
+\magsubsection{Application à la trigonométrie}
+
+\exercice{nom={Linéarisation}}
+Linéariser l'expression $\cos^2 x \sin^3 x$.
+\begin{sol}
+\[-\frac{1}{16}\sin(5x)+\frac{1}{8}\sin x+\frac{1}{16}\sin(3x)\]
+\end{sol}
+
+\exercice{nom={Calcul de sommes trigonométriques}}
+On se donne un réel $x$.
+\begin{questions}
+\question Calculer les sommes suivantes
+  $$\sum_{k=0}^n \cos\p{kx}, \qquad \sum_{k=0}^n \binom{n}{k}\cos\p{kx},
+    \qquad \sum_{k=0}^n k\cos\p{kx}.$$
+\question 
+  \begin{questions}
+  \question On suppose que $x\not\in 2\pi\Z$. Montrer que
+    $$\sum_{k=0}^{n} \sum_{l=-k}^{k} \e^{\ii lx}=
+      \p{\frac{\sin\p{\frac{n+1}{2}x}}{\sin\p{\frac{x}{2}}}}^2.$$
+  \question Calculer la valeur de cette somme pour $x\in 2\pi\Z$ de deux
+    manières distinctes.
+  \end{questions}
+\end{questions}
+\begin{sol}
+\begin{questions}
+\question Soit $x\in\R$ et $n\in\N$. Alors
+ \[\sum_{k=0}^n \cos(kx)=\begin{cases}
+   \frac{\cos\p{\frac{nx}{2}}\sin\p{\frac{n+1}{2}x}}{\sin\p{\frac{x}{2}}} & \text{si $x\not\equiv 0\ [2\pi]$}\\
+   n+1 & \text{si $x\equiv 0\ [2\pi]$}
+   \end{cases}\]
+\[\sum_{k=0}^n \binom{n}{k}\cos\p{k\theta}=2^n \cos^n\p{\frac{\theta}{2}}\cos\p{\frac{n\theta}{2}}\]
+Pour le dernier, il faut dériver la somme des $\sin(kx)$.
+\[\sum_{k=0}^n k\cos(kx)=\begin{cases}
+  \frac{n\sin\p{\frac{x}{2}}\cos\p{\frac{nx}{2}}\sin\p{\frac{n+1}{2}x}+(n+1)\sin\p{\frac{x}{2}}\sin\p{\frac{nx}{2}}\cos\p{\frac{n+1}{2}x}-\cos\p{\frac{x}{2}}\sin\p{\frac{nx}{2}}\sin\p{\frac{n+1}{2}x}}{2\sin^2\p{\frac{x}{2}}} & \text{si $x\not\equiv 0\ [2\pi]$}\\
+  \frac{n(n+1)}{2} & \text{si $x\equiv 0\ [2\pi]$}
+  \end{cases}\]
+\question Si $x\not\equiv 0\ [2\pi]$
+  \begin{eqnarray*}
+  \sum_{k=0}^n \sum_{l=-k}^k \e^{\ii lx}
+  &=& \frac{1}{\sin\p{\frac{x}{2}}}\sum_{k=0}^n \sin\cro{\p{k+\frac{1}{2}}x}\\
+  &=& \cro{\frac{\sin\p{\frac{n+1}{2}x}}{\sin\p{\frac{x}{2}}}}^2
+  \end{eqnarray*}
+  Sinon
+  \[\sum_{k=0}^n \sum_{l=-k}^k \e^{\ii lx}=\sum_{k=0}^n (2k+1)=(n+1)^2.\]
+  On obtient le même résultat en effectuant une limite.
+\end{questions}
+\end{sol}
+
+\magsubsection{Forme trigonométrique}
+
+
+\exercice{nom={Mise sous forme trigonométrique}}
+Soit $\theta\in\R$. On pose
+$$z=-\sin 2\theta+2\ii\cos^2 \theta.$$
+\begin{questions}
+\question Déterminer le module et l'argument de $z$.
+\question Donner une condition nécessaire et suffisante sur $\theta$ pour que
+  $z$ et $z-1$ aient même module.
+\end{questions}
+\begin{sol}
+$\quad$
+\begin{questions}
+\question Factoriser par $2\cos\theta$. On trouve
+  $z=2\cos\theta e^{\ii\p{\theta+\frac{\pi}{2}}}$. Discuter selon le signe de
+  $\cos\theta$.
+  \question On peut soit calculer le module au carré, soit raisonner
+    graphiquement. Il faut $\Re z=1/2$ soit
+    \[x\equiv-\frac{\pi}{12}\ [\pi] \ou x\equiv -\frac{5\pi}{12}\ [\pi]\]
+\end{questions}
+\end{sol}
+
+\exercice{nom={Calculs}}
+Mettez les nombres complexes suivants sous forme trigonométrique généralisée
+$$\p{\frac{1+\ii\sqrt{3}}{1-\ii}}^{20}, \qquad \p{1+\e^{\ii\theta}}^n, \qquad
+  \e^{\ii\theta}+\e^{\ii\theta'},$$
+$$\frac{a+b}{a-b} \quad \text{et} \quad \frac{a+b}{1-ab} \qquad
+  \text{où $a=\e^{\ii\theta}$ et $b=\e^{\ii\theta'}$}.$$
+\begin{sol}
+\[2^{10} \e^{-\ii\frac{\pi}{3}}, \qquad 2^n\cos^n\p{\frac{\theta}{2}}\e^{\ii\frac{n\theta}{2}},
+  \qquad 2\cos\p{\frac{\theta-\theta'}{2}}\e^{\ii\frac{\theta+\theta'}{2}}\]
+\[-\ii\cotan\p{\frac{\theta-\theta'}{2}}, \qquad
+  \ii\frac{\cos\p{\frac{\theta-\theta'}{2}}}{\sin\p{\frac{\theta+\theta'}{2}}}\]
+\end{sol}
+
+\magsubsection{Exponentielle complexe}
+
+
+
+
+
+
+
+
+\magsection{Racines d'un nombre complexe}
+\magsubsection{L'équation du second degré}
+
+\exercice{nom={L'équation du second degré}}
+Résoudre sur $\C$ les équations suivantes
+$$z^2=-7+24\ii, \qquad z^2=-3-4\ii, \qquad z^2+z+1=0,$$
+$$z^2-2(2+\ii)z+6+8\ii=0, \qquad \ii z^2+(4\ii -3)z+\ii-5=0,$$
+$$z^4+2z^3+z^2+2z+1=0 \quad \text{\it On pourra poser $u=z+\frac{1}{z}$},$$
+$$\begin{cases}
+  z_1 z_2=\frac{1}{2} &\\
+  z_1+2z_2 = \sqrt{3}, &
+  \end{cases}
+  \qquad
+  \begin{cases}
+  z_1 + z_2=1 &\\
+  z_1^2+z_2^2 = 3. &
+  \end{cases}
+$$
+\begin{sol}
+\[\ens{\pm(3+4\ii)}, \qquad \ens{\pm(1-2\ii)}, \qquad \ens{\jj,\jj^2}\]
+\[\ens{3-\ii,1+3\ii}, \qquad \ens{-3-2\ii,-1-\ii}\]
+\[\ens{\frac{-(1+\sqrt{2})\pm\sqrt{2\sqrt{2}-1}}{2},\frac{-1+\sqrt{2}\pm \ii \sqrt{2\sqrt{2}+1}}{2}}\]
+\[\ens{\p{\frac{\sqrt{3}+\ii}{2},\frac{\sqrt{3}-\ii}{4}}, \p{\frac{\sqrt{3}-\ii}{2},\frac{\sqrt{3}+\ii}{4}}} \qquad
+  \frac{1\pm\sqrt{5}}{2}\]
+\end{sol}
+
+\exercice{nom={Modules et arguments des racines d'un trinôme}}
+Soit $u$ un réel tel que $\abs{u}<\pi$. Calculer les modules et arguments de
+chacune des racines de l'équation
+\[z^2-2z\p{\cos u+\ii\sin u}+2\ii\sin u\p{\cos u+\ii\sin u}=0.\]
+\begin{sol}
+On trouve
+\[\e^{\ii u}-1=2\sin\p{\frac{u}{2}}\e^{\ii\frac{(u+\pi)}{2}} \et
+  \e^{\ii u}+1=2\cos\p{\frac{u}{2}}\e^{\ii\frac{u}{2}}.\]
+\end{sol}
+%% \exercice{nom={Un système algèbrique}}
+%% Pour quel(s) couple(s) d'entiers $(n,p)$, les équations suivantes
+%% ont-elles une racine commune ?
+%% $$z^n=1 \qquad \text{et} \qquad (1+z)^p=1$$
+%% {\it On raisonnera d'abord par implication}
+
+\exercice{nom={Trinôme dont les racines ont même module}}
+Soit $a,b\in\C$. Montrer que les racines de $z^2+az+b=0$ ont même module si et seulement
+si il existe $\lambda\in\interf{0}{4}$ tel que $a^2=\lambda b$.
+
+\begin{sol}
+Il faut et il suffit qu'il existe $\lambda\in\interf{0}{4}$ tel que
+$a^2=\lambda b$. En effet~:
+\begin{itemize}
+\item Si les racines sont $z_1=\rho e^{i\theta_1}$ et $z_2=\rho e^{i\theta_2}$,
+	alors
+	\[z_1z_2=\rho^2 \e^{\ii\p{\theta_1+\theta_2}} \et
+		z_1+z_2=\rho \e^{\ii\frac{\theta_1+\theta_2}{2}}
+		2\cos\p{\frac{\theta_1-\theta_2}{2}}\]
+	donc \[\p{z_1+z_2}^2=4\cos^2\p{\frac{\theta_1-\theta_2}{2}} ab\]
+	donc $\p{z_1+z_2}^2=\lambda z_1z_2$ donc $a^2=\lambda b$.
+\item Réciproquement, si $a^2=\lambda b$ avec $\lambda\in\interf{0}{4}$ alors le discriminant du trinôme vaut $\Delta=a^2-4b=(\lambda-4)b=\p{ib'\sqrt{4-\lambda}}^2$ avec $b'$ une racine carrée de $b$. Les racines du trinôme sont donc $$z_1=\frac{-a+ib'\sqrt{4-\lambda}}{2} \quad ; z_2=\frac{-a-ib'\sqrt{4-\lambda}}{2}.$$
+Ainsi, $$|z_1|^2=\frac{1}{4}\p{|a|^2+(4-\lambda)|b'|^2+2\Re\p{-ai\conj{b'}\sqrt{4-\lambda}}}$$ et $$|z_2|^2=\frac{1}{4}\p{|a|^2+(4-\lambda)|b'|^2-2\Re\p{-ai\conj{b'}\sqrt{4-\lambda}}}$$
+Or, $$(-ai\conj{b'}\sqrt{4-\lambda})^2=-a^2\conj{b'}^2(4-\lambda)=-\lambda b\conj{b}(4-\lambda)\in\RM.$$
+Donc $-ai\conj{b'}\sqrt{4-\lambda}$ est imaginaire pur, donc sa partie réelle et le résultat en découle.
+\end{itemize}
+\end{sol}
+
+\magsubsection{Racines $n$-ièmes}
+
+
+
+
+
+\exercice{nom={Équations}}
+Résoudre les équations suivantes sur $\C$
+$$z^5=-1, \qquad z^6=\frac{-4}{1+\ii\sqrt{3}}, \qquad z^3=\conj{z},$$
+$$(z+\ii)^n=(z-\ii)^n, \qquad
+  1+\frac{z+\ii}{z-\ii}+\p{\frac{z+\ii}{z-\ii}}^2+\p{\frac{z+\ii}{z-\ii}}^3=0.$$
+\begin{sol}
+\[-\omega^k, \qquad \sqrt[6]{2}\e^{\ii\frac{\pi}{9}}\omega^k, \qquad \ens{0,1,-1,\ii,-\ii}\]
+\[\cotan\p{\frac{k\pi}{n}}, \qquad (?)\] 
+\begin{questions}
+\question $\p{-1}^5=-1$ donc
+  \begin{eqnarray*}
+\forall z\in\C\qsep z^5=-1
+&\ssi& z^5=(-1)^5\\
+&\ssi& \p{\frac{z}{-1}}^5=1\\
+&\ssi& \p{-z}^5=1\\
+&\ssi& \exists k\in\intere{0}{4}\qsep -z=\omega^k, \quad\text{où $\omega\defeq\e^{\ii 2\pi/5}$}\\
+&\ssi& \exists k\in\intere{0}{4}\qsep z=-\omega^k
+\end{eqnarray*}
+L'ensemble des solutions est donc
+\[\ensim{-\omega^k}{k\in\intere{0}{4}}.\]
+\question 0 est solution de l'équation. On recherche donc les solutions sur $\Cs$. Soit $z\in\Cs$. Alors, il existe $r>0$ et $\theta\in\R$ tel que $z=r\e^{\ii\theta}$. Donc
+  \begin{eqnarray*}
+z^3=\conj{z}
+&\ssi& \p{r\e^{\ii\theta}}^3=\conj{r\e^{\ii\theta}}\\
+&\ssi& r^3 \e^{3\ii\theta}=r\e^{-\ii\theta}\\
+&\ssi& r^2 \e^{4\ii\theta}=1\\
+&\ssi& r^2=1 \et 4\theta\equiv 0\ [2\pi]\\
+&\ssi& r=1 \et \theta\equiv 0\ \cro{\frac{\pi}{2}}\\
+&\ssi& z=1 \ou z=\ii \ou z=-1 \ou z=-\ii
+  \end{eqnarray*}
+L'ensemble des solutions est donc $\ens{0,1,\ii,-1,-\ii}$.
+\question On a
+  \[\frac{-4}{1+\ii\sqrt{3}}=\frac{-4}{2\e^{\ii \frac{\pi}{3}}}=-2\e^{-\ii\frac{\pi}{3}}=2\e^{\ii\frac{2\pi}{3}}.\]
+  On pose
+  \[z_0\defeq\sqrt[6]{2}\e^{\ii\frac{\pi}{6}}.\]
+  Alors $z_0^6=-4/(1+\ii\sqrt{3})$ donc
+  \begin{eqnarray*}
+  \forall z\in\C\qsep z^6=\frac{-4}{1+\ii\sqrt{3}}
+  &\ssi& z^6 = z_0^6\\
+  &\ssi& \p{\frac{z}{z_0}}^6 = 1\\
+  &\ssi& \exists k\in\intere{0}{5}\qsep \frac{z}{z_0}=\omega^k, \quad\text{où $\omega\defeq\e^{\ii\frac{2\pi}{6}}$}\\
+&\ssi& \exists k\in\intere{0}{5}\qsep z=z_0 \omega^k
+  \end{eqnarray*}
+  L'ensemble des solutions est donc
+\[\ensim{\sqrt[6]{2}\e^{\ii\frac{\pi}{9}}\omega^k}{k\in\intere{0}{5}}.\]
+\question $\ii$ n'est pas solution de l'équation. On cherche donc les racines sur $\C\setminus\ens{\ii}$.
+\begin{eqnarray*}
+\forall z\in\C\setminus\ens{\ii}\qsep \p{z+\ii}^n=(z-\ii)^{n}
+&\ssi& \p{\frac{z+\ii}{z-\ii}}^n=1\\
+&\ssi& \exists k\in\intere{0}{n-1}\qsep \frac{z+\ii}{z-\ii}=\omega^k, \quad\text{où $\omega\defeq\e^{\ii\frac{2\pi}{n}}$}\\
+&\ssi& \exists k\in\intere{0}{n-1}\qsep \p{1-\omega^k}z=-\ii(1+\omega^k)\\
+&    & \text{En effet, s'il existe $k\in\intere{0}{n-1}$ tel que $\p{1-\omega^k}z=-\ii(1+\omega^k)$,}\\
+&    & \text{alors $k\neq 0$ car sinon on aurait $0\times z=-2\ii$.}\\
+&\ssi& \exists k\in\intere{1}{n-1}\qsep \p{1-\omega^k}z=-\ii(1+\omega^k)\\
+&\ssi& \exists k\in\intere{1}{n-1}\qsep z=-\ii\cdot\frac{1+\omega^k}{1-\omega^k}\\
+&\ssi& \exists k\in\intere{1}{n-1}\qsep z=-\ii\cdot\frac{1+\e^{\ii\frac{k2\pi}{n}}}{1-\e^{\ii\frac{k2\pi}{n}}}\\
+&\ssi& \exists k\in\intere{1}{n-1}\qsep z=-\ii\cdot\frac{\e^{\ii\frac{k\pi}{n}}\p{\e^{-\ii\frac{k\pi}{n}}+\e^{\ii\frac{k\pi}{n}}}}{\e^{\ii\frac{k\pi}{n}}\p{\e^{-\ii\frac{k\pi}{n}}-\e^{\ii\frac{k\pi}{n}}}}\\
+&\ssi& \exists k\in\intere{1}{n-1}\qsep z=-\ii\cdot\frac{2\cos\p{\frac{k\pi}{n}}}{-2\ii\sin\p{\frac{k\pi}{n}}}\\
+&\ssi& \exists k\in\intere{1}{n-1}\qsep z=\cotan\p{\frac{k\pi}{n}}
+\end{eqnarray*}
+L'ensemble des solutions est donc
+\[\ensim{\cotan\p{\frac{k\pi}{n}}}{\intere{1}{n-1}}.\]
+\question Soit $z\in\C\setminus\ens{\ii}$. Alors
+  \begin{eqnarray*}
+  \frac{z+\ii}{z-\ii}=1
+  &\ssi& z+\ii=z-\ii\\
+  &\ssi& 2\ii=0, \quad\text{ce qui est faux.}
+  \end{eqnarray*}
+  Donc
+  \begin{eqnarray*}
+  1+\frac{z+\ii}{z-\ii}+\p{\frac{z+\ii}{z-\ii}}^2+\p{\frac{z+\ii}{z-\ii}}^3=0
+  &\ssi& \frac{1-\p{\frac{z+\ii}{z-\ii}}^4}{1-\frac{z+\ii}{z-\ii}}=0, \quad\text{car $\dfrac{z+\ii}{z-\ii}\neq 1$}\\
+  &\ssi& \p{\frac{z+\ii}{z-\ii}}^4=1\\
+  &\ssi& \exists k\in\intere{0}{3}\qsep \frac{z+\ii}{z-\ii}=\omega^k, \quad\text{avec $\omega=\e^{\ii\frac{2\pi}{4}}=\ii$}\\
+  &\ssi& \exists k\in\intere{0}{3}\qsep \frac{z+\ii}{z-\ii}=\ii^k\\
+  &\ssi& \exists k\in\intere{0}{3}\qsep (1-\ii^k)z=-\ii(1+\ii^k)\\
+  &\ssi& \exists k\in\intere{1}{3}\qsep (1-\ii^k)z=-\ii(1+\ii^k)\\
+  &\ssi& \exists k\in\intere{1}{3}\qsep z=-\ii\cdot\frac{1+\ii^k}{1-\ii^k}\\
+  &\ssi& \text{$z=0$ ou $z=1$ ou $z=-1$}.
+  \end{eqnarray*}
+  L'ensemble des solutions est donc $\ens{0,1,-1}$.
+\end{questions} 
+\end{sol}
+
+\exercice{nom={Équation}}
+Soit $n\in\Ns$. Résoudre l’équation \[\p{z^2+1}^n=(z-\ii)^{2n}.\]
+\begin{sol}
+Soit $n\in\Ns$. Alors
+\begin{eqnarray*}
+\forall z\in\C\qsep \p{z^2+1}^n=(z-\ii)^{2n}
+&\ssi& \p{z^2-\ii^2}^n=(z-\ii)^{2n}\\
+&\ssi& \p{z-\ii}^n\p{z+\ii}^n=(z-\ii)^{2n}\\
+&\ssi& \p{z-\ii}^n\cro{\p{z+\ii}^n-(z-\ii)^{n}}=0\\
+&\ssi& z=\ii \ou \p{z+\ii}^n=(z-\ii)^{n}
+\end{eqnarray*}
+Puisque $\ii$ est solution de l'équation d'origine, on cherche les solutions de $\p{z+\ii}^n=(z-\ii)^{n}$ sur $\C\setminus\ens{\ii}$. On a donc
+\begin{eqnarray*}
+\forall z\in\C\setminus\ens{\ii}\qsep \p{z+\ii}^n=(z-\ii)^{n}
+&\ssi& \p{\frac{z+\ii}{z-\ii}}^n=1\\
+&\ssi& \exists k\in\intere{0}{n-1}\qsep \frac{z+\ii}{z-\ii}=\omega^k, \quad\text{où $\omega=\e^{\ii\frac{2\pi}{n}}$}\\
+&\ssi& \exists k\in\intere{0}{n-1}\qsep \p{1-\omega^k}z=-\ii(1+\omega^k)\\
+&\ssi& \exists k\in\intere{1}{n-1}\qsep \p{1-\omega^k}z=-\ii(1+\omega^k)\\
+&    & \text{En effet, si il existe $k\in\intere{0}{n-1}$ tel que $\p{1-\omega^k}z=-\ii(1+\omega^k)$,}\\
+&    & \text{alors $k\neq 0$ car sinon on aurait $0\times z=-2\ii$.}\\
+&\ssi& \exists k\in\intere{1}{n-1}\qsep z=-\ii\cdot\frac{1+\omega^k}{1-\omega^k}\\
+&\ssi& \exists k\in\intere{1}{n-1}\qsep z=-\ii\cdot\frac{1+\e^{\ii\frac{k2\pi}{n}}}{1-\e^{\ii\frac{k2\pi}{n}}}\\
+&\ssi& \exists k\in\intere{1}{n-1}\qsep z=-\ii\cdot\frac{\e^{\ii\frac{k\pi}{n}}\p{\e^{-\ii\frac{k\pi}{n}}+\e^{\ii\frac{k\pi}{n}}}}{\e^{\ii\frac{k\pi}{n}}\p{\e^{-\ii\frac{k\pi}{n}}-\e^{\ii\frac{k\pi}{n}}}}\\
+&\ssi& \exists k\in\intere{1}{n-1}\qsep z=-\ii\cdot\frac{2\cos\p{\frac{k\pi}{n}}}{-2\ii\sin\p{\frac{k\pi}{n}}}\\
+&\ssi& \exists k\in\intere{1}{n-1}\qsep z=\cotan\p{\frac{k\pi}{n}}
+\end{eqnarray*}
+Les solutions de l'équation $\p{z^2+1}^n=(z-\ii)^{2n}$ sont donc $\ii$ et les
+\[\cotan\p{\frac{k\pi}{n}}\]
+pour $k\in\intere{1}{n-1}$.
+\end{sol}
+
+\exercice{nom={Autour des racines de l'unité}}
+\begin{questions}
+\question En considérant les racines 11-ièmes de $1$, montrer que
+  $$\cos\p{\frac{\pi}{11}}+\cos\p{\frac{3\pi}{11}}+\cos\p{\frac{5\pi}{11}}+
+    \cos\p{\frac{7\pi}{11}}+\cos\p{\frac{9\pi}{11}}=\frac{1}{2}.$$
+\question Soit $a,b,c$ trois réels.
+  \begin{questions}
+  \question Calculer
+    $$\p{a+b\jj+c\jj^2}\p{a+b\jj^2+c\jj}.$$
+  \question Sans effectuer de développement, retrouver le fait que cette
+    expression ne change pas lorsqu'on échange deux variables.
+  \end{questions}
+\question Soit $\p{\omega_k}_{0\leq k\leq n-1}$ les racines n-ièmes de l'unité.
+  Calculer pour tout entier $p\in\Z$
+  $$\sum_{k=0}^{n-1} \omega_k^p \qquad \text{et} \qquad
+    \prod_{k=0}^{n-1} \omega_k.$$
+\end{questions}
+\begin{sol}
+\begin{questions}
+\question On pose $\omega=\e^{\ii 2\pi/11}$. Alors
+  \[\sum_{k=0}^{10} \omega^k=0.\]
+  Donc
+  \[1+\p{\omega+\omega^{10}}+\p{\omega^2+\omega^9}+\p{\omega^3+\omega^8}+\p{\omega^4+\omega^7}+\p{\omega^5+\omega^6}=0.\]
+  En utilisant le fait que $\omega^{11-k}=\conj{\omega^k}$ et le fait que $\omega^k+\conj{\omega^k}=2\Re\p{\omega^k}$, on en déduit que
+  \[1+2\cos\p{\frac{2\pi}{11}}+2\cos\p{\frac{4\pi}{11}}+2\cos\p{\frac{6\pi}{11}}+2\cos\p{\frac{8\pi}{11}}+2\cos\p{\frac{10\pi}{11}}=0.\]
+  Enfin, en utilisant le fait que $\cos(\pi-x)=-\cos(x)$, on obtient
+  \[\cos\p{\frac{\pi}{11}}+\cos\p{\frac{3\pi}{11}}+\cos\p{\frac{5\pi}{11}}+
+    \cos\p{\frac{7\pi}{11}}+\cos\p{\frac{9\pi}{11}}=\frac{1}{2}.\]
+\question
+  \begin{questions}
+  \question En développant, on obtient, en utilisant le fait que $\jj^3=1$ puis que $1+\jj+\jj^2=0$
+    \begin{eqnarray*}
+    \p{a+b\jj+c\jj^2}\p{a+b\jj^2+c\jj}
+    &=& a^2+b^2+c^2+\p{\jj+\jj^2}\p{ab+ac+bc}\\
+    &=& a^2+b^2+c^2-(ab+ac+bc).
+    \end{eqnarray*}
+    Cette expression est bien entendu symétrique en $a$, $b$, $c$.
+  \question Si on échange $a$ et $b$, on obtient, en utilisant le fait que $\jj^3=1$
+    \begin{eqnarray*}
+    \p{b+a\jj+c\jj^2}\p{b+a\jj^2+c\jj}
+    &=& \jj\p{a+b\jj^2+c\jj}\jj^2\p{a+b\jj+c\jj^2}\\
+    &=& \p{a+b\jj+c\jj^2}\p{a+b\jj^2+c\jj}.
+    \end{eqnarray*}
+    L'expression est donc inchangée si on permute $a$ et $b$. On vérifie que si l'on permute $a$ et $c$ ou $b$ et $c$ l'expression est aussi inchangée.
+  \end{questions}
+\question Soit $n\in\Ns$. On pose $\omega\defeq\e^{\ii 2\pi/n}$. Soit $p\in\Z$. Alors
+\[\sum_{k=0}^{n-1} \omega_k^p= \sum_{k=0}^{n-1} \p{\omega^k}^p = \sum_{k=0}^{n-1} \omega^{kp} = \sum_{k=0}^{n-1} \p{\omega^p}^k\]
+Or
+\[\omega^p=1 \quad\ssi\quad \p{\e^{\ii\frac{2\pi}{n}}}^p=1 \quad\ssi\quad \e^{\ii\frac{2\pi p}{n}}=1 \quad\ssi\quad \frac{2\pi p}{n}\equiv 0\ [2\pi]\quad\ssi\quad p\equiv 0\ [n].\]
+Si $p$ est un multiple de $n$, alors
+\[\sum_{k=0}^{n-1} \omega_k^p= \sum_{k=0}^{n-1} 1 = n.\]
+Sinon
+\[\sum_{k=0}^{n-1} \omega_k^p=\sum_{k=0}^{n-1} \p{\omega^p}^k=\frac{1-\p{\omega^p}^n}{1-\omega^p}=\frac{1-\p{\omega^n}^p}{1-\omega^p}=0.\]
+Enfin
+\[
+\prod_{k=0}^{n-1} \omega_k
+= \prod_{k=0}^{n-1} \omega^k = \omega^{\sum_{k=0}^{n-1} k} = \omega^{\frac{n(n-1)}{2}}=
+\e^{\ii\frac{2\pi}{n}\cdot\frac{n(n-1)}{2}}=\e^{\ii\pi(n-1)}=(-1)^{n-1}=\begin{cases}
+1 & \text{si $n\equiv 1\ [2]$}\\
+-1 & \text{si $n\equiv 0\ [2]$.}
+\end{cases}
+\]
+\end{questions}
+\end{sol}
+
+
+\magsection{Nombres complexes et géométrie plane}
+
+\magsubsection{Le plan complexe}
+
+\exercice{nom={Caractérisation d'un triangle équilatéral}}
+Soit $A$, $B$ et $C$ trois points du plan d'affixes respectives $a$, $b$ et $c$.
+\begin{questions}
+\question On suppose que $B\neq A$. Montrer que $ABC$ est équilatéral si et seulement si
+  \[\frac{c-a}{b-a}=\e^{\frac{\ii\pi}{3}} \quad\text{ou}\quad \frac{c-a}{b-a}=\e^{-\frac{\ii\pi}{3}}.\]
+\question En déduire que $ABC$ est équilatéral si et seulement si
+  \[a^2+b^2+c^2=ab+ac+cb.\]
+\end{questions}
+
+
+\exercice{nom={Triangles équilatéraux}}
+Soit $(ABC)$ et $(ADE)$ deux triangles équilatéraux directs et $(ACFD)$ un parallélogramme. Montrer que $(BFE)$ est équilatéral direct.
+\begin{sol}
+On peut écrire toutes les hypothèses (3 égalités par triangle du type $\frac{c-a}{b-a}=\e^{\frac{\ii\pi}{3}}$ et $d-a=f-c$ pour le parallélogramme).
+Or, $f-e=d-e+c-a=(a-e)e^{i\pi/3}+(b-a)e^{i\pi/3}=(b-e)e^{i\pi/3}$ ce qui signifie que $(EBF)$ est équilatéral direct.
+\end{sol}
+
+\exercice{nom={Algèbre et géométrie}}
+A tout nombre complexe $z\neq 4$, on associe le nombre \[z'=\frac{\ii z-4}{z-4}\] et on note
+$\mathcal{C}$ l'ensemble des points $M$ d'affixe $z$ du plan tels que $z'$ est réel. Déterminer $\mathcal{C}$ par une méthode algébrique puis par une méthode géométrique.
+
+
+
+
+
+\exercice{nom={Lieu}}
+Soit le point $A$ d'affixe $2$ et le point $B$ d'affixe $-2$. À tout point $M$ d'affixe $z$, autre que $A$, on associe le point $M'$ d'affixe \[z'=\dfrac{2z-4}{\bar{z}-2}.\]
+\begin{questions}
+\question Déterminer $\abs{z}$. Que peut-on en déduire pour $M'$~?
+\question Déterminer l'ensemble $\mathcal{E}$ des points d'affixe $z$ tels que $M'=B$.
+\question Pour tout point $M$ de $\mathcal{E}$ et distincts de $A$ et $B$, que peut-on dire de \[\frac{z-2}{z'-2}~?\] Interpréter géométriquement ce résultat et en déduire une construction de $M'$.
+\end{questions}
+
+\exercice{nom={Triangles}}
+\begin{questions}
+\question On considère les points $A$, $B$ et $C$ d'affixes respectives $1$, $z$ et $\ii z$. Déterminer l'ensemble des points $B$ pour lesquels $A$, $B$ et $C$ sont alignés.
+\question On considère les points $E$, $F$ et $G$ non alignés, d'affixes respectives, $z_{1}$, $z_{2}$ et $z_{3}$. Déterminer une condition nécessaire et suffisante pour que le triangle $(EFG)$ soit rectangle isocèle en $E$.
+\end{questions}
+\begin{sol}
+\begin{questions}
+\question $\dfrac {c-a}{b-a}\in \R$ ssi $z\conj{z}-\dfrac{1+i}{2}z-\dfrac{1-i}{2}\conj{z}=0$. Il s'agit donc du cercle de centre $(1-i)/2$ et de rayon $1/\sqrt 2$.
+\question $\dfrac{g-e}{f-e}=i$.
+\end{questions}
+\end{sol}
+
+\magsubsection{Les similitudes directes}
+
+\exercice{nom={Similitudes}}
+\begin{questions}
+\question Caractériser géométriquement la similitude
+  \[z\mapsto 2(1+\ii)z-7-4\ii.\]
+\question Déterminer l'expression complexe de la rotation de centre $1+\ii$ et d'angle $\pi/4$.
+\question On note $r$ la rotation de centre $2+\ii$ et d'angle $\pi/2$ et $s$ la symétrie centrale de centre $1-\ii$. Caractériser géométriquement $s\circ r$.
+\question On note $r$ la rotation de centre $\ii$ et d'angle $\pi/3$ et $r'$ la rotation de centre $2\ii$ et d'angle $-\pi/3$. Caractériser géométriquement $r'\circ r$.
+\end{questions}
+
+\begin{sol}
+\begin{questions}
+\question Soit $f$ la fonction définie sur $\C$ par
+\[\forall z\in\C\qsep f(z)\defeq 2(1+\ii)z-7-4\ii.\]
+Alors
+\begin{eqnarray*}
+\forall z\in\C\qsep f(z)=z
+&\ssi& 2(1+\ii)z-7-4\ii=z\\
+&\ssi& (1+2\ii)z=7+4\ii\\
+&\ssi& z=\frac{7+4\ii}{1+2\ii}\\
+&\ssi& z=\frac{(7+4\ii)(1-2\ii)}{5}\\
+&\ssi& z=3-2\ii
+\end{eqnarray*}
+donc $f$ est une similitude directe de centre $3-2\ii$. Or
+\[2(1+\ii)=2\sqrt{2}\e^{\ii\frac{\pi}{4}}\]
+donc le rapport de cette similitude est $2\sqrt{2}$ et son angle est $\pi/4$.
+\question Si $g$ est l'expression complexe de la rotation de centre $1+\ii$ et d'angle $\pi/4$, alors
+\[\forall z\in\C\qsep g(z)=\e^{\ii\frac{\pi}{4}}\cro{z-(1+\ii)}+(1+\ii).\]
+\question On a 
+\[\forall z\in\C\qsep r(z)=\ii\cro{z-(2+\ii)}+(2+\ii)\]
+et
+\[\forall z\in\C\qsep s(z)=-\cro{z-(1-\ii)}+(1-\ii).\]
+On en déduit que
+\[\forall z\in\C\qsep (s\circ r)(z)=s(r(z))=-\ii z-1-\ii.\]
+Cette fonction admet un point fixe qui est $-1$. c'est donc une rotation de centre $-1$ et d'angle $-\pi/2$.
+\question On a
+\[\forall z\in\C\qsep r(z)=\e^{\ii\frac{\pi}{3}}\p{z-\ii}+\ii\]
+et
+\[\forall z\in\C\qsep r'(z)=\e^{-\ii\frac{\pi}{3}}\p{z-2\ii}+2\ii.\]
+Donc
+\[\forall z\in\C\qsep (r'\circ r)(z)=z-\frac{\sqrt {3}+\ii}{2}.\]
+C'est donc une translation de vecteur d'affixe $-(\sqrt{3}+\ii)/2$.
+\end{questions}
+\end{sol}
+
+\begin{sol}
+\begin{questions}
+\question $ABC$ est équilatéral si et seulement si il est isocèle de sommet $A$ et que l'angle en $A$ soit égal à $\pm\pi/3$ (direct ou indirect), d'où le résultat.
+\question On pose
+  \[P\defeq\p{X-\e^{\ii\frac{\pi}{3}}}\p{X-\e^{-\ii\frac{\pi}{3}}}=X^2-\p{\e^{\ii\frac{\pi}{3}}+\e^{-\ii\frac{\pi}{3}}}X+1=X^2-X+1.\]
+Donc
+\begin{eqnarray*}
+\text{$ABC$ est équilatéral} &\ssi & \frac{c-a}{b-a}=\e^{\frac{\ii\pi}{3}} \quad\text{ou}\quad \frac{c-a}{b-a}=\e^{-\frac{\ii\pi}{3}}\\
+&\ssi & P\p{\frac{c-a}{b-a}}=0\\
+&\ssi &a^2+b^2+c^2=ab+ac+cb.
+\end{eqnarray*}
+\end{questions}
+\end{sol}
+
+
+
+%END_BOOK
+
+\end{document}

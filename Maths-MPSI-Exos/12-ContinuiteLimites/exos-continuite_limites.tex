@@ -1,0 +1,429 @@
+\documentclass{magnolia}
+
+\magtex{tex_driver={pdftex}}
+\magfiche{document_nom={Continuité, limites},
+          auteur_nom={François Fayard},
+          auteur_mail={fayard.prof@gmail.com}}
+\magexos{exos_matiere={maths},
+         exos_niveau={mpsi},
+         exos_chapitre_numero={10},
+         exos_theme={Continuité, limites}}
+\magmisenpage{misenpage_presentation={tikzvelvia},
+              misenpage_format={a4},
+              misenpage_nbcolonnes={1},
+              misenpage_sol={non}}
+\maglieudiff{lieu_lycee={Aux Lazaristes},
+             lieu_classe={MPSI 1},
+             lieu_annee={2020--2021}}
+\magprocess
+
+\begin{document}
+
+%BEGIN_BOOK
+% Ce qui est affirmé sans preuve peut être nié sans preuve.
+% Euclide
+\magsection{Fonction numérique, topologie élémentaire}
+
+\exercice{nom={Monotonie}}
+Soit $f:\R\to\R$ une fonction telle que $f\circ f$ est croissante et
+$f\circ f\circ f$ est strictement décroissante. Montrer que $f$ est
+strictement décroissante.
+
+\begin{sol}
+Soit $a<b$. Procédons par l'absurde et supposons que $f(a)\leq f(b)$. Alors, par croissance de $f^2$, $f^3(a)\leq f^3(b)$. Mais par stricte décroissance de $f^3$, on a $f^3(a)> f^3(b)$, d'où la contradiction.
+\end{sol}
+
+
+
+\exercice{nom={Une fonction périodique étrange}}
+Soit $f$ la fonction définie sur $\R$ par
+\[\forall x\in\R \qsep
+  f(x)=
+  \begin{cases}
+  1 & \text{si $x\in\Q$}\\
+  0 & \text{si $x\in\R\setminus\Q$.}  
+  \end{cases}\]
+Montrer que l'ensemble des périodes de $f$ est $\Q$.
+\textit{On a donc construit une fonction périodique non constante qui n'admet pas
+de plus petite période strictement positive.}
+
+\begin{sol}
+On montre que tout rationnel est une période par disjonction des cas. Puis si $T$ est une période, alors en particulier $f(0)=1=f(T)$ donc $T$ est rationnel.
+\end{sol}
+
+
+
+
+
+\magsection{Limite}
+
+\exercice{nom={Existence et calculs de limites}}
+Existence et calcul des limites des expressions suivantes
+\[\ent{\frac{1}{x}} \ \text{à droite en 0}, \qquad x\cos\p{\frac{1}{x}} \ \text{en 0},\]
+\[x\ent{\frac{1}{x}} \ \text{en 0}, \qquad
+  \cos\p{\frac{1}{x}} \ \text{en 0}, \qquad
+  \frac{x^x}{\ent{x}^{\ent{x}}} \ \text{en $+\infty$}.\]
+
+\exercice{nom={Existence et calculs de limites}}
+Existence et calcul des limites des expressions suivantes
+\[\frac{6x^2+5x-4}{2x-1} \ \text{en $\frac{1}{2}$}, \qquad
+  \frac{3}{x^3-1}-\frac{2}{x^2-1} \ \text{en 1},\]
+\[x^n \e^{-1/x^2} \ \text{en 0 avec $n\in\Z$}, \qquad
+%%  \frac{\p{1-\cos x}\ln\p{1+x^2}}{x^2\tan^2 x} \ \text{en 0}\]
+%%\[\frac{\ln\p{\cos x}}{1-\cos\p{2x}} \ \text{en 0}  \qquad
+  \frac{\ln\p{\ch\p{\alpha x}}}{\ln\p{\ch x}} \ \text{en $+\infty$ avec
+  $\alpha\in\R$},\]
+\[\frac{r \e^{\ii\alpha t}-1}{t} \ \text{en 0 avec $r\in\RPs$ et $\alpha\in\R$},
+  \qquad \frac{\e^{2\ii t}\tan t}{t^2} \ \text{en 0}.\]
+\begin{sol}
+\[\frac{6x^2+5x-4}{2x-1}=3x+4\tendvers{x}{\frac{1}{2}}\frac{11}{2} \qquad
+  \frac{3}{x^3-1}-\frac{2}{x^2-1}=-\frac{2x+1}{(x+1)(x^2+x+1)}\tendvers{x}{1}-\frac{1}{2}\]
+\[x^n e^{-1/x^2}\tendvers{x}{0}0 \qquad
+  \frac{\ln\p{\ch\p{\alpha x}}}{\ln\p{\ch x}}\tendvers{x}{+\infty}\abs{\alpha}\]
+\[i\alpha \text{ si $r=1$, pas de limite sinon} \qquad \text{pas de limite}\]
+\end{sol}
+
+
+\exercice{nom={Non existence d'une limite}}
+Montrer que la fonction définie sur $\intero{0}{1}$ par
+\[\forall x\in\intero{0}{1} \qsep f(x)\defeq\sin\p{\frac{1}{x-x^2}}\]
+n'a pas de limite en 0.
+
+\exercice{nom={Manipulation de limite}}
+Soit $f$ une fonction définie sur $\R$ telle que
+\[f(x)\tendvers{x}{0}0 \et \frac{f\p{2x}-f(x)}{x}\tendvers{x}{0}0.\]
+En remarquant que
+\[f(x)=\sum_{k=1}^n \cro{f\p{\frac{x}{2^{k-1}}}-f\p{\frac{x}{2^k}}} +
+  f\p{\frac{x}{2^n}}\]
+montrer que
+\[\frac{f(x)}{x}\tendvers{x}{0}0.\]
+
+\begin{sol}
+Soit $\epsilon>0$. Il existe $\eta>0$ tel que $\forall x\in \RPs$, $$\abs{x}\leq \eta \Longrightarrow \abs{\frac{f\p{2x}-f(x)}{x}}\leq \frac{\epsilon}{2}.$$
+Ainsi, d'après le résultat (à montrer) qu'on nous demande de remarquer, $\forall x \in \RPs$ tel que $\abs{x}\leq \eta$, on a:
+$$\abs{\dfrac{f(x)}{x}}\leq \sum_{k=1}^n \frac{1}{2^k}\abs{\frac{\p{f\p{2\frac{x}{2^{k}}}-f\p{\frac{x}{2^k}}}}{\frac{x}{2^k}}} +
+  \abs{\frac{f\p{\frac{x}{2^n}}}{x}}\leq \frac{\epsilon}{2}\p{1-\p{\frac{1}{2}}^n}+\abs{\frac{f\p{\frac{x}{2^n}}}{x}}\leq \frac{\epsilon}{2}+ \abs{\frac{f\p{\frac{x}{2^n}}}{x}}.$$
+  Ceci étant vrai $\forall n \in \N$, on peut maintenant "regarder" cette inégalité à $x$ fixé et majorer le dernier terme par $\epsilon/2$ d'où le résultat souhaité.
+\end{sol}
+
+
+\magsection{Continuité}
+\exercice{nom={Une fonction discontinue en tout point}}
+Soit $f$ la fonction définie sur $\R$ par
+\[\forall x\in\R \qsep f(x)=
+  \begin{cases}
+  1 & \text{si $x\in\Q$}\\
+  0 & \text{si $x\in\R\setminus\Q$.}
+  \end{cases}\]
+Montrer que $f$ est discontinue en tout point.
+
+\begin{sol}
+  Soit $x\in \Q$, $\R\setminus\Q$ étant dense dans $\R$, il existe une suite $(u_n)$ d'irrationnels tendant vers $x$. Alors $\forall n \in N, f(u_n)=0\tendvers{n}{+\infty}0\neq f(x)=1$, donc $f$ est discontinue en $x$.\\
+  Soit $x\in \R\setminus\Q$, $Q$ étant dense dans $\R$, il existe une suite $(u_n)$ de rationnels tendant vers $x$. Alors $\forall n \in N, f(u_n)=1\tendvers{n}{+\infty}1\neq f(x)=0$, donc $f$ est discontinue en $x$.
+  \end{sol}
+
+\exercice{nom={Une fonction continue en tout point de
+$\R\setminus\Q$}}
+Soit $f$ la fonction définie sur $\R$ par
+\[\forall x\in\R \qsep f(x)=
+  \begin{cases}
+  0 & \text{si $x\in\R\setminus\Q$}\\
+  \frac{1}{q} & \text{si $x\in\Q$ et $x=\frac{p}{q}$ avec
+    $\p{p,q}\in\Z\times\Ns$ et $\p{p,q}=1$.}
+  \end{cases}\]
+\begin{questions}
+\question Montrer que $f$ est discontinue en tout $x\in\Q$.
+\question Le but de cette question est de montrer que $f$ est continue en tout
+  $x\in\R\setminus\Q$. Soit $x\in\R\setminus\Q$.
+  \begin{questions}
+  \question Soit $\p{p_n}$ une suite d'éléments de $\Z$ et $\p{q_n}$ une suite
+    d'éléments de $\Ns$ telles que
+    \[\frac{p_n}{q_n}\tendvers{n}{+\infty} x.\]
+    Montrer que $\p{q_n}\tendvers{n}{+\infty}+\infty$.
+  \question En déduire que $f$ est continue en $x$.
+  \end{questions}
+\end{questions}
+
+\begin{sol}
+\begin{questions}
+\question Soit $x\in \Q$, $\R\setminus\Q$ étant dense dans $\R$, il existe une suite $(u_n)$ d'irrationnels tendant vers $x$. Alors $\forall n \in N, f(u_n)=0\tendvers{n}{+\infty}0\neq f(x)=1/q$, donc $f$ est discontinue en $x$.
+\question 
+  \begin{questions}
+  \question Raisonnons par l'absurde. Cela signifie qu'il existe $m\in \R$ tel que $\forall N \in \N, \exists n\geq N$ tel que $q_n < m$.
+
+Fixons un tel $m$ et construisons une extractrice $\phi$ telle que $\forall n \in \N$, $1\leq q_{\phi(n)}\leq m$.
+\begin{itemize}
+\item[$\bullet$] On pose $N=0$. Il existe $n\geq 0$ tel que $q_n<m$. On pose $n=\phi(0)$.
+\item[$\bullet$] Soit $k\in \N$. On suppose construit $\phi(0)< \ldots< \phi(k)$ tels que $1\leq u_{\phi(k)}\leq m$.
+On pose $N=\phi(k)+1$. Alors, il existe $n\geq N$ tel que $q_n<m$. On pose $\phi(k+1)=n$...
+\end{itemize}
+La suite $(q_{\phi(n)})$ est donc bien construite et bornée. Elle admet donc une sous-suite convergente, c'est-à-dire qu'il existe $\psi$ telle que $(q_{\phi(\psi(n))})$ converge vers $\ell \in \R$. Comme il s'agit d'une suite d'entiers convergentes, elle est constante apcr et donc $\ell \in \Ns$. Mais alors $\displaystyle p_{\phi(\psi(n))}=\frac{p_{\phi(\psi(n))}}{q_{\phi(\psi(n))}}q_{\phi(\psi(n))} \tendvers{n}{+\infty}{\ell x}=\ell'$ et pour les mêmes raisons $\ell' \in \Z$.
+Ainsi, $\displaystyle \frac{p_{\phi(\psi(n))}}{q_{\phi(\psi(n))}} \tendvers{n}{+\infty} \frac{\ell'}{\ell} \in \Q$. Donc $x\in \Q$ par unicité de la limite, ce qui fournit une contradiction.
+  \question En déduire que $f$ est continue en $x$.
+  \end{questions}
+\end{questions}
+
+
+\end{sol}
+
+\exercice{nom={Une équation fonctionnelle}}
+Soit $f$ une fonction continue sur $\R$ telle que
+\[\forall x,y\in\R \qsep f\p{x+y}=f(x)+f(y).\]
+\begin{questions}
+\question Montrer que
+  \[\forall x\in\R \qsep \forall n\in\Z \qsep f\p{nx}=nf(x).\]
+\question Montrer que
+  \[\forall x\in\R \qsep \forall q\in\Q \qsep f\p{qx}=qf(x).\]
+\question En déduire qu'il existe $a\in\R$ tel que
+  \[\forall x\in\R \qsep f(x)=ax.\]
+% \question Le but de cette question est de montrer qu'il existe une fonction $g$
+%   de $\R$ dans $\R$ (qui sera donc non continue) telle que
+%   \[\forall x,y\in\R \qsep g\p{x+y}=g(x)+g(y)\]
+%   et telle que $g$ ne soit pas de la forme $g(x)=ax$.
+%   \begin{questions}
+%   \question On considère $\R$ comme $\Q$-espace vectoriel. En admettant que
+%     $A=\Q$ admet un supplémentaire $B$ dans $\R$ montrer qu'il existe un
+%     unique endomorphisme $g$ tel que~:
+%     \[\forall x\in A \quad g(x)=x \et \forall x\in B \quad g(x)=0\]
+%   \question Conclure.
+%   \end{questions}
+\end{questions}
+
+\begin{sol}
+Soit $f$ continue de $\R$ dans $\R$ vérifiant $f(x+y)=f(x)+f(y), \forall (x,y)\in \R^2$.
+  \begin{itemize}
+  \item On montre d'abord par récurrence sur $n\in \N$ $H_n : "f(nx)=nf(x)"$.
+  \item Soit $n\in \Z$ tel que $n\leq 0$. Alors $-n\in \N$. D'où $f(nx)+f(-nx)=f(0)=0$ donc $f(nx)=-f(-nx)=-(-nf(x))=nf(x)$. On a donc montré que $\forall n \in \Z, f(nx)=nf(x)$.
+  \item Soit $r\in \Q$. Il existe $p\in \Z$ et $q\in \Ns$ tels que $r=p/q$. On a $pf(x)=f(px)=f(qrx)=qf(rx)$ d'où $f(rx)p/qf(x)=rf(x)$.
+  Finalement, $\forall r\in \Q, f(r)=rf(1)$.
+  \item Soit $x\in \R$, il existe une suite $(r_n)$ de rationnels qui tend vers $x$ (par densité). Par continuité de $f$ en $x$, $r_nf(1)=f(r_n)\tendvers{n}{+\infty}f(x)$. Donc par unicité de la limite $f(x)=xf(1)$.
+  \item En posant $\alpha=f(1)$ on a donc $f(x)=\alpha x$.
+  \end{itemize}
+\end{sol}
+
+
+\exercice{nom={Une équation fonctionnelle}}
+Soit $f$ une fonction continue de $\R$ dans $\R$ telle que
+\[\forall x,y\in\R \qsep f\p{\frac{x+y}{2}}=\frac{f(x)+f(y)}{2}.\]
+\begin{questions}
+\question Montrer que
+  \[\mathcal{D}\defeq\enstq{\frac{p}{2^n}}{p\in\Z \et n\in\N}\]
+  est dense dans $\R$.
+\question Soit $a,b\in\R$ tels que $a<b$.
+  \begin{questions}
+  \question Montrer que
+    \[\forall x\in\mathcal{D}\cap\interf{0}{1} \qsep
+      f\p{\alpha\cdot a +\p{1-\alpha} \cdot b}=\alpha f(a)+
+      \p{1-\alpha} f(b).\]
+  \question En déduire qu'il existe $\alpha,\beta\in\R$ tels que
+    \[\forall x\in\interf{a}{b} \qsep f(x)=\alpha+\beta x.\]
+  \end{questions}
+\question Montrer que
+  \[\forall x\in\R \qsep f(x)=\alpha+\beta x.\]
+\end{questions}
+
+\exercice{nom={Une équation fonctionnelle}}
+Soit $f$ une application continue de $\R$ dans $\R$ telle que
+\[\forall x,y\in\R \qsep f\p{x+y}=f(x)f(y).\]
+\begin{questions}
+\question On suppose qu'il existe $x_0\in\R$ tel que $f\p{x_0}=0$. Montrer que
+  $f$ est la fonction nulle.
+\enonce Dans la suite, on suppose que $f$ n'est pas la fonction nulle.
+\question Montrer que
+  \[\forall x\in\R \qsep f(x)>0.\]
+\question En déduire qu'il existe $a\in\R$ tel que
+  \[\forall x\in\R \qsep f(x)=\e^{ax}.\]
+\end{questions}
+
+\begin{sol}
+\begin{questions}
+\question $\forall x \in \R$, $f(x)=f(x-x_0+x_0)=f(x-x_0)f(x_0)=0$ donc $f$ est la fonction nulle.
+\question $\forall x\in\R \qsep f(x)=f\p{\dfrac{x}{2}}^2\geq 0$ et non nul par hypothèse, d'où le résultat.
+\question Déjà, $f(0)=f(0)^2$ donc $f(0)=1$ car non nul. De plus, $\forall n \in \N, f(nx)=f(x)^n$ et $f(0)=f(nx)f(-nx)$ donc $f(-nx)=1/f(nx)=f(x)^{-n}$. 
+Ainsi, pour tout rationnel $r=p/q$ avec $p\in \Z$ et $q\in \Ns$, on a :
+$$f(1)^p=f(p)=f\p{q\frac{p}{q}}=f\p{\frac{p}{q}}^q$$ d'où $$f(r)=f(1)^r=\e^{r\ln(f(1))}.$$
+On conclut grâce à la densité des rationnels.
+\end{questions}
+
+
+\end{sol}
+
+\exercice{nom={Prolongement d'inégalités}}
+\begin{questions}
+\question Soit $f$ et $g$ deux fonctions de continues $\R$ dans $\R$ telles
+  que
+  \[\forall x\in\Q \qsep f(x)<g(x).\]
+  \begin{questions}
+  \question Montrer que
+    \[\forall x\in\R \qsep f(x)\leq g(x).\]
+  \question Montrer que l'on a pas nécessairement
+    \[\forall x\in\R \qsep f(x)<g(x).\]
+  \end{questions}
+\question Soit $f$ une fonction continue de $\R$ dans $\R$ telle que
+  \[\forall x,y\in\Q \qsep x<y \implique f(x)<f(y).\]
+  Montrer que $f$ est strictement croissante, c'est-à-dire que
+  \[\forall x,y\in\R \qsep x<y \implique f(x)<f(y).\]
+\end{questions}
+
+\begin{sol}
+\begin{questions}
+\question 
+  \begin{questions}
+  \question Suite de rationnels qui tend vers $x$ plus passage à la limite.
+  \question $f=0$ et $g(x)=|x-\sqrt{2}|$.
+  \end{questions}
+\question Soit $x<y$. On peut trouver deux rationnels tels que $x<a<b<y$. Considérons alors $(x_n)$ et $(y_n)$ des suites de rationnels qui tendent vers $x$ et $y$. Pour $n$ assez grand, $x_n\leq a$ et donc $f(x_n)\leq f(a)$ et par passage à la limite $f(x)\leq f(a)$. De même on obtient $f(b)\leq f(y)$ et donc finalement :
+$$f(x)\leq f(a)<f(b \leq f(y)$$ car $a$ et $b$ sont deux rationnels tels que $a<b$.
+\end{questions}
+
+\end{sol}
+
+% \magsection{Continuité globale}
+
+\exercice{nom={Théorème des valeurs intermédiaires}}
+\begin{questions}
+\question Soit $f$ une fonction continue de $\interf{a}{b}$ dans $\interf{a}{b}$.
+  Montrer que $f$ admet un point fixe, c'est-à-dire qu'il existe
+  $c\in\interf{a}{b}$ tel que $f(c)=c$.
+\question Soit $f$ une fonction continue sur $\R$ à valeurs dans $\ens{0,1}$.
+  Montrer que $f$ est constante.
+\question Déterminer les fonctions $f$ continues de $\R$ dans $\R$ telles que
+  \[\forall x\in\R \qsep \p{f(x)}^2-2xf(x)-1=0.\]
+\end{questions}
+
+\exercice{nom={Théorème de la corde raide}}
+Soit $f$ une fonction continue de $\interf{0}{1}$ dans $\R$ telle que
+$f\p{0}=f\p{1}$.
+\begin{questions}
+\question Montrer qu'il existe $x\in\interf{0}{\frac{1}{2}}$ tel que
+  \[f\p{x+\frac{1}{2}}=f(x).\]
+\question 
+  Montrer que si un coureur parcourt 20~km en une
+  une heure, il existe un intervalle de temps d'une demi-heure pendant lequel
+  il a exactement parcouru 10~km.
+\question Plus généralement, montrer que si $n\in\Ns$, il existe
+  $x\in\interf{0}{1-\frac{1}{n}}$ tel que
+  \[f\p{x+\frac{1}{n}}=f(x).\]
+\question Si $\alpha\in\interf{0}{1}$, existe-t-il toujours
+  $x\in\interf{0}{1-\alpha}$ tel que $f\p{x+\alpha}=f(x)$~?
+\end{questions}
+
+\begin{sol}
+\begin{questions}
+\question $g(x)=f(x+1/2)-f(x)$. $g(0)$ et $g(1)$ sont de signes opposées donc par continuité de $g$ et grâce au TVI, il existe ce $x$.
+\question 
+\begin{itemize}
+\item[$\bullet$] \textbf{Première méthode :} On pose $f(x)=d(x)-20x$ et on applique la première question. 
+\item[$\bullet$] \textbf{Deuxième méthode :}  $d(1)=20$ $d(0)=0$. On définit sur $[0,1/2], g(x)=d(x+1/2)-d(x)-10$ alors $g(0)=d(1/2)-10$ et $g(1/2)=10-d(1/2)$. Ils sont opposés...  
+\end{itemize}
+\question On considère la fonction $f_n$ définie sur $\interf{0}{1-1/n}$ par $$f_n(x)=f(x+1/n)-f(x).$$ On a alors $$0=f(1)-f(0)=\sum_{k=0}^{n-1}f_n\p{\frac{k}{n}}.$$ Comme les $f_n\p{\frac{k}{n}}$ ne peuvent pas être tous strictement positifs ou tous strictement négatifs, il existe $k\in \llbracket 0, n-2\rrbracket$ tel que $f_n\p{\frac{k}{n}}$ et $f_n\p{\frac{k+1}{n}}$ sont de signes opposés...
+\question Définissons $f$ par $$f(x)=\cos\p{\frac{2\pi x}{\alpha}}-x\p{\cos\p{\frac{2\pi}{\alpha}}-1}.$$
+Remarquons d'abord que $f(0)=f(1)=1$. Par ailleurs, s'il existait $x\in \interf{0}{1-\alpha}$ avec $f(x)=f(x+\alpha)$, on obtiendrait après simplifications $\cos\p{\frac{2\pi}{\alpha}}=1$ ce qui n'est pas possible si $1/\alpha$ n'est pas un entier.
+\end{questions}
+
+\end{sol}
+
+
+
+\exercice{nom={Théorème des bornes atteintes}}
+\begin{questions}
+\question Montrer qu'une fonction continue sur $\R$ et périodique est bornée et
+  atteint ses bornes.
+\question Soit $f$ une fonction continue de $\interf{a}{b}$ dans $\R$. Montrer
+  que
+  \[\sup_{x\in\interf{a}{b}} f(x) = \sup_{x\in\intero{a}{b}} f(x).\]
+\question Soit $f$ et $g$ deux fonctions continues définies sur $\interf{a}{b}$ à
+  valeurs dans $\R$ telles que
+  \[\forall x\in\interf{a}{b} \qsep 0<f(x)<g(x).\]
+  Montrer qu'il existe $k\in\intero{0}{1}$ tel que
+  \[\forall x\in\interf{a}{b} \qsep f(x)\leq kg(x).\]
+\end{questions}
+
+\begin{sol}
+\begin{questions}
+\question Soit $T > 0$ une période de $f$.
+Sur $[0 ; T]$, $f$ est bornée par un certain $M$ car $f$ est continue sur un segment. Pour tout $x\in\R$, $x-nT \in [0,T]$ pour $n\ent{\frac{x}{T}}$ donc
+$$|f(x)| = |f(x-nT)|\leq M.$$
+Ainsi $f$ est bornée par $M$ sur $\R$.
+\question 
+\question Suffit d'appliquer le théorème de compacité à $f(x)/g(x)$. 
+\end{questions}
+\end{sol}
+
+
+\exercice{nom={Théorème des bornes atteintes}}
+Soit $f$ et $g$ deux fonctions continues de $\interf{a}{b}$ dans $\R$.
+On définit $h:\R\to\R$ par
+\[\forall t\in\R \qsep h(t)\defeq\sup_{x\in\interf{a}{b}}
+  \p{f(x)+t g(x)}.\]
+Montrer que $h$ est bien définie et lipschitzienne.
+\begin{sol}
+  $x\mapsto f(x)+tg(x)$ est définie et continue sur $[0,1]$ donc y est bornée et atteint ses bornes. Par suite, $\phi(t)$ est bien définie et plus précisément, il existe $x_t \in [0,1]$ tel que $\phi(t)=f(x_t)+tg(x_t)$. Puisque $g$ est continue sur $[0,1]$ elle y est bornée par un certain $M$. Pour tout $t,\tau \in [0,1]$, on a :
+  $$\phi(t)-\phi(\tau)=f(x_t)+tg(x_t)-(f(x_\tau)+\tau g(x_\tau)).$$ Or, $$f(x_t)+\tau g(x_t)\leq f(x_\tau)+\tau g(x_\tau),$$ donc $$\phi(t)-\phi(\tau)\leq (t-\tau)g(x_t)\leq M|t-\tau|.$$
+  De même, $$\phi(\tau)-\phi(t)\leq M|t-\tau|$$ et finalement $\phi$ est $M$-lipschitzienne.
+\end{sol}
+
+\exercice{nom={Exercice}}
+Soit $f$ une fonction continue de $\R$ dans $\R$ admettant des limites finies
+en $+\infty$ et $-\infty$.
+\begin{questions}
+\question Montrer que $f$ est bornée.
+\question $f$ atteint-elle ses bornes~?
+\end{questions}
+
+\begin{sol}
+\begin{questions}
+\question Notons $\ell_1$ sa limite en $+\infty$ et $\ell_2$ en $-\infty$. Pour $\epsilon=1$, il existe $m\in \R$ tel que $\forall x\leq m, |f(x)-\ell_2|<1$ soit $|f(x)|\leq |\ell_2|+1$. Il existe aussi $M\in \R$ tel que $\forall x\geq M, |f(x)-\ell_1|<1$ soit $|f(x)|\leq |\ell_1|+1$.
+\begin{itemize}
+\item[$\bullet$] Si $m\geq M$, alors $\forall x \in \R$, $|f(x)|\leq \max(|\ell_1|+1,|\ell_2|+1)$.
+\item[$\bullet$] Si $m<M$, $f$ est continue sur $[m,M]$ donc y est bornée par $A$. Alors, $\forall x \in \R$, $|f(x)|\leq \max(|\ell_1|+1,|\ell_2|+1,A)$.
+\end{itemize}
+\question Non, $\arctan$.
+\end{questions}
+
+\end{sol}
+
+
+\exercice{nom={Uniforme continuité}}
+Soit $f$ une fonction uniformément continue de $\R$ dans $\R$. Montrer qu'il
+existe $a,b\in\RP$ tels que
+\[\forall x\in\R \qsep \abs{f(x)}\leq a+b\abs{x}.\]
+
+\exercice{nom={Uniforme continuité}}
+\begin{questions}
+\question Montrer que
+  \[\forall x,y\in\RP \qsep \abs{\sqrt{x}-\sqrt{y}}\leq\sqrt{\abs{x-y}}.\]
+\question En déduire que la fonction $x\mapsto \sqrt{x}$ définie sur $\RP$
+   est uniformément continue.
+\end{questions}
+
+\exercice{nom={Fonctions Hölderiennes}}
+Soit $\alpha>0$. On dit qu'une fonction $f$ est $\alpha$-Hölderienne lorsqu'il
+existe $c\in\RP$ tel que
+\[\forall x,y\in\R \qsep \abs{f(x)-f(y)}\leq c\abs{x-y}^{\alpha}.\]
+\begin{questions}
+\question Montrer que si $f$ est $\alpha$-Hölderienne avec $\alpha>1$, $f$ est
+  constante.
+\question Montrer que si $f$ est $\alpha$-Hölderienne, $f$ est uniformément
+  continue.
+\end{questions}
+
+
+\exercice{nom={Généralisation du théorème de Heine}}
+Soit $f$ une fonction continue de $\R$ dans $\R$ telle que~:
+\[f(x) \tendvers{x}{-\infty} l_1 \et f(x) \tendvers{x}{+\infty} l_2\]
+Le but de cet exercice est de montrer que $f$ est uniformément continue.
+\begin{questions}
+\question Soit $\epsilon>0$. Montrer qu'il existe $a,b\in\R$, avec $a\leq b$
+  tels que
+  \[\forall x,y \in\interof{-\infty}{a} \qsep \abs{f(x)-f(y)}\leq\epsilon
+    \et
+    \forall x,y \in\interfo{b}{+\infty} \qsep \abs{f(x)-f(y)}\leq\epsilon.\]
+\question Montrer qu'il existe $\eta>0$ tel que
+  \[\forall x,y\in\interf{a}{b} \qsep \abs{x-y}\leq\eta \implique
+    \abs{f(x)-f(y)}\leq\epsilon.\]
+\question Conclure.
+\end{questions}
+%END_BOOK
+
+\end{document}

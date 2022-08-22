@@ -1,0 +1,157 @@
+\documentclass{magnolia}
+
+\magtex{tex_driver={pdftex}}
+\magfiche{document_nom={Exercices sur les fonctions de deux variables},
+          auteur_nom={François Fayard},
+          auteur_mail={fayard.prof@gmail.com}}
+\magexos{exos_matiere={maths},
+         exos_niveau={mpsi},
+         exos_chapitre_numero={3},
+         exos_theme={Fonctions de deux variables}}
+\magmisenpage{misenpage_presentation={tikzvelvia},
+              misenpage_format={a4},
+              misenpage_nbcolonnes={1},
+              misenpage_sol={non}}
+\maglieudiff{lieu_lycee={Aux Lazaristes},
+             lieu_classe={MPSI 1},
+             lieu_annee={2019--2020}}
+\magprocess
+
+\begin{document}
+
+%BEGIN_BOOK
+\magsection{Limite, continuité}
+
+\exercice{nom={Calcul de limites}}
+Déterminer les limites, si elles existent, des fonctions suivantes en $\p{0,0}$.
+\[f\p{x,y}\defeq\p{x+y}\sin\p{\frac{1}{x^2+y^2}}, \qquad
+  f\p{x,y}\defeq\frac{x^2-y^2}{x^2+y^2}, \qquad
+  f\p{x,y}\defeq\frac{\abs{x+y}}{x^2+y^2},\]
+\[f\p{x,y}\defeq\frac{x^3+y^3}{x^2+y^2}, \qquad
+  f\p{x,y}\defeq\frac{x^2+y^2-1}{x}\sin x, \qquad
+  f\p{x,y}\defeq x^y.\]
+
+\exercice{nom={Fonction définie par morceaux}}
+Soit $f$ la fonction définie sur $\R^2$ par
+\[\forall (x,y)\in\R^2 \qsep f(x,y)\defeq
+  \begin{cases}
+  \frac{1}{2}x^2+y^2-1 & \text{si $x^2+y^2>1$,}\\
+  -\frac{1}{2}x^2 & \text{si $x^2+y^2\leq 1$.}
+  \end{cases}
+\]
+Montrer que $f$ est continue en tout point de $\R^2$.
+
+\exercice{nom={L'image d'un convexe}}
+Soit $f$ une fonction continue sur un convexe $P$ de $\R^2$. Montrer que $f(P)$
+est un intervalle.
+
+\magsection{Dérivation}
+
+\exercice{nom={Régularité d'une fonction}}
+Soit $f$ la fonction définie sur $\R^2$ par
+\[\forall\p{x,y}\in\R^2 \qsep
+  f\p{x,y}\defeq
+  \begin{cases}
+  \frac{\sin\p{x^2}+\sin\p{y^2}}{\sqrt{x^2+y^2}} &
+    \text{si $\p{x,y}\neq\p{0,0}$,}\\
+  0 &  \text{si $\p{x,y}=\p{0,0}$.}
+  \end{cases}\]
+\begin{questions}
+\question $f$ admet-elle des dérivées partielles au point $\p{0,0}$~?
+\question $f$ est-elle continue en $\p{0,0}$~?
+\question $f$ est-elle de classe $\classec{1}$~?   
+\end{questions}
+
+\exercice{nom={Dérivées partielles et continuité}}
+Soit $f$ la fonction définie sur $\R^2$ par
+\[\forall (x,y)\in\R^2 \qsep f(x,y)\defeq
+  \begin{cases}
+  \frac{x^2y}{x^4+y^2} & \text{si $(x,y)\not=(0,0)$,}\\
+  0                    & \text{si $(x,y)=(0,0)$.}  
+  \end{cases}\]
+Montrer que $f$ admet une dérivée selon tout vecteur en $(0,0)$ mais n'est pas
+continue en $0$.
+
+\exercice{nom={Calcul}}
+Soit $f:\p{x,y}\mapsto xy^2$.
+\begin{questions}
+\question Déterminer la dérivée de $f$ au point $a\defeq \p{-1,3}$ selon le vecteur
+  $h\defeq \p{2,-3}$.
+\question Écrire le développement limité de $f$ à l'ordre 1 en $a$.
+\end{questions}
+% \begin{solution}
+% $\quad$
+% \begin{questions}
+% \question On trouve 36.
+% \question C'est $-9+9h_1-6h_2$.
+% \end{questions}
+% \end{solution}
+
+\exercice{nom={Calcul de dérivées}}
+Soit $f$ une fonction de classe $\classec{1}$ sur $\R^2$. Calculer les dérivées
+ou dérivées partielles des fonctions suivantes
+\[g_1\p{x,y}\defeq f(y,x), \qquad g_2(x)\defeq f(x,x),\]
+\[g_3\p{x,y}\defeq f(y,f(x,x)), \qquad g_4(x)\defeq f(x,f(x,x)).\]
+
+% \exercice{nom={Équation aux dérivées partielles}}
+% Soit $h$ une fonction de la variable $x$.
+% \begin{questions}
+% \question Montrer que, pour qu'il existe une fonction
+%   $f\in\classec{2}\p{\R^2,\R}$ telle que~:
+%   \[\parfrac{f}{x}\p{x,y}=-x\p{y^2+1}h(x) \qquad
+%     \parfrac{f}{y}\p{x,y}=2x^2yh(x) \quad \p{1}\]
+%   il faut que $h$ vérifie~:
+%   \[xh'(x)+3h(x)=0 \quad \p{2}\]
+% \question Déterminer les solutions de $\p{2}$, puis trouver $f$ de classe
+%   $\classec{2}$ satisfaisant $\p{1}$.
+% \end{questions}
+
+% \exercice{nom={Laplacien}}
+% Soit $u$ une fonction réelle des variables réelles $x$ et $y$ définie par
+% $u\p{x,y}=\p{F\circ r}\p{x,y}$ où $r\p{x,y}=\sqrt{x^2+y^2}$ et $F$ est une
+% fonction réelle d'une variable réelle. On pose~:
+% \[\Delta u=\frac{\partial^2 u}{\partial x^2}
+%           +\frac{\partial^2 u}{\partial y^2}\]
+% \begin{questions}
+% \question Calculer~:
+%   \[\parfrac{r}{x} \qquad \parfrac{r}{y} \qquad
+%     \frac{\partial^2 r}{\partial x^2} \qquad \frac{\partial^2 r}{\partial y^2}\]
+% \question Prouver que~:
+%   \[\Delta u=F''(r)+\frac{F'(r)}{r}\]
+% \question En déduire $\Delta u$ lorsque $u\p{x,y}=\ln\p{x^2+y^2}$.
+% \end{questions}
+
+% \exercice{nom={Équations aux dérivées partielles}}
+% Résoudre les équations aux dérivées partielles suivantes~:
+% \[x^2\frac{\partial^2 f}{\partial x\partial y}=1 \qquad
+%   \frac{\partial^2 f}{\partial x\partial y}=\frac{x}{y}+a\]
+% \[\frac{\partial^2 f}{\partial x^2}=xy \qquad
+%   \frac{\partial f}{\partial x}=af\]
+
+\exercice{nom={Équation aux dérivées partielles}}
+On pose $\mathcal{U}\defeq\R^2\setminus\enstq{(x,y)\in\R^2}{y=0 \et x\leq 0}$. On souhaite
+déterminer l'ensemble des fonctions $f:\mathcal{U}\mapsto\R$ de classe $\classec{1}$ telles que
+\[(E) \qquad \forall (x,y)\in\mathcal{U} \qsep
+  x\frac{\partial f}{\partial x}(x,y)+y\frac{\partial f}{\partial y}(x,y)=
+  \sqrt{x^2+y^2}.\]
+\begin{questions}
+\question On pose $\mathcal{V}\defeq \RPs\times\intero{-\pi}{\pi}$ et on définit
+  \[\dspappli{\phi}{\mathcal{V}}{\mathcal{U}}{(r,\theta)}{(r\cos \theta,r \sin \theta)}\]
+  Montrer que $\phi$ est une bijection.
+\question Soit $f:\mathcal{U}\to\R$ une fonction de classe $\classec{1}$. On
+  définit la fonction $g:\mathcal{V}\to\R$ par
+  \[\forall (r,\theta)\in\mathcal{V}\qsep g(r,\theta)\defeq f(r\cos \theta,r\sin\theta).\]
+  Montrer que $g$ est de classe $\classec{1}$ et déterminer les dérivées partielles de $g$ en fonction de celles de $f$.
+\question En déduire l'ensemble des solutions de $(E)$.
+\end{questions}
+% \begin{solution}
+% On trouve~:
+% \[\forall (x,y)\in\mathcal{U} \quad f(x,y)=
+%   \sqrt{x^2+y^2}+\phi\p{2\arctan\frac{y}{\sqrt{x^2+y^2}+x}}\]
+% où $\phi$ est une fonction de classe $\classec{1}$ de $\intero{-\pi}{\pi}$
+% dans $\R$.    
+% \end{solution}
+
+%END_BOOK
+
+\end{document}

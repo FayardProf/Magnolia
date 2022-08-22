@@ -1,0 +1,258 @@
+\documentclass{magnolia}
+
+
+\magtex{tex_driver={pdftex}}
+\magfiche{document_nom={Exercices sur les équations différentielles},
+          auteur_nom={François Fayard},
+          auteur_mail={fayard.prof@gmail.com}}
+\magexos{exos_matiere={maths},
+         exos_niveau={mpsi},
+         exos_chapitre_numero={6},
+         exos_theme={Équations différentielles}}
+\magmisenpage{}
+\maglieudiff{}
+\magprocess
+
+\begin{document}
+
+%BEGIN_BOOK
+\magsection{Équation différentielle linéaire du premier ordre}
+% \magsubsection{Équation différentielle homogène}
+
+% \exercice{nom={Équation de \nom{Bernoulli}}}
+% Soit $\alpha>0$. On considère l'équation différentielle
+% \[\forall t\in\interfo{\alpha}{+\infty} \qsep t^2y'(t)+y(t)+y^2(t)=0.\]
+% On admet que l'unique solution s'annulant de cette équation est la fonction nulle. En effectuant le changement de fonction $z=1/y$, déterminer l'ensemble des solutions de $(E)$.
+
+% \begin{sol}
+% Les solutions sont la fonction nulle, les fonctions
+% \[\forall t\geq\alpha\qsep y(t)=\frac{-1}{c\e^{-\frac{1}{t}}+1}\]
+% où $c\geq 0$, ainsi que les fonctions
+% \[\forall t\geq\alpha\qsep y(t)=\frac{1}{c\e^{-\frac{1}{t}}-1}\]
+% où $c> \e^{1/\alpha}$.
+% On doit utiliser le Théorème de Cauchy-Lipschitz (version non donné aux élèves ?). Si $y$ s'annule alors, c'est la fonction nulle. Sinon, $y$ ne s'annule jamais et on peut alors poser $z=y^{1-n}$. On a alors $z'=(1-n)y'y^{-n}$. Et en en divisant $(E)$ par $y^n$, on a alors $(E) \Longleftrightarrow t^2\dfrac{z'}{1-n}+z+1=0$.
+
+% Disons pour simplifier que $I$ ne contient pas $0$, en résolvant cette équation différentielle, on obtient $z(t)=\lambda e^{\frac{1-n}{t}}-1$. Ainsi, $y(t)=\p{\lambda e^{\frac{1-n}{t}}-1}^{\frac{1}{1-n}}$.
+
+% Quand j'essaie de vérifier qu'un tel $y$ fonctionne, ça ne marche pas...
+% \end{sol}
+
+
+\magsubsection{Équation différentielle avec second membre}
+
+
+\exercice{nom={Calcul}}
+Résoudre les équations différentielles suivantes sur un intervalle à préciser
+\[y'+2y=x^2-2x+3, \qquad
+%%\question $\p{x\ln x}y'-y=-\frac{\ln x+1}{x}$
+  \p{1+x}y'+y=1+\ln (1+x),\]
+\[y'+y=\frac{1}{1+\e^x}.\]
+%, \qquad y'=\sqrt{1+y^2}.\]
+%%\question $2xy'+y=x^n \quad n\in\N$
+\begin{sol}
+\begin{questions}
+\question Soit $(E)$ l'équation différentielle
+ \[(E) \quad \forall x\in\R\qsep y'(x)+2y(x)=x^2-2x+3\]
+ On cherche une solution particulière de $(E)$ sous la forme $y(x)=ax^2+bx+c$. Soit $a, b, c\in\R$ et $y$ la fonction définie sur $\R$ par
+ \[\forall x\in\R \qsep y(x)\defeq ax^2+bx+c\]
+ D'après les théorèmes usuels, $y$ est dérivable sur $\R$ et
+\[\forall x\in\R\qsep y'(x)= 2ax+b.\]
+donc
+\begin{eqnarray*}
+\text{$y$ est solution de $(E)$}
+&\ssi& \forall x\in\R\qsep y'(x)+2y(x)=x^2-2x+3\\
+&\ssi& \forall x\in\R\qsep 2ax^2+(2b+2a)x+(2c+b)=x^2-2x+3\\
+&\ssi& 2a = 1 \et 2a+2b=-2 \et b+2c=3\\
+&    & \text{car un polynôme admettant une infinité de racines est nul}\\
+&\ssi& a = \frac{1}{2} \et b=-\frac{3}{2} \et c=\frac{9}{4}.
+\end{eqnarray*}
+Donc
+\[x\mapsto \frac{1}{2}x^2-\frac{3}{2}x+\frac{9}{4}\]
+est une solution particulière de $(E)$. De plus, les solutions de l'équation différentielle homogène associée
+\[(E_H) \quad \forall x\in\R\qsep y'(x)+2y(x)=0\]
+sont les fonctions $x\mapsto \lambda\e^{-2x}$ où $\lambda\in\R$. Les solutions de $(E)$ sont donc les fonctions
+\[x\mapsto \lambda\e^{-2x}+\frac{1}{2}x^2-\frac{3}{2}x+\frac{9}{4}\]
+où $\lambda\in\R$.
+\question $y(x)=\ln(1+x)+c/(1+x)$.
+\question $y(x)=\cro{\ln(1+e^x)+c}e^{-x}$.
+\question $y(x)=\sh(x+c)$.
+\end{questions}
+\end{sol}
+
+\exercice{nom={Avec un second membre}}
+Déterminer les fonctions dérivables $y:\R\to\R$ telles que
+\[\forall x\in\R\qsep y'(x)+y(x)=\integ{0}{1}{y(t)}{t}.\]
+
+\exercice{nom={Équations fonctionnelles}}
+\begin{questions}
+\question Déterminer les fonctions dérivables $y:\R\to\R$ telles que
+\[\forall x,y\in\R\qsep f(x+y)=\e^x f(y)+f(x)\e^y.\]
+\question Déterminer les fonctions dérivables $y:\R\to\R$ telles que $f(0)\neq 0$ et
+\[\forall x,y\in\R\qsep f(x+y)=f(x)f'(y)+f'(x)f(y).\]
+\end{questions}
+
+\magsubsection{Problème de \nom{Cauchy}}
+\magsubsection{Équation différentielle non résolue}
+
+\exercice{nom={Une équation différentielle avec peu de solutions}}
+Soit $I$ un intervalle de $\R$ et $(E)$ l'équation différentielle
+$$\forall t\in I \qsep \abs{t}y'(t)+\p{t-1}y(t)=0.$$
+\begin{questions}
+\question Résoudre cette équation pour $I=\RPs$ puis $I=\RMs$.
+\question En déduire les solutions de cette équation différentielle lorsque
+  $I=\R$.
+\question Soit $t_0\in\R$ et $y_0\in\R$. Le problème de \nom{Cauchy} $y(t_0)=y_0$
+  a-t-il toujours au moins une solution~? Si oui, est-elle unique~?
+\end{questions}
+\begin{sol}
+$\quad$
+\begin{questions}
+\question Sur $\RPs$, $y(t)=cte^{-t}$ et sur $\RMs$, $y(t)=ce^t/t$.
+\question L'unique solution est la fonction nulle.
+\question Aucune solution si $y_0\neq 0$. Une seule solution sinon. 
+\end{questions}
+\end{sol}
+
+\exercice{nom={Une équation différentielle avec beaucoup de
+  solutions}}
+Soit $I$ un intervalle de $\R$ et $(E)$ l'équation différentielle
+$$\forall t\in I \qsep ty'(t)-\p{t+2}y(t)=0.$$
+\begin{questions}
+\item Résoudre cette équation pour $I=\RPs$ puis $I=\RMs$.
+\item En déduire les solutions de cette équation différentielle lorsque $I=\R$.
+\item Soit $t_0\in\R$ et $y_0\in\R$. Le problème de \nom{Cauchy} $y(t_0)=y_0$ a-t-il
+  toujours au moins une solution~? Si oui, est-elle unique~?
+\end{questions}
+
+\exercice{nom={Discontinuité des coefficients de l'équation}}
+Soit $H$ la fonction de \nom{Heaviside} définie sur $\R$ par
+$$\forall t\in\R \qsep H(t)\defeq
+\begin{cases}
+  0 & \text{si $t\leq 0$}\\
+  1 & \text{si $t>0$}.
+\end{cases}
+$$
+On considère l'équation différentielle
+$$\forall t\in\R \qsep y'(t)+H(t)y(t)=0.$$
+\begin{questions}
+\question Résoudre cette équation différentielle.
+\question Les problèmes de \nom{Cauchy} associés à cette équation ont-ils toujours
+  une unique solution~?
+\end{questions}
+
+
+% \magsubsection{Méthode d'\nom{Euler}}
+
+
+\magsection{Équation différentielle linéaire du second ordre}
+\magsubsection{Équation différentielle homogène}
+
+
+
+
+\exercice{nom={Équation d'\nom{Euler}}}
+On considère l'équation différentielle
+\[(E) \quad t^2y''-ty'+y=0.\]
+\begin{questions}
+\item Dans cette question, on souhaite résoudre $(E)$ sur $\RPs$.
+  \begin{questions}
+  \item En posant $z(u)\defeq y\p{\e^u}$, montrer que $y$ est solution de $(E)$ si et
+    seulement si $z$ est solution d'une équation différentielle du second ordre
+    à coefficients constants que l'on précisera.
+  \item En déduire l'ensemble des solutions de $(E)$.
+  \end{questions}
+\item Résoudre $(E)$ sur $\RMs$ puis sur $\R$.
+\end{questions}
+\begin{sol}
+$\quad$
+\begin{questions}
+\question
+  \begin{questions}
+  \question On pose $t=e^u$. En fait on définit $z$ sur $\R$ par $z(u)=y(e^u)$.
+    On trouve $z''-2z'+z=0$.
+  \question Donc $y(t)=(c_1\ln t+c_2)t$.
+  \end{questions}
+\question On pose $t=-e^u$. On trouve la même équation différentielle,
+  donc $y(t)=(c_1\ln(-t)+c_2)t$. Sur $\R$, on trouve $y(t)=ct$.
+\end{questions}
+\end{sol}
+
+\exercice{nom={Changement de variable}}
+\begin{questions}
+\question En posant $x\defeq \tan t$, résoudre l'équation différentielle
+  \[\forall x\in\R\qsep (1+x^2)^2 y''(x)+2x(1+x^2)y'(x)+4y(x)=0.\]
+\question Soit $\alpha\in\Rs$. En posant $x\defeq \sh t$, résoudre l'équation différentielle
+  \[\forall x\in\R\qsep (1+x^2)y''(x)+xy'(x)-\alpha^2 y(x)=0.\]
+\end{questions}
+
+\exercice{nom={Équations fonctionnelles}}
+\begin{questions}
+\item Soit $\lambda\in\R$. Trouver toutes les fonctions deux fois dérivables
+  sur $\R$ telles que
+  $$\forall x\in\R \qsep f'(x)=f\p{\lambda-x}.$$
+\item Trouver toutes les fonctions $f$ deux fois dérivables sur $\RPs$ telles
+  que
+  $$\forall x>0 \qsep f'(x)=f\p{\frac{1}{x}}.$$
+  {\it On utilisera les résultats sur l'équation d'\nom{Euler}}
+\end{questions}
+\begin{sol}
+$\quad$
+\begin{questions}
+\question On trouve
+  \[y(x)=c\cos\p{x-\p{\frac{\lambda}{2}+\frac{\pi}{4}}}\]
+\question On trouve
+  \[y(x)=c\sqrt{x}\cos\p{\frac{\sqrt{3}}{2}\ln x-\frac{\pi}{6}}\]
+\end{questions}
+\end{sol}
+
+
+\exercice{nom={Coefficients non constants}}
+Résoudre sur $\R$ l'équation différentielle
+\[(2x+1)y''+(4x-2)y'-8y=0\]
+sachant qu'il existe une solution de la forme $y=\e^{\alpha x}$.
+
+\exercice{nom={Utilisation du plan de phase}}
+Le mouvement d'une particule chargée dans un champ magnétique dirigé suivant
+l'axe $(Oz)$ est régi par un système différentiel de la forme
+$$\left\lbrace
+\begin{array}{l}
+x''=\omega y'\\
+y''=-\omega x'\\
+z''=0
+\end{array}
+\right.$$
+où $\omega$ dépend de la masse, de la charge de la particule et du champ
+magnétique. En considérant  $u=x'+\ii y'$, résoudre ce système différentiel.
+
+\magsubsection{Équation différentielle avec second membre}
+
+
+\exercice{nom={Calcul}}
+Résoudre les équations différentielles suivantes sur $\R$
+\[y''+y'-6y=1-8x-30x^2, \qquad y''+3y'+2y=\e^{-x},\]
+\[y''-4y'+4y=x\cosh\p{2x}, \qquad y''+y=\sin^3 x.\]
+%\[y''-2y'+5y=-4e^{-x}\cos x+7e^{-x}\sin x-4e^x\sin\p{2x}\]
+% \begin{enumerate}
+% \item $
+% \item $y''+y'=3+2x$
+% \item $y''+4y=4+2x-8x^2-4x^3$
+% \item $y''+3y'+2y=e^x$
+% \item $y''+3y'+2y=e^{-x}$
+% \item $y''+4y'+4y=\p{16x^2+16x-14}e^{2x}$
+% \item $y''-3y'+2y=\p{-3x^2+10x-7}e^x$
+% \item $y''+y'-2y=8\sin\p{2x}$
+% \end{enumerate}
+\begin{sol}
+\[y(x)=c_1 e^{2x}+c_2 e^{-3x}+5x^2+3x+2\]
+\end{sol}
+
+
+
+\magsubsection{Problème de \nom{Cauchy}}
+Déterminer l'unique solution $y$ sur $\R$ de l'équation différentielle
+\[\forall x\in\R\qsep y''(x)+y(x)=3x^2\]
+telle que $y(0)=1$ et $y'(0)=2$.
+
+
+%END_BOOK
+\end{document}

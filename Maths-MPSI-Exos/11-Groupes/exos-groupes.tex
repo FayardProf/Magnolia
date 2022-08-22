@@ -1,0 +1,414 @@
+\documentclass{magnolia}
+
+\magtex{tex_driver={pdftex}}
+\magfiche{document_nom={Groupes},
+          auteur_nom={Emmanuel Roblet, François Fayard},
+          auteur_mail={fayard.prof@gmail.com}}
+\magexos{exos_matiere={maths},
+         exos_niveau={mpsi},
+         exos_chapitre_numero={12},
+         exos_theme={Groupes}}
+\magmisenpage{}
+\maglieudiff{}
+\magprocess
+
+
+\begin{document}
+%BEGIN_BOOK
+\magsection{Groupe}
+
+\exercice{nom={Loi de composition interne}}
+\begin{questions}
+\question Déterminer les propriétés de la loi de composition interne $\perp$
+  sur $\Q$ définie par
+  \[\forall a,b\in\Q \qsep a\perp b\defeq a+b+ab.\]
+\question Faire de même avec la loi $\nabla$ définie sur  $\Rs\times\R$ par
+  \[\forall \p{a,b},\p{c,d}\in\Rs\times\R \qsep
+    (a,b)\nabla(c,d)\defeq\p{ac,\frac{d}{a}+bc}.\]
+\end{questions}
+
+\begin{sol}
+\begin{questions}
+\question Commutativité immédiate.
+Associativité :
+\begin{eqnarray*}
+(a\perp b)\perp c&=&(a+b+ab)\perp c=a+b+ab+c+(a+b+ab)c\\
+&=&a+b+c+ab+ac+bc+abc\\
+&=&a+(b+c+bc)+a(b+c+bc)\\
+&=&a\perp (b\perp c).
+\end{eqnarray*}
+Neutre : 0.
+\question $\nabla$ n'est pas commutative : Prendre $(1,1)$ et $(2,0)$ par exemple. \\
+$\nabla$ est en revanche associative (suffit de l'écrire).
+Neutre : $(1,0)$.
+\end{questions}
+\end{sol}
+
+\exercice{nom={Transport de structure}}
+\begin{questions}
+\question Soit $(G,\square)$ un groupe et $H$ un ensemble tel qu'il existe une
+  fonction $f:H\to G$ bijective. On définit la loi $\star$ sur $H$ par
+  \[\forall x,y\in H \qsep x\star y\defeq f^{-1}\p{f(x)\square f(y)}.\]
+  Montrer que $(H,\star)$ est un groupe isomorphe à $(G,\square)$. 
+\question On définit la loi $\oplus$ sur $\R$ par
+  \[\forall x,y\in\R \qsep x\oplus y=\sqrt[3]{x^3+y^3}.\]
+  Montrer que $(\R,\oplus)$ est un groupe commutatif.
+\end{questions}
+\begin{sol}
+\begin{questions}
+\question On montre aisément que $\star$ est associative sur $H$, que $f^{-1}(e_G)$ est l'élément neutre de $H$ puis que si $x\in H$, son inverse est $f^{-1}$ de l'inverse de $f(x)$. On vérifie bien tout cela à gauche et à droite. Donc $H$ est un groupe. Reste à vérifier que le $f$ considéré est alors un homomorphisme de groupes.
+\question Application avec $f$ la fonction cube.
+\end{questions}
+\end{sol}
+
+\exercice{nom={Sous groupe et permutations}}
+Soit $E$ un ensemble et $A$ une partie de $E$. On note $\mathcal{S}(A)$
+l'ensemble des permutations~$f$ de $E$ qui laissent la partie $A$ invariante,
+c'est-à-dire telles que $f(A)=A$. Montrer que $\mathcal{S}(A)$ est un
+sous-groupe de $(\sigma(E),\circ)$.
+
+\exercice{nom={Sous-groupes additifs de $\Z$}}
+L'objet de cet exercice est de montrer que les sous-groupes additifs de $\Z$
+sont les ensembles de la forme
+\[b\Z\defeq\ensim{nb}{n\in\Z}\]
+où $b\in\N$.
+\begin{questions}
+\question Soit $b\in\N$. Montrer que $b\Z$ est un sous-groupe de $\p{\Z,+}$.
+\question Réciproquement, soit $G$ un sous-groupe additif de $\Z$, non réduit à $\set{0}$. On pose
+  $b\defeq\min\p{G\cap\Ns}$. Justifier l'existence de $b$ et montrer que $G=b\Z$.
+  % {\it On rappelle que si $a\in\Z$ et $b\in\Ns$, il existe un unique couple
+  % $\p{q,r}\in\Z^2$ tel que $a=qb+r$ et $r\in\intere{0}{b-1}$.}
+\end{questions}
+\begin{sol}
+\begin{questions}
+\question OK.
+\question On procède par double inclusion. $b\Z\subset G$ OK. Prenons $x\in G$ et effectuons la DE de $x$ par $b$. Le reste est forcément nul, sinon, il contredirait la définition de $b$.
+\end{questions}
+\end{sol}
+
+\exercice{nom={Sous-groupes additifs de $\R$}}
+% On dit qu'une Vpartie $G$ de $\R$ est un sous-groupe de $(\R,+)$ lorsque
+% \begin{itemize}
+% \item $0\in G,$
+% \item $\forall x,y\in G\qsep x+y\in G,$
+% \item $\forall x\in G\qsep -x\in G.$
+% \end{itemize}
+\begin{questions}
+\question Soit $a\in\RP$. Montrer que
+  \[a\Z\defeq\ensim{ka}{k\in\Z}\]
+  est un sous-groupe additif de $\R$.
+\enonce Le but de cet exercice est de montrer que les sous-groupes additifs de $\R$ sont soit de cette forme, soit dense dans $\R$. Soit $G$ un sous-groupe de $\p{\R,+}$ distinct de $\ens{0}$. On pose $a\defeq\inf\p{G\cap\RPs}.$
+\question Montrer que $a$ est bien défini.
+\question Dans cette question on suppose que $a>0$.
+  \begin{questions}
+  \question Montrer que $a\in G$.
+  \question En déduire que $G=a\Z$.
+  \end{questions}
+\question Montrer que si $a=0$, $G$ est dense dans $\R$.
+\enonce On résume les conclusions des questions précédentes en disant que les
+  sous-groupes additifs de $\R$ sont soit discrets soit denses dans $\R$.
+\question 
+  Soit $a$ et $b$ deux réels non nuls tels que $a/b\not\in\Q$. Montrer que
+  \[a\Z+b\Z=\ensim{na+mb}{n,m\in\Z}\]
+  est dense dans $\R$.
+\question 
+  Soit $f$ une fonction continue de $\R$ dans $\R$. On dit qu'un réel $T$ est
+  une période de $f$ lorsque
+  \[\forall x\in\R \qsep f\p{x+T}=f(x).\]
+  \begin{questions}
+  \question Montrer que l'ensemble $\mathcal{P}$ des périodes de $f$ est un
+    sous-groupe additif de $\R$.
+  \question On suppose que $f$ est non constante et périodique. Montrer qu'il
+    existe un unique $T_0>0$ tel que $\mathcal{P}=T_0\Z$.
+  \end{questions}
+\end{questions}
+
+\begin{sol}
+\begin{questions}
+\question Ok. Il suffit d'écrire les choses.
+\question Il existe $x\neq 0$ tel que $x\in G$. $x$ ou $-x$ est donc dans $\RPs$.
+\question Dans cette question on suppose que $a>0$.
+  \begin{questions}
+  \question Si $a\notin G$, d'après la caractérisation de la borne inférieure, il existe $b\in G$ tel que $a<b< a+a$ et il existe $c \in G$ tel que $a<c<b$. D'où $b-c \in G$ d'une part et $0<b-c<a$ ce qui fournit une contradiction car $a$ est un minorant de $G\cap\RPs$.
+  \question D'après la question précédente, $a\in G$ donc par stabilité pour $+$ et parce-que $-a\in G$, $a\Z \subset G$. Soit alors $g\in G$. Par définition de la partie entière, il existe $n\in \Z$ tel que $n\leq \dfrac{g}{a}<n+1$ d'où $0\leq g-na <a$ avec $g-na \in G$ par stabilité pour $+$. Donc $g-na=0$ par définition de $a$. On a montré l'existence d'un $n\in \Z$ tel que $g=na$, d'où $g \in a\Z$. Ainsi, $G\subset a\Z$ et on a donc l'égalité.
+  \end{questions}
+\question Si $a=0$, soit $x,y \in \R$ tels que $x<y$. Il existe $g\in G$ tel que $0<g<y-x$ car $\inf\p{G\cap\RPs}=0$. Avec $n=\ent{\dfrac{x}{g}}+1$, on a $n-1\leq \dfrac{x}{g} <n$ donc $(n-1)g\leq x < ng$. On a donc $$x<ng=(n-1)g+g <x+(y-x)=y.$$ On a donc trouvé un élément de $G$ dans $[x,y]$.
+\question 
+  $a\Z+b\Z$ est un sous-groupe de $\R$. Supposons par l'absurde qu'il n'est pas dense dans $\R$, alors il est du type $c\Z$ avec $c\in \R$. Mais alors, comme $a \in a\Z+b\Z=c\Z$, il existe $u\in \Z$ tel que $a=cu$. De même, il existe $v\in \Z$ tel que $b=cv$. Alors $\dfrac{a}{b}=\dfrac{u}{v} \in \Q$, d'où la contradiction.
+\question 
+  
+  \begin{questions}
+  \question 
+  \question 
+  \end{questions}
+\end{questions}
+
+\end{sol}`'
+
+\exercice{nom={Sous-groupe de $\U$}}
+Montrer que $\cup_{n\in\Ns} \U[n]$ est un sous-groupe strict de
+$(\U,\cdot)$.
+
+\begin{sol}
+On montre que c'est un sous-groupe de $(\U,\cdot)$.
+\begin{itemize}
+\item[$\bullet$] $G\subset \U$.
+\item[$\bullet$] $G\neq \emptyset$ car $1\in G$.
+\item[$\bullet$] Soit $(x,y)\in G$, montrons que $xy^{-1} \in G$. On peut fixer $(m,n)\in \N^2$ tel que $x^m=1=y^n$.
+$$\p{\frac{x}{y}}^{mn}=\frac{x^{mn}}{y^{mn}}=\frac{\p{x^m}^n}{\p{y^n}^m}=1.$$
+\end{itemize}
+\end{sol}
+
+\exercice{nom={Union de deux sous-groupes}}
+Soit $(G,*)$ un groupe, et $H$ et $K$ deux sous-groupes de $G$. Montrer que
+$H\cup K$ est un sous-groupe de $G$ si et seulement si  $H\subset K$ ou
+$K\subset  H$.
+
+\begin{sol}
+Si $H\subset K$, alors $H\cup K = K$ est un sous-groupe de  $(G,\times)$. De même si $K\subset H$.
+    
+        Réciproquement, si $H\cup K$ est un sous-groupe de  $(G,\times)$. Supposons que $H\not\subset K$ et $K\not\subset H$. 
+        Il existe donc $x \in H\setminus K$ et $y \in K\setminus H$. 
+        Si $xy \in H$, alors $y = x^{-1}xy \in H$ (par stabilité de $H$ par produit et passage à l'inverse), on obtient une contradiction. De même si $xy \in K$.
+        Ainsi, $H\subset K$ ou $K\subset H$.
+        
+        On a donc bien que 
+        \begin{center}
+            \fbox{\begin{minipage}{0.9\textwidth}$  H\cup K  $ est un
+sous-groupe de $(G,\times)$ si et seulement si $  H\subset K  $ ou $
+K\subset H $. \end{minipage}}
+        \end{center}
+\end{sol}
+
+\exercice{nom={Groupes tels que $x^2=e$}}
+Soit $\p{G,\star}$ un groupe tel que
+\[\forall x\in G \qsep x^2=e.\]
+Montrer que $G$ est commutatif.
+
+\begin{sol}
+$(xy)^2=xyxy=e$ puis multiplication par $x$ à gauche et $y$ à droite.
+\end{sol}
+
+\exercice{nom={Théorème de Lagrange}}
+Soit $(G,\star)$ un groupe fini et $H$ un sous-groupe de $G$. On souhaite montrer
+que $\card(H)$ divise $\card(G)$. Pour cela, on introduit la relation binaire $\mathcal{R}$
+sur $G$ par
+\[\forall x,y \in G\qsep x\mathcal{R}y \ \ssi\  yx^{-1}\in H.\]
+\begin{questions}
+\question Montrer que $\mathcal{R}$ est une relation d'équivalence.
+\question Soit $x\in G$. Montrer que
+  \[\dspappli{\phi}{H}{{\rm Cl}(x)}{h}{hx}\]
+  est une bijection.
+\question Conclure.
+\end{questions}
+
+
+
+% \exercice{nom={Sous-groupe}}
+% Soit $(G,\star)$ un groupe, et $H$ et~$K$ deux sous-groupes de $G$. On pose 
+% \[HK=\enstq{x\star y}{x\in H \quad  y\in K}\] 
+% Montrer que les propriétés suivantes sont équivalentes~:
+% \begin{itemize}
+% \item $HK$ est un sous-groupe de $(G,\star)$.
+% \item $KH$ est un sous-groupe de $(G,\star)$.
+% \item $HK\subset KH$
+% \item $KH\subset HK$
+% \end{itemize}
+
+% \exercice{nom={Groupe produit}}
+% Soit $(G,\star)$ un groupe, et $H$ et $K$ deux sous-groupes de $G$. On suppose
+% que $H\cap K=\ens{e}$.
+% \begin{questions}
+% \question Montrer que l'application $\phi$, de $H\times K$ dans
+%   \[HK\enstq{x\star y}{x\in H, y\in K}\] 
+%   définie par $\phi(x,y)=x\star y$, est une bijection.
+% \question[label={b}] On suppose de plus que $H$ et $K$ sont finis. Que dire du
+%   cardinal de $HK$~?
+% \question La conclusion de la question \qref{b} persiste-t-elle si l'on ne
+%   suppose plus que  $H\cap K=\ens{e}$~?
+% \end{questions}
+
+\exercice{nom={Action d'un groupe sur lui-même}}
+Soit $(G,\star)$ un groupe, dont l'élément neutre est noté $e$. Pour $a\in G$,
+on définit les  applications~$\gamma_a$ et~$\tau_a$ de $G$ dans lui-même par les
+formules
+\[\forall g\in G \qsep \gamma_a(g)\defeq a\star g \et \tau_a(g)\defeq a\star g\star a^{-1}.\]
+\begin{questions}
+\question Montrer que $\gamma_a$ et $\tau_a$ sont des bijections. Montrer que
+  $\tau_a$ est un automorphisme de $G$. Que dire de $\gamma_a$~?
+\question Pour $a$ et $b$ éléments quelconques de $G$, calculer
+  $\tau_a\circ \tau_b$. Retrouver le fait que $\tau_a$ est un automorphisme de $G$,
+  et donner une autre expression de $(\tau_a)^{-1}$.
+% \question On note $\text{Aut}(G)$ l'ensemble de tous les automorphismes du 
+%   groupe $(G,\star )$. Montrer que $(\text{Aut}(G),\circ)$ est un groupe.
+\question On note $\text{Int}(G)$ le sous ensemble de $\text{Aut}(G)$ formé
+  des applications $\tau_a$ pour $a\in G$ : ce sont les automorphismes dits
+  {\em intérieurs}\/ de $G$. Montrer  que l'application $a\mapsto \tau_a$ est
+  un morphisme  du groupe $(G,\star )$ dans  le groupe $(\text{Aut}(G),\circ)$, et en
+  déduire que $\text{Int}(G)$ est un sous-groupe de $(\text{Aut}(G),\circ)$.
+\end{questions}
+
+\exercice{nom={Existence d'un élément d'ordre 2}}
+Soit $\p{G,\star}$ un groupe fini de cardinal pair. Le but de cet exercice est
+de montrer qu'il existe possède un élément d'ordre 2.
+Pour cela, on considère l'ensemble
+\[E\defeq\enstq{x\in G}{x^2\neq e}.\]
+\begin{questions}
+\question On définit la relation $\mathcal{R}$ sur $E$ par
+  \[\forall x, y\in E\qsep x\mathcal{R}y\ \ssi\ y=x \ou y=x^{-1}.\]
+  Montrer que $\mathcal{R}$ est une relation d'équivalence. Quel est le cardinal
+  de chacune de ses classes d'équivalence.
+\question Conclure.
+\end{questions}
+\emph{On peut généraliser ce résultat en montrant que si $p$ est un nombre premier divisant l'ordre de $G$, ce dernier possède un élément d'ordre $p$. Ce résultat est connu sous le nom de théorème de \nom{Sylow}.}
+
+\exercice{nom={Les groupes d'ordre inférieur à 5 sont commutatifs}}
+\begin{questions}
+\question Soit $(G,\star)$ un groupe fini dont le cardinal $p$ est un nombre
+  premier et $x\in G\setminus\ens{e}$. Montrer que
+  \[G=\ensim{x^k}{k\in\intere{0}{p-1}}\]
+  puis en déduire que $G$ est commutatif.
+\question Montrer que les groupes finis de cardinal inférieur ou égal à 5 sont
+  commutatifs.\\
+  \textit{On montrera qu'il n'y a que deux tables possibles pour les groupes
+  de cardinal 4.}
+\question Donner un exemple de groupe de cardinal 6 non commutatif.
+\end{questions}
+
+\begin{sol}
+\begin{questions}
+\question 
+\question Pour $n = 2; 3 \ou 5$, la première question nous assure que $G$ est commutatif.
+Pour $n = 4$, s'il y a un élément d'ordre $4$ dans le groupe, celui-ci est cyclique et donc commutatif. Sinon, tous les éléments du groupe vérifient $x^2 = e$. Il est alors classique de
+justifier que le groupe est commutatif.
+\question 
+\end{questions}
+\end{sol}
+
+% \exercice{nom={Sous-groupes de $\Z/n\Z$}}
+% Soit $n\in\Ns$. Déterminer et dénombrer les sous-groupes de $(\Z/n\Z,+)$.
+
+% \exercice{nom={Théorème chinois}}
+% Soit $p,q\in\Ns$ deux entiers premiers entre eux. Montrer que l'application
+% $\phi$ de $(\Z/pq\Z,+)$ dans $(\Z/p\Z\times \Z/q\Z,+)$ qui à $\overline{k}$ associe
+% $(\overline{k},\overline{k})$ est bien définie et est un isomorphisme de groupe.
+% \begin{sol}
+% Si $n\in \N$ et $x\in \Z$, on note $cl_n(x)$ la classe de $x$ dans $\Z/n\Z$. Soit $(p,q)\in \Ns^2$ tel que $p\wedge q=1$. Soit $f$ l'application définie sur $\Z/pq\Z$, à valeurs dans $\Z/p\Z\times \Z/q\Z$ par $\alpha\mapsto (cl_p(x) ;cl_q(x))$, où $x\in \Z$ tel que $\alpha=cl_{pq}(x)$.\\
+% Montrons déjà que l'application $f$ est bien définie. Soit $\alpha\in \Z/pq\Z$. Soit $x,y \in \Z$ tels que $\alpha=cl_{pq}(x) =cl_{pq}(y)$ . $x\equiv y \quad [pq]$ donc $pq$ divise $x-y$. On en déduit que $p$ divise $x-y$ (i.e. $cl_p(x) =cl_p(y)$) et $q$ divise $x-y$ (i.e. $cl_q(x) =cl_q(y)$) et donc $f$ est bien définie.\\
+% Montrons  maintenant  que $f$ est  un  morphisme  d'anneaux.  Soit $\alpha,\beta \in \Z/pq\Z$.  Soit $x,y\in \Z$ tels  que $\alpha=cl_{pq}(x)$ et $\beta=cl_{pq}(y)$. On a $\alpha+\beta=cl_{pq}(x+y), \alpha \beta=cl_{pq}(xy)$ et :
+% $$f(\alpha+\beta) = (cl_p(x+y) ;cl_q(x+y)) = (cl_p(x)+cl_p(y) ;cl_q(x)+cl_q(y)) = (cl_p(x) ;cl_q(x))+(cl_p(y) ;cl_q(y)) =f(\alpha)+f(\beta)$$
+% $$f(\alpha \beta) = (cl_p(xy) ;cl_q(xy)) = (cl_p(x)cl_p(y) ;cl_q(x)cl_q(y)) = (cl_p(x) ;cl_p(y))(cl_q(x) ;cl_q(y)) =f(\alpha)f(\beta)$$
+% $$f(cl_{pq}(1)) = (cl_p(1) ;cl_q(1))$$
+% $f$ est bien un morphisme d'anneaux.\\
+% Il  reste  à  montrer  que $f$ est  bijective.  Soit $\alpha \in \Z/pq\Z$ tel  que $f(\alpha)  =  (cl_p(0) ;cl_q(0))$.  Soit $x\in \Z$ tel  que $\alpha=cl_{pq}(x)$. $f(\alpha) = (cl_p(x) ;cl_q(x))$. On en déduit $cl_p(x) =cl_p(0)$ (donc $p$ divise $x$) et $cl_q(x) =cl_q(0)$ (donc $q$ divise $x$). $p$ et $q$ étant  premiers entre eux, on en déduit que $pq$ divise $x$, et donc $cl_{pq}(x) =cl_{pq}(0)$. $f$ est donc injective. On obtient alors la bijectivité par égalité des cardinaux.
+% \end{sol}
+
+\magsection{Groupe symétrique}
+
+\exercice{nom={Décomposition en produit de cycles}}
+Décomposer la permutation suivante en produit de cycles de support
+disjoints.
+$$\sigma\defeq
+\begin{pmatrix}
+1&2&3&4&5&6&7&8&9&10\\
+9&4&3&8&7&10&1&2&5&6 
+\end{pmatrix}
+$$
+En déduire sa signature.
+
+\exercice{nom={Générateurs du groupe symétrique}}
+\begin{questions}
+\question Montrer que les transpositions $\p{1\quad i}$ (pour
+  $i\in\intere{2}{n}$) engendrent le groupe symétrique $(\gsym{n}, \circ)$.
+\question Montrer que les cycles de longueur $3$ engendrent $(\galt{n},\circ)$.
+\end{questions}
+
+\exercice{nom={Exercice}}
+Déterminer l'ordre maximal d'un élément de $\gsym{10}$.
+
+\exercice{nom={Exercice}}
+\begin{questions}
+\question Montrer que pour tout $n\in\N$, il existe un morphisme injectif de
+  $(\gsym{n},\circ)$ dans $(\galt{n+2},\circ)$.
+\question Montrer qu'il n'existe pas de morphisme injectif de $(\gsym{4},\circ)$
+  dans $(\galt{5},\circ)$.
+\end{questions}
+\begin{sol}
+Prendre $\tau$ la transposition $(n+1,n+2)$ et $\sigma \mapsto
+\tau \circ \sigma$ si $\sigma$ est impaire et $\sigma$ sinon.\\
+Il n'y a pas dans $A_5$ d'élément d'ordre $4$.
+\end{sol}
+
+\exercice{nom={Définition de la signature}}
+Soit $n\geq2$. Le but de cet exercice est de démontrer qu'il existe deux
+et seulement deux morphismes de groupe de $(\gsym{n},\circ)$ dans
+$(\Cs,\times)$.
+\begin{itemize}
+\item L'application $\bar{1}$ qui a toute permutation $\sigma$ associe $1$.
+\item Un autre morphisme $\signature$ que l'on définira comme étant la
+  signature.
+\end{itemize}
+
+\begin{questions}
+\question Le but de cette partie est de montrer qu'il existe au plus un
+  seul morphisme $\phi$ de $(\gsym{n},\circ)$ dans $(\Cs,\times)$
+  différent de $\bar{1}$.
+  Soit $\phi$ un morphisme de $(\gsym{n},\circ)$ dans $(\Cs,\times)$.
+  \begin{questions}
+  \question Soit $\tau$ une transposition. Montrer que $\phi(\tau)\in
+    \ens{-1,1}$.
+  \question En déduire que $\phi$ est à valeurs dans $\ens{-1,1}$.
+  \question Soit $\tau_1$ et $\tau_2$ deux transpositions.
+    \begin{questions}
+    \question Montrer que $\tau_1$ et $\tau_2$ sont conjuguées, c'est-à-dire
+      qu'il existe une permutation $\sigma$ telle que
+      $$\tau_2 = \sigma \tau_1 \sigma^{-1}$$
+    \question En déduire que $\phi(\tau_1)=\phi(\tau_2)$.
+    \end{questions}
+  \question Conclure
+  \end{questions}
+\question Le but de cette partie est de montrer l'existence d'un morphisme de
+  $(\gsym{n},\circ)$ dans $(\Cs,\times)$ différent de $\bar{1}$.\\
+  On dit qu'une partie $A$ de $\intere{1}{n}^2$ est une représentation
+  des couples d'éléments de $\intere{1}{n}$ lorsque
+
+  $$\forall i,j \in\intere{1}{n}
+  \qsep
+  \begin{cases}
+  (i,j)\in A \Longrightarrow (j,i)\not\in A\\
+  i\neq j \implique \cro{(i,j)\in A \quad\text{ou}\quad (j,i)\in A}
+  \end{cases}
+  $$
+  \begin{questions}
+  \question Soit $A$ une représentation des couples d'éléments de
+    $\intere{1}{n}$ et $\sigma$ une permutation de
+    $\intere{1}{n}$. Montrer que : 
+    $$\sigma(A)\defeq\ens{ (\sigma(i),\sigma(j)) : (i,j)\in A }$$
+    est une représentation des couples d'éléments de $\intere{1}{n}$.
+  \question Soit $A$ une représentation des couples d'éléments de
+    $\intere{1}{n}$ et $\sigma$ une permutation de
+    $\intere{1}{n}$. On note $n_A$ le nombre d'inversions de $\sigma$,
+    c'est-à-dire le nombre d'éléments $(i,j)$ de $A$ tels que $j-i$ et
+    $\sigma(j)-\sigma(i)$ soient de signes distincts. On définit alors
+    la signature de $\sigma$ par
+    $$\signature(\sigma)=(-1)^{n_A}$$
+    \begin{questions}
+    \question Montrer que la signature ne dépend pas du choix de $A$.
+    \question Montrer que :
+      $$\signature(\sigma)=\prod_{(i,j)\in A}
+                         \frac{\sigma(j)-\sigma(i)}{j-i}$$
+    \question En déduire que $\signature$ est un morphisme de groupe
+    \end{questions}
+  \question Montrer que $\signature$ est différent de $\bar{1}$ et conclure.
+  \end{questions}
+\question En déduire qu'il existe un unique morphisme de $\gsym{n}$ dans
+  $\ens{-1,1}$ qui vaut $-1$ sur les transpositions. Ce morphisme est
+  appelé signature.
+\end{questions}
+
+
+%END_BOOK
+
+
+\end{document}
+

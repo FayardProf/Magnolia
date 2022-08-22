@@ -1,0 +1,348 @@
+\documentclass{magnolia}
+
+\magtex{tex_driver={pdftex}}
+\magfiche{document_nom={Exercices sur les espaces vectoriels de dimension finie},
+          auteur_nom={François Fayard},
+          auteur_mail={fayard.prof@gmail.com}}
+\magexos{exos_matiere={maths},
+         exos_niveau={mpsi},
+         exos_chapitre_numero={13},
+         exos_theme={Espaces vectoriels de dimension finie}}
+\magmisenpage{}
+\maglieudiff{}
+\magprocess
+
+\begin{document}
+%BEGIN_BOOK
+\magsection{Famille libre, famille génératrice, base}
+\exercice{nom={Familles de fonctions}}
+Montrer que les familles de fonctions suivantes sont libres.
+\begin{questions}
+% \question La famille $f_0,f_1,\ldots,f_n$ définie par~:
+%   \[\forall k\in\intere{0}{n} \quad \forall x\in \R \quad f_k(x)=x^k\]
+\question La famille de fonctions $(f_0,\ldots,f_n)$ définies sur $\R$ par
+  \[\forall k\in\intere{0}{n} \qsep \forall x\in\R \qsep f_k(x)\defeq x^k.\]
+% \question $f_n(x)=x^n$, pour $A=\RPs$ et $n\in\Z$.
+\question La famille $(f_{\alpha_1},\ldots,f_{\alpha_n})$
+  où $\alpha_1,\ldots,\alpha_n\in\RP$ sont deux à deux distincts et
+  \[\forall k\in\intere{1}{n} \qsep \forall x\in\R \qsep
+    f_{\alpha_k}(x)\defeq \cos\p{\alpha_k x}.\]
+\question La famille de fonctions $(f_0,\ldots,f_n)$ définies par
+  \[\forall k\in\intere{0}{n} \qsep \forall x\in\R \qsep f_k(x)\defeq \sin^k x.\]
+% \question $f_\alpha(x)=e^{\alpha x}$, pour $A=\R$ et $\alpha\in\R$.
+\question La famille $(f_1,\ldots,f_n)$ où
+  $\alpha_1,\ldots,\alpha_n\in\R$ sont deux à deux distincts et
+  \[\forall k\in\intere{1}{n} \qsep \forall x\in\R \qsep
+    f_{k}(x)\defeq \e^{\ii \alpha_k x}.\]
+% \question $f_\alpha(x)=e^{\alpha x}$, pour $A=[1,2]$ et $\alpha\in\C$.
+\question La famille $(f_{1},\ldots,f_{n})$ où
+  $\alpha_1,\ldots,\alpha_n\in\R$ sont deux à deux distincts et
+  \[\forall k\in\intere{1}{n} \qsep \forall x\in\R \qsep
+    f_{k}(x)\defeq\abs{x-\alpha_k}.\]
+\end{questions}
+\begin{sol}
+$\quad$
+\begin{questions}
+\question   
+\question dériver deux fois.
+\question Introduire le polynôme
+  \[P=\sum_{k=0}^n X^k\]
+  Alors $\forall x\in\R \quad P(\sin x)=0$ donc $P$ admet une infinité de
+  racines donc $P=0$, donc tous les $\lambda_k$ sont nuls.
+\question dériver.
+\question Remarquer que $f_{\alpha_k}$ n'est pas dérivable en $\alpha_k$.
+\end{questions}
+\end{sol}
+
+
+% \exercice{nom={Famille des fonction polynômes-exponentielle}}
+% Pour tout entier naturel $n$ et tout nombre complexe $\alpha$, on définit la
+% fonction $f_{n,\alpha}$ sur $\R$ par :
+% \[\forall x \in \R \quad f_{n,\alpha}(x)=x^n e^{\alpha x}\]
+% Le but de cet exercice est de montrer que la famille
+% $(f_{n,\alpha})_{(n,\alpha) \in\N\times\C}$ est libre.
+% \begin{questions}
+% \question Montrer que la famille $(f_{n,0})_{n\in\N}$ est libre.
+% \question Pour $\alpha\in\Cs$, résoudre sur $\R$ l'équation différentielle :
+%   \[(E) \quad \forall t \in \R \quad y'(t)+\alpha y(t)=0\]
+% \question Montrer par récurrence sur un majorant de
+%   $\deg{P_1}+\dots+\deg{P_n}$ que si $\alpha_1,\ldots,\alpha_n$ sont $n$
+%   complexes deux à deux distincts et si :
+%   \[\forall x\in\R \quad P_1(x)e^{\alpha_1 x}+\ldots+P_n(x)e^{\alpha_n x}=0\]
+%   alors $P_1=P_2=\ldots=P_n=0$.
+% \question Conclure.
+% \end{questions}
+
+% \exercice{nom={Espace des fonctions trigonométriques}}
+% Soit $E$ le $\R$-espace vectoriel des fonctions de $\R$ dans $\R$. Montrer que
+% l'espace vectoriel engendré par les fonctions $x\rightarrow \cos^n(x)$ pour
+% $n\in\N$ et celui engendré par les fonctions $x\rightarrow \cos(nx)$ pour
+% $n\in\N$ coïncident.
+
+% \exercice{nom={Nombres algébriques}}
+% On considère $\R$ comme $\Q$-espace vectoriel.
+% \begin{questions}
+% \question Montrer que la famille $(1,\sqrt{2},\sqrt{3})$ est libre ({\it On dit
+%   que cette famille de réels est $\Q$-libre}).
+% \question Montrer que la famille $(\ln p)_{p\in\mathcal{P}}$ est libre ({\it
+%   $\mathcal{P}$ désigne l'ensemble des nombres premiers}).
+% \end{questions}
+
+\exercice{nom={Changement de base}}
+Dans $\R^3$, on considère les trois vecteurs $u\defeq(1,1,-1)$, $v\defeq(-1,1,1)$ et
+$w\defeq(1,-1,1)$.
+\begin{questions}
+\question Montrer que $u,v,w$ forme une base de $\R^3$.
+\question Donner les coordonnées de $(2,1,3)$ dans cette base.
+\end{questions}
+\begin{sol}
+$\quad$
+\begin{questions}
+\question Il suffit de montrer que la famille est libre.
+\question On trouve pour coordonnées $(3/2,2,5/2)$.
+\end{questions}
+\end{sol}
+
+\exercice{nom={Modification d'une famille libre}}
+Soit $E$ un \Kev et $x_1,\ldots,x_n$ une famille libre de $n$ vecteurs. On se
+donne $n$ scalaires $\lambda_1,\ldots,\lambda_n$ et on pose
+\[y\defeq\sum_{k=1}^n \lambda_k x_k\]
+Pour tout $i\in\intere{1}{n}$ on pose $y_i\defeq x_i+y$. Donner une condition nécessaire
+et suffisante sur les $\lambda_k$ pour que la famille $y_1,\ldots,y_n$ soit libre.
+\begin{sol}
+La condition nécessaire et suffisante est
+\[\sum_{k=1}^n \lambda_k\neq -1\]
+On voit facilement que si cette somme est différente de $-1$, la famille est
+libre (il suffit d'écrire les équations obtenues en utilisant le fait que la
+famille des $x_k$ est libre et de sommer toutes les équations). Si la somme
+est égale à $-1$
+\[\sum_{k=1}^n \lambda_k y_k=0\]
+est une relation de liaison.
+\end{sol}
+
+
+\magsection{Dimension}
+
+\exercice{nom={Dimension}}
+Soit $A$ et $B$ deux sous-espaces vectoriels de dimension $3$ de $\R^5$.
+Montrer que $A\cap B\not=\{0\}$.
+\begin{sol}
+Utiliser Grassman.
+\end{sol}
+
+% \subsection{Endomorphisme nilpotent}
+% Soit $E$ un \Kev de dimension $n$ et $f$ un endomorphisme nilpotent de $E$,
+% c'est-à-dire tel qu'il existe un entier $m$ tel que $f^m=0$.
+% \begin{questions}
+% \question En notant $m_0$ le plus petit entier tel que $f^{m_0}=0$, montrer
+%   qu'il existe $x\in E$ tel que la famille $x,f(x),\ldots,f^{m_0-1}(x)$ soit
+%   libre.
+% \question Que peut-on en déduire sur $m_0$ ?
+% \end{questions}
+
+\exercice{nom={Supplémentaire commun}}
+Soit $E$ un \Kev de dimension finie $n$, et $A$ et $B$ deux sous-espaces
+vectoriels de $E$ de même dimension $r$. Le but de cet exercice est de montrer
+que $A$ et $B$ ont un supplémentaire commun dans $E$.
+\begin{questions}
+\question Montrer le résultat lorsque $n=r+1$.
+\question Plus généralement, montrer que si le résultat est vrai si
+  $\dim A=\dim B=r+1$, alors il est vrai si $\dim A=\dim B=r$.
+\question Conclure.
+\end{questions}
+
+% \subsection{Rang d'une famille de vecteurs}
+% Déterminer le rang des familles suivantes :
+% \begin{questions}
+% \question $x_1=(1,0,1),x_2=(-1,-2,3),x_3=(-1,-1,1)$ dans $\R^3$.
+% \question $x_1=(1,0,1,0),x_2=(1,1,0,0),x_3=(-1,-1,1,0),x_4=(0,0,2,0)$ dans
+%   $\R^4$.
+% \question $x_1=(3,2,1,0),x_2=(2,3,4,5),x_3=(0,1,2,3),x_4=(1,2,1,2)$ dans
+%   $\R^4$.
+% \question $\phi_1,\phi_2,\phi_3,\phi_4$ dans $\mathcal{L}(\R^4,\R)$ avec pour
+%   $x,y,z,t\in\R$ :
+%   \begin{itemize}
+%   \item $\phi_1(x,y,z,t)=x+z$
+%   \item $\phi_2(x,y,z,t)=-x+2y$
+%   \item $\phi_3(x,y,z,t)=x+y-z+t$
+%   \item $\phi_4(x,y,z,t)=y+t$
+%   \end{itemize}
+% \end{questions}
+
+\exercice{nom={Centre de $\Endo{E}$}}
+Soit $E$ un \Kev de dimension finie. Le but de cet exercice est de montrer que
+le centre de $\Endo{E}$, c'est à dire l'ensemble des endomorphismes qui
+commutent avec tous les endomorphismes est l'ensemble des homothéties.
+\begin{questions}
+\question Montrer que les homothéties sont dans le centre de $\Endo{E}$.
+\question Soit $u$ un endomorphisme de $E$ tel que
+  \[\forall x\in E \qsep \exists \lambda\in\K \qsep  u(x)=\lambda x.\]
+  Montrer que $u$ est une homothétie.
+\question Soit $u$ un endomorphisme de $E$ qui commute avec toutes les
+  applications linéaires.
+  \begin{questions}
+  \question Soit $x\in E$. En considérant une symétrie par rapport à $\K x$,
+    montrer qu'il existe $\lambda\in\K$ tel que $u(x)=\lambda x$.
+  \question Conclure.
+  \end{questions}
+\end{questions}
+
+\exercice{nom={Formes linéaires et trace sur $\mat{n}{\K}$}}
+Soit $\phi$ une forme linéaire sur $\mat{n}{\K}$. 
+\begin{questions}
+\question Montrer qu'il
+  existe une et une seule matrice $A\in\mat{n}{\K}$ telle que
+  \[\forall X\in\mat{n}{\K} \qsep \phi(X)=\tr(AX).\]
+\question On suppose que~: $\forall X,Y\in\mat{n}{\K} \qsep \phi(XY)=\phi(YX)$.
+  Montrer qu'il existe $\lambda\in\K$ tel que $A=\lambda I_n$. En déduire que
+  \[\forall X\in\mat{n}{\K} \qsep \phi(X)=\lambda \tr(X).\]
+\end{questions}
+
+\exercice{nom={Matrice triangulaire supérieure par blocs}}
+Soit $n\in\N$, $p_1,p_2\in\N$ tels que $n=p_1+p_2$ et $A\in\mat{n}{\K}$ une matrice
+triangulaire supérieure par blocs
+\[A=
+  \begin{pmatrix}
+  A_{1,1} & A_{1,2}\\
+  0 & A_{2,2}
+\end{pmatrix} \qquad \text{où $A_{i,j}\in\mat{p_i,p_j}{\K}$.}\]
+Montrer que $A$ est inversible si et seulement si $A_{1,1}$ et $A_{2,2}$ le
+sont. Si tel est le cas, montrer que
+\[A^{-1}=
+  \begin{pmatrix}
+  A_{1,1}^{-1} & \star \\
+  0 & A_{2,2}^{-1}
+\end{pmatrix}\]
+
+\magsection{Calcul de dimension et de rang, hyperplan}
+
+
+\exercice{nom={Le laplacien discret}}
+Soit $\phi$ l'application de $\polyK$ dans $\polyK$ définie par
+\[\forall P\in\polyK \qsep \phi(P)\defeq P\p{X+1}+P\p{X-1}-2P(X).\]
+\begin{questions}
+\question Calculer $\deg\cro{\phi(P)}$ en fonction de $\deg P$.
+\question Quel est le noyau de $\phi$~?
+\question Montrer que $\phi$ est surjective.
+\end{questions}
+\begin{sol}
+$\quad$
+\begin{questions}
+\question
+\question
+\question Soit $Q\in\polyK$ et $n\in\N$ tel que $\deg Q\leq n$. On
+  introduit~:
+  \[\dspappli{\psi}{\polyK[n+2]}{\polyK[n]}{P}{\phi(P)}\]
+  et on montre que $\psi$ est surjective. Pour cela, on montre que
+  $(\psi(X^2),\ldots,\psi(X^{n+2}))$ est libre. Il suffit de remarquer
+  que si
+  \[\sum_{k=2}^{n+2} \lambda_k \psi(X^k)=0\]
+  alors
+  \[\sum_{k=2}^{n+2} \lambda_k X^k\in\ker\phi\]
+  donc tous les $\lambda_k$ sont nuls.
+\end{questions}
+\end{sol}
+
+
+\exercice{nom={Noyau et image en somme directe}}
+Soit $E$ un \Kev de dimension finie et $f$ un endomorphisme de $E$. Montrer
+que
+\[E=\im f \oplus \ker f  \quad\Longleftrightarrow\quad
+ \im f = \im f^2.\]
+Cette équivalence est-elle vraie en dimension infinie~?
+
+
+\exercice{nom={Rang et composition}}
+Montrer qu'on ne change pas le rang d'une application linéaire en la composant par
+la droite par une application surjective ou par la gauche par une application injective.  
+
+\exercice{nom={Rang d'une somme d'applications linéaires}}
+Soit $E$ et $F$ deux \Kev de dimension finie, $f$ et $g$ deux applications
+linéaires de $E$ dans $F$.
+\begin{questions}
+\question Montrer que :
+  \[\abs{\rg f-\rg g} \leq \rg (f+g) \leq \rg f+\rg g\]
+\question On suppose dans cette question que $E=F$. Montrer que si
+  $f\circ g=0$ et $f+g$ est inversible, alors $\rg f+\rg g=\dim E$.
+\end{questions}
+
+\exercice{nom={Dimension du noyau et composition}}
+Soit $E$, $F$ et $G$ trois \Kevs de dimensions finies, $f\in\lin{E}{F}$ et
+$g\in\lin{F}{G}$. En considérant la restriction de $f$ à
+$\ker g\circ f$, montrer que~:
+\[\dim \ker g\circ f \leq \dim \ker g + \dim \ker f\]
+\begin{sol}
+Utiliser la théorème du rang avec~:
+\[\dspappli{\phi}{\ker(g\circ f)}{F}{x}{f(x)}\]
+\end{sol}
+
+\exercice{nom={Endomorphisme $f$ tel que $f^2=0$}}
+Soit $E$ un \Kev de dimension 4 et $f\in\Endo{E}$ tel que $f^2=0$. Montrer
+que $\rg f\leq 2$. 
+\begin{sol}
+Utiliser le fait que $\im f\subset\ker f$. On utilise ensuite le théorème
+du rang. 
+\end{sol}
+
+\exercice{nom={Factorisation}}
+Soit $E$ un \Kev de dimension finie et $f,g\in\Endo{E}$. Montrer qu'il existe
+$h\in\Endo{E}$ tel que $f=h\circ g$ si et seulement si $\ker g\subset \ker f$.
+
+% \subsection{Noyaux et images itérés}
+% Soit $E$ un \Kev de dimension finie et $f\in\Endo{E}$. On définit pour tout
+% entier $n$~:
+% \[K_n=\ker f^n \quad \text{et} \quad I_n=\im f^n\]
+% \begin{questions}
+% \question 
+%   \begin{questions}
+%   \question Montrer que la suite $\p{K_n}$ est croissante au sens de l'inclusion et
+%     que la suite $\p{I_n}$ est décroissante au sens de l'inclusion.
+%   \question 
+%     \begin{questions}
+%     \question Montrer qu'il existe $n\in\N$ tel que $K_{n}=K_{n+1}$. Dans la
+%       suite, on note $n_0$ le plus petit entier tel que $K_{n_0}=K_{n_0+1}$.
+%     \question Montrer que :
+%       \[\forall n \geq n_0 \quad K_n=K_{n_0}\]
+%     \end{questions}
+%   \question 
+%     \begin{questions}
+%     \question Montrer qu'il existe $n\in\N$ tel que $I_{n}=I_{n+1}$. Dans la
+%       suite, on note $n_1$ le plus petit entier tel que $I_{n_1}=I_{n_1+1}$.
+%     \question Montrer que :
+%       \[\forall n \geq n_1 \quad I_n=I_{n_1}\]
+%     \end{questions}
+%   \question Montrer que $n_0=n_1$. Dans la suite, on note $r$ cette valeur commune.
+%   \end{questions}
+% \question 
+%   \begin{questions}
+%   \question Montrer que $I_r \oplus K_r = E$.
+%   \question Montrer que $I_r$ et $K_r$ sont stables par $f$, puis que la
+%     restriction de $f$ à $K_r$ est nilpotente et que la restriction de $f$ à
+%     $I_r$ est un automorphisme.
+%   \end{questions}
+% \question 
+%   \begin{questions}
+%   \question Montrer que le suite de terme général $\dim I_{n} - \dim I_{n+1}$
+%     est décroissante. ({\it On pourra pour cela considérer l'application
+%     $\phi$ de $I_n$ dans $I_{n+1}$ qui à $x$ associe $f(x)$.})
+%   \question Énoncer et démontrer un résultat semblable pour la suite $\p{K_n}$. 
+%   \end{questions}
+% \end{questions}
+
+% \subsection{Bidual}
+% Soit $E$ un \Kev de dimension finie. On note $E^{\star\star}$ le bidual de $E$,
+% c'est-à-dire le dual du dual de $E$.
+% \begin{questions}
+% \question Montrer que $E$ et $E^{\star\star}$ sont isomorphes.
+% \question Soit $\phi$ l'application de $E$ dans $E^{\star\star}$ qui à $x$ associe
+%   l'application $\phi_x$ de $E^\star$ dans $\K$ qui à $\psi$ associe
+%   $\psi(x)$.
+%   \begin{questions}
+%   \question Montrer que pour tout $x\in E$, $\phi_x$ est une forme linéaire
+%     sur $E^\star$.
+%   \question Montrer que $\phi$ est un isomorphisme.
+%   \end{questions}
+% \end{questions}
+
+%END_BOOK
+\end{document}

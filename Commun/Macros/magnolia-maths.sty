@@ -1,0 +1,1545 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% magnolia-maths.cls, LaTeX class for the free teaching project Velvia
+% Copyright (C) 2004-2006 Francois Fayard <fayard.prof@gmail.com>.
+% 
+% This program is free software; you can redistribute it and/or
+% modify it under the terms of the GNU General Public License
+% as published by the Free Software Foundation; either version 2
+% of the License, or (at your option) any later version.
+% 
+% This program is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+% 
+% You should have received a copy of the GNU General Public License
+% along with this program; if not, write theo the Free Software Foundation
+% Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% PLEASE DO NOT MAKE ANY CHANGES TO THIS FILE!
+% 
+% If you wish to make changes to this file, rename this file
+% to something other than exam.cls BEFORE YOU MAKE THE CHANGES!
+% 
+% If there's some feature that you'd like that this file doesn't
+% provide, tell me about it.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% On charge les macros mathématiques de l'ams
+\usepackage{amsmath,amssymb,amsthm,stmaryrd,mathtools}
+%
+%\ifthenelse{\equal{\mag@tex@minimal}{oui}}{}{\usepackage{stmaryrd}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                             %
+%                                                                             %
+%                               Disposition                                   %
+%                                                                             %
+%                                                                             %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\mog}{\text{\og}}
+\newcommand{\mfg}{\text{\fg}}
+
+\let\dsp=\displaystyle
+\let\tst=\textstyle
+\let\spt=\scriptstyle
+
+%% Quelques lettres grecques et autres caracteres plus jolis que la version
+%% originale grace a AMS-LaTeX
+\let\signature\epsilon
+\renewcommand{\epsilon}{\varepsilon}
+\renewcommand{\emptyset}{\varnothing}
+\renewcommand{\phi}{\varphi}
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+%
+% \mathchardef\ordinarycolon\mathcode`\:
+% \mathcode`\:=\string"8000
+% \begingroup \catcode`\:=\active
+%   \gdef:{\mathrel{\mathop\ordinarycolon}}
+% \endgroup
+%\mathtoolsset{centercolon}
+\newcommand{\defeq}{\coloneqq}
+\newcommand{\eqdef}{\eqqcolon}
+%  \newcommand{\defeq}{=}
+%  \newcommand{\eqdef}{=}
+%%
+%%
+\newcommand{\annuleh}[1]{\setbox0=\hbox{$#1$}\ht0=0pt\box0}
+\newcommand{\annulehp}[1]{\setbox0=\hbox{$#1$}\ht0=0pt\dp0=0pt\box0}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                             %
+%                                                                             %
+%                     Logique, ensembles, dénombrement                        %
+%                                                                             %
+%                                                                             %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Quantificateurs
+\newcommand{\qsep}{,\quad}
+
+%% Logique
+\newcommand{\et}{\quad\!\text{et}\quad\!}
+\newcommand{\ou}{\quad\!\text{ou}\quad\!}
+\newcommand{\non}{{\rm non}\ }
+\newcommand{\implique}{\Longrightarrow}
+\newcommand{\ssi}{\Longleftrightarrow}
+\newcommand{\donc}{\text{donc}}
+
+%% Ensembles, opérations, applications, familles
+\newcommand{\p}[1]{\left(#1\right)}
+\newcommand{\cro}[1]{\left[#1\right]}
+\newcommand{\ens}[1]{\left\{#1\right\}}
+\DeclarePairedDelimiterX\set[1]\lbrace\rbrace{\def\given{\;\delimsize\vert\;}#1}
+\newcommand{\enstq}[2]{\set*{#1\given #2}}
+\newcommand{\ensim}[2]{\left\{#1 : #2\right\}}
+\newcommand{\parties}[1]{\mathcal{P}\p{#1}}
+\newcommand{\app}[3]{#1\colon #2 \rightarrow #3}
+\newcommand{\appli}[5]{#1\colon #2 \rightarrow #3, #4 \mapsto #5}
+\newcommand{\dspappli}[5]{\begin{array}[t]{lrcl}
+\dsp{#1} : & \dsp{#2} & \longrightarrow & \dsp{#3} \\
+    & \dsp{#4} & \longmapsto & \dsp{#5} \end{array}}
+% \newcommand{\dspappli}[5]{#1\colon 
+% \vtop{ \halign{ ##        &             ##        & ##                 \cr
+%    \hfil $\dsp{#2}$ \hfil &   $\longrightarrow$   &$\dsp{#3}$ \hfil    \cr
+%    \hfil $\dsp{#4}$ \hfil & $\longmapsto$         &\hfil$\dsp{#5}$\hfil\cr}}}
+% \newcommand{\restri}[2]{#1|_{#2}}
+\newcommand\restri[2]{{% we make the whole thing an ordinary symbol
+  \left.\kern-\nulldelimiterspace % automatically resize the bar with \right
+  #1 % the function
+  \vphantom{\big|} % pretend it's a little taller at normal size
+  \right|_{#2} % this is the delimiter
+  }}
+\newcommand\corestri[2]{{% we make the whole thing an ordinary symbol
+  \left.\kern-\nulldelimiterspace % automatically resize the bar with \right
+  #1 % the function
+  \vphantom{\big|} % pretend it's a little taller at normal size
+  \right|^{#2} % this is the delimiter
+  }}
+\newcommand\restricorestri[3]{{% we make the whole thing an ordinary symbol
+  \left.\kern-\nulldelimiterspace % automatically resize the bar with \right
+  #1 % the function
+  \vphantom{\big|} % pretend it's a little taller at normal size
+  \right|_{#2}^{#3} % this is the delimiter
+  }}
+\newcommand{\uple}[3]{\ensuremath{#1_{#2},\ldots,#1_{#3}}}
+\newcommand{\nuple}[1]{\uple{#1}{1}{n}}
+\newcommand{\imrec}[1]{f^{-1}}
+\newcommand{\applirec}{{-1}} %% à enlever
+%% \newcommand{\applirec}{{\textcircled{\tiny{-1}}}}
+
+
+%% Dénombrement
+\DeclareMathOperator{\card}{Card}
+
+%% Pour écrire des récurrences
+\newenvironment{recurrence}
+{%
+  \begin{center}%
+    $\mathcal{H}_n$~:\ \flqq
+    \begin{varwidth}[t]{0.7\linewidth}
+}{\end{itemize}}
+\newcommand{\recinit}{\end{varwidth} \frqq\end{center}
+  \begin{itemize}\item $\mathcal{H}_0$ est vraie ~: }
+\newcommand{\rechere}{\item $\mathcal{H}_n \implique \mathcal{H}_{n+1}$~: }
+
+%% Ensembles de nombres
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Ns}{{\N^*}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Zs}{\Z^*}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Qs}{\Q^*}
+\newcommand{\QP}{\Q_+}
+\newcommand{\QPs}{\Q_+^*}
+\newcommand{\QM}{\Q_-}
+\newcommand{\QMs}{\Q_-^*}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Rbar}{\overline{\R}}
+\newcommand{\Rs}{{\R^*}}
+\newcommand{\RP}{\R_+}
+\newcommand{\RPs}{\R_+^*}
+\newcommand{\RM}{\R_-}
+\newcommand{\RMs}{\R_-^*}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Cs}{\C^*}
+\newcommand{\RouC}{\text{$\R$ (ou $\C$)}}
+\newcommand{\CouR}{\text{$\C$ (ou $\R$)}}
+\newcommand{\RbarouC}{\text{$\Rbar$ (ou $\C$)}}
+\newcommand{\U}[1][!*!,!]
+  {\mathbb{U}\ifthenelse{\equal{#1}{!*!,!}}{}{_{#1}}}
+\newcommand{\Ha}{\mathbb{H}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                             %
+%                                                                             %
+%                                  Algèbre                                    %
+%                                                                             %
+%                                                                             %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% Entiers
+\newcommand{\intere}[2]{\left\llbracket #1,#2\right\rrbracket}
+\newcommand{\interefo}[2]{\left\llbracket #1,#2\right\llbracket}
+\newcommand{\intereof}[2]{\left\rrbracket #1,#2\right\rrbracket}
+\newcommand{\intereo}[2]{\left\rrbracket #1,#2\right\llbracket}
+
+\newcommand{\kro}[2]{\delta_{#1,#2}}
+\DeclareMathOperator{\pgcd}{pgcd}
+\DeclareMathOperator{\ppcm}{ppcm}
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
+\newcommand{\ent}[1]{\floor*{#1}}
+\newcommand{\ents}[1]{\ceil*{#1}}
+
+%% Arithmétique
+\newcommand{\egmodulo}[2]{\equiv #1\,\cro{#2}}
+\newcommand{\modulo}[1]{\,\cro{#1}}
+
+%% Systèmes linéaires
+\def\syslin#1{\left\{
+    \vcenter{\ialign{&$\hfil{}##{}$\crcr
+                     #1\crcr}}
+    \right.}
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
+%% Nombres complexes
+\newcommand{\abs}[1]{\left|#1\right|}
+\renewcommand{\Re}[1]{\mathop{\rm Re}#1}
+\renewcommand{\Im}[1]{\mathop{\rm Im}#1}
+\newcommand{\conj}[1]{\overline{#1}}
+\newcommand{\sgn}{\mathop{\rm sgn}}
+\newcommand{\ii}{{\rm i}}
+\newcommand{\jj}{{\rm j}}
+\newcommand{\e}{{\rm e}}
+
+%% Structures
+\newcommand{\K}{\ensuremath{\mathbb{K}}}
+\newcommand{\KL}{\ensuremath{\mathbb{L}}}
+\newcommand{\KM}{\ensuremath{\mathbb{M}}}
+\newcommand{\Ks}{\ensuremath{\mathbb{K}^*}}
+\newcommand{\zz}[1]{\ensuremath{\Z/{#1}\Z}}% Ensemble $Z/kZ$
+\newcommand{\znz}{\ensuremath{\Z/n\Z}}% Abreviation pour $Z/nZ$
+\newcommand{\gsym}[1]{\mathcal{S}_{#1}}
+\newcommand{\galt}[1]{\mathcal{A}_{#1}}
+\newcommand{\signat}[1]{\signature(#1)}
+
+%% Polynômes, fractions rationnelles
+\newcommand{\polyK}[1][!*!,!]{\K\ifthenelse{\equal{#1}{!*!,!}}{}{_{#1}}[X]}
+\newcommand{\polyL}[1][!*!,!]{\KL\ifthenelse{\equal{#1}{!*!,!}}{}{_{#1}}[X]}
+\newcommand{\polyZ}[1][!*!,!]{\Z\ifthenelse{\equal{#1}{!*!,!}}{}{_{#1}}[X]}
+\newcommand{\polyQ}[1][!*!,!]{\Q\ifthenelse{\equal{#1}{!*!,!}}{}{_{#1}}[X]}
+\newcommand{\polyR}[1][!*!,!]{\R\ifthenelse{\equal{#1}{!*!,!}}{}{_{#1}}[X]}
+\newcommand{\polyC}[1][!*!,!]{\C\ifthenelse{\equal{#1}{!*!,!}}{}{_{#1}}[X]}
+\newcommand{\fracK}[1][!*!,!]{\K\ifthenelse{\equal{#1}{!*!,!}}{}{_{#1}}(X)}
+\newcommand{\fracQ}[1][!*!,!]{\Q\ifthenelse{\equal{#1}{!*!,!}}{}{_{#1}}(X)}
+\newcommand{\fracR}[1][!*!,!]{\R\ifthenelse{\equal{#1}{!*!,!}}{}{_{#1}}(X)}
+\newcommand{\fracC}[1][!*!,!]{\C\ifthenelse{\equal{#1}{!*!,!}}{}{_{#1}}(X)}
+
+%% Algèbre linéaire
+\newcommand{\Rev}{$\R$-espace vectoriel\xspace}
+\newcommand{\Revs}{$\R$-espaces vectoriels\xspace}
+\newcommand{\Cev}{$\C$-espace vectoriel\xspace}
+\newcommand{\Cevs}{$\C$-espaces vectoriels\xspace}
+\newcommand{\Kev}{$\K$-espace vectoriel\xspace}
+\newcommand{\Kevs}{$\K$-espaces vectoriels\xspace}
+\newcommand{\Lev}{$\KL$-espace vectoriel\xspace}
+\newcommand{\Ralg}{$\R$-alg\`ebre\xspace}
+\newcommand{\lin}[2]{\mathcal{L}\p{#1,#2}}
+\newcommand{\Endo}[1]{\mathcal{L}\p{#1}}
+\newcommand{\com}[1]{\mathcal{C}\p{#1}}
+\renewcommand{\ker}{\mathop{\rm Ker}}
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\vect}{Vect}
+\DeclareMathOperator{\rg}{rg}
+\DeclareMathOperator{\codim}{codim}
+
+%% Matrices
+\newcommand{\mat}[2]{\mathcal{M}_{#1}\p{#2}}
+\newcommand{\gl}[2]{{\rm GL}_{#1}\p{#2}}
+\newcommand{\glp}[1]{{\rm GL}_{#1}^+\p{\R}}
+\newcommand{\glm}[1]{{\rm GL}_{#1}^-\p{\R}}
+\DeclareMathOperator{\id}{Id}
+%\newcommand{\trans}[1]{{#1}^{\rm T}}
+\newcommand{\trans}[1]{{#1}^{\top}}
+% \def\trans#1{\ifmmode\setbox9=\hbox{$#1$}\vphantom{\copy9}^t\!\box9%
+%   \else\penalty1000\ #1\fi}
+\DeclareMathOperator{\tr}{tr}
+\renewcommand{\det}{\mathop{\rm det}}
+\newcommand{\Com}{\mathop{\rm Com}}
+\newcommand{\Sp}[1]{\mathop{\rm Sp}\left(#1\right)}
+% \newcommand{\Sp}{\mathop{\rm Sp}}
+\newcommand{\diag}[1]{\mathop{\rm{Diag}}\left(#1\right)}
+\newcommand{\commutant}[1]{\mathop{\rm Com}\left(#1\right)}
+\newcommand{\gdots}{\makebox[1em]{\raisebox{0em}{.}%
+  \raisebox{0.5em}{.} \raisebox{1em}{.}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                             %
+%                                                                             %
+%                                Géométrie                                    %
+%                                                                             %
+%                                                                             %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%% Géométrie affine
+\DeclareMathOperator{\bary}{Bar}
+\newcommand{\ga}[1]{\mathop{\rm GA}\p{#1}}
+\newcommand{\aff}[1]{\mathop{\rm Aff}\p{#1}}
+\newcommand{\is}[1]{\mathop{\rm Is}\p{#1}}
+\newcommand{\isp}[1]{\mathop{\rm Is}^+\p{#1}}
+
+%% Géométrie euclidienne
+\newcommand{\ve}[1]{\kern 2pt\overrightarrow{\kern -2pt#1}}
+% \newcommand{\ps}[3][!*!,!]{
+%   \ifthenelse{\equal{#1}{!*!,!}}{\left<#2|#3\right>}{}
+%   \ifthenelse{\equal{#1}{0}}{<#2|#3>}{}}
+\newcommand{\ps}[2]{\left\langle {#1}\middle|{#2}\right\rangle}
+\newcommand{\norme}[1]{\left\|#1\right\|}
+\newcommand{\pmixte}[1]{\left[#1\right]}
+\newcommand{\mesa}[1]{\overline{#1}}
+\newcommand{\pvect}[2]{#1\wedge #2}
+\newcommand{\Det}[2]{{\rm Det}\p{#1,#2}}
+%%\newcommand{\Determinant}[1]{{\rm Det}\p{#1}}
+
+%% Coordonnées
+\newcommand{\coordp}[2]{\left|\begin{array}{l}\!\!#1 \\\!\!#2\end{array}\right.}
+\newcommand{\coorde}[3]{\left|\begin{array}{l}\!\!#1 \\\!\!#2%
+  \\\!\!#3\end{array}\right.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                             %
+%                                                                             %
+%                                  Analyse                                    %
+%                                                                             %
+%                                                                             %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% Fonctions
+\newcommand{\dom}{\mathcal{D}}
+
+%% Fonctions usuelles
+% \DeclareMathOperator{\lg2}{log_2}
+% \DeclareMathOperator{\lg10}{log_{10}}
+% \DeclareMathOperator{\log2}{log_2}
+% \DeclareMathOperator{\log10}{log_{10}}
+\DeclareMathOperator{\cotan}{cotan}
+\DeclareMathOperator{\ch}{ch}
+\DeclareMathOperator{\sh}{sh}
+%\DeclareMathOperator{\coth}{coth}
+\DeclareMathOperator{\magtanh}{th}
+  \let\tanh=\magtanh
+  \let\th=\magtanh
+\DeclareMathOperator{\magarcsin}{Arcsin}
+  \let\arcsin=\magarcsin
+\DeclareMathOperator{\magarctan}{Arctan}
+  \let\arctan=\magarctan
+\DeclareMathOperator{\magarccos}{Arccos}
+  \let\arccos=\magarccos
+\DeclareMathOperator{\arccotan}{Arccotan}
+%%\DeclareMathOperator{\coth}{coth}
+\DeclareMathOperator{\argch}{Argch}
+\DeclareMathOperator{\argsh}{Argsh}
+\DeclareMathOperator{\argth}{Argth}
+\DeclareMathOperator{\argcoth}{Argcoth}
+\DeclareMathOperator{\Arg}{Arg}
+\DeclareMathOperator{\Ln}{Ln}
+
+%% Parties de R
+\newcommand{\Rb}{\overline{\R}}
+\newcommand{\interf}[2]{\left[#1,#2\right]}
+\newcommand{\intero}[2]{\left]#1,#2\right[}
+\newcommand{\interfo}[2]{\left[#1,#2\right[}
+\newcommand{\interof}[2]{\left]#1,#2\right]}
+\newcommand{\intergf}[2]{\text{\og $\left[#1,#2\right]$ \fg}}
+\newcommand{\intergo}[2]{\text{\og $\left]#1,#2\right[$ \fg}}
+\newcommand{\intergfo}[2]{\text{\og $\left[#1,#2\right[$ \fg}}
+\newcommand{\intergof}[2]{\text{\og $\left]#1,#2\right]$ \fg}}
+\newcommand{\supb}{\overline{\sup}\,}
+
+\renewcommand{\O}{{\rm O}}
+%% Limites
+\newcommand{\tend}{\xrightarrow{}}
+\newcommand{\tendvers}[2]{\xrightarrow[#1\rightarrow #2]{}}
+\newcommand{\tendversd}[2]{\xrightarrow[
+                            \substack{#1\rightarrow #2 \\ #1\geq #2}]{}}
+\newcommand{\tendversg}[2]{\xrightarrow[
+                            \substack{#1\rightarrow #2 \\ #1\leq #2}]{}}
+\newcommand{\tendversdp}[2]{\xrightarrow[
+                            \substack{#1\rightarrow #2 \\ #1>#2}]{}}
+\newcommand{\tendversgp}[2]{\xrightarrow[
+                            \substack{#1\rightarrow #2 \\ #1<#2}]{}}
+\newcommand{\tendversp}[2]{\xrightarrow[
+                           \substack{#1\rightarrow #2 \\ #1\not=#2}]{}}
+\DeclareMathOperator{\DL}{DL}
+\DeclareMathOperator{\DA}{DA}
+\newcommand{\petito}[3]{\underset{#1 \rightarrow #2}{\text{o}}\left(#3\right)}
+\newcommand{\petitop}[3]{\underset{\substack{#1 \rightarrow #2\\#1\neq #2}}{\text{o}}%
+  \p{#3}}
+\newcommand{\petitog}[3]{\underset{\substack{#1 \rightarrow #2\\#1\leq #2}}{\text{o}}%
+  \p{#3}}
+\newcommand{\petitod}[3]{\underset{\substack{#1 \rightarrow #2\\#1\geq #2}}{\text{o}}%
+  \p{#3}}
+\newcommand{\petitogp}[3]{\underset{\substack{#1 \rightarrow #2\\#1< #2}}{\text{o}}%
+  \p{#3}}
+\newcommand{\petitodp}[3]{\underset{\substack{#1 \rightarrow #2\\#1> #2}}{\text{o}}%
+  \p{#3}}
+\newcommand{\petitozero}[2]{\underset{#1 \rightarrow 0}{\text{o}}\left(#2\right)}
+\newcommand{\petitozerop}[2]{\underset{\substack{#1 \rightarrow 0\\#1\neq 0}}{\text{o}}%
+  \p{#2}}
+\newcommand{\petitozerog}[2]{\underset{\substack{#1 \rightarrow 0\\#1\leq 0}}{\text{o}}%
+  \p{#2}}
+\newcommand{\petitozerod}[2]{\underset{\substack{#1 \rightarrow 0\\#1\geq 0}}{\text{o}}%
+  \p{#2}}
+\newcommand{\petitozerogp}[2]{\underset{\substack{#1 \rightarrow 0\\#1< 0}}{\text{o}}%
+  \p{#2}}
+\newcommand{\petitozerodp}[2]{\underset{\substack{#1 \rightarrow 0\\#1> 0}}{\text{o}}%
+  \p{#2}}
+\newcommand{\petitov}[4]{\underset{\substack{#1 \rightarrow #3\\#1 #2 #3}}{\text{o}}%
+  \left(#4\right)}
+\newcommand{\petitoinfty}[2]{\underset{#1 \rightarrow +\infty}{\text{o}}\left(#2\right)}
+
+%\newcommand{\grandtheta}[3]{\underset{#1 \rightarrow #2}{\Theta\left(#3\right)}
+
+\newcommand{\grando}[3]{\underset{#1 \rightarrow #2}{\text{O}}\left(#3\right)}
+\newcommand{\grandop}[3]{\underset{\substack{#1 \rightarrow #2\\#1\neq #2}}{\text{O}}%
+  \p{#3}}
+\newcommand{\grandog}[3]{\underset{\substack{#1 \rightarrow #2\\#1\leq #2}}{\text{O}}%
+  \p{#3}}
+\newcommand{\grandod}[3]{\underset{\substack{#1 \rightarrow #2\\#1\geq #2}}{\text{O}}%
+  \p{#3}}
+\newcommand{\grandogp}[3]{\underset{\substack{#1 \rightarrow #2\\#1< #2}}{\text{O}}%
+  \p{#3}}
+\newcommand{\grandodp}[3]{\underset{\substack{#1 \rightarrow #2\\#1> #2}}{\text{O}}%
+  \p{#3}}
+\newcommand{\grandozero}[2]{\underset{#1 \rightarrow 0}{\text{O}}\left(#2\right)}
+\newcommand{\grandozerop}[2]{\underset{\substack{#1 \rightarrow 0\\#1\neq 0}}{\text{O}}%
+  \p{#2}}
+\newcommand{\grandozerog}[2]{\underset{\substack{#1 \rightarrow 0\\#1\leq 0}}{\text{O}}%
+  \p{#2}}
+\newcommand{\grandozerod}[2]{\underset{\substack{#1 \rightarrow 0\\#1\geq 0}}{\text{O}}%
+  \p{#2}}
+\newcommand{\grandozerogp}[2]{\underset{\substack{#1 \rightarrow 0\\#1< 0}}{\text{O}}%
+  \p{#2}}
+\newcommand{\grandozerodp}[2]{\underset{\substack{#1 \rightarrow 0\\#1> 0}}{\text{O}}%
+  \p{#2}}
+
+\newcommand{\equi}[2]{\underset{#1\rightarrow #2}{\sim}}
+\newcommand{\equip}[2]{\underset{\substack{#1\rightarrow #2\\#1\neq #2}}{\sim}}
+\newcommand{\equid}[2]{\underset{\substack{#1\rightarrow #2\\#1\geq #2}}{\sim}}
+\newcommand{\equig}[2]{\underset{\substack{#1\rightarrow #2\\#1\leq #2}}{\sim}}
+\newcommand{\equidp}[2]{\underset{\substack{#1\rightarrow #2\\#1>#2}}{\sim}}
+\newcommand{\equigp}[2]{\underset{\substack{#1\rightarrow #2\\#1<#2}}{\sim}}
+
+%% Suites
+\newcommand{\suite}[1]{\p{#1}_{n\in\N}}
+\newcommand{\equiS}{\underset{n\rightarrow+\infty}{\sim}}
+
+%% Dérivation
+\newcommand{\derd}[2]{\frac{\text{d}#1}{\text{d}#2}}
+\newcommand{\classed}[1]{\mathcal{D}^{#1}}
+\newcommand{\classec}[1]{\mathcal{C}^{#1}}
+\newcommand{\classecinf}{\classec{\infty}}
+\newcommand{\fracd}[2]{\frac{{\rm d}#1}{{\rm d}#2}}
+
+%% Intégration, primitives
+\newcommand{\integ}[4]{\int_{#1}^{#2} #3\,\text{d}#4}
+\newcommand{\integinv}[4]{\int_{#1}^{#2} \frac{\text{d}#4}{#3}}
+\newcommand{\integppdi}[5]{\int_{#1}^{#2} \underbrace{#3}_{\text{d\'erive}}
+                           \overbrace{#4}^{\text{int\`egre}}\,\text{d}#5}
+\newcommand{\integppid}[5]{\int_{#1}^{#2} \overbrace{#3}^{\text{int\`egre}}
+                           \underbrace{#4}_{\text{d\'erive}}\,\text{d}#5}
+\newcommand{\evaldiff}[3]{\left[ #1 \right]_{#2}^{#3}}
+\newcommand{\prim}[2]{\integ{}{}{#1}{#2}}
+\newcommand{\priminv}[2]{\integinv{}{}{#1}{#2}}
+\newcommand{\primppdi}[3]{\integppdi{}{}{#1}{#2}{#3}}
+\newcommand{\primppid}[3]{\integppid{}{}{#1}{#2}{#3}}
+
+%% Fonctions de plusieurs variables
+\newcommand{\parfrac}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\integd}[4]{\int\!\!\!\!\int_{#1} #2\,\text{d}#3\text{d}#4}
+\newcommand{\integdinv}[4]{\int\!\!\!\!\int_{#1}
+   \frac{\text{d}#3\text{d}#4}{#2}}
+
+%% Topologie
+\def\build#1_#2^#3{\mathrel{\mathop{\kern0pt#1}\limits_{#2}^{#3}}}
+\newcommand{\rond}[1]{\build#1_{}^{\>\circ}}
+\newcommand{\interieur}[1]{\build#1_{}^{\>\circ}}
+\newcommand{\dis}[2]{{\rm d}\!\p{#1,#2}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                             %
+%                                                                             %
+%                                   Autres                                    %
+%                                                                             %
+%                                                                             %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\og{\leavevmode\raise.3ex\hbox{$\sst\langle\!\langle$}}
+\def\fg{\leavevmode\raise.3ex\hbox{$\sst\,\rangle\!\rangle$}}
+\newcommand{\cc}{\mathcal{C}}
+\newcommand{\cd}{\mathcal{D}}
+\newcommand{\ce}{\mathcal{E}}
+\newcommand{\cf}{\mathcal{F}}
+\newcommand{\cg}{\mathcal{G}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                             %
+%                                                                             %
+%                                  Probabilités                               %
+%                                                                             %
+%                                                                             %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\comp}[1]{\overline{#1}}
+\newcommand{\pr}[1]{\ifthenelse{\equal{#1}{}}{\mathbf{P}}{\mathbf{P}\p{#1}}}
+\newcommand{\indep}{\perp \!\!\! \perp}
+\newcommand{\prcro}[1]{\mathbf{P}\cro{#1}}
+\newcommand{\prc}[2]{\mathbf{P}\p{#1|#2}}
+\newcommand{\prcp}[2]{\ifthenelse{\equal{#1}{}}{\mathbf{P}_{#2}}{\mathbf{P}_{#2}\p{#1}}}
+\newcommand{\prob}{\mathbb{P}}
+% \newcommand{\Proba}[1]{\mathbb{P}\p{#1}}
+% \newcommand{\Probac}[2]{\mathbb{P}_{#2}\p{#1}}
+\newcommand{\Esp}[1]{\mathbb{E}\p{#1}}
+\newcommand{\Var}[1]{\mathbb{V}\p{#1}}
+\newcommand{\Etype}[1]{\sigma\p{#1}}
+%\newcommand{\cov}[2]{\mathrm{Cov}\p{#1,#2}}
+\newcommand{\cor}[2]{\rho\p{#1,#2}}
+
+
+\newcommand{\esp}[1]{\mathbb{E} \left( #1 \right)}   %espérance
+\newcommand{\var}[1]{\mathbb{V} \left( #1 \right)}   %variance
+\newcommand{\ect}[1]{\sigma \left( #1 \right)}   %ecart-type
+\newcommand{\cov}[1]{{\rm Cov} \left( #1 \right)}   %covariance
+
+\newcommand{\norm}[1]{\left\| #1 \right\|}      %norme
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                             %
+%                                                                             %
+%                                  Informatique                               %
+%                                                                             %
+%                                                                             %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\matlab}{Matlab\xspace}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                             %
+%                                                                             %
+%                                  Walter Appel                               %
+%                                                                             %
+%                                                                             %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \Esp \waEsp
+% \Var \waVar
+% \petito \wapetito
+% \mat \wamat
+% \tendvers \watendvers
+% \newenvironment{exo}{\section{Exercice}}{}
+%\newenvironment{ListeMaths}{\begin{itemize}}{\end{itemize}}
+% \newif\if@MORE
+% \def\ListeM@thStyle#1{\textbf{\textit{#1)}}}
+% \def\ListeM@thItemStyle#1{\roman{#1}}
+% \newenvironment{ListeMaths}{%
+% 	\renewcommand{\theenumi}{\ListeM@thItemStyle{enumi}}%
+% 	\renewcommand{\labelenumi}{\qquad\ListeM@thStyle{{\theenumi}}}%
+% 	\renewcommand{\theenumii}{\alph{enumii}}%
+% 	\renewcommand{\labelenumii}{\quad\ListeM@thStyle{\theenumii}}%
+% 	\renewcommand{\labelenumiii}{\ListeM@thStyle{\theenumiii}}%
+% 	\renewcommand{\p@enumii}{}\begin{enumerate}}{\end{enumerate}}
+%   %\renewcommand{\labelenumi}{\qquad\ListeM@thStyle{{\theenumi}}}
+%   %\renewcommand{\theenumii}{\alph{enumii}}
+%   %\renewcommand{\labelenumii}{\quad\ListeM@thStyle{\theenumii}}
+%   %\renewcommand{\labelenumiii}{\ListeM@thStyle{\theenumiii}}
+%   %\renewcommand{\p@enumii}{}
+% %}
+
+% \newcommand{\eps}{\varepsilon}
+%\newcommand{\dfrac}[2]{\frac{\partial #1}{\partial #2}}
+
+
+% \DeclareMathOperator*{\mypetito}{o}
+% \DeclareMathOperator*{\mygrando}{O}
+% \newcommand{\wapetito}[1][]{\ifthenelse{\equal{#1}{}}{\mypetito\limits}
+%   {{\mypetito\limits_{#1}}}}
+% \DeclareMathOperator{\Sym}{Sym}
+% \DeclareMathOperator*{\mySim}{\sim}
+% \newcommand{\Sim}{\mySim\limits}
+% \newcommand{\dsum}{\ensuremath{\sum\limits}}
+% \DeclareMathOperator{\Id}{Id}
+% \newcommand{\mathgras}[1]{\ensuremath{%
+%         {\text{\mathversion{bold}\ensuremath{#1}}}%
+%         }}
+% \newcommand{\textegras}[1]{\textbf{#1}}%
+% %\newcommand{\textegras}[1]{\grastrue\textbf{\mathversion{bold}#1}\grasfalse}%
+% \newcommand{\gras}{\grastrue\bfseries\mathversion{bold}}%
+% \newcommand{\nongras}{\grasfalse\mathversion{normal}\normalfont}
+% \newcommand{\suitepaire}[2][n]{({#2}_{2#1})_{#1\in\N}}
+% \newcommand{\suiteimpaire}[2][n]{({#2}_{2#1+1})_{#1\in\N}}
+% \newcommand{\suiteabs}[2][n]{\bpar{\abs{{#2}_{#1}}}_{#1\in\N}}
+% \newcommand{\suitez}[2][n]{({#2}_{#1})_{#1\in\Z}}
+% \newcommand{\suiteZ}[2][n]{({#2}_{#1})_{#1\in\Z}}
+% \newcommand{\Suite}[1]{({#1}_{n})_{n\in{\N^*}}}
+% \newcommand{\ssuite}[2][\phi]{({#2}_{#1(n)})_{n\in\N}}
+
+
+
+% \newlength{\restsubwidth}
+% \newlength{\restsubheight}
+% \newlength{\restsubmoreheight}
+% \setlength{\restsubmoreheight}{4 pt}
+% \newcommand{\rest}[2]{%
+%         \settowidth{\restsubwidth}{\ensuremath{{}_{#2}}}
+%         \settoheight{\restsubheight}{\ensuremath{{}_{#2}}}
+%         \addtolength{\restsubheight}{\restsubmoreheight}
+%         \ensuremath{{#1\hskip 0.5 pt}_{\vrule\kern2pt\parbox[b][%
+%         \the\restsubheight][b]{\the\restsubwidth}{%
+%                         \ensuremath{{}_{#2}}}}}
+%         }
+
+
+% \newcommand{\f}[2]{{\ensuremath{\mathchoice%
+%         {\dfrac{#1}{#2}}
+%         {\dfrac{#1}{#2}}
+%         {\frac{#1}{#2}}
+%         {\frac{#1}{#2}}
+%         }}}
+
+% %\newcommand{\pa}[1]{\ensuremath{\left(#1\right)}}
+% \newcommand{\pa}[2][9]{%
+%         \ifthenelse{#1 = 0}
+%                 {\ensuremath{#2}}{}%
+%         \ifthenelse{#1 = 1}
+%                 {\ensuremath{(#2)}}{}%
+%         \ifthenelse{#1 = 2}
+%                 {\ensuremath{\big(#2\big)}}{}%
+%         \ifthenelse{#1 = 3}
+%                 {\ensuremath{\Big(#2\Big)}}{}%
+%         \ifthenelse{#1 = 4}
+%                 {\ensuremath{\bigg(#2\bigg)}}{}%
+%         \ifthenelse{#1 = 5}
+%                 {\ensuremath{\Bigg(#2\Bigg)}}{}%
+%         \ifthenelse{#1 = 9}
+%                 {\ensuremath{\left(#2\right)}}{}%
+% }
+
+
+
+% \newcommand{\paf}[2]{\ensuremath{\left(\f{#1}{#2}\right)}}
+% \newcommand{\absf}[2]{\ensuremath{\left|\f{#1}{#2}\right|}}
+% \newcommand{\bpar}[1]{\ensuremath{%
+%     \mathchoice%
+%     {\big(#1\big)}
+%     {\big(#1\big)}
+%     {{\textstyle(}#1{\textstyle)}}
+%     {{\textstyle(}#1{\textstyle)}}
+% }}
+% \newcommand{\Bpar}[1]{\ensuremath{%
+%     \mathchoice%
+%     {\Big(#1\Big)}
+%     {\Big(#1\Big)}
+%     {{\textstyle(}#1{\textstyle)}}
+%     {{\textstyle(}#1{\textstyle)}}
+% }}
+% \newcommand{\bbpar}[1]{\ensuremath{%
+%     \mathchoice%
+%     {\bigg(#1\bigg)}
+%     {\bigg(#1\bigg)}
+%     {{\textstyle(}#1{\textstyle)}}
+%     {{\textstyle(}#1{\textstyle)}}
+% }}
+
+
+% % On peut aussi vouloir des crochets de la bonne taille plutôt que des 
+% % parenthèses (analogue de \pa: mêmes recommandations).
+% % Exemple: $\crochets{ \f{1}{2} x \ln x }$
+% %\newcommand{\crochets}[1]{\ensuremath{\left[#1\right]}}
+% \newcommand{\crochets}[2][9]{%
+%         \ifthenelse{#1 = 0}
+%                 {\ensuremath{#2}}{}%
+%         \ifthenelse{#1 = 1}
+%                 {\ensuremath{[#2]}}{}%
+%         \ifthenelse{#1 = 2}
+%                 {\ensuremath{\big[#2\big]}}{}%
+%         \ifthenelse{#1 = 3}
+%                 {\ensuremath{\Big[#2\Big]}}{}%
+%         \ifthenelse{#1 = 4}
+%                 {\ensuremath{\bigg[#2\bigg]}}{}%
+%         \ifthenelse{#1 = 5}
+%                 {\ensuremath{\Bigg[#2\Bigg]}}{}%
+%         \ifthenelse{#1 = 9}
+%                 {\ensuremath{\left[#2\right]}}{}%
+% }
+% %\newcommand{\pac}[1]{\ensuremath{\crochets{#1}}}                % Synonyme
+% \let\pac\crochets
+% \newcommand{\bpac}[1]{\ensuremath{\big[{#1}\big]}}
+% \newcommand{\Bpac}[1]{\ensuremath{\Big[{#1}\Big]}}
+
+% % Ou pourquoi pas des accolades (analogue de \pa: mêmes recommandations).
+% \newcommand{\accolades}[2][9]{%
+%         \ifthenelse{#1 = 0}
+%                 {\ensuremath{#2}}{}%
+%         \ifthenelse{#1 = 1}
+%                 {\ensuremath{\{#2\}}}{}%
+%         \ifthenelse{#1 = 2}
+%                 {\ensuremath{\big\{#2\big\}}}{}%
+%         \ifthenelse{#1 = 3}
+%                 {\ensuremath{\Big\{#2\Big\}}}{}%
+%         \ifthenelse{#1 = 4}
+%                 {\ensuremath{\bigg\{#2\bigg\}}}{}%
+%         \ifthenelse{#1 = 5}
+%                 {\ensuremath{\Bigg\{#2\Bigg\}}}{}%
+%         \ifthenelse{#1 = 9}
+%                 {\ensuremath{\left\{#2\right\}}}{}%
+% }
+% \newcommand{\paa}[2][9]{\ensuremath{\accolades[#1]{#2}}}                % Synonyme
+% %\newcommand{\accolades}[1]{\ensuremath{\left\{#1\right\}}}
+% \newcommand{\bpaa}[1]{\ensuremath{\big\{{#1}\big\}}}
+% \newcommand{\Bpaa}[1]{\ensuremath{\Big\{{#1}\Big\}}}
+% %\newcommand{\paa}[1]{\ensuremath{\accolades{#1}}}               % Synonyme
+
+
+% \newcommand{\Int}[2]{\ensuremath{\mathchoice%
+%         {\displaystyle\int_{#1}^{#2}}
+%         {\displaystyle\int_{#1}^{#2}}
+%         {\int_{#1}^{#2}}
+%         {\int_{#1}^{#2}}
+%         }}
+% \newcommand{\Sum}[2]{\ensuremath{\sum\limits}_{#1}^{#2}}
+% % \newcommand{\dsum}{\ensuremath{\sum\limits}}
+% \newcommand{\dlim}{\ensuremath{\lim\limits}}
+% \newcommand{\dint}{\ensuremath{\displaystyle\int}}
+% %%% Pour les intervalles.
+% \newcommand{\MonSeparateur}{\,;\,}
+
+% \makeatletter
+% \newcommand{\d@wn}[1]{\ifthenelse{\equal{#1}{}}{-\infty}{#1}}
+% \newcommand{\@pper}[1]{\ifthenelse{\equal{#1}{}}{+\infty}{#1}}
+% \newcommand*{\intff}{\@ifstar\@integerintff\@realintff}
+% \newcommand*{\@integerintff}[2]{%
+%   \intn{#1}{#2}}%\ensuremath{[\![\d@wn{#1}\MonSeparateur\@pper{#2}]\!]}}
+% \newcommand*{\@realintff}[2]{%
+%   \ensuremath{\left[\,\d@wn{#1}\MonSeparateur\@pper{#2}\,\right]}}
+%         % Intervalle fermé à gauche et à droite.
+%         % Exemple : la fonction sinus est une bijection de
+%         % $\intff{0}{\f{\pi}{2}}$ sur $\intff{0}{1}$\,. La forme étoilée
+%         % donne un intervalle d'entiers, la forme non étoilée un intervalle
+%         % de réels.
+% \newcommand{\intoo}[2]{%
+%   \ensuremath{\left]\,\d@wn{#1}\MonSeparateur\@pper{#2}\,\right[}}
+%         % Intervalle ouvert à gauche et à droite.
+%         % Exemple : La fonction $x \mapsto \f{1}{x}$ est décroissante sur 
+%         % $\intoo{\minf}{0}$ et sur $\intoo{0}{\pinf}$\,, mais pas sur leur
+%         % réunion.
+% \newcommand{\intof}[2]{%
+%   \ensuremath{\left]\,\d@wn{#1}\MonSeparateur\@pper{#2}\,\right]}}
+%         % Intervalle ouvert à gauche et fermé à droite.
+% \newcommand*{\intfo}{\@ifstar\@integerintfo\@realintfo}
+% \newcommand*{\@integerintfo}[2]{%
+%   \ensuremath{[\![\d@wn{#1}\MonSeparateur\@pper{#2}[\![}}
+% \newcommand*{\@realintfo}[2]{%
+%   \ensuremath{\left[\,\d@wn{#1}\MonSeparateur\@pper{#2}\,\right[}}
+%         % Intervalle fermé à gauche et ouvert à droite.
+
+% \newcommand{\intn}[2]{%
+%   \ensuremath{%
+%     \left[\!\left[\,#1\MonSeparateur\,#2\,\right]\!\right]}}
+
+% \newlength{\haut}
+% \renewcommand{\intn}[2]{\ensuremath{
+%     \settowidth{\haut}{$\left[\makebox[0mm][c]{$#1#2$}\right.$}   %Pour calculer la
+%     \left[\hspace{-.5\haut}\left[#1\MonSeparateur#2\right]%
+%       \hspace{-0.5\haut}\right]}}%
+% \makeatother
+% % :%s/\\petito/\\wapetito/gc
+
+
+
+% %--------------------------- Les \centers ----------------------------
+
+% \newcounter{vcenterstest}
+% \newlength{\leftlength}
+% \newlength{\rightlength}
+% \newlength{\vcentersskip}
+% \newlength{\vcentersskipbelow}
+% \newcommand{\leftcentersright}[4][1]{%
+%         \settowidth{\leftlength}{#2}%
+%         \settowidth{\rightlength}{#4}%
+%         \setcounter{vcenterstest}{#1}%
+%         \ifthenelse{\value{vcenterstest} < 0}%
+%                 {\setlength{\vcentersskip}{-\medskipamount}}{}%
+%         \ifthenelse{\value{vcenterstest} = 0}%
+%                 {\setlength{\vcentersskip}{0pt}}{}%
+%         \ifthenelse{\value{vcenterstest} = 1}%
+%                 {\setlength{\vcentersskip}{\smallskipamount}}{}%
+%         \ifthenelse{\value{vcenterstest} = 2}%
+%                 {\setlength{\vcentersskip}{\medskipamount}}{}%
+%         \ifthenelse{\value{vcenterstest} = 3}%
+%                 {\setlength{\vcentersskip}{\bigskipamount}}{}%
+%         \ifthenelse{\value{vcenterstest} = 4}%
+%                 {\setlength{\vcentersskip}{1cm}}{}%
+%                 % On laisse un espace vertical défini par l'argument
+%                 % optionnel #1
+%         \vskip\vcentersskip%
+%                 % On place #2 et on recule de sa longueur
+%         \noindent#2\hskip-\leftlength%%
+%                 % On centre #3
+%         \hfill#3\hfill%
+%                 % On va au bout de la ligne, on recule de la longueur de #4 et
+%                 % on place #4
+%         \mbox{}\hskip-\rightlength#4%
+%                 % On laisse un espace vertical défini par l'argument
+%                 % optionnel #1
+%         \ifthenelse{\value{vcenterstest}>0}%
+%         {\vskip\vcentersskip}{\vskip\smallskipamount}\noindent%
+%         \ignorespaces}
+                
+% % Mettre un commentaire à gauche et centrer le deuxième argument obligatoire
+% % Exemple : \leftcenters{par suite}{$x_0 = 7$}
+% \newcommand{\leftcenters}[3][2]{\leftcentersright[#1]{#2}{#3}{}}
+% \newcommand{\noleftcenters}[3][2]{#2\leftcentersright[#1]{}{#3}{}}
+
+% % Pour la compatibilité ascendante. N'en tenez pas compte.
+% \newcommand{\remandcenters}[3][2]{\leftcentersright[#1]{#2}{#3}{}}
+                
+% % Centrer et mettre à droite le deuxième argument obligatoire
+% % Exemple : \centersright{$x_0 = 7$}{\deux}.
+% \newcommand{\centersright}[3][2]{\leftcentersright[#1]{}{#2}{#3}}
+                
+% % Centrer seulement
+% % Exemple : \centers{Coucou !}
+% \newcommand{\centers}[2][2]{\leftcentersright[#1]{}{#2}{}}
+
+% % Un autre nom pour la même chose
+% \newcommand{\centrer}[2][2]{\leftcentersright[#1]{}{#2}{}}
+
+% \newcommand{\leftencadre}[3][2]{\leftcentersright[#1]{#2}{\fbox{#3}}{}}
+% \newcommand{\noleftencadre}[3][2]{#2\leftcentersright[#1]{}{\fbox{#3}}{}}
+% \newcommand{\encadreright}[3][2]{\leftcentersright[#1]{}{\fbox{#2}}{#3}}
+% \newcommand{\encadre}[2][2]{\leftcentersright[#1]{}{\fbox{#2}}{}}
+% \newcommand{\leftencadreright}[4][2]{\leftcentersright[#1]{#2}{\fbox{#3}}{#4}}
+% \newcommand{\tencadre}[2][2]{{\fbox{#2}}}
+
+
+% \newcommand{\donccenters}[1]{\leftcenters{donc}{#1}}
+% \newcommand{\doucenters}[1]{\leftcenters{d'où}{#1}}
+% \newcommand{\carcenters}[1]{\leftcenters{car}{#1}}
+% \newcommand{\cadcenters}[1]{\leftcenters{c'est-à-dire}{#1}}
+% \newcommand{\puiscenters}[1]{\leftcenters{puis}{#1}}
+% \newcommand{\ainsicenters}[1]{\leftcenters{Ainsi,}{#1}}
+% \newcommand{\depluscenters}[1]{\leftcenters{De plus,}{#1}}
+% \newcommand{\aveccenters}[1]{\leftcenters{avec}{#1}}
+% \newcommand{\soitcenters}[1]{\leftcenters{soit}{#1}}
+% \newcommand{\alorscenters}[1]{\leftcenters{alors}{#1}}
+% \newcommand{\Alorscenters}[1]{\leftcenters{Alors}{#1}}
+% \newcommand{\maiscenters}[1]{\leftcenters{mais}{#1}}
+% \newcommand{\commecenters}[1]{\leftcenters{Comme}{#1}}
+% \newcommand{\ailleurscenters}[1]{\leftcenters{Par ailleurs,}{#1}}
+% \newcommand{\orcenters}[1]{\leftcenters{Or}{#1}}
+% \newcommand{\etcenters}[1]{\leftcenters{et}{#1}}
+% \newcommand{\deduitcenters}[1]{\leftcenters{On en déduit}{#1}}
+% \newcommand{\parsuitecenters}[1]{\leftcenters{Par suite,}{#1}}
+% \newcommand{\parcsqcenters}[1]{\leftcenters{Par conséquent,}{#1}}
+% \newcommand{\ilvientcenters}[1]{\leftcenters{Il vient}{#1}}
+% \newcommand{\conclusioncenters}[1]{\leftcenters{Conclusion :}{#1}}
+% \newcommand{\finalementcenters}[1]{\leftcenters{Finalement :}{#1}}
+
+%                                 % Une équation avec un nom
+%                                 % \encadrenom{$\laplacien\phi=0$}
+%                                 % {équation de Poisson}
+% \newcommand{\encadrenom}[2]{\encadreright{#1}{\textbf{\textup{(#2)}}}}
+% \newcommand{\centersnom}[2]{\centersright{#1}{\textbf{\textup{(#2)}}}}
+
+%                                 % Les versions numerotées : attention à
+%                                 % l'ordre 
+% %% Exemple :
+% %% \nomcentersnum[$*$]{$\laplacien\phi=0$}{équation de Poisson}
+% \newcommand{\nomcentersnum}[3][7]{%
+%   \refstepcounter{equation}%
+%   \leftcentersright{\textbf{\textup{(#3)}}}%
+%   {#2}{(\theequation)}%
+%   \ifthenelse{\equal{#1}{7}}{}{\tag{#1}}}
+% \newcommand{\centersnum}[1]{%
+%   \refstepcounter{equation}%
+%   \centersright{#1}{(\theequation)}}%
+  
+
+% \newcommand{\encadrenum}[1]{%
+%   \refstepcounter{equation}\encadreright{#1}{(\theequation)}}
+% \newcommand{\leftencadrenum}[3][7]{%
+%   \refstepcounter{equation}%
+%   \leftencadreright{#2}{#3}{(\theequation)}%
+%   \ifthenelse{\equal{#1}{7}}{}{\tag{#1}}}
+% \newcommand{\leftcentersnum}[3][7]{%
+%   \refstepcounter{equation}%
+%   \leftcentersright{#2}{#3}{(\theequation)}%
+%   \ifthenelse{\equal{#1}{7}}{}{\tag{#1}}}
+
+
+% %%%%% J'en ai marre de mettre des _{\text{blah}} partout.
+% % Très pratique en physique et en chimie, où il y a beaucoup d'indices.
+% % Par exemple : $T\stext{liquéfaction} = 0 °C$. 
+% \newcommand{\stext}[1]{\ensuremath{{}_{\text{#1}}}}
+
+% %%%%% Tant qu'on y est, ras-le-bol d'utiliser des touches compliquées:
+% \newcommand{\moinsun}{\ensuremath{{}^{-1}}}
+% \newcommand{\moinsdeux}{\ensuremath{{}^{-2}}}
+% \newcommand{\moinstrois}{\ensuremath{{}^{-3}}}
+
+% %%DefBCPST.tex
+
+% \newcommand{\MySmallCaps}[1]{\begingroup\fontfamily{cmr}\fontseries{m}
+% \fontshape{sc}\selectfont#1\endgroup}
+
+
+% % \newcommand{\cfexo}[1]{\textbf{\emph{Cf. exercice~\vref{#1}.}}}
+% % \newcommand{\cfexos}[1]{\textbf{\emph{Cf. exercices~#1}.}}
+% \newcommand{\dejavu}[2]{\textbf{\emph{Déjà donné en~\elz{#1},
+%       exercice~\vref{#2}}}} 
+
+% % \newcommand{\Defi}{\medskip\centerline{--- \fbox{\textbf{Et le défi du
+% %         jour}} ---}}
+% \newcommand{\Defi}{}
+% \newenvironment{HP}{\DUR}{\FACILE}
+
+
+% \newcommand{\newcolumn}{\vfil\vskip300cm}
+% % \newcommand{\fondnoir}[1]{\psframebox[fillstyle=solid,fillcolor=black,linecolor=white,linewidth=0mm]{\white#1}}
+
+% % \newcommand{\fondgris}[1]{\psframebox[fillstyle=solid,fillcolor=lightgray,linecolor=white,linewidth=0mm]{#1}}
+% % \newcommand{\fondgrad}[1]{\psframebox[fillstyle=gradient,gradbegin=lightgray,gradend=darkgray,linecolor=white,linewidth=0mm]{{\white#1}}}
+
+
+% % Pour les exos de Maple/Matlab/Scilab
+% \providecommand{\Maple}{\textsf{Maple}\xspace}
+% \newcommand{\MAPLE}{\index{Maple@\texttt{Maple}}(Avec \textsf{Maple})\par}
+% \providecommand{\maplegras}[1]{%
+%   \begingroup\fontfamily{pcr}\fontseries{b}\selectfont#1\endgroup}
+% \providecommand{\Matlab}{\textsf{Matlab}\xspace}
+% \newcommand{\MATLAB}{\index{Matlab@\texttt{Matlab}}(Avec \textsf{Matlab})\par}
+% \providecommand{\Scilab}{\textsf{Scilab}\xspace}
+% \providecommand{\SciPad}{\textsf{SciPad}\xspace}
+% \newcommand{\SCILAB}{\index{Scilab@\texttt{Scilab}}(Avec \textsf{Scilab})\par}
+
+% % Pour mettre les repères temporels
+% \newcommand{\Repere}[2]{}
+
+% \newcommand{\REPERE}[1]{}
+
+% \providecommand{\VoF}{\noindent\qquad$\square$ \texttt{Vrai}\qquad $\square$
+%                         \texttt{Faux}\par}
+
+
+% \newcommand{\asterix}{ \medskip\par \begingroup\centering\Huge\ding{167}
+%         \\*[6mm]\endgroup}
+
+% %\newcommand{\diff}[1]{($#1$)\ }
+% \newcommand{\diff}[1]{(\ifthenelse{\equal{#1}{\circ}}{$\star$}{%
+%     \ifthenelse{\equal{#1}{*}}{$\star$}{%
+%       \ifthenelse{\equal{#1}{**}}{$\star\,\star$}{%
+%         \ifthenelse{\equal{#1}{****}}{$\star\!\star\!\star\!\star$}{%
+%           \ifthenelse{\equal{#1}{***}}{$\star\!\star\!\star$}%
+%           {\textbf{???}}}}}})%
+%   \xspace}
+
+% \newcommand{\ex}{\mathrm{e}}
+% \newcommand{\defeg}{\stackrel{\scriptscriptstyle\textrm{\textup{d\'ef.}}}{=}}
+%                                 % Si jamais je veux finalement mettre une
+%                                 % fraction « en ligne » 
+% \newcommand{\nofrac}[2]{{#1}/{#2}}
+%                                 % si le premier argument exige des
+%                                 % parenthèses 
+% \newcommand{\pnofrac}[2]{{(#1)}/{#2}}
+%                                 % et si le deuxième argument exige des
+%                                 % parenthèses... 
+% \newcommand{\nofracp}[2]{{#1}/{(#2)}}
+%                                 % et enfin si le tout requière ces
+%                                 % parenthèses... 
+% \newcommand{\nopfrac}[2]{\pa{#1/#2}}
+
+% \newcommand{\explique}[1]{\tag*{\makebox[0mm][r]{#1}\ }}
+% %%% Plus et moins l'infini.
+% \newcommand{\plus}{\mbox{\raisebox{.2mm}{\tiny{\ensuremath{+}}}}}
+% \newcommand{\moins}{\mbox{\raisebox{.2mm}{\tiny{\ensuremath{-}}}}}
+%         % \plus et \moins ne servent qu'en indice et dans \pinf et \minf,
+%         % pas dans les additions et soustractions normales.
+% \newcommand{\pinf}{+\infty}
+% \newcommand{\minf}{-\infty}
+% \def\qqavecqq{\qquad\text{avec}\qquad}
+% \def\et{\text{ et }}
+% \def\qetq{\quad\text{et}\quad}
+% \def\qqetqq{\qquad\text{et}\qquad}
+% \def\ou{\text{ ou }}
+% \def\qouq{\quad\text{ou}\quad}
+% \def\qqouqq{\qquad\text{ou}\qquad}
+% % \newcommand{\pa}[1]{\p{#1}}
+% \newcommand{\zb}{\bar{z}}
+% \newcommand{\dd}{\mathrm{d}}%\ifgras\boldmath{d}\else\mathrm{d}\fi}
+% %\newcommand{\dz}{\dd z}
+% \newcommand{\dx}{\dd x}
+% \newcommand{\du}{\dd u}
+% \newcommand{\dy}{\dd y}
+% %\newcommand{\dr}{\dd r}
+% \newcommand{\dzb}{\dd\hspace{.4pt}\zb} 
+% \newcommand{\ddz}{\dep{\phantom{z}}{z}}
+% \newcommand{\ddt}{\dep{\phantom{t}}{t}}
+% \newcommand{\ddx}{\dep{\phantom{x}}{x}}
+% \newcommand{\ddy}{\dep{\phantom{y}}{y}}
+% \newcommand{\ddzb}{\dep{\phantom{z}}{\,\zb}}
+% \newcommand{\dt}{\dd t}
+% \newcommand{\ds}{\dd s}
+% \newcommand{\DD}{\mathrm{D}}
+
+
+% %********** Macros dépendant de la présentation en 1/2 colonnes *******
+% \newcounter{NbList}
+% \setcounter{NbList}{1}
+% \newcommand{\NombreColonnes}{1}
+% %% Permet, au sein d'un exercice, de demander une présentation en plusieurs
+% %% colonnes (1,2,3...)
+% \newcommand{\NbLM}[2]{%
+%   \if\NombreColonnes1\setcounter{NbList}#1\else\setcounter{NbList}#2\fi}
+
+%                                 % Ensuite, on fait
+%                                 % \begin{ListeMaths}[\value{NbList}]
+
+
+
+%                                 % Si on est avec 2 colonnes, on veut faire
+%                                 % plus de sauts de lignes... 
+% \newcommand{\sautcond}[1][]{%
+%   \ifthenelse{\equal{\NombreColonnes}{1}}%
+%                                 % En une colonne, on ne fait rien 
+%   {#1}% 
+%                                 % En deux colonnes, on saute à la ligne
+%   {\notag\\}% 
+% }
+
+% \newcommand{\sautcondet}[1][]{%
+%   \ifthenelse{\equal{\NombreColonnes}{1}}%
+%                                 % En une colonne, on ne fait rien 
+%   {#1}% 
+%                                 % En deux colonnes, on saute à la ligne
+%   {\notag\\ & }% 
+% }
+
+% \newcommand{\etsautcond}{%
+%   \ifthenelse{\equal{\NombreColonnes}{1}}%
+%                                 % En une colonne, on fait un « & »
+%   {&}% 
+%                                 % En deux colonnes, on saute à la ligne
+%   {\notag\\}% 
+% }
+
+% \newcommand{\centerscond}[2][]{%
+%   \ifthenelse{\equal{\NombreColonnes}{1}}%
+%                                 %  En une colonne, on ne fait rien d'autre
+%                                 %  que l'argument [optionnel], par exemple
+%                                 %  un \quad.
+%   {#1#2}%
+%                                 %  En deux colonnes, on centre sur une
+%                                 %  ligne à part 
+%   {\centers{#2}}%
+% }
+
+%                                 % Fait une équation multine si deux
+%                                 % colonnes, et rien sinon.
+% \newcommand{\multcond}[3][]{%
+%   \ifthenelse{\equal{\NombreColonnes}{1}}%
+%                                 % En une colonne, tout d'affilée, avec
+%                                 % l'argument optionnel (un \quad ou un
+%                                 % \qquad en général) entre les deux
+%                                 % argument obligatoires.
+%   {\centers{#2#1#3}}%
+%                                 % En deux colonnes, plus subtil : on émule
+%                                 % un {multline} en serrant la première
+%                                 % ligne à gauche et la seconde ligne à
+%                                 % droite. 
+%   {\par\noindent\begin{minipage}{\linewidth}\leftcenters{\quad#2}{}\vspace*{-4mm}%
+%     \centersright{}{#3\quad\makebox[0mm]{}}\end{minipage}}%
+% }
+
+%                                 % Un ordre conditionnel à deux colonnes,
+%                                 % avec l'argument [optionnel] pour une
+%                                 % colonne. 
+% \newcommand{\cond}[2][]{%
+%   \ifthenelse{\equal{\NombreColonnes}{1}}%
+%                                 % En une colonne, on fait l'ordre 1
+%   {#1}% 
+%                                 % En deux colonnes, on fait l'ordre 2
+%   {#2}% 
+% }
+
+% \newcommand{\absurde}[1]{$\blacktriangleright$~\textegras{#1}}
+% \newcommand{\surdab}{~$\blacktriangleleft$}
+% \newcommand{\Arctan}{\arctan}
+% \newcommand{\Argth}{\argth}
+% \newcommand{\Arccos}{\arccos}
+
+% \DeclareMathOperator{\Card}{Card}
+% \newcommand{\tq}{\;;\;}
+% \newcommand{\donne}{\mathchoice{\longmapsto}{\mapsto}{\mapsto}{\mapsto}}
+% \newcommand{\numero}{}
+
+% \newcommand{\ProbasShape}[1]{\text{\fontshape{n}\fontseries{bx}\selectfont\sffamily #1}}
+% \newcommand{\Parties}{\mathcal{P}}
+% \newcommand{\Ps}{\ProbasShape{P}}
+% \renewcommand{\Pr}{\Ps}
+% \newcommand{\waEsp}{\ProbasShape{E}}
+% \newcommand{\Loi}{\hookrightarrow}
+% \DeclareMathOperator{\Cov}{\ProbasShape{Cov}}
+% \DeclareMathOperator{\waVar}{\ProbasShape{V}}%{Var}
+
+% \newcommand{\toprule}{\hline}
+% \newcommand{\midrule}{\hline}
+% \newcommand{\bottomrule}{\hline}
+% \newenvironment{waremarque}{}{}
+% \newenvironment{Systeme}{%
+%   \ensuremath{\left\{
+%       \begin{aligned}}}
+%       {\end{aligned}\right.}
+% \newcommand{\dans}{\mathchoice{\longrightarrow}{\rightarrow}{\rightarrow}{\rightarrow}} 
+% \newcommand{\dansC}{\dans\C}
+% \newcommand{\dansR}{\dans\R}
+% \newcommand{\nabs}[1]{\lvert #1 \rvert}
+% \newcommand{\babs}[1]{\big\lvert#1\big\rvert}
+% \newcommand{\Babs}[1]{\Big\lvert#1\Big\rvert}
+% \newcommand{\bbabs}[1]{\bigg\lvert#1\bigg\rvert}
+
+% \newcommand{\sujet}[1]{}%
+% \newcommand{\ecole}[1]{}%
+% \newcommand{\annee}[1]{}%
+% \newcommand{\taupin}[1]{}%
+% \newcommand{\filiere}[1]{}%
+% \newcommand{\cfexo}[1]{}%
+% \newcommand{\cfexos}[1]{}%
+
+% \newcommand{\pap}[1]{\cro{#1}}
+
+% \newcommand{\Comb}[3][f]{\ensuremath{%
+%     \ifthenelse{\equal{#1}{f}}% 
+%     {{C}_{#2}^{#3}}%               pour les français
+%     {\binom{#2}{#3}} % pour les anglais
+%     }}
+% \newcommand{\comb}[3][a]{\ensuremath{%
+%     \ifthenelse{\equal{#1}{a}}% 
+%     {\binom{#2}{#3}} % pour les anglais
+%     {{C}_{#2}^{#3}}%               pour les français
+%     }}
+
+% \newlength{\calculskip}
+% \newcommand{\calculvskip}[1]{% 
+%   \ifthenelse{#1 = 0}{\setlength{\calculskip}{0pt}}{}%
+%   \ifthenelse{#1 = 1}{\setlength{\calculskip}{\smallskipamount}}{}%
+%   \ifthenelse{#1 = 2}{\setlength{\calculskip}{\medskipamount}}{}%
+%   \ifthenelse{#1 = 3}{\setlength{\calculskip}{\bigskipamount}}{}%
+%   \ifthenelse{#1 = 4}{\setlength{\calculskip}{1cm}}{}%
+%   \vskip\calculskip
+% }
+
+% \newcommand{\methode}[1]{\par\bigskip
+%   \hfill{\textbf{%
+%       \ifthenelse{\equal{#1}{bourrin}}{Méthode bourrine}{%
+%         \ifthenelse{\equal{#1}{astuce}}{Méthode astucieuse}{%
+%           \ifthenelse{\equal{#1}{PC}}{Méthode PC}{%
+%             \ifthenelse{\equal{#1}{MP}}{Méthode MP}{%
+%               \ifcase#1 Autre \or Première \or Deuxième \or
+%               Troisième \or Autre \fi{} méthode}}}}}}\hfill\null\\*[1em]%
+%       \ignorespaces}
+
+% \newcommand{\sachant}{|}
+% \newcommand{\textdef}[1]{\textbf{#1}}
+
+% % Celui utilisé en pratique (admet en option le nombre de colonnes) et
+% % n'utilise que l'option (a)
+% \makeatletter
+% \newenvironment{Compare}[1][a]{%
+%   \ifthenelse{\equal{#1}{a}}
+%   {\renewcommand{\theenumi}{\textit{\alph{enumi}}}%
+%     \renewcommand{\labelenumi}{\qquad{\textbf{(\theenumi)}}}
+%     \renewcommand{\theenumii}{\textit{\alph{enumii}}}%
+%     \renewcommand{\labelenumii}{\qquad{\textbf{(\theenumii)}}}}
+%   {\ifthenelse{\equal{#1}{i}}
+%     {\renewcommand{\theenumi}{\textbf{\textit{\roman{enumi})}}}%
+%       \renewcommand{\labelenumi}{\qquad{\theenumi}}
+%     \renewcommand{\theenumii}{\textbf{\textit{\roman{enumii})}}}%
+%       \renewcommand{\labelenumii}{\qquad{\theenumii}}
+%   \renewcommand{\p@enumii}{}}}
+% {\renewcommand{\theenumi}{\textbf{\arabic{enumi}}}%
+%   \renewcommand{\labelenumi}{\qquad{(\theenumi)}}
+%   \renewcommand{\theenumii}{\textbf{\arabic{enumii}}}%
+%   \renewcommand{\labelenumii}{\qquad{(\theenumii)}}}
+% \begin{enumerate}}{\end{enumerate}}
+% \makeatother
+
+% \newenvironment{Equ}{%
+%   \begin{Compare}[a]}{\end{Compare}}
+% \newcounter{TestMulti}%
+% \newenvironment{CompareCol}[1][1]{
+%   \ifthenelse{\equal{#1}{1}}{\global\setcounter{TestMulti}{0}}
+%   {\global\setcounter{TestMulti}{1}\begin{multicols}{#1}}%
+%     \begin{Compare}[a]}
+%     {\end{Compare}
+%     \ifthenelse{\equal{\value{TestMulti}}{0}}{}{\end{multicols}}}
+% \newcommand{\Ssi}{si et seulement si\xspace}
+% \newcommand{\EQU}{il y a équivalence entre les énoncés~:}
+% \newenvironment{Equiv}[1][1]{\EQU\begin{CompareCol}[#1]}{\end{CompareCol}}
+% \newenvironment{EQUIV}[1][1]{Il y a équivalence entre les
+%   énoncés~:\begin{CompareCol}[#1]}{\end{CompareCol}}
+
+
+% \newcommand{\FonctionHK}[6][n]{%
+%   \ifthenelse{\equal{#1}{s}}%
+%   % Option «serré»
+%   {\ensuremath{#2\colon%
+%     \raisebox{.8ex}{\mbox{\begin{array}[t]{%|
+%                                              r@{\ }c@{\ }l}%
+%        \scriptstyle#3
+%       & \scriptstyle\longrightarrow & \scriptstyle#4 \\
+%       \scriptstyle #5 & \scriptstyle\longmapsto & \scriptstyle #6 \\
+%     \end{array}}}%
+%   }}
+%   % Option «normal»
+%   {\ensuremath{#2\colon%
+%     \begin{array}[t]{%|
+%                        r@{\ }c@{\ }l}%
+%        #3
+%       & \longrightarrow & #4 \\[2mm]
+%       #5 & \longmapsto & \displaystyle #6 \\
+%     \end{array}%
+%   }}%
+% }
+
+% \providecommand{\Fonction}[6][n]{
+%   \centers{$\FonctionHK[#1]{#2}{#3}{#4}{#5}{#6}$}
+% }
+
+%                                 % Fais une fonction « dans le texte ».
+% \providecommand{\fonction}[5]{%
+%   $\displaystyle #1:\,#2\longrightarrow#3,\quad#4\longmapsto#5$}
+% \newcommand{\Ker}{\ker}
+
+% \newcommand{\petitcarre}[1][]{\mbox{\Pisymbol{pzd}{111}\;%
+%   \ifthenelse{\equal{#1}{}}{}{\textegras{#1}}}}
+% \newcommand{\AC}{\mathcal{A}}
+% \newcommand{\BC}{\mathcal{B}}
+% \newcommand{\CC}{\mathcal{C}}
+% \newcommand{\EC}{\mathcal{E}}
+% \newcommand{\FC}{\mathcal{F}}
+% \newcommand{\UC}{\mathcal{U}}
+% \newcommand{\XC}{\mathcal{X}}
+% \newcommand{\can}{\text{\texttt{can}}}
+% \newcommand{\BCb}{\overline{\BC}}
+% \newcommand{\Boule}[3][]{\BC_{#1}\left(#2\,;\,#3\right)}
+% \newcommand{\BouleO}[3][]{\BC_{#1}(#2\,;\,#3)}
+% \newcommand{\BouleB}[3][]{\BCb_{#1}(#2\,;\,#3)}
+% \newcommand{\BouleF}[3][]{\BCb_{#1}(#2\,;\,#3)}
+
+
+% \DeclareMathOperator{\END}{\textsf{END}}
+% \DeclareMathOperator{\APPL}{\textsf{APPL}}
+% \DeclareMathOperator{\MAT}{\textsf{MAT}}
+
+% \newcommand{\base}[2][n]{(#2_1,\dots,#2_{#1})}
+% \newcommand{\based}[2][n]{(#2^{*}_1,\dots,#2^{*}_#1)}
+%                                 % Les bases polynomiales commencent souvent
+%                                 % à 0.
+% \newcommand{\basep}[2][n]{(#2_0,\dots,#2_{#1})}
+
+% \newcommand{\liste}[2][n]{#2_1,\dots,#2_{#1}}
+%                                 % Les bases polynomiales commencent souvent
+%                                 % à 0.
+% \newcommand{\listep}[2][n]{#2_0,\dots,#2_{#1}}
+
+
+% \newcommand{\gG}{\mathfrak{g}}
+% \newcommand{\TG}{\mathfrak{T}}
+% \newcommand{\POCA}[1]{\textsf{{PoCa}}(#1)}
+
+%                                 % Polynôme caractéristique d'une matrice
+%                                 % (majuscule) ! 
+% \newcommand{\Poca}[1]{\chi_{_{#1}}}
+%                                 % Polynôme caractéristique d'un
+%                                 % endomorphisme (minuscule)
+% \newcommand{\poca}[1]{\chi_{#1}}
+% \newcommand{\PoCa}[1]{\POCA{#1}}
+
+% \newenvironment{indic}{\par\hfill\begin{minipage}{.9\linewidth}%
+%     \small\medskip\noindent\textsc{{Indication : }}\itshape%
+%   }{%
+%   \end{minipage}%
+%   \medskip\normalfont\par}
+	
+% \newenvironment{lemme}{}{}
+% \newenvironment{demo}{}{}
+
+% \newcommand{\ii}{{\mathrm{i}}}
+% % 
+% % fonctions de classe C0, C1, C2, Cinfini
+% \newcommand{\classe}{\mathscr{C}}
+% \newcommand{\Cont}{\classe}
+% \newcommand{\Czero}{\classe^{0}}
+% \newcommand{\Cun}{\classe^{1}}
+% \newcommand{\Cdeux}{\classe^{2}}
+% \newcommand{\Ctrois}{\classe^{3}}
+% \newcommand{\Cinf}{\classe^{\infty}}
+% \newcommand{\Cn}{\classe^{n}}
+% \newcommand{\Ck}{\classe^{k}}
+
+% \newcommand{\EnonceColumnBreak}{}
+% \newcommand{\AQT}{}
+% \newcommand{\analyse}{Analyse}
+% \newcommand{\synthese}{Synthèse}
+% % 
+% % \DeclareMathOperator{\p@@rplus}{\stackrel{\perp}{\oplus}}
+% % \newcommand{\perplus}{\p@@rplus\limits}
+% % \DeclareMathOperator{\bigp@@rplus}{\stackrel{\perp}{\bigoplus}}
+% % \newcommand{\bigperplus}{\bigp@@rplus\limits} 
+% % 
+% \DeclareMathOperator{\Vect}{Vect}
+% \DeclareMathOperator{\Un}{\mathbf{1}}
+% \DeclareMathOperator{\Aut}{Aut}
+% \DeclareMathOperator{\antidiag}{antiDiag}
+% \DeclareMathOperator{\Antidiag}{AntiDiag}
+
+% \newenvironment{bulitemize}{\begin{itemize}}{\end{itemize}}
+
+% \newcommand{\LS}{\mathscr{L}}
+% \newcommand{\LE}{\LS(E)}
+
+% \newcommand{\LEF}{\LS(E,F)}
+% \newcommand{\Cab}{\ensuremath{\classe\bpar{\intff{a}{b}}}}
+% \newcommand{\CabR}{\ensuremath{\classe\bpar{\intff{a}{b},\R}}}
+% \newcommand{\CabC}{\ensuremath{\classe\bpar{\intff{a}{b},\C}}}
+% \newcommand{\CabK}{\ensuremath{\classe\bpar{\intff{a}{b},\K}}}
+% \newcommand{\Cmab}{\ensuremath{\classe_m\bpar{\intff{a}{b}}}}
+% \newcommand{\CmabC}{\ensuremath{\classe_m\bpar{\intff{a}{b},\C}}}
+% \newcommand{\CmabK}{\ensuremath{\classe_m\bpar{\intff{a}{b},\K}}}
+% \newcommand{\CmabE}{\ensuremath{\classe_m\bpar{\intff{a}{b},E}}}
+% \newcommand{\CabE}{\ensuremath{\classe\bpar{\intff{a}{b},E}}}
+% \newcommand{\Cmir}{\classe_m(I,\R)}
+% \newcommand{\Cmirp}{\classe_m(I,\R^+)}
+% \newcommand{\Cmik}{\classe_m(I,\K)}
+% \newcommand{\Cmic}{\classe_m(I,\C)}
+% \newcommand{\Cdp}{\classe_{[2\pi]}}
+% \newcommand{\Cmdp}{\classe^{\text{m}}_{[2\pi]}}
+% \newcommand{\Cpdp}{\classe'_{[2\pi]}}
+% \newcommand{\Pp}{{\cal P}}
+% \newcommand{\rV}{\vect{r}}
+% \newcommand{\pV}{\vect{p}}
+% \newcommand{\qV}{\vect{q}}
+% \newcommand{\kV}{\vect{k}}
+% \newcommand{\hV}{\vect{h}}
+% \newcommand{\AV}{\vect{A}}
+% \newcommand{\XV}{\vect{X}}
+% \newcommand{\xV}{\vect{x}}
+% \newcommand{\vV}{\vect{v}}
+% \newcommand{\aV}{\vect{a}}
+% \newcommand{\yV}{\vect{y}}
+% \newcommand{\zV}{\vect{z}}
+% \newcommand{\wV}{\vect{w}}
+% \newcommand{\uV}{\vect{u}}
+% \newcommand{\YV}{\vect{Y}}
+% %\newcommand{\yV}{\vect{y}}
+% \newcommand{\iV}{\vect{i}}
+% \newcommand{\jV}{\vect{j}}
+% \newcommand{\eV}{\vect{e}}
+% \newcommand{\PV}{\vect{P}}
+% \newcommand{\RV}{\vect{R}}
+% \newcommand{\eQ}{\qv{e}}
+% \newcommand{\uQ}{\qv{u}}
+% \newcommand{\vQ}{\qv{v}}
+% \newcommand{\jQ}{\qv{j}}
+% \newcommand{\XQ}{\qv{X}}
+% \newcommand{\AQ}{\qv{A}}
+% \newcommand{\xQ}{\qv{x}}
+% \newcommand{\omegaQ}{\vect{\omega}}
+% \newcommand{\sigmaQ}{\vect{\sigma}}
+% \newcommand{\alphaQ}{\vect{\alpha}}
+% \newcommand{\betaQ}{\vect{\beta}}
+% \newcommand{\ASV}{\pmb{\mathscr{A}}}
+% \newcommand{\WS}{\mathscr{W}}
+% \providecommand{\sub}[1]{_{\text{#1}}}
+% \providecommand{\super}[1]{^{\text{#1}}}
+% \providecommand{\subR}{_{\text{\textsc{(r)}}}}
+% \providecommand{\subI}{_{\text{\textsc{(i)}}}}
+% \newcommand{\submax}{_{\text{max}}}
+% \newcommand{\submin}{_{\text{min}}}
+% \newcommand{\moy}[1]{\left\langle #1\right\rangle}
+%                                 % Sous-groupe monogène engendré par~$a$.
+% \newcommand{\mono}[1]{\left\langle#1\right\rangle}
+
+% \newcommand{\Lu}{\ensuremath{L^1}}
+% \newcommand{\Ld}{\ensuremath{L^2}}
+
+
+% \DeclareMathOperator{\Img}{Im}
+
+% \DeclareMathOperator{\Ind}{Ind}
+% \DeclareMathOperator*{\wamat}{mat}
+\DeclareMathOperator{\supp}{Supp}
+% % \DeclareMathOperator{\cotan}{cotan}
+% \DeclareMathOperator{\zero}{Zero}
+
+% \newcommand{\ES}{\mathscr{E}}
+% \newcommand{\FS}{\mathscr{F}}
+% \newcommand{\GS}{\mathscr{G}}
+% \newcommand{\GL}{\mathrm{GL}}
+% \newcommand{\Gl}{\mathscr{G}\!\ell}
+% \newcommand{\GLS}{\Gl}
+% \newcommand{\GlS}{\Gl}
+% \newcommand{\SlS}{\mathscr{S}\!\ell}
+% \newcommand{\Sl}{\SlS}
+% \newcommand{\GLn}{\GL_n}
+% \newcommand{\GLE}{\GLS(E)}
+% \newcommand{\GlE}{\GlS(E)}
+% \newcommand{\GLnR}{\GL_n(\R)}
+% \newcommand{\GLnC}{\GL_n(\C)}
+% \newcommand{\GLnK}{\GL_n(\K)}
+% \DeclareMathOperator{\SL}{SL}
+% \newcommand{\Mat}{\mathfrak{M}}
+% \newcommand{\MnR}{\Mat_n(\R)}
+% \newcommand{\MnC}{\Mat_n(\C)}
+% \newcommand{\MnK}{\Mat_n(\K)}
+% \newcommand{\MnpK}{\Mat_{np}(\K)}
+% \newcommand{\OnR}{\OR_n(\R)}
+% \newcommand{\SOnR}{\SO_n(\R)}
+
+% \newcommand{\watendvers}[1]{\xrightarrow[{#1}]{}}% Plus le truc
+% \newcommand{\THa}{\stackrel{\mbox{\tiny T.H.}}\longrightarrow}
+% \newcommand{\CVU}{\xrightarrow{\textsc{c.v.u.}}}
+% \newcommand{\CVS}{\xrightarrow{\textsc{c.v.s.}}}
+
+% \newcommand{\resp}{respectivement\xspace}
+
+% \DeclareMathOperator{\wadiag}{diag}
+% \newcommand{\jj}{{\mathrm{j}}}
+% \newcommand{\jjb}{\bar{\jj}}
+
+% \newcommand{\lscaldel}{\langle}
+% \newcommand{\rscaldel}{\rangle}
+% \newlength{\ScalHeight}\newlength{\ScalDepth}
+% \newcommand{\scal}[2]{%
+%   \settoheight{\ScalHeight}{$\displaystyle #1#2$}%
+%   \settodepth{\ScalDepth}{$\displaystyle #1#2$}%
+%   \addtolength{\ScalHeight}{\ScalDepth}%
+%   \left\lscaldel%
+%     \rule[-\ScalDepth]{0mm}{\ScalHeight}%
+%     #1%
+%   \right|%
+%   \left.%
+%     \rule[-\ScalDepth]{0mm}{\ScalHeight}%
+%     \!\! #2%
+%   \right\rscaldel%
+% }
+
+% \newcommand{\nscal}[2]{\lscaldel#1\big|#2\rscaldel}
+%                                 % Pour faire (f(x)|y) : \bscal{f(x)}{y}
+%                                 % Ainsi, les parenthèses sont en \big
+%                                 % d'office... 
+% \newcommand{\bscal}[2]{\big\lscaldel#1\big|#2\big\rscaldel}
+% \newcommand{\Bscal}[2]{\Big\lscaldel#1\Big|#2\Big\rscaldel}
+
+% \newcommand{\ket}[1]{\left|#1\right\rangle}
+% \newcommand{\bra}[1]{\left\langle#1\right|}
+% \newcommand{\bracket}[2]{%
+%   \settoheight{\ScalHeight}{$\displaystyle #1#2$}%
+%   \settodepth{\ScalDepth}{$\displaystyle #1#2$}%
+%   \addtolength{\ScalHeight}{\ScalDepth}%
+%   \left\langle%
+%     \rule[-\ScalDepth]{0mm}{\ScalHeight}%
+%     #1\right|\left. %
+%     \rule[-\ScalDepth]{0mm}{\ScalHeight}%
+%     \! #2\right\rangle
+% }
+
+% \newcommand{\bbracket}[2]{\big\langle#1\big|#2\big\rangle}
+% \newcommand{\Bbracket}[2]{\Big\langle#1\Big|#2\Big\rangle}
+% \newcommand{\nbracket}[2]{\langle#1\big|#2\rangle}
+
+% \newcommand{\asurb}[2]{{\raisebox{+.2em}{$\scriptstyle #1$} \!
+%         \raisebox{+.2ex}{$\scriptstyle/$}\!
+%         \raisebox{-.1ex}{$\scriptstyle #2$} } }
+
+% \DeclareMathOperator{\Cte}{%
+%   {\text{\upshape C}^{\text{\underline{\upshape te}}}}} 
+
+% \newcommand{\sur}[2]{\mathchoice%
+%   {\raisebox{.5ex}{$#1$}/\raisebox{-.25ex}{$#2$}}
+%   {\raisebox{.5ex}{$#1$}/\raisebox{-.25ex}{$#2$}}
+%   {\raisebox{.3ex}{$\scriptstyle#1$}\scriptstyle
+%     \!/\!\raisebox{-.15ex}{$\scriptstyle#2$}}
+%   {\raisebox{.3ex}{$\scriptstyle#1$}\scriptstyle
+%     \!/\!\raisebox{-.15ex}{$\scriptstyle#2$}}}
+		
+% \newenvironment{syst}[1][r]%
+%         {\ensuremath{\left \{ \hskip -1.5 mm \begin{array}{#1@{\ =\ }l}}}%
+%         {\end{array}\right.}
+% \newenvironment{systsimple}[1][r]%
+%         {\ensuremath{\begin{array}[t]{#1@{\ =\ }l}}}%
+%         {\end{array}}
+% \newenvironment{varsyst}[1][r]%
+%         {\ensuremath{\left \{ \hskip -1.5 mm%
+%          \begin{array}{#1@{\ }c@{\ }l}}}%
+%         {\end{array}\right.}
+% \newenvironment{accolade}[1][r]%
+%         {\ensuremath{\left \{ \hskip -1.5 mm \begin{array}{#1@{\quad}l}}}%
+%         {\end{array}\right.}
+% \newenvironment{leqsystsimple}[1][r]%
+%         {\ensuremath{\begin{array}[t]{#1@{\ \leq\ }l}}}%
+%         {\end{array}}
+% \newenvironment{rcl}[1][r]%
+%         {\ensuremath{\begin{array}[t]{#1@{\ }c@{\ }l}}}%
+%         {\end{array}}
+
+% \newcommand{\limt}{\ensuremath{\lim\limits}}
+
+% \renewcommand{\iint}{\int\!\!\!\int}
+% \renewcommand{\iiint}{\int\!\!\!\int\!\!\!\int}
+
+% \newcommand{\scr}{\mathscr}
+
+% \newcommand{\dep}[2]{\mathchoice%
+%   {\dfrac{\displaystyle\partial #1}{\displaystyle\partial #2}}
+%   {\dfrac{\displaystyle\partial #1}{\displaystyle\partial #2}}
+%   {\frac{\displaystyle\partial #1}{\displaystyle\partial #2}}
+%   {\frac{\displaystyle\partial #1}{\displaystyle\partial #2}}
+%   }
+%                                 % ... et d'ordre 2
+% \newcommand{\depd}[3]{\dfrac{\displaystyle\partial^2 #1}{\displaystyle
+%     \ifthenelse{\equal{#2}{#3}}{\partial#2^2}{\partial
+%         #2\,\partial#3}}}
+				
+% \newcommand{\laplacien}{\bigtriangleup}
+% \DeclareMathOperator{\grad}{\text{\textrm{\textbf{grad}}}}
+
+% \newcommand{\Ent}[1]{E\p{#1}}
+% \newcommand{\Normale}{\mathscr{N}}
+% \newcommand{\FRN}{\Phi}%{\mathfrak{N}}
+% \newcommand{\FDN}{\phi}%{\mathfrak{n}}
+% \newcommand{\AFINIR}{}
+
+% \newcommand{\pv}{\;;\;} % Point-virgule
+% \newcommand{\ect}{\mathgras{\sigma}}
+
+% \let\pap\crochets
+% \let\bpap\bpac
+% \let\Bpap\Bpac
+
+% \newcommand{\ordre}[1]{%  Un ordre simple, dans le texte
+%   {\upshape\texttt{\NoAutoSpaceBeforeFDP#1\AutoSpaceBeforeFDP}}}
+
+
+\newcommand{\cpp}{{{C\nolinebreak[4]\hspace{-.05em}\raisebox{.4ex}{\tiny\bf ++}}}\xspace}

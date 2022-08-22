@@ -1,0 +1,331 @@
+\documentclass{magnolia}
+
+\magtex{tex_driver={pdftex},
+        tex_packages={xypic}}
+\magfiche{document_nom={Exercices sur les espaces vectoriels},
+          auteur_nom={François Fayard},
+          auteur_mail={fayard.prof@gmail.com}}
+\magexos{exos_matiere={maths},
+         exos_niveau={mpsi},
+         exos_chapitre_numero={7},
+         exos_theme={Espaces vectoriels}}
+\magmisenpage{}
+\maglieudiff{}
+\magprocess
+
+\begin{document}
+%BEGIN_BOOK
+\magsection{Espace vectoriel, application linéaire}
+\magsubsection{Définition, propriétés élémentaires}
+\magsubsection{Sous-espace vectoriel}
+
+\exercice{nom={Exemples d'espaces vectoriels}}
+\begin{questions}
+\question Les ensembles $E$ suivants sont-ils des sous-espaces vectoriels de l'espace vectoriel
+	des suites réelles~?
+\begin{questions}
+\question L'ensemble des suites réelles ayant une limite finie lorsque $n$ tend vers
+$+\infty$.
+\question L'ensemble des suites réelles bornées, c'est-à-dire l'ensemble des suites
+	réelles $(u_n)$ telles qu'il existe $M\geq 0$ tel que
+	\[\forall n\in\N\qsep \abs{u_n}\leq M.\]
+\end{questions}
+\question Les ensembles $E$ suivants sont-ils des sous-espaces vectoriels de l'espace vectoriel $\mathcal{F}(\R,\R)$~?
+\begin{questions}
+\question L'ensemble des fonctions 1-périodiques.
+\question L'ensemble des fonctions croissantes.
+\question L'ensemble des fonctions qui sont la somme d'une fonction croissante et d'une fonction
+  décroissante.
+\question L'ensemble des solutions de l'équation différentielle
+	\[\forall t\in\R\qsep y'(t)+\e^{t \sin(t)}y(t)=0.\]
+\end{questions}
+\end{questions}
+
+% \begin{questions}
+% \question Montrer que $\vect (u,v)=\vect (u,w)$ si et seulement si
+% \[\exists \alpha,\beta,\gamma \in \K \qsep \alpha u+\beta v+\gamma w=0 \quad
+%   \text{et} \quad \beta\gamma\not=0.\]
+% \question Soit $F$ un sous-espace vectoriel de $E$. Montrer que $F+\K v=F+\K w$
+%   si et seulement si
+%   \[\exists u \in F \qsep \exists \alpha,\beta \in \K \quad u+\alpha v+\beta
+%     w=0 \quad \text{et} \quad \alpha\beta\not=0.\]
+% \end{questions}
+
+\exercice{nom={Combinaison linéaire}}
+\begin{questions}
+\question Dans $\R^3$, donner une condition nécessaire et suffisante sur $a\in\R$ pour
+  que le vecteur $(1,-a,1)$ soit combinaison linéaire de $(1,1,1)$ et $(a,0,2)$.
+\question Dans $\mathcal{F}(\R,\R)$, $x\mapsto \cos^2(x)$ est-elle combinaison linéaire
+  de $x\mapsto 1$ et $x\mapsto \cos(2x)$~?
+\question Dans $\mathcal{F}(\R,\R)$, $x\mapsto \sin(2x)$ est-elle combinaison linéaire
+de $x\mapsto \cos(x)$ et $x\mapsto \sin(x)$~? 
+\end{questions}
+
+\exercice{nom={Fonctions trigonométriques}}
+On pose $E\defeq\mathcal{F}(\R,\R)$. Pour tout $n\in\N$, on définit les fonctions
+$f_n$ et $g_n$ par
+\[\forall x\in\R\qsep f_n(x)\defeq\cos(nx) \quad\et\quad g_n(x)\defeq\cos^n(x).\]
+\begin{questions}
+\question Montrer que pour tout $n\in\N$, $g_n\in\vect\p{f_0,\ldots,f_n}$ et
+  $f_n\in\vect\p{g_0,\ldots,g_n}$.
+\question En déduire que pour tout $n\in\N$,
+  $\vect\p{f_0,f_1,\ldots,f_n}=\vect\p{g_0,g_1,\ldots,g_n}$.
+\end{questions} 
+
+\exercice{nom={Espace vectoriel engendré}}
+Soit $u$, $v$ et $w$ trois vecteurs d'un \Kev $E$. Montrer que $\vect (u,v)=\vect (u,w)$
+si et seulement si
+\[\exists \alpha,\beta,\gamma \in \K \qsep \alpha u+\beta v+\gamma w=0 \quad
+  \text{et} \quad \beta\gamma\not=0.\]
+
+\exercice{nom={Union de sous-espaces vectoriels}}
+Soit $E$ un \Kev.
+\begin{questions}
+\question Soit $F$ et $G$ deux sous-espaces vectoriels de $E$. Montrer que $F\cup G$ est un sous-espace
+  vectoriel de $E$ si et seulement si $F\subset G$ ou $G\subset F$.
+\question Soit $(F_i)_{i\in I}$ une famille de sous-espaces vectoriels de $E$ pour laquelle
+  \[\forall i,j\in I\qsep \exists k\in I\qsep F_i \cup F_j \subset F_k.\]
+  Montrer que $\cup_{i\in I} F_i$ est un sous-espace vectoriel de $E$.
+\end{questions}
+
+\magsubsection{Application linéaire}
+
+\exercice{nom={Caractérisation des homothéties}}
+
+Soit $f\in\mathcal{L}(E)$. Le but de cet exercice est de montrer que $f$ est une homothétie
+si et seulement si, quel que soit $x\in E$, $x$ et $f(x)$ sont colinéaires.
+\begin{questions}
+\question Montrer que si $f$ est une homothétie, quel que soit $x\in E$, $x$ et $f(x)$ sont colinéaires.
+\question Réciproquement, on suppose que quel que soit $x\in E$, $x$ et $f(x)$ sont colinéaires.
+  \begin{questions}
+  \question Montrer que pour tout $x\in E\setminus\ens{0}$, il existe un unique $\lambda_x\in\K$ tel
+    que $f(x)=\lambda_x x$.
+  \question Montrer que si $x$ et $y\in E\setminus\ens{0}$ sont colinéaires, alors $\lambda_x=\lambda_y$.
+  \question Montrer que si $x$ et $y\in E\setminus\ens{0}$ ne sont pas colinéaires, alors
+    $\lambda_x=\lambda_y$.
+  \question Conclure.
+  \end{questions}
+\end{questions}
+
+
+
+
+
+
+
+% \exercice{nom={$E$ n'est pas réunion de sous-espaces vectoriels
+%   stricts}}
+% Soit $E$ un \Kev et $F_1,\ldots,F_n$ $n$ sous-espaces vectoriels de $E$
+% strictement inclus dans $E$. Le but de cet exercice est de montrer que si $\K$
+% est infini, alors :
+% \[\cup_{k\in\intere{1}{n}} F_k \not= E\]
+% \begin{questions}
+% \question Traiter le cas $n=2$ pour un corps $\K$ fini ou infini.
+% \question Pour le cas général $\K$ est supposé infini. On suppose que
+%   $F_n\not\subset F_1 \cup \ldots \cup F_{n-1}$ et on choisit un élément $x$
+%   de $F_n$ n'appartenant pas à $F_1 \cup \ldots \cup F_{n-1}$, ainsi qu'un
+%   élément $y$ de $E$ n'appartenant pas à $F_n$.
+%   \begin{questions}
+%   \question Montrer que :
+%     \[\forall \lambda \in \K \quad \lambda x + y \not\in F_n\]
+%   \question Montrer que pour tout entier $i\in\intere{1}{n-1}$, il existe au
+%     plus un $\lambda \in \K$ tel que $\lambda x + y \in F_i$.
+%   \question Conclure
+%   \end{questions}
+% \end{questions}
+
+\magsection{L'algèbre $\Endo{E}$}
+
+\magsubsection{$\lin{E}{F}$}
+
+\exercice{nom={Calcul dans $\Endo{E}$}}
+\begin{questions}
+\question Soit $f\in\Endo{E}$ tel que $f^3=f^2+f+\id$. Montrer que $f$ est un
+  automorphisme.
+\question Soit $E$ un \Kev et $f$ un endomorphisme de $E$. On suppose que $f$ est
+  nilpotent, c'est-à-dire qu'il existe $n\in\N$ tel que :
+  \[f^n=0\]
+  Montrer que $\id_E+f$ est un automorphisme et calculer son inverse.
+\end{questions}
+
+% \exercice{nom={Commutant d'un projecteur}}
+% Soit $E$ un \Kev et $f_0$ un endomorphisme de $E$. On note~:
+% $$\mathcal{C}(f_0)=\left\{f \in \Endo{E} : f\circ f_0=f_0\circ f \right\}$$
+% \begin{questions}
+% \question Montrer que $\mathcal{C}(f)$ est une sous algèbre de $\Endo{E}$.
+% \question On suppose que $f_0$ est un projecteur. Montrer que $f$ commute avec
+%   $f_0$ si et seulement si $f$ laisse stable le noyau et l'image de $f_0$.
+% \end{questions}
+
+\magsubsection{Le groupe linéaire}
+
+
+% \exercice{nom={Formes linéaires}}
+% Soit $\phi_1$ et $\phi_2$ deux formes linéaires non nulles sur un \Kev $E$.
+% Montrer que~:
+% \[\ker \phi_1=\ker \phi_2 \quad\ssi\quad \cro{\exists \lambda\in\Ks \quad
+%   \phi_2=\lambda \phi_1}\]
+
+\exercice{nom={Automorphisme de $\R^3$}}
+Soit
+\[\dspappli{f}{\R^3}{\R^3}{(x,y,z)}{(x+z,-2x+y,x+3z)}\]
+Montrer que $f\in\gl{}{\R^3}$.
+
+
+\magsection{Somme, somme directe, projecteur, hyperplan}
+\magsubsection{Somme, somme directe}
+
+\exercice{nom={Exercice}}
+Soit $v$ et $w$ deux vecteurs d'un \Kev $E$ et $F$ un sous-espace vectoriel de $E$.
+Montrer que $F+\K v=F+\K w$ si et seulement si
+\[\exists u \in F \qsep \exists \alpha,\beta \in \K \qsep u=\alpha v+\beta
+  w \quad \text{et} \quad \alpha\beta\not=0.\]
+
+\exercice{nom={Exercice}}
+Soit $E$ un espace vectoriel et $F,G$ et $H$ trois sous-espaces vectoriels de $E$.
+\begin{questions}
+\question  Montrer que $(F\cap G)+(F\cap H)\subset F\cap (G+H)$.
+  Vérifiez sur un dessin qu'il est possible que cette inclusion soit stricte.
+\question Établir que l'on a $(F\cap G)+(F\cap H)=F\cap [G+(F\cap H)]$.
+\end{questions}
+
+\exercice{nom={Exercice}}
+$E$, $F$   et  $G$  sont  trois \Kevs, $f\in\lin{E}{F}$  et  $g\in\lin{F}{G}$.
+Montrer que
+\[\ker\p{g \circ f} = \ker f \quad\ssi\quad
+  \ker g \cap \im f  = \ens{0}.\]
+\[\im\p{g \circ f} = \im g \quad\ssi\quad
+  \ker g+\im f = F.\]
+
+
+\exercice{nom={Fonctions paires et impaires}}
+Dans $E=\mathcal{F}(\R,\R)$, on pose
+\[\mathcal{P}\defeq\enstq{f\in E}{\forall x\in\R\qsep f(-x)=x} \quad\et\quad
+  \mathcal{I}\defeq\enstq{f\in E}{\forall x\in\R\qsep f(-x)=-x}.\]
+Montrer que $E=\mathcal{P}\oplus\mathcal{I}$.
+
+\exercice{nom={Somme directe}}
+Soit $E$ le \Rev des fonctions réelles de classe $\classec{1}$ sur $\R$. On
+définit
+\[A\defeq\enstq{f\in E}{\exists a,b\in\R \qsep \forall x\in\R \qsep f(x)=ax+b}\]
+\[B\defeq\enstq{f\in E}{f\p{0}=0 \et f'\p{0}=0}\]
+\begin{questions}
+\question Montrer que $A$ et $B$ sont des sous-espaces vectoriels de $E$.
+\question Montrer que $E=A\oplus B$.
+\end{questions}
+
+
+\exercice{nom={Rendre directe une somme}}
+Soit $F$ et $G$ deux sous-espaces vectoriels d'un \Kev $E$ tels que $F+G=E$. On
+note $F'$ un supplémentaire de $F\cap G$ dans $F$. Montrer que
+\[E=F'\oplus G.\]
+
+% \exercice{nom={Supplémentaire}}
+% Soit $E$ le \Rev des fonctions continues de $\R$ dans $\R$. On considère :
+% \[F=\left\{ f\in E : \int_0^1 f(t)\, dt=0 \right\}\]
+% Montrer que $F$ est un sous-espace vectoriel de $E$ puis en donner deux
+% supplémentaires.
+
+\magsubsection{Projecteur}
+
+\exercice{nom={Somme de deux projecteurs}}
+Soit $E$ un \Kev et $p,q\in\Endo{E}$ deux projecteurs.
+\begin{questions}
+\question Montrer que $p+q$ est un projecteur si et seulement si
+  $p\circ q=q\circ p=0$.
+\question On suppose que $p+q$ est un projecteur. Montrer que
+  \[\ker(p+q)=\ker p\cap\ker q \et \im(p+q)=\im p\oplus\im q.\]
+\end{questions}
+
+\begin{sol}
+$p\circ q=p\circ p\circ q=p\circ(-q\circ p)=-p\circ q\circ p=q\circ p\circ p=q\circ p$.
+\end{sol}
+
+
+\exercice{nom={Réduction  d'une application linéaire}}
+Soit $E$ un \Kev et $f\in\Endo{E}$ tel que
+\[f^2-5f+6\id=0.\]
+\begin{questions}
+\question Montrer que $(f-2\id)\circ(f-3\id)=0$.
+\question En déduire que $E=\ker (f-2\id)\oplus\ker (f-3\id)$.
+\end{questions}
+
+\exercice{nom={Projecteur}}
+Soit $E$ un \Kev.
+\begin{questions}
+\question Soit $f\in\Endo{E}$ et $p$ un projecteur de $E$. Montrer que
+  \[\ker(f\circ g)=\ker g \oplus (\ker f\cap\im g).\]
+\question Soit $f$ un projecteur de $E$ et $g\in\Endo{E}$. Montrer que
+  \[\im(f\circ g)=\im f \cap (\ker f + \im g).\]
+\question Soit $f$ et $g$ deux projecteurs de $E$. Montrer que $f\circ g$ est
+  un projecteur si et seulement si
+  \[\im f \cap (\ker f + \im g)\subset \im g \oplus (\ker f \cap \ker g).\]
+\end{questions}
+
+
+\magsubsection{Symétrie}
+
+\exercice{nom={Centre de $\Endo{E}$}}
+Soit $E$ un \Kev. Le but de cet exercice est de montrer que les endomorphismes qui commutent avec tous les
+autres sont les homothéties.
+\begin{questions}
+\question Montrer que si $f\in\Endo{E}$ est une homothétie, alors elle commute avec tous les
+  endomorphismes de $E$.
+\question Réciproquement, soit $f\in\Endo{E}$ un endomorphisme commutant avec tous les endomorphismes
+  de $E$.
+  \begin{questions}
+  \question Soit $s$ une symétrie de $E$. Montrer que $\ker(s-\id)$ et $\ker(s+\id)$ sont stables par $f$.
+  \question En admettant le fait que toute droite vectorielle admet un supplémentaire, montrer que
+    quel que soit $x\in E$, $x$ et $f(x)$ sont colinéaires.
+  \question Conclure.
+  \end{questions}
+\end{questions}
+
+\magsubsection{Hyperplan}
+
+\exercice{nom={Hyperplan}}
+Soit $E$ un \Kev et $H_1, H_2$ deux hyperplans de $E$ tels que $H_1\subset H_2$. Montrer que $H_1=H_2$.
+
+% \exercice{nom={Fonctions paires et impaires}}
+% Soit $E$ le \Cev des fonctions de $\R$ dans $\C$. On note $\mathcal{I}$
+% (respectivement $\mathcal{P}$) l'ensemble des fonctions impaires
+% (respectivement paires) de $E$.
+% \begin{questions}
+% \question Montrer que $\mathcal{I}$ et $\mathcal{P}$ sont des sous-espaces
+%   vectoriels de $E$.
+% \question Montrer que $E=\mathcal{I}\oplus\mathcal{P}$.
+% \end{questions}
+
+
+
+
+
+
+
+% \exercice{nom={Définition d'une application linéaire}}
+% Soit $E$ et $F$ deux \Kevs et $A$, $B$ deux sous-espaces vectoriels
+% supplémentaires de $E$. On se donne $f_A\in\lin{A}{F}$ et $f_B\in\lin{B}{F}$.
+% Montrer qu'il existe une unique application linéaire $f\in\lin{E}{F}$ telle
+% que~:
+% \[\cro{\forall a\in A \quad f(a)=f_A(a)} \et
+%   \cro{\forall b\in B \quad f(b)=f_B(b)}\]
+
+
+
+
+
+
+
+%END_BOOK
+\end{document}
+
+% \exercice{nom={Factorisation d'une application linéaire}}
+% Soit $E$ et $F$ deux $\K$-espaces vectoriels, $\phi \in\Endo{E}$ et
+%   $\psi \in\Endo{F}$. Soit $f$ une application linéaire de $E$ dans $F$.
+% \begin{questions}
+% \question Montrer qu'il existe $g \in \lin{E}{F}$ tel que $f=g\circ \phi$ si
+%   et seulement si $\ker \phi \subset \ker f$. 
+% \question Montrer qu'il existe $g \in \lin{E}{F}$ tel que $f=\psi\circ g$ si
+%   et seulement si $\im f \subset \im \psi$. 
+% \end{questions}
+

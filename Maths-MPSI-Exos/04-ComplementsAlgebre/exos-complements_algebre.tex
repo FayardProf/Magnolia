@@ -1,0 +1,654 @@
+\documentclass{magnolia}
+
+\magtex{tex_driver={pdftex}}
+\magfiche{document_nom={Compléments d'algèbre},
+          auteur_nom={François Fayard},
+          auteur_mail={fayard.prof@gmail.com}}
+\magexos{exos_matiere={maths},
+         exos_niveau={mpsi},
+         exos_chapitre_numero={4},
+         exos_theme={Compléments d'algèbre}}
+\magmisenpage{}
+\maglieudiff{}
+\magprocess
+
+\begin{document}
+
+%BEGIN_BOOK
+\magsection{Polynôme}
+\magsubsection{Définition, degré et coefficients}
+\magsubsection{Racines}
+
+
+\exercice{nom={Polynôme à coefficients symétriques}}
+\begin{questions}
+\question Montrer que le changement de variable $u\defeq z+1/z$ simplifie l'équation
+  \[z^4-5z^3+6z^2-5z+1=0\]
+  en une équation du second degré en $u$.
+\question En déduire l'ensemble de ses solutions sur $\C$.
+\question Sur le même modèle, résoudre l'équation
+  \[z^4+z^3-10z^2-z+1=0.\]
+\end{questions}
+\begin{sol}
+$\quad$
+\begin{questions}
+\question On trouve $2\pm\sqrt{3}$.
+\question Faire le changement de variable $u=x-1/x$. On trouve
+  \[\frac{-\p{1+\sqrt{33}}\pm\sqrt{50+2\sqrt{33}}}{4}, \qquad
+    \frac{-1+\sqrt{33}\pm\sqrt{50-2\sqrt{33}}}{4}\]
+\end{questions}
+\end{sol}
+
+\exercice{nom={Simplification de racine}}
+On pose
+\[a\defeq \sqrt[5]{\frac{5\sqrt{5}+11}{2}}, \quad b\defeq \sqrt[5]{\frac{5\sqrt{5}-11}{2}} \et
+  x\defeq a-b.\]
+On souhaite montrer que $x=1$.
+\begin{questions}
+\question Calculer $ab$.
+\question En déduire que $x$ est racine de $A\defeq X^5+5X^3+5X-11$.
+\question Montrer que $1$ est la seule racine positive de $A$ et conclure.
+\end{questions}
+\begin{sol}
+Écrire $x=a-b$ et remarquer que $ab=1$. Développer $x^5$ et en déduire que
+$x^5+5x^3+5x-11=0$. Factoriser ce polynôme par $\p{x-1}$~:
+$\p{x-1}\p{x^4+x^3+6x^2+6x+11}$. Comme le second polynôme n'a pas de racine
+positive, on en déduit que $x=1$.
+\end{sol}
+
+% \exercice{nom={Équations algèbriques}}
+% \begin{questions}
+% \question Résoudre les équations
+%   \[x=\sqrt{2-x}, \qquad \sqrt{x+7}=\sqrt{x+2}+\sqrt{x-1}.\]
+% \question Résoudre les équations suivantes sur $\R$
+%   \[1+x+x^2+x^3+x^4+x^5=0, \qquad 1-x+x^2-x^3+x^4=0.\]
+% \end{questions}
+% \begin{sol}
+% $\quad$
+% \begin{questions}
+% \question Seul 1 est racine pour la première. Seul 2 est racine pour la
+%   seconde.
+% \question Pour la première, seul 1 est solution. Pour la seconde, il n'y a pas
+%   de solution.
+% \end{questions}
+% \end{sol}
+
+\exercice{nom={Inéquation}}
+Résoudre l'inéquation
+\[4x+2\leq\sqrt{7x^3+15x^2+11x+3}.\]
+
+\begin{sol}
+$7x^3+15x^2+11x+3=(x+1)(7x^2+8x+3)$ avec le terme du second degré toujours positif. Donc la racine est définie pour $x\geq -1$.
+Si $x\leq -1/2$, $4x+2\leq 0$ donc l'inégalité est vérifiée pour $x\in [-1;-1/2]$.
+
+Si $x\geq 1/2$, on peut élever les deux termes au carré tout en gardant l'équivalence et l'inégalité est équivalente à $(x-1)(7x^2+6x+1)\geq 0$. L'étude du trinôme + tableau de signe montre que $S=[-1;-1/2]\cup[-1/2;\dfrac{-3+\sqrt{2}}{7}]\cup [1;+\infty[.$
+\end{sol}
+
+
+\exercice{nom={Méthode de {\sc Cardan}}}
+Soit $a,b,c\in\C$ et $Q\defeq X^3+aX^2+bX+c$. 
+\begin{questions}
+\question Pour quels $\alpha\in\C$ le polynôme $P\defeq Q(X+\alpha)$ n'a-t-il pas de coefficient en $X^2$~?
+\enonce On choisit un tel $\alpha$ et on définit $p,q\in\C$ tels que $P=X^3-3pX+2q$.
+\question 
+\begin{questions}
+\question Soit $u\in\Cs$. Montrer que
+  \[u+\frac{p}{u}\]
+  est racine de $P$ si et seulement si $w\defeq u^3$ est racine d'un trinôme $R$ que l'on déterminera.
+\question On note $w_1$ et $w_2$ les racines complexes de $R$. Soit $u_1$ une racine cubique de $w_1$. Montrer qu'il existe une unique racine cubique $u_2$ de $w_2$ telle que $u_1u_2=p$.
+\question Déterminer les racines de $Q$ en fonction de $\alpha$, $u_1$, $u_2$ et $\jj$.
+\end{questions} 
+\question Déterminer les racines des polynômes
+  \[X^3+3X^2+6X+2,\qquad X^3-3X-1.\]
+\end{questions}
+
+\textit{C'est pour résoudre de telles équations, pour lesquelles $P$ admet trois racines réelles, mais $R$ n'en n'a pas, que {\sc Rafael Bombelli} (1526--1572) a introduit les nombres complexes.}
+
+\begin{sol}
+\begin{questions}
+\question On trouve $\alpha=-a/3$.
+\question 
+\begin{questions}
+\question On trouve que $w\defeq u^3$ est racine de $X^2+2qX+p^3$.
+\question On a $w_1w_2=p^3$ donc $w_2=p^3/u_1^3$. Ainsi, les racines cubiques de $w_2$ sont $\dfrac{p}{u_1}$, $j\dfrac{p}{u_1}$ et $j^2\dfrac{p}{u_1}$. 
+\question 
+\begin{eqnarray*}
+u\in\ens{u_1,ju_1,j^2u_1,u_2,ju_2,j^2u_2} &\Longleftrightarrow& u^3 \text{ est racine de } R \\
+&\Longleftrightarrow& u^+\dfrac{p}{u} \text{ est racine de } P\\
+&\Longleftrightarrow& u^+\dfrac{p}{u} \text{ est racine de } Q(X+\alpha)\\
+&\Longleftrightarrow& u^+\dfrac{p}{u}+\alpha \text{ est racine de } Q
+\end{eqnarray*}
+Ainsi, les racines de $Q$ sont $$\mathcal{S}=\ens{u_1+u_2+\alpha; ju_1+j^2u_2+\alpha; j^2u_1+ju_2+\alpha}.$$
+\end{questions} 
+\question Déterminer les racines des polynômes
+  \[X^3+3X^2+6X+2,\qquad X^3-3X-1.\]
+\end{questions}
+\end{sol}
+
+\exercice{nom={Méthode de {\sc Ferrari}}}
+Soit $a,b,c,d\in\C$ et $P\defeq X^4+aX^3+bX^2+cX+d$. 
+\begin{questions}
+\question Montrer qu'il existe un unique $\alpha\in\C$ tel que $Q\defeq P(X+\alpha)$ ne possède pas de terme en $X^3$.
+\enonce Pour la suite, $\alpha$ désignera cette valeur. Il existe donc $p,q,r\in\C$ tels que $Q=X^4+p X^2+q X+ r$.
+\question Soit $v\in\C$. Montrer que
+  \[\forall z\in\C\qsep Q(z)=0 \ssi \p{z^2+\frac{v}{2}}^2=\p{v-p}z^2-qz+\p{\frac{v^2}{4}-r}.\]
+  On pose alors $A\defeq \p{v-p}X^2-qX+\p{v^2/4-r}$.
+\question Montrer que $A$ admet une racine double si et seulement si $v$ est racine d'un polynôme de degré 3 que l'on déterminera.
+\enonce Pour la suite, on suppose que $P\defeq X^4-2X^3+3X^2+4X-10$.
+\question Montrer que $B$ admet une racine évidente. En déduire les racines de $P$.
+\end{questions}
+
+\textit{On a ainsi prouvé, dans les deux exercices précédents, que l'on pouvait calculer les racines des équations de degré 3 et 4 à l'aide de racines $n$-ièmes de nombres complexes. Ces résultats étaient connus dès le 16e siècle. {\sc Niels Abel} (1802--1829), puis {\sc Évariste Galois} (1811--1832), ont démontré qu'il n'était pas possible de résoudre l'équation générale de degré 5 en utilisant des racines $n$-ièmes de nombres complexes.}
+
+% \exercice{nom={Décomposition en éléments simples}}
+% Décomposer en éléments simples sur $\R$ les fractions
+% \[\frac{10X^3}{(X^2+1)(X^2-4)} \et
+%   \frac{X^3-1}{(X-1)(X-2)(X-3)}.\]
+% % \[\frac{X^2}{(X^2+X+1)^2}, \qquad \frac{(X^2+4)^2}{(X^2+1)(X^2-2)^2}.\]
+% \begin{sol}
+% $\quad$
+% \begin{questions}
+% \question 
+%   \[\frac{10X^3}{(X^2+1)(X^2-4)}=
+%     \frac{4}{X-2}+\frac{4}{X+2}+\frac{2X}{X^2+1}\]
+% % \question 
+% %   \[\frac{X^4+1}{X^4+X^2+1}=
+% %     1-\frac{1}{2}\cdot\frac{X}{X^2-X+1}+\frac{1}{2}\cdot\frac{X}{X^2+X+1}\]
+% \question 
+%   \[\frac{X^3-1}{(X-1)(X-2)(X-3)}=
+%     1-\frac{7}{X-2}+\frac{13}{X-3}\]
+% % \question 
+% %   \[\frac{X^2}{(X^2+X+1)^2}=
+% %     \frac{1}{X^2+X+1}-\frac{X+1}{\p{X^2+X+1}^2}\]\
+% % \question 
+% %   \begin{eqnarray*}
+% %   \frac{(X^2+4)^2}{(X^2+1)(X^2-2)^2}&=&
+% %     \frac{1}{X^2+1}+\frac{3\sqrt{2}}{4}\cdot\frac{1}{X+\sqrt{2}}
+% %     +\frac{3}{2}\cdot\frac{1}{\p{X+\sqrt{2}}^2}\\
+% %    & &
+% %     -\frac{3\sqrt{2}}{4}\cdot\frac{1}{X-\sqrt{2}}
+% %     +\frac{3}{2}\cdot\frac{1}{\p{X-\sqrt{2}}^2}
+% %   \end{eqnarray*}
+% \end{questions}
+% \end{sol}
+
+
+\magsection{Somme et produit}
+\magsubsection{Somme}
+
+
+\exercice{nom={Coefficients binomiaux}}
+Écrire la somme
+\[\sum_{k=0}^n (1+X)^k\]
+de deux manières différentes. En déduire
+\[\sum_{k=j}^n \binom{k}{j}.\]
+
+\begin{sol}
+D'une part,
+$$\sum_{k=0}^n (1+X)^k=\sum_{k=0}^n \sum_{j=0}^k \binom{k}{j}X^j=\sum_{j=0}^n\p{\sum_{k=j}^n\binom{k}{j}}X^j.$$
+D'autre part, $$\sum_{k=0}^n (1+X)^k=\frac{1-(1+X)^{n+1}}{1-(1+X)}=\frac{\sum_{k=0}^{n+1}\binom{n+1}{k}X^k -1}{X}=\sum_{k=1}^{n+1}\binom{n+1}{k}X^{k-1}=\sum_{j=0}^{n}\binom{n+1}{j+1}X^{j}.$$
+Par identification des coefficients, on a pour tout $j\in \llbracket 0,n\rrbracket, \sum_{k=j}^n \binom{k}{j}=\binom{n+1}{j+1}$.
+\end{sol}
+
+\magsubsection{Produit}
+\magsubsection{Somme et produit doubles}
+
+% \exercice{nom={Une somme de série}}
+% Calculer la limite lorsque $n$ tend vers $+\infty$ de
+% \[\sum_{k=2}^n \frac{3k^2-1}{(k-1)^2k^2(k+1)^2}.\]
+% On pourra calculer $P'/P^2$ avec $P\defeq(X-1)X(X+1)$.
+% \begin{sol}
+% On pose $P\defeq (X-1)X(X+1)$. Alors, il existe $a,b,c\in\R$ tels que
+% \[\frac{1}{P}=\frac{1}{(X-1)X(X+1)}=\frac{a}{X-1}+\frac{b}{X}+\frac{c}{X+1}.\]
+
+
+% On trouve
+% \[\frac{3X^2-1}{(X-1)^2X^2(X+1)^2}=\frac{1}{2}\cdot\frac{1}{(X-1)^2}
+%   -\frac{1}{X^2}+\frac{1}{2}\cdot\frac{1}{(X+1)^2}\] en primitivant la DES de $-1/P$.
+% (Astuce de Anis Marrakchi : Pour connaître le coefficient au dessus de
+% $1/(X+1)$ et $-1/(X-1)$ on regroupe ces éléments simples, on multiplie par
+% $X^2$ et on fait tendre $x$ vers $+\infty$ // Autre astuce de Anis Marrakchi :
+% on peut remarquer que $F=P'/P^2$).
+% On obtient donc une somme téléscopique. La somme de la série est donc
+% $\frac{3}{8}$.
+% \end{sol}
+
+
+\exercice{nom={Avec des racines $n$-ièmes}}
+Soit $n\geq 2$ et $z\in\C$. On pose $\omega\defeq \e^{\ii\frac{2\pi}{n}}$ et
+\[S_n\defeq \sum_{k=0}^{n-1} \p{z+\omega^k}^n.\]
+Calculer $S_n$.
+
+
+\exercice{nom={Somme double}}
+Soit $n\in\N$. Calculer
+\[\sum_{0 \leq i,j \leq n} 2^{i-j} \et \sum_{\substack{(i,j)\in\intere{0}{n}^2\\0\leq i+j \leq n}} \binom{n}{i+j}.\]
+\begin{sol}
+\begin{questions}
+\question
+\[\sum_{i=0}^n \sum_{j=0}^n 2^{i-j}=2^{n+2}-4+2^{-n}.\]
+\question
+\[\sum_{i=0}^n \sum_{j=0}^n \binom{n}{i+j}=2^{n-1}(n+2).\]
+\end{questions}
+\end{sol}
+
+\exercice{nom={Principe du maximum pour les polynômes}}
+Soit $P\defeq\sum_{k=0}^n a_k X^k$ un polynôme à coefficients complexes de degré inférieur ou égal à $n$. On se donne un réel positif $M$ tel que
+$$\forall z\in\U \qsep \abs{P(z)}\leq M.$$
+\begin{questions}
+\question On pose $\omega\defeq\exp\p{\ii\frac{2\pi}{n+1}}$. Calculer
+  $$\sum_{j=0}^n P\p{w^j}.$$
+\question En déduire que $\abs{P(0)}\leq M$.
+\end{questions}
+
+\begin{sol}
+\begin{questions}
+\question 
+  $$\sum_{j=0}^n P\p{w^j}=\sum_{j=0}^n\sum_{k=0}^na_k\omega^{jk}=\sum_{k=0}^na_k\sum_{j=0}^n\p{\omega^{k}}^j=(n+1)a_0.$$
+\question Ainsi, $|(n+1)a_0|=\abs{\sum_{j=0}^n P\p{w^j}|}\leq (n+1)M$ par I.T permet de conclure.
+\end{questions}
+
+
+\end{sol}
+
+\exercice{nom={Somme de {\sc Gauss}}}
+Soit $n\in\N$ un entier impair. On pose
+\[\omega\defeq\e^{\frac{2\ii\pi}{n}} \quad\text{et}\quad S\defeq \sum_{k=0}^{n-1} \omega^{k^2}.\]
+\begin{questions}
+\question Écrire $\abs{S}^2$ comme une somme double, puis montrer que
+  \[\abs{S}^2=\sum_{k=0}^{n-1}\sum_{p=-k}^{n-k-1} \omega^{2pk+p^2}.\]
+\question Soit $k\in\intere{0}{n-1}$.
+  \begin{questions}
+  \question Montrer que la fonction
+  \[\dspappli{\phi}{\Z}{\C}{p}{\omega^{2pk+p^2}}\]
+  est $n$-périodique.
+  \question En déduire pour tout $k\in\intere{0}{n-1}$ une écriture simplifiée de
+  \[\sum_{p=-k}^{n-k-1} \omega^{2pk+p^2}.\]
+  \end{questions}
+\question Simplifier
+  \[\sum_{k=0}^{n-1} \omega^{2pk}\]
+  pour tout $p\in\Z$.
+\question En déduire que $\abs{S}=\sqrt{n}$.
+\end{questions}
+
+\begin{sol}
+\begin{questions}
+\question 
+On calcule :
+\begin{eqnarray*}
+|S|^2&=& \conj{S}S\\
+&=& \p{\sum_{k=0}^{n-1} \omega^{-k^2}}\p{\sum_{s=0}^{n-1} \omega^{s^2}}\\
+&=& \sum_{k=0}^{n-1}\p{\omega^{-k^2}\sum_{s=0}^{n-1} \omega^{s^2}}\\
+&=& \sum_{k=0}^{n-1}\p{\omega^{-k^2}\sum_{p=-k}^{n-k-1} \omega^{(p+k)^2}}\\
+&=& \sum_{k=0}^{n-1}\sum_{p=-k}^{n-k-1} \omega^{2pk+p^2}
+\end{eqnarray*}
+\question Soit $k\in\intere{0}{n-1}$.
+  \begin{questions}
+  \question Facile car $\omega^n=1$.
+  \question Ainsi, on a :
+  \[\sum_{p=-k}^{n-k-1} \omega^{2pk+p^2}=\sum_{p=0}^{n-1} \omega^{2pk+p^2}.\]
+  \end{questions}
+\question On a pour tout $p\in\Z$ :
+  \[\sum_{k=0}^{n-1} \omega^{2pk}=\sum_{k=0}^{n-1}\p{\omega^{2p}}^k.\]
+  On a une somme géométrique, reste à savoir si $\omega^{2p}=1$ et c'est le cas si et seulement si $n$ divise $2p$.
+  
+  $\bullet$ 1er cas : Si $n$ ne divise pas $2p$, la somme géométrique fait $0$.
+   $\bullet$ 2ème cas : Si $n$ divise $2p$, la somme fait $n$.
+ 
+\question Déjà, faisons le bilan des deux premières questions. 
+
+
+\[\abs{S}^2=\sum_{k=0}^{n-1}\sum_{p=-k}^{n-k-1} \omega^{2pk+p^2}=\sum_{k=0}^{n-1}\sum_{p=0}^{n-1} \omega^{2pk+p^2}=\sum_{p=0}^{n-1}\sum_{k=0}^{n-1}\omega^{2pk+p^2}=\sum_{p=0}^{n-1}\omega^{p^2}\sum_{k=0}^{n-1}\omega^{2pk}\]
+Comme $n$ est impair, le seul $p$ entre $0$ et $n-1$ tel que $n$ divise $2p$ est $0$. Donc seul le terme en $p=0$ n'est pas nul et vaut $n$. D'où $|S|^2=n$ et on a le résultat souhaité.
+
+\end{questions}
+\end{sol}
+
+\magsection{Trigonométrie}
+\magsubsection{Égalité modulaire}
+\magsubsection{Formules de trigonométrie}
+
+% \exercice{nom={Calcul du cosinus et du sinus de $\frac{\pi}{12}$ et
+%   $-\frac{\pi}{8}$}}
+% \begin{questions}
+% \question En utilisant les formules de trigonométrie, calculer
+%   \[\sin^2\p{\frac{\pi}{12}}.\]
+% \question En déduire le sinus, le cosinus et la tangente de l'angle de mesure
+%   $\pi/12$ en utilisant des racines carrées.
+% \question En s'inspirant de cette méthode, calculer le sinus, le cosinus et la
+%   tangente de l'angle $-\pi/8$.
+% \end{questions}
+% \begin{sol}
+% $\quad$
+% \begin{questions}
+% \question On a
+%   \[\sin^2\p{\frac{\pi}{12}}=\frac{2-\sqrt{3}}{4}\]
+% \question On trouve
+%   \[\sin\p{\frac{\pi}{12}}=\frac{\sqrt{2-\sqrt{3}}}{2}, \quad \cos\p{\frac{\pi}{12}}=\frac{\sqrt{2+\sqrt{3}}}{2}, \quad
+%     \tan\p{\frac{\pi}{12}}=2-\sqrt{3}\]
+% \question On trouve
+%   \[\sin\p{-\frac{\pi}{8}}=-\frac{\sqrt{2-\sqrt{2}}}{2}, \quad \cos\p{-\frac{\pi}{8}}=\frac{\sqrt{2+\sqrt{2}}}{2}, \quad
+%     \tan\p{-\frac{\pi}{8}}=1-\sqrt{2}\]
+% \end{questions}
+% \end{sol}
+
+% \exercice{nom={Sur les angles d'un triangle}}
+% Soit $a,b,c$ trois réels tels que $a+b+c=\pi$. Montrer que
+% \[\cos^2 a+\cos^2 b+\cos^2 c+2\cos a \cos b\cos c=1.\]
+
+% \exercice{nom={Équations trigonométriques}}
+% Résoudre les équations suivantes sur $\R$
+% \[\cos\p{2x}+\cos(x)=-1\]
+% \[\sqrt{3}\cos\p{5x}=\cos\p{2x}+\cos\p{12x} \qquad
+%   \tan\p{2x}=3\tan{x}\]
+% \[\cos^6 x+\sin^6 x=\frac{1}{4} \qquad
+%   2\cos\p{\frac{x}{3}}-\sin\p{\frac{x}{2}}=2.\]
+% \begin{sol}
+% \quad
+% \begin{questions}
+% \question Exprimer $\cos\p{2x}$ en fonction de $\cos x$. On trouve
+%   \[x\equiv\frac{\pi}{2}\ [\pi] \ou x\equiv\frac{2\pi}{3}\ [2\pi] \ou
+%     x\equiv -\frac{2\pi}{3}\ [2\pi]\]
+% \question Factoriser le second membre. L'équation se factorise alors par
+%   $\cos\p{5x}$. On trouve
+%   \[x\equiv\frac{\pi}{10}\ \cro{\frac{\pi}{5}} \ou
+%     x\equiv\frac{\pi}{42}\ \cro{\frac{2\pi}{7}} \ou
+%     x\equiv -\frac{\pi}{42}\ \cro{\frac{2\pi}{7}}\]
+% \question Il faut $x\not\equiv\pi/4\ [\pi/2]$. On change tout en $\sin$, $\cos$
+%   puis on factoriser par $\sin x$. On obtient $\sin x\p{1-2\cos\p{2x}}=0$.
+%   Les solutions sont donc
+%   \[x\equiv 0\ [\pi] \ou x\equiv\frac{\pi}{6}\ [\pi] \ou 
+%     x\equiv -\frac{\pi}{6}\ [\pi]\]
+% \question On pose $u=\cos^2 x$. On obtient un polynôme du second degré en $u$
+%   qui a une unique racine $1/2$. On trouve
+%   \[x\equiv\frac{\pi}{4}\ \cro{\frac{\pi}{2}}\]
+% \question On pose $x=6u$. On factorise $2\p{\cos\p{2u}-1}-\sin\p{3u}$ par
+%   $\sin u$ et on obtient $\sin u\p{4\sin^2 u-4\sin u-3}=0$.
+%   Une racine est en dehors de $\interf{-1}{1}$. L'autre est $-1/2$. Finalement
+%   \[x\equiv 0\ [6\pi] \ou x\equiv-\pi\ [12\pi] \ou x\equiv-5\pi\ [12\pi]\]
+% \end{questions}
+% \end{sol}
+
+% \exercice{nom={Inéquations trigonométriques}}
+% Résoudre les inéquations suivantes sur $\R$
+% \[\cos x+\cos\p{x+\pi/3}\geq 0, \qquad 2\cos x+\sin x \leq 2.\]
+
+% \exercice{nom={Calcul de somme}}
+% \begin{questions}
+% \question Calculer $\tan p-\tan q$.
+% \question En déduire la valeur de
+%   \[S_n=\sum_{k=1}^n \frac{1}{\cos\p{k\theta}\cos\p{\p{k+1}\theta}}\]
+%   où $\theta\in\R$.
+% \end{questions}
+% \begin{sol}
+% Il faut que $\theta\not\equiv\frac{\pi}{2k} \cro{\frac{\pi}{k}}$ pour tout
+% $k\in\intere{1}{n+1}$. En suite on trouve
+% \[S_n=\begin{cases}
+%       \frac{\sin(n\theta)}{\cos((n+1)\theta)\cos(\theta)\sin \theta} &
+%         \text{si $\theta\not\equiv 0\ [\pi]$}\\
+%       n & \text{si $\theta=2k\pi$}\\
+%       -n & \text{si $\theta=(2k+1)\pi$}
+%       \end{cases}\]
+% \end{sol}
+
+
+\exercice{nom={Équations trigonométriques}}
+\begin{questions}
+\question Résoudre les équations \[\cos(x)-\cos(2x)=\sin(3x), \qquad \cos(5x)+2\cos (3x)+3\cos(x)=0\]
+\question Résoudre l'équation
+  \[\cos(x)+\sin(x)=\tan \left( \frac{x}{2} \right)\]
+  en posant (soigneusement) $t=\tan(x/2)$.
+\end{questions}
+
+\begin{sol}
+\begin{questions}
+\question On exprime les $\cos(nx)$ comme polynôme en $\cos(x)$. On obtient donc
+  \begin{eqnarray*}
+\forall x\in\R\qsep & & \cos(5x)+2\cos (3x)+3\cos(x)=0\\
+&\ssi& 16\cos^5(x)-12\cos^3(x)+2\cos(x)=0\\
+&\ssi& u(16 u^4-12u^2+2)=0 \quad\text{en posant $u=\cos(x)$}\\
+&\ssi& u = 0 \ou u^2=\frac{1}{4} \ou u^2=\frac{1}{2}\\
+&\ssi& u =0 \ou u =\pm\frac{1}{2} \ou u=\pm\frac{1}{\sqrt{2}}\\
+&\ssi& \cos(x)=0 \ou \cos(x)=\pm\cos\frac{\pi}{3} \ou \cos(x)=\pm\cos\frac{\pi}{4}\\
+&\ssi& x\equiv\frac{\pi}{2}\ [\pi]\ou\cos(x)\equiv\pm\frac{\pi}{3}\, [2\pi]\ou\cos(x)\equiv\pm\frac{2\pi}{3}\, [2\pi]\ou\\
+&    & x\equiv\pm\frac{\pi}{4}\ [2\pi]\ou x\equiv\pm\frac{3\pi}{4}\, [2\pi].
+  \end{eqnarray*}
+Pour $\cos(x)-\cos(2x)=\sin(3x)$. On utilise $\cos(a)-\cos(b)$ pour la gauche et $\sin(2a)$ pour la droite. On obtient :
+$$-2\sin(3x/2)\sin(-x/2)=2\sin(3x/2)\cos(3x/2).$$
+On peut transformer $\sin(x/2)=\cos(\pi/2-x/2)$ puis les différents cas mènent à $x\equiv \pi/4 [\pi]$, $x\equiv -\pi/2 [2\pi]$ et $x\equiv 0 [2\pi/3]$.
+\question Le domaine de définition de l'équation est $\mathcal{D}=\R\setminus\p{\pi+2\pi\Z}$. Soit $x\in\mathcal{D}$. On pose $t\defeq\tan(x/2)$. Alors
+  \begin{eqnarray*}
+\cos x+\sin x=\tan\frac{x}{2}
+&\ssi& \frac{1-t^2}{1+t^2}+\frac{2t}{1+t^2}=t\\
+&\ssi& 1-t^2+2t=t(1+t^2)\\
+&\ssi& t^3+t^2-t-1=0\\
+&\ssi& (t-1)(t+1)^2=0\\
+&\ssi& t=1 \ou t=-1\\
+&\ssi& \tan\frac{x}{2}=\tan\frac{\pi}{4} \ou \tan\frac{x}{2}=\tan\p{-\frac{\pi}{4}}\\
+&\ssi& \frac{x}{2}\equiv\frac{\pi}{4}\ [\pi] \ou \frac{x}{2}\equiv-\frac{\pi}{4}\ [\pi]\\
+&\ssi& x\equiv\frac{\pi}{2}\ [2\pi] \ou x\equiv-\frac{\pi}{2}\ [2\pi]\\
+&\ssi& x\equiv\frac{\pi}{2}\ [\pi]
+  \end{eqnarray*}
+\end{questions}
+\end{sol}
+
+\exercice{nom={Calcul de somme}}
+Pour tout $n\in\Ns$, calculer
+\[\sum_{k=0}^{n-1} 3^k \sin^3 \p{\frac{\theta}{3^{k+1}}}.\]
+
+\begin{sol}
+On linéarise $\sin^3(x)=3/4\sin(x)-1/4\sin(3x)$ puis quand on écrit la somme elle devient télescopique. On obtient
+\[\frac{1}{4}\cro{\sin(\theta)-3^n\sin\p{\frac{\theta}{3^n}}}.\]
+\end{sol}
+
+\exercice{nom={Mon capitaine}}
+Pour tout $n\in\N$, calculer
+\[\sum_{k=0}^n k\binom{n}{k}\cos (k \theta).\]
+
+
+\magsection{Récurrence linéaire}
+\magsubsection{Récurrence linéaire d'ordre 1}
+\exercice{nom={Récurrences d'ordre 1}}
+Déterminer une expression explicite des suites définies par
+\begin{questions}
+\question $u_0\defeq 0$ et $\forall n\in\N\qsep u_{n+1}\defeq 2 u_n+1$.
+\question $u_0\defeq 1$ et $\forall n\in\N\qsep u_{n+1}\defeq 3 - \frac{u_n}{2}$.
+\question $u_0\defeq 1$ et $\forall n\in\N\qsep u_{n+1}\defeq 2 u_n^2$.
+\end{questions}
+
+
+\magsubsection{Récurrence linéaire d'ordre 2}
+
+\exercice{nom={Récurrences doubles}}
+Déterminer les suites définies par
+\[a_0\defeq 0,\quad a_1\defeq -1 \et \forall n\in\N\qsep a_{n + 2} \defeq 5a_{n + 1}-6a_n,\]
+\[b_0\defeq 1,\quad b_1\defeq 1 \et \forall n\in\N\qsep b_{n + 2} \defeq -b_{n + 1}-b_n,\]
+\[c_0\defeq 1,\quad c_1\defeq -1 \et \forall n\in\N\qsep c_{n + 2} \defeq 4c_{n + 1}-4c_n+n.\]
+
+\begin{sol}
+Pour le premier, on trouve $a_n=2^n-3^n$. Pour le second, on trouve $b_n=2\sin(\pi/6+n2\pi/3)$.
+Pour la troisième, on cherche une solution particulière du type $v_n=n+\alpha$. On trouve $\alpha=2$. On résout l'équation homogène puis on ajoute les $2$ et ensuite avec les valeurs initiales on obtient :
+$$c_n=(-1-n)2^n+n+2.$$
+\end{sol}
+
+\exercice{nom={Récurrence double avec second membre polynomial}}
+On dira qu'une suite réelle $(u_n)$ est solution de $(E)$ lorsque
+\[\forall n\in\N\qsep u_{n+2}=2u_{n+1}+8u_n+9n^2.\]
+\begin{questions}
+\question Montrer que $(E)$ possède une solution de la forme $(an^2+bn+c)$ où $a,b,c\in\R$.
+\question En déduire une expression explicite de l'unique solution de $(E)$ telle que $u_0=0$ et $u_1=1$.
+\end{questions}
+
+\exercice{nom={Équation fonctionnelle}}
+Déterminer les fonctions $\app{f}{\RP}{\RP}$ telles que
+\[\forall x \geq 0\qsep f(f(x))=6x-f(x).\]
+
+\begin{sol}
+On procède par analyse-synthèse. On suppose qu'une telle solution existe.\\
+
+Fixons $x_0\geq 0$ et définissons $(u_n)$ par $u_n=f^n(x_0)$. On démontre (en appliquant l'égalité en $f(x)$) $u_{n+2}+u_{n+1}-6u_n=0$. D'où : $$u_n=\lambda (-3)^n +\mu 2^n \quad \text{ avec en particulier } \lambda=\dfrac{2}{5}x_0-\dfrac{1}{5}f(x_0).$$
+
+On peut écrire $u_n=\displaystyle (-3)^n\p{\lambda+\mu\p{\frac{-2}{3}}^n}$. On peut avec cette forme montrer que $u_n\geq 0 \forall n\in \N$ implique $\lambda=0$. Ainsi $f(x_0)=2x_0$ et cela pour $x_0$ quelconque dans $\RP$.
+
+Synthèse : cela fonctionne.
+\end{sol}
+
+
+\magsection{Système linéaire}
+\magsubsection{Système linéaire à $q$ équations et $p$ inconnues}
+
+
+% \exercice{nom={Résolution de systèmes linéaires}}
+% Résoudre les systèmes linéaires suivants~:
+% \[\syslin{ x&+3y&=&3\hfill\cr
+%           3x&-y &=&1\hfill} \qquad
+%   \syslin{3x&-2y&=&1\hfill\cr
+%            x&+y &=&2\hfill}\]
+% \[\syslin{ 2x&-y &=&2\hfill\cr
+%           -4x&+2y&=&0\hfill} \qquad
+%   \syslin{ 2x&-y &=&2\hfill\cr
+%           -4x&+2y&=&-4\hfill}\]
+
+\exercice{nom={Résolution de systèmes linéaires}}
+\begin{questions}
+\question Résoudre les systèmes linéaires suivants
+  \[\syslin{2x&+y &+z&=&1\hfill\cr
+             x&-y &  &=&0\hfill\cr
+            3x&+5y&+z&=&3,\hfill} \qquad
+    \syslin{2x&-y &+2z&=&2\hfill\cr
+             x&+y &+z &=&1\hfill\cr
+             x&   &+z &=&1.\hfill}\]
+\question Soit $a,b,c,d\in\R$. Résoudre le système linéaire
+  \[\syslin{x&+y&+z&+t&=&a\hfill\cr
+            x&+2y&+3z&+4t&=&b\hfill\cr
+            x&+3y&+6z&+10t&=&c\hfill\cr
+            x&+4y&+10z&+20t&=&d.\hfill}\]
+\end{questions}
+\begin{sol}
+\begin{questions}
+\question Pour le premier, on trouve $x=y=2/5$ et $z=-1/5$. Pour le deuxième, $y=0$ et $x+z=1$ donc $x=1-t_1$ et $t_1=z$.
+\question Le système admet une unique solution
+  \[\syslin{x&=&4a&-6b&+4c&-d\cr
+            y&=&-6a&+14b&-11c&+3d\cr
+            z&=&4a&-11b&+10c&-3d\cr
+            t&=&-a&+3b&-3c&+d}\]
+\end{questions}
+\end{sol}
+
+\exercice{nom={Équation fonctionnelle}}
+Déterminer les fonctions $f:\RPs\to\R$ telles que
+\[\forall x\in\RPs\qsep f(x)+3f\p{\frac{1}{x}}=x^2.\]
+
+\exercice{nom={Sytème de type \nom{Vandermonde}}}
+Soit $a,b,c$ trois réels deux à deux distincts. Résoudre le système
+  \[\syslin{x&+ay&+a^2z&=&a^4\hfill\cr
+            x&+by&+b^2z&=&b^4\hfill\cr
+            x&+cy&+c^2z&=&c^4.}\]
+\begin{sol}
+Pour le deuxième système, on trouve 
+$$z=a^2+b+c^2+ab+ac+bc$$
+$$y=-(bc^2+b^2c+a^2b+ab^2+a^2c+ac^2)-2abc$$
+$$x=a^2bc+ab^2c+abc^2.$$
+\end{sol}
+
+
+
+\exercice{nom={Résolution de systèmes linéaires}}
+\begin{questions}
+\question Soit $m\in\R$. Résoudre le système
+  \[\syslin{mx&+ y&+ z&=&1\hfill\cr
+             x&+my&+ z&=&m\hfill\cr
+             x&+ y&+mz&=&m^2.\hfill}\]
+\question Soit $m,a,b,c,\in\R$. On considère le système
+  \[\syslin{-mx&+\p{m-1}y&+mz&=&a\hfill\cr
+            \p{2m-1}x&+\p{m-1}y&-mz&=&b\hfill\cr
+            -2x&-4y&+2mz&=&c.\hfill}\]
+  Calculer le rang du système en fonction de $m$. Le résoudre dans ces différents cas.
+\end{questions}
+\begin{sol}
+$\quad$
+\begin{questions}
+\question Si $m=1$, $x=1-t_1-t_2$, $y=t_1$, $z=t_2$. Si $m=-2$ le système n'a
+  pas de solution. Sinon
+  \[x=-\frac{m+1}{m+2} \qquad y=\frac{1}{m+2} \quad z=\frac{\p{m+1}^2}{m+2}\]
+\question Le système n'admet pas une unique solution si et seulement si
+  $m=0,\frac{1}{3},1$.
+  \begin{itemize}
+  \item Si $m=0$, alors
+    \begin{itemize}
+    \item Si $a+b-\frac{c}{2}\neq 0$, alors le système n'a pas de solution.
+    \item Sinon $x=a-b$, $y=-a$ et $z=t$.
+    \end{itemize}
+  \item Si $m=\frac{1}{3}$, alors
+    \begin{itemize}
+    \item Si $4a+2b-c\neq 0$, alors le système n'admet pas de solution.
+    \item Sinon, $x=-2t-\frac{3}{2}b-\frac{3}{2}a$, $y=t$,
+      $z=\frac{3}{2}a-\frac{3}{2}b$.
+    \end{itemize}
+  \item Si $m=1$, alors
+    \begin{itemize}
+    \item Si $a+b\neq 0$, alors le système n'admet pas de solution.
+    \item Sinon, $x=t-a$, $y=\frac{1}{2}a-\frac{1}{4}c$, $z=t$.
+    \end{itemize}
+  \end{itemize}
+\end{questions}
+\end{sol}
+
+\exercice{nom={Calcul de rang}}
+Soit $m\in\R$. Résoudre et déterminer le rang du système linéaire
+\[\syslin{ x&+ y& +z& +t&=&3\hfill\cr
+           x&+my& +z&-mt&=&m+2\hfill\cr
+          mx& -y&-mz& -t&=&-1.\hfill}\]
+\begin{sol}
+En deux étapes (Pivot en haut à gauche puis échange des colonnes $t$ et $y$ et des lignes $2$ et $3$ puis $L_3\leftarrow L_3-L_2$) on se ramène à un système échelonné :
+\[\syslin{ x&+ t& +z& +y&=&3\hfill\cr
+           &  -(m+1)t&-2mz&-(m+1)y&=&-1-3m \hfill\cr
+          & & 2mz& +2my&=&4m\hfill}\]
+\begin{itemize}
+\item[$\bullet$] Si $m=0$ :
+\[\syslin{ x&+ t& +z& +y&=&3\hfill\cr
+           &  t& &+y&=&1 \hfill}\]
+           Le rang du système est $2$ et on peut prendre $z$ et $y$ en paramètre...
+\item[$\bullet$] Si $m\neq 0$, le système devient 
+\[\syslin{ x&+ t& +z& +y&=&3\hfill\cr
+           &  -(m+1)t&-2mz&-(m+1)y&=&-1-3m \hfill\cr
+          & & z& +y&=&2\hfill}\]
+          \begin{itemize}
+\item[$\bullet$] Si $m=-1$ : le système devient 
+\[\syslin{ x&+ t& +z& +y&=&3\hfill\cr
+           &  &z&&=&1 \hfill\cr
+          & & z& +y&=&2\hfill}\]
+          On a donc $y=1$, $z=1$ et $x+t=1$ donc c'est de rang $3$ et on passe $t$ en paramètre.
+\item[$\bullet$] Si $m\neq -1$, le système est de rang $3$, on peut fixer $y$ comme paramètre et exprimer les autres en fonction. 
+\end{itemize}
+\end{itemize}
+\end{sol}
+
+\exercice{nom={Somme lacunaire de coefficients binomiaux}}
+On définit $A,B$ et $C$ par
+$$A\defeq\sum_{\substack{k=0\\k\egmodulo{0}{3}}}^{n} \binom{n}{k}, \qquad
+  B\defeq\sum_{\substack{k=0\\k\egmodulo{1}{3}}}^{n} \binom{n}{k} \qquad\text{et}\qquad
+  C\defeq\sum_{\substack{k=0\\k\egmodulo{2}{3}}}^{n} \binom{n}{k}.$$
+\begin{questions}
+\question Calculer $A+B+C$, $A+\jj B+\jj^2C$ et $A+\jj^2B+\jj C$.
+\question En déduire $A$.
+\question Sur le même modèle, étant donnés $b\in\Ns$ et $a\in\intere{0}{b-1}$, calculer
+  $$A=\sum_{\substack{k=0\\k\egmodulo{a}{b}}}^{n} \binom{n}{k}.$$
+\end{questions}
+\begin{sol}
+$\quad$
+\begin{questions}
+\question
+\question On trouve
+  \[A=\frac{2^n+2\cos\frac{n\pi}{3}}{3}\]
+\question
+  \[A=\frac{2^n+2^{\frac{n+2}{2}}\cos\frac{n\pi}{4}}{4}\]
+\end{questions}
+\end{sol}
+
+
+
+\magsubsection{Interprétation géométrique lorsque $p=2$ ou $p=3$}
+%END_BOOK
+
+\end{document}

@@ -1,0 +1,395 @@
+\documentclass{magnolia}
+
+\magtex{tex_driver={pdftex}}
+\magfiche{document_nom={Exercices sur les déterminants},
+          auteur_nom={François Fayard},
+          auteur_mail={fayard.prof@gmail.com}}
+\magexos{exos_matiere={maths},
+         exos_niveau={mpsi},
+         exos_chapitre_numero={25},
+         exos_theme={Déterminants}}
+\magmisenpage{}
+\maglieudiff{}
+\magprocess
+
+\begin{document}
+%BEGIN_BOOK
+
+
+\magsection{Déterminant}
+\magsubsection{Forme $n$-linéaire alternée}
+
+
+\exercice{nom={Exercice \textsc{ENS}}}
+Soit $E$ un \Kev de dimension $d\in\N$. Pour tout $n\in\N$, calculer la dimension
+de l'espace vectoriel $\mathcal{A}_n(E)$ des formes $n$-linéaires alternées sur $E$.
+
+\magsubsection{Déterminant d'une famille de $n$ vecteurs}
+
+\exercice{nom={Exercice}}
+Soit $E$ un \Kev de dimension $n$, $f\in\mathcal{L}(E)$ et $\mathcal{B}$ une base
+de $E$. Montrer que pour tous $x_1,\ldots,x_n\in E$
+\[\sum_{k=1}^n \det{}_{\mathcal{B}}(x_1,\ldots,x_{k-1},f(x_k),x_{k+1},\ldots,x_n)=\tr(f)
+  \det{}_{\mathcal{B}}(x_1,\ldots,x_n).\]
+
+\magsubsection{Déterminant d'un endomorphisme}
+
+\exercice{nom={Déterminant de la transposition}}
+Soit $\phi$ l'application de $\mat{n}{\K}$ dans lui-même qui à la matrice $M$
+associe sa transposée. Calculer le déterminant de $\phi$.
+\begin{sol}
+$\quad$
+\begin{questions}
+\question La transposition est une symétrie. La dimension de l'espace des
+  matrices antisymétriques est $n\p{n-1}/2$. Donc le déterminant de la
+  transposition est
+  \[\p{-1}^{\frac{n\p{n-1}}{2}}\]
+\end{questions}
+\end{sol}
+
+\magsubsection{Déterminant d'une matrice carrée}
+\magsection{Calcul de déterminant}
+\magsubsection{Méthode du pivot}
+
+\exercice{nom={Calcul de déterminant}}
+Soit $a_1,\ldots,a_n\in\R$. Calculer le déterminant de la matrice $A\in\mat{n}{\R}$
+donnée par les coefficients
+\[\forall i,j\in\intere{1}{n}\qsep a_{i,j}\defeq\sin(a_i+a_j).\]
+% \[\left|
+%   \begin{array}{cccc}
+%   \sin(a_1+a_1) & \sin(a_1+a_2) & \dots & \sin(a_1+a_n)\\
+%   \sin(a_2+a_1) &               &       & \vdots\\
+%   \vdots        &               &       & \vdots\\
+%   \sin(a_n+a_1) & \sin(a_n+a_2) & \dots & \sin(a_n+a_n)\\
+%   \end{array}
+%   \right|.\]
+\begin{sol}
+Si on note $A=\p{\sin a_1,\ldots,\sin a_n}$ et
+$B=\p{\cos a_1,\ldots,\cos a_n}$, alors $C_j=\p{\cos a_j}A+\p{\sin a_j}B$.
+Donc le rang de la matrice est inférieur ou égal à 2.
+\begin{itemize}
+\item Si $n\geq 3$, le déterminant est nul.
+\item Si $n=1$, le déterminant est $\sin\p{2a_1}$.
+\item Si $n=2$, le déterminant est $-\sin^2\p{a_1-a_2}$.
+\end{itemize}
+\end{sol}
+
+\exercice{nom={Calculs de déterminants}}
+Soit $a,b,c\in\K$. Calculer et factoriser les déterminants suivants
+\[\begin{vmatrix}
+  1 & 1 & 1\\
+  a+b & c+a & b+c\\
+  ab & ca & bc
+  \end{vmatrix}\qquad
+  \begin{vmatrix}
+  a+b & b+c & c+a\\
+  a^2+b^2 & b^2+c^2 & c^2+a^2\\
+  a^3+b^3 & b^3+c^3 & c^3+a^3
+  \end{vmatrix}\]
+\[\begin{vmatrix}
+  (b+c)^2 & b^2 & c^2\\
+  a^2 & (c+a)^2 & c^2\\
+  a^2 & b^2 & (a+b)^2
+  \end{vmatrix}\]
+\begin{sol}
+$\quad$
+\begin{questions}
+\question On trouve $\p{c-b}\p{c-a}\p{b-a}$.
+\question On trouve $2abc\p{a+b+c}^3$. On fait apparaître $a+b+c$ par
+  l'opération $L_1\gets L_1-L_3$.
+\end{questions}
+\end{sol}
+
+\exercice{nom={Calculs de déterminants}}
+Soit $a,b,c,d\in\K$. Calculer et factoriser les déterminants suivants
+\[\begin{vmatrix}
+  1 & 1 & 1 & 1\\
+  a & b & c & d\\
+  a^2 & b^2 & c^2 & d^2\\
+  bcd & acd & abd & abc
+  \end{vmatrix}\qquad
+  \begin{vmatrix}
+  1 & a & b & ac\\
+  1 & b & c & bd\\
+  1 & c & d & ac\\
+  1 & d & a & bd
+  \end{vmatrix}
+  \qquad
+  \begin{vmatrix}
+  0 & 1 & 1 & 1\\
+  1 & 0 & a^2 & b^2\\
+  1 & a^2 & 0 & c^2\\
+  1 & b^2 & c^2 & 0
+  \end{vmatrix}
+  \]
+
+\[\begin{vmatrix}
+  1+a & b & a & b\\
+  b & 1+a & b & a\\
+  a & b & 1+a & b\\
+  b & a & b & 1+a
+  \end{vmatrix}\qquad
+  \begin{vmatrix}
+  a & c & c & b\\
+  c & a & b & c\\
+  c & b & a & c\\
+  b & c & c & a
+  \end{vmatrix}\]
+
+\exercice{nom={Calcul de déterminant}}
+Soit $a_1,\ldots,a_n\in\R$. Calculer
+\[\left|
+  \begin{array}{cccc}
+  1        & 1 & \cdots & 1\\
+  \cos(a_1) & \cos(a_2) & \cdots & \cos(a_n)\\
+  \vdots   &   \vdots   &         & \vdots\\
+  \cos ((n-1)a_1) & \cos((n-1)a_2) & \cdots & \cos((n-1)a_n)
+  \end{array}
+  \right|\]
+\begin{sol}
+Comme $\cos\p{k a_j}=P_k\p{\cos a_j}$ et que le coefficient dominant
+de $P_k$ est $2^{k-1}$, le déterminant est égal à 
+\begin{eqnarray*}
+& & 2^{\frac{\p{n-2}\p{n-1}}{2}}V\p{\cos a_1,\ldots,\cos a_n}\\
+&=& 2^{\frac{\p{n-2}\p{n-1}}{2}}\prod_{1\leq i<j\leq n} \p{\cos a_j-\cos a_i}\\
+&=& \p{-1}^{\frac{n\p{n-1}}{2}}2^{\p{n-1}^2}\prod_{1\leq i<j\leq n}
+    \sin\p{\frac{a_j+a_i}{2}}\sin\p{\frac{a_j-a_i}{2}}
+\end{eqnarray*}
+\end{sol}
+
+\exercice{nom={Matrice circulante}}
+\begin{questions}
+\question Soit $a,b,c\in\C$. On pose
+  \[M\defeq\begin{pmatrix}
+    a&b&c\\
+    c&a&b\\
+    b&c&a
+  \end{pmatrix} \quad\et\quad J\defeq\begin{pmatrix}
+  1 & 1 & 1\\
+  1 & \jj & \jj^2\\
+  1 & \jj^2 & \jj
+  \end{pmatrix}\]
+  \begin{questions}
+  \question Montrer que $\det J\neq 0$.
+  \question Calculer $MJ$ et en déduire $\det M$.
+  \end{questions}
+\question Mêmes questions avec la \emph{matrice circulante}
+  \[M\defeq\begin{pmatrix}
+    a_1 & a_2 & \cdots & a_n\\
+    a_n & a_1 & \cdots & a_{n-1}\\
+    \vdots & \vdots & \ddots & \vdots\\
+    a_2 & a_3 & \cdots & a_1
+  \end{pmatrix} \quad\text{et}\quad 
+  J\defeq \p{\omega^{(i-1)(j-1)}}_{1\leq i,j\leq n}\]
+  pour tous $a_1,\ldots,a_n\in\C$ en posant $\omega\defeq \e^{\ii\frac{2\pi}{n}}$.
+\end{questions}
+
+\exercice{nom={Calculs de déterminants}}
+Soit $a_1,\ldots,a_n,b_1,\ldots,b_n\in\K$. Calculer le déterminant
+\[\left|
+\begin{array}{ccccc}
+a_1+b_1 & a_1 & \cdots & \cdots & a_1\\
+a_2 & a_2+b_2 & a_2 & \cdots & a_2\\
+a_3 & \ddots & \ddots & \ddots & \vdots\\
+\vdots & & \ddots & \ddots & a_{n-1}\\
+a_n & \cdots & \cdots & a_n & a_n+b_n
+\end{array}
+\right|\]
+
+\begin{sol}
+On trouve
+  \[\prod_{k=1}^n b_k+\sum_{k=1}^n
+    \cro{a_k \prod_{\substack{i=1\\i\neq k}}^n b_i}\]
+  Pour cela, il y a plusieurs méthodes~:
+  \begin{itemize}
+  \item Le plus naturelle (et la plus longue). On enlève la dernière colonne
+    à toutes les autres. On développe ensuite par rapport à la dernière ligne.
+  \item Méthode plus fine. On utilise la linéarité du déterminant par rapport
+    à la dernière colonne pour faire apparaître $\p{a_1,\ldots,a_n}$ dans la
+    dernière colonne. Dans cette matrice, on enlève la dernière colonne à
+    toutes les autres. Dans l'autre dont la dernière colonne est
+    $\p{0,\ldots,0,b_n}$, on développe par rapport à cette dernière colonne.
+  \item Méthode encore plus fine. On pose $u=\p{a_1,\ldots,a_n}$ et
+    $\mathcal{B}=e_1,\ldots,e_n$ la base canonique de $\K^n$. Alors
+    \begin{eqnarray*}
+    \Delta=\det{}_{\mathcal{B}}\p{u+b_1 e_1,\ldots,u+b_n e_n}
+    \end{eqnarray*}
+    On utilise ensuite la linéarité du déterminant par rapport à chacune des
+    variables.
+  \end{itemize}
+\end{sol}
+
+\exercice{nom={Calcul de déterminant}}
+Soit $n\in\Ns$ et $p\in\intere{1}{n}$. On définit la matrice $A_{n,p}$
+de $\mat{p+1}{\R}$ par
+\[A_{n,p}\defeq
+  \begin{pmatrix}
+  1 & \binom{n}{1} & \binom{n}{2} & \cdots & \binom{n}{p}\\ 
+  1 & \binom{n+1}{1} & \binom{n+1}{2} & \cdots & \binom{n+1}{p}\\ 
+  \vdots & \vdots &  &  & \vdots\\ 
+  1 & \binom{n+p}{1} & \binom{n+p}{2} & \cdots & \binom{n+p}{p}
+  \end{pmatrix}\]
+Calculer $\det A_{n,p}$.
+
+
+\exercice{nom={Opérations par blocs}}
+\begin{questions}
+\question Soit $A,B,C,D\in\mat{n}{\K}$. Quel produit matriciel permet de transformer
+  \[\begin{pmatrix}A & B\\ C&D\end{pmatrix} \quad\text{en}\quad
+    \begin{pmatrix}A+2C & B+2D\\ C&D\end{pmatrix}\]
+\question Montrer que pour tous $A,B\in\mat{n}{\K}$
+  \[\begin{vmatrix}I_n & B\\A & I_n\end{vmatrix} = \det(I_n - AB)=\det(I_n-BA).\]
+\end{questions}
+
+
+\magsubsection{Développement par rapport à une colonne}
+
+\exercice{nom={Matrice tridiagonale}}
+Soit $x\in\K$. Calculer le déterminant
+\[\left|
+\begin{array}{ccccc}
+1+x^2 & x &  & & (0)\\
+x & 1+x^2 & x & & \\
+  & \ddots & \ddots & \ddots & \\
+  &   & x & 1+x^2 & x\\
+(0)  & &  & x & 1+x^2
+\end{array}
+\right|\]
+\begin{sol}
+On trouve la relation de récurrence $u_{n+2}=\p{1+x^2}u_{n+1}-x^2 u_n$.\begin{itemize}
+\item Si $x^2=1$, on a $u_n=n+1$.
+\item Sinon, $u_n=\frac{x^{2n+2}-1}{x^2-1}$.
+\end{itemize}
+\end{sol}
+
+
+
+\exercice{nom={Calcul de rang}}
+Résoudre le système linéaire dont la matrice $A$ est définie par
+\[\forall i,j\in\intere{1}{n}\qsep \quad a_{i,j}\defeq
+  \begin{cases}
+  1 & \text{si} \abs{i-j}\leq 1,\\
+  0 & \text{sinon.}
+  \end{cases}\]
+Quel est son rang ?
+
+
+
+\magsubsection{Comatrice}
+
+
+\exercice{nom={Comatrice du produit}}
+Soit $\K$ un corps et $A,B\in\mat{n}{\K}$.
+\begin{questions}
+\question Montrer que les matrices $A-X I_n$ et $B-XI_n$ sont inversibles dans
+  $\mat{n}{\fracK}$.
+\question Montrer que $\Com(AB)=\Com(A)\Com(B)$.
+\end{questions}
+
+
+
+
+
+
+
+
+
+
+% \exercice{nom={Le déterminant de Vandermonde}}
+% Soit $n\in\Ns$ et $x_0,\ldots,x_n$ $n+1$ scalaires. On définit le
+% déterminant de Vandermonde par :
+% \[V(x_0,x_1,\ldots,x_n)=
+%   \begin{vmatrix}
+%   1 & x_0 & x_0^2 & \dots & x_0^n\\
+%   1 & x_1 & x_1^2 & \dots & x_1^n\\
+%   \vdots & \vdots & \vdots & & \vdots\\
+%   1 & x_n & x_n^2 & \dots & x_n^n
+%   \end{vmatrix}\]
+% Le but de cet exercice est de montrer par récurrence sur $n$ que :
+% $$V(x_0,\ldots,x_n)=\prod_{0\leq i<j \leq n} (x_j-x_i)$$
+% de deux manières distinctes.\\
+% \begin{questions}
+% \question Établir ce résultat en effectuant un pivot de Gauss.
+% \question Établir ce résultat en étudiant le polynôme
+%  \[V(x_0,\ldots,x_n,X)\]
+% \end{questions}
+
+
+
+% \exercice{nom={$\gl{n}{\Z}$}}
+% Soit $M\in\mat{n}{\Z}$. Donner une condition nécessaire et
+% suffisante pour que $M$ soit inversible et que
+% $M^{-1}\in\mat{n}{\Z}$.
+% \begin{sol}
+% $\quad$
+% \begin{questions}
+% \question Il faut et il suffit que $\det A=\pm 1$.
+% \end{questions}  
+% \end{sol}
+
+% \magsection{Déterminants en géométrie affine}
+% \exercice{nom={Coordonnées barycentriques}}
+% Soit $A,B,C$ trois points du plan non alignés.
+% \begin{questions}
+% \question On se donne $M_1,M_2,M_3$ trois points du plan dont les coordonnées
+%   barycentriques dans le système $(A,B,C)$ sont respectivement
+%   $(\alpha_1,\beta_1,\gamma_1)$, $(\alpha_2,\beta_2,\gamma_2)$ et
+%   $(\alpha_3,\beta_3,\gamma_3)$. Montrer que $M_1,M_2$ et $M_3$ sont alignés si
+%   et seulement si :
+%   $$
+%   \left|
+%   \begin{array}{ccc}
+%   \alpha_1 & \alpha_2 & \alpha_3\\
+%   \beta_1 & \beta_2 & \beta_3\\
+%   \gamma_1 & \gamma_2 & \gamma_3\\
+%   \end{array}
+%   \right|=0
+%   $$
+% \question Soit $A'$, $B'$, $C'$ trois points situés respectivement sur les
+%   droites $\p{BC}$, $\p{CA}$ et $\p{AB}$ et distincts de $A,B,C$. Montrer que
+%   $A'$, $B'$, $C'$ sont alignés si et seulement si~:
+%   \[\frac{\overline{A'B}}{\overline{A'C}} \cdot
+%     \frac{\overline{B'C}}{\overline{B'A}} \cdot
+%     \frac{\overline{C'A}}{\overline{C'B}}=1\]
+% \end{questions}
+
+
+% \begin{sol}
+% $\quad$
+% \begin{questions}
+% \question On peut se placer dans le repère $(A,\ve{AB},\ve{AC})$. Les points
+%   $M_1,M_2,M_3$ sont alignés si et seulement si il existe $a,b,c\in\R$ tels
+%   que $\p{a,b}\neq\p{0,0}$ et $M_1,M_2,M_3$ sont sur la droite d'équation
+%   $ax+by+c=0$.
+% \question Si on note $\alpha=\overline{A'B}/\overline{A'C}$, alors $A'$ est
+%   barycentre de $B$ et $C$ avec les coefficients $1$ et $-\alpha$. Il suffit
+%   ensuite d'appliquer la question précédente.
+% \end{questions}
+% \end{sol}
+
+
+% \exercice{nom={Droites concourantes}}
+% Dans le plan rapporté à un repère affine, on se donne $3$ droites
+% $\mathcal{D}_1,\mathcal{D}_2$ et $\mathcal{D}_3$ d'équations respectives~:
+% $$(\mathcal{D}_i) \quad \alpha_i x+\beta_i y+\gamma_i=0$$
+% On suppose qu'au moins deux des droites ne sont pas parrallèles. Montrer
+% que les trois droites sont concourantes si et seulement si :
+
+% $$
+% \left|
+% \begin{array}{ccc}
+% \alpha_1 & \alpha_2 & \alpha_3\\
+% \beta_1 & \beta_2 & \beta_3\\
+% \gamma_1 & \gamma_2 & \gamma_3\\
+% \end{array}
+% \right|=0
+% $$
+
+
+
+
+%END_BOOK
+
+\end{document}
+
+

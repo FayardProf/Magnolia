@@ -1,0 +1,398 @@
+\documentclass{magnolia}
+
+\magtex{tex_driver={pdftex}}
+\magfiche{document_nom={Exercices sur le dénombrement},
+          auteur_nom={François Fayard},
+          auteur_mail={fayard.prof@gmail.com}}
+\magexos{exos_matiere={maths},
+         exos_niveau={mpsi},
+         exos_chapitre_numero={10},
+         exos_theme={Dénombrement}}
+\magmisenpage{}
+\maglieudiff{}
+\magprocess
+
+\begin{document}
+%BEGIN_BOOK
+\magsection{Cardinal}
+\magsubsection{Équipotence}
+
+\exercice{nom={Non dénombrabilité de $[0,1]$}}
+Le but de cet exercice est de démontrer que $\interf{0}{1}$ n'est pas dénombrable,
+c'est-à-dire qu'il n'existe pas de surjection de $\N$ dans $\interf{0}{1}$. On raisonne
+par l'absurde et on suppose qu'il existe une suite $(u_n)$ d'éléments de $[0,1]$ telle que
+\[\forall x\in[0,1]\qsep \exists n\in\N\qsep u_n=x.\]
+\begin{questions}
+\question Construire deux suites $(a_n)$ et $(b_n)$ de réels telles que
+  \begin{itemize}
+  \item $a_0= 0 \et b_0=1.$
+  \item $\forall n\in\N \qsep a_n\leq a_{n+1}< b_{n+1}\leq b_n.$
+  \item $\forall n\in\N \qsep b_{n+1}-a_{n+1}=\frac{1}{3}\p{b_n-a_n}.$
+  \item $\forall n\in\N \qsep u_n \not\in \interf{a_{n+1}}{b_{n+1}}.$
+  \end{itemize}
+\question Montrer que les suites $(a_n)$ et $(b_n)$ convergent vers une limite commune 
+  $l\in[0,1]$, puis que
+  \[\forall n\in\N \qsep u_n\neq l.\]
+  Conclure.
+\end{questions}
+
+
+\begin{sol}
+Tout roule bien. En particulier, on fait de la trichotomie, car avec de la dichotomie, $u_n$ pourrait être le point milieu à l'étape $n$ de la construction. Pour la fin, fixons $n_0\in \N$, $u_{n_0}\notin \interf{a_{n_0}}{b_{n_0}}$ donc $u_{n_0}$ n'est pas dans l'intersection donc n'appartient pas à $\set{\ell}$. Ainsi, $u_{n_0}\neq \ell$ et ce quelque soit $n_0$.\\
+
+Pour conclure, pour toute suite à valeurs dans $[0,1]$, c'est-à-dire toute fonction de $\N$ dans $[0,1]$, on a construit un élément jamais atteint. Donc elle n'est pas surjective.
+\end{sol}
+
+\magsubsection{Ensemble fini, cardinal}
+
+\exercice{nom={Ensemble d'entiers}}
+Étant donnés 51 entiers compris entre 1 et 100, montrer qu'il en existe toujours 2 consécutifs.
+
+\exercice{nom={Théorème d'approximation de \nom{Dirichlet}}}
+\begin{questions}
+\question Soit $x\in\R$ et $n\in\Ns$. Pour tout $k\in\intere{0}{n}$, on pose
+  $\delta_k\defeq kx-\ent{kx}$. En appliquant le principe des tiroirs aux
+  réels $\delta_k$, montrer le théorème d'approximation de \nom{Dirichlet}
+  \[\exists p\in\Z\qsep \exists q\in\intere{1}{n}\qsep \abs{x-\frac{p}{q}}<\frac{1}{nq}.\]
+\question Soit $x\in\R\setminus\Q$.
+  \begin{questions}
+  \question Montrer qu'il existe une infinité de $(p,q)\in\Z\times\Ns$ tels
+    que
+    \[\abs{x-\frac{p}{q}}<\frac{1}{q^2}.\]
+  \question Montrer qu'il existe une infinité de $p\in\Z$ pour lesquels
+    \[\exists q\in\Ns\qsep \abs{x-\frac{p}{q}}<\frac{1}{q^2}.\]
+  \end{questions}
+\question On admet que $\pi$ est irrationnel. Dans ces conditions
+  $\sin n\neq 0$ pour tout $n\in\Ns$ et on peut poser
+  \[\forall n\in\Ns\qsep u_n\defeq\frac{1}{n\sin n}.\]
+  On souhaite montrer que la suite $(u_n)$ n'admet pas de limite. On raisonne
+  par l'absurde et on suppose que $(u_n)$ admet une limite
+  $l\in\Rbar$.
+  \begin{questions}
+  \question Montrer que $l=0$.
+  \question Obtenir une contradiction en appliquant les résultats de
+    la question 2.b au réel $\pi$.
+  \end{questions}
+
+\end{questions}
+% Soit $x\in\R$ et $q\geq 2$. Montrer qu'il existe $a\in\Z$ et
+%   $b\in\intere{1}{q-1}$ tels que
+%   \[\abs{bx-a}\leq \frac{1}{q}.\]
+%   \begin{sol}
+%   En effet, on considère 0, 1 et
+%   les $\{bx\}$ pour $b\in\intere{1}{q-1}$ où $\{y\}$ désigne la distance de $y$
+%   à sa partie entière. D'après la remarque précédente, il
+%   existe deux éléments deux à deux distincts dont la distance est inférieure à
+%   $1/q$ ce qui permet de conclure. (ENS Ulm/Lyon 1995) 
+%   \end{sol}
+
+\exercice{nom={7 nombres réels}}
+Soit sept nombres réels $x_1,\ldots,x_7$. Montrer qu'il existe deux indices $i$
+et $j$ distincts tels que 
+\[0<\frac{x_i-x_j}{1+x_ix_j}<\frac{1}{\sqrt{3}}\>\cdot\]
+\emph{Rappelez vous que la trigonométrie se cache même aux endroits où on ne l'attend pas}.
+% {\it On pourra introduire, pour tout $k\in\intere{1}{7}$, $\theta_k$ tel que
+% $\tan \theta_k=x_k$.}
+
+\magsection{Dénombrement}
+\magsubsection{Dénombrement élémentaire}
+
+
+\exercice{nom={Couples dans le plan}}
+Combien y a-t-il de couples $(i,j)$
+\begin{questions}
+\question dans $\intere{1}{n}^2$ pour lesquels $i+j=n$~?
+\question dans $\intere{1}{n}^2$ pour lesquels $i<j$~?
+\question dans $\intere{1}{n}\times\intere{1}{2n}$ pour lesquels $i<j$~?
+\question dans $\intere{1}{n}^2$ pour lesquels $\abs{i-j}\leq 1$~?
+\end{questions}
+
+\exercice{nom={Autour du crible}}
+Une certaine ville compte $17\ 500$ actifs dans sa population. À l'issue
+d'un recensement, on a obtenu les informations suivantes sur ces $17\ 500$
+actifs~:
+\begin{itemize}
+\item 4 actifs sur 7 sont des femmes et 6 d'entre elles sur 10 ont voté
+  aux dernières municipales.
+\item 3 actifs sur 5 ont voté aux dernières municipales et $40 \%$ de ces
+  personnes sont au chômage.
+\item Le chômage touche 1 actif sur 4 et $60 \%$ des demandeurs d'emploi
+  sont des femmes.
+\item $60 \%$ des femmes au chômage ont voté aux dernières municipales.
+\end{itemize}
+Combien d'hommes qui ne sont pas au chômage sont restés chez eux le jour des
+élections municipales~?
+
+
+
+\magsubsection{Arrangements, nombre de parties} 
+
+
+
+\exercice{nom={Anagrammes}}
+Dénombrer les anagrammes des mots suivants
+\begin{center}
+{\sc couvert, couteau, fourchette}.
+\end{center}
+\begin{sol}
+Pour couvert, il y en a 7!. Pour couteau, il y en a 7!/2!. Pour fourchette, il
+y en a 10!/(2! 2!).
+\end{sol}
+
+\exercice{nom={Le livreur}}
+Un livreur doit distribuer des colis à cinq personnes A, B, C, D, E. Combien y
+a-t-il de trajets possibles~? S'il souhaite livrer A avant B et C, combien
+y a-t-il de trajets possibles~?
+\begin{sol}
+Il y a 5! trajets possibles. Si on livre $A$ avant $B$ et $C$, il y a
+$2\times 4\times 5$ possibilités.
+\end{sol}
+
+\exercice{nom={Surjections d'un ensemble fini dans un autre}}
+Quels que soient $n,p\in\N$, on note $S_{p,n}$ le nombre de surjections d'un
+ensemble à $p$ éléments dans un ensemble à $n$ éléments.
+\begin{questions}
+\question On suppose que $p\leq n$. Que vaut $S_{p,n}$ ?
+\question Calculer $S_{n+1,n}$ et $S_{p,2}$.
+\question Montrer que
+  \[\forall p,n \in \N \qsep n^p=\sum_{i=0}^n \binom{n}{i}S_{p,i}.\]
+\end{questions}
+\begin{sol}
+$\quad$
+\begin{questions}
+\question Si $p<n$ il n'y a pas de surjection, donc $S_{p,n}=0$.
+\question On a $S_{n+1,n}=\binom{n+1}{2}n!$. Si $p\leq 1$, alors $S_{p,n}=0$.
+  Sinon, il faut choisir les antécédents d'un des élément. Il faut donc
+  prendre une partie non vide de l'ensemble de départ différente de l'ensemble
+  en entier. Il y a donc $2^p-2$ possibilités.
+\question Considérer l'ensemble des fonctions d'un ensemble à $p$ éléments dans
+  un ensemble à $n$ éléments. Faire ensuite une partition selon le cardinal de
+  l'image de $f$.
+\end{questions}
+\end{sol}
+
+\exercice{nom={Partitions d'un ensemble}}
+Quels que soient $n,p\in\N$, on note $P_{n,p}$ le nombre de partitions d'un ensemble
+de cardinal $np$ en $n$ parties à $p$ éléments. Montrer que
+\[\forall n,p\in\N\qsep P_{n+1,p}=\frac{1}{n+1}\binom{(n+1)p}{p}P_{n,p}.\]
+En déduire $P_{n,p}$.
+
+\exercice{nom={Tours de Hanoï}}
+Le jeu des tours de Hanoï se compose de trois tiges sur lesquelles on peut
+empiler $n$ disques deux à deux distincts ($n\ge1$). Initialement, les $n$
+disques sont empilés sur la première tige, par ordre décroissant de
+taille, du bas vers le haut. Le but du jeu est de transporter la tour
+complète sur une autre tige par une suite de mouvements consistant à
+déplacer un disque à la fois, et en respectant les deux règles suivantes :
+\begin{itemize}
+\item on ne peut ôter d'une tige que le disque se trouvant au sommet de la
+  pile ;
+\item on ne peut empiler un disque sur une tige que si elle est vide ou bien si
+  l'on pose le disque en question sur un autre plus grand.
+\end{itemize}
+
+\bigskip
+\setlength{\unitlength}{2pt}
+\begin{center}
+\begin{picture}(130,15)
+\put(0,0){\line(1,0){130}}
+\put(5,2){\line(1,0){30}}
+\put(7,4){\line(1,0){26}}
+\put(9,6){\line(1,0){22}}
+\put(11,8){\line(1,0){18}}
+\put(13,10){\line(1,0){14}}
+\put(5,0){\line(0,1){2}}
+\put(35,0){\line(0,1){2}}
+\put(7,2){\line(0,1){2}}
+\put(33,2){\line(0,1){2}}
+\put(9,4){\line(0,1){2}}
+\put(31,4){\line(0,1){2}}
+\put(11,6){\line(0,1){2}}
+\put(29,6){\line(0,1){2}}
+\put(13,8){\line(0,1){2}}
+\put(27,8){\line(0,1){2}}
+\put(19,10){\rule{2mm}{5mm}}
+\put(59,0){\rule{2mm}{15mm}}
+\put(99,0){\rule{2mm}{15mm}}
+\end{picture}
+\end{center}
+
+\bigskip
+\noindent
+Notons $a_n$ le nombre minimal de mouvements nécessaires au transport de
+la tour initiale de $n$ disques.
+\begin{questions}
+\question Montrer que $a_1=1$ et $a_2=3$. 
+\question Établir une relation entre $a_{n+1}$ et $a_n$ pour tout $n\ge 1$.
+\question Montrer que $a_n=2^n-1$ pour tout $n\ge 1$. 
+\end{questions}
+
+
+
+
+
+\exercice{nom={Exercice}}
+Sur une étagère, on range les $n$ tomes d'une encyclopédie. Combien y a-t-il de manières de les ranger tout en étant sûr que le tome 1 et le tome 2 sont côte à côte et dans cet ordre ?
+
+
+\exercice{nom={Exercice}}%http://images.math.cnrs.fr/Juin-2016-3e-defi.html
+De combien de façons différentes peut-on ranger les nombres $1,2,\dots,n$ si l'on veut que le produit de deux nombres voisins soit toujours pair ?
+
+
+
+\exercice{nom={Exercice}}%Monier-Haberer-Lardon Livre d'exos MPSI
+Une urne contient 10 boules numérotées de $1$ à $10$. La boule 1 est jaune,
+les boules 2 et 3 sont bleues, les boules 4,5,6 sont rouges et les boules 7,8,9,10
+sont vertes. On tire dans l'urne successivement et avec remise 5 boules. Le résultat
+est donc la liste ordonnée des cinq numéros des boules tirées. Déterminer le nombre de
+résultats
+\begin{enumerate}
+\item en tout,
+\item pour lesquels les cinq boules sont toutes de la même couleur,
+\item pour lesquels les quatre couleurs apparaissent parmi les cinq boules,
+\item pour lesquels la boule numéro 8 a été tirée et exactement deux des boules tirées sont rouges.
+\end{enumerate}
+\begin{sol}
+\begin{questions}
+\question Il y a $10^5$ tirages.
+\question Il y a $1+2^5+3^5+4^5=1300$ tirages.
+\question 4 couleurs différents. Si il y a deux jaunes, cela fait $2\times 3\times 4\times 5!/2=1440$.
+  Si il y a deux bleues, cela fait $3\times 4\times 5!+2\times 3\times 4\times 5!/2=2880$.
+  Si il y a deux rouges, 4320. Si il y a deux verts, 5760. Au total, cela donne $14400$.
+\question Si on tire 3 fois 8 et 2 rouges, on a $(3 parmi 5)3^2=90$. Si on tire 2 fois 8 et 2 rouges,
+  $(2 parmi 5)(2 parmi 3)3^2 6^1=1620$. Si on tire une fois 8 et 2 rouges $9720$.
+  Cela fait au total 11430.\\
+  Autre méthode~: On choisit où placer les rouges. Il y a 2 parmi 5 possibilités. Ensuite, on choisit
+  les rouges, il y a $3^2$ possibilités. Il faut ensuite trouver les 3-listes avec au moins un 8. On peut
+  utiliser le complémentaire. On trouve
+  $(2 parmi 5) 3^2(7^3-6^3)$.
+\end{questions}
+\end{sol}
+
+
+
+
+\exercice{nom={Exercice}}%Monier-Haberer-Lardon Livre d'exos MPSI
+On dispose de trois urnes notées $A,B,C$ et de six boules. On répartit les six boules dans
+les trois urnes (chaque urne peut contenir de $0$ à $6$ boules). Une répartition est une
+liste ordonnée de trois nombres indiquant le nombre de boules contenues dans les urnes
+$A,B,C$. Par exemple, la répartition $(2,4,0)$ indique que l'urne $A$ contient $2$ boules,
+l'urne $B$ en contient $4$ et l'urne $C$ est vide.
+Déterminer le nombre de répartitions
+\begin{enumerate}
+\item en tout,
+\item telles que l'urne $A$ est vide,
+\item telles que l'urne $A$ est la seule urne vide,
+\item telles qu'une urne et une seulement est vide,
+\item telles qu'aucune urne est vide,
+\item telles qu'au moins une urne est vide.
+\end{enumerate}
+\begin{sol}
+\begin{questions}
+\question En utilisant la représentation $OOOIOOOI$, on trouve $\choose{8}{2}=28$ possibilités.
+\question En utilisant la représentation $OOOIOOO$, on trouve $\choose{7}{1}=7$ possibilités.
+\question On enlève les deux possibilités $B$ vide et $C$ vide. On a $7-2=5$ possibilités.
+\question On a $3\times 5=15$ possibilités.
+\question Il y a 10 possibilités.
+\question Complémantaire du cas précédent. $28-10=18$.
+\end{questions}
+\end{sol}
+
+
+
+\exercice{nom={Exercice}}
+On considère un quadrillage de $n$ lignes et $m$ colonnes. On part de la case en haut à gauche pour arriver à la case en bas à droite. Les seuls mouvements possibles sont de se déplacer d'une case à droite ou d'une case en bas. 
+Combien existe-t-il de chemins ?
+
+
+%\exercice{nom={Exercice}}
+%Sur un échiquier (donc 8 lignes et 8 colonnes), il ne reste plus que les 2 tours blanches et les deux noires. Combien de positions possibles pour que les tours ne se menacent pas entre-elles ?
+%
+
+
+\exercice{nom={Exercice}}%vincent
+Un domino est un rectangle constitué de deux carrés, chacun comportant entre 0 et 6 points. 
+% \begin{center}
+% \includegraphics[width=5cm]{domino.jpg}
+% \end{center}
+\begin{enumerate}
+\item Combien existe-t-il de dominos ?
+\item Combien de paires peut-on former avec des dominos ayant un nombre en commun~?
+\end{enumerate}
+\begin{sol}
+\begin{questions}
+\question Si on ordonne les chiffres des dominos, il y en a $7\times 7=49$. Si on n'ordonne pas, il y en a $(49-7)/2+7=28$.
+\question On choisit le chiffre en commun. Puis on choisit 2 chiffres parmi 7. On trouve 147.
+\end{questions}
+\end{sol}
+
+
+\exercice{nom={Exercice}}
+Soit $E$ un ensemble de cardinal $2n$. On appelle partition de $E$ en paires tout ensemble 
+$\{ \{a_1,b_1 \}, \dots, \{ a_n, b_n \} \}$ avec pour tout $i \in \intere{1}{n}$, 
+$a_i \neq b_i$ et $\p{\{a_1,b_1 \}, \dots, \{ a_n, b_n \}}$ est une partition de $E$.
+Dénombrer les  partitions de $E$ en paires.
+
+
+\exercice{nom={Exercice}}
+Soit $E$ une partie de cardinal $n\in\Ns$. Dénombrer de deux manières différentes les couples
+$(a,A)\in E\times\mathcal{P}(E)$ tels que $a\notin A$. En déduire
+\[\forall n\in\Ns \qsep \sum_{k=1}^n k \binom{n}{k}=n 2^{n-1}.\]
+\begin{sol}
+On choisit d'abord $a\in A$. On a $n$ possibilités. On choisit ensuite une partie dans ce qui reste. On a $2^{n-1}$ possibilités.
+
+\end{sol}
+
+\exercice{nom={Compter les matrices}}
+Combien existe-t-il de matrices de $\mat{q,p}{\R}$ dont les entrées sont
+\og 0 \fg ou \og 1 \fg et
+\begin{questions}
+\question dont chaque ligne contient exactement un coefficient \og 1 \fg ~?
+\question dont chaque ligne contient exactement deux coefficients \og 1 \fg ~?
+\question dont chaque ligne et chaque colonne contiennent exactement un
+  coefficient \og 1 \fg (on suppose ici $q=p$)~?
+\end{questions}
+
+\exercice{nom={Le crible}}
+Soit $n\in\Ns$.
+\begin{questions}
+\question Montrer que
+  \[\sum_{k=0}^n (-1)^{n-k}\binom{n}{k}k^n = n!.\]
+  On pourra appliquer la formule du crible aux ensembles
+  $\intere{1}{n}\setminus\ens{k}$ pour $k\in\intere{1}{n}$.
+\question Simplifier de même
+  \[\sum_{k=0}^n (-1)^{n-k}\binom{n}{k}k^p\]
+  pour tout $p\in\intere{0}{n}$.
+\end{questions}
+
+%\exercice{nom={Exercice}}
+%On dit qu'une partie $A$ de $\intere{1}{n}$ vérifie la propriété $(\star)$ ssi pour tout $a \in A$, $a+1$ et $a+2 \notin A$. On note $u_n$ le nombre de parties de $\intere{1}{n}$ vérifiant la propriété $(\star)$.
+%
+%Déterminer une relation de récurrence vérifiée par la suite $(u_n)$. En déduire la forme d'un équivalent de $u_n$.
+%
+
+\exercice{nom={Exercice}}
+Pour tout $n\in\N$, on note $u_n$ le nombre d'applications $f$ de $\intere{1}{n}$ dans
+$\intere{1}{n}$ telles que $f\circ f=\id$. Déterminer une relation de récurrence vérifiée
+par la suite $(u_n)$.
+
+
+%END_BOOK
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

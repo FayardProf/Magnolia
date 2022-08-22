@@ -1,0 +1,314 @@
+\documentclass{magnolia}
+
+\magtex{tex_driver={pdftex}}
+\magfiche{document_nom={Exercices sur l'intégration},
+          auteur_nom={François Fayard},
+          auteur_mail={fayard.prof@gmail.com}}
+\magexos{exos_matiere={maths},
+         exos_niveau={mpsi},
+         exos_theme={Intégration}}
+\magmisenpage{misenpage_presentation={tikzvelvia},
+              misenpage_format={a4},
+              misenpage_nbcolonnes={1},
+              misenpage_sol={non}}
+\maglieudiff{lieu_lycee={Aux Lazaristes},
+             lieu_classe={MPSI 1},
+             lieu_annee={2019--2020}}
+\magprocess
+
+\begin{document}
+%BEGIN_BOOK
+
+
+\magsection{Intégration}
+
+% \exercice{nom={Calcul de quelques intégrales}, utile=1, difficulte=1}
+% Calculer les intégrales suivantes~:
+% \[\integ{n}{m}{E(x)}{x} \quad \text{pour $n,m\in\Z$}\]
+% \[\integ{-1}{2}{x\abs{x}}{x} \qquad \integ{-1}{1}{x\abs{x}}{x} \qquad
+%   \integ{-1}{1}{\frac{\sin x}{1+x^2}}{x}\]
+
+\exercice{nom={Calcul de limites}, utile=2, difficulte=2}
+\begin{questions}
+\question Calculer les limites des expressions suivantes lorsque $n$ tend vers
+  $+\infty$
+  \[\frac{1}{n!} \integ{0}{1}{\arcsin^n t}{t}, \qquad
+    \integ{0}{1}{x^n\ln(1+x^2)}{x}, \qquad \integ{0}{1}{\ln\p{1+x^n}}{x}.\]
+\question Calculer la limite de
+  \[\integ{0}{1}{x^2\sqrt{1+ax^2}}{x}\]
+  lorsque $a$ tend vers $0$.
+\end{questions}
+
+\exercice{nom={Calcul de limites}, utile=2, difficulte=2}
+\begin{questions}
+\question
+  \begin{questions}
+  \question Donner la limite, lorsque $t$ tend vers 1 de
+    \[\frac{1}{\ln t}-\frac{1}{t\ln t}.\]
+  \question En déduire la limite lorsque $x$ tend vers $1$ de
+    \[\integinv{x}{x^2}{\ln t}{t}.\]
+  \end{questions}
+\question Donner la limite lorsque $x$ tend vers $0$ de
+  \[\integ{x}{3x}{\frac{\sin t}{t^2}}{t}.\]
+\end{questions}
+\begin{sol}
+$\quad$
+\begin{questions}
+\question
+  \begin{questions}
+  \question 
+    \[\frac{1}{\ln t}-\frac{1}{t\ln t}\tendvers{t}{1}1\]
+  \question 
+    \[\integinv{x}{x^2}{\ln t}{t}\tendvers{x}{1}\ln 2\]    
+  \end{questions}
+\question 
+  \[\integ{x}{3x}{\frac{\sin t}{t^2}}{t}\tendvers{x}{0}\ln 3\]
+\end{questions}
+\end{sol}
+
+\exercice{nom={Calcul de limite}, utile=1, difficulte=3}
+Soit $f$ une fonction continue sur le segment $\interf{0}{1}$ à valeurs
+strictement positives. Pour tout $\alpha>0$, on définit
+$$I(\alpha)\defeq \p{\integ{0}{1}{f^\alpha(t)}{t}}^\frac{1}{\alpha}.$$
+\begin{questions}
+\question Montrer que $I(\alpha)$ converge vers la borne supérieure de
+  $f$ lorsque $\alpha$ tend vers $+\infty$.
+\question Le but de cet question est de montrer que lorsque $\alpha$ tend vers
+  $0$, $I(\alpha)$ tend vers
+  \[\exp\p{\integ{0}{1}{\ln(f(t))}{t}}.\]
+  \begin{questions}
+  \question On suppose dans cette question que $\forall x\in\interf{0}{1}
+    \qsep f(x)\geq1$.
+    \begin{questions}
+    \question Soit $\varepsilon>0$. Montrer qu'il existe $\eta>0$ tel que
+      $$\forall x\in\interf{0}{\eta} \qsep 1+(1-\varepsilon)x\leq \e^x
+        \leq 1+(1+\varepsilon)x.$$
+    \question En déduire qu'il existe $\eta'>0$ tel que
+      \[\forall \alpha\in\interof{0}{\eta'} \qsep
+        1+(1-\varepsilon)\alpha\ln(f(t)) \leq f^{\alpha} (t) \leq 
+        1+(1+\varepsilon)\alpha\ln(f(t)).\]
+    \question Conclure
+    \end{questions}
+  \question Montrer le cas général.
+  \end{questions}
+\end{questions}
+
+
+\exercice{nom={Fonction d'intégrale nulle}, utile=2, difficulte=1}
+Soit $f$ une fonction continue sur un intervalle $I$. On suppose que
+quels que soient $a$ et $b$ dans $I$
+\[\integ{a}{b}{f(t)}{t}=0.\]
+Montrer que $f$ est nulle.
+
+
+\exercice{nom={Égalité dans l'inégalité triangulaire}, utile=2, difficulte=2}
+Soit $f$ une fonction continue sur le segment $\interf{a}{b}$. On suppose
+que
+\[\abs{\integ{a}{b}{f(x)}{x}}=\integ{a}{b}{\abs{f(x)}}{x}.\]
+Montrer que~:
+\begin{questions}
+\question Si $f$ est réelle, $f$ garde un signe constant.
+\question Si $f$ est complexe, $f$ garde un argument constant.
+\end{questions}
+
+% \subsection{Inégalité de Jensen}
+% Soit $f$ une fonction réelle continue par morceaux sur $\interf{0}{1}$ et
+% $g$ une fonction réelle continue et convexe. On se propose de démontrer
+% l'inégalité de Jensen :
+% \[g\p{\integ{0}{1}{f(t)}{t}} \leq \integ{0}{1}{g\p{f(t)}}{t}\]
+% \begin{questions}
+% \question Démontrer que le resultat est vrai lorsque $f$ est une fonction
+%   en escalier.
+% \question En déduire le cas général.
+% \end{questions}
+
+\exercice{nom={Inégalité de Gronwall}, utile=3, difficulte=2}
+\begin{questions}
+\question Soit $f$ une fonction positive et continue sur $\RP$. On suppose
+  qu'il existe un nombre réel $k$ positif tel que
+  \[\forall x \in\RP \qsep f(x) \leq k\integ{0}{x}{f(t)}{t}.\]
+  Montrer que la fonction $f$ est nulle.
+\question Soit $c\in\RP$, $u$ et $v$ deux applications continues et positives
+  de $\RP$ dans $\R$ telles que
+  \[\forall x\in\RP \qsep u(x)\leq c+\integ{0}{x}{u(t)v(t)}{t}.\]
+  Montrer que
+  \[\forall x \in\RP \qsep u(x)\leq c\exp\p{\integ{0}{x}{v(t)}{t}}.\]
+\end{questions}
+
+
+\magsection{Intégration et dérivation}
+
+\exercice{nom={Calcul de primitives}, utile=2}
+Donner le domaine de définition et calculer les primitives suivantes~:
+\[\prim{\p{x^2+x+1}\e^x}{x}, \qquad \prim{\p{x^2-1}\cos x}{x}, \qquad
+  \prim{x^3\ln x}{x},\]
+\[\prim{\sin^2 x\cos^3 x}{x}, \qquad \prim{\sin x\cos^2 x}{x}, \qquad
+  \prim{\sin^2 x\cos^2 x}{x},\]
+\[\prim{\frac{x}{x^2+1}}{x}, \qquad \prim{\frac{1}{x\ln x}}{x}, \qquad
+  I_n=\prim{\ln^n x}{x} \quad (\text{pour $n\in\N$}).\]
+\begin{sol}
+\[I_n=x\sum_{k=0}^n (-1)^k \frac{n!}{(n-k)!}\ln^{n-k} x\]   
+\end{sol}
+
+\exercice{nom={Intégrales de Wallis}, utile=3}
+Pour tout entier $n\in\N$, on définit $I_n$ et $J_n$ par
+\[I_n\defeq\integ{0}{\frac{\pi}{2}}{\sin^n t}{t} \quad\text{et}\quad
+  J_n\defeq\integ{0}{\frac{\pi}{2}}{\cos^n t}{t}.\]
+\begin{questions}
+\question Montrer que pour tout $n\in\N$, $I_n=J_n$.
+\question Montrer que les suites $(I_n)$ et $(J_n)$ sont positives et
+  décroissantes. Calculer $I_0$ et $I_1$.
+\question Montrer que pour tout $n\in\N$
+  \[I_{n+2}=\frac{n+1}{n+2}I_n.\]
+\question En déduire que pour tout $n\in\N$
+  \[I_n I_{n+1}=\frac{\pi}{2(n+1)}.\]
+\question En déduire que
+  \[I_n\equiS\sqrt{\frac{\pi}{2n}}.\]
+\end{questions}
+
+
+\exercice{nom={Étude de fonctions}, utile=3, difficulte=2}
+Étudier le domaine de définition, les symétries, la monotonie et les limites
+aux bornes du domaine de définition des fonctions d'expressions
+\[x\mapsto \integ{1}{1+x^2}{\ln(t)}{t}, \qquad
+  x\mapsto \integinv{x}{2x}{\ln(1+t^2)}{t},\]
+\[x\mapsto \integinv{x}{x^2}{\ln(t)}{t}, \qquad
+  x\mapsto \integ{x}{2x}{\e^{t^2}}{t}.\]
+\begin{sol}
+$\quad$
+\begin{questions}
+\question La fonction est paire, croissante sur $\RP$ et tend vers $+\infty$
+  en $+\infty$ (Calculer $f$ pour cette dernière limite).
+\question La fonction est définie sur $\Rs$ et est impaire. Elle
+  est décroissante sur $\interof{0}{\sqrt{2}}$ et croissante sur
+  $\interfo{\sqrt{2}}{+\infty}$. En 0 et en $+\infty$, elle tend vers $+\infty$
+  (il suffit de minorer l'intégrale en minorant la fonction à intégrer
+  par son minimum).
+\question La fonction est définie sur $\RPs\setminus\ens{1}$. Elle est
+  croissante sur $\intero{0}{1}$ et sur $\intero{1}{+\infty}$. La limite en
+  1 est difficile à calculer (voir un autre exercice). On trouve $\ln 2$.
+  La limite en $+\infty$ est $+\infty$ et en 0 est 0 (ces deux limites
+  se font simplement en utilisant la première inégalit de la moyenne).
+\question La fonction est définie sur $\R$, impaire et tend trivialement vers
+  $+\infty$ en $+\infty$.
+\end{questions}
+\end{sol}
+
+\exercice{nom={Étude d'une fonction définie par une intégrale}, utile=2, difficulte=2}
+Soit $f$ une fonction continue et positive sur $\interf{0}{\frac{\pi}{2}}$. On
+définit la fonction $g$ d'expression
+$$g(x)\defeq\integ{0}{\frac{\pi}{2}}{\frac{f(t)}{1+x\sin t}}{t}.$$
+\begin{questions}
+\question Montrer que $g$ est définie sur $\intero{-1}{+\infty}$.
+\question Montrer que $g$ est décroissante.
+\question Étant donné $a>-1$, montrer que $g$ est lipschitzienne sur
+  $\interfo{a}{+\infty}$. En déduire que $g$ est continue sur
+  $\intero{-1}{+\infty}$.
+\question Montrer que $g$ est dérivable sur $\intero{-1}{+\infty}$ et que
+  \[\forall x\in\intero{-1}{+\infty} \qsep
+    g'(x)=
+    -\integ{0}{\frac{\pi}{2}}{\frac{f(t)\sin t}{\p{1+x\sin(t)}^2}}{t}.\]
+\end{questions}
+
+
+\exercice{nom={Calcul numérique}, utile=2, difficulte=1}
+Donner une majoration de l'erreur commise en prenant $x-\frac{x^2}{2}$
+comme valeur approchée de $\ln(1+x)$. En déduire une valeur approchée de
+$\ln(1,003)$ à $10^{-8}$ près.
+
+
+\exercice{nom={Calcul de limites}, utile=3, difficulte=1}
+Étudier la convergence des suites de terme général
+\[\frac{1}{n}\sum_{k=1}^n \sin\p{\frac{k\pi}{n}}, \qquad
+  n\sum_{k=1}^n \frac{1}{\p{n+k}^2}, \qquad
+  \frac{1}{n\sqrt{n}}\sum_{k=1}^{n-1} \sqrt{k},\]
+\[\sqrt[n]{\prod_{k=1}^n \p{1+\p{\frac{k}{n}}^2}}, \qquad
+  \sum_{k=1}^{n-1} \frac{1}{\sqrt{n^2-k^2}}.\]
+
+\exercice{nom={Calcul de limites}, utile=2}
+\begin{questions}
+\question Montrer que
+  \[\forall x \in\RP \qsep x^2-\frac 13 x^4 \leq \sin^2( x)\leq x^2.\]
+\item En déduire la limite de la suite de terme général
+  \[\sum\limits_{k=1}^n \sin^2 \left(\frac 1{\sqrt{k+n}} \right).\]
+\end{questions}
+
+\exercice{nom={Calcul de limites}, utile=2}
+Soit $f \in\classec{1}([0,1],\R)$. Déterminer la limite de la suite de terme général
+\[\frac 1n \sum\limits_{k=0}^{n-1} f\p{\frac{k+1}n} f'\p{\frac kn}.\]
+
+\exercice{nom={Suite}}
+\begin{questions}
+\question Montrer que pour tout $x\in[0,1]$
+  \[\abs{\e^x-1-x}\leq\frac{\e}{2}x^2.\]
+\question En déduire la limite de la suite de terme général
+  \[u_n\defeq \p{\sum_{k=1}^n \e^{\frac{1}{n+k}}} -n.\]
+\end{questions}
+
+
+\exercice{nom={Lemme de Lebesgue}, utile=2, difficulte=3}
+Soit $f$ une fonction continue par morceaux sur le segment $\interf{a}{b}$.
+Le but de cet exercice est de montrer que
+\[\integ{a}{b}{f(t)\sin(nt)}{t} \tendvers{n}{+\infty} 0.\]
+\begin{questions}
+\question En effectuant une intégration par parties, montrer que le résultat
+  est vrai lorsque $f$ est supposé $\classec{1}$.
+\question Le but de cette question est de démontrer que le résultat est vrai
+  dans le cas général.
+  \begin{questions}
+  \question Montrer que le résultat est vrai lorsque $f$ est une fonction en
+    escalier.
+  \question En déduire le cas général.
+  \end{questions}
+\end{questions}
+
+
+\exercice{nom={Calcul de $\zeta(2)$}}
+\begin{questions}
+\question Montrer qu'il existe un unique polynôme $P$ de degré
+  inférieur ou égal à 2 tel que $P(0)=0$ et
+  \[\forall k\in\Ns \qsep \integ{0}{1}{P(t)\cos(kt)}{t}=\frac{1}{k^2}.\]
+\question En utilisant le lemme de Lebesgue, en déduire que
+  \[\sum_{k=1}^n \frac{1}{k^2}\tendvers{n}{+\infty}\frac{\pi^2}{6}.\]
+\end{questions}
+
+\exercice{nom={Généralisation du lemme de Lebesgue}, utile=2, difficulte=3}
+Soit $f$ une fonction continue par morceaux sur le segment $\interf{a}{b}$
+et $g$ une fonction définie sur $\R$, continue par morceaux et $T$-périodique.
+Le but de cet exercice est de montrer que
+\[\integ{a}{b}{f(t)g\p{nt}}{t} \tendvers{n}{+\infty}
+  \p{\frac{1}{T} \integ{0}{T}{g(t)}{t}} \integ{a}{b}{f(t)}{t}.\]
+\begin{questions}
+\question Démontrer le résultat lorsque $f$ est constante puis lorsque $f$
+  est une fonction en escalier.
+\question En déduire le résultat général.
+\question Soit $f$ une fonction de classe $\classec{1}$ sur
+  $\interf{0}{1}$. On définit la suite $\p{u_n}$ par
+  \[\forall n\geq 1 \qsep u_n\defeq \frac{1}{n}
+    \p{\frac{1}{2}f\p{0}+\sum_{k=1}^{n-1} f\p{\frac{k}{n}}+\frac{1}{2}f\p{1}}.\]
+  \begin{questions}
+  \question Montrer que pour tout $k\in\intere{0}{n-1}$
+    \[\integ{\frac{k}{n}}{\frac{k+1}{n}}{f(t)}{t}=\frac{1}{n}f\p{\frac{k}{n}}
+      +\integ{\frac{k}{n}}{\frac{k+1}{n}}{\p{\frac{k+1}{n}-t}f'(t)}{t}.\]
+  \question En déduire que
+    \[u_n=\integ{0}{1}{f(t)}{t}+\petito{n}{+\infty}{\frac{1}{n}}.\] 
+  \end{questions}
+\end{questions}
+
+\exercice{nom={Limite différentielle}, utile=1, difficulte=3}
+Soit $f$ une fonction de classe $\mathcal{C}^1$ sur $\R$ telle que
+$$f'(x)+f(x) \tendvers{x}{+\infty} 0.$$
+Le but de cet exercice est de montrer que $f(x)$ tend vers $0$ lorsque $x$
+tend vers $+\infty$.
+\begin{questions}
+\question On note $\epsilon$ la fonction $\epsilon\defeq f+f'$. Montrer que si $a$
+  est un réel
+  \[f(x)=f(a)\e^{a-x}+\e^{-x}\integ{a}{x}{\epsilon(t)\e^t}{t}.\]
+\question Conclure.
+\question Que dire si la condition de départ est changée en
+  \[f'(x)+\lambda f(x) \tendvers{x}{+\infty} 0,\]
+  où $\lambda$ est un réel~?
+\end{questions}
+%END_BOOK
+\end{document}
+

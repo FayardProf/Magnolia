@@ -1,0 +1,732 @@
+\documentclass{magnolia}
+
+\magtex{tex_driver={pdftex}}
+\magfiche{document_nom={Exercices sur les suites},
+          auteur_nom={François Fayard},
+          auteur_mail={fayard.prof@gmail.com}}
+\magexos{exos_matiere={maths},
+         exos_niveau={mpsi},
+         exos_chapitre_numero={8},
+         exos_theme={Suites}}
+\magmisenpage{}
+\maglieudiff{}
+\magprocess
+
+\begin{document}
+
+%BEGIN_BOOK
+
+\magsection{Suite réelle et complexe}
+\magsubsection{Définition}
+\magsubsection{Suite et relation d'ordre}
+
+
+\magsection{Notion de limite}
+\magsubsection{Limite finie}
+
+
+\exercice{nom={Minimum et Maximum}}
+Soit $u$ et $v$ deux suites réelles convergeant respectivement vers $l_u$ et
+$l_v$. Montrer que les suites de terme général $\max(u_n,v_n)$ et
+$\min(u_n,v_n)$ sont convergentes et calculer leurs limites.
+\begin{sol}
+On utilise les expressions du max et du min avec les valeurs absolues et on passe à la limite !
+\end{sol}
+
+\exercice{nom={Plus grand et plus petit élément}}
+Soit $(u_n)$ une suite de réels. On pose
+\[A\defeq\ensim{u_n}{n\in\N}.\]
+\begin{questions}
+\question On suppose que $(u_n)$ diverge vers $+\infty$. Montrer que $A$ admet un plus petit
+  élément.
+\question On suppose que $(u_n)$ converge. Montrer que $A$ admet un plus petit ou un plus grand  élément.
+\end{questions}
+
+\exercice{nom={Quelques calculs de limite}}
+Montrer que les suites suivantes, définies par leur terme général, admettent une
+limite que l'on calculera.
+\[\frac{\sin (n^3)}{n}, \qquad \frac{n^3+5n}{5n^3+\cos n+\frac{1}{n^2}}, \qquad
+  \frac{2n+(-1)^n}{5n+(-1)^{n+1}}, \qquad \sqrt[n]{3+\sin n},\]
+\[\arctan\left(\frac{n^2-n\cos n +(-1)^n}{\ln n + n^2}\right), \qquad
+  \left(5\sin\frac{1}{n^2}+\frac{1}{5}\cos n\right)^n,\]
+\[\frac{1}{n^2} \sum_{k=1}^{n} \ent{kx},
+  \qquad \left(a+\frac{b}{n}\right)^n \quad
+  \text{o\`u $a$ et $b$ sont réels et $a\geq 0$}.\]
+\begin{sol}
+\begin{questions}
+\question $0$
+\question $1/5$
+\question $2/5$
+\question mise sous forme exponentielle puis l'exposant tend vers $0$ donc ça tend vers $1$.
+\question tend vers $\pi/4$ par composition de limites.
+\question Il existe $N\in \N$ tel que $\forall n\geq N$, $\abs{5\sin\frac{1}{n^2}+\frac{1}{5}\cos n}\leq \dfrac{2}{5}$ d'où $\abs{5\sin\frac{1}{n^2}+\frac{1}{5}\cos n}^n\leq \p{\dfrac{2}{5}}^n$.
+\question $$\frac{n+1}{2n}x-\frac{1}{n}\leq \frac{1}{n^2} \sum_{k=1}^{n} (kx-1)<\frac{1}{n^2} \sum_{k=1}^{n} \ent{kx}\leq \frac{1}{n^2} \sum_{k=1}^{n} kx=\frac{n+1}{2n}x.$$
+\question Si $a=0$, $\displaystyle\abs{\frac{b}{n}}\leq \p{\frac{1}{2}}^n$ apcr, d'où la limite vaut $0$. Sinon, $$\left(a+\frac{b}{n}\right)^n=a^n\underbrace{\p{1+\frac{b}{an}}^n}_{\tendvers{n}{+\infty}{\e^{b/a}}}$$ donc selon $a$, ...
+\end{questions}
+\end{sol}
+
+\exercice{nom={Une manipulation fine d'$\epsilon$}}
+Soit $(u_n)$ une suite réelle telle que
+\[\forall k,n \geq 1 \qsep 0\leq u_n \leq  \frac{k}{n}+\frac{1}{k}.\]
+Le but de cet exercice est de montrer que $(u_n)$ converge vers $0$ de deux
+manières distinctes.
+\begin{questions}
+\question
+  \begin{questions}
+  \question Soit $\epsilon > 0$. Montrer qu'il existe une constante $C$
+    telle que
+    $$\forall n \geq 1 \qsep |u_n|\leq \frac{C}{n} + \frac{\epsilon}{2}.$$
+  \question En déduire que $(u_n)$ converge vers $0$.
+  \end{questions}
+\question Montrer directement ce résultat en choisissant judicieusement $k$.
+\end{questions}
+\begin{sol}
+Dernière question, il suffit de prendre $k=\ent{\sqrt{n}}$.
+\end{sol}
+
+\exercice{nom={Théorème de \nom{Césaro}}}
+Étant donnée une suite $(u_n)$, on définit la suite $(c_n)$ par
+\[\forall n \geq 1 \qsep c_n\defeq\frac{u_1+u_2+\dots+u_n}{n}=\frac{1}{n}
+  \sum_{k=1}^{n} u_k\]
+appelée moyenne de \nom{Césaro} de la suite $(u_n)$. 
+\begin{questions}
+\question On suppose dans cette question que $(u_n)$ est convergente. Il existe donc
+  $l\in\C$ tel que
+  \[u_n\tendvers{n}{+\infty}l.\]
+  On souhaite montrer que $(c_n)$ converge vers $l$.
+  \begin{questions}
+  \question Soit $\epsilon>0$. Montrer qu'il existe $N_0\in\Ns$ tel que
+    \[\forall n \geq N_0 \qsep \abs{c_n-l}\leq \frac{\abs{u_1-l}+\dots+\abs{u_{N_0-1}-l}}{n} +
+      \frac{\epsilon}{2}.\]
+  \question En déduire qu'il existe $N_1\in\Ns$ tel que
+    \[\forall n \geq N_1 \qsep |c_n|\leq \epsilon\]
+    et conclure.
+  \end{questions}
+\question Réciproquement, on suppose $(c_n)$ convergente. Peut-on en déduire que
+  $(u_n)$ est convergente~?
+\question Que dire si $(u_n)$ est une suite réelle divergeant vers $+\infty$~?
+\end{questions}
+\begin{sol}
+Pour la dernière question, cela fonctionne aussi, il suffit de fixer $M>0$ puis $N$ à partir duquel $u_n\geq 2M$. Alors $\forall n\geq N$, on sépare les sommes et on se retrouve avec $$S_n \geq \frac{\sum_{k=0}^{N-1}u_k-2MN}{n+1}+2M$$ le premier terme tendant vers $0$, il est en particulier $\geq -M$ apcr $N_1$. Il reste à prendre $n\geq \max(N,N_1)$.
+\end{sol}
+
+
+\exercice{nom={Applications du théorème de \nom{Césaro}}}
+Dans cet exercice, on pourra utiliser librement le théorème de \nom{Césaro}.
+\begin{questions}
+\question Soit $(u_n)$ une suite complexe telle que $u_{n+1}-u_n$ converge vers
+    $l\in\C$. Montrer que
+    \[\frac{u_n}{n} \tendvers{n}{+\infty} l.\]
+\question Soit $(u_n)$ une suite de réels strictement positifs convergeant vers
+    un réel $l>0$. Montrer que
+    \[\sqrt[n]{\prod_{k=1}^{n} u_k}  \tendvers{n}{+\infty} l.\]
+\end{questions}
+
+\exercice{nom={Autour de \nom{Césaro}}}
+
+Soit $(u_n)$ une suite complexe convergeant vers $l\in\C$. 
+\begin{questions}
+\question Montrer que la suite $(v_n)$ définie par
+  \[\forall n\in\Ns \qsep v_n\defeq\frac{u_1+2u_2+\dots+nu_n}{n^2}=
+    \frac{1}{n^2} \sum_{k=1}^{n} k u_k\]
+  converge vers $l/2$.
+\question Montrer que la suite $(w_n)$ définie par 
+  \[\forall n\in\N \qsep w_n\defeq\frac{\binom{n}{0}u_0+ \binom{n}{1}u_1+
+    \dots+\binom{n}{n}u_n}{2^n}=\frac{1}{2^n} \sum_{k=0}^{n}
+    \binom{n}{k} u_k\]
+  converge vers $l$.
+% \question Soit $u$ et $v$ deux suites complexes. On définit la suite
+%   $P(u,v)$ définie par~:
+%   $$\forall n \geq 1 \quad P(u,v)_n=\frac{u_1 v_n+u_2 v_{n-1}+
+%     \dots+u_n v_1}{n}$$
+%   \begin{questions}
+%   \question Montrer que si $u$ converge vers $0$ et $v$ est bornée, alors
+%     $P(u,v)$  converge vers~$0$.
+%   \question En déduire que si $u$ et $v$ convergent respectivement vers
+%     $l_u$ et $l_v$, alors $P(u,v)$ converge vers $l_u l_v$.
+%   \end{questions}
+\end{questions}
+
+
+\exercice{nom={Produit de \nom{Cauchy}}}
+Soit $(u_n)$ et $(v_n)$ deux suites complexes convergeant vers 0. On suppose qu'il existe
+$M\in\RP$ tel que
+\[\forall n\in\N\qsep \sum_{k=0}^n \abs{u_k}\leq M.\]
+Montrer que
+\[\sum_{k=0}^n u_k v_{n-k} \tendvers{n}{+\infty}0.\]
+
+
+\magsubsection{Limite infinie}
+\magsubsection{Limite et relation d'ordre}
+
+\exercice{nom={Calcul de limite}}
+\begin{questions}
+\question Montrer que
+   \[\forall p\in\Ns \quad
+     \frac{1}{p+1} \leq \ln\p{\frac{p+1}{p}} \leq \frac{1}{p}.\]
+\question En déduire la limite de la suite de terme général
+   \[\sum_{k=1}^n \frac{1}{n+k}.\]
+\end{questions}
+\begin{sol}
+\begin{questions}
+\question
+\begin{eqnarray*}\ln\p{1+\frac{1}{x}}-\frac{1}{1+x}\geq 0 &\Longleftrightarrow & \ln\p{\frac{x+1}{x}}\geq\frac{1}{1+x}\\
+&\Longleftrightarrow & -\ln\p{\frac{x}{x+1}}\geq\frac{1}{1+x}\\
+&\Longleftrightarrow & \ln\p{1-\frac{1}{x+1}}\leq-\frac{1}{x+1} \text{ ce qui est vrai.}
+\end{eqnarray*}
+\question On en déduit
+   \[\sum_{k=1}^n\ln\p{\frac{n+k+1}{n+k}} \leq \sum_{k=1}^n \frac{1}{n+k}\leq \sum_{k=1}^n\ln\p{\frac{n+k}{n+k-1}}.\]
+   Puis somme télescopique et théorème des gendarmes.
+\end{questions}
+\end{sol}
+
+\exercice{nom={Exercice}}
+Soit $(u_n)$ et $(v_n)$ deux suites d'éléments de $[0,1]$ telles que
+\[u_n v_n\tendvers{n}{+\infty} 1.\]
+Montrer que $(u_n)$ et $(v_n)$ convergent toutes les deux vers 1.
+
+
+
+\magsubsection{Théorèmes usuels et limites usuelles}
+\magsubsection{Suite extraite}
+
+
+
+
+
+
+
+% \magsection{Définition de la convergence}
+
+% \exercice{nom={Manipulation d'$\epsilon$}}
+% \begin{questions}
+% \question Montrer qu'une suite complexe $u$ converge vers $l$ si et seulement
+%   si~:
+%   $$\forall \epsilon > 0 \quad \exists N \in \N \quad \forall n
+%     \geq N \quad |u_n-l|< \epsilon$$
+% \question Que dire d'une suite $u$ telle que~:
+%   $$\exists N \in \N \quad \forall \epsilon > 0 \quad \forall n
+%   \geq N \quad |u_n-l|\leq \epsilon$$
+% \question Montrer que toute suite convergente à valeurs entières est constante
+%   à partir d'un certain rang.
+% \question Soit $u$ une suite réelle telle que $u_{n+1}-u_n$ converge vers
+%   $l>0$. Montrer que $u$ diverge vers $+\infty$.
+% \question Montrer que si deux suites réelles $u$ et $v$ respectivement
+%   majorées par $a$ et $b$ sont telles que $u+v$ converge vers $a+b$, alors $u$
+%   converge vers $a$ et $v$ converge vers $b$.
+% \question Montrer qu'une suite complexe $u$ converge vers $l$ si et seulement
+%   si quelque soit $\epsilon > 0$, l'ensemble
+%   $A_{\epsilon}=\{n \in \N : |u_n-l|\geq \epsilon\}$ est fini.
+%   En déduire que si $u$ converge vers $l$ et si $\phi$ est une bijection de
+%   $\N$, alors la suite de terme général $u_{\phi(n)}$ converge vers
+%   $l$ (La notion de limite ne dépend pas de l'ordre de la suite).
+% \end{questions}
+
+% \magsection{Suites extraites}
+
+\exercice{nom={Suites divergentes}}
+Montrer que les suites suivantes, définies par leur terme général, sont
+divergentes
+\[\cos\p{\frac{n\pi}{4}}, \qquad \frac{5n^2+\sin n}{2(n+1)^2 \cos\frac{n\pi}{5}},
+  \qquad
+  \frac{2+n\sin\p{\frac{n\pi}{2}}}{n\cos\p{\frac{\pi}{4}+\frac{n\pi}{2}}}.\]
+  
+  \begin{sol}
+  \begin{questions}
+  \question $u_{8n}=1$ et $u_{8n+4}=-1$.
+  \question $v_{10n}\tendvers{n}{+\infty}2,5$ et $v_{10n+5}\tendvers{n}{+\infty}-2,5$
+  \question $w_{4n}\tendvers{n}{+\infty}0$ et $w_{4n+1}\tendvers{n}{+\infty}-\sqrt{2}$
+  \end{questions}
+  \end{sol}
+
+
+\exercice{nom={Autour de la notion d'extractrice}}
+  \begin{questions}
+  \question Soit $(u_n)$ une suite réelle prenant un nombre fini de valeurs.
+    Montrer que l'on peut en extraire une suite constante.
+  \question Soit $(u_n)$ une suite réelle ne divergeant pas vers $+\infty$.
+    Montrer que l'on peut en extraire une suite majorée.
+  \question Soit $(u_n)$ une suite complexe et $l\in \mathbb{C}$. Montrer
+    l'équivalence entre les deux propositions suivantes.
+  \begin{itemize}
+  \item Il existe une suite extraite de $(u_n)$ convergeant vers $l$.
+  \item Quel que soit $\epsilon > 0$, l'ensemble
+    \[A_\epsilon=\enstq{n \in \N}{|u_n-l|\leq \epsilon}\]
+    est infini.
+  \end{itemize}
+  Donner une exemple d'une suite non convergente vérifiant cette propriété.
+\question Montrer que de toute suite réelle divergeant vers $+\infty$, on peut
+  extraire une suite croissante.
+\end{questions}
+
+\exercice{nom={Convergence et suites extraites}}
+\begin{questions}
+\question Soit $(u_n)$ une suite réelle croissante. On suppose que $(u_n)$ admet une
+  suite extraite convergente. Montrer que $(u_n)$ converge.
+\question Montrer que si les suites extraites de terme général $u_{3n}$,
+  $u_{3n+1}$ et $u_{3n+2}$ convergent vers le même complexe $l$, alors $(u_n)$
+  converge vers $l$.
+\question On suppose qu'il existe un réel $l$ tel que pour tout entier
+  $k\geq 2$, la suite $(u_{kn})_{n\in\N}$ converge vers $l$.
+  Peut-on en déduire la convergence de la suite $(u_n)$~?
+\end{questions}
+
+
+
+% \exercice{nom={Valeurs d'adhérence}}
+% Soit $\p{u_n}$ une suite à valeurs dans $\C$. On dit que $z_0\in\C$ est une
+% valeur d'adhérence de la suite $\p{u_n}$ lorsqu'il existe une extractrice
+% $\phi$ telle que
+% \[u_{\phi(n)}\tendvers{n}{+\infty} z_0.\]
+% \begin{questions}
+% \question Donner les valeurs d'adhérence des suites de terme général
+%   \[\p{-1}^n, \qquad \frac{1}{n}+\sin\p{\frac{\ent{\sqrt{n}}\pi}{3}}.\]
+% \question Montrer que $l\in\C$ est valeur d'adhérence de la suite $\p{u_n}$ si
+%   et seulement si quelque soit $\epsilon>0$, l'ensemble
+%   \[\enstq{n\in\N}{\abs{u_n-l}\leq\epsilon}\]
+%   est infini.
+% \question L'objet de cette question est de montrer que si une suite bornée
+%   $\p{u_n}$ admet une et une seule valeur d'adhérence $l$, alors elle converge
+%   vers $l$. On raisonne par l'absurde et on suppose que $\p{u_n}$ ne converge
+%   pas vers $l$.
+%   \begin{questions}
+%   \question Montrer qu'il existe $\epsilon>0$ tel que l'ensemble
+%     \[\enstq{n\in\N}{\abs{u_n-l}\geq\epsilon}\]
+%     est infini.
+%   \question En déduire qu'il existe une extractrice $\phi$ telle que
+%     \[\forall n\in\N \qsep \abs{u_{\phi(n)}-l}\geq\epsilon.\]
+%   \question Conclure.
+%   \end{questions}
+% \end{questions}
+
+\magsection{Propriétés de $\R$}
+
+\magsubsection{Voisinage}
+
+\magsubsection{Densité}
+
+\magsubsection{Propriété de la borne supérieure}
+
+
+
+\exercice{nom={Comparaison de deux ensembles}}
+Soit $A$ et $B$ deux parties non vides de $\R$ telles que 
+\[\forall\p{a,b}\in A\times B \quad a\leq b\]
+\begin{questions}
+\question Montrer que $\sup(A)$ et $\inf(B)$ existent et que
+  $\sup(A)\leq \inf(B)$. 
+\question Si l'on suppose maintenant que quel que soit $\p{a,b}\in A\times B$ on
+  a $a< b$, peut-on en conclure que $\sup(A)<\inf(B)$~?
+\end{questions}
+
+\begin{sol}
+\begin{questions}
+\question Fixons $b\in B$. D'après l'hypothèse,  $\forall a \in A, a\leq b$  donc est un majorant de $A$ qui est non vide donc $\sup A$ existe et on a $\sup A \leq b$. Et ceci est valable pour $b$ quelconque dans $B$. Ainsi, $B$ est minorée par $\sup A$ donc $\inf B$ existe et on a $\sup A \leq \inf B$.
+\question NON. Prendre par exemple $A=\RMs$ et $B=\RPs$.
+\end{questions}
+\end{sol}
+
+
+\exercice{nom={Borne supérieure}}
+Soit $A$ une partie bornée non vide de~$\R$. Montrer que 
+\[\sup_{\p{x,y}\in A^2}\abs{x-y}=\sup(A)-\inf(A).\]
+
+\begin{sol}
+Posons $B=\{|y-x|,\;(x,y)\in A^2\}$.
+$A$ est une partie non vide et bornée de $\R$, et donc $m=\inf A$ et $M=\sup A$ existent dans $\R$.
+Pour $(x,y)\in A^2$, on a $m\leq x\leq M$ et $m\leq y M$, et donc $y-x\leq M-m$ et $x-y\leq M-m$ ou encore $|y-x|\leq M-m$.
+Par suite, $B$ est une partie non vide et majorée de $\R$. $B$ admet donc une borne supérieure.
+Soit $\varepsilon>0$. Il existe $(x_0,y_0)\in A^2$ tel que $x_0<\inf A+\frac{\varepsilon}{2}$ et $y_0>\sup A-\frac{\varepsilon}{2}$.
+
+Ces deux éléments $x_0$ et $y_0$ vérifient, 
+
+$$|y_0-x_0|\geq y_0-x_0>\left(\sup A-\frac{\varepsilon}{2}\right)-\left(\inf A+\frac{\varepsilon}{2}\right)=\sup A-\inf A-\varepsilon.$$
+En résumé, 
+\begin{enumerate}
+ \item  $\forall(x,y)\in A^2,\;|y-x|\leq\sup A-\inf A$ et  
+ \item  $\forall\varepsilon>0,\;\exists(x,y)\in A^2/\;|y-x|>\sup A-\inf A-\varepsilon$.
+\end{enumerate}
+Donc, $\sup B=\sup A-\inf A$.
+
+\end{sol}
+
+% \exercice{nom={Borne supérieure non atteinte},
+%           exercice_present={non}}
+% Soit $A$ une partie non vide majorée de $\R$. On note~$a$ sa borne supérieure.
+% On suppose que $a\not\in A$.
+% \begin{questions}
+% \question Montrer que pour tout $\epsilon>0$, il existe une infinité 
+%   d'éléments de $A$ dans $\interof{a-\epsilon}{a}$.
+% \question Montrer que pour tout $\epsilon>0$, il existe $x$ et $y$ distincts
+%   dans $A$ tels dont la distance est plus petite que $\epsilon$.
+% \end{questions}
+
+\exercice{nom={Calcul de bornes supérieures}}
+%On se place dans l'ensemble totalement ordonné $\p{\R,\leq}$.
+Déterminer, si
+elles ou ils existent, les bornes supérieures, bornes inférieures, plus grands
+éléments, plus petits éléments des parties de $\R$ suivantes.
+\begin{eqnarray*}
+A&=&\ensim{\frac{1}{n}+\frac{1}{p}}{\p{n,p}\in\Ns^2},\\
+B&=&\ensim{\frac{n-\frac{1}{n}}{n+\frac{1}{n}}}{n\in\Ns},\\
+C&=&\ensim{\frac{1}{n}+(-1)^p}{\p{n,p}\in\Ns\times\N}.
+\end{eqnarray*}
+
+\begin{sol}
+$$\max(A)=2 \text{ et } \inf(A)=0.$$
+$$\min(B)=0 \text{ et } \sup(B)=1.$$
+$$\inf(C)=-1 \text{ et } \max(C)=2.$$
+
+\end{sol}
+
+% \exercice{nom={Borne supérieure},
+%           exercice_present={non}}
+% Soit~:
+% \[A=\enstq{\p{\frac{m+n+1}{m+n}}^{m+n}}{\p{m,n}\in\Ns^2}\]
+% Montrer que $A$ est majorée non vide. calculer $\sup(A)$.
+
+\exercice{nom={Bornes supérieures}}
+Soit $A$ et $B$ deux parties de $\R$ non vides et majorées. Soit $\lambda$
+un nombre réel. On pose
+\begin{eqnarray*}
+C&=&\ensim{a+b}{a\in A \quad b\in B},\\
+D&=&\ensim{\lambda\cdot a}{a\in A},\\
+E&=&\ensim{a\cdot b}{a\in A \quad b\in B}.
+\end{eqnarray*}
+\begin{questions}
+\question Montrer que $\sup(C)$ existe et vaut $\sup(A)+\sup(B)$. 
+\question Que peut-on dire de l'existence et de la valeur de $\sup(D)$,
+  $\sup(E)$~? On pourra formuler des hypothèses supplémentaires adéquates sur $A$
+  et $B$.
+\end{questions}
+
+\begin{sol}
+\begin{questions}
+\question$\sup A+\sup B$ majore $A+B$ donc $\sup(A+B)\leq \sup A+\sup B$.
+Fixons $a\in A$. On a $\forall b\in B$ :
+$$b\leq \sup(A+B)-a$$ donc $$\sup B \leq \sup(A+B)-a$$ et ce peu importe $a\in A$. Ainsi, $\sup(A+B)-\sup B$ majore $A$ d'où $\sup A\leq \sup(A+B)-\sup B$.
+\question 
+\end{questions}
+\end{sol}
+
+\exercice{nom={Un théorème de point fixe}}
+Soit $I=[a,b]$ avec $a<b$ et soit $f:I\rightarrow I$ une application
+croissante. Montrer qu'il existe $c\in I$ tel que $f(c)=c$. Considérer pour
+cela la partie 
+$$A=\enstq{x\in I}{f(x)>x}.$$ 
+Quelle est l'interprétation géométrique de cette propriété en termes du graphe
+de~$f$ ?
+
+\begin{sol}
+\begin{itemize}
+\item[$\bullet$] Si $A=\emptyset$, cela signifie que $\forall x \in I, f(x)\leq x$. Or $f(a)\geq a$ (car $f(a)\in I$) donc $f(a)=a$.
+\item[$\bullet$] Si $A\neq \emptyset$, $A$ étant majorée par $b$ admet un sup. $\sup(A)\in I$ car il est plus petit que $b$ et plus grand qu'un élément de $I$ ($A\neq \emptyset$). Posons $t=\sup A$.
+
+$\forall x\in A$, $x\leq t$ donc par croissance de $f$ et puisque $x\in A$, $x<f(x)\leq f(t)$ donc $f(t)$ est un majorant de $A$. Ainsi, $f(t)\geq t$.
+\begin{itemize}
+\item Si $f(t)=t$, on a bien le résultat escompté.
+\item Sinon, $f(t)>t=\sup A$ donc $f(t)\notin A$, c'est-dire que $f(f(t))\leq f(t)$ mais par croissance de $f$, $f(t)\leq f(f(t))$ donc $f(f(t))=f(t)$.
+\end{itemize}
+\end{itemize}
+\end{sol}
+
+\exercice{nom={Intervalle}}
+Soit $I$ et $J$ deux intervalles de $\R$. Montrer que
+\[I+J\defeq\ensim{x+y}{x\in I \et y\in J}\]
+est un intervalle.
+
+\begin{sol}
+Soit $a,b \in I+J$. Soit $t\in [0,1]$. On veut montrer que $ta+(1-t)b \in I+J$.
+
+Il existe $x_a,x_b \in I$, $y_a,y_b \in J$ tels que $a=x_a+y_a$ et $b=x_b+y_b$.
+Comme $I$ est un intervalle, $tx_a+(1-t)x_b \in I$. De même, comme $J$ est un intervalle, $ty_a+(1-t)y_b \in J$. Ainsi,
+$$ta+(1-t)b=\underbrace{tx_a+(1-t)x_b}_{\in I}+\underbrace{ty_a+(1-t)y_b}_{\in J} \in I+J.$$
+\end{sol}
+
+% \exercice{nom={Densité}}
+% Soit $A$ une partie non majorée de $\RP$. Montrer que l'ensemble~:
+% \[E=\enstq{\frac{x}{n}}{x\in A \et n\in\Ns}\]
+% est dense dans $\RP$.
+
+% \exercice{nom={Densité des nombres dyadiques}}
+% Soit
+% \[A=\enstq{\frac{p}{2^q}}{q\in\Ns \quad p\in\intere{1}{2^q}}\]
+% Montrer que $A$ est dense dans $[0,1]$
+
+
+
+\magsection{Suite monotone}
+
+\magsubsection{Suite monotone}
+
+\exercice{nom={Moyenne arithmético-géométrique}}
+Soit $a$ et $b$ deux réels positifs. Soit $(u_n)$ et $(v_n)$ les suites initialisées par $u_0\defeq a$ et $v_0\defeq b$ et définies par la récurrence
+$$\forall n \geq 0 \qsep u_{n+1}\defeq\sqrt{u_n v_n} \quad \text{et} \quad v_{n+1}\defeq\frac{u_n + v_n}{2}.$$
+\begin{questions}
+\question
+  \begin{questions}
+  \question Montrer que $(u_n)$ et $(v_n)$ sont bien définies, puis que
+    $$\forall n \geq 1 \qsep u_n \leq v_n.$$
+  \question En déduire la monotonie des suites $(u_n)$ et $(v_n)$.
+  \question Montrer que $(u_n)$ et $(v_n)$ sont convergentes et ont même limite que l'on
+    note $M(a,b)$.
+  \end{questions}
+\question
+  \begin{questions}
+  \question Calculer $M(0,1)$ et $M(1,1)$.
+  \question Montrer que si $0\leq x\leq y$, alors $M(1,x)\leq M(1,y)$.
+  \end{questions}
+\end{questions}
+\begin{sol}
+Pour la dernière question, on démontre $H_n : u_n\leq u'_n \text{ et } v_n\leq v'_n$.
+\end{sol}
+
+\exercice{nom={Suite définie implicitement}}
+Pour tout $n\geq 2$, on définit la fonction $f_n:[0,1]\to\R$ par
+\[\forall x\in [0,1]\qsep f_n(x)\defeq x^n - nx + 1.\]
+\begin{questions}
+\question Montrer que pour tout $n\geq 2$, il existe un unique $x\in [0,1]$
+  tel que $f_n(x)=0$. On note cet élément $u_n$.
+\question Pour tout $n\geq 2$, déterminer le signe de $f_{n+1}(u_n) - f_n(u_n)$.
+  En déduire que $(u_n)$ est monotone.
+\question Montrer que $(u_n)$ converge vers 0.
+\question Montrer que
+  \[u_n\equi{n}{+\infty}\frac{1}{n}\]
+  c'est-à-dire que $n u_n$ tend vers 1 lorsque $n$ tend vers $+\infty$.
+\end{questions}
+
+\magsubsection{Étude des suites définies par $u_{n+1}\defeq f(u_n)$}
+
+
+\exercice{nom={Quelques applications directes du cours}}
+Étudier les suites $\p{u_n}$ définies ci-dessous.
+\begin{questions}
+\question $u_0\geq 0 \et \forall n\in\N \qsep u_{n+1}\defeq 2\ln(1+u_n)$.
+\question $u_0\in\R \et \forall n\in\N \qsep u_{n+1}\defeq u_n(1-u_n)$.
+\question $u_0\geq 0 \et \forall n\in\N \qsep u_{n+1}\defeq \frac{3}{2+u_n}$.
+\end{questions}
+
+\begin{sol}
+\begin{questions}
+\question $u_0\geq 0 \et \forall n\in\N \qsep u_{n+1}\defeq 2\ln(1+u_n)$.
+\question $u_{n+1}-u_n=-u_n^2\leq 0$ donc $u$ est décroissante. D'après le théorème de la limite monotone, ou bien elle diverge vers $-\infty$ ou bien elle converge vers $\ell \in \R$. Par passage à la limite, $\ell$ ne peut être que $0$.
+Remarquons que si $u_n<0$ alors $u_{n+1}<0$ et que si $u_n\in [0;1]$ alors $u_{n+1}\in [0;1]$.
+\begin{itemize}
+\item[$\bullet$] Si $u_0<0$, alors la suite ne peut pas tendre vers $0$ et diverge vers $-\infty$. 
+\item[$\bullet$] Si $u_0>1$ alors $u_1<0$ et même constat.
+\item[$\bullet$] En revanche si $u_0\in[0;1]$ alors par récurrence immédiate, toute la suite reste dans $[0;1]$ et converge donc vers $0$.
+\end{itemize}
+\question Remarquons que :
+\begin{itemize}
+\item $\RP$ est stable.
+\item $f$ est décroissante sur $\RP$ donc $f\circ f$  y est croissante.
+\item Les points fixes de $f$ sont $1$ et $-3$.
+\item $$f\circ f (x) -x=-2\dfrac{(x-1)(x+3)}{7+2x}.$$
+\end{itemize}
+Ainsi, différencions deux cas :
+\begin{itemize}
+\item[$\bullet$] Si $u_0\in [0,1]$, on montre que $0\leq 6/7 \leq u_{2n}\leq 1$ et que $u_{2n}$ y est croissante donc tend vers $1$.
+On a alors $u_{1} \in [1;3/2]$ et donc en appliquant $f\circ f$, on en déduit que si $1\leq u_{2n+1}$ alors $1\leq u_{2n+3}$. On montre que $u_{2n+1}$ y est décroissante donc tend vers $1$.
+$(u_n)$ tend donc vers $1$.
+\item[$\bullet$] Si $u_0>1$, $u_1\in [0,1]$ donc la suite est également convergente de limite $1$.
+\end{itemize}
+\end{questions}
+\end{sol}
+
+\exercice{nom={Un point fixe attractif, puis répulsif}}
+Soit $a>0$ et $f$ la fonction définie sur $\RP$ par
+\[\forall x\geq 0 \qsep f(x)=a\cdot \frac{1+a^2}{1+x^2}.\]
+Soit $\alpha\geq 0$ et $(u_n)$ la suite définie par $u_0\defeq\alpha$ et
+\[\forall n\in\N \qsep u_{n+1}\defeq f(u_n).\]
+Le but de cet exercice est d'étudier la convergence éventuelle de la suite $(u_n)$.
+\begin{questions}
+\question 
+  \begin{questions}
+  \question Étudier la monotonie de $f$ ainsi que la position de son graphe par
+    rapport à la première bissectrice. On montrera en particulier que
+    $x\in\RP$ est un point fixe de $f$ si et seulement si il est racine de
+    \[P\defeq (X-a)(X^2+aX+(1+a^2)).\]
+  \question Tracer sur le même dessin le graphe de $f$ ainsi que la première
+    bissectrice.
+  \end{questions}
+\question 
+  \begin{questions}
+  \question Étudier la monotonie de $f\circ f$.
+  \question Montrer que $x\in\RP$ est un point fixe de $f\circ f$ si et
+    seulement si il est racine du polynôme
+    \[Q\defeq (X-a)(X^2+aX+(1+a^2))(X^2-a(1+a^2)X+1).\]
+  \question Étudier la position du graphe de $f\circ f$ par rapport à la
+    première bissectrice en discutant selon les valeurs de $a$. Dans les
+    différents cas, on tracera le graphe de $f\circ f$ ainsi que la
+    première bissectrice.
+  \end{questions}
+\enonce Dans la suite de l'exercice, on définit la suite $(v_n)$ par
+  \[\forall n\in\N \qsep v_n\defeq u_{2n}.\]
+  On remarquera que, pour tout $n\in\N$, $v_{n+1}=(f\circ f)(v_n)$.
+\question Montrer que la suite $(v_n)$ est monotone et bornée.
+\question On suppose dans cette question que $a\leq 1$.
+  \begin{questions}
+  \question Montrer que $(v_n)$ converge et calculer sa limite.
+  \question Qu'en déduire pour la suite $(u_n)$~?
+  \end{questions}
+\question Dans cette question, on suppose que $a>1$.
+  \begin{questions}
+  \question Si $\alpha<a$, montrer que $(v_n)$ converge vers un réel $\alpha$
+    strictement inférieur à $a$. En déduire que la suite $(u_n)$ diverge.
+  \question Que dire si $u_0>a$~? Si $u_0=a$~?
+  \end{questions}
+\end{questions}
+
+\magsubsection{Suites adjacentes}
+
+\exercice{nom={$\e$ est irrationnel}}
+Le but de cet exercice est de montrer que $\e$ est un nombre irrationnel.
+\begin{questions}
+\question Soit $(u_n)$ est $(v_n)$ les suites définies par
+  $$\forall n\in\Ns \qsep u_n\defeq\sum_{k=0}^{n} \frac{1}{k!}
+    \quad v_n\defeq u_n+\frac{1}{n n!}.$$
+  \begin{questions}
+  \question Montrer que $(u_n)$ et $(v_n)$ sont adjacentes.
+  \question On note $l$ leur limite commune. On suppose que $l$ est rationnel
+    et on note $l=\frac{p}{q}$. Montrer que
+    $$\forall n\in\Ns \qsep \sum_{k=0}^{n} \frac{1}{k!} < \frac{p}{q}
+      < \sum_{k=0}^{n} \frac{1}{k!} + \frac{1}{n n!}.$$
+  \question Conclure à une absurdité en choisissant $n=q$.
+  \end{questions}
+\question Le but de cette question est de montrer que $l=\e$.
+  \begin{questions}
+  \question Montrer que
+    $$\forall n \in\N \qsep \e=\sum_{k=0}^n \frac{1}{k!}+\integ{0}{1}{\frac{(1-t)^n}{n!} \e^t}{t}.$$
+  \question Montrer que
+    $$\integ{0}{1}{\frac{(1-t)^n}{n!} \e^t}{t}
+    \xrightarrow[n \rightarrow +\infty]{} 0$$
+    puis conclure.
+  \end{questions}
+\end{questions}
+\begin{sol}
+Pour la question $2$, Taylor reste intégral puis majoration brutal dans l'intégrale fonctionne.
+\end{sol}
+
+\magsubsection{Théorème de \nom{Bolzano-Weierstrass}}
+
+% \begin{questions}
+% \question Soit $\alpha > 0$. Montrer que la suite $u$ définie ci-dessous
+%   converge si et seulement si $\alpha > 1$.
+%   $$\forall n \geq 1 \qquad u_n=\sum_{k=1}^{n} \frac{1}{k^\alpha}$$
+% \question Dans cette question, on s'intéresse au cas $\alpha=1$.
+%   \begin{questions}
+%   \question Montrer que $u_n=\ln n + \underset{n \rightarrow
+%     \infty}{o}(\ln n)$.
+%   \question Montrer que la suite $v$ définie par~:
+%     $$\forall n \geq 1 \qquad v_n=\ln(n)-\sum_{k=1}^{n} \frac{1}{k}$$
+%     est croissante.
+%   \question Montrer que~:
+%     $$v_{n+1}-v_{n}=\frac{1}{2n^2} +
+%     \underset{n \rightarrow \infty}{o}\p{\frac{1}{n^2}}$$
+%   \question En déduire l'existence d'un réel $\gamma$ tel que~:
+%     $$u_n=\ln(n)+\gamma+\underset{n\rightarrow\infty}{o}(1)$$
+%   \end{questions}
+% \end{questions}
+
+% \exercice{nom={La formule de Stirling}}
+% Le but de cet exercice est calculer de calculer un équivalent de $n!$.
+% On considère la suite $u$ définie par :
+% $$\forall n \geq 0 \quad u_n=\frac{n^{n+\frac{1}{2}}}{e^n n!}$$
+% \begin{questions}
+% \question Montrer que~:
+%   $$\forall n \geq 1 \quad \ln\left(\frac{u_{n+1}}{u_n}\right)=
+%     n\left(\ln\left(1+\frac{1}{n}\right)-\frac{1}{n}\right)+
+%     \frac{1}{2}\ln\left(1+\frac{1}{n}\right)$$
+% \question En déduire que~:
+%   $$\ln\left(\frac{u_{n+1}}{u_n}\right)
+%     \underset{n\rightarrow\infty}{\sim}\frac{1}{12n^2}$$
+% \question En déduire que la suite de terme général
+%   \[\sum_{k=1}^{n} \ln\left(\frac{u_{k+1}}{u_k}\right)\]
+%   est monotone à partir d'un certain
+%   rang. Montrer que cette suite est convergente en utilisant le fait que la
+%   suite de terme général $\sum_{k=1}^{n} \frac{1}{k^2}$ est convergente.
+% \question En déduire que la suite de terme général $\ln(u_n)$ est convergente.
+% \question En déduire l'existence d'un réel $a>0$ tel que :
+%   $$n!\underset{n\rightarrow\infty}{\sim}a\sqrt{n}\left(\frac{n}{e}\right)^n$$
+% \question En utilisant les résultats de l'exercice sur les intégrales de Wallis
+%   (révisions d'analyse), montrer que $a=\sqrt{2\pi}$.
+% \end{questions}
+
+
+
+
+
+
+
+
+
+%% \[u_o \in \R \et \forall n\in\N \quad u_{n+1}=u_n^2+\frac{3}{16}\]
+% \exercice{nom={Vitesse de convergence lorsque $|f'(c)|=0$}}
+% Soit $a$ un réel positif. On définit la suite $u$ par $u_0 > 0$ et :
+% $$\forall n \geq 0 \quad u_{n+1}=\frac{1}{2}\left(u_n+\frac{a}{u_n}\right)$$
+% \begin{questions}
+% \question Montrer que $u$ est décroissante à partir d'un certain rang. En
+%   déduire que $u$ est convergente et converge vers $c=\sqrt{a}$.
+% \question Montrer que :
+%   $$\forall n \geq 0 \qquad |u_{n+1}-c|\leq \frac{1}{2 u_n}|u_n - c|^2$$
+% \question En déduire qu'il existe un réel $M > 0$ et un rang $N$ tel que :
+%   $$\forall n \geq N \qquad |u_{n+1}-c|\leq M |u_n-c|^2$$
+% \question Montrer par récurrence que :
+%   $$\forall n \geq 0 \qquad |u_{N+n}-c|\leq \frac{1}{M} |M(u_N-c)|^{2^n}$$
+% \question Soit $\alpha \in ]0,1[$ et $\alpha' \in ]0,\alpha[$. Montrer que
+%   l'on peut choisir $N$ et $M$ tels que $|M(u_N-c)| \leq \alpha'$. En déduire
+%   que~:
+%   $$|u_n-c| = O(\alpha^{2^n})$$
+%   On dit que $c$ est un point super-attractif. Ce comportement est
+%   caractéristique des suites définies par récurrence convergeant vers un réel
+%   $c$ tel que $f'(c)=0$.
+% \end{questions}
+
+% \exercice{nom={Vitesse de convergence lorsque $|f'(c)|=1$}}
+% On étudie dans cet exercice la vitesse de convergence de la suite
+% $u_{n+1}=f(u_n)$ lorsque $f$ admet un point fixe $c$ tel que $|f'(c)|=1$
+% dans deux cas particuliers.
+% \begin{questions}
+%   \question Soit la suite $u$ définie par récurrence par $u_0> 0$ et :
+%   $$\forall n \geq 0 \quad u_{n+1}=\ln(1+u_n)$$
+%   \begin{questions}
+%   \question Montrer que $u$ est bien définie. En étudiant la monotonie de
+%     $u$, montrer que $u$ converge et calculer sa limite.
+%   \question En effectuant un développement limité de $1/\ln(1+x)-1/x$ en $0$,
+%     montrer que~:
+%     $$\frac{1}{u_{n+1}}-\frac{1}{u_n} \xrightarrow[n \rightarrow +\infty]{}
+%       \frac{1}{2}$$
+%   \question En utilisant le théorème de Césaro, en déduire que :
+%     $$\frac{1}{n u_n} \xrightarrow[n \rightarrow +\infty]{} \frac{1}{2}$$
+%   \question En déduire un équivalent de $u$.
+%   \end{questions} 
+% \question Soit la suite $u$ définie par récurrence par
+%   $u_0 \in \interof{0}{\frac{\pi}{2}}$ et :
+%   $$\forall n \geq 0 \quad u_{n+1}=\sin(u_n)$$
+%   \begin{questions}
+%   \question En étudiant la monotonie de $u$, montrer que $u$ converge et
+%     calculer sa limite.
+%   \question En effectuant un développement limité de $1/\sin^2 x-1/x^2$ en $0$,
+%     montrer que~:
+%     $$\frac{1}{u_{n+1}^2}-\frac{1}{u_n^2}
+%       \xrightarrow[n \rightarrow +\infty]{} \frac{1}{3}$$
+%   \question En utilisant le théorème de Césaro, en déduire que :
+%     $$\frac{1}{n u_n^2} \xrightarrow[n \rightarrow +\infty]{} \frac{1}{3}$$
+%   \question En déduire un équivalent de $u$.
+%   \end{questions}
+% \end{questions}
+
+
+%END_BOOK
+
+% EXERCICE FAUX
+% \exercice{nom={Équivalents et monotonie}}
+% Soit $(u_n)$ une suite réelle.
+% \begin{questions}
+% \question Montrer que si
+%   \[u_n\equi{n}{+\infty}\frac{\ln n}{n}\]
+%   alors la suite $(u_n)$ est décroissante à partir d'un certain rang.
+% \question Que dire si $u_n\equi{n}{+\infty}\frac{1}{n}$~?
+% \end{questions}
+
+\end{document}

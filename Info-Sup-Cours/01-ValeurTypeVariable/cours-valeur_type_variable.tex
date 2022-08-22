@@ -1,0 +1,1166 @@
+\documentclass{magnolia}
+
+\magtex{tex_driver={pdftex},
+        tex_packages={xypic}}
+\magfiche{document_nom={Cours Python sur les valeurs et types},
+          auteur_nom={François Fayard},
+          auteur_mail={fayard.prof@gmail.com}}
+\magcours{cours_matiere={python},
+          cours_niveau={mpsi},
+          cours_chapitre_numero={1},
+          cours_chapitre={Valeur, type et variable}}
+\magmisenpage{}
+\maglieudiff{}
+\magprocess
+
+\begin{document}
+%BEGIN_BOOK
+\hfill\includegraphics[width=0.7\textwidth]{../../Commun/Images/maths-cours-tech-calvin.png}\\
+
+\magtoc
+
+\section{Valeur, type}
+
+Le langage Python manipule des valeurs de différents \emph{types}.
+Nous rencontrerons d'abord les types numériques~: les \emph{entiers} ainsi que les
+\emph{nombres flottants} que l'on utilise pour représenter les réels. Nous verrons
+ensuite les \emph{chaines de caractères}, les \emph{booléens} et les \emph{tuples}.
+
+\subsection{Nombre entier}
+
+Nous utiliserons Python le plus souvent dans ce qu'on
+appelle le shell ou la boucle interactive. Ce mode est aussi appelé
+\og {\sc Repl} \fg pour~: Read, Evaluate, Print, Loop. Autrement dit, lorsqu'on entre
+une expression, Python la lit, l'évalue, affiche le résultat, et est
+prêt pour l'interaction suivante.\\
+
+On écrit les entiers de manière naturelle. D'une manière générale,
+on obtient le type d'une valeur grâce à la fonction \verb_type_. 
+
+\begin{pythoncode}
+In [1]: 42
+Out[1]: 42
+
+In [2]: type(42)
+Out[2]: int
+\end{pythoncode}
+
+\noindent Le type des entiers est donc \verb_int_. 
+Les opérateurs usuels d'addition \og\verb_+_\fg, de soustraction \og\verb_-_\fg, de
+multiplication \og\verb+*+\fg et d'exponentiation \og\verb_**_\fg sont disponibles pour
+créer des \emph{expressions} qui sont \emph{évaluées} par l'interpréteur. Ces opérateurs
+possèdent différents niveaux de priorité. L'exponentiation est prioritaire sur 
+la multiplication. L'addition et la soustraction ont la priorité la plus basse.
+
+\begin{pythoncode}
+In [3]: 2 + 3 * 5
+Out[3]: 17
+
+In [4]: -1 + 2 ** 8
+Out[4]: 255
+\end{pythoncode}
+
+\noindent
+On utilise les parenthèses pour grouper différentes sous-expressions lorsque les calculs
+que l'on souhaite effectuer diffèrent de ceux fixés par les règles de priorité.
+
+\begin{pythoncode}
+In [5]: (2 + 3) * 5
+Out[5]: 25 
+\end{pythoncode}
+
+\noindent
+Les différentes règles de priorité sont parfois subtiles. Il est donc souhaitable, pour des raisons de lisibilité,
+d'ajouter des parenthèses dès lors que l'évaluation de notre expression repose sur leur
+connaissance fine. N'oubliez jamais qu'un programme est écrit pour être lu non seulement par
+un ordinateur, mais aussi par des humains, qu'ils soient programmeurs ou correcteurs de
+concours. Par exemple, on n'écrira pas \verb_2 ** 2 ** 3_ mais plutôt l'une
+des deux expressions suivantes~:
+
+\begin{pythoncode}
+In [6]: (2 ** 2) ** 3
+Out[6]: 64
+
+In [7]: 2 ** (2 ** 3)
+Out[7]: 256
+\end{pythoncode}
+
+\noindent 
+Ces opérateurs sont des opérateurs \emph{binaires}~: ils nécessitent deux arguments.
+Le \textsc{Pep8}, qui fixe les règles de bon usage
+en Python, recommande de mettre un espace de part et d'autre de tels opérateurs.
+Cependant, lorsqu'on construit des expressions mélangeant des opérateurs ayant
+différents niveaux de priorité, il est parfois plus lisible d'omettre cet espace autour des
+opérateurs ayant la priorité la plus forte. Par exemple, on écrira \verb!2**10 - 1!.\\
+
+Le symbole \og\verb_-_\fg, utilisé comme opérateur
+binaire de soustraction, est aussi utilisé pour la négation. Dans ce cas, c'est
+un opérateur \emph{unaire} ne nécessitant qu'une opérande.
+
+\begin{pythoncode}
+In [8]: -2 * 3
+Out[8]: -6
+\end{pythoncode}
+\noindent
+Contrairement à ce qui se passe dans la plupart des autres langages comme le \textsc{C} ou
+OCaml, Python peut représenter des nombres aussi grands que l'on souhaite.
+Prenons l'exemple du $n$-ième nombre de Mersenne définit par
+$M_n\defeq 2^n-1$. Il est courant de chercher des nombres premiers parmi ces entiers. Le
+dixième nombre de Mersenne qui est premier est $M_{89}$ et son calcul ne pose aucun
+problème à Python.
+
+\begin{pythoncode}
+In [9]: 2**89 - 1
+Out[9]: 618970019642690137449562111
+\end{pythoncode}
+\vspace{1ex}
+
+Python offre deux types de division. Commençons par la division entière. Rappelons le théorème de la division euclienne sur $\Z$~:
+
+\begin{proposition}
+Soit $a\in\Z$ et $b\in\Ns$. Alors il existe un unique couple $\p{q,r}\in\Z^2$
+tel que
+\[a=qb+r \et 0\leq r<b.\]
+$q$ est appelé \emph{quotient} de la division euclidienne de $a$ par $b$, et $r$ son
+\emph{reste}.
+\end{proposition}
+
+\noindent
+Par exemple $7 = 2\times 3 + 1$, donc 2 est le quotient de la division
+euclidienne de 7 par 3 et son reste est $1$. De même $-7 = (-3)\times 3 + 2$, donc $-3$ est
+le quotient de la division euclidienne de $-7$ par 3 et son reste est 2. En Python,
+on obtient le quotient de la division euclidienne de $a$ par $b$ avec
+\verb_a // b_ et son reste avec \verb_a % b_.
+
+\begin{pythoncode}
+In [10]: -7 // 3
+Out[10]: -3
+
+In [11]: -7 % 3
+Out[11]: 2
+\end{pythoncode}
+
+\noindent La division par 0 est une erreur et lève ce
+qu'on appelle une \emph{exception}. Même s'il est possible de rattraper les exceptions,
+nous ne le ferons pas dans ce cours et une division par 0 aura pour effet de produire
+l'erreur suivante~:
+
+\begin{francois}
+\begin{pythoncode}
+In [12]: 1 // 0
+(*@\textcolor{violet}{ZeroDivisionError: integer division or modulo by zero}@*)
+\end{pythoncode}
+\end{francois}
+\begin{victor}
+\begin{pythoncode}
+>>> 1 / 0
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+ZeroDivisionError: division by zero
+\end{pythoncode}
+\end{victor}
+
+% \noindent
+% Notons que si tous les langages sont d'accord pour définir la division entière de la même
+% manière lorsque $a\in\N$ et $b\in\Ns$, ce n'est pas le cas si $a<0$. Par exemple, en
+% \textsc{C} et en Ocaml, ce n'est pas la division euclidienne qui est effectuée
+% lorsque l'on fait une division entière de $-7$ par 3. En effet, ces langages renvoient $-2$.
+% Ne parlons pas de la division par des entiers strictement négatifs qui est bien
+% définie en Python, mais que l'on ne cherchera pas à utiliser.\\
+\vspace{1ex}
+
+Python offre aussi une division plus classique, notée \verb_/_. Elle produit
+une valeur d'un type différent~: celui des nombres flottants.
+
+\begin{pythoncode}
+In [13]: 3 / 2
+Out[13]: 1.5
+
+In [14]: type(1.5)
+Out[14]: float
+\end{pythoncode}
+
+\subsection{Nombre flottant}
+
+Les nombres flottants sont utilisés pour représenter les nombres réels. Comme tous
+les langages de programmation, Python utilise le \og\verb_._\fg comme séparateur décimal.
+Pour calculer une valeur approchée de la circonférence d'un cercle de diamètre 2, on entre
+donc~:
+
+\begin{pythoncode}
+In [1]: 3.14 * 2.0
+Out[1]: 6.28
+\end{pythoncode}
+
+\noindent Commençons par remarquer que les opérateurs \verb!+!, \verb!-!, \verb!*!, \verb!/! 
+et \verb!**! sont
+disponibles pour les nombres flottants. On peut par ailleurs mélanger flottants et
+entiers dans les calculs. Comme pour les entiers, la division par \verb_0.0_ lève une
+exception.\\
+
+Pour simplifier l'écriture de grands et de petits nombres, on utilise la notation
+scientifique. Ainsi, l'âge de l'univers étant estimé à 13.8 milliards d'années et la vitesse
+de la lumière étant de l'ordre de $3.0\times 10^8$ mètres par seconde,
+le calcul suivant nous montre qu'il est impossible
+d'observer des endroits de l'univers à une distance supérieure à $1.31\times 10^{26}$
+mètres de la terre~:
+
+\begin{pythoncode}
+In [2]: 13.8e9 * 365 * 24 * 60 * 60 * 3e8
+Out[2]: 1.3055904e+26
+\end{pythoncode}
+
+% \noindent
+% Remarquons qu'on se place ici dans un modèle où il n'y aurait pas eu de \og big bang \fg, et
+% donc une expansion de l'univers, mais dans un modèle simpliste où il serait apparu
+% de manière uniforme dans l'espace à un même instant.
+Pour le calcul de la circonférence du cercle de diamètre 2, on a approché plus haut $\pi$ par $3.14$.
+On pourrait bien sûr utiliser une approximation plus précise comme $3.14159$,
+
+\begin{pythoncode}
+In [3]: 2 * 3.14159
+Out[3]: 6.28318
+\end{pythoncode}
+ 
+\noindent mais la précision disponible avec Python n'est pas illimitée. En première approximation,
+on peut considérer que Python ne peut travailler qu'avec des nombres flottants ayant
+une précision de 16 chiffres significatifs~: tout excès de précision est ignoré.
+
+\begin{pythoncode}
+In [4]: 1234567890.12345678 - 1234567890.1234567
+Out[4]: 0.0
+\end{pythoncode}
+
+\noindent Le premier nombre possède 18 chiffres
+significatifs alors que le second en possède 17. Avant même d'effectuer la soustraction, les deux
+nombres sont arrondis au même nombre~: le résultat final est donc nul. La situation est
+en fait plus complexe que cela, car tout comme les entiers, les flottants ne sont pas
+représentés en interne en base 10 mais en base 2. Ne soyez donc pas surpris si, en faisant vos propres
+essais, vous avez parfois l'impression que Python garde 16 chiffres significatifs,
+parfois 17.\\
+
+Pour les mêmes raisons, le résultat de chaque opération arithmétique est arrondi. Cela 
+conduit à des résultats surprenants comme le calcul suivant qui n'est pas égal à
+$10^{-16}$ comme on pourrait s'y attendre.
+
+\begin{pythoncode}
+In [5]: (1.0 + 1.0e-16) - 1.0
+Out[5]: 0.0
+\end{pythoncode}
+
+\noindent En effet, $1.0 + 10^{-16}$ possède 17 chiffres significatifs. Il est arrondi
+à $1.0$ avant d'effectuer la soustraction qui donne donc 0. Comme les
+flottants sont stockés en base 2 et non en base 10, même les nombres décimaux les plus
+simples ne sont pas représentables exactement. On peut donc avoir des résultats
+surprenants~:
+
+\begin{pythoncode}
+In [6]: 0.1 + 0.2 - 0.3
+Out[6]: 5.551115123125783e-17
+\end{pythoncode}
+
+\noindent Vous comprendrez pourquoi les logiciels de comptabilité ne travaillent pas en
+interne avec des nombres flottants. Ils ont cependant de nombreuses qualités et sont utilisés en simulation numérique ainsi qu'en intelligence artificielle. On n'oubliera cependant jamais que des arrondis sont effectués à
+chaque opération et nous verrons que les erreurs accumulées peuvent parfois devenir 
+significatives et fausser complètement un résultat.\\
+
+Lorsqu'on mélange des entiers et des flottants dans une expression,
+une conversion préalable des entiers vers les flottants est réalisée automatiquement.
+Cette conversion automatique est un choix raisonnable, car contrairement
+aux nombres décimaux, les nombres entiers qui ne sont pas trop grands (disons, ceux qui s'écrivent
+avec moins de 16 chiffres) sont représentables de manière exacte par des flottants.
+La conversion des flottants vers les entiers est aussi possible. Cependant, comme elle fait perdre
+de l'information, il faut la demander explicitement en utilisant la fonction \verb_int_.
+Cette fonction arrondit un flottant au premier entier rencontré lorsqu'on se rapproche de 0.
+
+\begin{pythoncode}
+In [7]: int(2.718)
+Out[7]: 2
+
+In [8]: int(-2.718)
+Out[8]: -2
+\end{pythoncode}
+
+\noindent De manière générale, chaque type numérique possède une fonction associée pour
+forcer une conversion.\\
+
+Les fonctions usuelles sont disponibles dans la bibliothèque \verb_math_. On y trouve
+par exemple la fonction \verb_floor_ qui, pour chaque nombre $x$, renvoie sa partie entière dont on
+rappelle la définition ci-dessous.
+
+\begin{proposition}
+Soit $x\in\R$. Il existe un unique $n\in\Z$ tel que
+\[n\leq x<n+1.\]
+Cet entier est appelé \emph{partie entière} de $x$ et est noté $\ent{x}$.
+\end{proposition}
+
+\noindent
+Pour charger la bibliothèque \verb_math_, on utilise l'instruction suivante~:
+
+\begin{pythoncode}
+In [9]: import math
+
+In [10]: math.floor(2.718)
+Out[10]: 2
+
+In [11]: math.floor(-2.718)
+Out[11]: -3
+\end{pythoncode}
+
+\noindent De même, on définit la partie entière supérieure d'un réel.
+\begin{proposition}
+Soit $x\in\R$. Il existe un unique $n\in\Z$ tel que
+\[n-1< x\leq n.\]
+Cet entier est appelé \emph{partie entière supérieure} de $x$ et est noté $\ceil{x}$.
+\end{proposition}
+
+\noindent
+La fonction \verb_ceil_ de la même bibliothèque permet d'y accéder.
+
+\begin{pythoncode}
+In [12]: math.ceil(2.718)
+Out[12]: 3
+
+In [13]: math.ceil(-2.718)
+Out[13]: -2
+\end{pythoncode}
+
+On peut calculer la racine carrée d'un nombre avec la fonction \verb_sqrt_,
+abréviation de \og square root\fg. Les autres fonctions usuelles sont aussi disponibles.
+
+\begin{pythoncode}
+In [14]: math.sqrt(2.0)
+Out[14]: 1.4142135623730951
+
+In [15]: math.exp(1.0)
+Out[15]: 2.718281828459045
+\end{pythoncode}
+
+\noindent Le logarithme naturel $\ln$ (\verb_log_ en Python), le logarithme en base 10 (\verb_log10_) et
+le logarithme en base 2 (\verb_log2_) sont aussi disponibles. Bien sûr, les fonctions
+trigonométriques circulaires $\cos$, $\sin$ et $\tan$ sont présentes, tout comme la
+constante $\pi$.
+
+\begin{pythoncode}
+In [16]: math.cos(math.pi / 17)
+Out[16]: 0.9829730996839018
+\end{pythoncode}
+
+La principale devise de Python est \og batteries included\fg. Autrement dit,
+de nombreuses bibliothèques (\og libraries\fg en anglais), sont disponibles. Nous
+venons d'utiliser notre première bibliothèque~: le module \verb_math_. Il existe de
+nombreuses manières de les rendre accessibles. La plus simple est d'écrire \verb_import_
+suivi du nom de la bibliothèque. Les fonctions et constantes seront alors disponibles,
+préfixées par le nom du module. Si vous souhaitez seulement en utiliser certaines sans
+avoir à taper à chaque fois le nom du module, vous pouvez entrer la commande~:
+
+\begin{pythoncode}
+In [17]: from math import cos, pi
+
+In [18]: cos(pi / 17)
+Out[18]: 0.9829730996839018
+\end{pythoncode}
+
+\noindent Il est d'ailleurs possible d'importer tous les composants du module \verb!math! avec la commande
+
+\begin{pythoncode}
+In [19]: from math import *
+\end{pythoncode}
+
+\noindent
+C'est cependant une opération dangereuse, car si on importe ainsi plusieurs modules, on ne sait rapidement plus
+d'où viennent nos fonctions. En pratique, il est préférable d'utiliser \verb!import math!, quitte
+à renommer le module en un nom plus court. On utilise pour cela la commande~:
+
+\begin{pythoncode}
+In [20]: import math as ma
+
+In [21]: ma.cos(ma.pi / 3)
+Out[21]: 0.5000000000000001
+\end{pythoncode}
+
+% \subsection{Nombres complexes}
+
+% Les nombres complexes sont des cousins des nombres flottants. Ils sont formés de deux
+% nombres flottants~: un représentant leur partie réelle et un autre représentant leur partie
+% imaginaire. Le nombre imaginaire $i$ est représenté par la lettre \verb_j_ que l'on accole 
+% à la partie imaginaire du nombre. Bien entendu, on peut mélanger entiers, flottants et
+% nombres complexes. Tout se passe comme si tous les nombres étaient convertis en nombres
+% complexes avant d'effectuer les opérations.
+
+% \begin{pythoncode}
+% >>> type(1.0 + 2.0j)
+% <class 'complex'>
+% >>> 1 / (1.0 + 2.0j)
+% (0.2-0.4j) 
+% \end{pythoncode}
+
+% \noindent
+% Le module, la partie réelle et la partie imaginaire sont aussi accessibles avec les
+% fonctions \verb_abs_, \verb_real_ et \verb_imag_.
+
+% \begin{pythoncode}
+% >>> import numpy as np
+% >>> np.abs(1.0 + 1.0j)
+% 1.41421356237
+% >>> np.real(2.0 + 3.0j)
+% 2.0
+% \end{pythoncode}
+
+
+% Les types que nous venons de découvrir, \verb_int_, \verb_float_ et \verb_complex_ sont des
+% types numériques. Cette suite de type a la particularité intéressante que l'on peut presque
+% considérer que chaque type peut représenter de manière exacte toutes les valeurs du type
+% qui le précède. En effet, les nombres entiers de taille raisonnable sont représentables
+% de manière exacte par des nombres flottants et les nombres flottants sont tous
+% représentables par des nombres complexes. Toute expression mélangeant ces types
+% numériques sera donc évaluée en convertissant tous les types vers le type le plus large présent. C'est ce que l'on appelle la promotion automatique.
+
+
+% Commen\c{c}ons d'abord
+% par remarquer qu'il peut paraître surprenant que \verb_bool_ soit un type numérique.
+% C'est cependant le cas si on identifie \verb_False_ à 0 et \verb_True_ à 1. C'est ce que
+% fait Python pour des raisons historiques. Il vous est cependant demandé d'oublier au plus
+% vite cette curiosité.\\
+
+
+
+\subsection{Chaine de caractères}
+
+Python nous permet de travailler avec du texte. Pour cela, on utilise des chaines de caractères que l'on
+encadre en utilisant soit des \og\verb_"_\fg, soit des \og\verb_'_\fg.
+
+\begin{pythoncode}
+In [1]: "hello, world"
+Out[1]: 'Hello, world'
+
+In [2]: 'Ça dépend, ça dépasse.'
+Out[2]: 'Ça dépend, ça dépasse.'
+\end{pythoncode}
+
+\noindent Python permet d'utiliser des accents dans les chaines de caractères.
+Vous pouvez même utiliser des caractères espagnols, allemands, russes, hébreux, arabes
+ou chinois. Bref, tous les caractères \textsc{Unicode} sont supportés.
+De nombreux caractères \og spéciaux \fg existent. Par exemple, le retour à la ligne est un
+\og caractère \fg que l'on obtient en écrivant \og\verb_\n_\fg. De même, la tabulation est
+un caractère que l'on obtient en écrivant \og\verb_\t_\fg. La plupart des éditeurs de texte
+affichent la tabulation en la remplaçant par 2 ou 4 espaces,
+mais il est important d'être conscient que dans les fichiers textes, c'est un caractère à part entière. Comme il
+est difficile de le distinguer d'une succession d'espaces, on convient
+en général de ne pas l'utiliser~: beaucoup d'éditeurs de texte insèrent des espaces
+plutôt qu'un caractère de tabulation lorsque l'on utilise la touche \og \textsc{Tab} \fg de notre clavier. Enfin, si
+vous souhaitez utiliser des guillemets dans une chaine de caractères et que votre
+choix du délimiteur vous en empêche, vous pouvez l'insérer avec \og\verb_\"_\fg ou
+\og\verb_\'_\fg. Par exemple~:
+
+\begin{pythoncode}
+In [3]: "What do you mean \"ew\"? I don't like Spam!"
+Out[3]: (*@\textcolor{red}{'What do you mean "ew"? I don't like Spam!'}@*)
+\end{pythoncode}
+Il est possible d'obtenir la longueur d'une chaine de caractères en utilisant la
+fonction \verb_len_.
+
+\begin{pythoncode}
+In [4]: len("hello, world")
+Out[4]: 12
+\end{pythoncode}
+
+Les chaines de caractères ont leur propre type~: le type \verb_str_.
+
+\begin{pythoncode}
+In [5]: type("Il suffit pas d'y dire, y faut aussi y faire.")
+Out[5]: str
+\end{pythoncode}
+
+\noindent
+On ne confondra pas les chaines de caractères et les entiers. En particulier, si on
+essaie d'ajouter un entier à une chaine de caractères en écrivant \og\verb_2 + "2"_\fg,
+on obtient une erreur de type. Cependant, on peut utiliser le symbole \verb_+_ entre
+deux chaines de caractères, ce qui a pour effet de les concaténer~:
+
+\begin{pythoncode}
+In [6]: "Tic" + "Tac"
+Out[6]: 'TicTac'
+\end{pythoncode}
+
+\noindent
+De la même manière, il est possible de multiplier une chaine de caractères par un entier.
+
+\begin{pythoncode}
+In [7]: "G" + 10 * "o" + "al"
+Out[7]: 'Gooooooooooal'
+\end{pythoncode}
+
+On peut convertir une chaine de caractères en un entier ou un nombre flottant.
+C'est une conversion de type et il suffit
+pour cela d'appliquer la fonction portant le nom du type désiré à notre chaine.
+
+
+\begin{pythoncode}
+In [8]: int("2")
+Out[8]: 2
+
+In [9]: float("13.1")
+Out[9]: 13.1
+
+In [10]: int("2") * float("13.1")
+Out[10]: 26.2   
+\end{pythoncode}
+
+\noindent Si la chaine de caractères ne peut être interprétée comme une valeur du type demandée, une exception sera
+levée. La conversion inverse est possible avec la fonction \verb_str_~:
+
+\begin{pythoncode}
+In [11]: "Fahrenheit " + str(45) + str(1)
+Out[11]: 'Fahrenheit 451'
+\end{pythoncode}
+
+Le standard \textsc{Ascii} associe une valeur entre 0 et 127 à chacun des caractères les plus courants.
+Le tableau ci-dessous donne ces valeurs, les cases grisées représentant des caractères non imprimables.
+Par exemple, le caractère A est associé à la valeur 65.
+
+\begin{center}
+\begin{tabular}{|c||c|c|c|c|c|c|c|c|c|c|}
+\hline
+&0&1&2&3&4&5&6&7&8&9\\
+\hline
+\hline
+0&\cellcolor[gray]{0.9}&\cellcolor[gray]{0.9}&\cellcolor[gray]{0.9}&\cellcolor[gray]{0.9}&\cellcolor[gray]{0.9}&\cellcolor[gray]{0.9}&\cellcolor[gray]{0.9}&\cellcolor[gray]{0.9}&\cellcolor[gray]{0.9}&\cellcolor[gray]{0.9}\\
+\hline
+10&\cellcolor[gray]{0.9}&\cellcolor[gray]{0.9}&\cellcolor[gray]{0.9}&\cellcolor[gray]{0.9}&\cellcolor[gray]{0.9}&\cellcolor[gray]{0.9}&\cellcolor[gray]{0.9}&\cellcolor[gray]{0.9}&\cellcolor[gray]{0.9}&\cellcolor[gray]{0.9}\\
+\hline
+20&\cellcolor[gray]{0.9}&\cellcolor[gray]{0.9}&\cellcolor[gray]{0.9}&\cellcolor[gray]{0.9}&\cellcolor[gray]{0.9}&\cellcolor[gray]{0.9}&\cellcolor[gray]{0.9}&\cellcolor[gray]{0.9}&\cellcolor[gray]{0.9}&\cellcolor[gray]{0.9}\\
+\hline
+30&\cellcolor[gray]{0.9}&\cellcolor[gray]{0.9}&&!&"&\#&\$&\%&\&&'\\
+\hline
+40&(&)&*&+&,&-&.&/&0&1\\
+\hline
+50&2&3&4&5&6&7&8&9&:&;\\
+\hline
+60&<&=&>&?&@&A&B&C&D&E\\
+\hline
+70&F&G&H&I&J&K&L&M&N&O\\
+\hline
+80&P&Q&R&S&T&U&V&W&X&Y\\
+\hline
+90&Z&[&\textbackslash&]&\char`\^&\_&\`\ &a&b&c\\
+\hline
+100&d&e&f&g&h&i&j&k&l&m\\
+\hline
+110&n&o&p&q&r&s&t&u&v&w\\
+\hline
+120&x&y&z&\{&|&\}&\char`\~&\cellcolor[gray]{0.9}&&\\
+\hline
+\end{tabular}
+\end{center}
+
+\noindent
+Pour obtenir cet entier, on
+utilise la fonction \verb_ord_.
+
+\begin{pythoncode}
+In [12]: ord('A')
+Out[12]: 65
+\end{pythoncode}
+
+\noindent
+On peut obtenir un caractère à partir de son code \textsc{Ascii} grâce à la fonction
+\verb!chr!.
+
+% \begin{pythoncode}
+% In [13]: "I " + chr(9829) + " les Lazos."
+% Out[13]: 'I les Lazos.'
+% \end{pythoncode}
+\begin{lstlisting}[language=python, escapeinside=||]
+In [13]: chr(65)
+Out[13]: 'A'
+\end{lstlisting}
+% R code
+% @
+% |\includegraphics[width=0.5\textwidth]{example-image}|
+
+
+
+
+
+
+% \vspace{2ex}
+% Il est possible d'accèder au $k$-ième caractère d'une chaine en utilisant la syntaxe
+% suivante.
+
+% \begin{pythoncode}
+% In [12]: s = "hello, world"
+
+% In [13]: s[0]
+% Out[13]: 'h'
+% \end{pythoncode}
+
+% \noindent
+% Notons que comme la plupart des langages, Python indece les chaines à partir de 0
+% et non de 1. Par contre, contrairement à ce qui se passe en \textsc{C} et en Ocaml,
+% Python ne possède pas de type \og caractère \fg. L'instruction \verb_s[k]_
+% renvoie donc une chaine de caractère de longueur 1. Bien entendu, si \verb_s_ est une
+% chaine de longueur \verb_n_, on n'utilisera que des indices \verb_k_ tels que
+% $0\leq k< n$. Si $k\geq n$, Python générera une exception et donc une erreur.
+
+% \begin{francois}
+% \begin{pythoncode}
+% In [14]: s = "hello, world"
+
+% In [15]: len(s)
+% Out[15]: 12
+
+% In [16]: s[12]
+% (*@\textcolor{violet}{IndexError: string index out of range}@*)
+% \end{pythoncode}
+% \end{francois}
+% \begin{victor}
+% \begin{pythoncode}
+% >>> s = "hello, world"
+% >>> len(s)
+% 12
+% >>> s[12]
+% Traceback (most recent call last):
+%   File "<stdin>", line 1, in <module>
+% IndexError: string index out of range
+% \end{pythoncode}
+% \end{victor}
+
+% \noindent
+% Python accepte des indices négatifs $-n\leq k\leq -1$ pour désigner les caractères
+% d'une chaine en partant de la fin. Cependant, le programme de classes préparatoires
+% proscrit une telle utilisation.\\
+
+% % Les chaines de caractère sont immuables. Il est impossible de les modifier et le code suivant
+% % renvoie une erreur.
+% % \begin{francois}
+% % \begin{pythoncode}
+% % >>> s = "hello, world"
+% % >>> s[0] = "a"
+% % (*@\textcolor{violet}{Traceback (most recent call last):}@*)
+% % (*@\textcolor{violet}{\ \ File "<stdin>", line 1, in <module>}@*)
+% % (*@\textcolor{violet}{TypeError: 'str' object does not support item assignment}@*)
+% % \end{pythoncode}
+% % \end{francois}
+% % \begin{victor}
+% % \begin{pythoncode}
+% % >>> s = "hello, world"
+% % >>> s[0] = "a"
+% % Traceback (most recent call last):
+% %   File "<stdin>", line 1, in <module>
+% % TypeError: 'str' object does not support item assignment
+% % \end{pythoncode}
+% % \end{victor}
+
+% Il est possible d'extraite une sous-chaine à l'aide de \emph{slices}. Dans son utilisation
+% la plus élémentaire, \verb_s[i:j]_ renvoie la chaine composée des caractères d'indices
+% $k$ tels  que $i\leq k< j$. Il est possible d'omettre $i$. Dans ce cas, la valeur de 0
+% est utilisée. Si on omet $j$, c'est la longueur de la chaine qui est utilisée.
+
+% \begin{pythoncode}
+% In [17]: s = "hello, world"
+
+% In [18]: s[1:5]
+% Out[18]: 'ello'
+
+% In [19]: s[:5]
+% Out[19]: 'hello'
+
+% In [20]: s[7:]
+% Out[20]: 'world'
+% \end{pythoncode}
+
+% \noindent
+% Il est aussi possible d'utiliser une forme plus avancée \verb_s[i:j:p]_
+% où $p$ est le pas. Si $i\leq j$ et $p>0$, la chaine obtenue est formée des caractères
+% d'indices $i + k p$ pour $i \leq i + k p < j$.
+
+% \begin{pythoncode}
+% In [21]: s = "hello, world"
+
+% In [22]: s[1::3]
+% Out[22]: 'eowl'
+% \end{pythoncode}
+
+
+\subsection{Booléen}
+
+Python possède un type booléen qui n'a que deux valeurs distinctes~:
+\verb_True_ et \verb_False_. 
+
+\begin{pythoncode}
+In [1]: True
+Out[1]: True
+
+In [2]: type(True)
+Out[2]: bool
+\end{pythoncode}
+
+\noindent
+Les opérateurs logiques usuels \og et \fg, \og ou \fg et \og non \fg sont disponibles. On
+remarquera que le \og ou \fg est bien le ou inclusif, comme en mathématiques.
+
+\begin{pythoncode}
+In [3]: True and True
+Out[3]: True
+
+In [4]: True and False
+Out[4]: False
+
+In [5]: True or True
+Out[5]: True
+
+In [6]: not True
+Out[6]: False
+\end{pythoncode}
+
+Pour savoir si deux valeurs sont égales, on utilise le symbole \og\verb_==_\fg.
+
+\begin{pythoncode}
+In [7]: 1 + 1 == 2
+Out[7]: True
+\end{pythoncode}
+
+\noindent La valeur renvoyée par un test d'égalité est un \emph{booléen}. Attention
+à ne jamais utiliser de test d'égalité entre deux flottants, car du fait de l'arithmétique
+de ces derniers, certains résultats sont surprenants~!
+
+\begin{pythoncode}
+In [8]: 0.1 + 0.2 == 0.3
+Out[8]: False
+\end{pythoncode}
+
+En général, deux valeurs de types différents ne sont pas égales.
+\begin{pythoncode}
+In [9]: 2 == "2"
+Out[9]: False
+\end{pythoncode}
+\noindent
+Les opérateurs \verb_!=_, \verb_<_, \verb_>_, \verb_<=_, \verb_>=_ sont aussi disponibles.
+
+\begin{center}
+\begin{tabular}{cc}
+\hline
+\verb_x == y_& x est égal à y\\
+\verb_x != y_ & x est différent de y\\
+\verb_x < y_ & x est strictement inférieur à y\\
+\verb_x > y_ & x est strictement supérieur à y\\
+\verb_x <= y_ & x est inférieur ou égal à y\\
+\verb_x >= y_ & x est supérieur ou égal à y\\
+\hline
+\end{tabular}
+\end{center}
+
+\begin{pythoncode}
+In [10]: 3 <= 3.14 and 3.14 <= 4
+Out[10]: True
+\end{pythoncode}
+
+% \noindent
+% Python comprend les expressions du type  \og\verb_3 <= x <= 4_\fg, mais
+% nous éviterons ces constructions dans nos programmes.\\
+
+
+Pour la comparaison des chaines de caractères, l'ordre utilisé est l'ordre
+lexicographique, chaque caractère étant ordonné dans l'ordre de la table
+\textsc{Ascii}/\textsc{Unicode}.
+
+\begin{pythoncode}
+In [11]: "OL" > "OM"
+Out[11]: False
+\end{pythoncode}
+
+\noindent
+Faites attention à l'ordre de ces caractères. Les minuscules sont bien évidemment
+dans l'ordre alphabétique, tout comme les majuscules, mais la lettre \og Z\fg est avant
+la lettre \og a\fg et donc de manière surprenante \verb_"Zorro" < "algèbre"_.
+\vspace{2ex}
+\begin{exoUnique}
+\exo En utilisant le tableau \textsc{Ascii}, classer ces chaines de caractère dans l'ordre
+  lexicographique~: \verb_"9"_, \verb_"34"_, \verb_"Maison"_, \verb_"la"_ et \verb_"laisser"_.
+\end{exoUnique}
+
+\subsection{Tuple}
+
+Afin de grouper plusieurs valeurs, Python propose un type
+appelé \verb_tuple_.
+
+\begin{pythoncode}
+In [1]: (1.0, 2.0)
+Out[1]: (1.0, 2.0)
+
+In [2]: "Teddy", "Riner", 1989
+Out[2]: ("Teddy", "Riner", 1989)
+
+In [3]: type((2.0, 1.0))
+Out[3]: tuple
+\end{pythoncode}
+
+\noindent
+Les parenthèses regroupant ces valeurs sont optionnelles.
+Il arrive qu'on utilise des tuples pour grouper des valeurs n'ayant pas
+le même type, comme dans notre second exemple.
+
+\section{Programmation impérative}
+\subsection{Variable}
+
+Les valeurs déjà calculées peuvent être gardées en mémoire afin de les utiliser plus tard.
+Pour cela, on utilise des variables. Les types que nous avons vus jusqu'ici
+seront plus tard décrits comme \emph{immuables} et lorsqu'on travaille avec de tels types, une
+variable peut être conceptualisée par une boite portant un \emph{nom} et contenant une
+\emph{valeur}. Afin de stocker une valeur dans une boite, on utilise le symbole
+d'\emph{affectation} \og\verb_=_\fg.
+
+\begin{pythoncode}
+In [1]: a = 6   
+\end{pythoncode}
+
+\noindent À gauche du symbole d'affectation, on place le nom de la boite qui doit
+être utilisée. À droite, on doit trouver une expression qui sera évaluée en une valeur. Cette
+valeur sera alors stockée dans la boite.\\
+
+On accède ensuite à la valeur mémorisée en utilisant le nom de la variable. Lors de
+l'évaluation de chaque expression, les noms de variables sont remplacés par les valeurs
+qu'elles contiennent.
+
+\begin{pythoncode}
+In [2]: a * (a + 1)
+Out[2]: 42 
+\end{pythoncode}
+
+
+
+\begin{exoUnique}
+\exo Dans cet exercice on s'interdit d'utiliser l'exponentiation \og\verb_**_\fg.
+\begin{questions}
+\question Montrer que l'on peut calculer $a^8$ avec 3 multiplications.
+\question Donner une manière de calculer $a^7$ avec 4 multiplications.
+\end{questions}
+\end{exoUnique}
+\bigskip
+
+Une fois qu'une variable est définie, il est possible de la redéfinir en utilisant une nouvelle valeur.
+
+\begin{pythoncode}
+In [3]: a = 7
+
+In [4]: a = a + 1
+
+In [5]: a
+Out[5]: 8
+\end{pythoncode}
+
+\noindent Pour l'entrée \verb!a = a + 1!, le membre de droite est d'abord évalué pour produire la valeur 8.
+Cette valeur est ensuite stockée dans la variable \verb_a_. L'ancienne valeur est \og
+écrasée\fg et il n'est plus possible d'y accéder. Ce type d'instruction nous rappelle que le
+symbole d'affectation est dissymétrique, contrairement au symbole d'égalité utilisé en
+mathématiques. En particulier, l'instruction \og\verb_a + 1 = a_\fg n'a aucun sens et sera
+signalée par Python comme une erreur. Remarquons que c'est bien une valeur qui est
+stockée dans une variable. En particulier, si l'on définit
+\og\verb_b = a_\fg et que l'on change ensuite la valeur de \verb_a_, celle de
+\verb_b_ reste inchangée.
+\vspace{2ex}
+\begin{exoUnique}
+\exo La méthode de Héron est une méthode historique pour obtenir une valeur
+  approchée de la racine carrée d'un nombre $a>0$. Pour cela, on définit
+	la suite $(u_n)$ par
+	\[u_0\defeq a, \quad\et\quad \forall n\in\N\qsep u_{n+1}\defeq\frac{u_n + \frac{a}{u_n}}{2}.\]
+	Déterminer la plus petite valeur de $n$ pour laquelle la précision sur les nombres
+	flottants ne permet plus de distinguer $u_n$ de $u_{n+1}$ lors du calcul de $\sqrt{2}$.
+\end{exoUnique}
+\vspace{2ex}
+
+Python est un langage de programmation à \emph{typage dynamique}~: une même
+variable peut à un moment donné stocker un entier et plus tard une chaine de caractères.
+Le type d'une variable, c'est-à-dire le type de la valeur stockée par cette variable est
+donc autorisé à changer lors de l'exécution d'un programme. Cette manière de programmer
+rend cependant les programmes plus difficiles à lire et nous éviterons de le faire.\\
+
+Pour les noms de variables, nous nous limiterons aux noms composés de lettres minuscules
+(\verb_a-z_) et majuscules (\verb_A-Z)_, ainsi qu'au caractère \og tiret du bas\fg ou \og
+underscore\fg (\verb-_-) disponible sur la touche 8 des claviers français. L'utilisation de chiffres (\verb_0-9_) à
+la fin d'un nom est autorisée. On évitera
+d'utiliser les accents dans les noms de variables. 
+Choisir
+judicieusement le nom de ses variables est un art qu'il est important de cultiver. Les noms
+de variables courts ont l'avantage d'être rapides à taper et à lire. On les utilisera donc
+pour stocker des valeurs que nous utiliserons souvent. Les noms de variables longs ont
+l'avantage d'être plus descriptifs. On les utilisera donc pour faire référence à des valeurs
+que nous utiliserons plus rarement. Pour des noms de variables composés de plusieurs mots, on utilise
+souvent un underscore comme dans \verb-nb_eleves- ou une lettre majuscule comme dans
+\verb_nbEleves_.
+
+\subsection{État du système}
+
+Contrairement aux expressions dont la finalité est de produire une valeur, une affectation
+a pour effet de changer l'état des variables. On dit qu'elle agit par \emph{effet de bord}.
+Pour représenter l'état du système, nous utiliserons la notation suivante
+\verb_{a: 2, b: 7}_. Elle signale que la variable \verb_a_ contient la valeur 2 tandis que
+\verb_b_ contient la valeur 7. La programmation \emph{impérative} consiste à écrire une
+succession d'instructions pour changer l'état de la machine. Le langage machine, qui est utilisé par les processeurs, fonctionne de cette manière. C'est une des raisons pour
+lesquelles ce style est central dans de nombreux langages de programmation. C'est le cas pour
+Python, et c'est un style que nous adopterons souvent dans ce cours. Afin de visualiser l'état
+dans lequel se trouve la machine, on le décrira sur
+une ligne de commentaire. Ces lignes commencent par le caractère \verb_#_ et sont ignorées
+par Python.\\
+
+Si par exemple les variables \verb_a_ et \verb_b_ contiennent respectivement 2 et 7, les
+instructions suivantes modifient l'état de la machine comme suit~:
+
+\begin{pythoncode}
+# etat {a: 2, b: 7}
+In [1]: a = b
+In [2]: b = a
+# etat {a: 7, b: 7} 
+\end{pythoncode}
+
+\noindent En particulier, ces deux instructions n'ont pas eu pour effet d'échanger le contenu
+des variables \verb_a_ et \verb_b_. La première instruction a eu pour effet d'écraser la
+valeur contenue dans \verb_a_ qui est alors définitivement perdue. Si on possède un verre
+d'eau et un verre de vin, le meilleur moyen pour échanger le contenu de ces verres est
+d'utiliser un troisième verre. Pour échanger deux variables, on peut donc utiliser la séquence
+d'instructions suivante~:
+
+\begin{pythoncode}
+# etat {a: 2, b: 7}
+In [1]: c = a
+In [2]: a = b
+In [3]: b = c
+# etat {a: 7, b: 2, c: 2}
+\end{pythoncode}
+
+%%{r = 1 et n >= 0}
+
+%%invariant: {r * n! = a!}
+%%while n > 0:
+%%  r = r * n
+%%  n = n - 1
+%%{r = n!}
+
+Notons que Python permet d'utiliser les \verb_tuple_ pour effectuer des affectations
+\og simultanées \fg. Par exemple après l'instruction
+\begin{pythoncode}
+In [4]: a, b = 7, 2
+\end{pythoncode}
+\verb!a! contient 7 et \verb!b! contient 2.
+Puisque l'expression de droite est évaluée avant l'affectation, cette construction est
+très utile pour échanger le contenu de deux variables.
+\begin{pythoncode}
+In [5]: a, b
+Out[5]: (7, 2)
+
+In [6]: a, b = b, a
+
+In [7]: a, b
+Out[7]: (2, 7)
+\end{pythoncode}
+En pratique, on réservera ces affectations simultanées aux cas où plusieurs affectations
+les unes à la suite des autres ne permettent pas d'obtenir un résultat similaire.\\
+
+Notons qu'il est possible de supprimer une variable avec l'instruction \verb_del_, mais
+nous nous contenterons d'ignorer les variables dont nous n'avons plus l'utilité.\\
+
+On notera parfois $\mathcal{E}_0, \mathcal{E}_1, \dots$ l'état du système à
+différentes étapes de l'exécution de notre code. On utilisera aussi la convention
+suivante~: si \verb_a_ est une variable, $a_k$ sera la valeur contenue par cette dernière
+quand le système est dans l'état $\mathcal{E}_k$. Par exemple
+
+\begin{pythoncode}
+# etat0 {a: a0, b: b0}
+In [8]: a = a + b
+# etat1 {a: a0 + b0, b: b0} 
+\end{pythoncode}
+
+\noindent signifie qu'après notre affectation $a_1=a_0+b_0$ et $b_1=b_0$.
+
+% \begin{exoUnique}
+% \exo Montrer qu'il est possible d'échanger deux variables contenant des entiers avec des
+%   opérations arithmétiques sans utiliser de troisième variable.
+% \end{exoUnique}
+
+\subsection{Entrée, sortie}
+
+Le langage Python permet d'interagir avec l'utilisateur en demandant d'entrer des valeurs avec lesquelles il va travailler puis en affichant les résultats de son calcul.\\
+
+Pour afficher une valeur, on utilise la fonction \verb_print_. On l'utilise pour afficher des chaines de caractères, mais aussi des entiers ou des nombres flottants.
+
+
+\begin{pythoncode}
+In [1]: print("hello, world")
+(*@\textcolor{purple}{hello, world}@*)
+
+In [2]: print(2**10)
+(*@\textcolor{purple}{1024}@*)
+\end{pythoncode}
+
+
+\noindent La fonction \verb_print_ travaille par effet de bord. Elle a pour effet de
+changer l'état du système, à savoir ce qui est affiché par la \emph{console} de l'ordinateur.
+Il est essentiel de bien faire la différence entre l'expression \verb_2**10_ qui s'évalue en
+1024 et l'appel \verb_print(2**10)_ qui affiche 1024 sur la console. Cet appel 
+renvoie \verb_None_, l'unique valeur du type \verb_NoneType_ qui est renvoyée par les 
+fonctions travaillant par effet de bord. On ne voit pas cette valeur sur une ligne \verb!Out! car le shell a pour habitude de ne jamais l'afficher. La différence peut paraitre subtile lorsque l'on 
+travaille avec Python en mode interactif mais elle existe bien~:
+\begin{pythoncode}
+In [3]: 2**10
+Out[3]: 1024
+
+In [4]: print(2**10)
+(*@\textcolor{purple}{1024}@*)
+\end{pythoncode}
+
+La fonction \verb_print_ peut être utilisée avec plusieurs valeurs, séparées par des 
+virgules~: elles sont affichées sur une même ligne, les unes à la suite des autres.
+
+\begin{pythoncode}
+In [5]: nb_eleves = 43
+
+In [6]: print("Il y a", nb_eleves, "éleves dans la classe.")
+(*@\textcolor{purple}{Il y a 43 élèves dans la classe.}@*)
+\end{pythoncode}
+
+\noindent
+Par défaut, un retour à la ligne est automatiquement ajouté après chaque appel à
+\verb_print_. Pour éviter cela, on peut utiliser l'option \verb_end_ et remplacer le
+caractère \og\verb_\n_\fg, par la chaine de votre choix. Le plus courant est d'utiliser
+une chaine vide.
+
+\begin{francois}
+\begin{pythoncode}
+In [7]: print("hello, ", end="")
+   ...: print("world")
+(*@\textcolor{purple}{hello, world}@*)
+\end{pythoncode}
+\end{francois}
+\begin{victor}
+\begin{pythoncode}
+>>> print("hello, ", end="")
+... print("world")
+hello, world
+\end{pythoncode}
+\end{victor}
+
+\noindent
+Enfin, lorsque vous voulez afficher plusieurs valeurs sur une même ligne en les séparant par
+des virgules, Python va ajouter un espace entre chaque valeur. Cela peut être utile, mais 
+dans les cas où vous ne le souhaitez pas, vous pouvez construire les chaines de 
+caractères à la main.
+
+\begin{francois}
+\begin{pythoncode}
+In [8]: n = 3
+
+In [9]: print("Sup" + str(n) + " rocks!")
+(*@\textcolor{purple}{Sup3 rocks!}@*)
+\end{pythoncode}
+\end{francois}
+\begin{victor}
+\begin{pythoncode}
+>>> n = 1
+>>> print("Sup" + str(n) + " rocks!")
+Sup1 rocks!
+\end{pythoncode}
+\end{victor}
+
+%\noindent Pour plus de précisions sur l'affichage, on peut utiliser la méthode \verb_format_ qui s'emploie sur les chaines de caractères. Son usage élémentaire est le suivant~:
+%
+%\begin{pythoncode}
+%>>> a = 2
+%>>> b = 3
+%>>> print("{} * {} = {}".format(a, b, a * b))
+% 2 * 3 = 6
+%\end{pythoncode}
+%
+%\noindent Cette syntaxe a l'avantage de permettre un formatage précis des données. On peut souhaiter par exemple écrire le résultat de \verb_a * b_ sur deux colonnes et justifier le résultat à droite. Cela peut être utilise pour écrire des tables de multiplication.
+%
+%\begin{pythoncode}
+%>>> print("{} * {} = {:>2})".format(2, 3, 6))
+%    print("{} * {} = {:>2})".format(6, 7, 42))
+% 2 * 3 =  6
+% 6 * 7 = 42
+%\end{pythoncode}
+%
+%\noindent De nombreux autres options sont disponibles pour formatter précisément vos sorties.\\
+
+La fonction \verb_input_ permet quant à elle de demander des valeurs à l'utilisateur.
+Quelle que soit la valeur attendue, c'est sous la forme d'une chaine de caractères que
+Python la renvoie au programmeur. Il convient donc d'effectuer explicitement une
+conversion lorsque l'on souhaite une valeur d'un autre type.
+
+\begin{francois}
+\begin{pythoncode}
+In [10]: nom = input("Quel est votre nom ? ")
+(*@\textcolor{purple}{Quel est votre nom ?}@*) (*@\textcolor{brown}{Teddy Riner}@*)
+
+In [11]: entree = input(nom + ", quelle est votre année de naissance ? ")
+(*@\textcolor{purple}{Teddy Riner, quelle est votre année de naissance ?}@*) (*@\textcolor{brown}{1989}@*)
+
+In [12]: annee = int(entree)
+In [13]: print("Vous aurez", 2024 - annee, "ans l'année des jeux de Paris.")
+(*@\textcolor{purple}{Vous aurez 35 ans l'année des jeux de Paris.}@*)
+\end{pythoncode}
+\end{francois}
+\begin{victor}
+\begin{pythoncode}
+>>> nom = input("Quel est votre nom ? ")
+... entree = input(nom + ", quelle est votre année de naissance ? ")
+... annee = int(entree)
+... print("Vous aurez", 2024 - annee, "ans l'année des jeux de Paris.")
+Quel est votre nom ? Teddy Riner
+Teddy Riner, quelle est votre année de naissance ? 1989
+Vous aurez 35 ans l'année des jeux de Paris.
+\end{pythoncode}
+\end{victor}
+
+\noindent Bien qu'elle renvoie une valeur, on dit aussi que la fonction \verb_input_
+travaille par effet de bord, car elle attend une entrée de l'utilisateur.
+C'est la seule fois dans ce cours où vous verrez cette fonction. Nous sommes en
+2022, les téléphones ont des interfaces tactiles et la reconnaissance vocale commence à
+marcher. Tout cela pour vous dire qu'il vaut mieux laisser gérer l'interface utilisateur
+par des personnes maitrisant ces technologies. Comme nous travaillerons en mode
+interactif, \verb_print_ et \verb_input_ nous seront de toute façon le plus souvent inutiles et nous vous
+demandons de les laisser de côté, sauf si on vous demande explicitement de les utiliser.
+
+% \subsection{Logo}
+
+% Le \textsc{Logo} est un langage de programmation permettant d'apprendre la programmation
+% impérative. On l'utilisera donc dans ce cours pour quelques exercices. On dispose
+% d'une tortue qui laisse derrière elle une trace dans le sable ce qui permet de
+% faire des dessins. Le \textsc{Logo} est disponible en Python par
+% l'intermédiaire du module \verb_turtle_. Afin de charger ce module et éviter d'avoir à
+% écrire le mot complet \verb_turtle_, on peut utiliser un alias grâce à l'instruction suivante.
+
+% \begin{pythoncode}
+% In [1]: import turtle as lg
+% \end{pythoncode}
+
+% On dispose alors des commandes suivantes. La commande \verb_lg.forward(n)_ fait avancer
+% la tortue d'une distance $n$. La commande \verb_lg.left(theta)_ fait tourner la tortue
+% vers la gauche d'un angle de $\theta$ degrés. La commande \verb_lg.right(theta)_ fait
+% tourner la tortue vers la droite d'un angle de $\theta$ degrés. Par exemple, les
+% commandes suivantes permettent de dessiner un triangle équilatéral.
+
+% \begin{pythoncode}
+% In [2]: lg.forward(100)
+% In [3]: lg.left(120)
+% In [4]: lg.forward(100)
+% In [5]: lg.left(120)
+% In [6]: lg.forward(100)
+% \end{pythoncode}
+
+% \noindent
+% La commande \verb_lg.reset()_ permet d'effacer les traces de la tortue et de la replacer
+% à son point de départ.
+
+% \begin{exoUnique}
+% \exo Écrire une séquence d'instructions qui dessine un carré de côté 100.
+% \end{exoUnique}
+
+
+%  Même si le type d'une liste ne dépend pas des
+% éléments qu'ils contient, on utilisera la notation \verb!list[a]! pour désigner une liste
+% d'éléments de type \verb!a! dans les docstrings.
+
+
+%END_BOOK
+\end{document}

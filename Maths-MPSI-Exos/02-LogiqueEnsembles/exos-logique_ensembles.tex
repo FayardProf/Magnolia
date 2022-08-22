@@ -1,0 +1,809 @@
+\documentclass{magnolia}
+
+\magtex{tex_driver={pdftex}}
+\magfiche{document_nom={Logique, Ensembles},
+          auteur_nom={François Fayard},
+          auteur_mail={fayard.prof@gmail.com}}
+\magexos{exos_matiere={maths},
+         exos_niveau={mpsi},
+         exos_chapitre_numero={2},
+         exos_theme={Logique, Ensembles}}
+\magmisenpage{}
+\maglieudiff{}
+\magprocess
+
+\begin{document}
+
+%BEGIN_BOOK
+\magsection{Éléments de logique}
+\magsubsection{Assertion, prédicat}
+
+% \exercice{nom={Commentaires sportifs}}
+% En utilisant le fait que $\non(\non A)$ et $A$ ont même valeur de vérité, simplifier
+% la phrase
+% \begin{center}
+% \og Il ne se trouvera aucun sportif pour nier que le contraire n'eût été
+% immérité. \fg.
+% \end{center}
+% \begin{sol}
+% Il y aura un sportif pour dire que ce fut mérité.
+% \end{sol}
+
+\magsubsection{Implication, équivalence}
+
+% \exercice{nom={Liens logiques}}
+% Déterminer les liens d'implication et d'équivalence entre les assertions
+% suivantes (on ne cherchera pas à savoir si les assertions suivantes sont
+% vraies ou fausses)~:
+% \begin{questions}
+% \question Tous les australopithèques sont mortels.
+% \question Tous les australopithèques sont immortels.
+% \question Aucun australopithèque n'est mortel.
+% \question Aucun australopithèque n'est immortel.
+% \question Il existe des australopithèques immortels.
+% \question Il existe des australopithèques mortels.
+% \end{questions}
+\exercice{nom={Phrases mathématiques}}
+On considère les propositions
+\begin{enumerate}
+\item $\forall x\in\R \qsep \cro{\p{\forall y\in\R \qsep xy=0} \implique x=0}$
+\item $\forall x\in\R \qsep \forall y\in\R \qsep \cro{xy=0 \implique x=0}.$
+\end{enumerate}
+Sont-elles vraies ou fausses~? Bien entendu, on justifiera.
+
+\exercice{nom={Quantificateurs}}
+Écrire avec des quantificateurs les assertions suivantes, où $(u_n)$ désigne une
+suite réelle et $f$ désigne une fonction de $\R$ dans $\R$.
+\begin{questions}
+\question La suite $u$ est majorée.
+\question La suite $u$ n'est pas majorée.
+\question La fonction $f$ est nulle.
+\question La fonction $f$ n'est pas nulle.
+\question La fonction $f$ n'est pas croissante.
+\question La fonction $f$ est périodique.
+\question La fonction $f$ n'est pas périodique.
+\question La fonction $f$ n'est pas paire.
+\question La fonction $f$ n'est pas bornée.
+\end{questions}
+\begin{sol}
+$\quad$
+\begin{questions}
+\question $\exists M\in\R \qsep \forall n\in\N \qsep u_n\leq M$
+\question $\forall M\in\R \qsep \exists n\in\N \quad u_n > M$
+\question $\forall x\in\R \quad f(x)=0$
+\question $\exists x\in\R \quad f(x)\neq 0$
+\question $\non\p{\forall x\in\R \quad \forall y\in\R \quad x\leq y \implique
+  f(x)\leq f(y)}$\\
+  $\exists x\in\R \quad \exists y\in\R \quad x\leq y \et f(x)>f(y)$
+\question $\exists T\in\Rs \quad \forall x\in\R \quad f\p{x+T}=f(x)$\\
+  $\forall T\in\Rs \quad \exists x\in\R \quad f\p{x+T}\neq f(x)$
+\question $\non\p{\forall x\in\R \quad f\p{-x}=f(x)}$\\
+  $\exists x\in\R \quad f\p{-x}\neq f(x)$
+\question $\non\p{\exists M\in\RP \quad \forall x\in\R \quad
+  \abs{f(x)}\leq M}$\\
+  $\forall M\in\RP \quad \exists x\in\R \quad \abs{f(x)}>M$
+\end{questions}
+\end{sol}
+
+\exercice{nom={Autour des suites}}
+Soit $\p{u_n}$ une suite réelle. Montrer l'équivalence des deux propriétés
+suivantes
+\begin{enumerate}
+\item $\forall A\in\R \qsep \exists n\in\N \qsep u_n \geq A.$
+\item $\forall A\in\R \qsep \exists n\in\N \qsep u_n > A.$
+\end{enumerate}
+Que signifient ces énoncés~?
+
+\magsection{Ensemble}
+\magsubsection{Ensemble, élément}
+\magsubsection{Opérations élémentaires}
+
+\exercice{nom={Ensembles}}
+Soit $A$ et $B$ deux parties d'un ensemble $E$.
+\begin{questions}
+\question Montrer que
+   \[A\cap B=A\cup B \implique A=B.\]
+\question Montrer que
+  \[A\setminus\p{A\setminus B}=A\cap B.\]
+\end{questions}
+
+\exercice{nom={Ensembles}}
+Soit $E$ un ensemble et $A,B,C\in\mathcal{P}(E)$. Montrer que les 3 assertions suivantes
+sont deux à deux équivalentes.
+\begin{itemize}
+\item $A\setminus B\subset C$.
+\item $A\setminus C\subset B$. 
+\item $A\subset B\cup C$.
+\end{itemize}
+
+% \exercice{nom={Produit cartésien}}
+% Soit $E,F,G,H$ quatre parties d'un même ensemble. Comparer les ensembles
+% \[(E\times F)\cap(G\times H) \et (E\cap G)\times(F\cap H).\] On fera un dessin,
+% puis une preuve.
+
+\exercice{nom={Équation ensembliste}}
+Soit $A,B$ deux parties de $E$. Résoudre les équations suivantes d'inconnue
+$X\in\parties{E}$.
+\begin{questions}
+\question $A\cup X=B$.
+\question $A\cap X=B$.
+\end{questions}
+On commencera par faire des dessins pour avoir une idée de ce qui se passe,
+puis on fera un raisonnement par analyse et synthèse.
+
+\begin{sol}
+
+\begin{questions}
+\question Déjà, on doit avoir $A\subset B$. On doit avoir $B\setminus A\subset X\subset B$.
+\question Déjà, on doit avoir $A\supset B$. $X$ doit contenir $B$ et on doit avoir $(X\setminus B)\cap A=\emptyset$.
+\end{questions}
+
+\end{sol}
+
+\exercice{nom={Équation ensembliste}}
+Soit $E$ un ensemble et $A$ et $B$ deux parties de $E$. Discuter et résoudre
+l'équation
+\[(A\cap X)\cup(B\cap X^c)=\varnothing.\]
+
+\magsection{Application}
+\magsubsection{Définition, exemples}
+
+\exercice{nom={Fonction de $\Cs$ dans $\C$}}
+Soit $f$ la fonction
+\[\dspappli{f}{\Cs}{\C}{z}{z-\frac{1}{z}}\]
+\begin{questions}
+\question Montrer que $f$ est surjective mais non injective.
+\question Déterminer $f\p{\U}$ où $\U$ est l'ensemble des complexes de module
+  $1$.
+\question Déterminer $f^\applirec(J)$ où $J$ est l'ensemble des imaginaires
+  purs.
+\end{questions}
+\begin{sol}
+$\quad$
+\begin{questions}
+\question La fonction n'est pas injective car $f(1)=f(-1)=0$.
+\question $f(\U)=\enstq{i\alpha}{\alpha\in\interf{-2}{2}}$.
+\question On a $f(z)\in i\R \ssi (z+\conj{z})(z\conj{z}-1)=0$. Donc
+  $f^{-1}(J)=\U\cup i\Rs$.
+\end{questions}
+\end{sol}
+
+\exercice{nom={Différence symétrique}}
+Soit $E$ un ensemble. Quels que soient $A,B\in\mathcal{P}(E)$, on définit
+la différence symétrique $A\Delta B$ entre $A$ et $B$ par
+\[A\Delta B\defeq(A\cup B)\setminus(A\cap B).\]
+\begin{questions}
+\question Déterminer $A\Delta B$ dans les deux exemples suivants.
+\begin{itemize}
+\item $E\defeq\ens{1,2,3,4}$, $A\defeq\ens{1, 2}$, $B\defeq\ens{1, 3}$.
+\item $E\defeq\R$, $A\defeq\interof{-\infty}{2}$, $B=\interfo{1}{+\infty}$.
+\end{itemize}
+\question Montrer que
+\[\forall A,B\in\mathcal{P}(E)\qsep A\Delta B=\p{A\cap\overline{B}}\cup\p{B\cap\overline{A}}.\]
+\question Montrer que pour tout $(A,B)\in\mathcal{P}(E)^2$
+\[\mathds{1}_{A\Delta B}=\mathds{1}_A + \mathds{1}_B - 2 \mathds{1}_A \mathds{1}_B.\]
+\question En déduire que la loi $\Delta$ est associative sur $\mathcal{P}(E)$,
+  c'est-à-dire que
+	\[\forall A,B,C\in\mathcal{P}(E)\qsep A\Delta(B\Delta C)=(A\Delta B)\Delta C.\]
+\end{questions}
+\magsubsection{Application injective, surjective, bijective}
+
+
+\exercice{nom={Fonction de $\C^2$ dans $\C^2$}}
+Soit $f$ la fonction
+\[\dspappli{f}{\C^2}{\C^2}{\p{u,v}}{\p{u^2+v^2,uv}}\]
+\begin{questions}
+\question $f$ est-elle injective~?
+\question $f$ est-elle surjective~?
+\question Déterminer les antécédents de $\p{3-2\ii,3+\ii}$ par $f$.
+\end{questions}
+\begin{sol}
+$\quad$
+\begin{questions}
+\question Non, car $f\p{0,1}=f\p{1,0}$.
+\question Oui, car les équations de degré 2 admettent toujours une solution
+  sur $\C$.
+\question $\p{u,v}=\p{-1-i,-2+i}$, $\p{u,v}=\p{1+i,2-i}$ et deux autres
+  solutions obtenues par échange de $u$ et $v$.
+\end{questions}
+\end{sol}
+
+
+\exercice{nom={Injection, surjection}}
+Soit $E$ et $F$ deux ensembles, $f:E\to F$ et $g:F\to E$.
+\begin{questions}
+\question Montrer que si $f\circ g\circ f=f$ et que $f$ est injective, alors $g$ est surjective.
+\question Montrer que si $g\circ f\circ g=g$ et que $g$ est surjective, alors $f$ est
+injective.
+\end{questions}
+
+\exercice{nom={Image directe, image réciproque}}
+Soit $f:E\to F$, $A$ une partie de $E$ et $B$ une partie de $F$. Montrer que
+\[f\p{A\cap f^\applirec (B)}=f(A)\cap B.\]
+\begin{sol}
+Soit $f$ une application de $E$ dans $F$, $A$ une partie de $E$ et $B$ une partie de $F$. Montrons que 
+\[f\p{A\cap f^\applirec (B)}=f(A)\cap B.\]
+On procède par double inclusion.
+\begin{itemize}
+\item $f(A\cap f^\applirec (B))\subset f(A)\cap B$. Soit $y\in f(A\cap f^\applirec (B))$. Montrons que $y\in f(A)\cap B$. Il existe $x\in A\cap f^\applirec (B)$ tel que $y=f(x)$. Puisque $x\in A$, on en déduit que $f(x)\in f(A)$. Puisque $x\in f^\applirec (B)$, on en déduit que $f(x)\in B$. Donc $y\in f(A)\cap B$.
+\item $f(A)\cap B\subset f(A\cap f^\applirec (B))$. Soit $y\in f(A)\cap B$. Montrons que $y\in f(A\cap f^\applirec (B))$. Puisque $y\in f(A)$, il existe $x\in A$ tel que $y=f(x)$. Puisque $f(x)=y\in B$, on en déduit que $x\in f^\applirec(B)$. Donc $x\in A\cap f^\applirec(B)$. Donc $y\in f(A\cap f^\applirec(B))$.
+\end{itemize}
+Par double inclusion, $f(A\cap f^\applirec (B))= f(A)\cap B$.
+\end{sol}
+
+
+\exercice{nom={Une bijection de $\interf{0}{1}$ dans $\intero{0}{1}$}}
+Montrer que la fonction $f:\interf{0}{1} \rightarrow \intero{0}{1}$ définie
+par
+\[\forall x\in\interf{0}{1} \qsep f(x)\defeq
+  \begin{cases}
+  \frac{1}{2} & \text{si $x=0$}\\
+  \frac{1}{n+2} & \text{si $x=\frac{1}{n}$ avec $n\in\Ns$}\\
+  x  &\text{sinon}
+  \end{cases}\]
+est une bijection.
+\begin{sol}
+Le plus simple est de donner la bijection réciproque
+\[\forall x\in\intero{0}{1} \quad g(x)=
+  \begin{cases}
+  0 & \text{si $x=\frac{1}{2}$}\\
+  \frac{1}{n-2} & \text{si $x=\frac{1}{n}$ avec $n\geq 3$}\\
+  x  &\text{sinon}
+  \end{cases}\]
+\end{sol}
+
+\exercice{nom={Application ensembliste}}
+Soit $A$ et $B$ deux parties de $E$ et
+\[\dspappli{f}{\parties{E}}{\parties{A}\times\parties{B}}{X}{\p{X\cap A,X\cap B}.}\]
+\begin{questions}
+\question Montrer que $f$ est injective si et seulement si $A\cup B=E$.
+\question Montrer que $f$ est surjective si et seulement si $A\cap B=\emptyset$.
+\question On suppose que $f$ est bijective. Calculer $f^{-1}$.
+\end{questions}
+\begin{sol}
+$\quad$
+\begin{questions}
+\question Montrons que $f$ est injective si et seulement si $A\cup B=E$.
+  \begin{itemize}
+  \item Supposons que $A\cup B=E$. Montrons que $f$ est injective. Soit $X_1,X_2\in\parties{E}$ tels que $f(X_1)=f(X_2)$. Montrons que $X_1=X_2$. On a $(X_1\cap A, X_1\cap B)=(X_2\cap A, X_2\cap B)$, donc $X_1\cap A=X_2\cap A$ et $X_1\cap B=X_2\cap B$. Donc
+  \begin{eqnarray*}
+  X_1&=&X_1\cap E=X_1\cap(A\cup B)=(X_1\cap A)\cup(X_1\cap B)\\
+     &=&(X_2\cap A)\cup(X_2\cap B)=X_2\cap(A\cup B)\\
+     &=&X_2\cap E=X_2.
+  \end{eqnarray*}
+  \item Supposons que $f$ est injective. Montrons que $A\cup B=E$. On a
+  \[f(A\cup B)=((A\cup B)\cap A, (A\cup B)\cap B)=(A,B)\]
+  et
+  \[f(E)=(E\cap A, E\cap B)=(A, B)\]
+  donc $f(E)=f(A\cup B)$. Or $f$ est injective, donc $E=A\cup B$.
+  \end{itemize}
+\question Montrons que $f$ est surjective si et seulement si $A\cap B=\emptyset$.
+\begin{itemize}
+\item Supposons de $A\cap B=\emptyset$. Montrons que $f$ est surjective. Soit $(U,V)\in\parties{A}\times\parties{B}$. On pose $X\defeq U\cup V$. Alors
+\[f(X)=(X\cap A, X\cap B).\]
+On a $X\cap A=(U\cup V)\cap A=(U\cap A)\cup(V\cap A)$. Or $U\cap A=U$ car $U\subset A$ et $V\cap A=\emptyset$ car $V\subset B$ donc $V\cap A\subset B\cap A=\emptyset$. Donc $X\cap A=U\cup\emptyset=U$. De même $X\cap B=V$. Donc $f(X)=(U, V)$.
+\item Supposons que $f$ est surjective. Montrons que $A\cap B=\emptyset$. On pose $Y\defeq (A\cap B,\emptyset)\in\parties{A}\times\parties{B}$. Puisque $f$ est surjective, il existe une partie $X$ de $E$ telle que $f(X)=(A\cap B,\emptyset)$. Alors $X\cap A=A\cap B$ et $X\cap B=\emptyset$. Alors
+\[A\cap B=(A\cap B)\cap B=(X\cap A)\cap B=(X\cap B)\cap A=\emptyset\cap A=\emptyset.\]
+\end{itemize}
+\question $f$ est bijective si et seulement si elle est injective et surjective, c'est-à-dire si et seulement si $A\cap B=\emptyset$ et $A\cup B=E$, c'est-à-dire si et seulement si $B=\overline{A}$. Supposons que $f$ est bijective. Alors, si $(U,V)\in\parties{A}\times\parties{B}$, on a vu dans la seconde question que $X\defeq U\cup V$ est un antécédent de $(U,V)$. Or $f^{-1}$ est l'application qui à $(U,V)\in\parties{A}\times\parties{B}$ associe son unique antécédent par $f$. Donc
+\[\forall (U,V)\in\parties{A}\times\parties{B}\qsep f^{-1}(U,V)=U\cup V.\]
+\end{questions}
+\end{sol}
+
+\exercice{nom={Application fonctionnelle}}
+Soit $f$ une application de $E$ dans $E$ et $\phi$ l'application
+\[\dspappli{\phi}{\mathcal{F}\p{E,E}}{\mathcal{F}\p{E,E}}{g}{g\circ f.}\]
+Montrer que $\phi$ est bijective si et seulement si $f$ l'est.
+\begin{sol}
+On suppose que $f$ est bijective. Montrons que $\phi$ est bijective. On définit
+\[\dspappli{\psi}{\mathcal{F}\p{E,E}}{\mathcal{F}\p{E,E}}{g}{g\circ f^{-1}.}\]
+Alors, quel que soit $g\in\mathcal{F}\p{E,E}$
+\[(\phi\circ\psi)(g)=\phi(\psi(g))=\phi(g\circ f^{-1})=g\circ f^{-1}\circ f=g\circ\id=g\]
+\[(\psi\circ\phi)(g)=\psi(\phi(g))=\psi(g\circ f)=g\circ f\circ f^{-1}=g\circ\id=g.\]
+Donc $\phi\circ\psi=\id$ et $\psi\circ\phi=\id$. Donc $\phi$ est bijective.\\
+
+Réciproquement, supposons que $\phi$ est bijective. Montrons que $f$ est bijective. On commence par prouver que $f$ est injective. Puisque $\phi$ est surjective, il existe $g\in\mathcal{F}(E,E)$ tel que $\id=g\circ f$. Soit $x_1,x_2\in E$ tels que $f(x_1)=f(x_2)$. Alors $g(f(x_1))=g(f(x_2))$, donc $x_1=x_2$.\\
+Montrons désormais que $f$ est surjective, c'est-à-dire que $\im f=E$. Si $E$ est vide ou ne possède qu'un élément, c'est évident. On suppose donc que $E$ possède au moins deux éléments. Pour montrer que $\im f=E$, on raisonne par l'absurde et on suppose que $\im f$ est strictement inclus dans $E$. Puisque $E$ possède au moins 2 éléments, il existe $y,y'\in E$ tels que $y\neq y'$. On définit alors les fonctions $g_1$ et $g_2$ de $E$ dans $E$ par
+\[\forall x\in E\qsep g_1(x)=\begin{cases}
+x &\text{si $x\in\im f$}\\
+y &\text{sinon}
+\end{cases} \et
+g_2(x)=\begin{cases}
+x &\text{si $x\in\im f$}\\
+y' &\text{sinon.}
+\end{cases}
+\]
+Alors $g_1\neq g_2$ car $\im f$ est strictement inclus dans $E$ et $y\neq y'$. Pourtant
+\[\forall x\in E\qsep (g_1\circ f)(x)=(g_2\circ f)(x)\]
+donc $\phi(g_1)=\phi(g_2)$. C'est absurde, car $\phi$ est injective.\\
+Voici une autre preuve de la surjectivité de $f$, plus courte mais surement moins naturelle.
+Montrons désormais que $f$ est surjective. On a $f\circ g\circ f=f\circ(g\circ f)=f\circ\id=f=\id\circ f$. Donc $\phi(f\circ g)=\phi(\id)$. Puisque $\phi$ est injective, $f\circ g=\id$. On en déduit que $f$ est surjective. En effet, soit $y\in E$. Alors, $(f\circ g)(y)=y$ donc $f(g(y))=y$. En posant $x\defeq g(y)$, on en déduit que $f(x)=y$.\\
+\end{sol}
+
+\exercice{nom={\nom{Haskell Curry}}}
+Soit $A,B,C$ trois ensembles. Montrer que l'application
+\[\dspappli{\phi}{\mathcal{F}(A\times B, C)}{\mathcal{F}(A,\mathcal{F}(B, C))}{f}{
+	\dspappli{\phi(f)}{A}{\mathcal{F}(B, C)}{a}{
+		\dspappli{[\phi(f)](a)}{B}{C}{b}{f(a,b)}
+	}}\]
+est bijective.
+
+\exercice{nom={Il n'y a pas de surjection de $E$ dans $\mathcal{P}(E)$}}
+Montrons que si $E$ est un ensemble, il n'existe pas de surjection de $E$ dans $\mathcal{P}(E)$. On raisonne par l'absurde et on suppose qu'il existe une surjection $\phi$ de $E$ dans $\mathcal{P}(E)$.
+Conclure a une absurdité en considérant
+\[A\defeq\enstq{ x \in E}{x \not\in \phi(x)}.\]
+\begin{sol}
+Montrons que si $E$ est un ensemble, il n'existe pas de surjection de $E$ dans $\mathcal{P}(E)$. On raisonne par l'absurde et on suppose qu'il existe une surjection $\phi$ de $E$ dans $\mathcal{P}(E)$. On pose
+\[A\defeq\enstq{ x \in E}{x \not\in \phi(x)}.\]
+Alors $A\in\parties{E}$. Puisque $\phi$ est surjective, il existe $x\in E$ tel que $A=\phi(x)$.
+\begin{itemize}
+\item Supposons que $x\in A$. Alors $x\not\in \phi(x)=A$. C'est impossible.
+\item Supposons que $x\not\in A$. Alors $x\not\in\phi(x)$, donc $x\in A$. C'est impossible.
+\end{itemize}
+On aboutit donc à une absurdité. Donc $\phi$ n'est pas surjective.
+\end{sol}
+
+\begin{sol}
+$A\in \mathcal{P}(E)$. Donc il existe $y\in E$ tel que $A=\phi(y)$. Si $y\in A, y\notin \phi(y)=A$, absurde, donc $y\notin A=\phi(y)$ donc $y\in A$. CONTRADICTION.
+\end{sol}
+
+
+% \exercice{nom={Injection, surjection et composition}}
+% Dans cet exercice, les applications sont toutes définies sur des ensembles tels que
+% les compositions indiquées existent. Chaque question est indépendante.
+% \begin{questions}
+% \question Montrer que si $g\circ f$ est injective, alors $f$ est injective.
+% \question Montrer que si $g\circ f$ est surjective, alors $g$ est surjective.
+% \end{questions}
+
+\exercice{nom={Composition, injection et surjection}}
+\begin{questions}
+\question Soit $A$, $B$, $C$, $D$ quatre ensembles, $f:A\rightarrow B$,
+  $g:B\rightarrow C$, $h:C\rightarrow D$ trois applications telles que $g\circ f$
+  et $h\circ g$ sont bijectives. Montrer que $f$, $g$ et $h$ sont bijectives.
+\question Soit $X$, $Y$, $Z$ trois ensembles et  $f:X\rightarrow Y$,
+  $g:Y\rightarrow Z$, $h:Z\rightarrow X$ trois applications. On forme les
+  applications composées $h\circ g\circ f$, $g\circ f\circ h$,
+  $f\circ h\circ g$. On suppose que deux d'entre elles sont surjectives et la
+  troisième injective. Montrer qu'alors $f$, $g$ et $h$ sont bijectives.
+\end{questions}
+\begin{sol}
+\begin{questions}
+\question  Soit $A,B,C,D$ quatre ensembles, $f:A\rightarrow B$,
+  $g:B\rightarrow C$, $h:C\rightarrow D$ trois applications telles que $g\circ f$
+  et $h\circ g$ sont bijectives. Montrons que $f$, $g$ et $h$ sont bijectives. Commençons par montrer que $g$ est bijective.
+  \begin{itemize}
+  \item $h\circ g$ est bijective, donc injective. Montrons que $g$ est injective. Soit $b_1,b_1\in B$ tels que $g(b_1)=g(b_2)$. Alors $h(g(b_1))=h(g(b_2))$, donc $(h\circ g)(b_1)=(h\circ g)(b_2)$. Or $h\circ g$ est injective, donc $b_1=b_2$.
+  \item $g\circ f$ est bijective, donc surjective. Montrons que $g$ est surjective. Soit $c\in C$. Puisque $g\circ f$ est surjective, il existe $a\in A$ tel que $c=(g\circ f)(a)$. Donc $c=g(f(a))$. On pose $b\defeq f(a)$. Alors $c=g(b)$.
+  \end{itemize}
+  Donc $g$ est bijective. Donc $f=g^{-1} \circ (g\circ f)$ est bijective comme composée de deux bijections. De même $h=(h\circ g)\circ g^{-1}$ est bijective comme composée de deux bijections.
+\question Soit $X$, $Y$, $Z$ trois ensembles et  $f:X\rightarrow Y$,
+  $g:Y\rightarrow Z$, $h:Z\rightarrow X$ trois applications. On forme les
+  applications composées $h\circ g\circ f$, $g\circ f\circ h$,
+  $f\circ h\circ g$. On suppose que $h\circ g\circ f$ et $g\circ f\circ h$ sont surjectives et que $f\circ h\circ g$ est injective. Montrons que $f$, $g$ et $h$ sont bijectives. Puisque $g\circ f\circ h$ est surjective, on en déduit que $g$ est surjective. De même, $f\circ h\circ g$ est injective donc $g$ est injective. Donc $g$ est bijective. Donc $f\circ h=(f\circ h\circ g)\circ g^{-1}$ est injective comme composée de deux injections. Donc $h$ est injective. Or $h\circ g\circ f$ est surjective donc $h$ est surjective. Donc $h$ est bijective. Donc $f=g^{-1}\circ h^{-1}\circ(h\circ g\circ f)$ est surjective comme composée de surjections. De même $f=(f\circ h\circ g)\circ g^{-1} \circ h^{-1}$ est injective comme composée d'injections. Donc $f$ est bijective. Les autres cas se démontrent de la même manière.
+\end{questions}
+\end{sol}
+
+\exercice{nom={Inversion à droite, à gauche d'une application}}
+Soit $f$ une application de $A$ dans $B$.
+\begin{questions}
+\question
+  \begin{questions}
+  \question Montrer que $f$ est surjective si et seulement si il existe une
+    application $g$ de $B$ dans $A$ telle que $f\circ g=\id_{B}$.
+  \question Dans le cas où $f$ est surjective, montrer que $g$ est unique si
+    et seulement si $f$ est bijective.
+  \end{questions}
+\question
+  \begin{questions}
+  \question Montrer que $f$ est injective si et seulement si il existe une
+    application $g$ de $B$ dans $A$ telle que $g\circ f=\id_{A}$.
+  \question Dans le cas où $f$ est injective, montrer que $g$ est unique si
+    et seulement si $f$ est bijective.
+\end{questions}
+\end{questions}
+
+\begin{sol}
+Soit $f$ une application de $A$ dans $B$.
+\begin{questions}
+\question
+  \begin{questions}
+  \question 
+  \begin{itemize}
+  \item[$\bullet$]S'il existe une application $g$ de $B$ dans $A$ telle que $f\circ g=\id_{B}$. 
+%  \textit{(Alors $f\circ g$ est surjective. On a déjà vu dans un exercice du cours que cela implique que $f$ est surjective. Redémontrons-le ici dans ce cas particulier.)}
+   Soit donc $y\in B$, on a $y=(f\circ g) (y)=f(g(y))$ donc $y\in \im f$, ce qui signifie bien que $f$ est surjective.
+  
+  \item[$\bullet$]Réciproquement, si $f$ est surjective. Fixons $y\in B$, il existe $x$ dans $A$ tel que $f(x)=y$. Notons-le $g(y)$. On définit ainsi une fonction $g:B\to A$ vérifiant $f(g(y))=y, \forall y \in B$. On a donc bien $f\circ g=\id_{B}$.
+  \end{itemize}
+  \question On suppose dans cette question $f$ surjective.
+  
+  \begin{itemize}
+  \item[$\bullet$] Supposons que $f$ est bijective et montrons que $g$ est unique.
+  S'il existe $g$ et $h$ deux fonctions de $B$ dans $A$ telles que $f\circ g=f\circ h=\id_{B}$. En composant à gauche par $f^{-1}$, on obtient $g=h$. 
+  
+  \item[$\bullet$] Supposons que $g$ est unique et montrons que $f$ est bijective.
+  Il reste à montrer que $f$ est injective.\\
+   Procédons par l'absurde et supposons un instant que $f$ n'est pas injective. Soit alors $y\in B$ qui admet plusieurs antécédents par $f$. On a vu dans la construction de $g$ à la question précédente que $g$ envoie une image de $f$ sur un de ses antécédents. $g(y)$ est donc un antécédent de $y$. Notons $z\neq g(y)$ tel que $f(z)= y$. On peut alors définir $h$ qui est égale à $g$ sur $B\setminus\ens{y}$ et telle que $h(y)=z$.
+  Ainsi, $\forall u \in B\setminus\ens{y}, (f\circ h)(u)=f(h(u))=f(g(u))=u$ et $(f\circ h)(y)=f(h(y))=f(z)=y$. Finalement, $f\circ h=\id_{B}$, ce qui contredit l'unicité de $g$.\\
+  $f$ est donc bien injective et donc bijective.
+  
+  
+  \end{itemize}
+  \end{questions}
+\question
+  \begin{questions}
+  \question \begin{itemize}
+  \item[$\bullet$]S'il existe une application $g$ de $B$ dans $A$ telle que $g\circ f=\id_{A}$. 
+  %\textit{(Alors $g\circ f$ est injective. On a déjà vu dans un exercice du cours que cela implique que $f$ est injective. Redémontrons-le ici dans ce cas particulier.)}
+   Soit donc $x_1,x_2$ dans $A$ tels que $f(x_1)=f(x_2)$, alors on a $x_1=\id(x_1)=(g\circ f) (x_1)=g(f(x_1))=g(f(x_2))=(g\circ f) (x_2)=\id(x_2)=x_2$ ce qui signifie bien que $f$ est injective.\\
+  
+  \item[$\bullet$]Réciproquement, si $f$ est injective, considérons $y$ un élément de $f(A)$, $y$ admet dans $A$ un unique antécédent $x$ par $f$. Notons-le $g(y)$. Alors, on a $\forall x \in A$, $(g\circ f)(x)=g(f(x))=x$. $g$ est alors bien défini sur $f(A)$ et on peut la définir comme on le souhaite sur $B\setminus f(A)$.
+  \end{itemize}
+  \question On suppose dans cette question $f$ surjective.
+  \begin{itemize}
+  \item[$\bullet$]Supposons que $f$ est bijective et montrons que $g$ est unique.
+  S'il existe $g$ et $h$ deux fonctions de $B$ dans $A$ telles que $g\circ f=h\circ f=\id_{A}$. En composant à droite par $f^{-1}$, on obtient $g=h$. 
+  \item[$\bullet$]Supposons que $g$ est unique et montrons que $f$ est bijective.
+  Il reste à montrer que $f$ est surjective.\\
+  Procédons par l'absurde et supposons un instant que $f$ n'est pas surjective. Il existe donc $y\in B\setminus f(A)$. On peut alors définir $h$ qui est égale à $g$ sur $B\setminus\ens{y}$ et telle que $h(y)\neq g(y)$. On a bien $\forall x\in A$, $(h\circ f)(x)=h(f(x))=g(f(x))=x$ car $f(x)\neq y$. Finalement, $h\circ f=\id_{A}$, ce qui contredit l'unicité de $g$.\\
+  $f$ est donc bien surjective et donc bijective.
+  
+  
+  \end{itemize}
+\end{questions}
+\end{questions}
+\end{sol}
+
+\exercice{nom={Image directe et réciproque}}
+Soit $f$ une application de $A$ dans $B$.
+\begin{questions}
+\question Montrer que $f$ est surjective si et seulement si quelle que soit la
+  partie $Y$ de $B$, on a $f(f^\applirec(Y))=Y$.
+\question Montrer que $f$ est injective si et seulement si quelle que soit la
+  partie $X$ de $A$, on a $f^\applirec\p{f(X)}=X$.
+\end{questions}
+\begin{sol}
+Soit $f$ une application de $A$ dans $B$.
+\begin{questions}
+
+  \question Montrons que $f$ est surjective si et seulement si, quelle que soit la partie $Y$ de $B$, on a $f(f^\applirec(Y))=Y$.
+  \begin{itemize}
+  \item On suppose que $f$ est surjective. Soit $Y$ une partie de $B$. Montrons que $f(f^\applirec(Y))=Y$. On procède par double inclusion.
+    \begin{itemize}
+    \item $f(f^\applirec(Y))\subset Y$. Soit $y\in f(f^\applirec(Y))$. Alors il existe $x\in f^\applirec(Y)$ tel que $y=f(x)$. Puisque $x\in f^\applirec(Y)$, alors $f(x)\in Y$. Donc $y \in Y$.
+    \item $Y\subset f(f^\applirec(Y))$. Soit $y\in Y$. Puisque $f$ est surjective, il existe $x\in A$ tel que $y=f(x)$. Comme $f(x)\in Y$, on en déduit que $x\in f^\applirec(Y)$. Donc $y\in f(f^\applirec(Y))$.
+    \end{itemize}
+    Donc $Y=f(f^\applirec(Y))$.
+  \item On suppose que pour toute partie $Y$ de $B$, $f(f^\applirec(Y))=Y$. Montrons que $f$ est surjective. Pour $Y\defeq B$, $f(f^\applirec(B))=B$. Soit $y\in B$. Il existe donc $x\in f^\applirec(B)$ tel que $y=f(x)$.
+  \end{itemize}
+\question Montrons que $f$ est injective si et seulement si, quelle que soit la partie $X$ de $A$, on a $f^\applirec\p{f(X)}=X$.
+  \begin{itemize}
+  \item On suppose que $f$ est injective. Soit $X$ une partie de $A$. Montrons que $f^\applirec\p{f(X)}=X$. On procède par double inclusion.
+  \begin{itemize}
+  \item $X\subset f^\applirec\p{f(X)}$. Soit $x\in X$. Montrons que $x\in f^\applirec\p{f(X)}$. Puisque $x\in X$, $f(x)\in f(X)$. Donc $x\in f^\applirec\p{f(X)}$.
+  \item $f^\applirec\p{f(X)}\subset X$. Soit $x\in f^\applirec\p{f(X)}$. Alors $f(x)\in f(X)$. Il existe donc $x'\in X$ tel que $f(x)=f(x')$. Or $f$ est injective donc $x=x'$. Donc $x\in X$.
+  \end{itemize}
+  Donc $X= f^\applirec\p{f(X)}$.
+\item On suppose que quelle que soit la partie $X$ de $A$, on a $f^\applirec\p{f(X)}=X$. Montrons que $f$ est injective. Soit $x_1,x_2\in A$ tels que $f(x_1)=f(x_2)$. Montrons que $x_1=x_2$. On pose $X\defeq\ens{x_1}$. Alors $f(X)=\ens{f(x_1)}$, donc $f(x_2)\in f(X)$. Donc $x_2\in f^\applirec\p{f(X)}$. Or $f^\applirec\p{f(X)}=X$, donc $x_2\in X$. Donc $x_2=x_1$.
+  \end{itemize}
+\end{questions}
+\end{sol}
+
+% \exercice{nom={Identification d'ensembles par bijection}}
+% \begin{questions}
+% \question Soit $A$ et $A'$ deux ensembles tels qu'il existe une bijection
+%   $f_1$ de $A$ dans $A'$, $B$ et $B'$ deux ensembles tels qu'il existe une
+%   bijection $f_2$ de $B$ dans $B'$. On définit l'application $\phi$ de
+%   $\mathcal{F}(A,B)$ dans $\mathcal{F}(A',B')$ qui à l'application $f$ associe
+%   l'application $f_2\circ f\circ f_1^{-1}$.
+%   \begin{questions}
+%   \question Montrer que $\phi$ est injective.
+%   \question Montrer que $\phi$ est surjective.
+%   \question Calculer $\phi^{-1}$.
+%   \question Montrer que l'image par $\phi$ d'une application injective est
+%     injective.
+%   \question Montrer que l'image par $\phi$ d'une application surjective est
+%     surjective.
+%   \question Que dire d'une application dont l'image par $\phi$ est injective~?
+%     surjective~?
+%   \end{questions}
+% \question Soit $A$ et $A'$ deux ensembles, $f_1$ une application de $A'$ dans
+%   $A$, $B$ et $B'$ deux ensembles, $f_2$ une application de $B$ dans $B'$. On
+%   définit l'application $\phi$ de $\mathcal{F}(A,B)$ dans $\mathcal{F}(A',B')$
+%   qui à l'application $f$ associe l'application $f_2\circ f\circ f_1$.
+%   \begin{questions}
+%   \question Montrer que $\phi$ est injective si et seulement si $f_1$ est
+%     surjective et $f_2$ est injective.
+%   \question Montrer que $\phi$ est surjective si et seulement si $f_1$ est
+%     injective et $f_2$ est surjective.
+%   \end{questions}
+% \end{questions}
+
+% \exercice{nom={Équipotence}}
+% On dit que deux ensembles $A$ et $B$ sont équipotents lorsqu'il existe une
+% bijection entre $A$ et $B$. Montrer que les ensembles suivants sont
+% équipotents.
+% \begin{questions}
+% \question $E\times F$ et $F\times E$.
+% \question $(E\times F)^G$ et $E^G \times F^G$.
+% \question $(E^F)^G$ et $E^{F\times G}$.
+% \question $(\mathcal{P}(E))^F$ et $\mathcal{P}(E\times F)$.
+% \end{questions}
+
+% \exercice{nom={Bijection entre $\N$ et $\N^2$}}
+% \begin{questions}
+% \question Montrer graphiquement qu'il existe une bijection entre $\N$
+%   et $\N^2=\N\times\N$.
+% \question En déduire, par récurrence sur $n$, qu'il existe une bijection entre
+%   $\N$ et $\N^n$.
+% \end{questions}
+
+\exercice{nom={Application}}
+Soit $E$ un ensemble et $f$ une application de $E$ dans $E$ telle que $f\circ f\circ f=f$. Montrer que $f$ est injective si et seulement si $f$ est surjective.
+
+\exercice{nom={Application}}
+Soit $E$ et $F$ deux ensembles, $f$ une application de $E$ dans $F$, et $g$ une application de $F$ dans $E$. On suppose que $f\circ g\circ f$ est bijective. Montrer que $f$ et $g$ sont bijectives.
+
+\magsubsection{Familles}
+
+\exercice{nom={Partition}}
+Soit $E$ l'ensemble des fonctions de $\N$ dans $\ens{1,2,3}$. Pour tout
+$i\in\ens{1,2,3}$, on pose $A_i=\enstq{f\in E}{f(0)=i}$. Montrer que les $A_i$
+forment une partition de $E$.
+
+\magsection{Relation binaire}
+\magsubsection{Relation d'ordre}
+
+
+\exercice{nom={Ordre sur $\Ns$}}
+On considère la relation $\mathcal{R}$ définie sur $\Ns$ par
+\[\forall n,m\in\Ns\qsep n\mathcal{R}m \quad\ssi\quad \cro{\exists q\in\Ns \qsep m=n^q}.\]
+\begin{questions}
+\question Montrer que $\mathcal{R}$ est une relation d'ordre sur $\Ns$.
+\question Est-ce que $\mathcal{R}$ est totale~?
+\end{questions}
+
+\exercice{nom={Plus grand, plus petit élément}}
+Montrer que si $E$ est un ensemble ordonné dont l'ordre est total, toute partie
+finie de $E$ admet un plus petit et un plus grand élément. Que dire si l'ordre
+n'est pas total~?
+
+\exercice{nom={Applications croissantes}}
+Soit $\p{E,\preceq}$ un ensemble ordonné. Une application $f$ de $E$ dans $E$
+est dite croissante lorsque
+\[\forall x,y\in E \qsep x\preceq y \implique f(x)\preceq f(y).\]
+\begin{questions}
+\question Montrer que la composée de deux applications croissantes est
+  croissante.
+\question Montrer que si $E$ est totalement ordonné, l'application réciproque
+  d'une bijection croissante est croissante.
+  %% Trop dur :
+  % Ce résultat est-il toujours vrai
+  % lorsque $E$ n'est pas totalement ordonné~?
+\end{questions}
+\begin{sol}
+$\quad$
+\begin{questions}
+\question Soit $f$ et $g$ deux applications croissantes de $E$ dans $E$. Montrons
+  que $g\circ f$ est croissante. Soit $x,y\in E$ tels que $x\preceq y$. Alors
+  $f(x)\preceq f(y)$ car $f$ est croissante, donc
+  $g\p{f(x)}\preceq g\p{f(y)}$ car $g$ est croissante. Donc $g\circ f$
+  est croissante.
+\question Soit $f$ une bijection croissante de $E$ dans $E$. Montrons que $f^{-1}$
+  est croissante. Soit $y_1,y_2\in E$ tels que $y_1\preceq y_2$. Montrons que
+  $f^{-1}\p{y_1}\preceq f^{-1}\p{y_2}$. On raisonne par l'absurde et on suppose
+  que ce n'est pas le cas. Comme $E$ est totalement ordonné, on en déduit que
+  $f^{-1}\p{y_2}\preceq f^{-1}\p{y_1}$. Par croissance de $f$, on obtient
+  $f\p{f^{-1}\p{y_2}}\preceq f\p{f^{-1}\p{y_1}}$ donc $y_2\preceq y_1$. Mais
+  comme $y_1\preceq y_2$, on en déduit que $y_1=y_2$. Donc
+  $f^{-1}\p{y_1}=f^{-1}\p{y_2}$ donc $f^{-1}\p{y_1}\preceq f^{-1}\p{y_2}$ ce qui est
+  absurde. Donc $f^{-1}\p{y_1}\preceq f^{-1}\p{y_2}$. En conclusion, $f^{-1}$ est
+  croissante.
+\end{questions}
+\end{sol}
+
+\magsubsection{Relation d'équivalence}
+
+
+% \exercice{nom={Borne supérieure}}
+% Montrer que les relations suivantes sont des relations d'ordre. Sont-elles
+% totales~? Les parties non vides finies admettent-elles une borne supérieure~? Si
+% oui, calculer cette borne supérieure. Les parties non vides majorées admettent
+% elles une borne supérieure~? Si oui, calculer cette borne supérieure.
+% \begin{enumerate}
+% \question $\mathcal{P}(E)$ muni de la relation d'inclusion.
+% \question $\mathcal{C}^0(\R,\R)$ muni de la relation $\leq$
+%   (définir cette relation).
+% \question $\mathcal{C}^1(\R,\R)$ muni de la relation $\leq$
+%   (définir cette relation).
+% \question $\mathbb{N}$ muni de la relation de divisibilité.
+% \question $\mathbb{Z}$ muni de la relation de divisibilité.
+% \end{enumerate}
+
+% \magsection{Relations d'équivalence}
+
+\exercice{nom={Relation sur $\R$}}
+On note $\mathcal{R}$ la relation définie sur $\R$ par
+\[\forall x,y\in\R\qsep x\mathcal{R}y \quad\ssi\quad x^2 - 2x = y^2 - 2y.\]
+\begin{questions}
+\question Montrer que $\mathcal{R}$ est une relation d'équivalence sur $\R$.
+\question Pour tout $x\in\R$, déterminer la classe d'équivalence modulo $\mathcal{R}$.
+\end{questions}
+
+\exercice{nom={Factorisation canonique}}
+Soit $f$ une application de $A$ dans $B$ et $\mathcal{R}$ la relation binaire définie sur $A$ par
+\[\forall x_1,x_2 \in A \qsep x_1\mathcal{R}x_2 \quad\Longleftrightarrow\quad
+  f(x_1)=f(x_2).\]
+\begin{questions}
+\question Montrer que $\mathcal{R}$ est une relation d'équivalence.
+\question Montrer que les classes d'équivalence sont les images réciproques des
+  $\{y\}$ pour $y\in f(A)$.
+\enonce On appelle ensemble quotient $A/\mathcal{R}$ l'ensemble des classes d'équivalence pour la relation $\mathcal{R}$.
+\question Soit $s$ l'application de $A$ dans $A/\mathcal{R}$ qui à $x$ associe la classe de
+  $x$. Montrer que $s$ est une surjection appelée surjection canonique.
+\question Soit $i$ l'application de $f(A)$ dans $B$ qui à $y$ associe $y$. Montrer
+  que $i$ est une injection appelée injection canonique.
+\question Montrer qu'il existe une et une seule application $\bar{f}$ de $A/\mathcal{R}$
+  dans $f(A)$ telle que $f=i\circ \bar{f}\circ s$. Montrer que $\bar{f}$ est une
+  bijection.
+% \question Retrouver le lemme des Bergers.
+\question Soit $C$ un ensemble et $g$ une application de $A$ dans $C$. Montrer
+  qu'il existe une application $\bar{g}$ de $A/\mathcal{R}$ dans $C$ telle que
+  $g=\bar{g}\circ s$ si seulement si
+  $$\forall x_1,x_2 \in A \qsep x_1\mathcal{R}x_2 \Longrightarrow g(x_1)=g(x_2).$$
+\end{questions}
+
+\magsection{L'ensemble des entiers naturels}
+
+\magsubsection{Récurrence}
+
+\exercice{nom={Inégalité}}
+Montrer par récurrence que
+\[\forall n\in\Ns\qsep \sqrt{1}+\sqrt{2}+\cdots+\sqrt{n}\leq \frac{4n+3}{6}\sqrt{n}.\]
+
+\exercice{nom={{\sc Fibonacci}}}
+On considère la suite de {\sc Fibonacci} définie par
+\[F_0\defeq 0,\quad F_1\defeq 1 \et \forall n\in\N\qsep F_{n+2}\defeq F_{n+1}+F_n.\]
+\begin{questions} 
+\question Montrer que~: $\forall n\in\N\qsep F_n\geq n-1$. 
+\question Montrer que~: $\forall n\in\N\qsep F_nF_{n+2}-F_{n+1}^2=(-1)^{n+1}$. 
+\question Montrer que
+  \[\forall n\in\N\qsep F_{2n+1}=F_{n+1}^2+F_n^2 \et F_{2n+2}=F_{n+2}^2-F_{n}^2.\]
+\end{questions}
+\begin{sol}
+\begin{questions}
+\question
+\question
+\begin{eqnarray*}
+F_{n+1}F_{n+3}-F_{n+2}^2
+&=& F_{n+1}(F_{n+2}+F_{n+1})-(F_n+F_{n+1})^2\\
+&=& F_{n+1}F_{n+2}+F_{n+1}^2-F_n^2-2F_n F_{n+1}-F_{n+1}^2\\
+&=& F_{n+1}(F_n+F_{n+1}) -F_n^2-2F_n F_{n+1}\\
+&=& F_{n+1}^2-F_n(F_n+F_{n+1})\\
+&=& F_{n+1}^2-F_n F_{n+2}\\
+&=& -(-1)^{n+1} = (-1)^{n+2}
+\end{eqnarray*}
+\question
+\begin{eqnarray*}
+F_{2n+4}
+&=& F_{2n+3}+F_{2n+2}=F_{n+2}^2+F_{n+1}^2+F_{n+2}^2-F_{n}^2\\
+&=& (F_{n+3}-F_{n+1})^2+F_{n+1}^2+F_{n+2}^2-F_{n}^2\\
+&=& F_{n+3}^2-2F_{n+3}F_{n+1}+2F_{n+1}^2+F_{n+2}^2-F_{n}^2\\
+&=& F_{n+3}^2-2F_{n+2}^2-2(-1)^{n+1}+2F_{n+1}^2+F_{n+2}^2-F_{n}^2\\
+&=& F_{n+3}^2+2F_{n+1}^2-F_{n+2}^2-F_{n}^2-2(-1)^{n+1}\\
+&=& F_{n+3}^2+2F_{n+1}^2-((F_{n+2}-F_{n})^2+2F_{n+2}F_n)-2(-1)^{n+1}\\
+&=& F_{n+3}^2+2F_{n+1}^2-F_{n+1}^2-2F_{n+2}F_n-2(-1)^{n+1}\\
+&=& F_{n+3}^2+F_{n+1}^2-2((-1)^n+F_{n+1}^2)-2(-1)^{n+1}\\
+&=& F_{n+3}^2-F_{n+1}^2-2((-1)^n+(-1)^{n+1})\\
+&=&F_{n+3}^2-F_{n+1}^2
+\end{eqnarray*}
+\end{questions}
+\end{sol}
+
+\exercice{nom={Inégalité sur {\sc Fibonacci}}}
+On considère la suite de {\sc Fibonacci} définie par
+\[F_0\defeq 1, \quad F_1\defeq 1, \quad\text{et}\quad \forall n\in\N\qsep F_{n+2}\defeq F_{n+1}+F_n.\]
+Déterminer les $r\in\RPs$ tels qu'il existe $\alpha\in\RPs$ tel que
+\[\forall n\in\N\qsep F_n\leq \alpha r^n.\]
+
+\exercice{nom={Inégalité}}
+Montrer que
+\[\forall n\in\Ns\qsep \frac{4^n}{2\sqrt{n}}\leq\binom{2n}{n}\leq\frac{4^n}{\sqrt[3]{n}}.\]
+
+% \exercice{nom={Inégalité triangulaire}}
+% Montrer que quels que soient $z_1,\ldots,z_n\in\C$
+% \[\abs{z_1+\cdots+z_n}\leq\abs{z_1}+\cdots+\abs{z_n}\]
+% et que cette inégalité est une égalité si et seulement si il existe $\theta\in\R$ tel que
+% \[\forall k\in\intere{1}{n}\qsep z_k=\abs{z_k}\e^{\ii \theta}.\]
+
+\exercice{nom={Injections de $\N$ dans $\N$}}
+Déterminer les injections $f$ de $\N$ dans $\N$ telles que
+\[\forall n\in\N\qsep f(n)\leq n.\]
+
+\exercice{nom={Équation fonctionnelle}}
+Le but de cet exercice est de déterminer les fonctions $f$ de $\N$ dans $\N$ telles que
+\[(E) \qquad \forall n\in\N\qsep f(n)+(f\circ f)(n)=2n.\]
+\begin{questions}
+\question Déterminer une fonction vérifiant $(E)$.
+\question Réciproquement, soit $f$ une fonction de $\N$ dans $\N$ vérifiant $(E)$.
+\begin{questions}
+\question Montrer que $f$ est injective.
+\question Montrer que~: $\forall n\in\N\qsep f(n)=n$. Conclure.
+\end{questions}
+\end{questions}
+
+
+\exercice{nom={Équation fonctionnelle}}
+Montrer qu'il existe une unique bijection $\app{f}{\N}{\N}$ telle que
+\[\forall n\in\N\qsep \abs{f(n)-n}=1.\]
+Que se passe-t-il si on remplace $\N$ par $\Z$~?
+
+\begin{sol}
+Posons $\mathcal{H}_n$ : "$ \dspappli{f_{|\intere{0}{2n-1}}}{\intere{0}{2n-1}}{\intere{0}{2n-1}}{k}{\begin{cases} k+1 \text{ si } k \text{ est pair}\\ k-1 \text{ si } k \text{ est impair}.\end{cases}}$"
+
+Et ça fonctionne bien.
+
+Sur $\Z$, on peut tous les décaler de $1$ dans un sens ou dans l'autre. Ou bien les échanger deux à deux : deux nouvelles façons si on commence par échanger $0$ avec $1$ ou $-1$.
+\end{sol}
+
+\exercice{nom={Les crayons de couleur}}
+Nous allons démontrer que toute boite de crayons de couleur ne possède que des crayons de la même couleur. Pour cela, on procède par récurrence sur le nombre $n$ de crayons. L'initialisation est évidente car une boite ne contenant qu'un crayon ne possède que des crayons de la même couleur. Pour l'hérédité, supposons que le résultat est vrai pour $n$ crayons et considérons une boite de $n+1$ crayons de couleur. On enlève le premier crayon. Par hypothèse de récurrence, tous les autres crayons ont la même couleur. On replace le premier crayon et on enlève le dernier crayon. De même, tous les autres crayons ont la même couleur. On en déduit que les $n+1$ crayons ont la même couleur.\\
+
+Quelle est l'erreur de ce raisonnement~?
+
+\begin{sol}
+L'hérédité ne passe pas de $1$ à $2$, on a aucune intersection entre les deux paquets de crayons...
+\end{sol}
+
+\exercice{nom={Les cocus de Babylone}}
+Un jour paraît dans la bonne ville de Babylone un décret royal dont voici
+le texte~:
+\og Par ordre du roi, tout babylonien s'apercevant que sa femme le trompe est
+tenu de la répudier le jour même.  Il y a actuellement au moins un cocu à
+Babylone. \fg.
+Or à cette époque, et dans cette bonne ville de Babylone, les habitants, fort
+rompus aux techniques du raisonnement logique, avaient la caractéristique
+surprenante de connaitre parfaitement toutes les histoires extra-conjugales
+des maisons voisines sans jamais s'apercevoir de quoi que ce soit sous leur
+propre toit. Et, fiers de nature, ils n'auraient pour rien au monde demandé
+à un autre ce qui se passait chez eux~!
+\begin{itemize}
+\item Le premier jour, tout va bien, aucune femme n'est répudiée.
+\item Le deuxième jour, toujours rien. Et ainsi de suite...
+\item Le cent soixante huitième jour, cent soixante huit femmes sont répudiées.
+\end{itemize}
+Expliquez.
+
+\begin{sol}
+
+    S'il y a un seul cocu, le problème est simple : connaissant la vie conjugale de tous les autres babyloniens, il sait qu'aucun autre n'est trompé. Or l'édit royal affirme l'existence de cocus à Babylone : c'est donc que lui-même est cocu !
+    L'homme répudiera donc sa femme le premier jour.
+    
+    
+    S'il y a deux cocus à Babylone, chacun des deux connait l'autre. Il n'a donc aucune raison de répudier sa femme le premier jour. En revanche, voyant le soir venu qu'aucune femme n'a été répudiée, il en déduit immédiatement qu'il est cocu lui-même.
+    En effet, il n'y aurait dans le cas contraire qu'un seul cocu à Babylone, et celui-ci aurait répudié sa femme le premier jour.
+    Les deux hommes répudieront donc leur femme le deuxième jour.
+    
+    
+    
+    S'il y a trois cocus à Babylone, chacun connait les deux autres. De son point de vue, il y a donc soit deux, soit trois cocus à Babylone. Il va donc observer ce qui se passe le deuxième jour. Mais chacun des trois fait la même chose, et donc aucun ne répudie sa femme le deuxième jour.
+    Comme il ne se passe rien, chacun des trois en déduit qu'il y a trois cocus à Babylone, dont lui-même, et répudie donc sa femme le troisième jour.
+    
+    
+    Et ainsi de suite. Par récurrence sur n, on montre ainsi que s'il y a n cocus à Babylone, tous répudieront leur femme le n-ème jour !
+    
+    Il y a donc 168 cocus à Babylone.
+
+
+\end{sol}
+
+\magsubsection{Définition par récurrence}
+
+\exercice{nom={Suite définie par récurrence}}
+Montrer qu'il existe une unique suite $(u_n)$ telle que
+\[u_0=1\qsep u_1=1, \et \cro{\forall n\in\N\qsep u_{n+2}=\frac{1}{u_{n+1}}+u_n}.\]
+
+%END_BOOK
+
+\end{document}

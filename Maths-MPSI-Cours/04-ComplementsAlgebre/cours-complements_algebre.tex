@@ -1,0 +1,1821 @@
+\documentclass{magnolia}
+
+\magtex{tex_driver={pdftex},
+        tex_packages={tabularx,epigraph,xypic},
+        tex_pstricks={pstricks}}
+\magfiche{document_nom={Compléments d'algèbre},
+          auteur_nom={François Fayard},
+          auteur_mail={fayard.prof@gmail.com}}
+\magcours{cours_matiere={maths},
+          cours_niveau={mpsi},
+          cours_chapitre_numero={4},
+          cours_chapitre={Compléments d'algèbre}}
+\magmisenpage{}
+\maglieudiff{}
+\magprocess
+
+\begin{document}
+
+%BEGIN_BOOK
+\setlength\epigraphwidth{.8\textwidth}
+\epigraph{\og The closer one looks, the more subtle and remarkable Gaussian elimination appears.\fg}{--- \textsc{Nick Trefethen (1955--)}}
+% \bigskip
+% \hfill\includegraphics[width=0.5\textwidth]{../../Commun/Images/maths-cours-three.jpg}
+\magtoc
+
+
+% \section{Polynômes et fractions rationnelles}
+
+\bigskip
+
+
+Dans ce chapitre, $\K$ désigne $\Q$, $\R$ ou $\C$.
+
+\section{Polynôme}
+\subsection{Définition, degré et coefficients}
+
+\begin{definition}
+On appelle \emph{polynôme} à coefficients dans $\K$ toute expression de la forme
+\[P\defeq a_0 + a_1 X + \cdots +  a_{n-1} X^{n-1} + a_n X^n\]
+où $a_0,\ldots,a_n\in\K$. L'ensemble des polynômes à coefficients dans $\K$ est noté $\polyK$.
+\end{definition}
+
+\begin{remarques}
+\remarque Dans cette expression, $X$ est appelée l'\emph{indéterminée} et sa vocation est d'être
+  \emph{substituée} par un élément $x$ de $\K$. Cette substitution se note $X\to x$ et le
+  résultat ainsi obtenu est noté $P(x)$. Par exemple, si $P\defeq X^2+X+1$, alors $P(2)=2^2+2+1=7$. 
+\remarque Nous reviendrons au cours de l'année sur les polynômes.
+  Pour le moment, l'essentiel est de savoir calculer dans $\polyK$. On se basera sur les
+  deux points suivants que nous considérerons comme axiome.
+\begin{itemize}
+\item Si $P\in\polyK$, il existe $n\in\N$ et $a_0,\ldots,a_n\in\K$ tels que $P=a_0 + a_1 X + \cdots +  a_{n-1} X^{n-1} + a_n X^n$.
+\item Si $a_0,\ldots,a_n\in\K$ sont tels que $a_0 + a_1 X + \cdots +  a_{n-1} X^{n-1} + a_n X^n=0$, alors $a_0=\cdots=a_n=0$.
+\end{itemize}
+\end{remarques}
+
+\begin{definition}
+Si $P\in\polyK$ est un polynôme non nul, il existe un unique $n\in\N$ et
+un unique $\p{a_0,\ldots,a_n}\in\K^{n+1}$ tel que
+\[P=a_0 + a_1 X + \cdots +  a_{n-1} X^{n-1} + a_n X^n \quad\et\quad a_n\neq 0.\]
+L'entier $n$ s'appelle le \emph{degré} de $P$ et est noté $\deg P$. Les éléments $a_0,\ldots,a_n\in\K$
+sont ses \emph{coefficients}. Par convention, on dit que le degré du polynôme nul est $-\infty$.
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque Si $n\in\N$, un polynôme $P\in\polyK$ est de degré inférieur ou égal à $n$
+  si et seulement si il existe $a_0,\ldots,a_n\in\K$ tels que
+  $P=a_0+a_1 X+\cdots+a_n X^n$.
+\end{remarqueUnique}
+
+\begin{proposition}
+Soit $P,Q\in\polyK$.
+\begin{itemize}
+\item Soit $\lambda,\mu\in\K$ et $n\in\N$. Si $\deg P\leq n$ et $\deg Q\leq n$, alors
+  \[\deg\p{\lambda P+\mu Q}\leq n.\]
+\item On a $\deg\p{PQ}=\deg P+\deg Q$.
+\end{itemize}
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque Lorsque $P$ et $Q$ sont des polynômes de degré $n$, il est possible que
+  $\lambda P+\mu Q$ soit de degré strictement inférieur à $n$. Par exemple $P\defeq X+1$ et
+  $Q\defeq -X$ sont de degré 1 mais $P+Q=1$ est de degré 0.
+\end{remarqueUnique}
+
+\begin{definition}
+Soit $A,B\in\polyK$ avec $B\neq 0$. Alors, il existe un unique couple
+$\p{Q,R}\in\polyK^2$ tel que
+\[A=QB+R \et \deg R<\deg B.\]
+$Q$ est appelé \emph{quotient} de la division euclidienne de $A$ par $B$, $R$ son
+\emph{reste}.
+\end{definition}
+
+\subsection{Racines}
+
+\begin{definition}
+Si $P\in\polyK$, on appelle \emph{racine} de $P$ tout élément $\alpha\in\K$ tel que $P(\alpha)=0$.
+\end{definition}
+
+\begin{remarques}
+\remarque Le calcul
+des racines des polynômes de degré 2 se fait en utilisant le discriminant.
+\remarque Il n'y a pas de méthode
+systématique pour trouver les racines des polynômes de degré supérieur. En effet, on peut montrer qu'il
+n'existe pas de formule générale permettant de calculer les racines des polynômes de degré 3 ou plus avec
+des radicaux réels. Et même si on s'autorise les racines $n$-ièmes de nombres complexes, il n'existe pas
+de formule générale permettant de déterminer les racines de polynômes de degré 5 ou plus. Cependant, il
+existe différentes techniques qui sont efficaces pour certains polynômes.
+\end{remarques}
+
+\begin{proposition}
+Soit $P\in\polyK$ et $\alpha\in\K$. Alors $\alpha$ est une racine de $P$ si et seulement si il existe
+$Q\in\polyK$ tel que $P=(X-\alpha)Q$.
+\end{proposition}
+
+\begin{remarques}
+\remarque La factorisation
+effective se fait en effectuant une division euclidienne. Par exemple, si $P\defeq X^3+3X^2+3X+2$, on
+remarque que $P(-2)=0$ donc $P$ se factorise par $X+2$ et la division euclidienne s'effectue de la manière
+suivante.
+\begin{equation*}
+\renewcommand{\arraystretch}{1.2}
+\renewcommand{\arraycolsep}{2pt}
+\begin{array}{rrrr|l}
+X^3 & +\,3X^2 & +\,3X & +\,2 & X + 2 \\
+\cline{5-5}
+X^3 & +\,2X^2 &   &  & X^2+X+1 \\
+\cline{1-4}
+    & X^2 &  +\,3X & +\,2 &     \\
+    & X^2 & +\,2X &  &   \\
+    \cline{2-4}
+    &     & X & +\,2 &   \\
+    &     & X & +\,2 &    \\
+              \cline{3-4}
+    &     &   &0&   
+\end{array}
+\end{equation*}
+
+\noindent donc $X^3+3X^2+3X+2=(X+2)(X^2+X+1)$. Puisque les racines de $X^2+X+1$ dans $\C$ sont $\jj$ et
+$\jj^2$, on en déduit que les racines de $P$ sont $-2,\jj$ et $\jj^2$.
+\remarque
+Si $P$ est un polynôme à coefficients entiers, il existe une technique efficace pour déterminer rapidement
+ses racines rationnelles. Soit $a_0,\ldots,a_n\in\Z$ tels que $a_n\neq 0$ et $P\defeq a_n X^n+\cdots+a_1 X+a_0$.
+Si $x$ est une racine rationnelle de $P$, il existe $p\in\Z$ et $q\in\Ns$ premiers entre eux tels que
+$x=p/q$. Puisque $P(x)=0$, on en déduit que
+\[a_n\p{\frac{p}{q}}^n+\cdots+a_1\cdot\frac{p}{q}+a_0=0.\]
+En multipliant par $q^n$, on obtient
+\[a_n p^n + a_{n-1}p^{n-1}q+\cdots+a_1 p q^{n-1}+a_0 q^n=0.\]
+On en déduit que
+\[a_n p^n = -q\p{a_{n-1}p^{n-1}+\cdots+a_1 p q^{n-2}+a_0 q^{n-1}}\]
+et donc que $q$ divise $a_n p^n$. Or $q$ et $p$ sont premiers entre eux donc $q$ et $p^n$ sont premiers entre eux. D'après le lemme de \nom{Gauss}, on en déduit que $q$ divise $a_n$. De même, on montre que $p$ divise $a_0$. Comme il existe un nombre fini de diviseurs d'un entier, les racines rationnelles sont donc à chercher parmi un nombre fini d'éléments. Par exemple, si $P\defeq 3X^3+5X^2+5X+2$, et si $p/q$ est une racine rationnelle irréductible de $P$, alors $p$ divise 2 et $q$ divise 3. Donc $p\in\ens{-2,-1,1,2}$ et $q\in\ens{1, 3}$. Les racines rationnelles de $P$ sont donc parmi $\ens{-2,-1,1,2,-2/3,-1/3,1/3,2/3}$. Si on teste tous ces rationnels, on se rend compte que $-2/3$ est une racine de $P$. $P$ se factorise donc par $3X+2$ et une division euclidienne nous donne $P=(3X+2)(X^2+X+1)$. Les racines de $P$ sont donc $-2/3,\jj$ et $\jj^2$.
+\remarque D'autres techniques permettent de trouver les racines d'un polynôme de degré $n\geq 3$. Par exemple, pour certains polynômes, ramener la recherche de leurs racines à la recherche des racines $n$-ièmes d'un nombre complexe.
+% \remarque Enfin, si $P$ possède certaines symétries, un changement de variable peut permettre de faire baisser le degré. Par exemple, si $P= a_n X^n+\cdots+a_1 X+a_0$ et que pour tout $k\in\intere{0}{n}$, $a_{n-k}=a_k$ (polynôme symétrique de première espèce), le changement de variable $u=x+1/x$ permet de diviser par 2 le degré du polynôme.
+\end{remarques}
+
+
+% \begin{exoUnique}
+% \exo Résoudre l'inéquation
+%   \[4x+2\leq\sqrt{7x^3+15x^2+11x+3}.\]
+% \end{exoUnique}
+
+% Dans la suite, nous aurons besoin de la version générale de la \emph{division euclidienne}. Elle permet d'effectuer la division de tout polynôme par un polynôme non nul.
+
+% \begin{proposition}
+% Soit $A,B\in\polyK$ avec $B\neq 0$. Alors, il existe un unique couple
+% $\p{Q,R}\in\polyK^2$ tel que
+% \[A=QB+R \et \deg R<\deg B\]
+% $Q$ est appelé \emph{quotient} de la \emph{division euclidienne} de $A$ par $B$, $R$ son \emph{reste}.
+% \end{proposition} 
+
+% \noindent Effectuons par exemple la division euclidienne de $7X^5+4X^4+2X^3-X+5$ par $X^2+2$. Il est important de bien aligner les puissances les unes au dessus des autres et donc de laisser de la place pour les puissances lacunaires (ici, le $X^2$).
+% \begin{equation*}
+% \renewcommand{\arraystretch}{1.2}
+% \renewcommand{\arraycolsep}{2pt}
+% \begin{array}{rrrrrr|l}
+% 7X^5 & +\,4X^4 & +\,2X^3 &  & -\,X & +\, 5& X^2 + 2 \\
+% \cline{7-7}
+% 7X^5 &  & +\,14X^3 &   &  & & 7X^3+4X^2-12X-8 \\
+% \cline{1-6}
+%   & 4X^4 & -\,12X^3 &  & -\,X & +\,5 & \\
+%   & 4X^4 &          & +\,8X^2 & &  &   \\
+% \cline{2-6}
+% & & -\,12X^3 & -\,8X^2 & -\,X & +\, 5 & \\
+% & & -\,12X^3 &         & -24\, X & & \\
+% \cline{3-6}
+% & & & -\,8X^2 & +\,23X & +\,5 & \\
+% & & & -\,8X^2 &        & -\,16 & \\
+% \cline{4-6}
+% & & & & 23X & +\, 21 & 
+% \end{array}
+% \end{equation*}
+
+% \noindent On a donc $7X^5+4X^4+2X^3-X+5=(7X^3+4X^2-12X-8)(X^2+2)+23X+21$. Autrement dit, le quotient de la division euclidienne de $7X^5+4X^4+2X^3-X+5$ par $X^2+2$ est $7X^3+4X^2-12X-8$ et son reste est $23X+21$.\\
+
+% \begin{remarqueUnique}
+% \remarque Si $x$ est une racine de $B$ et $A=QB+R$ est la division euclidienne de $A$ par $B$, alors $A(x)=R(x)$. Cette remarque permet de simplifier le calcul de $A(x)$ lorsqu'on connait un polynôme annulateur de $x$.
+% \end{remarqueUnique}
+
+\begin{proposition}
+Un polynôme $P\in\polyK$ de degré $n\in\N$ admet au plus $n$ racines.
+\end{proposition}
+
+\begin{remarques}
+\remarque En conséquence, un polynôme de degré inférieur ou égal à $n\in\N$ admettant au moins $n+1$ racines est nul.
+\remarque Un polynôme admettant une infinité de racines est donc nul.
+\end{remarques}
+
+% \subsection{Fractions rationnelles}
+
+% Une \emph{fraction rationnelle} est le quotient de deux polynômes. Par exemple
+% \[\frac{X+1}{X^3+X+1} \ou \frac{X^5}{X(X+1)(X+2)}.\]
+% Pour appliquer une opération linéaire à une fraction rationnelle (sommer, dériver, intégrer etc.), il est préférable de la linéariser c'est-à-dire de la \emph{décomposer en éléments simples}. Par exemple, supposons que l'on souhaite dériver plusieurs fois la fonction $f$ définie sur $\mathcal{D}=\R\setminus\ens{-1,1}$ par
+% \[\forall x\in\mathcal{D}\qsep f(x)\defeq \dfrac 1{x^2-1}\]
+% On se rend rapidement compte qu'avec cette expression, le calcul des dérivées successives devient rapidement difficile. Mais, si on remarque que
+% \[\forall x\in\mathcal{D}\qsep f(x)=\frac 12 \p{\frac 1{x-1}  - \frac 1{x+1}}\]
+% le calcul des dérivées successives devient plus simple. On trouve
+% \begin{eqnarray*}
+% \forall x\in\mathcal{D}\qsep
+% f'(x)&=&-\dfrac 12 \cro{\dfrac 1{(x-1)^2} - \dfrac 1{(x+1)^2}},\\
+% f''(x)&=& \dfrac 1{(x-1)^3} - \dfrac 1{(x+1)^3},\\
+% f'''(x)&=& -3 \cro{\dfrac 1{(x-1)^4} - \dfrac 1{(x+1)^4}}.
+% \end{eqnarray*}
+% Remarquons que de même, on obtient facilement
+% \[\priminv{x^2-1}{x} = \dfrac 12 \ln \abs{ \frac{x-1}{x+1}}.\]
+% \begin{proposition}
+% Soit $P, Q\in\polyK$ avec $Q\neq 0$. On suppose que $Q$ est scindé simple, c'est-à-dire qu'il existe $\lambda\in\Ks$ et $\alpha_1,\ldots,\alpha_n$ deux à deux distincts tels que $Q=\lambda(X-\alpha_1)\cdots(X-\alpha_n)$. Alors, il existe un polynôme $E\in\polyK$ et $a_1,\ldots,a_n\in\K$ tels que
+% \[\frac{P}{Q}=E+\frac{a_1}{X-\alpha_1}+\cdots+\frac{a_n}{X-\alpha_n}.\]
+% De plus, cette décomposition est unique. $E$ est le quotient de la division euclidienne de $P$ par $Q$ et est appelé partie entière de $P/Q$.
+% \end{proposition}
+
+% \begin{remarques}
+% \remarque Lorsque $\deg P<\deg Q$, la partie entière de $P/Q$ est nulle.
+% \remarque Dans toute décomposition en éléments simples, $E$ est obtenu comme le quotient de la division euclidienne de $P$ par~$Q$.
+% \end{remarques}
+
+% % \begin{exoUnique}
+% % \exo Décomposer en éléments simples
+% %   \[\frac{1}{X(X+1)(X-1)}.\]
+% %   \begin{sol}
+% %   \[\frac{1}{X(X+1)(X-1)}=\frac{1}{2}\frac{1}{X+1}-\frac{1}{X}+\frac{1}{2}\cdot\frac{1}{X-1}\]
+% %   \end{sol}
+% % \end{exoUnique}
+
+
+% % \begin{proposition}
+% % Soit $P, Q\in\polyK$ avec $Q\neq 0$. On suppose que $Q$ est scindé, c'est-à-dire qu'il existe $\lambda\in\Ks$, $\alpha_1,\ldots,\alpha_r$ deux à deux distincts et $\omega_1,\ldots,\omega_r\in\Ns$ tels que $Q=\lambda(X-\alpha_1)^{\omega_1}\cdots(X-\alpha_r)^{\omega_r}$. Alors, il existe un polynôme $E\in\polyK$ et une famille $(a_i)_{i\in I}$ d'éléments de $\K$ tels que
+% % \begin{eqnarray*}
+% % \frac{P}{Q}= E &+& \frac{a_{1,1}}{X-\alpha_1}+\frac{a_{1,2}}{(X-\alpha_1)^2}+\cdots+\frac{a_{1,\omega_1}}{(X-\alpha_1)^{\omega_1}}\\
+% % &+& \cdots\\
+% % &+& \frac{a_{r,1}}{X-\alpha_r}+\frac{a_{r,2}}{(X-\alpha_r)^2}+\cdots+\frac{a_{r,\omega_r}}{(X-\alpha_r)^{\omega_r}}.
+% % \end{eqnarray*}
+% % De plus, cette décomposition est unique.
+% % \end{proposition}
+
+% \begin{exoUnique}
+% \exo Décomposer en éléments simples
+%   \[\frac{1}{(X-1)X(X+1)} \et \frac{X^3}{X(X+1)}.\]
+%   \begin{sol}
+% \[\frac{1}{(X-1)X(X+1)}=\frac{1}{2}\cro{\frac{1}{X+1}+\frac{1}{X-1}}-\frac{1}{X}\]
+% \[\frac{X^3}{X(X+1)}=\frac{X^2}{X+1}=\frac{X^2-1}{X+1}+\frac{1}{X+1}=X-1+\frac{1}{X+1}\]
+%   \end{sol}
+%   % \[\dfrac{X^2+X-1}{(X-1)^3}, \qquad \dfrac {X+1}{X^2(X-1)}.\]
+%   % \begin{sol}
+%   % \[\dfrac{X^2 + X - 1}{ (X-1)^3}= \dfrac{1}{(X-1)^3}+ \dfrac{3}{(X-1)^2}+ \dfrac{1}{X-1}\]
+%   % \[\dfrac {X + 1}{X^2 (X-1)}=\dfrac{2}{X-1} - \dfrac{2}{X} - \dfrac 1{X^2}\]
+%   % \end{sol}
+% \end{exoUnique}
+
+% \begin{proposition}
+% Soit $P, Q\in\polyR$ avec $Q\neq 0$. On suppose qu'il existe $\lambda\in\Rs$, $\alpha_1,\ldots,\alpha_r$ deux à deux distincts et $(\beta_1,\gamma_1),\ldots,(\beta_s,\gamma_s)\in\R^2$ deux à deux distincts tels que
+% \[Q=\lambda(X-\alpha_1)\cdots(X-\alpha_r)(X^2+\beta_1 X+\gamma_1)\cdots(X^2+\beta_s X+\gamma_s)\]
+% où les $X^2+\beta_k X+\gamma_k$ n'ont pas de racine réelle.
+% Alors, il existe un polynôme $E\in\polyR$ et $a_1,\ldots,a_r,b_1,\ldots,b_s,c_1,\ldots,c_s\in\R$ tels que
+% \begin{eqnarray*}
+% \frac{P}{Q}= E &+& \frac{a_1}{X-\alpha_1}+\cdots+\frac{a_r}{X-\alpha_r}\\
+% &+& \frac{b_1 X+c_1}{X^2+\beta_1 X+\gamma_1}+\cdots+\frac{b_s X+c_s}{X^2+\beta_s X+\gamma_s}.
+% \end{eqnarray*}
+% Cette décomposition est unique.
+% \end{proposition}
+
+% \begin{exoUnique}
+% \exo Décomposer en éléments simples
+%   \[\frac{2X^4}{(X^2+1)(X+1)}.\]
+%   \begin{sol}
+%   \[\dfrac {2X^4}{(X^2+1)(X+1)}=\dfrac {2(X^4-1)}{(X^2+1)(X+1)}+\dfrac {2}{(X^2+1)(X+1)}=2X-2 + \dfrac 1{X+1} + \dfrac{-X+1}{X^2+1}\]
+%   \end{sol}
+% \end{exoUnique}
+
+% \begin{remarques}
+% \remarque Décomposer une fraction rationnelle en éléments simples, c'est l'écrire comme la somme d'un polynôme et d'une combinaison linéaire d'éléments simples. On distingue~:
+% \begin{itemize}
+% \item Les \emph{éléments simples de première espèce}
+%   \[\dfrac{a}{X-\alpha}.\]
+% \item Les \emph{éléments simples de seconde espèce}
+%   \[\dfrac{bX + c}{X^2 + \beta X+ \gamma}\]
+%   avec $\Delta=\beta^2-4 \gamma <0$.
+% \end{itemize}
+% \remarque Dans ce chapitre, on admet qu'une telle décomposition existe et est unique; le but est d'apprendre à la calculer.
+% \begin{itemize}
+% \item La première étape consiste en une division euclidienne lorsque le degré du numérateur est supérieur ou égal au degré du dénominateur.
+% \item Puis, on factorise le dénominateur en produit de puissances de polynômes de degré $1$ et de polynômes de degré $2$ à discriminant strictement négatif (i.e. sans racine réelle). Cette étape est en général difficile et pour l'instant, on ne traitera que des exemples simples.
+% \item On écrit ensuite la décomposition à priori, c'est-à-dire avec des coefficients indéterminés.
+% \item Le but est maintenant de voir comment calculer ces coefficients. Il y a bien entendu une méthode évidente : la réduction au même dénominateur suivie d'une identification. C'est une très mauvaise méthode, qu'on s'interdira. Il existe de nombreuses techniques efficaces. En voici quelques-unes qui nous suffiront pour l'instant.
+% \begin{itemize}
+%   % \item \emph{Évaluations}~: On fait des évaluations en certains points qui donnent des équations linéaires vérifiées par les coefficients. Cette méthode est à utiliser avec parcimonie puisqu'il faut ensuite résoudre un système linéaire éventuellement gros.
+%   \item Multiplication-évaluation.
+%   \item Limite en $+\infty$.
+%   \item Parité/Imparité.
+%   \end{itemize}
+% \end{itemize}
+% \end{remarques}
+
+
+% \begin{exoUnique}
+% \exo Décomposer les fractions rationnelles suivantes.
+%   \[\frac{1}{X^2+1} \quad\text{sur $\C$},\qquad \dfrac{1}{X(X^2+1)} \quad\text{sur $\R$},\]
+%   \[\dfrac{1}{X(X^2+X+1)} \quad\text{sur $\R$}.\]%,\qquad \frac {X^2+2}{X^2 (X^2 + 1)}\quad\text{sur $\R$.}\]
+%   \begin{sol}
+% \[\frac{1}{X^2+1}=\frac{\ii}{2}\cro{\frac{1}{X+\ii}-\frac{1}{X-\ii}}\]
+% \[\frac{1}{X(X^2+1)}=\frac{1}{X}-\frac{X}{1+X^2}\]
+% \[\dfrac{1}{X(X^2+X+1)}=\frac{1}{X}-\frac{X+1}{X^2+X+1}\]
+%   \end{sol}
+% \end{exoUnique}
+
+
+
+\section{Somme et produit}
+
+\subsection{Somme}
+
+\begin{definition}[utile=-3]
+Soit $m,n\in\Z$ tels que $m \leq n$ et $u_{m},u_{m+1},\ldots,u_{n-1},u_n\in\C$. On
+définit
+\[\sum_{k=m}^n u_k\defeq u_{m}+u_{m+1}+\cdots+u_{n-1}+u_n.\]
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque Lorsque $n=m-1$, la convention est de poser $\sum_{k=m}^n u_k\defeq 0$. Cette
+  convention permet d'écrire
+  \[\forall n\geq m\qsep \sum_{k=m}^n u_k = u_n + \sum_{k=m}^{n-1} u_k.\]
+  % Plus généralement, lorsque $n<m$, on utilise souvent la convention
+  % $\sum_{k=m}^n u_k\defeq 0$.
+\remarque Si $m,n\in\Z$ sont tels que $n\geq m-1$, alors $\card(\intere{m}{n})=n-m+1$. En
+  particulier, quel que soit $a\in\C$
+  \[\sum_{k=m}^{n} a =\p{n-m+1}a.\]
+\end{remarqueUnique}
+
+
+\begin{exoUnique}
+% \exo Soit $m,n\in\Z$ tels que $m\leq n$ et $a\in\C$. Calculer
+%   \[\sum_{k=m}^n a.\]
+\exo Écrire avec le symbole $\sum$ les sommes suivantes, sachant que chacune d'elle est composée de $n+1$ termes.
+  \[-a_0+a_1-a_2 +a_3+\cdots, \qquad a_1+a_4+a_7+\cdots\]
+  \[a_0+2a_1+3a_2+4a_3+\cdots, \qquad a_0-2a_1+4a_2-8a_3+\cdots.\]
+\end{exoUnique}
+
+\begin{proposition}
+Soit $m,n\in\Z$, $\lambda,\mu\in\C$ et $(u_k)_{k\in\Z}, (v_k)_{k\in\Z}$ deux suites d'éléments de $\C$. Alors
+\[\sum_{k=m}^n \p{\lambda u_k+\mu v_k}=\lambda\sum_{k=m}^n u_k + \mu\sum_{k=m}^n v_k.\]
+\end{proposition}
+
+\begin{proposition}[utile=-3]
+\begin{itemize}
+\item Soit $m,n\in\Z$ et $p\in\Z$. Alors
+  \[\sum_{k=m}^n u_k=\sum_{k=m-p}^{n-p} u_{k+p}.\]
+\item Soit $n\in\N$. Alors
+  \[\sum_{k=0}^n u_k=\sum_{k=0}^n u_{n-k}.\]
+% \item Soit $n\in\N$. Alors~:
+%   \[\sum_{k=0}^n u_k=\sum_{k=0}^{\ent{\frac{n}{2}}} u_{2k}+
+%     \sum_{k=0}^{\ent{\frac{n-1}{2}}} u_{2k+1}\]
+\end{itemize}
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque En pratique, lorsque l'on souhaite faire la première transformation,
+  on dit qu'on effectue le changement de variable $k\to k+p$.
+  \[\sum_{k=m}^n u_k=\text{\og} \sum_{k=m}^{k=n} u_k=\sum_{k+p=m}^{k+p=n} u_{k+p}=
+    \sum_{k=m-p}^{k=n-p} u_{k+p}\text{\fg}=\sum_{k=m-p}^{n-p} u_{k+p}.\]
+  Le seconde transformation se fait de manière similaire, en utilisant cette fois la
+  convention que si les bornes ne sont pas \og dans le bon sens \fg, on les échange; on
+  dit dans ce cas qu'on fait le changement de variable $k\to n-k$.
+  \[\sum_{k=0}^n u_k=\text{\og} \sum_{k=0}^{k=n} u_k=\sum_{n-k=0}^{n-k=n} u_{n-k}=
+  \sum_{k=n}^{k=0} u_{n-k}=\sum_{k=0}^{k=n} u_{n-k}\text{\fg}=\sum_{k=0}^{n} u_{k}.\]
+
+\remarque Soit $(u_k)_{k\in\Z}$ une suite. Si $m,n\in\Z$ sont tels que $n\geq m-1$
+  \[\sum_{k=m}^n \p{u_{k+1} - u_k} = u_{n+1}-u_m.\]
+  On dit qu'une telle somme est \emph{télescopique}.
+\end{remarqueUnique}
+
+\begin{exos}
+% \exo Calculer, pour tout $n\in\Ns$
+%   \[\sum_{k=1}^n \frac{1}{k(k+1)(k+2)}.\]
+%   \begin{sol}
+% \[\sum_{k=1}^n \frac{1}{k(k+1)(k+2)}=\frac{n(n+3)}{4(n+1)(n+2)}\]
+%   \end{sol}
+\exo Calculer explicitement la suite $(u_n)$ définie par
+  \[u_0\defeq 1 \et \forall n\in\N\qsep u_{n+1}\defeq u_n+2n+3.\]
+  \begin{sol}
+\[u_n=(n+1)^2\]
+  \end{sol}
+\exo En effectuant le changement de variable $k\to k+1$, calculer
+  \[\sum_{k=0}^n k 2^k.\]
+ \begin{sol}
+\[\sum_{k=1}^n k 2^k=2^{n+1}(n-1)+2\]
+ \end{sol}
+\exo Soit $n\in\Ns$. Calculer
+  \[\sum_{k=1}^n \p{\frac 1k - \frac 1{n+1-k}}.\]
+  \begin{sol}
+Un changement d'indice montre que cette somme est nulle.
+  \end{sol}
+\end{exos}
+
+\begin{definition}
+Soir $r\in\C$. Une suite $(u_n)$ est dite \emph{en progression arithmétique de raison $r$} lorsque
+\[\forall n \in \N\qsep  u_{n+1}= u_n+r.\]
+On a alors, pour tout $n \in \N$, $u_n = u_0 + nr$.
+\end{definition}
+
+\begin{proposition}
+Soit $(u_n)$ une suite en progression arithmétique et $m,n\in\Z$ tels que $n\geq m-1$. Alors
+\begin{eqnarray*}
+\sum_{k=m}^n u_k
+&=& \frac{u_m + u_n}{2}\cdot\p{n-m+1}\\
+&=& \frac{\text{premier terme}+\text{dernier terme}}{2}\cdot
+    \p{\text{nombre de termes}}.
+\end{eqnarray*}
+\end{proposition}
+
+\begin{preuve}
+On fait la méthode de Gauss en sommant deux fois et regroupant les termes extrémaux, la somme étant constante...
+\end{preuve}
+
+\begin{proposition}
+Soit $n\in\N$. Alors
+\[\sum_{k=0}^n k=\frac{n(n+1)}{2} \et \sum_{k=0}^n k^2=\frac{n(n+1)(2n+1)}{6}.\]
+\end{proposition}
+
+% \begin{exoUnique}
+% \exo Montrer que pour tout $n\in\N$
+%   \[\sum_{k=0}^n k^2 = \frac{n(n+1)(2n+1)}{6}.\]
+% \end{exoUnique}
+% \begin{proposition}
+% Soit $a,b\in\Z$ tels que $b\geq a-1$. Alors
+% \[\sum_{k=a}^b k=\frac{(a+b)(b-a+1)}{2}.\]
+% \end{proposition}
+
+\begin{definition}
+Soit $q\in\C$. Une suite $(u_n)$ est dite \emph{en progression géométrique de raison $q$} lorsque
+\[\forall n \in \N\qsep  u_{n+1}= q u_n.\]
+On a alors, pour tout $n \in \N$, $u_n = q^n u_0$.
+\end{definition}
+
+\begin{proposition}
+Soit $(u_n)$ une suite en progression géométrique dont la raison $q\in\C$ est différente de 1 et $m,n\in\Z$ tels que $m\leq n$. Alors
+\begin{eqnarray*}
+\sum_{k=m}^n u_k
+&=& \frac{u_m - u_{n+1}}{1-q}\\
+&=& \frac{\text{premier terme}-\text{terme suivant}}{1-q}.
+\end{eqnarray*}
+\end{proposition}
+
+\begin{exos}
+\exo Montrer que la suite de terme général
+  \[\sum_{k=0}^n \frac{1}{2^k}\]
+  est convergente.
+\exo Calculer, pour tout $x\in\R\setminus\ens{1}$
+  \[\sum_{k=0}^n k x^k.\]
+  \begin{sol}
+\[\sum_{k=0}^n k x^k=\frac{x}{(1-x)^2}\cro{1+x^n\p{nx-(n+1)}}\]
+  \end{sol}
+\end{exos}
+
+\begin{proposition}
+Soit $n\in\N$. Alors
+  \[\sum_{k=0}^n u_k=\sum_{k=0}^{\ent{\frac{n}{2}}} u_{2k}+
+    \sum_{k=0}^{\ent{\frac{n-1}{2}}} u_{2k+1}\]
+\end{proposition}
+
+% \begin{remarqueUnique}
+% \remarque Lorsque $x\in\R$, $\ent{x}$ est appelée \emph{partie entière} de $x$. C'est l'unique $n\in\Z$ tel que
+%   \[n\leq x< n+1.\]
+%   Par exemple $\ent{\pi}=3$ et $\ent{-\pi}=-4$.
+% \end{remarqueUnique}
+
+\begin{exos}
+\exo Calculer la somme
+  \[\sum_{k=1}^{2n} (-1)^k k.\]
+  \begin{sol}
+\[\sum_{k=1}^{2n} (-1)^k k=n\]
+  \end{sol}
+\exo Soit $n\in\N$. Montrer que $\cos\p{n\theta}$ peut
+s'exprimer comme un polynôme en $\cos\theta$.
+\begin{sol}
+On a
+	\begin{eqnarray*}
+	\cos 5\theta+\ii\sin 5\theta 
+	&=& \e^{\ii 5\theta}\\
+	&=& \p{\e^{\ii\theta}}^5\\
+	&=& \p{\cos\theta+\ii\sin\theta}^5\\
+	&=& \cos^5\theta+5\ii\cos^4\theta\sin\theta-10\cos^3\theta\sin^2\theta\\
+	& & -10\ii\cos^2\theta\sin^3\theta+5\cos\theta\sin^4\theta+\ii\sin^5\theta
+	\end{eqnarray*}
+	En identifiant les parties réelles, il vient
+	\begin{eqnarray*}
+	\cos 5\theta
+	&=& \cos^5\theta-10\cos^3\theta\p{1-\cos^2\theta}
+			+5\cos\theta\p{1-\cos^2\theta}^2\\
+	&=& 16\cos^5\theta-20\cos^3\theta+5\cos\theta.
+	\end{eqnarray*}
+Plus généralement, soit $n\in\N$. Alors, pour tout $\theta\in\R$
+\begin{eqnarray*}
+\cos(n\theta)+\ii\sin(n\theta)
+&=& \e^{\ii n\theta} = \p{\e^{\ii\theta}}^n\\
+&=& (\cos\theta+\ii\sin\theta)^n = \sum_{k=0}^n \binom{n}{k}\cos^{n-k}\theta\p{\ii\sin\theta}^k\\
+&=& \sum_{k=0}^n \ii^k\binom{n}{k}\cos^{n-k}\theta\p{\sin\theta}^k
+\end{eqnarray*} 
+Or $\ii^k$ est imaginaire pur lorsque $k$ est impair et réel lorsque $k$ est pair. Donc, on prenant la partie réelle de l'identité précédente, on a déduit que
+\begin{eqnarray*}
+\cos(n\theta)
+&=& \sum_{\substack{k=0\\ k\equiv 0\ [2]}}^n \ii^k\binom{n}{k}\cos^{n-k}\theta\p{\sin\theta}^k\\
+&=& \sum_{k=0}^{\floor{\frac{n}{2}}} \ii^{2k} \binom{n}{2k}\cos^{n-2k}\theta\p{\sin\theta}^{2k}\\
+&=& \sum_{k=0}^{\floor{\frac{n}{2}}} \p{-1}^k \binom{n}{2k}\cos^{n-2k}\theta\p{\sin^2\theta}^{k}\\
+&=& \sum_{k=0}^{\floor{\frac{n}{2}}} \p{-1}^k \binom{n}{2k}\cos^{n-2k}\theta\p{1-\cos^2\theta}^{k}
+\end{eqnarray*} 
+Donc $\cos(n\theta)$ s'exprime comme un polynôme en $\cos\theta$. Ces polynômes sont appelés polynômes de Tchebycheff.
+\end{sol}
+\end{exos}
+
+
+\subsection{Produit}
+
+\begin{definition}[utile=-3]
+Soit $m,n\in\Z$ tels que $m\leq n$ et $u_{m},u_{m+1},\ldots,u_{n-1},u_n\in\C$. On
+définit
+\[\prod_{k=m}^n u_k\defeq u_{m}\cdot u_{m+1}\cdots u_{n-1}\cdot u_n.\]
+\end{definition}
+
+\begin{remarques}
+\remarque Lorsque $n=m-1$, la convention est de poser $\prod_{k=m}^n u_k\defeq 1$. Cette
+  convention permet d'écrire
+  \[\forall n\geq m\qsep \prod_{k=m}^n u_k = u_n  \prod_{k=m}^{n-1} u_k.\]
+  % Plus généralement, lorsque $n<m$, on utilise souvent la convention
+  % $\prod_{k=m}^n u_k\defeq 1$.
+\remarque Si $m,n\in\Z$ sont tels que $n\geq m-1$. Alors, quel que soit $a\in\C$
+  \[\prod_{k=m}^{n} a =a^{n-m+1}.\]
+\remarque Pour tout $n\in\N$
+   \[n!=\prod_{k=1}^n k.\]
+\end{remarques}
+
+\begin{exoUnique}
+% \exo Soit $m,n\in\Z$ tels que $m\leq n$ et $a\in\C$. Calculer
+%   \[\prod_{k=m}^n a.\]
+\exo Exprimer, à l'aide de factorielles, les produits
+  \[\prod_{k=1}^n (2k) \et \prod_{k=1}^n (2k+1).\]
+\end{exoUnique}
+
+\begin{proposition}
+Soit $m,n\in\Z$ et $(u_k)_{k\in\Z}, (v_k)_{k\in\Z}$ deux suites d'éléments de $\C$. Alors
+\[\prod_{k=m}^n u_k v_k=\p{\prod_{k=m}^n u_k} \p{\prod_{k=m}^n v_k}.\]
+\end{proposition}
+
+\subsection{Somme et produit doubles}
+
+On parle de somme double lorsqu'il y a deux indices. Pour sommer les éléments
+$u_{i,j}$ d'un tableau à $n$ lignes et $m$ colonnes, on peut procéder d'au
+moins deux manières~: une sommation en lignes ou en colonnes. Évidemment, le résultat est le même. 
+
+\begin{proposition}
+Soit $m_1,n_1,m_2,n_2\in\Z$ et $(u_{i,j})$ une famille d'éléments de $\C$. Alors
+\[\sum_{i=m_1}^{n_1} \sum_{j=m_2}^{n_2} u_{i, j} =
+\sum_{j=m_2}^{n_2} \sum_{i=m_1}^{n_1} u_{i, j}.\]
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque Cette somme est parfois notée
+\[\sum_{\substack{m_1 \leq i \leq n_1 \\ m_2 \leq j \leq n_2}} u_{i, j} \ou 
+  \sum_{(i,j) \in \intere{m_1}{n_1} \times \intere{m_2}{n_2}} u_{i, j}.\]
+\end{remarqueUnique}
+
+\begin{exos}
+\exo Calculer
+  \[\sum_{0 \leq i,j \leq n} ij \et
+    \sum_{0 \leq i,j \leq n} (i+j).\]
+  \begin{sol}
+\[\sum_{0 \leq i,j \leq n} ij=\frac{1}{4}\cro{n(n+1)}^2\]
+\[\sum_{0 \leq i,j \leq n} (i+j)=n(n+1)^2\]
+  \end{sol}
+\exo Calculer
+  \[\sum_{0 \leq i,j \leq n} \binom{i}{j}.\]
+\exo Calculer
+  \[\sum_{k=1}^n k 2^k\]
+  en remarquant astucieusement que $k=\sum_{i=1}^k 1$.
+  \begin{sol}
+  \[\sum_{k=1}^n k 2^k=2^{n+1}(n-1)+2\]
+  \end{sol}
+\end{exos}
+
+\begin{proposition}
+Soit $m_1,n_1,m_2,n_2\in\Z$ et $(u_k)_{k\in\Z}, (v_k)_{k\in\Z}$ deux suites d'éléments de $\C$. Alors
+\[\p{\sum_{i=m_1}^{n_1} u_i}\p{\sum_{j=m_2}^{n_2} v_j}=\sum_{i=m_1}^{n_1} \sum_{j=m_2}^{n_2} u_i v_j.\]
+\end{proposition}
+
+
+\begin{exos}
+\exo Calculer
+  \[\sum_{1\leq i, j \leq n}\abs{i-j}.\]
+  \begin{sol}
+  On peut l'écrire comme $\sum_{i=1}^n\p{\sum_{j=1}^{i-1}(i-j)+\sum_{j=1}^n(j-i)}$ puis réindexation dans les deux sommes, etc...
+  
+  Autre méthode : On met les valeurs de $|i-j|$ dans un tableau à double entrée et on remarque que chaque sous-diagonale à $(n-i)$ fois la valeur $i$. Donc $S=2\sum_{i=1}^{n-1}i(n-i)$. Dans tous les cas on trouve :
+\[\sum_{1\leq i, j \leq n}\abs{i-j}=\frac{1}{3}n(n^2-1)\]
+  \end{sol}
+\exo Calculer
+  \[\sum_{k = 1}^n \sum_{s = 0}^{n-k} \dfrac{k}{s + k}.\]
+  \begin{sol}
+  
+  
+\[\sum_{k=1}^n \sum_{s=0}^{n-k} \frac{k}{s+k}=\sum_{i=1}^n\sum_{s+k=i}\frac{k}{s+k}=\sum_{i=1}^n\sum_{k=0}^{i}\frac{k}{i}=\frac{1}{4}n(n+3)\]
+Si on fait un tableau, on a sommé sur les antidiagonales.
+  \end{sol}
+\end{exos}
+
+\section{Trigonométrie}
+
+\subsection{Égalité modulaire}
+
+\begin{definition}
+Soit $m\in\RPs$ et $a,b\in\R$. On dit que $a$ est \emph{congru à $b$ modulo $m$} et on note
+\[a\equiv b\ [m]\]
+lorsqu'il existe $k\in\Z$ tel que $a=b+km$.
+\end{definition}
+
+\begin{exoUnique}
+\exo Soit $a,b\in\R$. Quel est le lien logique entre
+  \[\text{\og}a\equiv b\ [2\pi]\text{\fg} \et \text{\og}a\equiv b\ [\pi]\text{\fg} \text{ ?}\]
+\end{exoUnique}
+
+\begin{proposition}
+\begin{itemize}
+\item 
+Soit $m\in\RPs$ et $a_1,a_2,b_1,b_2\in\R$ tels que
+  \[a_1\equiv b_1\ [m] \et a_2\equiv b_2\ [m].\]
+Alors, quels que soient $k_1,k_2\in\Z$,
+  \[k_1 a_1+k_2 a_2\equiv k_1 b_1+k_2 b_2\ [m].\]
+\item Soit $m\in\RPs$ et $a,b\in\R$ tels que
+  \[a\equiv b\ [m].\]
+  Alors, si $c\in\RPs$
+  \[ac\equiv bc\ [m c].\]
+\end{itemize}
+\end{proposition}
+
+\begin{remarques}
+\remarque On en déduit qu'on peut raisonner avec les \og $\equiv$ \fg de la même manière qu'avec \og $=$ \fg pour résoudre les équations.
+  \begin{itemize}
+  \item On peut passer une expression d'un côté à l'autre du \og $\equiv$ \fg en changeant son signe.
+  \item On peut multiplier les deux côtés du signe \og $\equiv$ \fg par un même coefficient $c\in\RPs$. Il suffit juste de multiplier le modulo par $c$.
+  \end{itemize}
+  Ces deux transformations permettent de raisonner par équivalence.
+\remarque Si $a\in\R$ et $m\in\RPs$, alors l'ensemble des $x\in\R$ tels que $x\equiv a\ [m]$ est noté
+  \[a+m\Z\defeq\ensim{a+km}{k\in\Z}.\]
+\end{remarques}
+
+\subsection{Formules de trigonométrie}
+
+\begin{center}
+\begin{pdfpic}\pspicture*(-1.2,-1.2)(9.2,5.2)
+\psset{unit=4cm}
+\psline{->}(0,0)(2,0)
+\psline{->}(0,0)(0,1.3)
+\psline{-}(0,0)(2,1.1547)
+\psline[linestyle=dashed](0,0.5)(0.8660,0.5)
+\psline[linestyle=dashed](0.8660,0.5)(0.8660,0)
+\psline[linestyle=dashed](0,1)(2,1)
+\psline[linestyle=dashed](1,0)(1,1)
+\psline{->}(0,-0.05)(0.8660,-0.05)
+\psline{->}(-0.05,0)(-0.05,0.5)
+\psline{->}(0,1.05)(1.7320,1.05)
+\psline{->}(1.05,0)(1.05,0.5773)
+\psarc{->}(0,0){1.05}{0}{30}
+\psarc(0,0){1}{-17.45}{107.45}
+\uput[d](0.4330,-0.05){$\cos x$}
+\uput[l](-0.05,0.25){$\sin x$}
+\uput[r](1.05,0.2886){$\tan x$}
+\uput[u](0.8660,1.05){${\rm cotan}\, x$}
+\uput[u](0.9093,0.525){$x$}
+\endpspicture
+\end{pdfpic}
+\end{center}
+
+\begin{definition}[utile=-3]
+On définit le \emph{sinus}, le \emph{cosinus}, la \emph{tangente} et la \emph{cotangente} d'un angle $x$ exprimé en radians sur le cercle trigonométrique de rayon 1 comme ci-dessus.
+En particulier $\tan x$ n'est défini que pour
+$x\in\R\setminus\p{\frac{\pi}{2}+\pi\Z}$, $\cotan x$ n'est défini que pour
+$x\in\R\setminus \pi\Z$ et
+\[\tan x=\frac{\sin x}{\cos x} \et \cotan x=\frac{\cos x}{\sin x}.\]
+\end{definition}
+\begin{preuve}
+Le calcul de $\tan$ et $\cotan$ en fonction de $\sin$ et $\cos$ se fait par
+le théorème de Thalès.
+\end{preuve}
+
+\begin{remarqueUnique}
+\remarque On rappelle les principales valeurs remarquables.
+\begin{center}
+\begin{pdfpic}
+\begin{pspicture}(-1.2,-1.2)(5.2,5.2)
+\psset{unit=4.5cm}
+\psline{->}(0,0)(1.3,0)
+\psline{->}(0,0)(0,1.3)
+\psline[linestyle=dashed](0,0.5)(0.8660,0.5)
+\psline[linestyle=dashed](0.8660,0.5)(0.8660,0)
+\psline[linestyle=dashed](0.5,0.8660)(0.5,0)
+\psline[linestyle=dashed](0.5,0.8660)(0,0.8660)
+\psline[linestyle=dashed](0.7071,0.7071)(0.7071,0)
+\psline[linestyle=dashed](0.7071,0.7071)(0,0.7071)
+\psline(0,0)(0.7071,0.7071)
+\psline(0,0)(0.5,0.8660)
+\psline(0,0)(0.8660,0.5)
+\psarc(0,0){1}{-17.45}{107.45}
+\psarc{->}(0,0){1.05}{0}{30}
+\psarc{->}(0,0){1.05}{0}{45}
+\psarc{->}(0,0){1.05}{0}{60}
+\uput[r](0.9093,0.525){$\dsp\frac{\pi}{6}$}
+\uput[ur](0.7424,0.7424){$\dsp\frac{\pi}{4}$}
+\uput[u](0.525,0.9093){$\dsp\frac{\pi}{3}$}
+\uput[d](0.5,0){$\frac{1}{2}$}
+\uput[d](0.7071,0){$\frac{\sqrt{2}}{2}$}
+\uput[d](0.8660,0){$\frac{\sqrt{3}}{2}$}
+\uput[l](0,0.5){$\frac{1}{2}$}
+\uput[l](0,0.7071){$\frac{\sqrt{2}}{2}$}
+\uput[l](0,0.8660){$\frac{\sqrt{3}}{2}$}
+\end{pspicture}
+\end{pdfpic}
+\begin{tabular}{|>{\hfill}p{1.5cm}<{\hfill\rule[-10pt]{0pt}{27pt}}||*{5}{>{\hfill}p{1.5cm}<{\hfill\rule[-12pt]{0pt}{30pt}}|}}
+\hline
+$x$&$0$&$\dsp\frac{\pi}{6}$&$\dsp\frac{\pi}{4}$&$\dsp\frac{\pi}{3}$&
+  $\dsp\frac{\pi}{2}$\\
+\hline\hline\rule[-10pt]{0pt}{27pt}
+$\sin x$&$0$&$\dsp\frac{1}{2}$&$\dsp\frac{\sqrt{2}}{2}$&$\dsp\frac{\sqrt{3}}{2}$&
+  $1$\\
+\hline\rule[-10pt]{0pt}{27pt}
+$\cos x$&$1$&$\dsp\frac{\sqrt{3}}{2}$&$\dsp\frac{\sqrt{2}}{2}$&$\dsp\frac{1}{2}$&
+  $0$\\
+\hline\rule[-10pt]{0pt}{27pt}
+$\tan x$&$0$&$\dsp\frac{1}{\sqrt{3}}$&$1$&$\sqrt{3}$&indéfini\\
+\hline\rule[-10pt]{0pt}{27pt}
+$\cotan x$&indéfini&$\sqrt{3}$&$1$&$\dsp\frac{1}{\sqrt{3}}$&$0$\\
+\hline
+\end{tabular}
+\end{center}
+\remarque Si $x\in\R\setminus\frac{\pi}{2}\Z$, alors
+  \[\cotan x=\frac{1}{\tan x}.\]
+  Remarquons cependant que $\cotan$ est définie en $\pi/2$ alors que $\tan$ ne
+  l'est pas.
+\end{remarqueUnique}
+
+
+\begin{proposition}[utile=-3]
+D'après Pythagore, on a
+\[\cos^2 x+\sin^2 x=1, \qquad 1+\tan^2 x=\frac{1}{\cos^2 x},\]
+\[1+\cotan^2 x=\frac{1}{\sin^2 x}.\]
+\end{proposition}
+
+\begin{proposition}[utile=-3, nom={Symétries}]
+\begin{align*}
+\cos\p{-x}&=\cos x   & \cos\p{\pi+x}&=-\cos x & \cos\p{\pi-x}&=-\cos x\\
+\sin\p{-x}&=-\sin x  & \sin\p{\pi+x}&=-\sin x & \sin\p{\pi-x}&=\sin x\\
+\tan\p{-x}&=-\tan x  & \tan\p{\pi+x}&=\tan x  & \tan\p{\pi-x}&=-\tan x
+\end{align*}
+\begin{align*}
+\cos\p{\frac{\pi}{2}+x}&=-\sin x &\cos\p{\frac{\pi}{2}-x}&=\sin x\\
+\sin\p{\frac{\pi}{2}+x}&=\cos x  &\sin\p{\frac{\pi}{2}-x}&=\cos x\\
+\tan\p{\frac{\pi}{2}+x}&=-\cotan x &\tan\p{\frac{\pi}{2}-x}&=\cotan x
+\end{align*}
+\end{proposition}
+
+\begin{center}
+\begin{pdfpic}
+\begin{pspicture}(-3.25,-3.25)(3.25,3.25)
+\psset{unit=2.5cm}
+\pscircle(0,0){1}
+\psline{->}(-1.3,0)(1.3,0)
+\psline{->}(0,-1.3)(0,1.3)
+\psarc{->}(0,0){1.07}{0}{30}
+\psarc{->}(0,0){1.07}{0}{150}
+\psarc{->}(0,0){1.07}{0}{210}
+\psarc{<-}(0,0){1.07}{-30}{0}
+\psarc{->}(0,0){1.07}{0}{60}
+\psarc{->}(0,0){1.07}{0}{120}
+\psline[linestyle=dashed](0.8660,0.5)(-0.8660,0.5)
+\psline[linestyle=dashed](0.8660,0.5)(0.8660,-0.5)
+\psline[linestyle=dashed](0.5,0.8660)(0.5,0)
+\psline[linestyle=dashed](0.5,0.8660)(-0.5,0.8660)
+\psline[linestyle=dashed](-0.5,0.8660)(-0.5,0)
+\psline[linestyle=dashed](-0.8660,0.5)(-0.8660,-0.5)
+\psline[linestyle=dashed](-0.8660,-0.5)(0.8660,-0.5)
+\psline(-0.8660,0.5)(0.8660,-0.5)
+\psline(0.5,0.8660)(0,0)
+\psline(-0.5,0.8660)(0,0)
+\psline(-0.8660,-0.5)(0.8660,0.5)
+\uput[dl](-0.9266,-0.535){$\pi+x$}
+\uput[dr](0.9266,-0.535){$-x$}
+\uput[ul](-0.9266,0.535){$\pi-x$}
+\uput[ur](0.535,0.9266){$\dsp\frac{\pi}{2}-x$}
+\uput[ul](-0.535,0.9266){$\dsp\frac{\pi}{2}+x$}
+\uput[ur](0.9266,0.535){$x$}
+\end{pspicture}
+\end{pdfpic}
+\end{center}
+
+\begin{remarqueUnique}
+\remarque Il est important de retrouver rapidement ces formules en dessinant le cercle trigonométrique et un \og petit \fg angle $x$ vérifiant $0<x<\pi/4$.
+\end{remarqueUnique}
+
+\begin{exoUnique}
+\exo Calculer
+  \[\cos\p{\frac{7\pi}{6}}, \qquad \sin\p{\frac{2\pi}{3}}, \qquad
+    \tan\p{-\frac{3\pi}{4}}.\]
+  \begin{sol}
+  On a
+\[\cos\left( \frac{7\pi}{6} \right)=\cos\left( \pi+\frac{\pi}{6} \right)=-\cos\left( \frac{\pi}{6} \right)=-\frac{\sqrt{3}}{2}\]
+
+\[\sin\left( \frac{2\pi}{3} \right)=\sin\left( \pi-\frac{\pi}{3} \right)=\sin\left( \frac{\pi}{3} \right)=\frac{\sqrt{3}}{2}\]
+\[\tan\left( -\frac{3\pi}{4}\right) =\tan\left(\frac{\pi}{4}-\pi\right) =\tan\left(\frac{\pi}{4}\right) =1.\]
+  \end{sol}
+\end{exoUnique}
+
+\begin{proposition}[nom={Addition des arcs}]
+\begin{align*}
+\cos(a+b)&=\cos a\cos b-\sin a\sin b &\sin(a+b)&=\sin a\cos b+\cos a\sin b\\
+\cos(a-b)&=\cos a\cos b+\sin a\sin b &\sin(a-b)&=\sin a\cos b-\cos a\sin b
+\end{align*}
+\begin{align*}
+\tan(a+b)&=\frac{\tan a+\tan b}{1-\tan a\tan b}\\
+\tan(a-b)&=\frac{\tan a-\tan b}{1+\tan a\tan b}
+\end{align*}
+\end{proposition}
+\begin{preuve}
+On montre la formule de $\cos\p{a-b}$ avec le produit scalaire. Les autres en
+découlent. Pour $\cos\p{a+b}$, il faut changer $b$ en $-b$. Pour
+$\sin\p{a+b}$, écrire $\cos\p{\pi/2-\p{a+b}}=\cos\p{\p{\pi/2-a}-b}$.
+Pour les formules avec les tangentes, il faut $a+b\neq \pi/2\ [\pi]$ et
+de même pour $a$ et $b$. 
+\end{preuve}
+
+\begin{remarqueUnique}
+\remarque Si $a,b\in\R$ ne sont pas tous les deux nuls, on pourra factoriser
+  $a\cos x+b\sin x$ de la manière suivante.
+  \[a\cos x+b\sin x=\sqrt{a^2+b^2}\p{\frac{a}{\sqrt{a^2+b^2}}\cos x+
+                      \frac{b}{\sqrt{a^2+b^2}}\sin x}\]
+  Puisque
+  \[\p{\frac{a}{\sqrt{a^2+b^2}}}^2+\p{\frac{b}{\sqrt{a^2+b^2}}}^2=1,\]
+  il existe $\theta_0\in\R$ tel que $\cos\theta_0=a/\sqrt{a^2+b^2}$ et
+  $\sin\theta_0=b/\sqrt{a^2+b^2}$. On a alors
+  \begin{eqnarray*}
+  a\cos x+b\sin x &=& \sqrt{a^2+b^2}\p{\cos\theta_0\cos x+\sin\theta_0\sin x}\\
+                  &=& \sqrt{a^2+b^2}\cos\p{x-\theta_0}.
+  \end{eqnarray*}
+\end{remarqueUnique}
+
+\begin{exoUnique}
+\exo Factoriser $\sqrt{3}\cos x+\sin x$.
+\begin{sol}
+Pour tout $x\in\R$
+\begin{eqnarray*}
+\sqrt{3}\cos x+\sin x
+&=& 2\left(\frac{\sqrt{3}}{2}\cos x+\frac{1}{2}\sin x \right)\\
+&=& 2\left( \cos \frac{\pi}{6}\cos x+\sin \frac{\pi}{6}\sin x \right)\\
+&=& 2\cos\left( x-\frac{\pi}{6}\right).
+\end{eqnarray*}
+\end{sol}
+\end{exoUnique}
+
+\begin{proposition}[utile=-3, nom={Angle double}]
+\begin{align*}
+\cos(2x)&=\cos^2 x-\sin^2 x\\
+        &=2\cos^2 x-1\\
+        &=1-2\sin^2 x\\
+\sin(2x)&=2\cos x\sin x\\
+\tan(2x)&=\frac{2\tan x}{1-\tan^2 x}
+\end{align*}
+\begin{align*}
+\cos^2 x &=\frac{1+\cos(2x)}{2}\\
+\sin^2 x &=\frac{1-\cos(2x)}{2}
+\end{align*}
+\end{proposition}
+
+\begin{exoUnique}
+\exo Soit $a\in\R$. Pour tout $n\in\N$, on pose
+  \[p_n\defeq\prod_{k=1}^n \cos\p{\frac{a}{2^k}}.\]
+  Simplifier $p_n \sin\p{a/2^n}$ puis en déduire la limite de la suite $\p{p_n}$.
+  \begin{sol}
+Montrons par récurrence sur $n$ que
+  \[\forall n\in\Ns \qsep p_n\sin\frac{a}{2^n}=\frac{1}{2^n}\sin a.\]
+  En effet, en posant
+  \begin{center}
+  $\mathcal{H}_n \defeq$ \flqq\ $p_n\sin\frac{a}{2^n}=\frac{1}{2^n}\sin a$ \frqq
+  \end{center}
+  \begin{itemize}
+  \item $\mathcal{H}_1$ est vraie. En effet~:
+    \[p_1\sin\frac{a}{2}=\cos\frac{a}{2}\sin\frac{a}{2}=\frac{1}{2}\sin a.\]
+  \item $\mathcal{H}_n \implique \mathcal{H}_{n+1}$. En effet, soit $n\geq 1$.
+    On suppose que $\mathcal{H}_n$ est vraie. Montrons que $\mathcal{H}_{n+1}$
+    est vraie.
+    \begin{eqnarray*}
+    p_{n+1}\sin\frac{a}{2^{n+1}}
+    &=& \sin\frac{a}{2^{n+1}} \prod_{p=1}^{n+1} \cos\frac{a}{2^p}\\
+    &=& \sin\frac{a}{2^{n+1}} \cos\frac{a}{2^{n+1}}
+        \prod_{p=1}^n \cos\frac{a}{2^p}\\
+    &=& \frac{1}{2} \sin\frac{a}{2^n} \prod_{p=1}^n \cos\frac{a}{2^p}\\
+    &=& \frac{1}{2} p_n \sin\frac{a}{2^n}\\
+    &=& \frac{1}{2}\cdot \frac{1}{2^n} \sin a
+        \quad\text{par hypothèse de récurrence}\\
+    &=& \frac{1}{2^{n+1}} \sin a
+    \end{eqnarray*}
+    Donc $\mathcal{H}_{n+1}$ est vraie.
+  \end{itemize}
+  Par récurrence, on en déduit que $\mathcal{H}_{n}$ est vraie pour tout
+  $n\in\Ns$, donc
+  \[\forall n\in\Ns \quad p_n\sin\frac{a}{2^n}=\frac{1}{2^n}\sin a.\]
+  Puisque $a$ est non nul, et que
+  \[\frac{a}{2^n}\tendvers{n}{+\infty}0,\]
+  on en déduit qu'il existe $N\in\Ns$ tel que, pour tout $n\geq N$, $a/2^n\in\intero{-\pi}{\pi}\setminus\ens{0}$ . Soit $n\geq N$. Alors $\sin\p{a/2^n}\neq 0$, donc
+  \[p_n=\frac{\sin a}{2^n\sin\frac{a}{2^n}}.\]
+  Or, puisque $a/2^n \tendvers{n}{+\infty} 0$ et $\sin(x)/x \tendvers{x}{0} 1$,
+  on a
+  \[2^n\sin\frac{a}{2^n}=a\frac{\sin\frac{a}{2^n}}{\frac{a}{2^n}}
+    \tendvers{n}{+\infty} a.\]
+  En conclusion
+  \[p_n\tendvers{n}{+\infty} \frac{\sin a}{a}.\]
+  \end{sol}
+\end{exoUnique}
+
+\begin{proposition}[utile=-3, nom={Linéarisation}]
+\begin{align*}
+\cos a\cos b&=\frac{1}{2}\cro{\cos\p{a+b}+\cos\p{a-b}}\\
+\sin a\sin b&=\frac{1}{2}\cro{\cos\p{a-b}-\cos\p{a+b}}\\
+\cos a\sin b&=\frac{1}{2}\cro{\sin\p{a+b}-\sin\p{a-b}}
+\end{align*}
+\end{proposition}
+
+\begin{exoUnique}
+\exo Linéariser $\cos^3 x$, $\cos x\sin^2 x$, puis $\sin^4 x$.
+  \begin{sol}
+  Pour tout $x\in\R$
+  \begin{eqnarray*}
+  \cos^{3}x &=& \cos^{2}x \cos x = \frac{1}{2}(\cos (2x) +1)\cos x\\
+            &=& \frac{1}{2}(\cos (2x)\cos x +\cos x)=\frac{1}{4}(\cos (3x)+\cos x +2\cos x)\\
+            &=& \frac{1}{4}\p{\cos\p{3x}+3\cos x}\\
+  \cos x\sin^2 x &=& \frac{1}{2}(\cos x(1-\cos (2x))=\frac{1}{4}(2\cos x -( \cos (3x)+\cos x))\\
+                 &=& \frac{1}{4}(\cos x - \cos (3x))\\
+  \sin^4 x &=& (1-\cos^{2}x)^{2}=1-2\cos^{2}x+\cos^{4}x\\
+           &=& 1-2\times\frac{1}{2}(\cos (2x)-1)+\frac{1}{4}(\cos (2x)-1)^{2}\\
+           &=& \frac{1}{8}\p{\cos\p{4x}-4\cos\p{2x}+3}
+  \end{eqnarray*}
+  \end{sol}
+\end{exoUnique}
+
+\begin{proposition}[utile=-3, nom={Factorisation}]
+\begin{align*}
+\cos p+\cos q&=2\cos\frac{p+q}{2}\cos\frac{p-q}{2} &
+\sin p+\sin q&=2\sin\frac{p+q}{2}\cos\frac{p-q}{2}\\
+\cos p-\cos q&=-2\sin\frac{p+q}{2}\sin\frac{p-q}{2} &
+\sin p-\sin q&=2\cos\frac{p+q}{2}\sin\frac{p-q}{2}
+\end{align*}
+\begin{align*}
+\tan p+\tan q&=\frac{\sin(p+q)}{\cos p\cos q}\\
+\tan p-\tan q&=\frac{\sin(p-q)}{\cos p\cos q}
+\end{align*}
+\end{proposition}
+\begin{preuve}
+Poser $p=a+b$ et $q=a-b$.
+\end{preuve}
+
+% \begin{remarqueUnique}
+% \remarque On pourra retenir que si $f$ est la fonction $\sin$ ou $\cos$, on a
+%   \[f(p)-f(q)=2f'\p{\frac{p+q}{2}}\sin\p{\frac{p-q}{2}} \et
+%     f(p)+f(q)=2f\p{\frac{p+q}{2}}\cos\p{\frac{p-q}{2}}.\]
+% \end{remarqueUnique}
+
+\begin{exoUnique}
+\exo En multipliant par $\sin(x/2)$, calculer
+  \[A\defeq\sum_{k=0}^n \cos\p{kx} \et B\defeq\sum_{k=0}^n \sin^2\p{kx}.\]
+  \begin{sol}
+  Soit $n\in\N$ et $x\in\R$. On multiplie $A$ par $\sin\p{x/2}$.
+  \begin{eqnarray*}
+  \sin\left( \frac{x}{2}\right)\sum_{k=0}^n \cos(kx)
+  &=& \sum_{k=0}^n \sin\left( \frac{x}{2}\right)\cos (kx)\\
+  &=& \frac{1}{2}\sum_{k=0}^n \left(\sin \left( \frac{x}{2}+kx\right) +\sin \left( \frac{x}{2}-kx\right) \right)\\
+  &=& \frac{1}{2}\left( \sum_{k=0}^n \sin \left(kx+ \frac{x}{2}\right) -\sum_{k=0}^n \sin \left(kx- \frac{x}{2}\right)    \right)\\
+  &=& \frac{1}{2}\left( \sum_{k=1}^{n+1} \sin \left(kx- \frac{x}{2}\right) -\sum_{k=0}^n \sin \left(kx- \frac{x}{2}\right)    \right)\\
+  &=& \frac{1}{2}\left(\sin \left( \frac{(n+1)x}{2}\right) +\sin\left(  \frac{x}{2} \right) \right)\\
+  &=& \sin \left(\frac{(n+1)x}{2}\right) \cos\left( \frac{nx}{2}\right)
+  \end{eqnarray*}
+  Or $\sin(x/2)$ est nul si et seulement si $x\equiv 0\ [2\pi]$. Dans ce cas, $\cos(kx)=1$, donc 
+  $A=n+1$. En conclusion
+  \[\sum_{k=0}^n \cos\p{kx}=
+    \begin{cases}
+    \frac{\sin\p{\frac{(n+1)x}{2}}\cos\p{\frac{nx}{2}}}{\sin\p{\frac{x}{2}}}
+    & \text{si $x\not\equiv 0\ [2\pi]$}\\
+    n+1 & \text{sinon.}
+    \end{cases}\]
+  Pour le calcul de $B$, on a
+  \[\sum_{k=0}^n \sin^2\p{kx}=\frac{1}{2 } \sum_{k=0}^{n}\left( 1-\cos (2kx)\right)\]
+  donc en utilisant le résultat précédent
+  \[\sum_{k=0}^n \sin^2\p{kx}=
+    \begin{cases}
+    \frac{1}{2}\cro{\p{n+1}-\frac{\sin((n+1)x)\cos(nx)}{\sin x}} &
+      \text{si $x\not\equiv 0\ [\pi]$}\\
+    0 & \text{sinon.}
+    \end{cases}\]
+  \end{sol}
+\end{exoUnique}
+
+\begin{proposition}[utile=-3]
+Soit $x\in\R$ tel que $x\not\equiv \pi\ [2\pi]$. Alors, en posant $t\defeq\tan\p{x/2}$
+\[\cos x=\frac{1-t^2}{1+t^2} \et \sin x=\frac{2t}{1+t^2}.\]
+Si de plus, $x\not\equiv\frac{\pi}{2}\ [\pi]$, alors
+\[\tan x=\frac{2t}{1-t^2}.\]
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque Remarquons au passage que, puisque $\cos^2 x+\sin^2 x=1$, on retrouve facilement
+  \[\forall t\in\R \qsep \p{\frac{1-t^2}{1+t^2}}^2+\p{\frac{2t}{1+t^2}}^2=1.\]
+  Autrement dit
+  \[\forall t\in\R \qsep \p{t^2-1}^2+\p{2t}^2=\p{1+t^2}^2.\]
+  Cette relation nous donne, pour $t\in\N$, des triplets $\p{a,b,c}\in\N^3$ non triviaux tels que $a^2+b^2=c^2$. Par exemple, pour $t=2$, on obtient $3^2+4^2=5^2$.
+  \begin{sol}
+  En particulier, pour $t=2$ et $t=4$.
+  \end{sol}
+\end{remarqueUnique}
+
+
+\section{Récurrence linéaire}
+
+ \subsection{Récurrence linéaire d'ordre 1}
+
+Étant donné une suite $(v_n)$, on cherche à calculer le terme général d'une suite $(u_n)$ vérifiant
+\[(E) \qquad \forall n\in\N\qsep u_{n+1}=a u_n + v_n\]
+où $a\in\Ks$. Plusieurs méthodes sont disponibles.
+\begin{itemize}
+\item \emph{Méthode de la similitude}~: Si la suite $(v_n)$ est constante égale à $b\in\K$, on introduit la fonction $f:\K\to\K$ définie
+  par $f(z)\defeq az+b$.
+  \begin{itemize}
+  \item Si $a=1$, une récurrence immédiate nous montre que
+    \[\forall n\in\N\qsep u_n=u_0 + nb.\]
+  \item Sinon, $f$ admet un unique point fixe $\omega\in\K$ et, pour tout $z\in\K$, $f(z)=a(z-\omega)+\omega$.
+    On a donc
+    \[\forall n\in\N\qsep u_{n+1}-\omega=a(u_n-\omega)\]
+    et une récurrence immédiate donne
+    \[\forall n\in\N\qsep u_n = a^n(u_0-\omega) +\omega.\]
+  \end{itemize}
+\item \emph{Méthode de la sommation télescopique}~: Dans le cas où la suite $(v_n)$ n'est pas constante, on commence par remarquer que
+\[\forall k\in\N\qsep \frac{u_{k+1}}{a^{k+1}} - \frac{u_k}{a^k}=\frac{v_k}{a^{k+1}},\]
+puis on somme cette relation pour $k$ allant de 0 à $n-1$. On obtient une somme télescopique, puis
+\[\forall n\in\N\qsep \frac{u_n}{a^n}-u_0=\sum_{k=0}^{n-1} \frac{v_k}{a^{k+1}}\]
+et donc
+\[\forall n\in\N\qsep u_n=u_0 a^n + \sum_{k=0}^{n-1} v_k a^{n-(k+1)}.\]
+\item \emph{Méthode de superposition}~: On commence par chercher une solution particulière $(w_n)$ de $(E)$.
+  Par exemple, si $v_n$ est un polynôme en $n$, il est naturel de chercher une solution polynomiale en $n$.
+  Une fois qu'on a trouvé une telle solution, il suffit de remarquer que
+  \begin{eqnarray*}
+  \forall n\in\N \qsep u_{n+1}=a u_n+v_n
+  &\ssi& \forall n\in\N \qsep u_{n+1}-a u_n=v_n\\
+  &\ssi& \forall n\in\N \qsep u_{n+1}-a u_n=w_{n+1}-aw_n\\
+  &\ssi& \forall n\in\N \qsep u_{n+1}-w_{n+1}=a(u_n-w_n)\\
+  &\ssi& \exists\lambda\in\K\qsep \forall n\in\N \qsep u_n-w_n=\lambda a^n\\
+  &\ssi& \exists\lambda\in\K\qsep \forall n\in\N \qsep u_n=\lambda a^n+w_n
+  \end{eqnarray*}
+  Les solutions de $(E)$ sont donc les suites de la forme $u_n\defeq \lambda a^n+w_n$ où $\lambda\in\K$.
+  Remarquons que si l'on considère la relation de récurrence linéaire \emph{homogène} associée à $(E)$,
+  obtenue en remplaçant $v_n$ par 0
+  \[(E_H) \qquad \forall n\in\N\qsep u_{n+1}=a u_n,\]
+  alors, les solutions de $(E)$ sont obtenues en ajoutant à une solution particulière de $(E)$
+  l'ensemble des solutions de la récurrence linéaire homogène associée $(E_H)$. Cette méthode
+  se généralisera aux récurrences linéaires d'ordre quelconque.
+\end{itemize}
+
+
+
+
+% On pourra aussi utiliser le \emph{théorème de superposition} qui nous dit que si $(w_n)$ est solution particulière de $(E)$, l'ensemble des solutions s'obtient comme somme de cette solution particulière et de la solution générale de l'équation homogène associée; dans ce cas, c'est la relation de récurrence
+% \[(E_H) \qquad \forall n\in\N\qsep u_{n+1}=a u_n.\]
+% Les solutions de $(E)$ sont donc les suites de la forme
+% \[\forall n\in\N\qsep u_n\defeq \lambda a^n+w_n\]
+% où $\lambda\in\C$.
+
+\begin{exos}
+\exo Soit $a\in\R$. Calculer le $n$-ième terme de la suite $\p{u_n}$
+  définie par
+  \[u_0\defeq a \et \forall n\in\N \qsep u_{n+1}\defeq\frac{3}{2}u_n+5.\]
+  \begin{sol}
+  On trouve
+  \[\forall n\in\N \quad u_n=\p{10+a}\p{\frac{3}{2}}^n-10\]
+  \end{sol}
+\exo On considère la récurrence linéaire
+  \[(E) \quad \forall n\in\N\qsep u_{n+1}-2u_n=n^2.\]
+  \begin{questions}
+  \question Déterminer une solution polynomiale de $(E)$.
+  \question En déduire toutes les solutions.
+  \end{questions}
+  \begin{sol}
+\[u_n=-(n^2+2n+3)+\lambda 2^n\]
+  \end{sol}
+\end{exos}
+
+\subsection{Récurrence linéaire d'ordre 2}
+\begin{proposition}[utile=-3]
+Soit $a,b\in\C$. On souhaite trouver les suites $(u_n)$ vérifiant
+\[(E)\quad\forall n\in\N \qsep u_{n+2}=au_{n+1}+b u_n.\]
+On résout sur $\C$ l'équation caractéristique $z^2=az+b$.
+\begin{itemize}
+\item Si cette équation admet deux racines distinctes $r_1$ et $r_2\in\C$, alors
+  les solutions de $(E)$ sont les suites $(u_n)$ définies par
+  \[\forall n\in\N \qsep u_n\defeq\lambda r_1^n +\mu r_2^n\]
+  où $\lambda,\mu\in\C$.
+\item Si cette équation admet une racine double $r\in\Cs$, alors 
+  les solutions de $(E)$ sont les suites $(u_n)$ définies par
+  \[\forall n\in\N \qsep u_n\defeq\p{\lambda +\mu n}r^n\]
+  où $\lambda,\mu\in\C$.
+\end{itemize}
+\end{proposition}
+
+\begin{preuve}
+Soit $a,b\in\C$. On souhaite trouver les suite $(u_n)$ vérifiant
+\[(E)\quad\forall n\in\N \qsep u_{n+2}=au_{n+1}+b u_n.\]
+On commence par chercher les suites solutions de $(E)$ de la forme $(r^n)$. Soit $r\in\C$. On définit la suite $(u_n)$ par
+\[\forall n\in\N\qsep u_n\defeq r^n.\]
+Alors
+\begin{eqnarray*}
+\text{$(u_n)$ est solution de $(E)$}
+&\ssi& \forall n\in\N\qsep u_{n+2}=au_{n+1}+b u_n\\
+&\ssi& \forall n\in\N\qsep r^{n+2}=a r^{n+1}+b r^n\\
+&\ssi& \forall n\in\N\qsep r^n\p{r^2-ar-b}=0\\
+&\ssi& r^2-ar-b=0
+\end{eqnarray*}
+Dans la dernière équivalence, le sens $\Longleftarrow$ est évident, et le sens $\implique$ s'obtient en prenant $n=0$. En conclusion $(r^n)$ est solution de $E$ si et seulement si $r$ est solution de l'équation caractéristique $z^2=az+b$.
+\begin{itemize}
+\item Supposons que cette équation admette deux racines distinctes $r_1, r_2\in\C$. Montrons que les solutions $(E)$ sont les suites $(\lambda r_1^n+\mu r_2^n)$ où $\lambda,\mu\in\C$.
+\begin{itemize}
+\item Ce sont des solutions de $(E)$. En effet, soit $\lambda,\mu\in\C$ et $(u_n)$ la suite définie par
+\[\forall n\in\N\qsep u_n\defeq\lambda r_1^n+\mu r_2^n.\]
+Alors
+\begin{eqnarray*}
+\forall n\in\N\qsep u_{n+2}
+&=& \lambda r_1^{n+2} + \mu r_2^{n+2}\\
+&=& \lambda \p{a r_1^{n+1}+b r_1^n} + \mu \p{a r_2^{n+1}+b r_2^n}\\
+& & \text{car $(r_1^n)$ et $(r_2^n)$ sont solutions de $E$}\\
+&=& a\p{\lambda r_1^{n+1}+\mu r_2^{n+1}} + b\p{\lambda r_1^n + \mu r_2^n}\\
+&=& a u_{n+1}+b u_n.
+\end{eqnarray*}
+Donc $(u_n)$ est solution de $(E)$.
+\item Réciproquement, soit $(u_n)$ une solution de $(E)$. Montrons qu'il existe $\lambda,\mu\in\C$ tels que
+\[\forall n\in\N\qsep u_n=\lambda r_1^n+\mu r_2^n.\]
+Soit $\lambda,\mu\in\C$. On définit la suite $(v_n)$ par
+\[\forall n\in\N\qsep v_n\defeq\lambda r_1^n+\mu r_2^n.\]
+Alors
+\begin{eqnarray*}
+\syslin{v_0&=&u_0\cr v_1&=&u_1}
+&\ssi& \syslin{\lambda &+\mu&=&u_0\cr r_1 \lambda&+r_2 \mu&=&u_1}\\
+&\ssi& \syslin{\lambda &+\mu&=&u_0\hfill\cr &(r_2-r_1) \mu&=&u_1-r_1 u_0 \quad L_2\gets L_2-r_1 L_1}\\
+&\ssi& \syslin{\lambda&=&\frac{u_1-r_2 u_0}{r_1-r_2}\cr \mu&=&\frac{u_1-r_1 u_0}{r_2-r_1}}\\
+&    & \text{car $r_2-r_1\neq 0$.}
+\end{eqnarray*}
+On pose donc $\lambda\defeq (u_1-r_2 u_0)/(r_1-r_2)$ et $\mu\defeq(u_1-r_1 u_0)/(r_2-r_1)$. Les suites $(u_n)$ et $(v_n)$ sont donc deux solutions de $(E)$ telles que $u_0=v_0$ et $u_1=v_1$. Une récurrence montre facilement que pour tout $n\in\N$, $u_n=v_n$. On en déduit que
+\[\forall n\in\N\qsep u_n=\lambda r_1^n+\mu r_2^n.\]
+\end{itemize}
+On a donc prouvé que les solutions de $(E)$ sont les suites $(\lambda r_1^n+\mu r_2^n)$ où $\lambda,\mu\in\C$.
+\item Supposons maintenant que l'équation $z^2-az-b=0$ admette une racine double $r\in\Cs$. Puisque la somme des racines est $a$, on en déduit que $2r=a$. Montrons que les solutions de $(E)$ sont les suites $\p{(\lambda+\mu n)r^n}$ où $\lambda,\mu\in\C$.
+\begin{itemize}
+\item Ce sont des solutions de $(E)$. On sait déjà que $(r^n)$ est une solution de $(E)$. Montrons que la suite $(u_n)$ définie par
+\[\forall n\in\N\qsep u_n=n r^n\]
+en est une autre. On a
+\begin{eqnarray*}
+\forall n\in\N\qsep u_{n+2}-\p{au_{n+1}+bu_n}
+&=& (n+2)r^{n+2}-\cro{a(n+1)r^{n+1}+b n r^n}\\
+&=& r^n\cro{(n+2)r^2-(n+1)ar-bn}\\
+&=& r^n\big[\underbrace{\p{r^2-ar-b}}_{=0}n+r\underbrace{(2r-a)}_{=0}\big]\\
+&=& 0
+\end{eqnarray*}
+donc $(n r^n)$ est solution de $E$. On en déduit facilement que si $\lambda,\mu\in\C$ la suite $(\lambda r^n + \mu n r^n)$ est une solution de $(E)$.
+\item Réciproquement, soit $(u_n)$ une solution de $(E)$. Montrons qu'il existe $\lambda,\mu\in\C$ tels que
+\[\forall n\in\N\qsep u_n=(\lambda+\mu n)r^n.\]
+Soit $\lambda,\mu\in\C$. On définit la suite $(v_n)$ par
+\[\forall n\in\N\qsep v_n\defeq(\lambda+\mu n)r^n.\]
+Alors
+\begin{eqnarray*}
+\syslin{v_0&=&u_0\cr v_1&=&u_1}
+&\ssi& \syslin{\lambda & &=&u_0\cr r \lambda&+r \mu&=&u_1}\\
+&\ssi& \syslin{\lambda & &=&u_0\hfill\cr & r \mu&=&u_1-r u_0 \quad L_2\gets L_2-r L_1}\\
+&\ssi& \syslin{\lambda&=&u_0\hfill\cr \mu&=&\frac{u_1-r u_0}{r}}\\
+&    & \text{car $r\neq 0$ .}
+\end{eqnarray*}
+On pose donc $\lambda\defeq u_0$ et $\mu\defeq(u_1-r u_0)/r$. Les suites $(u_n)$ et $(v_n)$ sont donc deux solutions de $(E)$ telles que $u_0=v_0$ et $u_1=v_1$. Une récurrence montre facilement que pour tout $n\in\N$, $u_n=v_n$. On en déduit que
+\[\forall n\in\N\qsep u_n=(\lambda +\mu n)r^n.\]
+\end{itemize}
+On a donc prouvé que les solutions de $(E)$ sont les suites $((\lambda+\mu n)r^n)$ où $\lambda,\mu\in\C$.
+\end{itemize}
+ % \begin{itemize}
+% \item On se place dans le cas où l'équation caractéristique admet deux racines distinctes.
+% \begin{itemize}
+% \item[$\bullet$] Déjà, étant donné $\lambda,\mu \in\C$, on vérifie que $(v_n)$ définie par $v_n=\lambda r_1^n+\mu r_2^n$ est solution.
+% Remarquons de plus qu'on a alors $v_0=\lambda+\mu$ et $v_1=\lambda r_1+\mu r_2$, d'où $\mu=\dfrac{v_1-r_1v_0}{r_2-r_1}$ et $\lambda=\dfrac{v_1-r_2v_0}{r_1-r_2}$.
+% \item[$\bullet$] Considérons maintenant $(u_n)$ une solution.
+
+% Définissons $(v_n)$ par $v_n=\lambda r_1^n+\mu r_2^n$ avec $\lambda=\dfrac{u_1-r_2u_0}{r_1-r_2}$ et $\mu=\dfrac{u_1-r_1u_0}{r_2-r_1}$. On a alors $v_0=\lambda+\mu=u_0$ et $v_1=\lambda r_1+\mu r_1=u_1$.  De plus, d'après le premier point, $(v_n)$ est solution.
+
+% Les deux suites sont égales aux deux premiers rangs puis vérifiant la relation de récurrence linéaire d'ordre $2$ sont donc égales à tout rang.
+
+% On a montré que $(u_n)$ était du type annoncé.
+% \end{itemize}
+% \item On se place dans le cas où l'équation caractéristique admet une racine double. Dans ce cas, $r^2=-b$ et $2r=a$.
+% \begin{itemize}
+% \item[$\bullet$] Déjà, étant donné $\lambda,\mu \in\C$, on vérifie que $(v_n)$ définie par $v_n=\lambda r^n+\mu nr^n$ est solution.
+
+% En effet :
+% $$av_{n+1}+b v_n=2r(\lambda r^{n+1}+\mu (n+1)r^{n+1})-r^2(\lambda r^n+\mu nr^n)=\lambda r^{n+2}+\mu (n+2)r^{n+2}=v_{n+2}.$$
+
+% Remarquons de plus qu'on a alors $v_0=\lambda$ et $v_1=(\lambda+\mu) r$, d'où $\lambda=v_0$ et $\mu=\dfrac{v_1}{r}-v_0$.
+% \item[$\bullet$] Considérons maintenant $(u_n)$ une solution.
+
+% Définissons $(v_n)$ par $v_n=(\lambda+\mu n) r^n$ avec $\lambda=u_0$ et $\mu=\dfrac{u_1}{r}-u_0$. On a alors $v_0=\lambda=u_0$ et $v_1=(\lambda +\mu) r=u_1$.  De plus, d'après le premier point, $(v_n)$ est solution.
+
+% Les deux suites sont égales aux deux premiers rangs puis vérifiant la relation de récurrence linéaire d'ordre $2$ sont donc égales à tout rang.
+
+% On a montré que $(u_n)$ était du type annoncé.
+% \end{itemize}
+
+% \end{itemize}
+\end{preuve}
+
+
+\begin{exos}
+\exo Calculer le $n$-ième terme de la suite de \nom{Fibonacci} définie par
+  \[F_0\defeq 1, \qquad F_1\defeq 1 \et \forall n\in\N \qsep F_{n+2}\defeq F_{n+1}+F_n.\]
+  % À changer, c'était la réponse avec F_0=0
+  % \begin{sol}
+  % On trouve
+  % \[F_n=\frac{\sqrt{5}}{5}\p{\frac{1+\sqrt{5}}{5}}^n-
+  %       \frac{\sqrt{5}}{5}\p{\frac{1-\sqrt{5}}{5}}^n\]
+  % \end{sol}
+\exo Soit $\p{u_n}$ la suite définie par
+  \[u_0\defeq 1, \qquad u_1\defeq -1 \et \forall n\in\N \qsep 6u_{n+2}+5u_{n+1}-6u_n=0.\]
+  Montrer que $\p{u_n}$ diverge.
+  \begin{sol}
+  On trouve
+  \[u_n=\frac{3}{13}\p{\frac{2}{3}}^n+\frac{10}{13}\p{-\frac{3}{2}}^n\]
+  \end{sol}
+\exo Calculer le $n$-ième terme de la suite $\p{u_n}$ définie par
+  \[u_0\defeq a>0, \quad u_1\defeq b>0 \et \forall n\in\N \qsep u_{n+2}\defeq\frac{1}{u_{n+1}^2u_n}.\]
+  \begin{sol}
+  On trouve
+  \[\forall n\in\N \quad u_n=\p{u_1^n u_0^{n-1}}^{\p{-1}^{n+1}}\]
+  \end{sol}
+\end{exos}
+
+\begin{remarqueUnique}
+\remarque La suite de \nom{Fibonacci} est ainsi nommée en hommage à \nom{Leonardo Pisano} (Leonard de Pise, 1170--1240) appelé aussi \nom{Leonardo Fibonacci}, qui avait publié cette suite en 1202. Il avait lu le travail de \nom{Al-Khwarizmi} (780--850), un mathématicien Persan. Le livre de \nom{Fibonacci} contient le problème suivant. Combien de couples de lapins peuvent naître d'un couple de lapin en un an ? Pour résoudre ce problème, on sait que~:
+\begin{itemize}
+\item Jusqu'au premier mois inclus, il n'y a qu'un couple de lapins.
+\item Chaque couple de lapin donne naissance à un couple tous les mois.
+\item Chaque jeune couple devient fertile à l'âge d'un mois.
+\end{itemize}
+Avant le travail de \nom{Fibonacci}, la suite $(F_n)$ a déjà été étudiée par les Indiens qui se demandaient combien de rythmes de $n$ temps il était possible de faire avec des noires et des blanches.
+\end{remarqueUnique}
+
+\begin{proposition}[utile=-3]
+Soit $a,b\in\R$. On souhaite trouver les suites $(u_n)$ vérifiant
+\[(E) \quad \forall n\in\N \qsep u_{n+2}=au_{n+1}+b u_n.\]
+On résout sur $\C$ l'équation caractéristique $z^2=az+b$.
+\begin{itemize}
+\item Si cette équation admet deux racines réelles distinctes $r_1$ et $r_2$,
+  alors les solutions de $(E)$ sont les suites $(u_n)$ définies par
+  \[\forall n\in\N \qsep u_n\defeq\lambda r_1^n +\mu r_2^n\]
+  où $\lambda,\mu\in\R$.
+\item Si cette équation admet une racine double $r\in\Rs$,
+  alors les solutions de $(E)$ sont les suites $(u_n)$ définies par
+  \[\forall n\in\N \qsep u_n\defeq\p{\lambda +\mu n}r^n\]
+  où $\lambda,\mu\in\R$.
+\item Si cette équation admet deux racines complexes conjuguées $r\e^{\ii\omega}$ et
+  $r\e^{-\ii\omega}$, 
+  alors les solutions de $(E)$ sont les suites $(u_n)$ définies par
+  \[\forall n\in\N \qsep u_n\defeq\cro{\lambda \cos\p{\omega n}+\mu \sin\p{\omega n}}
+    r^n\]
+  où $\lambda,\mu\in\R$.
+\end{itemize}
+\end{proposition}
+
+\begin{preuve}
+Les deux premiers cas sont une conséquence de la proposition précédente. Il reste donc à traiter le cas où $\Delta<0$.
+
+L'EC admet alors deux racines conjuguées $r\e^{i\omega}$ et $r\e^{-i\omega}$. 
+
+\underline{Analyse :} Soit $(u_n)$ une solution réelle de $(E)$. D'après la proposition précédente, on peut fixer $(A,B)\in \C^2$ tels que \[\forall n\in\N, u_n=Ar^n\e^{i\omega n}+Br^n\e^{-i\omega n}=r^n\p{A\e^{i\omega n}+B\e^{-i\omega n}}.\]
+Or, $\forall n\in\N, u_n=\Re(u_n)=r^n\Re\p{A\e^{i\omega n}+B\e^{-i\omega n}}$ qui est donc de la forme $u_n)=\cro{c_1\cos\p{\omega n}+c_2\sin\p{\omega n}}r^n$.
+
+\underline{Synthèse :} Réciproquement, soit $(c_1,c_2)\in\R^2$. Définissons $(u_n)$ pour tout $n$ entier naturel par $$u_n=\p{c_1\cos\p{\omega n}+c_2\sin\p{\omega n}}r^n.$$
+On applique les formules d'Euler pour s'apercevoir que $(u_n)$ ainsi définie est bien solution de $(E)$ car de la forme des solutions de la proposition précédente.
+
+\end{preuve}
+
+\begin{remarqueUnique}
+% \remarque L'ensemble des suites réelles vérifiant cette relation de
+%   récurrence est un \Rev de dimension 2.
+\remarque Dans le cas où l'équation caractéristique admet deux racines
+  complexes conjuguées, les solutions de $(E)$ peuvent s'écrire sous la forme
+  \[\forall n\in\N \qsep u_n\defeq\lambda\sin(\omega n-\phi) r^n\]
+  où $\lambda,\phi\in\R$.
+  Lors de la recherche effective de tels coefficients, 
+  quitte à changer $\phi$ en $\phi+\pi$, on impose souvent $\lambda\in\RP$.
+\end{remarqueUnique}
+
+\begin{exos}
+\exo Soit $\p{u_n}$ la suite définie par
+  \[u_0\defeq 1\qsep u_1\defeq 0, \et \forall n\in\N \qsep u_{n+2}\defeq 2u_{n+1}-4u_n.\]
+  Déterminer les $n\in\N$ pour lesquels $u_n=0$.
+  \begin{sol}
+  On trouve
+  \[u_n=\p{\cos\p{\frac{n\pi}{3}}-\frac{\sqrt{3}}{3}\sin\p{\frac{n\pi}{3}}}2^n\]
+  Donc $u_n=0$ pour $n\equiv 1 \ [3]$
+  \end{sol}
+\exo Soit $\alpha\in\R$. Calculer le $n$-ième terme de la suite $\p{u_n}$
+  définie par
+  \[u_0,u_1 \in\R \et \forall n\in\N \qsep u_{n+2}\defeq 2\cos\p{\alpha}u_{n+1}-u_n.\]
+  \begin{sol}
+  On trouve
+  \begin{itemize}
+  \item Si $\alpha\equiv 0\ [2\pi]$, $u_n=\alpha n+\beta$.
+  \item Si $\alpha\equiv \pi\ [2\pi]$, $u_n=\p{\alpha n+\beta}\p{-1}^n$.
+  \item Sinon, $u_n=\lambda\cos\p{\alpha n}+\mu\sin\p{\alpha n}$.
+  \end{itemize}
+  \end{sol}
+% \exo Donner une base de l'ensemble des suites réelles vérifiant la relation
+%   \[\forall n\in\N \quad u_{n+3}=2u_{n+2}+u_{n+1}-2u_n\]
+%   \begin{sol}
+%   Voir que $u_{n+1}-u_n$ vérifie une récurrence linéaire d'ordre 2. On trouve
+%   $2^n,1,\p{-1}^n$.
+%   \end{sol}
+\end{exos}
+%% Exemple :
+%% 1) Suite de Fibonacci (Knuth, volume  1, page 79)
+%%    F_0=1 F_1=1 F_(n+2)=F_(n+1)+F_n
+%%    1,1,2,3,5,8,13,21,34...
+%%    - Leonardo Pisano (Leonardo de Pise) appelé aussi Leonardo Fibonacci
+%%      Publié en 1202. Il avait lu le travail de Al-Khwarizmi, 825 (Persan)
+%%      (la mot algèbre vient du titre de son oeuvre majeure : Kitab al-jabr
+%%      wa'l-muqabala) (Rules of restoring and equating)
+%%      Son livre contient le problème suivant : Combien de couples de lapins
+%%      peuvent naitre d'un couple de lapin en un an ?
+%%      Pour rédoudre ce problème, on sait que :
+%%      - chaque couple donne naissance a un couple chaque mois
+%%      - chaque couple devient fertile à l'age d'un mois
+%%      - les lapins ne meurent jamais
+%%    - Avant le travail de Fibonacci, la suite (F_n) a déjà été étudiée par les
+%%      indiens. Ils se demandaient combine de rythmes de n temps il était possible
+%%      de faire avec des noires et des blanches. Ce nombre est F_(n+1)
+%%   
+%%    Calcul du n-ième nombre de Fibonacci:
+%%    (1+sqrt(5))/2 et (1-sqrt(5))/2
+%%    On trouve F_n=(1/sqrt(5))(((1+sqrt(5))/2)^(n+1)-((1-sqrt(5))/2)^(n+1))
+
+\section{Système linéaire}
+
+
+\subsection{Système linéaire à $q$ équations et $p$ inconnues}
+
+\begin{definition}[utile=-3]
+On appelle \emph{système linéaire} à $q$ équations et $p$ inconnues tout système
+d'équations du type
+\[\syslin{a_{1,1}x_1&+a_{1,2}x_2&+\cdots&+a_{1,p}x_p&=&y_1\cr
+                   &          &       &          &\hfill\vdots\hfill&\cr
+          a_{q,1}x_1&+a_{q,2}x_2&+\cdots&+a_{q,p}x_p&=&y_q}\]
+où $a_{1,1},\ldots,a_{q,p},y_1,\ldots,y_q\in\K$ et $x_1,\ldots,x_p\in\K$ sont
+les inconnues. On dit que le système est \emph{compatible} lorsqu'il admet au moins une
+solution. On dit qu'il est \emph{incompatible} sinon.
+\end{definition}
+
+\begin{remarques}
+\remarque Pour des raisons de lisibilité, on veillera à toujours placer les inconnues
+  les unes en dessous des autres.
+\remarque L'ensemble des solutions est l'ensemble $\mathcal{S}$ des
+  $(x_1,\ldots,x_p)\in\K^p$ solution du système.
+  % \remarque Un système linéaire est composé de $q$ équations aussi appelées \emph{lignes}.
+  % Les $q$-uplets $(a_{1,j},\ldots,a_{q,j})\in\K^q$ pour $j\in\intere{1}{p}$ sont appelées
+  % \emph{colonnes}. Le $q$-uplet $(y_1,\ldots,y_q)\in\K^q$ est appelé \emph{second membre}.
+  % \remarque On dit qu'un système est \emph{homogène} lorsque son second membre est nul,
+  % c'est-à-dire lorsque $(y_1,\ldots,y_q)=(0,\ldots,0)$. Dans ce cas, le $p$-uplet
+  % $(x_1,\ldots,x_p)=(0,\ldots,0)$ est une solution triviale du système.
+  % \remarque Si $\mathcal{S}$ est un système linéaire, on appelle système linéaire homogène
+  % associé, le système obtenu en remplaçant le second membre par le $q$-uplet $(0,\ldots,0)$.
+\end{remarques}
+
+% \begin{definition}
+% On conserve les mêmes notations que la définition précédente.
+% \begin{itemize}
+% \item On dit que le système est \emph{homogène} lorsque $(y_1,\ldots,y_q)=(0,\ldots,0)$.
+% \item On appelle \emph{système homogène associé}, le système
+%   \[\syslin{a_{1,1}x_1&+a_{1,2}x_2&+\cdots&+a_{1,p}x_p&=&0\cr
+%                    &          &       &          &\hfill\vdots\hfill&\cr
+%           a_{q,1}x_1&+a_{q,2}x_2&+\cdots&+a_{q,p}x_p&=&0}\]
+%   obtenu en remplaçant les $y_i$ par $0$.
+% \end{itemize}
+% \end{definition}
+
+\begin{exoUnique}
+\exo Résoudre le système suivant par substitution, puis en utilisant la méthode du pivot
+de \nom{Gauss}.
+  \[\syslin{x&-2y&=&-4\cr
+            3x&+y&=&9.\hfill}\]
+  \begin{sol}
+  $x=2$ et $y=3$.            
+  \end{sol}
+\end{exoUnique}
+
+\begin{proposition}[utile=-3]
+Les opérations suivantes, appelées opérations élémentaires, transforment un
+système linéaire en un système linéaire équivalent.
+\begin{itemize}
+\item Changer l'ordre des équations.
+\item Changer l'ordre des inconnues.
+\item Multiplier une équation par $\mu\in\Ks$.
+\item Ajouter $\lambda$ fois (avec $\lambda\in\K$) une équation à l'une des
+  équations suivantes.
+\end{itemize}
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque En pratique, afin d'expliciter les opérations que l'on vient d'effectuer, on
+  utilisera les notations suivantes.
+\begin{itemize}
+\item $L_i\leftrightarrow L_j$ signifie qu'on a échangé les lignes $i$ et $j$.
+\item $L_i\gets \mu L_i$ signifie qu'on a multiplié la ligne $L_i$ par le coefficient $\mu$ non nul.
+\item $L_i\gets L_i + \lambda L_j$ signifie qu'on a ajouté $\lambda$ fois la ligne $L_j$ à la ligne $L_i$.
+\end{itemize}
+% \remarque Si on multiplie une ligne par $\mu= 0$, on perd l'équation correspondante et
+%   donc l'équivalence. De même, les opérations du type $L_i \gets L_j + \mu L_i$ font
+%   perdre l'équivalence lorsque $\mu=0$. Afin d'éviter de tels écueils, ces opérations
+%   sont interdites lors de la résolution d'un système linéaire.
+\end{remarqueUnique}
+
+\begin{exoUnique}
+\exo Les opérations élémentaires suivantes conservent-elles l'équivalence~?
+  \begin{itemize}
+  \item $L_1 \gets L_2$.
+  \item $L_1 \gets L_1+L_2+L_3$.
+  \item $L_1 \gets 2 L_1 + L_2$.
+  \item $L_1 \gets \alpha L_1 + \beta L_2$ où $\alpha,\beta\in\K$.
+  \item $L_1 \gets L_1+L_2$ et $L_2 \gets L_1-L_2$.
+  \end{itemize}
+\end{exoUnique}
+
+\begin{proposition}%[nom={Pivot de \nom{Gauss}}]
+L'algorithme du pivot de \nom{Gauss} permet de transformer, quitte à échanger les
+variables, un système linéaire à $q$ équations et $p$ inconnues en un système linéaire
+équivalent de la forme
+\[\syslin{a_{1,1}x_1&+a_{1,2}x_2&+\hfill&\cdots   &&+a_{1,p}x_p&=&y_1\hfill\cr
+                       & a_{2,2}x_2&+\hfill&\cdots   &&+a_{2,p}x_p&=&y_2\hfill\cr
+                       &           &\ddots&         &      &          &=&
+      \ \vdots\hfill\cr
+                       &           &      &a_{r,r}x_r&+\cdots&+a_{r,p}x_p&=&y_r\hfill\cr
+                       &           &      &          &       &          0&=&y_{r+1}\hfill\cr
+                       &           &      &          &       &          \vdots\,&=&\ \vdots\hfill\cr
+                       &           &      &          &       &          0&=&y_{q}\hfill}\]
+où $a_{1,1},\ldots,a_{r,r}$ sont tous non nuls. On dit d'un tel système
+qu'il est \emph{échelonné à pivots diagonaux}.
+\begin{itemize}
+\item Le système est compatible si et seulement si $(y_{r+1},\ldots,y_q)=(0,\ldots,0)$.
+\item Le système admet une unique solution si et seulement si il est compatible et
+  $r=p$.
+\end{itemize}
+\end{proposition}
+
+\begin{exos}
+\exo Résoudre les systèmes
+  \[\syslin{5x&+y&=&1\hfill\cr
+            11x&+2y&=&3,} \qquad
+    \syslin{2x&+3y&=&1\hfill\cr
+            5x&+2y&=&1.}\]
+  \begin{sol}
+  On trouve $x=1$ et $y=-4$ pour le premier, $x=1/11$ et $y=3/11$ pour le
+  second.           
+  \end{sol}
+\exo Soit $\alpha\in\R$. Résoudre le système
+  \[\syslin{x&+y&-z&=&1\hfill\cr
+            2x&+y&+2z&=&2\hfill\cr
+            3x&+2y&+z&=&\alpha.}\]
+  \begin{sol}
+  Si $\alpha\neq 3$,, il n'y a pas de solution. si $\alpha=3$, on trouve
+  $x=1-3t$, $y=4t$, $z=t$.          
+  \end{sol}
+\end{exos}
+
+% \begin{definition}[utile=-3]
+% On dit qu'un système linéaire à $q$ équations et $p$ inconnues est triangulaire
+% lorsqu'il est de la forme~:
+% \[\syslin{a_{1,1}x_1&+a_{1,2}x_2&+\hfill&\cdots   &&+a_{1,p}x_p&=&y_1\cr
+%                    & a_{2,2}x_2&+\hfill&\cdots   &&+a_{2,p}x_p&=&y_2\cr
+%                    &           &\ddots&         &      &          &=&
+%   \ \vdots\hfill\cr
+%                    &           &      &a_{q,q}x_q&+\cdots&+a_{q,p}x_p&=&y_q}\]
+% où les $a_{1,1},a_{2,2},\ldots,a_{q,q}$ sont tous non nuls.
+% \end{definition}
+
+
+
+% \begin{proposition}[utile=-3]
+% À l'aide d'opérations élémentaires, il est possible de transformer tout
+% système linéaire en un système triangulaire équivalent.
+% \end{proposition}
+
+\begin{remarques}
+\remarque Voici une présentation détaillée de l'algorithme du Pivot de \nom{Gauss}.
+  \begin{itemize}
+  \item \emph{On transforme le système en un système échelonné}.\\
+  On commence par déterminer un coefficient $a_{i,j}$ non nul que l'on appelle \emph{pivot}.
+  Très souvent $a_{1,1}$ conviendra, mais il est encore plus pratique pour la suite des
+  calculs si ce coefficient est $\pm 1$. En effectuant un échange de lignes et
+  d'inconnues, on \og remonte \fg ensuite ce coefficient en haut à gauche du
+  système. On se retrouve donc dans le cas où $a_{1,1}\neq 0$.
+  On utilise alors $a_{1,1}$ comme
+  pivot pour éliminer l'inconnue $x_1$ des $q-1$ dernières lignes du système~:
+    \[\syslin{a_{1,1}x_1&+a_{1,2}x_2&+\cdots&+a_{1,p}x_p&=&y_1\cr
+              a_{2,1}x_1&+a_{2,2}x_2&+\cdots&+a_{2,p}x_p&=&y_2\cr
+                       &          &       &          &\hfill\vdots\hfill&\cr
+              a_{q,1}x_1&+a_{q,2}x_2&+\cdots&+a_{q,p}x_p&=&y_q} \quad\ssi\quad
+    \syslin{a_{1,1}'x_1&+a_{1,2}'x_2&+\cdots&+a_{1,p}'x_p&=&y_1'\hfill\cr
+                       &a_{2,2}'x_2&+\cdots&+a_{1,p}'x_p&=&y_2'\hfill\cr
+                       &          &       &          &\hfill\vdots\hfill&\cr
+                       &a_{q,2}'x_2&+\cdots&+a_{q,p}'x_p&=&y_q'.\hfill}\]
+    Pour cela, il suffit d'effectuer les opérations suivantes~:
+    \[L_2\gets L_2-\frac{a_{2,1}}{a_{1,1}}\cdot L_1, \qquad 
+      L_3\gets L_3-\frac{a_{3,1}}{a_{1,1}}\cdot L_1, \qquad\ldots\qquad
+      L_q\gets L_q-\frac{a_{q,1}}{a_{1,1}}\cdot L_1.\]
+
+    On recommence ensuite le même procédé sur les $q-1$ dernières équations du système,
+    en ne touchant plus à la première ligne. On cherche d'abord un coefficient
+    $a_{i,j}'$ non nul pour lequel $i\geq 2$ et $j\geq 2$. Si un tel coefficient existe,
+    un échange de lignes et d'inconnues permet de se ramener
+    au cas où $a_{2,2}'\neq 0$ et de continuer l'algorithme.
+    On réitère le procédé jusqu'à ce qu'on ne soit plus capable de trouver de
+    pivot. Le système est alors échelonné.
+    Au cours du calcul, s'il apparaît l'équation $0=0$, on l'élimine du système. Si au
+    contraire il apparaît l'équation $0=b$ avec $b\neq 0$, le système n'admet aucune solution et la
+    résolution est terminée.
+  \item \emph{On introduit les paramètres $t_k$}.\\
+    Dans le cas où le système admet au moins une solution, on aboutit à un système
+    de la forme
+    \[\syslin{a_{1,1}''x_1&+a_{1,2}''x_2&+\hfill&\cdots   &&+a_{1,p}''x_p&=&y_1''\cr
+                       & a_{2,2}''x_2&+\hfill&\cdots   &&+a_{2,p}''x_p&=&y_2''\cr
+                       &           &\ddots&         &      &          &=&
+      \ \vdots\hfill\cr
+                       &           &      &a_{r,r}''x_r&+\cdots&+a_{r,p}''x_p&=&y_r''}\]
+    où les $a_{1,1}'',a_{2,2}'',\ldots,a_{r,r}''$ sont tous non nuls.
+    Afin de paramétrer l'ensemble des solutions, on remarque que ce dernier système est
+    équivalent au système triangulaire
+    \[\exists t_{r+1},\ldots,t_p\in\K \qsep
+      \syslin{a_{1,1}''x_1&+a_{1,2}''x_2&+\hfill& &\cdots   & &+a_{1,p}''x_p&=&y_1''\hfill\cr
+                       & a_{2,2}''x_2&+\hfill&  &\cdots   &&+a_{2,p}''x_p&=&y_2''\hfill\cr
+                       &           &\ddots&     &    &      &          &=&
+      \ \vdots\hfill\cr
+                       &           &      &a_{r,r}''x_r&+\cdots& &+a_{r,p}''x_p&=&y_r''\hfill\cr
+                       &           &      &           &x_{r+1}& & &=&t_{r+1}\hfill\cr
+                       &           &      &           &  &\ddots&&=&\ \vdots\hfill\cr
+                       &           &      &           &  & &x_p&=&t_p.\hfill}\]    
+    En effet, si $\p{x_1,\ldots,x_p}$ est solution de ce dernier système, on obtient le
+    système précédent en ne gardant que les $r$ premières lignes.
+    Réciproquement, si $\p{x_1,\ldots,x_p}$ est solution du système échelonné,
+    on obtient ce dernier système en posant $t_{r+1}\defeq x_{r+1},\ldots,t_p\defeq x_p$.
+  \item \emph{On résout le système triangulaire}.\\
+    Ce dernier système se résout simplement en remontant les calculs de la
+    dernière ligne à la première, par substitution. On obtient ainsi le système équivalent
+    \[\exists t_{r+1},\ldots,t_p\in\K \qsep
+      \syslin{x_1&=&c_1&+d_{1,r+1}t_{r+1}&+\cdots&+d_{1,p}t_p\cr
+            \vdots\ &=&\vdots\ & & &\vdots\ \cr
+              x_r&=&c_r&+d_{r,r+1}t_{r+1}&+\cdots&+d_{r,p}t_p\cr
+              x_{r+1}&=& & t_{r+1}& &\cr
+              \vdots\ &=& & &\ddots &\cr
+              x_p&=& & & &t_p}\]
+    qui est un \emph{paramétrage} de l'ensemble des solutions.\\
+    Remarquons que lorsque les calculs
+    sont complexes, au lieu de résoudre directement le système triangulaire par
+    substitution, on peut aussi effectuer un pivot de \nom{Gauss} \og à l'envers \fg
+    en commençant par éliminer les $x_p$ des $p-1$ premières équations avec la dernière ligne, puis
+    en éliminant les $x_{p-1}$ des $p-2$ premières équations avec l'avant-dernière ligne,
+    etc.
+  \end{itemize}    
+\remarque Lorsqu'on applique l'algorithme du pivot de \nom{Gauss}, on est libre de
+  choisir le pivot que l'on souhaite. La seule contrainte est qu'il soit non nul.
+  L'expérience montre cependant que certains choix sont plus judicieux que d'autres, car
+  ils conduisent à des calculs plus simples.\\
+  Par exemple, un pivot égal à 1 est idéal car les opérations sur les lignes sont réduites à $L_i \gets L_i - a_{i,1} L_1$. On évite ainsi les divisions, ce qui offre de nombreux avantages. Par exemple, lorsque les coefficients du système sont entiers, ils le restent après réduction du système. Dans le même ordre d'idées, avant de choisir le pivot,
+  lorsque les coefficients d'une même ligne sont des multiples d'un entier $a\in\Zs$, il est bon de simplifier cette ligne par $a$.\\
+  Enfin, lorsque les coefficients du système dépendent d'un paramètre $\alpha$, il toujours préférable d'utiliser un pivot ne dépendant pas de $\alpha$. Cette stratégie permet d'éviter de discuter les cas où ce terme peut s'annuler, et limite la propagation de ce paramètre à tous les autres coefficients du système.
+\remarque On montrera plus tard que l'entier $r$ est indépendant du choix des pivots.
+  On l'appelle \emph{rang} du système. Dans le cas où le système est compatible, en posant $d\defeq p-r$, on remarque
+  que l'ensemble des solutions est paramétré par les $d$ coefficients $t_{r+1},\ldots,t_p$.
+  En physique ou en sciences industrielles, on dit
+  que l'ensemble des solutions admet $d$ degrés de liberté. Par exemple,
+  si $d=1$, l'ensemble des solutions est une droite affine. Si $d=2$, l'ensemble des
+  solutions est un plan affine. Le fait que $p=d+r$ est un résultat que nous
+  retrouverons dans le cours d'algèbre linéaire sous le nom de \emph{théorème du rang}.
+% \remarque Enfin, il est parfois pratique dans les calculs d'omettre le nom des variables. On utilise ce qu'on appelle une \og matrice augmentée \fg.
+% \begin{eqnarray*}
+% \forall x,y\in\R\qsep \syslin{x&+2y&=&1\hfill\cr
+%             x&+3y&=&4}
+% &\ssi& \begin{pmatrix}[cc|c]
+%   1 & 2 & 1\\
+%   1 & 3 & 4
+% \end{pmatrix}\\
+% &\ssi& \begin{pmatrix}[cc|c]
+%   1 & 2 & 1\\
+%   0 & 1 & 3 
+% \end{pmatrix}
+% \begin{matrix}
+% \\
+% L_2\gets L_2-L_1
+% \end{matrix}\\
+% &\ssi& \begin{pmatrix}[cc|c]
+%   1 & 0 & -5\\
+%   0 & 1 & 3 
+% \end{pmatrix}
+% \begin{matrix}
+% L_1\gets L_1-2L_2\\
+% \,
+% \end{matrix}\\
+% &\ssi& \syslin{x&=&-5\hfill\cr
+%         y&=&3.\hfill}
+% \end{eqnarray*}
+% Cette technique à l'avantage d'écrire le minimum nécessaire et de vous obliger à aligner les coefficients les uns au dessus des autres. Son seul inconvénient est de rendre difficile le changement de l'ordre des variables qui peut parfois être pratique pour trouver un bon pivot.
+\end{remarques}
+
+\begin{exoUnique}
+\exo Discuter et résoudre les systèmes suivants, selon la valeur de
+  $\alpha\in\R$~:
+  \[\syslin{-3a&+\alpha b& & &=&0\hfill\cr
+            -3a&-b&+2\alpha c& &=&0\hfill\cr
+               &-2b&+c&+3\alpha d&=&0\hfill\cr
+               &   &-c&+3d&=&0,} \qquad
+    \syslin{a&+b&+c&+d&=&3\hfill\cr
+            a&+\alpha b&+c&-\alpha d&=&\alpha+2\hfill\cr
+            \alpha a&-b&-\alpha c&-\alpha d&=&-1.\hfill}\]
+  \begin{sol}%
+  Pour la première, si $\alpha\neq 1$, la seule solution est la solution nulle.
+  Sinon les solutions sont données par $a=t$, $b=3t$, $c=3t$, $d=t$ avec
+  $t\in\R$.\\
+  Pour la seconde, si $\alpha\neq 0$ et $\alpha\neq 1$, on a
+  \[a=1-\frac{\alpha+1}{2\alpha}t, \quad b=1+\frac{\alpha+1}{\alpha-1}t, \quad
+    c=1-\frac{3\alpha^2+1}{2\alpha\p{\alpha-1}}t, \quad d=t\]
+  Si $\alpha=0$, les solutions sont
+  \[a=2-t, \quad b=1, \quad c=t, \quad d=0\]
+  Si $\alpha=1$, les solutions sont
+  \[a=1, \quad b=2-t, \quad c=t, \quad d=0\]
+  \end{sol}
+\end{exoUnique}
+
+\begin{remarques}
+\remarque Il est parfois pratique dans les calculs d'omettre le nom des variables. On
+  utilise alors ce qu'on appelle une \emph{matrice augmentée}.
+\begin{eqnarray*}
+\syslin{x&+2y&=&1\hfill\cr
+            x&+3y&=&4}
+&\ssi& \begin{pmatrix}[cc|c]
+  1 & 2 & 1\\
+  1 & 3 & 4
+\end{pmatrix}\\
+&\underset{L_2\gets L_2-L_1}{\ssi}& \begin{pmatrix}[cc|c]
+  1 & 2 & 1\\
+  0 & 1 & 3 
+\end{pmatrix}
+\\
+&\underset{L_1\gets L_1-2L_2}{\ssi}& \begin{pmatrix}[cc|c]
+  1 & 0 & -5\\
+  0 & 1 & 3 
+\end{pmatrix}
+\\
+&\ssi& \syslin{x&=&-5\hfill\cr
+        y&=&3.\hfill}
+\end{eqnarray*}
+Cette technique a l'avantage d'écrire le minimum nécessaire et de vous obliger à aligner
+les coefficients les uns au-dessus des autres. Son seul inconvénient est de rendre
+impossible le changement d'ordre des inconnues.
+\remarque L'échange des inconnues étant impossible, il arrive que cette méthode nous 
+  empêche de réduire le système à un système échelonné à pivots diagonaux.
+  On se contente donc d'un \emph{système échelonné}, c'est-à-dire
+  un système où chaque ligne commence par un nombre de zéros strictement supérieur à
+  celui de la ligne précédente, comme dans l'exemple suivant
+  \[\begin{pmatrix}[cccc|c]
+    a_{1,1} & \star &   \star &   \star & \star \\
+          0 &     0 & a_{2,3} &   \star & \star \\
+          0 &     0 &       0  & a_{3,4} & \star
+  \end{pmatrix}\]
+  où $a_{1,1}, a_{2,3}$ et $a_{3,4}$ sont des coefficients non nuls qu'on appelle encore
+  \emph{pivots}.
+  On réintroduit ensuite les inconnues, avant de les réordonner
+  pour obtenir un système échelonné à pivots diagonaux et finir la résolution
+  du système.
+\end{remarques}
+
+\begin{definition}
+On considère un système linéaire à $q$ équations et $p$ inconnues.
+\[(E) \qquad \syslin{a_{1,1}x_1&+a_{1,2}x_2&+\cdots&+a_{1,p}x_p&=&y_1\cr
+                    &          &       &          &\hfill\vdots\hfill&\cr
+          a_{q,1}x_1&+a_{q,2}x_2&+\cdots&+a_{q,p}x_p&=&y_q}\]
+\begin{itemize}
+\item On dit qu'il est \emph{homogène} lorsque $(y_1,\ldots,y_q)=(0,\ldots,0)$.
+\item On appelle \emph{système linéaire homogène} associé à $(E)$, le système obtenu en
+  remplaçant les $y_i$ par $0$.
+\end{itemize}
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque Le $p$-uplet $(x_1,\ldots,x_p)=(0,\ldots,0)$ est toujours solution d'un système homogène. On dit
+  que c'est la \emph{solution triviale}. Il est possible que ce soit la seule solution
+  ou qu'il y en ait d'autres.
+\end{remarqueUnique}
+
+% \begin{proposition}
+% Soit $(E)$ un système linéaire à $n$ équations et $n$ inconnues. On suppose que la solution
+% triviale est l'unique solution du système linéaire homogène associé. Alors
+% $(E)$ admet une et une seule solution.
+% \end{proposition}  
+
+% \begin{remarqueUnique}
+% \remarque Cette proposition est utile pour résoudre des systèmes linéaires
+%   possèdant des symétries. En effet, l'algorithme du pivot de \nom{Gauss} a
+%   l'énorme inconvénient de casser ces symétries. On procède donc en effectuant une 
+%   analyse. Cette proposition permet d'éviter la synthèse.
+% \end{remarqueUnique}
+
+% \begin{exoUnique}
+% \exo Soit $a,b,c\in\C$. Résoudre le système
+%     \[\syslin{x&+y&+z&=&a\hfill\cr
+%             x&+\jj y&+\jj^2 z&=&b\hfill\cr
+%             x&+\jj^2 y&+ \jj z&=&c.}\]
+% \end{exoUnique}
+
+
+\subsection{Interprétation géométrique lorsque $p=2$ ou $p=3$}
+
+Dans cette partie, nous allons donner une interprétation géométrique des résultats précédents aux cas $p=2$ et $p=3$. Commençons par le cas $p=2$. On munit le plan d'un repère orthonormé $\mathcal{R}=(O,\ve{e_1},\ve{e_2})$. On rappelle qu'un point $M$ du plan est déterminé de manière unique par ses coordonnées $(x,y)\in\R^2$ définies par \[\ve{OM}=x\ve{e_1}+y\ve{e_2}.\]
+
+\begin{proposition}
+\begin{itemize}
+\item Soit $(a,b,c)\in\R^3$ tel que $(a,b)\neq(0,0)$. Alors l'ensemble d'équation $ax+by=c$ est une droite $\mathcal{D}$ de vecteur normal $\ve{u}$ de coordonnées $(a,b)$.
+\item Réciproquement, soit $\mathcal{D}$ une droite de vecteur normal $\ve{u}$ de coordonnées $(a,b)$. Alors, il existe $c\in\R$ tel que $ax+by=c$ est une équation de $\mathcal{D}$.
+\end{itemize}
+\end{proposition}
+
+\begin{preuve}
+On fait le lien avec le produit scalaire. 
+\end{preuve}
+
+Résoudre un système linéaire à $q$ équations et 2 inconnues $x$ et $y$ dont chaque ligne contient un coefficient non nul revient donc à déterminer l'intersection de $q$ droites du plan. Le cas où $q=2$ est important.
+\begin{itemize}
+\item Si les droites $\mathcal{D}_1$ et $\mathcal{D}_2$ ne sont pas parallèles, alors elles se coupent en un unique point. Le système admet donc une unique solution.
+\item Si les droites $\mathcal{D}_1$ et $\mathcal{D}_2$ sont parallèles, deux cas se présentent.
+\begin{itemize}
+\item Si elles ne sont pas confondues, elles ne se coupent pas. Le système n'admet donc aucune solution.
+\item Si elles sont confondues, le système admet une infinité de solutions. Ce sont les coordonnées des points de cette droite.
+\end{itemize}
+\end{itemize}
+
+% \begin{proposition}
+% Le système linéaire
+% \[\syslin{
+% a_1 x&+y_1 y&=&c_1\cr
+% a_2 x&+y_2 y&=&c_2}\]  
+% admet une unique solution si et seulement si son déterminant
+% \[\begin{vmatrix}
+% a_1 & y_1\\
+% a_2 & y_2
+% \end{vmatrix}=a_1 y_2 - a_2 y_1\]
+% est non nul.
+% \end{proposition}
+
+Pour obtenir une interprétation géométrique du cas $p=3$, on munit l'espace d'un repère orthonormé \[\mathcal{R}=(O,\ve{e_1},\ve{e_2},\ve{e_3}).\] On rappelle qu'on point $M$ de l'espace est déterminé de manière unique par ses coordonnées $(x,y,z)\in\R^3$ définies par \[\ve{OM}=x\ve{e_1}+y\ve{e_2}+z\ve{e_3}.\]
+
+\begin{proposition}
+\ 
+\begin{itemize}
+\item Soit $(a,b,c,d)\in\R^4$ tel que $(a,b,c)\neq(0,0,0)$. Alors l'ensemble d'équation $ax+by+cz=d$ est un plan $\mathcal{P}$ de vecteur normal $\ve{u}$ de coordonnées $(a,b,c)$.
+\item Réciproquement, soit $\mathcal{P}$ un plan de vecteur normal $\ve{u}$ de coordonnées $(a,b,c)$. Alors, il existe $d\in\R$ tel que $ax+by+cz=d$ est une équation de $\mathcal{P}$.
+\end{itemize}
+\end{proposition}
+
+Résoudre un système linéaire à $q$ équations et 3 inconnues $x$, $y$ et 
+$z$ dont chaque ligne contient un coefficient non nul revient donc à déterminer l'intersection de $q$ plans dans l'espace. Le cas où $q=3$ est important.
+\begin{itemize}
+\item Si le rang du système est égal à 3, les 3 plans s'intersectent en un unique point.
+\item S'il est strictement inférieur à 3 et que le système n'est pas compatible, l'intersection des plans est vide. Sinon~:
+\begin{itemize}
+\item Soit le rang est égal à 2 et l'intersection des 3 plans est une droite.
+\item Soit le rang est égal à 1 et l'intersection des 3 plans est un plan.
+\end{itemize} 
+\end{itemize}
+
+% \subsection{Résolution numérique d'un système linéaire}
+
+% La méthode du pivot de \nom{Gauss} est utilisée pour résoudre des systèmes de Cramer de manière numérique. Dans ce cas, les coefficients du système sont représentés par des nombres flottants. Nous verrons que la puissance des ordinateurs actuels permettent de résoudre en un temps raisonnable des systèmes possédant jusqu'à $10\,000$ équations et $10\,000$ inconnues. De manière générale, deux questions se posent quant à la résolution d'un système linéaire à $n$ équations et $n$ inconnues.
+% \begin{itemize}
+% \item Est-ce qu'un ordinateur est capable de résoudre le système dans un temps raisonnable~?
+% \item Peut-on faire confiance au résultat trouvé par l'ordinateur~?\end{itemize}
+% On peut répondre à la première question par un calcul de complexité. La seconde question nécessite une preuve de stabilité numérique qui est en dehors du cadre des classes préparatoires. Nous allons cependant donner quelques réponses à cette question.\\
+
+% Commençons par le calcul de complexité. Avant toute chose, il est essentiel de savoir si l'ensemble des coefficients du système tient dans la mémoire de l'ordinateur. Pour des raisons de stabilité numérique, on travaille le plus souvent avec des nombres flottants de 64 bits. Chaque nombre flottant occupe donc 8 octets. Le système étant composé de $n^2$ coefficients, il occupe $8 n^2$ octets dans la mémoire de l'ordinateur. Pour $n=10\,000$, cela représente de l'ordre de $0.8$~Go et rentre aisément dans la mémoire vive (RAM) d'un ordinateur personnel. Cependant, pour $n=100\,000$, la taille du système approche 1~To et rentre difficilement dans la mémoire vive des ordinateurs les plus puissants. Pour des raisons de complexité spatiale, il est donc utopique de chercher à résoudre des systèmes ayant plusieurs centaines de milliers d'inconnues.\\
+% Intéressons nous maintenant à la complexité temporelle de la méthode du pivot de Gauss, c'est-à-dire au nombre d'opérations élémentaires sur les nombres flottants qu'elle nécessite. Tout d'abord, on cherche à déterminer le nombre d'opérations nécessaires à l'élimination de la première inconnue. Pour des raisons de stabilité numérique, il est préférable de chercher pour pivot, non pas un coefficient quelconque non nul, mais plutôt le coefficient ayant la valeur absolue la plus grande possible. Cette stratégie, appelée méthode du pivot total, nécessite de faire une recherche parmi $n^2$ coefficients. Pour des raisons de performance, on utilise le plus souvent la méthode du pivot partiel qui consiste à chercher pour pivot le coefficient de la première colonne ayant la plus grande valeur absolue. Cette stratégie nécessite de faire une recherche parmi $n$ éléments. Si tous ces coefficients sont nuls, le système n'est pas de \nom{Cramer} et la résolution du système peut s'arrêter. Sinon, nous procédons ensuite à l'élimination. Pour chaque ligne $i$ entre 2 et $n$, il est nécessaire de calculer $\alpha_i\defeq a_{i,1}\cdot(1/a_{1,1})$, remplacer les $n-1$ coefficients $a_{i,j}$ par $a_{i,j} - \alpha_i a_{1,j}$ et remplacer les $y_i$ par $y_i- \alpha_i y_1$. On doit donc effectuer au total une division, $n(n-1)$ additions et $n(n-1)$ multiplications. Bien qu'une division de deux nombres flottants est 10 fois plus lente qu'une addition ou une multiplication, le temps passé à effecter cette division est négligeable devant le temps passé à faire les additions et les multiplications. On ne retiendra donc que ces opérations. Afin de réduire le système à un système échelonné, il est nécessaire d'effectuer cette élimination avec des systèmes de taille $n,n-1,\ldots,2$. Comme
+% \[\sum_{k=2}^{n} k \approx \frac{1}{2}n^2 \et \sum_{k=2}^n k(k-1) \approx \frac{1}{3}n^3,\]
+% on en déduit que pour réduire un système de Cramer à un système échelonné, la méthode du pivot partiel nécessite de faire des recherches parmi $(1/2)n^2$ éléments et d'effectuer $(1/3)n^3$ additions et $(1/3)n^3$ multiplications. Pour terminer la résolution, les opérations de substitutions nécessitent de l'ordre de $(1/2)n^2$ additions et $(1/2)n^2$ multiplications et sont donc négligeables devant les opérations précédentes. Les temps passé lors de la recherche des pivots est donc négligeable devant le temps passé à effectuer des additions et des multiplications. On retiendra que la résolution du système est limitée en temps par le calcul de $(1/3)n^3$ additions et $(1/3)n^3$ multiplications sur les nombres flottants, soit $(2/3)n^3$ opérations élémentaires. Le processeur actuel d'un ordinateur portable (2 GHz, 8 coeurs, unités vectorielles de 256 bits) peut effectuer de l'ordre de 200 milliards opérations sur les nombres flottants par seconde (200 GFlops). Si $n=10\,000$, il faudra quelques secondes pour résoudre un tel système. Même si on avait assez de mémoire, pour $n=100\,000$, il faudrait près d'une heure pour résoudre un tel système.\\
+% En conclusion, les machines actuelles sont limitées à la résolution de systèmes de \nom{Cramer} à quelques dizaines de milliers de variables. Cette limitation est dûe à la fois à la taille de leur mémoire vive (RAM) et à la puissance de leurs processeurs.\\
+
+% Il se pose désormais la question de la confiance que l'on peut accorder aux résultats donnés par l'ordinateur. Comme on le sait, les additions et les multiplications sur les nombres flottants ne sont pas exactes et des erreurs d'arrondis vont se propager lors de la résolution numérique du système linéaire. Remarquons tout d'abord que ces erreurs d'arrondi peuvent rendre non nul des coefficients qui auraient dû l'être. La méthode du pivot de Gauss va donc presque toujours trouver que le système est de rang $n$ même si ce n'est pas le cas. Elle trouvera donc presque toujours une unique solution même si le système n'en n'a pas ou en a une infinité. Et même si le système admet une unique solution, le confiance que l'on peut avoir dans le résultat est relative. Une analyse de stabilité numérique montre que~:
+% \begin{itemize}
+% \item Si on remplace les inconnues $x_1,\ldots,x_n$ dans le système par les solutions calculées par la méthode du pivot partiel, on obtiendra (presque toujours) un résultat proche des $y_i$.
+% \item Cependant, même pour des valeurs raisonnables de $n$ (par exemple $n=20$), il est possible que les valeurs des $x_j$ soient très éloignées des valeurs exactes de la solution. On dit dans ce cas que le système est \emph{mal conditionné}.
+% \end{itemize} 
+% Autrement dit la solution calculée numériquement par la méthode du pivot de \nom{Gauss} est la solution exacte d'un problème proche de notre problème initial.  Cependant, si le système est mal conditionné, il est possible que cette solution soit très éloignée de la solution exacte.
+% Remarquons enfin que si nous n'adoptons pas la stratégie du pivot partiel et que nous choisissons pour pivot le premier coefficient non nul que nous trouvons, aucune garantie ne peut être apportée sur la solution trouvée, même pour $n=2$.
+%END_BOOK
+
+\end{document}
+
+

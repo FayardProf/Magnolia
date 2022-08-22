@@ -1,0 +1,807 @@
+\documentclass{magnolia}
+
+
+\magtex{tex_driver={pdftex},
+        tex_packages={xypic}}
+\magfiche{document_nom={Cours sur les fonctions de plusieurs variables},
+          auteur_nom={François Fayard},
+          auteur_mail={fayard.prof@gmail.com}}
+\magcours{cours_matiere={maths},
+          cours_niveau={mpsi},
+          cours_chapitre_numero={24},
+          cours_chapitre={Fonctions de deux variables}}
+\magmisenpage{}
+\maglieudiff{}
+\magprocess
+
+\begin{document}
+
+%BEGIN_BOOK
+\magtoc
+
+\section{Limite, continuité}
+
+
+
+\subsection{Notion d'ouvert}
+
+\begin{definition}
+On note $\norme{.}$ la norme dérivant du produit scalaire usuel sur $\R^2$.
+On rappelle que
+\begin{eqnarray*}
+\forall x\in\R^2, & & \norme{x}\geq 0\\
+\forall x\in\R^2, & & \norme{x}=0 \ssi x=\p{0,0}\\
+\forall x\in\R^2 \qsep \forall \lambda\in\R, & &
+        \norme{\lambda x}=\abs{\lambda}\norme{x}\\
+\forall x,y\in\R^2, & & \norme{x+y}\leq\norme{x}+\norme{y}\\
+\forall x,y\in\R^2, & & \abs{\norme{x}-\norme{y}}\leq\norme{x-y}
+\end{eqnarray*}
+\end{definition}
+
+\begin{proposition}
+\begin{eqnarray*}
+\forall \p{x_1,x_2}\in\R^2, & & \abs{x_1}\leq\norme{\p{x_1,x_2}} \et 
+       \abs{x_2}\leq\norme{\p{x_1,x_2}}\\
+\forall \p{x_1,x_2}\in\R^2, & & \norme{\p{x_1,x_2}}\leq\abs{x_1}+\abs{x_2}
+\end{eqnarray*}
+\end{proposition}
+
+\begin{definition}
+Soit $x_0\in\R^2$ et $r>0$.
+\begin{itemize}
+\item On appelle \emph{boule ouverte} de centre $x_0$ et de rayon $r$ l'ensemble
+  \[B_O\p{x_0,r}\defeq\enstq{x\in\R^2}{\norme{x-x_0}<r}.\]
+\item On appelle \emph{boule fermée} de centre $x_0$ et de rayon $r$ l'ensemble
+  \[B_F\p{x_0,r}\defeq\enstq{x\in\R^2}{\norme{x-x_0}\leq r}.\]
+\end{itemize}
+\end{definition}
+
+\begin{definition}
+On dit qu'une partie $\mathcal{U}$ de $\R^2$ est un \emph{ouvert} lorsque
+\[\forall x\in\mathcal{U} \qsep \exists \eta>0 \qsep
+  B_F\p{x,\eta} \subset \mathcal{U}.\]
+\end{definition}
+
+\begin{proposition}
+$\quad$
+\begin{itemize}
+\item $\emptyset$ et $\R^2$ sont des ouverts.
+\item Une union d'ouverts est un ouvert.
+\item Une intersection finie d'ouverts est un ouvert.
+\end{itemize}
+\end{proposition}
+
+\begin{proposition}
+$\quad$
+\begin{itemize}
+\item Les boules ouvertes sont des ouverts.
+\item Si $ax+by+c=0$ est l'équation d'une droite, le demi-plan d'équation
+  \[ax+by+c>0\]
+  est un ouvert.
+\item Si on enlève un nombre fini de points à un ouvert, il reste ouvert.
+\end{itemize}
+\end{proposition}
+
+\begin{exoUnique}
+\exo Soit $x_0\in\R^2$. Montrer que
+  \[\bigcap_{n\in\Ns} B_O\p{x_0,\frac{1}{n}}\]
+  n'est pas un ouvert.
+\end{exoUnique}
+
+\begin{definition}
+Soit $\mathcal{U}$ une partie de $\R^2$ et $a\in\R^2$. On dit que $a$ est
+\emph{adhérent} à $\mathcal{U}$ lorsque
+\[\forall\epsilon>0 \qsep B_F\p{a,\epsilon}\cap\mathcal{U}\neq\emptyset.\]
+\end{definition}
+
+\begin{exoUnique}
+\exemple Soit $x_0\in\R^2$ et $r>0$. Montrer que l'ensemble des points adhérents à
+  la boule ouverte de centre $x_0$ et de rayon $r$ est la boule fermée de
+  même centre et de même rayon.
+\end{exoUnique}
+
+
+\begin{definition}
+On appelle \emph{fonction réelle de deux variables} toute fonction définie sur une
+partie ouverte $\mathcal{U}$ de $\R^2$ à valeurs dans $\R$.
+\end{definition}
+
+\subsection{Limite}
+
+
+
+\begin{definition}
+Soit $f:\mathcal{U}\subset\R^2\to\R$ et $a\in\R^2$ un point adhérent à $\mathcal{U}$.
+\begin{itemize}
+\item Soit $l\in\R$. On dit que $f(x)$ \emph{tend} vers $l$ lorsque $x$ tend
+  vers $a$ lorsque
+  \[\forall \epsilon>0 \qsep \exists \eta>0 \qsep \forall x\in\mathcal{U}
+    \qsep \norme{x-a}\leq\eta \implique \abs{f(x)-l}\leq\epsilon.\]
+\item On dit que $f(x)$ \emph{tend} vers $+\infty$ lorsque $x$ tend vers $a$
+  lorsque
+  \[\forall m\in\R \qsep \exists \eta>0 \qsep \forall x\in\mathcal{U}
+    \qsep \norme{x-a}\leq\eta \implique f(x)\geq m.\]
+\item On dit que $f(x)$ \emph{tend} vers $-\infty$ lorsque $x$ tend vers $a$
+  lorsque
+  \[\forall M\in\R \qsep \exists \eta>0 \qsep \forall x\in\mathcal{U}
+    \qsep \norme{x-a}\leq\eta \implique f(x)\leq M.\]
+\end{itemize}
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque Soit $\p{x_0,y_0}\in\R^2$. Alors
+  \[x\tendvers{\p{x,y}}{\p{x_0,y_0}} x_0, \qquad
+    y\tendvers{\p{x,y}}{\p{x_0,y_0}} y_0 \et
+    \norme{\p{x,y}} \tendvers{\p{x,y}}{\p{x_0,y_0}} \norme{\p{x_0,y_0}}.\]
+\end{remarqueUnique}
+
+\begin{proposition}
+Soit $f$ et $g:\mathcal{U}\subset\R^2\to\R$ 
+ et $a\in\R^2$ un point adhérent à $\mathcal{U}$. On suppose que $f(x)$
+tend vers $l_1\in\R$ et $g(x)$ tend vers $l_2\in\R$ lorsque $x$ tend vers $a$. Alors
+\begin{itemize}
+\item Si $\lambda,\mu\in\R$
+  \[\lambda f(x)+\mu g(x)\tendvers{x}{a} \lambda l_1+\mu l_2.\]
+\item On a
+  \[f(x)g(x)\tendvers{x}{a} l_1 l_2.\]
+\item Si $l_2\neq 0$, alors il existe une boule de centre $a$ sur
+  laquelle $g$ ne s'annule pas. De plus
+  \[\frac{f(x)}{g(x)}\tendvers{x}{a}\frac{l_1}{l_2}.\]
+\end{itemize}
+\end{proposition}
+
+\begin{proposition}
+Soit $f:\mathcal{U}\subset\R^2\to\R$, $a\in\R^2$ un
+point adhérent à $\mathcal{U}$ et $g:\mathcal{D}_g\subset\R\to\R$ une fonction telle que
+$f\p{\mathcal{U}}\subset\mathcal{D}_g$. On
+suppose que
+\[f(x)\tendvers{x}{a} l_f\in\Rbar \et
+  g(y)\tendvers{y}{l_f} l_g\in\Rbar.\]
+Alors
+\[g\p{f(x)}\tendvers{x}{a} l_g.\]
+\end{proposition}
+
+\begin{proposition}
+Soit $f$, $g$ et $h:\mathcal{U}\subset\R^2\to\R$ et $a\in\R^2$ un point adhérent à $\mathcal{U}$.
+\begin{itemize}
+\item On suppose que
+  \[\forall x\in\mathcal{U} \qsep f(x)\leq g(x)\leq h(x).\]
+  et que $f(x)$ et $h(x)$ admettent la même limite finie $l\in\R$ lorsque
+  $x$ tend vers $a$. Alors
+  \[f(x)\tendvers{x}{a} l.\]
+\item On suppose qu'il existe $l\in\R$ tel que
+  \[\forall x\in\mathcal{U} \qsep \abs{f(x)-l} \leq g(x).\]
+  et que $g(x)$ tend vers 0 lorsque $x$ tend vers $a$. Alors
+  \[f(x)\tendvers{x}{a} l.\]
+\item On suppose que
+  \[\forall x\in\mathcal{U} \qsep f(x)\leq g(x).\]
+  \begin{itemize}
+  \item Si $f(x)\tendvers{x}{a} +\infty$, alors $g(x)\tendvers{x}{a} +\infty$.
+  \item Si $g(x)\tendvers{x}{a} -\infty$, alors $f(x)\tendvers{x}{a} -\infty$.
+  \end{itemize}
+\end{itemize}
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque Si il existe une fonction $\phi:\RP\to\RP$ telle que
+  \[\phi(r)\tendvers{r}{0}0 \et
+    \forall r\geq 0 \qsep \forall \theta\in\R \qsep 
+    \abs{f\p{a_1+r\cos\theta,a_2+r\sin\theta}-l}\leq \phi\p{r}\]
+  alors $f(x)\tendvers{x}{a}l$.
+\end{remarqueUnique}
+
+\begin{exoUnique}
+\exo Soit $f$ la fonction définie par
+  \[\forall\p{x,y}\in\R^2\setminus\ens{\p{0,0}} \qsep
+    f\p{x,y}\defeq\frac{x^2 y}{x^2+y^2}.\]
+  Montrer que $f$ admet une limite en $\p{0,0}$.
+\end{exoUnique}
+
+\subsection{Continuité}
+
+\begin{definition}
+On dit qu'une fonction $f:\mathcal{U}\subset\R^2\to\R$ est \emph{continue} en $x_0\in\mathcal{U}$ lorsque
+\[f(x)\tendvers{x}{x_0} f\p{x_0}.\]
+\end{definition}
+
+\begin{remarques}
+\remarque On dit qu'une fonction $f:\mathcal{U}\subset\R^2\to\R$ est continue lorsqu'elle est continue en tout
+  point de $\mathcal{U}$.
+% \remarque Les fonctions $(x,y)\mapsto x$ et $(x,y)\mapsto y$ sont continues.
+\remarque Les fonctions
+  \[\dspappli{f}{\R^2}{\R}{(x,y)}{x} \quad\et\quad
+    \dspappli{g}{\R^2}{\R}{(x,y)}{y}\]
+  sont continues.
+\end{remarques}
+
+\begin{proposition}
+Soit $f$ et $g:\mathcal{U}\subset\R^2\to\R$ deux fonctions continues en $x_0\in\mathcal{U}$.  Alors
+\begin{itemize}
+\item Si $\lambda,\mu\in\R$, $\lambda f+\mu g$ est continue en $x_0$.
+\item $fg$ est continue en $x_0$.
+\item Si $g\p{x_0}\neq 0$, il existe une boule de centre $x_0$ sur
+  laquelle $g$ ne s'annule pas et $f/g$ est continue en $x_0$.
+\end{itemize}
+\end{proposition}
+
+% \begin{exempleUnique}
+% \remarque D'après les théorèmes usuels, la fonction $f$ définie sur $\R^2$ par
+%   \[\forall \p{x,y}\in\R^2 \qsep f\p{x,y}\defeq\frac{xy}{1+x^2+y^2}\]
+%   est continue sur $\R^2$.
+% \end{exempleUnique}
+
+\begin{proposition}
+Soit $f:\mathcal{U}\subset\R^2\to\R$ et $g:\mathcal{V}\subset\R\to\R$ deux fonctions
+telles que $f\p{\mathcal{U}}\subset\mathcal{V}$. Si
+$f$ est continue en $x_0\in\mathcal{U}$ et $g$ est continue en $f\p{x_0}$, alors $g\circ f$
+est continue en $x_0$.
+\end{proposition}
+
+\subsection{Application partielle}
+
+\begin{definition}
+Soit $f:\mathcal{U}\subset\R^2\to\R$ et $x\defeq\p{x_1,x_2}\in\mathcal{U}$. On
+définit les fonctions réelles d'une variable réelle $f_{p_1}$ et $f_{p_2}$ par
+\[f_{p_1}(t)\defeq f\p{t,x_2} \et f_{p_2}(t)\defeq f\p{x_1,t}.\]
+$f_{p_1}$ et $f_{p_2}$ sont appelées \emph{applications partielles} de $f$ au point
+$x=\p{x_1,x_2}$.
+\end{definition}
+
+\begin{exoUnique}
+\exemple Soit $f$ la fonction définie sur $\R^2$ par
+  \[\forall\p{x,y}\in\R^2 \qsep f\p{x,y}\defeq\frac{\p{2-y}\cos\p{xy}}{1+x^2}.\]
+  Déterminer les applications partielles de $f$ en $(0,0)$.
+  \begin{sol}
+  les applications partielles en $\p{0,0}$ sont respectivement
+  $f_1(t)=2/\p{1+x^2}$ et $f_2(t)=2-y$.    
+  \end{sol}
+\end{exoUnique}
+
+\begin{proposition}
+\begin{itemize}
+\item Si $f(x)$ tend vers $l\in\Rbar$ lorsque $x$ tend vers $a\defeq\p{a_1,a_2}$,
+  $f_{p_1}(t)$ tend vers $l$ lorsque $t$ tend vers $a_1$ et $f_{p_2}(t)$
+  tend vers $l$ lorsque $t$ tend vers $a_2$.
+\item Si $f$ est continue en $x\defeq\p{x_1,x_2}$, $f_{p_1}$ est continue en $x_1$ et
+  $f_{p_2}$ est continue en $x_2$.
+\end{itemize}
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque Nous verrons que les réciproques de ces théorèmes sont fausses. Par
+  exemple, $f_{p_1}$ peut être continue en $x_1$ et $f_{p_2}$ peut être continue
+  en $x_2$ sans que $f$ soit continue en $\p{x_1,x_2}$.
+\end{remarqueUnique}
+
+\begin{exoUnique}
+\exo Montrer que la fonction $f$ définie sur $\R^2\setminus\ens{\p{0,0}}$
+  par
+  \[\forall\p{x,y}\in\R^2\setminus\ens{\p{0,0}} \qsep
+    f\p{x,y}\defeq\frac{x^2-y^2}{x^2+y^2}\]
+  n'a pas de limite en $\p{0,0}$.
+  \begin{sol}
+  La limite selon $y=0$ est 1. Celle selon $x=0$ est $-1$.
+  \end{sol}
+\end{exoUnique}
+
+\subsection{Extension aux fonctions à valeurs dans $\R^2$}
+
+\begin{definition}
+Soit $f:\mathcal{U}\subset\R^2\to\R^2$. Les fonctions $f_{1}$ et $f_{2}:\mathcal{U}\subset\R^2\to\R$ définies par
+\[\forall x\in\mathcal{U} \qsep f(x)=\p{f_{1}(x),f_{2}(x)}.\]
+sont appelées \emph{fonctions coordonnées} de $f$.
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque On étend les notions de limite et de continuité aux fonctions à valeurs dans $\R^2$ en remplaçant
+  les valeurs absolues par des normes dans les définitions données plus haut.
+  Par exemple, si $f:\mathcal{U}\subset\R^2\to\R^2$, $a\in\R^2$ est un
+  point adhérent à $\mathcal{U}$ et $l\in\R^2$, on dit que $f(x)$ tend vers $l$ lorsque $x$ tend vers $a$
+  lorsque
+  \[\forall \epsilon>0\qsep \exists \eta>0\qsep \forall x\in\mathcal{U}\qsep
+    \norme{x-a}\leq\eta \implique \norme{f(x)-l}\leq\epsilon.\]
+\end{remarqueUnique}
+
+\begin{proposition}
+Soit $f:\mathcal{U}\subset\R^2\to\R^2$.
+\begin{itemize}
+\item Si $a$ est un point adhérent à $\mathcal{U}$ et $l\defeq\p{l_1,l_2}\in\R^2$
+  alors $f(x)$ tend vers $l$ lorsque $x$ tend vers $a$ si et seulement si
+  \[f_{1}(x) \tendvers{x}{a} l_1 \et f_{2}(x) \tendvers{x}{a} l_2.\]
+\item Si $x_0\in\mathcal{U}$, $f$ est continue en $x_0$ si et seulement si
+  $f_{1}$ et $f_{2}$ le sont.
+\end{itemize}
+\end{proposition}
+
+\begin{proposition}
+Soit $f:\mathcal{U}\subset\R^p\to\R^q$ et $g:\mathcal{V}\subset\R^q\to\R^r$
+avec $p,q,r\in\intere{1}{2}$. On suppose que
+$f\p{\mathcal{U}}\subset\mathcal{V}$.
+\begin{itemize}
+\item Soit $a\in\R^p$ un point adhérent à $\mathcal{U}$. Si $f(x)$ tend
+  vers $b\in\R^q$ lorsque $x$ tend vers $a$ et $g(y)$ tend vers $l$ lorsque
+  $y$ tend vers $b$, alors
+  \[g\p{f(x)}\tendvers{x}{a} l.\]
+\item Soit $x_0\in\mathcal{U}$. Si $f$ est continue en $x_0$ et si $g$ est
+  continue en $f\p{x_0}$, alors $g\circ f$ est continue en $x_0$.
+\end{itemize}
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque Soit $f:\mathcal{U}\subset\R^2\to\R$ et $a$ un point adhérent à
+  $\mathcal{U}$ en lequel $f$ admet une limite $l\in\Rbar$. Si
+  $g:I\to\mathcal{U}\subset\R^2$ où $I$ est un intervalle de $\R$, $b$ est une
+  borne de $I$ et $g(t)$ tend vers $a$ lorsque $t$ tend vers $b$, alors
+  \[f\p{g(t)}\tendvers{t}{b}  l.\]
+  On peut ainsi, en choisissant différentes fonctions $g$, se faire une idée de
+  la limite éventuelle de $f$ en $a$, ou prouver que $f$ n'admet pas de limite
+  en $a$.
+\end{remarqueUnique}
+
+
+\begin{exos}
+\exo Soit $f$ la fonction définie par
+  \[\forall\p{x,y}\in\R^2\setminus\ens{\p{0,0}} \qsep f\p{x,y}\defeq
+    \frac{xy}{x^2+y^2}.\]
+  Étudier la limite éventuelle de $f$ en $\p{0,0}$.
+  \begin{sol}
+  Passer en coordonnées polaires.
+  \end{sol}
+\exo Soit $f$ la fonction définie sur ${\RPs}^2$ par
+  \[\forall (x,y)\in{\RPs}^2 \qsep f\p{x,y}\defeq x^y.\]
+  Étudier la limite éventuelle de $f$ en $\p{0,0}$.
+  \begin{sol}
+  Si on arrive en diagonale, la limite est $1$. Cependant, si $x=t$ et
+  $y=-1/\p{\ln t}$, la limite est $e^{-1}$.
+  \end{sol}
+\end{exos}
+
+\section{Dérivation}
+
+
+
+\subsection{Dérivée partielle}
+
+\begin{definition}
+Soit $f:\mathcal{U}\subset\R^2\to\R$ et $x\defeq\p{x_1,x_2}\in\mathcal{U}$.
+\begin{itemize}
+\item On dit que $f$ admet \emph{une dérivée partielle par rapport à la première variable} en
+  $x$ lorsque
+  \[\frac{f\p{x_1+t,x_2}-f\p{x_1,x_2}}{t}\]
+  admet une limite finie lorsque $t$ tend vers 0. Si tel est le cas, cette
+  limite est notée
+  \[\parfrac{f}{x_1}(x).\]
+\item On dit que $f$ admet \emph{une dérivée partielle par rapport à la seconde variable} en
+  $x$ lorsque
+  \[\frac{f\p{x_1,x_2+t}-f\p{x_1,x_2}}{t}\]
+  admet une limite finie lorsque $t$ tend vers 0. Si tel est le cas, cette
+  limite est notée
+  \[\parfrac{f}{x_2}(x).\]
+\end{itemize}
+\end{definition}
+
+
+\begin{remarqueUnique}
+\remarque Soit $f:\R^2\to\R$ une fonction admettant des dérivées partielles en tout point
+  par rapport à la première et à la seconde variable, $x\defeq (x_1,x_2)$
+  et $f_{p_1}$, $f_{p_2}:\R\to\R$ les fonctions partielles définies par
+  \[\forall t\in\R\qsep f_{p_1}(t)\defeq f(t, x_2)
+    \quad\et\quad
+    f_{p_2}(t)\defeq (x_1,t).\]
+  Alors $f_{p_1}$ et $f_{p_2}$ sont dérivables sur $\R$ et
+  \[\forall t\in\R\qsep f_{p_1}'(t)=\parfrac{f}{x_1}(t,x_2) \quad\et\quad
+    f_{p_2}'(t)=\parfrac{f}{x_2}(x_1,t).\]
+\end{remarqueUnique}
+
+\begin{definition}
+Soit $f:\mathcal{U}\subset\R^2\to\R$, $x\in\mathcal{U}$ et $h\in\R^2$. On dit
+que $f$ admet une \emph{dérivée en $x$ selon le vecteur $h$} lorsque
+\[\frac{f\p{x+th}-f(x)}{t}\]
+admet une limite finie lorsque $t$ tend vers 0. Si tel est le cas, cette limite
+est notée
+\[{\rm D}f_x(h).\]
+\end{definition}
+
+\begin{remarques}
+\remarque Si $e_1\defeq(1,0)$, $f$ admet une dérivée en $x$
+  selon le vecteur $e_1$ si et seulement si elle admet une dérivée partielle par rapport à la
+  première variable en $x$. De plus, si tel est le cas
+  \[{\rm D}f_{x}(e_1)=\parfrac{f}{x_1}(x).\]
+  De même, $f$ admet une dérivée en $x$ selon le vecteur $e_2\defeq(0,1)$ si et seulement
+  si elle est admet une dérivée partielle par rapport à la seconde variable en $x$.
+\remarque Soit $f:\mathcal{U}\subset\R^2\to\R$. Alors $f$ admet une dérivée en tout
+  $x\in\mathcal{U}$ selon le vecteur nul et ${\rm D}f_x(0)=0$.
+  De plus, si $f$ admet une dérivée en $x$ selon le vecteur $h\in\R^2$ alors, pour tout
+  $\lambda\in\R$, elle admet une dérivée en $x$ selon le vecteur $\lambda h$
+  et
+  \[{\rm D}f_x(\lambda h)=\lambda {\rm D}f_x(h).\]
+\end{remarques}
+
+\begin{exoUnique}
+\exo Soit $f$ la fonction définie sur $\R^2$ par
+  \[\forall\p{x,y}\in\R^2 \qsep f\p{x,y}\defeq
+    \begin{cases}
+    \frac{x^2 y}{x^4+y^2} & \text{si $\p{x,y}\neq\p{0,0}$}\\
+    0 & \text{si $\p{x,y}=0$.}
+    \end{cases}\]
+  Montrer que $f$ est dérivable en $\p{0,0}$ selon tout vecteur mais n'est pas
+  continue en $\p{0,0}$.
+  \begin{sol}
+  Calculer la dérivée selon le vecteur $\p{\cos\theta,\sin\theta}$. On trouve
+  0 si $\sin\theta=0$ et $\cos^2 \theta/\sin\theta$ sinon. Cependant
+  $f\p{x,x^2}=1/2$ qui ne tend pas vers 0 en 0, donc $f$ n'est pas continue
+  en 0.
+  \end{sol}
+\end{exoUnique}
+
+\begin{definition}
+On dit qu'une fonction $f:\mathcal{U}\subset\R^2\to\R$ est de \emph{classe
+$\classec{1}$} lorsque
+\[\parfrac{f}{x_1} \et \parfrac{f}{x_2}\]
+sont définies et continues sur $\mathcal{U}$.
+\end{definition}
+
+\begin{remarques}
+\remarque Si $f$ est de classe $\classec{1}$, les applications partielles
+  sont de classe $\classec{1}$.
+\remarque Les fonctions
+  \[\dspappli{f}{\R^2}{\R}{(x,y)}{x} \quad\et\quad
+    \dspappli{g}{\R^2}{\R}{(x,y)}{y}\]
+  sont de classe $\classec{1}$.
+\end{remarques}
+
+\begin{proposition}
+Soit $f$ et $g:\mathcal{U}\subset\R^2\to\R$ deux fonctions de classe $\classec{1}$.
+Alors
+\begin{itemize}
+\item Si $\lambda,\mu\in\R$, $\lambda f+\mu g$ est de classe $\classec{1}$ et
+  \[\forall i\in\intere{1}{2} \qsep \forall x\in\mathcal{U} \qsep
+    \parfrac{\p{\lambda f+\mu g}}{x_i}(x)=\lambda\parfrac{f}{x_i}(x)+\mu
+    \parfrac{g}{x_i}(x).\]
+\item $fg$ est de classe $\classec{1}$ et
+  \[\forall i\in\intere{1}{2} \qsep \forall x\in\mathcal{U} \qsep
+    \parfrac{\p{fg}}{x_i}(x)=\parfrac{f}{x_i}(x)g(x)+
+    f(x)\parfrac{g}{x_i}(x).\]
+\item Si $g$ ne s'annule pas sur $\mathcal{U}$, $f/g$ est de classe
+  $\classec{1}$ et
+  \[\forall i\in\intere{1}{2} \qsep \forall x\in\mathcal{U} \qsep
+    \parfrac{\p{\dsp\frac{f}{g}}}{x_i}(x)=
+    \frac{\dsp\parfrac{f}{x_i}(x)g(x)-
+    f(x)\dsp\parfrac{g}{x_i}(x)}{g(x)^2}.\]
+\end{itemize}
+\end{proposition}
+
+\begin{proposition}
+Soit $f:\mathcal{U}\subset\R^2\to\R$ et $g:\mathcal{V}\subset\R\to\R$ deux fonctions de
+classe $\classec{1}$ telles que $f(\mathcal{U})\subset\mathcal{V}$. Alors
+$g\circ f$ est de classe $\classec{1}$ et
+\[\forall i\in\intere{1}{2}\qsep \forall x\in\mathcal{U}\qsep
+  \parfrac{(g\circ f)}{x_i}(x)=g'(f(x))\parfrac{f}{x_i}(x).\]
+\end{proposition}
+
+\begin{exoUnique}
+\exo Trouver l'ensemble des fonctions $f:\R^2\to\R$ de classe $\classec{1}$ telles que
+  \[\forall\p{x,y}\in\R^2 \qsep \parfrac{f}{x} \p{x,y}=0.\]
+\exo Déterminer l'ensemble des fonctions $f:\R^2\to\R$ de classe $\classec{1}$ telles que
+  \[\forall\p{x,y}\in\R^2 \qsep \parfrac{f}{y} \p{x,y}= x+y.\]
+  \begin{sol}
+  On trouve $f\p{x,y}=y^2/2+xy+\phi(x)$ où $\phi$ est une fonction de classe
+  $\classec{1}$ quelconque sur $\R$.
+  \end{sol}
+\end{exoUnique}
+
+\subsection{Développement limité, gradient}
+
+\begin{definition}
+Soit $f:\mathcal{U}\subset\R^2\to\R$ une fonction définie en $(0,0)$. On dit que $f(h)$ est \emph{négligeable} devant $\norme{h}$ en $\p{0,0}$ lorsque
+\[\forall\epsilon>0 \qsep \exists \eta>0 \qsep \forall h\in\mathcal{U}
+  \qsep \norme{h}\leq\eta \implique \abs{f(h)}\leq\epsilon\norme{h}.\]
+Si tel est le cas, on note
+\[f(h)=\petito{h}{\p{0,0}}{\norme{h}}.\]
+\end{definition}
+
+% \begin{remarqueUnique}
+% \remarque Si $f(h)$ est négligeable devant $\norme{h}$ en $(0,0)$, alors $f(h)$ tend vers 0 lorsque $h$ tend vers
+%   $(0,0)$ et $f$ admet une dérivée nulle selon tout vecteur en $(0,0)$.
+% \end{remarqueUnique}
+
+\begin{proposition}
+Soit $f:\mathcal{U}\subset\R^2\to\R$ une fonction de classe $\classec{1}$ et
+$x\in\mathcal{U}$. Alors, en notant $h=\p{h_1,h_2}$
+\[f\p{x+h}=f(x)+\parfrac{f}{x_1}(x)h_1+\parfrac{f}{x_2}(x)h_2+
+  \petito{h}{\p{0,0}}{\norme{h}}.\]
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque Si $f:\mathcal{U}\subset\R^2\to\R$ est une fonction de classe $\classec{1}$ et $(x_0,y_0)\in\mathcal{U}$ alors,
+  le plan d'équation
+  \[z=f(x_0,y_0)+\parfrac{f}{x}(x_0,y_0)(x-x_0)+\parfrac{f}{y}(x_0,y_0)(y-y_0)\]
+  est appelé \emph{plan tangent} en $(x_0,y_0)$ à la surface d'équation $z=f(x,y)$.
+\end{remarqueUnique}
+
+\begin{proposition}
+Soit $f:\mathcal{U}\subset\R^2\to\R$ une fonction de classe $\classec{1}$.
+Alors $f$ est continue.
+\end{proposition}
+
+\begin{proposition}
+Soit $f:\mathcal{U}\subset\R^2\to\R$ une fonction de classe $\classec{1}$ et
+$x\in\mathcal{U}$. Alors $f$ admet une dérivée en $x$ selon tout vecteur
+$h\defeq\p{h_1,h_2}$ et
+\[{\rm D}f_x(h)=\parfrac{f}{x_1}(x)h_1 
+  +\parfrac{f}{x_2}(x)h_2.\]
+Autrement dit, ${\rm D}f_x$ est une forme linéaire sur $\R^2$.
+\end{proposition}
+
+
+
+\begin{exoUnique}
+\exo Soit $f$ la fonction définie sur $\R^2$ par
+  \[\forall\p{x,y}\in\R^2 \qsep f\p{x,y}\defeq\frac{xy}{1+x^2}.\]
+  Montrer que $f$ est de classe $\classec{1}$ et calculer
+  $\text{D}f_{\p{x,y}}\p{h_1,h_2}$.
+  \begin{sol}
+  On trouve
+  \[\text{d}f_{\p{x,y}}\p{h_1,h_2}=y\cdot\frac{1-x^2}{\p{1+x^2}^2}h_1+
+    \frac{x}{1+x^2}h_2\]
+  ce que l'on écrit aussi
+  \[\text{d}f=y\cdot\frac{1-x^2}{\p{1+x^2}^2}\text{d}x+
+    \frac{x}{1+x^2}\text{d}y\]
+  \end{sol}
+\end{exoUnique}
+
+\begin{definition}
+Soit $f:\mathcal{U}\subset\R^2\to\R$ une fonction de classe $\classec{1}$ et
+$x\in\mathcal{U}$. On appelle \emph{gradient} de $f$ en $x$ l'unique vecteur
+$\nabla f(x)\in\R^2$ tel que
+\[\forall h\in\R^2 \qsep {\rm D}f_{x}(h)=\ps{\nabla f(x)}{h}.\]
+Autrement dit
+\[\nabla f(x)=\p{\parfrac{f}{x_1}(x),\parfrac{f}{x_2}(x)}.\]
+\end{definition}
+
+\begin{remarques}
+\remarque Le symbole $\nabla$ est un delta majuscule inversé. Il se prononce \og nabla \fg en référence au nom grec désignant une harpe phénicienne.
+\remarque Pour tout $\theta\in\R$, on pose $u_\theta\defeq(\cos\theta,\sin\theta)$. Alors,
+d'après Cauchy-Schwarz
+\[\forall \theta\in\R\qsep {\rm D}f_x(u_\theta)=\ps{\nabla f(x)}{u_\theta} \leq \norme{\nabla f(x)}\norme{u_\theta}=\norme{\nabla f(x)}\]
+cette inégalité étant une égalité si et seulement si $\nabla f(x)$ et $u_\theta$ sont
+positivement liés. On en déduit que $\nabla f(x)$ donne la direction dans laquelle
+$f$ croît le plus vite.
+\end{remarques}
+
+
+\subsection{Dérivation des fonctions composées}
+
+\begin{proposition}
+Soit $f:\mathcal{U}\subset\R^2\to\R$ et $g:\mathcal{V}\subset\R\to\R$ deux
+  fonctions de classe $\classec{1}$ telles que
+  $f\p{\mathcal{U}}\subset\mathcal{V}$. Alors $g\circ f$ est de classe
+  $\classec{1}$ et
+  \[\forall x\in\mathcal{U} \qsep
+    \cro{\nabla (g\circ f)} (x)=g'\p{f(x)}\nabla f(x).\]
+  On écrit aussi, de manière abusive
+  \[\nabla\p{g\circ f}=\frac{{\rm d}g}{{\rm d}f}\nabla f.\]
+\end{proposition}
+
+
+\begin{exoUnique}
+\exo Calculer $\nabla f$, où $f$ est définie sur
+  $\R^2\setminus\ens{\p{0,0}}$ par
+  \[f\p{x,y}\defeq\frac{1}{\sqrt{x^2+y^2}}.\]
+  \begin{sol}
+  On trouve
+  \[\nabla\p{\frac{1}{r}}=-\frac{1}{r^2}\ve{u_\theta}\]
+  \end{sol}
+\end{exoUnique}
+
+% \begin{definition}
+% Soit $p,q\in\intere{1}{2}$ et $f:\mathcal{U}\subset\R^p\to\R^q$. On dit que $f$
+% est de classe $\classec{1}$ sur $\mathcal{U}$ lorsque quels que soient
+% $j\in\intere{1}{p}$ et $i\in\intere{1}{q}$, l'application
+% \[\parfrac{f_i}{x_j}\]
+% est définie et continue sur $\mathcal{U}$. Si tel est la cas, on définit pour
+% tout $x\in\mathcal{U}$ la \emph{matrice jacobienne} de $f$ en $x$ par
+% \[J_f(x)\defeq \p{\parfrac{f_i}{x_j}}_{\substack{1\leq i\leq q\\1\leq j\leq p}}
+%   \in\mat{q,p}{\R}\]
+% \end{definition}
+
+% \begin{exoUnique}
+% \exo Soit $f$ la fonction définie sur $\R^2$ par
+%   \[\forall\p{r,\theta}\in\R^2 \qsep f\p{r,\theta}\defeq \p{r\cos\theta,r\sin\theta}.\]
+%   Calculer la jacobienne de $f$ en $\p{r,\theta}$.
+% \end{exoUnique}
+
+% \begin{proposition}
+% Soit $p,q,r\in\intere{1}{2}$, $f:\mathcal{U}\subset\R^p\to\R^q$ et
+% $g:\mathcal{V}\subset\R^q\to\R^r$ tels que $f\p{\mathcal{U}}\subset\mathcal{V}$.
+% Si $f$ et $g$ sont $\classec{1}$, alors $g\circ f$ est $\classec{1}$ et
+% \[J_{g\circ f}(x)=J_g\p{f(x)}J_f(x).\]
+% \end{proposition}
+
+\begin{proposition}
+Soit $f:\mathcal{U}\subset\R\to\R^2$ et $g:\mathcal{V}\subset\R^2\to\R$ deux
+fonctions de classe $\classec{1}$ telles que
+$f\p{\mathcal{U}}\subset\mathcal{V}$. Alors $g\circ f$ est de classe
+$\classec{1}$ et
+\begin{eqnarray*}
+\forall t\in\mathcal{U} \qsep \p{g\circ f}'(t)
+&=&\parfrac{g}{x_1}\p{f(t)}f_1'(t)+\parfrac{g}{x_2}\p{f(t)}f_2'(t)\\
+&=&\ps{\nabla g \p{f(t)}}{f'(t)}
+\end{eqnarray*}
+On écrit aussi, de manière abusive
+\begin{eqnarray*}
+\frac{{\rm d}\p{g\p{f_1,f_2}}}{{\rm d} t}
+&=& \parfrac{g}{f_1}\frac{{\rm d}f_1}{{\rm d} t}+
+    \parfrac{g}{f_2}\frac{{\rm d}f_2}{{\rm d} t}\\
+&=& \ps{\nabla g}{\frac{{\rm d}f}{{\rm d}t}}
+\end{eqnarray*}
+\end{proposition}
+
+\begin{exoUnique}
+\exo Soit $f:\R^2\to\R$ une fonction de classe $\classec{1}$ et
+  $\phi$ la fonction définie sur $\R$ par
+  \[\forall t\in\R \qsep \phi(t)\defeq f\p{t^2,t^3}.\]
+  Montrer que $\phi$ est de classe $\classec{1}$ et calculer $\phi'(t)$.
+\end{exoUnique}
+
+\begin{proposition}
+Soit $f:\mathcal{U}\subset\R^2\to\R$ une fonction de classe $\classec{1}$ et
+$M:I\to\R^2$ une fonction de classe $\classec{1}$ à valeurs dans 
+$\mathcal{U}$. On suppose qu'il existe $c\in\R$ tel que
+\[\forall t\in I \qsep f\p{M(t)}=c.\]
+Alors, pour tout $t\in I$, $M'(t)$ est orthogonal au gradient
+de $f$ en $M(t)$.
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque Si $f:\mathcal{U}\subset\R^2\to\R$, on appelle \emph{ligne de niveau} de hauteur $c\in\R$
+  l'ensemble
+  \[\mathcal{L}_c\defeq\enstq{(x,y)\in\mathcal{U}}{f(x,y)=c}.\]
+  La proposition précédente nous assure que le gradient de $f$ est orthogonal à ses lignes de niveau.
+\end{remarqueUnique}
+
+\begin{proposition}
+Soit $f:\mathcal{U}\subset\R^2\to\R^2$ et $g:\mathcal{V}\subset\R^2\to\R$ deux
+fonctions de classe $\classec{1}$ telles que
+$f\p{\mathcal{U}}\subset\mathcal{V}$. Alors $g\circ f$ est de classe
+$\classec{1}$ et
+\[\forall x\in\mathcal{U} \qsep
+  \begin{cases}
+  \dsp\parfrac{\p{g\circ f}}{x_1}(x) = \dsp\parfrac{g}{y_1}\p{f(x)}
+  \dsp\parfrac{f_1}{x_1}(x)+\dsp\parfrac{g}{y_2}\p{f(x)}
+  \dsp\parfrac{f_2}{x_1}(x) &\\
+  \dsp\parfrac{\p{g\circ f}}{x_2}(x) = \dsp\parfrac{g}{y_1}\p{f(x)}
+  \dsp\parfrac{f_1}{x_2}(x)+\dsp\parfrac{g}{y_2}\p{f(x)}
+  \dsp\parfrac{f_2}{x_2}(x) &
+  \end{cases}\]
+  On écrit aussi, de manière abusive
+  \[\dsp\parfrac{\p{g\p{f_1,f_2}}}{x_1}=\parfrac{g}{f_1}\parfrac{f_1}{x_1}
+    +\parfrac{g}{f_2}\parfrac{f_2}{x_1} \et
+    \dsp\parfrac{\p{g\p{f_1,f_2}}}{x_2}=\parfrac{g}{f_1}\parfrac{f_1}{x_2}
+    +\parfrac{g}{f_2}\parfrac{f_2}{x_2}.\]
+\end{proposition}
+
+\begin{exos}
+\exo Soit $f:\R^2\to\R$ une fonction de classe $\classec{1}$. Montrer que la fonction
+  $h:\R^2\to\R$ définie par
+  \[\forall (x,y)\in\R^2\qsep h\p{x,y}\defeq f\p{2xy,x}\]
+  est de classe $\classec{1}$ et calculer ses dérivées partielles.
+  \begin{sol}
+  On trouve
+   \[\parfrac{h}{x}\p{x,y}=2y\parfrac{f}{x}\p{2xy,x}+\parfrac{f}{y}\p{2xy,x}
+     \et \parfrac{h}{y}\p{x,y}=2x\parfrac{f}{x}\p{2xy,x}\]
+  \end{sol}
+% \exo Calcul en coordonnées polaires. On trouve
+%   \[\syslin{\parfrac{}{r}&=&\cos\theta\parfrac{}{x}+&\sin\theta\parfrac{}{y}\cr
+%     \frac{1}{r}\parfrac{}{\theta}&=&-\sin\theta\parfrac{}{x}+&
+%     \cos\theta\parfrac{}{y}}\]
+%   Donc
+%   \[\syslin{\parfrac{}{x}&=&\cos\theta\parfrac{}{r}-&\sin\theta\frac{1}{r}
+%     \parfrac{}{\theta}\cr
+%     \parfrac{}{y}&=&\sin\theta\parfrac{}{r}+&
+%     \cos\theta\frac{1}{r}\parfrac{}{\theta}}\]
+%   Donc
+%   \[\nabla f=\parfrac{f}{r}\ve{u_\theta}+\frac{1}{r}\parfrac{f}{\theta}
+%     \ve{v_\theta}\]
+%   En particulier
+%   \[\nabla\p{\frac{1}{r}}=-\frac{1}{r^2}\ve{u_\theta}\]
+\exo Soit $\p{a,b}\in\R^2\setminus\ens{\p{0,0}}$. On souhaite déterminer les fonctions
+  $f:\R^2\to\R$ de classe $\classec{1}$ telles que
+  \[(E) \quad \forall\p{x,y}\in\R^2 \qsep
+    a\parfrac{f}{x}\p{x,y}+b\parfrac{f}{y}\p{x,y}=0.\]
+  \begin{questions}
+  \question Montrer que l'application
+    \[\dspappli{\phi}{\R^2}{\R^2}{(u,v)}{(au-bv,bu+av)}\]
+    est bijective et calculer $\phi^{-1}$.
+  \question Soit $f:\R^2\to\R$ une fonction de classe $\classec{1}$. On définit
+    la fonction $g:\R^2\to\R$ par
+    \[\forall(u,v)\in\R^2\qsep g(u,v)\defeq f(au-bv,bu+av).\]
+    Montrer que $f$ est solution de $(E)$ si et seulement si
+    \[\forall(u,v)\in\R^2\qsep \parfrac{g}{u}(u,v)=0.\]
+  \question Conclure.
+  \end{questions}
+  % On pourra introduire la fonction $g:\R^2\to\R$ définie par
+  \begin{sol}%
+  On fait le changement de variable
+  $g\p{u,v}=f\p{au-bv,bu+av}$. On trouve $\parfrac{g}{u}=0$, donc
+  $g=\phi\p{v}$ donc $f=\psi\p{bx-ay}$.    
+  \end{sol}
+\end{exos}
+
+
+
+% \begin{exemples}
+% \exemple Soit $\mathcal{E}$ l'ellipse de foyer $F_1$ et $F_2$ et de demi-grand
+%   axe $a$. Si $M$ est un point de $\mathcal{E}$ la tangente en $M$ est
+%   la bissectrice extérieure des demi-droites $[F_1M)$ et $[F_2M)$.
+% \end{exemples}
+
+\subsection{Extrémum d'une fonction de deux variables}
+
+\begin{definition}
+Soit $f:\mathcal{U}\subset\R^2\to\R$ et $x_0\in\mathcal{U}$. On dit que
+\begin{itemize}
+\item $f$ présente un \emph{maximum global} en $x_0$ lorsque
+  \[\forall x\in\mathcal{U} \qsep f(x)\leq f\p{x_0}.\]
+\item $f$ présente un \emph{maximum local} en $x_0$ lorsque
+  \[\exists r>0\qsep \forall x\in\mathcal{U} \qsep \norme{x-x_0}\leq r \implique
+    f(x)\leq f\p{x_0}.\]
+\item $f$ présente un \emph{minimum global} en $x_0$ lorsque
+  \[\forall x\in\mathcal{U} \qsep f(x)\geq f\p{x_0}.\]
+\item $f$ présente un \emph{minimum local} en $x_0$ lorsque
+  \[\exists r>0\qsep \forall x\in\mathcal{U} \qsep \norme{x-x_0}\leq r \implique
+    f(x)\geq f\p{x_0}.\]
+\end{itemize}
+\end{definition}
+
+\begin{remarques}
+\remarque Un extrémum global est un extrémum local, la réciproque étant fausse en général.
+\remarque Si $f:\R^2\to\R$ admet un minimum local en
+  $(x_1,x_2)\in\R^2$, alors les fonctions partielles
+  \[\dspappli{f_{p_1}}{\R}{\R}{t}{f(t,x_2)} \quad\et\quad
+    \dspappli{f_{p_2}}{\R}{\R}{t}{f(x_1,t)}\]
+  admettent un minimum local, respectivement en $x_1$ et $x_2$.
+  Cependant, la réciproque est fausse comme le montre l'exemple de la fonction
+  $f:\R^2\to\R$ définie par
+  \[\forall (x,y)\in\R^2\qsep f(x,y)=x^2-3xy+y^2.\]
+\remarque Plus généralement, si $f:\R^2\to\R$ admet un minimul local en $x_0\in\R^2$ alors,
+  quel que soit $h\in\R^2$, la fonction $\phi:\R\to\R$ définie par
+  \[\forall t\in\R\qsep \phi(t)\defeq f(x_0+th)\]
+  admet un minimum local en $0$. 
+\end{remarques}
+
+\begin{definition}
+Soit $f:\mathcal{U}\subset\R^2\to\R$ une fonction de classe $\classec{1}$. On dit que $x\in\mathcal{U}$
+est un point \emph{critique} de $f$ lorsque
+\[\parfrac{f}{x_1}\p{x}=0 \et \parfrac{f}{x_2}\p{x}=0.\]
+\end{definition}
+
+\begin{proposition}
+Soit $f:\mathcal{U}\subset\R^2\to\R$ une fonction de classe $\classec{1}$ définie sur un ouvert $\mathcal{U}$.
+Si $f$ présente un extrémum local en $x_0$ alors $x_0$ est un point critique pour $f$.
+\end{proposition}
+
+\begin{remarques}
+\remarque Les extrémums locaux d'une fonction $f:\mathcal{U}\subset\R^2\to\R$ de classe $\classec{1}$ définie
+  sur un ouvert $\mathcal{U}$ sont donc à chercher parmi les points critiques de $f$.
+\remarque La réciproque est fausse. Par exemple la fonction $f:\R^2\to\R$ définie par
+  \[\forall (x,y)\in\R^2\qsep f(x,y)\defeq x^2-y^2\]
+  admet $(0,0)$ pour point critique alors qu'elle ne présente pas d'extrémum local en $(0,0)$.
+\end{remarques}
+
+\begin{exoUnique}
+\exo Soit $f$ la fonction définie sur $\R^2$ par
+  \[\forall\p{x,y}\in\R^2 \qsep f\p{x,y}\defeq -x^2-6xy+9y^2+18x-18y+1.\]
+  Déterminer les extrémums éventuels de $f$.
+  \begin{sol}
+  On trouve un unique point critique $x=3$ et $y=2$. On pose $x=3+u$ et
+  $y=2+v$. On a $f\p{3+u,2+v}=10+9v^2-6uv-u^2=\p{3v-u}^2-2u^2$. On est en
+  un point selle.
+  \end{sol}
+\end{exoUnique}
+
+
+
+%END_BOOK
+
+\end{document}

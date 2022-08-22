@@ -1,0 +1,439 @@
+\documentclass{magnolia}
+
+\magtex{tex_driver={pdftex}}
+\magfiche{document_nom={Exercices sur les espaces euclidiens},
+          auteur_nom={François Fayard},
+          auteur_mail={fayard.prof@gmail.com}}
+\magexos{exos_matiere={maths},
+         exos_niveau={mpsi},
+         exos_chapitre_numero={22},
+         exos_theme={Espaces euclidiens}}
+\magmisenpage{}
+\maglieudiff{}
+\magprocess
+
+\begin{document}
+
+%BEGIN_BOOK
+\magsection{Produit scalaire}
+\magsubsection{Produit scalaire}
+
+
+\exercice{nom={Produit scalaire}}
+On pose
+\[E\defeq\enstq{P\in\polyR}{P(0)=0 \et P(1)=0}.\]
+On définit l'application $\ps{.}{.}$ de $E\times E$ dans $\R$ par
+\[\forall P,Q\in E\qsep \ps{P}{Q}\defeq-\integ{0}{1}{P''(x)Q(x)}{x}.\]
+Montrer que $\ps{.}{.}$ définit un produit scalaire.
+
+
+
+
+\magsubsection{Norme}
+
+% \exercice{nom={Inégalités}}
+% Soit $n\in\Ns$. 
+% \begin{questions}
+% \question Montrer que
+%   \[\forall x_1,\ldots,x_n\in\Rs\qsep \p{\sum_{k=1}^n x_k^2}\p{\sum_{k=1}^n\frac{1}{x_k^2}}\geq n^2.\]
+% \question En déduire que
+%   \[\sum_{k=1}^n \frac{1}{k^2}\geq \frac{6n}{(n+1)(2n+1)}.\]
+% \end{questions}
+
+\exercice{nom={Intégrales}}
+Soit $f$ une fonction continue de $[0,1]$ dans $\R$. Montrer que
+\[\abs{\integ{0}{1}{\frac{f(t)}{1+t^2}}{t}}\leq\frac{\sqrt{\pi}}{2}
+  \p{\integ{0}{1}{\frac{f^2(t)}{1+t^2}}{t}}^{\frac{1}{2}} \et 
+  \abs{\integ{0}{1}{\frac{\sqrt{t}f(t)}{1+t^2}}{t}}\leq\frac{\sqrt{2 \ln(2)}}{2}
+  \p{\integ{0}{1}{\frac{f^2(t)}{1+t^2}}{t}}^{\frac{1}{2}}.\]
+Déterminer dans chacun des deux cas à quelle condition sur $f$ l'inégalité est une
+égalité.
+
+\exercice{nom={Exercice}}
+Soit $(u_n)$ une suite positive telle que $\sum u_n$ converge. Montrer que
+\[\sum \frac{\sqrt{u_n}}{n}\]
+converge.
+
+\exercice{nom={Mines}}
+
+On définit, pour tout $A,B\in\mat{n}{\R}$
+\[\ps{A}{B}\defeq\tr\p{\trans{A}B}.\]
+\begin{questions}
+\question Montrer que $\ps{.}{.}$ définit un produit scalaire sur $\mat{n}{\R}$.
+\question Montrer que
+  \[\forall A,B\in\mat{n}{\R}\qsep \norme{AB}\leq\norme{A}\norme{B}.\]
+\end{questions}
+
+\magsubsection{Notion d'orthogonalité}
+
+\exercice{nom={Vecteurs orthogonaux}}
+Soit $E$ un espace préhilbertien et $x,y\in E$. Montrer que $x$ et $y$ sont orthogonaux si
+et seulement si
+\[\forall \lambda\in\R \qsep \norme{x+\lambda y}\geq\norme{x}.\]
+
+\exercice{nom={Une base orthonormale}}
+Soit $E$ un espace euclidien, et $(e_{1},...,e_{n})$ une famille de vecteurs unitaires
+tels que
+\[\forall x\in E\qsep \norme{x}^2=\sum_{i=1}^{n}\ps{e_i}{x}^{2}.\]
+Notons qu'on ne suppose pas que $E$ est de dimension $n$.
+\begin{questions}
+\question Montrer que $(e_{1},...,e_{n})$ est une famille orthogonale.  
+\question Montrer que $(e_{1},...,e_{n})$ est une base orthonormale.                                   
+\end{questions}
+
+\magsection{Espace euclidien}
+\magsubsection{Supplémentaire orthogonal}
+
+\exercice{nom={Orthogonal et somme}}
+Soit $E$ un espace euclidien et $F,G$ deux sous-espaces vectoriels de $E$.
+Comparer
+\begin{questions}
+\question l'orthogonal de $F+G$ et l'intersection des orthogonaux de $F$ et
+  $G$.
+\question l'orthogonal de l'intersection de $F$ et $G$ et la somme des
+  othogonaux de $F$ et de $G$.
+\end{questions}
+\begin{sol}
+$\quad$
+\begin{questions}
+\question
+\question Il suffit d'appliquer la première question à l'orthogonal de $F$ et
+  l'orthogonal de $G$.
+\end{questions}
+\end{sol}
+
+\magsubsection{Base orthonormée }
+\magsubsection{Projecteur orthogonal}
+
+
+\exercice{nom={Projecteur orthogonal}}
+Soit $E$ un espace euclidien et $p$ un projecteur de $E$. Montrer que $p$ est orthogonal si et seulement si
+\[\forall x\in E \qsep \norme{p(x)}\leq\norme{x}.\]
+
+
+\exercice{nom={Calcul d'une projection orthogonale}}
+On se place dans le $\R$-espace euclidien usuel $\R^n$.
+\begin{questions}
+\question Soit $F$ le
+  sous-espace vectoriel de $\R^4$ défini par le système d'équations
+  $$\syslin{
+  x_1 &+ x_2 &+ x_3 &+ x_4 &=& 0\hfill\cr
+  x_1 &- x_2 &+ x_3 &- x_4 &=& 0.\hfill}
+  $$
+  Déterminer la matrice dans la base canonique de la projection
+  orthogonale sur $F$.
+\question Soit $F$ le
+  sous-espace vectoriel de $\R^4$ défini par le système d'équations
+  $$
+  \syslin{
+  x_1 &+ x_2  &+ x_3  &+ x_4  &=& 0\hfill\cr
+  x_1 &+ 2x_2 &+ 3x_3 &+ 4x_4 &=& 0.\hfill}
+  $$
+  Déterminer la matrice dans la base canonique de la projection
+  orthogonale sur à $F$.
+\end{questions}
+\begin{sol}
+$\quad$
+\begin{questions}
+\question fait en cours
+\question On cherche une base. On trouve $\p{1,-2,1,0},\p{2,-3,0,1}$.
+  Après orthonormalisation, on a $\p{1,-2,1,0}/\sqrt{6}$ et
+  $\p{2,-1,-4,3}/\sqrt{30}$. On a donc
+  \[S=\frac{1}{5}\begin{pmatrix}
+      -2 & -4 & -1 & 2\\
+      -4 & 2 & -2 & -1\\
+      -1 & -2 & 2 & -4\\
+      2 & -1 & -4 & -2
+      \end{pmatrix}\]
+  On peut aussi très bien faire cela sans orthonormalisation de Schmidt.
+\end{questions}
+\end{sol}
+
+
+\exercice{nom={Rang d'un projecteur orthogonal}}
+Soit $p$ un projecteur orthogonal d'un espace euclidien $E$.
+\begin{questions}
+\question Montrer que pour tout $x\in E$, $\norme{p(x)}^2=\ps{p(x)}{x}$.
+\question Montrer que pour toute base orthonormée $\mathcal{B}\defeq(e_1,\ldots,e_n)$ de $E$
+  \[\sum_{k=1}^n \norme{p(e_k)}^2=\rg(p).\]
+\end{questions}
+
+
+
+\magsubsection{Algorithme d'orthonormalisation de \nom{Gram-Schmidt}}
+
+
+\exercice{nom={Orthonormalisation}}
+On munit $\R^3$ du produit scalaire usuel. Montrer que les vecteurs
+\[e_1\defeq(1,0,1),\quad e_2\defeq(1,0,2) \et e_3\defeq(1,1,1)\]
+forment une base de $\R^3$ et en déterminer l'orthonormalisée de \nom{Gram-Schmidt}.
+
+
+
+\exercice{nom={Une distance}}
+Calculer
+\[\inf_{(a,b)\in \R^2} \integ{0}{1}{\cro{x^2-(ax+b)}^2}{x}.\]
+\begin{sol}
+Dans $\R_2[X]$ muni du produit scalaire $\ps{P}{Q} = \displaystyle\int_0^1 PQ$, c'est la distance de $X^2$ à $\R_1[X]$. 
+Notons $P_0$ le projeté orthogonale de $X^2$ sur $\R_1[X]$, on a $\ps{X^2-P_0}{1} = \ps{X^2-P_0}{X} = 0$ ce qui donne $P_0 = X-\dfrac{1}{6}$. 
+La borne inférieure recherchée est alors $\norme{X^2-P_0} = \dfrac{1}{180}$.
+\end{sol}
+
+
+\exercice{nom={Sur les polynômes}}
+Soit $n\in\N$ et $a_0,\ldots,a_n\in\R$. On pose $E\defeq\polyR[n]$ et on définit
+l'application $\ps{.}{.}$ de $E\times E$ dans $\R$ par
+\[\forall P,Q\in E \qsep \ps{P}{Q}\defeq\sum_{k=0}^n P^{(k)}(a_k)Q^{(k)}(a_k).\]
+\begin{questions}
+\question Montrer que $\ps{.}{.}$ est un produit scalaire sur $E$.
+\question On suppose dans cette question que $n=2$, $a_0=1$, $a_1=2$ et $a_2=3$. Déterminer
+  une base orthonormée de $E$.
+\end{questions}
+
+\exercice{nom={Racines des polynômes orthogonaux}}
+Soit $E\defeq\polyR[n]$, muni de la forme
+\[\forall P,Q\in\polyR[n]\qsep \ps{P}{Q}\defeq\integ{-1}{1}{P(t)Q(t)}{t}.\]
+\begin{questions}
+\question Montrer que $\ps{.}{.}$ est un produit scalaire.
+\question Montrer que $E$ admet une base orthonormée $(P_k)_{0\leq k\leq n}$ telle que
+  \[\forall k\in\intere{0}{n} \qsep \deg P_k=k.\]
+\question Montrer que pour tout $k\in\intere{0}{n}$, $P_k$ admet exactement $k$
+  racines sur $\intero{-1}{1}$.
+\end{questions}
+
+
+\magsubsection{Dual}
+
+
+
+
+% \exercice{utile=-3, nom={Quelques produits scalaires}}
+% Parmi les formes suivantes, lesquelles sont des produits
+% scalaires :
+% \begin{questions}
+% \question Sur $E=\polyR$ :
+%   $$\ps{P}{Q}=\integ{-1}{1}{P(t)Q(t)}{t}$$
+% \question Sur $E=\classec{0}(\R,\R)$ :
+%   $$\ps{f}{g}=\integ{-1}{1}{f(t)g(t)}{t}$$
+% \question Sur $\mat{n}{\R}$ :
+%   $$\ps{A}{B}=\tr\p{A\trans{B}}$$
+%   On rappelle que si $A\in\mat{n}{\K}$, $\tr A=\sum_{k=1}^n a_{k,k}$.
+% \end{questions}
+
+% \exercice{nom={Intégrales}}
+% On considère l'ensemble $E$ des fonctions continues et strictement
+% positives sur un segment $\interf{a}{b}$. Démontrer que la borne
+% inférieure
+% $$\inf_{f\in E} \p{\integ{a}{b}{f(x)}{x}
+%                    \integinv{a}{b}{f(x)}{x}}$$
+% existe. Est-elle atteinte ?
+
+% \magsection{Polynômes orthogonaux}
+% \exercice{nom={Calcul d'un minimum}}
+% Sur $\polyR$, on définit :
+% $$\ps{P}{Q}=\integ{0}{1}{P(t)Q(t)}{t}$$
+% \begin{questions}
+% \question Montrer que $\ps{.}{.}$ est un produit scalaire.
+% \question Trouver une base orthonormée de $\polyR[2]$ pour ce produit
+%   scalaire.
+% \question Calculer le minimum pour $a,b\in\R$ de :
+%   $$\integ{0}{1}{\p{x^2-\p{ax+b}}^2}{x}$$
+% \end{questions}
+
+
+
+% \magsection{Espace euclidien}
+
+
+
+
+
+
+% \magsection{Endomorphismes orthogonaux}
+% \exercice{nom={Matrices orthogonales}}
+% Soit $A\in\mat{n}{\R}$ une matrice orthogonale. Montrer que~:
+% \[\abs{\sum_{1\leq i,j\leq n} a_{i,j}}\leq n\]
+% \[\sum_{1\leq i,j\leq n} \abs{a_{i,j}} \leq n\sqrt{n}\]
+
+% \exercice{nom={Construction d'un produit scalaire}}
+% Soit $E=\R^n$. On se donne $G$ un sous-groupe fini de $GL\p{\R^n}$ et
+% $\ps{.}{.}$ le produit scalaire usuel. On définit la forme $\ps{.}{.}_2$
+% sur $\R^n$ par :
+% $$\forall x,y\in E \quad \ps{x}{y}_2=\frac{1}{\card G}
+%   \sum_{u\in G} \ps{u(x)}{u(y)}$$
+% \begin{questions}
+% \question Montrer que $\ps{.}{.}_2$ est un produit scalaire.
+% \question Montrer que pour ce produit scalaire $G$ est un sous-groupe du
+%   groupe unitaire.
+% \end{questions}
+
+
+% \magsection{Produit mixte}
+% \exercice{nom={Inégalité de Hadamard}}
+% Soit $E$ un espace euclidien de dimension $n$ et $x_1,\ldots,x_n$ une
+% famille de $n$ vecteurs de $E$. Montrer que :
+% $$\abs{\pmixte{x_1,\ldots,x_n}} \leq \norme{x_1}\cdots\norme{x_n}$$
+% On pourra montrer le résultat lorsque la famille $x_1,\ldots,x_n$ est
+% orthogonale, avant de passer au cas général.
+
+% \exercice{nom={Déterminant de Gram}}
+% Soit $E$ un espace euclidien de dimension $n$ et $x_1,\ldots,x_n$ $n$
+% vecteurs de $E$. On appelle matrice de Gram de $x_1,\ldots,x_n$ la
+% matrice :
+% $$\p{\ps{x_i}{x_j}}_{1\leq i,j\leq n}$$
+% et déterminant de Gram le déterminant de cette matrice, noté
+% $G(x_1,\ldots,x_n)$.
+% \begin{questions}
+% \question Montrer que la matrice de Gram peut s'écrire comme le produit
+%   d'une matrice et de sa transposée. 
+% \question En déduire que :
+%   $$G(x_1,\ldots,x_n)=\pmixte{x_1,\ldots,x_n}^2$$
+% \question On suppose que la famille $x_1,\ldots,x_p$ est libre et on note $F$
+%   le sous-espace vectoriel qu'elle engendre. Étant donné $x\in E$, montrer
+%   que la distance $d$ du vecteur $x$ au sous-espace $F$ vérifie :
+%   $$d^2=\frac{G(x_1,\ldots,x_p,x)}{G(x_1,\ldots,x_p)}$$
+% \end{questions}
+
+
+% \magsection{Espace affine}
+
+% \exercice{nom={Plan passant par une droite et un point}}
+% Soit $\mathcal{E}=\R^3$ muni de sa structure d'espace affine usuelle et
+% $\mathcal{R}=\p{O,\p{\ve{e_1},\ve{e_2},\ve{e_3}}}$ où $O=\p{0,0,0}$ et
+% $\ve{e_1},\ve{e_2},\ve{e_3}$ est la base canonique de $E$. Soit $A$ le point de
+% coordonnnées $\p{1,-1,1}$ et $\mathcal{D}$ la droite d'équation~:
+% \[\syslin{x &-3y&+2z&=&1\hfill\cr
+%           2x& +y&-3z&=&-1\hfill}\]
+% Donner l'équation cartesienne du plan $\mathcal{P}$ passant par $A$ et
+% $\mathcal{D}$.
+
+% \exercice{nom={Droites coplanaires}}
+% Soit $\mathcal{E}=\R^3$ muni de sa structure d'espace affine usuelle et
+% $\mathcal{R}=\p{O,\p{\ve{e_1},\ve{e_2},\ve{e_3}}}$ où $O=\p{0,0,0}$ et
+% $\ve{e_1},\ve{e_2},\ve{e_3}$ est la base canonique de $E$. Soit $\mathcal{D}$
+% et $\mathcal{D}'$ les droites d'équation~:
+% \[\mathcal{D} \quad \syslin{x& &-2z&=&1\cr
+%                              &y& -z&=&2} \et
+%   \mathcal{D}' \quad \syslin{x& +y& +z&=&1\cr
+%                              x&-2y&+2z&=&a}\]
+% \begin{questions}
+% \question Pour quelles valeurs de $a$, $\mathcal{D}$ et $\mathcal{D}'$
+%   sont-elles coplanaires~?
+% \question Donner alors l'équation du plan contenant $\mathcal{D}$ et
+%   $\mathcal{D}'$.
+% \end{questions}
+
+% \exercice{nom={Perpendiculaire commune}}
+% L'espace est rapporté au repère orthonormé $Oxyz$.
+% \begin{questions}
+% \question Déterminer la perpendiculaire commune et la distance des droites~:
+%   \[\mathcal{D}_1=A_1+\R\ve{u_1} \et \mathcal{D}_2=A_2+\R\ve{u_2}\]
+%   où $A_1$ et $A_2$ sont de composantes $\p{1,0,0}$ et $\p{0,0,0}$ et
+%   $\ve{u_1}$ et $\ve{u_2}$ de composantes $\p{1,-1,1}$ et $\p{1,1,1}$.
+% \question Déterminer la perpendiculaire commune et la distance des droites~:
+%   \[\mathcal{D}_1 \quad \syslin{x&+y&+z&=&4\cr
+%                                 x&-y&+z&=&6} \et
+%     \mathcal{D}_2 \quad \syslin{x&+y&-z&=&4\hfill\cr
+%                                 x&+y&+z&=&-2}\]
+% \end{questions}
+
+% \exercice{nom={Symétries}}
+% Soit $\mathcal{E}=\R^3$ muni de sa structure d'espace affine usuelle et
+% $\mathcal{R}=\p{O,\p{\ve{e_1},\ve{e_2},\ve{e_3}}}$ où $O=\p{0,0,0}$ et
+% $\ve{e_1},\ve{e_2},\ve{e_3}$ est la base canonique de $E$. Déterminer les
+% expressions analytiques des applications suivantes~:
+% \begin{questions}
+% \question La symétrie par rapport au plan d'équation $x+2y+z=1$ et de direction
+%   $\vect\p{\ve{e_1}+\ve{e_2}+\ve{e_3}}$.
+% \question La symétrie par rapport à la droite d'équation~:
+%   \[\syslin{x&+y&  &+1&=&0\cr
+%              &2y&+z&+2&=&0}\]
+%   et de direction le plan vectoriel d'équation $3x+3y-2z=0$.
+% \end{questions}
+
+% \exercice{nom={Symétries-translation}}
+% Soit $f:\mathcal{E}\to\mathcal{E}$ une application affine. On dit que $f$ est
+% une symétrie-translation lorsqu'il existe une symétrie $s$ et une translation
+% $t$ telles que $f=s\circ t=t\circ s$.
+% \begin{questions}
+% \question Soit $s$ une symétrie par rapport à $\mathcal{F}$ de direction $G$
+%   et $t$ une translation de vecteur $\ve{u}$. Montrer que $s\circ t=t\circ s$
+%   si et seulement si $\ve{u}\in F$.
+% \question Soit $f$ affine quelconque. Montrer que $f$ est une
+%   symétrie-translation si et seulement si $f\circ f$ est une translation.
+% \question En déduire que le produit d'une symétrie quelconque par une
+%   translation quelconque est une symétrie-translation.
+% \question Décomposer l'application $f$ d'expression analytique dans le repère
+%   $\mathcal{R}=\p{O,\p{\ve{e_1},\ve{e_2},\ve{e_3}}}$~:
+%   \[\syslin{x'&=&\frac{1}{3}(&  x&-2y&-2z&+1)\cr
+%             y'&=&\frac{1}{3}(&-2x& +y&-2z&+2)\cr
+%             z'&=&\frac{1}{3}(&-2x&-2y& +z&-1)}\]
+
+% \exercice{nom={Isométrie affine de l'espace}}
+% Soit $\mathcal{E}=\R^3$ et $f$ l'application de $\mathcal{E}$ dans $\mathcal{E}$
+% dont l'expression analytique est~:
+% \[\syslin{x'&=&\quad& &z&  \cr
+%           y'&=&x&\quad& &+1\cr
+%           z'&=& &y&\quad&+2}\]
+% \begin{questions}
+% \question Montrer que la partie linéaire de $f$ est une rotation. Précisez son
+%   axe et son angle.
+% \question En déduire la nature et les éléments caractéristiques de $f$.
+% \end{questions}
+
+% \exercice{nom={Points alignés}}
+% Soit $I,J,K$ trois points du plan affine $\mathcal{P}$ (espace affine de
+% dimension 2). Montrer l'équivalence entre les trois propriétés suivantes~:
+% \begin{questions}
+% \question $I$, $J$ et $K$ sont alignés.
+% \question Il existe $M\in\mathcal{P}$ tel que~:
+%   \[\det\p{\ve{MI},\ve{MJ}}+\det\p{\ve{MJ},\ve{MK}}+\det\p{\ve{MK},\ve{MI}}=0\]
+% \question Pour tout $M\in\mathcal{P}$~:
+%   \[\det\p{\ve{MI},\ve{MJ}}+\det\p{\ve{MJ},\ve{MK}}+\det\p{\ve{MK},\ve{MI}}=0\]
+% \end{questions}
+
+% \magsection{Barycentres}
+% \exercice{nom={Coordonnées barycentriques}}
+% Soit $A,B,C$ trois points du plan non alignés. On se donne $M_1,M_2,M_3$ trois
+% points du plan dont les coordonnées barycentriques dans le système $(A,B,C)$
+% sont respectivement $(\alpha_1,\beta_1,\gamma_1)$, $(\alpha_2,\beta_2,\gamma_2)$
+% et $(\alpha_3,\beta_3,\gamma_3)$. Montrer que $M_1,M_2$ et $M_3$ sont alignés si
+% et seulement si~:
+% \[\begin{vmatrix}
+%   \alpha_1 & \alpha_2 & \alpha_3\\
+%   \beta_1  & \beta_2 & \beta_3\\
+%   \gamma_1 & \gamma_2 & \gamma_3
+%   \end{vmatrix}=0\]
+
+% \exercice{nom={Droites concourantes}}
+% Dans le plan affine $\mathcal{P}$ rapporté à un repère $\mathcal{R}$, on se
+% donne $3$ droites $\mathcal{D}_1,\mathcal{D}_2$ et $\mathcal{D}_3$ d'équations
+% respectives~:
+% \[(\mathcal{D}_i) \quad \alpha_i x+\beta_i y+\gamma_i=0\]
+% On suppose qu'au moins deux des droites ne sont pas parrallèles. Montrer
+% que les trois droites sont concourantes si et seulement si :
+% \[\begin{vmatrix}
+%   \alpha_1 & \alpha_2 & \alpha_3\\
+%   \beta_1  & \beta_2  & \beta_3\\
+%   \gamma_1 & \gamma_2 & \gamma_3\\
+%   \end{vmatrix}=0\]
+
+
+%END_BOOK
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

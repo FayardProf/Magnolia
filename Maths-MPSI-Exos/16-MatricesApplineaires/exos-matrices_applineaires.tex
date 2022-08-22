@@ -1,0 +1,257 @@
+\documentclass{magnolia}
+
+\magtex{tex_driver={pdftex}}
+\magfiche{document_nom={Exercices sur les matrices et applications linéaires},
+          auteur_nom={François Fayard},
+          auteur_mail={fayard.prof@gmail.com}}
+\magexos{exos_matiere={maths},
+         exos_niveau={mpsi},
+         exos_chapitre_numero={0},
+         exos_theme={Matrices et applications linéaires}}
+\magmisenpage{misenpage_presentation={tikzvelvia},
+              misenpage_format={a4},
+              misenpage_nbcolonnes={1},
+              misenpage_sol={non}}
+\maglieudiff{lieu_lycee={Aux Lazaristes},
+             lieu_classe={MPSI 1},
+             lieu_annee={2019--2020}}
+\magprocess
+
+\begin{document}
+%BEGIN_BOOK
+\magsection{Matrices, vecteur et application linéaire}
+
+\exercice{nom={Base, noyau et image}}
+\begin{questions}
+\question On considère l'endomorphisme $f$ de $\R^3$ dont la matrice dans la
+  base canonique de $\R^3$ est
+  \[A\defeq\begin{pmatrix}
+      1 & 1 & 1\\
+     -1 & 2 & -2\\
+      0 & 3 & -1
+      \end{pmatrix}\]
+  Donner une base de $\ker f$ et $\im f$.
+\question Soit $f$ l'application linéaire de $\R^4$ dans $\R^3$ canoniquement
+  associée à la matrice
+  \[A\defeq\begin{pmatrix}
+      -11 & 7 & 0 & 3\\
+       0 & 1 & 11 & 2\\
+       1 & 0 & 7 & 1
+      \end{pmatrix}\]
+  Déterminer le rang de $f$, ainsi qu'une base de son noyau et de son image.
+  Donner une équation de l'image.
+\end{questions}
+\begin{sol}
+$\quad$
+\begin{questions}
+\question Le noyau est engendré par $(-4,1,3)$ donc le rang de $f$ est de 2.
+  Donc $f(e_1),f(e_2)$ est une base de $\im f$ car c'est une famille libre.
+\question La famille $(-7,-11,1,0),(-1,-2,0,1)$ est une base de $\ker f$.
+  Donc le rang de $f$ est de 2. La famille $f(e_1),f(e_2)$ est libre, donc
+  c'est une base de $\im f$. L'équation $\alpha-7\beta+11\gamma=0$.  
+\end{questions}
+\end{sol}
+
+\exercice{nom={Calcul de matrices}}
+\begin{questions}
+\question On considère l'endomorphisme $u$ de $\R_3[X]$ défini par
+  \[\forall P\in\R_3[X] \qsep u(P)\defeq P'+P.\]
+  Écrire la matrice de $u$ dans la base $(1,X,X^2,X^3)$.
+\question Dans $\R^3$, déterminer la matrice de passage de la base $b_1$ à la
+  base $b_2$ avec
+  \[b_1\defeq((1,2,1), (2,3,3), (3,7,1))\]
+  \[b_2\defeq((3,1,4), (5,3,2), (1,-1,7))\]
+\end{questions}
+\begin{sol}
+\begin{questions}
+\question On trouve
+  \[
+  \begin{pmatrix}
+  1 & 1 & 0 & 0\\
+  0 & 1 & 2 & 0\\
+  0 & 0 & 1 & 3\\
+  0 & 0 & 0 & 1  
+  \end{pmatrix}\]
+\question On a $P(b_1,b_2)=P(b,b_1)^{-1}P(b,b_2)$. On trouve
+  \[P(b,b_1)^{-1}=
+  \begin{pmatrix}
+  -18 & 7 & 5\\
+  5 & -2 & -1\\
+  3 & -1 & -1
+  \end{pmatrix}
+  \et P(b_1,b_2)=
+  \begin{pmatrix}
+  -27 & -59 & 10\\
+  9 & 17 & 0\\
+  4 & 10 & -3 
+  \end{pmatrix}\]
+\end{questions}
+\end{sol}
+
+\exercice{nom={Calcul dans l'anneau $\mat{n}{\K}$}}
+Soit $A$ et $B$ deux matrices de $\mat{n}{\K}$ telles que $AB=A+B$. Montrer
+que $A$ et $B$ commutent.
+
+\exercice{nom={Matrices à diagonale dominante}}
+Soit $A$ une matrice de $\mat{n}{\C}$ à coefficients diagonaux
+  dominants, c'est-à-dire telle que
+  \[\forall i\in\intere{1}{n} \qsep \abs{a_{i,i}} >
+    \sum_{\substack{j=1\\ j\not=i}}^n \abs{a_{i,j}}.\]
+  Montrer que $A$ est inversible.
+
+
+% \exercice{nom={Centre de $\Endo{E}$}}
+% Soit $E$ un \Kev de dimension finie. Le but de cet exercice est de montrer que
+% le centre de $\Endo{E}$, c'est à dire l'ensemble des endomorphismes qui
+% commutent avec tous les endomorphismes est l'ensemble des homothéties. On
+% propose pour cela deux démonstrations : une géométrique et une autre
+% matricielle.
+% \begin{questions}
+% \question 
+%   \begin{questions}
+%   \question Soit $u$ un endomorphisme de $E$ tel que~:
+%     \[\forall x\in E \quad \exists \lambda\in\K \quad u(x)=\lambda x\]
+%     Montrer qu'il existe $\lambda\in\K$ tel que $u=\lambda\id$.
+%   \question Soit $u$ un endomorphisme de $E$ qui commute avec toutes les
+%     applications linéaires.
+%     \begin{questions}
+%     \question Soit $x\in E$. En considérant une symétrie par rapport à la
+%       droite vectorielle $\K x$, montrer qu'il existe $\lambda\in\K$ tel que
+%       $u(x)=\lambda x$.
+%     \question En déduire que $u$ est une homothétie, puis conclure.
+%     \end{questions}
+%   \end{questions}
+% \question
+%   \begin{questions}
+%   \question Soit $A$ une matrice commutant avec toutes les matrices.
+%     En considérant la base canonique de $\mat{n}{\K}$, montrer qu'il
+%     existe $\lambda\in\K$ tel que $A=\lambda I_n$.
+%   \question Conclure.
+%   \end{questions}
+% \end{questions}
+
+\magsection{Matrices équivalentes, matrices semblables}
+
+\exercice{nom={Rang}}
+Soit $A,B\in\mat{q,p}{\K}$. Montrer que
+\[\rg B \leq \rg A \quad\ssi\quad \cro{\exists Q\in\gl{q}{\K} \qsep
+  \exists P\in\mat{p}{\K} \qsep B=QAP}.\]
+
+\exercice{nom={Calcul de rang et d'inverse}}
+Calculer les rangs des matrices suivantes et calculer leurs inverses quand il y
+a lieu.
+\[\begin{pmatrix}
+   1 & 1 & 0 & 1\\
+   3 & 2 & -1 & 3\\
+   \lambda & 3 & -2 & 0\\
+   -1 & 0 & -4 & 3
+  \end{pmatrix}\qquad
+  \begin{pmatrix}
+  3 & 1 & 1\\
+  1 & 1 & \lambda\\
+  -4 & 4 & -4\\
+  6 & 4 & 0
+  \end{pmatrix}\qquad
+  \begin{pmatrix}
+  1 & 1 & -1 & 2\\
+  \lambda & 1 & 1 & 1\\
+  1 & -1 & 3 & -3\\
+  4 & 2 & 0 & \lambda
+  \end{pmatrix}\]
+\begin{sol}
+$\quad$
+\begin{questions}
+\question Le rang est 4 si $\lambda\neq -20$ et 3 sinon.
+\question Le rang est 3 quel que soit $\lambda$.
+\question Le rang est 4 si $\lambda\neq 3$ et 2 sinon.
+\end{questions}
+\end{sol}
+
+
+
+\exercice{nom={Étude d'un système affine}}
+Soit $a,b,c$ trois réels deux à deux distincts.
+\begin{questions}
+\question Montrer que le système
+  \[\syslin{x&+ay&+a^2z&=&0\hfill\cr
+            x&+by&+b^2z&=&0\hfill\cr
+            x&+cy&+c^2z&=&0\hfill}\]
+  est de Cramer.
+\question Résoudre le système
+  \[\syslin{
+  x&+ay&+a^2z&=&a^4\cr
+  x&+by&+b^2z&=&b^4\cr
+  x&+cy&+c^2z&=&c^4}\]
+\end{questions}
+
+\exercice{nom={Réduction d'une matrice}}
+Soit $A$ la matrice
+\[A\defeq
+  \begin{pmatrix}
+  0  & 2  & -1\\
+  3 & -2  & 0\\
+  -2  & 2  & 1  
+  \end{pmatrix}\]
+\begin{questions}
+\question Déterminer l'ensemble des valeurs propres de $A$.
+\question Déterminer une matrice diagonale $D$ semblable à $A$. En déduire un
+  polynôme annulateur non nul de $A$.
+\question Expliciter les suites $u$, $v$ et $w$ définies par la donnée de
+  $u_0$, $v_0$, $w_0$ et la relation de récurrence
+  \[\forall n\in\N\qsep \syslin{u_{n+1}&\defeq&    & 2v_n&-w_n&\cr
+            v_{n+1}&\defeq&3u_n&-2v_n&\cr
+            w_{n+1}&\defeq&-2u_n&+2v_n&+w_n}\]
+\end{questions}
+\begin{sol}
+$\quad$  
+\begin{questions}
+\question Échanger la troisième et la première colonne, puis faire un pivot de
+  Gauss. Remarquer que la dernière ligne est factorisable par $\p{\lambda-2}$.
+  On trouve comme valeurs propres~: 2,1,$-4$.
+  De plus, $e_1=(4,3,-2)$ est un vecteur propre associé à 2, $e_2=(1,1,1)$
+  est un vecteur propre associé à 1 et $e_3=(-2,3,-2)$ est un vecteur
+  propre associé à $-4$.
+\question
+\question
+  \[A^n=\frac{1}{30}\left( \begin {array}{ccc} 10\, \left( -1 \right) ^{n}{4}^{n}+20\,{2}
+  ^{n}&12+12\, \left( -1 \right) ^{1+n}{4}^{n}&18+2\, \left( -1 \right) 
+  ^{n}{4}^{n}-20\,{2}^{n}\\\noalign{\medskip}15\, \left( -1 \right) ^{1+
+  n}{4}^{n}+15\,{2}^{n}&12+18\, \left( -1 \right) ^{n}{4}^{n}&18+3\,
+   \left( -1 \right) ^{1+n}{4}^{n}-15\,{2}^{n}\\\noalign{\medskip}10\,
+   \left( -1 \right) ^{n}{4}^{n}-10\,{2}^{n}&12+12\, \left( -1 \right) ^
+  {1+n}{4}^{n}&18+2\, \left( -1 \right) ^{n}{4}^{n}+10\,{2}^{n}
+  \end {array} \right) \]
+\end{questions}
+\end{sol}
+
+\exercice{nom={Matrices telles que $M^2=0$}}
+Déterminer les matrices $M\in\mat{3}{\K}$ telles que $M^2=0$.
+
+\exercice{nom={Réduction des matrices nilpotentes}}
+Soit $A\in\mat{n}{\K}$ une matrice nilpotente d'indice de nilpotence $n$,
+c'est-à-dire telle que
+\[A^n=0 \quad \text{et} \quad A^{n-1}\not=0.\]
+Montrer que $A$ est semblable aux matrices
+\[\begin{pmatrix}
+  0       & \dots  & \dots  & \dots  & 0\\
+  1       & \ddots &        &        & \vdots\\
+  0       & \ddots & \ddots &        & \vdots\\
+  \vdots  & \ddots & \ddots & \ddots & \vdots\\
+  0       & \dots  & 0      & 1      & 0
+  \end{pmatrix}\et
+  \begin{pmatrix}
+  0       & 1      & 0      & \dots  & 0\\
+  \vdots  & \ddots & \ddots & \ddots & \vdots\\
+  \vdots  &        & \ddots & \ddots & 0\\
+  \vdots  &        &        & \ddots & 1\\
+  0       & \dots  & \dots  & \dots  & 0
+  \end{pmatrix}\]
+
+\exercice{nom={Valeurs propres et de $AB$ et $BA$}}
+On appelle valeur propre d'une matrice $X\in\mat{n}{\K}$ tout réel
+$\lambda$ tel que $X-\lambda I_n$ ne soit pas inversible. Montrer que si $A$
+et $B$ sont deux matrices de $\mat{n}{\K}$, alors $AB$ et $BA$ ont les
+mêmes valeurs propres non nulles.
+
+%END_BOOK
+\end{document}

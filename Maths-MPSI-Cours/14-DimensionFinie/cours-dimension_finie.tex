@@ -1,0 +1,1659 @@
+\documentclass{magnolia}
+
+\magtex{tex_driver={pdftex},
+        tex_packages={xypic}}
+\magfiche{document_nom={Cours sur la dimension finie},
+          auteur_nom={François Fayard},
+          auteur_mail={fayard.prof@gmail.com}}
+\magcours{cours_matiere={maths},
+          cours_niveau={mpsi},
+          cours_chapitre_numero={13},
+          cours_chapitre={Dimension finie}}
+\magmisenpage{}
+\maglieudiff{}
+\magprocess
+
+\begin{document}
+
+%BEGIN_BOOK
+\magtoc
+
+\section{Famille libre, famille génératrice, base}
+\subsection{Famille libre}
+
+\begin{definition}[utile=-3]
+On dit qu'une famille $(x_1,\ldots,x_p)\in E^p$ est \emph{libre} lorsque quels que
+soient $\lambda_1,\ldots,\lambda_p\in\K$
+\[\lambda_1 x_1+\cdots+\lambda_p x_p=0 \quad\implique\quad
+  \lambda_1=\cdots=\lambda_p=0.\]
+Sinon, on dit qu'elle est \emph{liée}. Dans ce cas, toute relation du type
+$\lambda_1 x_1+\cdots+\lambda_p x_p=0$ où les $\lambda_k$ ne sont pas tous nuls
+est appelée \emph{relation de liaison}.
+\end{definition}
+
+\begin{sol}
+Faire le lien tout de suite entre liberté et identification
+\end{sol}
+
+\begin{exos}
+\exo Donner une condition nécessaire et suffisante sur
+  $\lambda\in\R$ pour que la famille $(\p{1,2,0}, \p{2,1,1}, \p{3,3,\lambda})$
+  soit une famille libre de $\R^3$.
+  \begin{sol} On résout $a(1,2,0)+b(2,1,1)+c(3,3,\lambda)=(0,0,0)$ à l'aide du pivot de Gauss.
+  Si $\lambda\neq 1$, le système est de Cramer (après résolution avec la méthode du pivot de Gauss). Sinon, c'est équivalent à : il existe $t\in \R$ tel que $a+2b+3c=0$, $b+c=0$ et $c=t$ d'où $a=-t$, $b=-t$ et $c=t$ donc il existe une solution non nulle (même une infinité).
+  \end{sol}
+\exo Montrer que sur $\mathcal{F}\p{\R,\R}$, la famille $\sin,\cos$
+  est libre. Que dire si on lui adjoint la fonction
+  $x\mapsto\sin(x+\pi/4)$~?
+  \begin{sol}
+  $\forall x \in \R$, $\sin\p{x+\pi/4}=\sin(x)\cos(\pi/4)+\cos(x)\sin(\pi/4)$ ce qui donne une relation entre les fonctions.
+  \end{sol} 
+% \exo Si $a_0,\ldots,a_n\in\K$ sont $n+1$ scalaires deux à deux distincts,
+%   La famille $P_0,\ldots,P_n\in\polyK$ définie par
+%   \[\forall k\in\intere{0}{n} \quad P_k=\prod_{\substack{i=0\\i\neq k}}^n
+%     \frac{X-a_i}{a_k-a_i}\]
+%   est libre.
+\exo Sur $\mathcal{F}\p{\R,\R}$, considéré comme un \Rev, montrer que si
+  $\alpha_1,\cdots,\alpha_p\in\R$ sont tels que $\alpha_1<\cdots<\alpha_p$, la famille des fonctions d'expressions
+  $\e^{\alpha_1 x},\e^{\alpha_2 x},\ldots,\e^{\alpha_p x}$ est libre.
+  \begin{sol}
+  Pour faire plusieurs méthodes, je rajoute l'exo avec les $\alpha_i$ réels deux à deux distincts.
+  Pour les complexes, on le prouve par récurrence sur $p$. Pour l'hérédité, on dérive l'égalité et on enlève $\alpha_{p+1}$ fois la combinaison linéaire nulle à ce qu'on vient d'obtenir, ce qui permet d'annuler le terme le plus haut et donc d'utiliser l'HR sur ce qui reste. On conclut grâce aux $\alpha_i$ distincts deux à deux.
+  \end{sol}
+\exo Montrer que la famille $1,\sqrt{2},\sqrt{3}$ est libre dans $\R$
+  considéré comme un $\Q$-espace vectoriel.
+  \begin{sol}
+  On élève $a+b\sqrt{2}=-c\sqrt{3}$ au carré :
+  $a^2+2b^2+ab\sqrt{2}=3c^2$ donc si $ab\neq 0$, $\sqrt{2}\in \Q$ donc $a=0$ ou $b=0$. Ensuite, selon le cas, on recommence le même genre de méthodes.
+  \end{sol}
+\end{exos}
+
+\begin{remarques}
+\remarque[utile=-3] Une famille composée d'un unique vecteur est libre si et seulement si
+  ce vecteur est non nul. Une famille $(x,y)\in E^2$ formée de deux vecteurs est liée si et
+  seulement si ces vecteurs sont \emph{colinéaires}, c'est-à-dire si et seulement si il existe
+  $\lambda\in\K$ tel que $x=\lambda y$ ou $y=\lambda x$. Plus généralement, une famille est
+  liée si et seulement si il existe un vecteur qui est combinaison linéaire des
+  autres.  
+\remarque[utile=-3] Une famille libre reste libre lorsqu'on effectue une permutation
+  de ses vecteurs ou lorsqu'on retire certains de ses vecteurs. En particulier, une famille
+  libre ne contient ni vecteur nul, ni doublon, ni vecteurs colinéaires.
+\remarque Si $(x_1,\ldots,x_p)$ est
+une famille libre et si $x\in E\setminus\vect\p{x_1,...,x_p}$, alors la famille
+$(x_1,\ldots,x_p,x)$ est libre.
+\remarque[utile=-1] Sur $\C$, considéré comme un $\R$-espace vectoriel, la famille
+  $(1,\ii)$ est libre. Cependant, si $\C$ est considéré comme un \Cev, elle est liée. La notion
+  de liberté dépend donc du corps considéré.
+% \remarque[utile=-3] Sur $\C$, si $z\in\C\setminus\R$, la famille $(1,z)$ est $\R$-libre.
+% \begin{sol}
+% Si $a,b\in \R$, $a+bz=0$ conduit à $a=-bz \in \C\setminus\R$ si $b\neq 0$.
+% \end{sol}
+% \remarque L'image d'une famille liée par une application linéaire est une famille
+%   liée. En particulier, si l'image d'une famille par une application
+%   linéaire est libre, alors cette famille est libre.
+% \remarque Pour tout $n\in\N$, la famille $1,X,\ldots,X^n$ est une famille
+%   libre de $\polyK$.
+\end{remarques}
+
+\begin{proposition}
+L'image d'une famille libre par une application linéaire injective est libre.
+\end{proposition}
+
+\subsection{Famille génératrice}
+
+\begin{definition}[utile=-3]
+On dit qu'une famille $(x_1,\ldots,x_p)\in E^p$ est \emph{génératrice} de $E$ lorsque, quel que soit
+$x\in E$, il existe $\lambda_1,\ldots,\lambda_p\in\K$ tels que
+\[x=\lambda_1 x_1+\cdots+\lambda_p x_p.\]
+Autrement dit, la famille $(x_1,\ldots,x_p)$ est génératrice si et seulement si
+$\vect\p{x_1,\ldots,x_p}=E$.
+\end{definition}
+
+\begin{remarques}
+% \remarque Afin de montrer que $(x_1,\ldots,x_p)$ est une famille génératrice de $E$
+  % il ne faut pas oublier de montrer que $x_1,\ldots,x_p$ sont des éléments de $E$.
+\remarque Une famille génératrice reste génératrice lorsqu'on effectue une
+  permutation de ses vecteurs ou lorsqu'on lui rajoute d'autres vecteurs.
+\remarque Si $(x_1,\ldots,x_p)$ est une famille génératrice et si
+  $x_p\in\vect\p{x_1,\ldots,x_{p-1}}$, alors la famille $(x_1,\ldots,x_{p-1})$ est
+  génératrice.
+\end{remarques}
+
+
+\begin{exos}
+  \exo Soit $\lambda\in\R$. Donner une condition nécessaire et suffisante sur
+    $\lambda$ pour que la famille $((1,2,0), (2,1,1), (3,3,\lambda))$
+    soit une famille génératrice de $\R^3$.
+    \begin{sol}
+    Il faut $\lambda\neq 1$.
+    \end{sol}
+  \exo Soit $\K$ un corps de caractéristique nulle, $n\in\N$ et $\alpha\in\K$. Montrer que la famille
+    $(1,X-\alpha,(X-\alpha)^2,\ldots,(X-\alpha)^n)$ est une famille génératrice de $\polyK[n]$.
+  \end{exos}
+
+
+\begin{proposition}[utile=-2]
+Soit $f$ et $g$ deux applications linéaires de $E$ dans $F$. On suppose que
+$(x_1,\ldots,x_p)$ est une famille génératrice de $E$ telle que
+\[\forall k\in\intere{1}{p} \qsep f\p{x_k}=g\p{x_k}.\]
+Alors $f=g$.
+\end{proposition}
+  
+\begin{exoUnique}
+\exo Montrer la formule de \nom{Simpson}.
+  \[\forall P\in\polyR[3] \qsep \integ{0}{1}{P(t)}{t}=
+    \frac{P\p{0}+4P\p{1/2}+P\p{1}}{6}.\]
+    \begin{sol}
+    Les termes de gauche et de droite sont les images d'applications linéaires qui sont égales en $1, X, X^2$ et $X^3$ d'où le résultat.
+    \end{sol}
+\end{exoUnique}
+
+\begin{proposition}[utile=-2]
+Soit $f$ une application linéaire de $E$ dans $F$. On suppose que chaque
+élément d'une famille génératrice $(y_1,\ldots,y_p)$ de $F$ admet un
+antécédent par $f$. Alors $f$ est surjective.
+\end{proposition}
+
+\begin{proposition}[utile=-2]
+Soit $f$ une application linéaire de $E$ dans $F$. Alors l'image
+$(f\p{x_1},\ldots,f\p{x_p})$ d'une famille génératrice $(x_1,\ldots,x_p)$ de $E$ est
+une famille génératrice de $\im f$.
+En particulier, si $f$ est surjective, l'image par $f$
+d'une famille génératrice de $E$ est une famille génératrice de $F$.
+\end{proposition}
+
+\subsection{Base}
+
+\begin{definition}[utile=-3]
+On dit qu'une famille $(e_1,\ldots,e_n)\in E^n$ est une \emph{base} de $E$ lorsque,
+quel que soit $x\in E$, il existe un unique $n$-uplet $\p{\lambda_1,\ldots,\lambda_n}\in\K^n$ tel que
+\[x=\lambda_1 e_1+\cdots+\lambda_n e_n.\]
+Autrement dit, la famille $(e_1,\ldots,e_n)$ est une base de $E$ si et seulement si elle est libre et génératrice.
+\end{definition}
+
+\begin{remarques}
+\remarque Si $\mathcal{B}\defeq(e_1,\ldots,e_n)$ est une base de $E$ et $x\in E$, les
+  $\lambda_1,\ldots,\lambda_n\in\K$ tels que $x=\lambda_1 e_1+\cdots+\lambda_n e_n$ sont appelées
+  \emph{coordonnées} de $x$ relativement à la base $\mathcal{B}$.
+\remarque[utile=-3] Une base reste une base lorsqu'on effectue une permutation de ses
+  vecteurs.
+\end{remarques}
+
+\begin{definition}[utile=-3]
+\begin{itemize}
+\item Si $n\in\N$, la famille $(e_1,\ldots,e_n)$ de $\K^n$ définie par
+  \[\forall k\in\intere{1}{n} \qsep e_k\defeq \p{0,\ldots,0,1,0,\ldots,0}\]
+  est une base de $\K^n$, appelée \emph{base canonique}.
+\item Si $n\in\N$, la famille $(1,X,\ldots,X^n)$ est une base de $\polyK[n]$.
+  On l'appelle \emph{base canonique} de $\polyK[n]$.
+\item Si $p,q\in\N$, la famille $(E_{i,j})_{1\leq i\leq q, 1\leq j\leq p}$ des
+  matrices élémentaires est une base de $\mat{q,p}{\K}$ appelée
+  \emph{base canonique}.
+\end{itemize}
+\end{definition}
+
+% \begin{proposition}
+% Soit $\mathcal{F}\defeq(e_1,\ldots,e_n)$ une famille d'éléments de $E$. Alors, les assertions suivantes
+% sont équivalentes~:
+% \begin{itemize}
+% \item $\mathcal{F}$ est une base de $E$.
+% \item $\mathcal{F}$ est \emph{libre maximale}, c'est-à-dire qu'elle est libre et que
+%   l'ajout de tout élément la rend liée.
+% \item $\mathcal{F}$ est \emph{génératrice minimale}, c'est-à-dire qu'elle est
+%   génératrice et que le retrait de tout élément lui fait perdre son caractère
+%   générateur.
+% \end{itemize}
+% \end{proposition}
+
+\begin{proposition}[utile=3]
+Soit $E$ et $F$ deux \Kevs tels que $E$ admette une base $(e_1,\ldots,e_n)$.
+Alors, quel que soit $(y_1,\ldots,y_n)\in F^n$, il existe une unique application
+linéaire $f$ de $E$ dans $F$ telle que
+\[\forall k\in\intere{1}{n} \qsep f\p{e_k}=y_k.\]
+De plus
+\begin{itemize}
+\item $f$ est injective si et seulement si $(y_1,\ldots,y_n)$ est libre.
+\item $f$ est surjective si et seulement si $(y_1,\ldots,y_n)$ est génératrice dans $F$.
+\item $f$ est un isomorphisme si et seulement si $(y_1,\ldots,y_n)$ est une base de $F$.
+\end{itemize}
+\end{proposition}
+
+\begin{preuve}
+Pour la première partie du théorème, on démontre l'unicité à l'aide de la proposition 1.2.
+Pour l'existence, on définit alors $f$ en tout $x\in E$ en le décomposant sur $(e_1,\ldots,e_n)$. On montre ensuite que cette application est bien linéaire.\\
+
+
+Pour la seconde partie du théorème :
+On a déjà montré les implications gauche droite des deux premiers points. 
+\begin{itemize}
+\item[$\bullet$] On suppose que $(y_1,\ldots,y_n)$ est libre. Montrons que $f$ est injective. On prend $x\in \ker f$ et on démontre qu'il est nul en  le décomposant sur la base $(e_1,\ldots,e_n)$.
+\item[$\bullet$] On suppose maintenant que $(y_1,\ldots,y_n)$ est génératrice et on démontre que $f$ est surjective.
+\item[$\bullet$] On obtient le troisième point en combinant les deux premiers.
+\end{itemize}
+\end{preuve}
+
+% \begin{remarques}
+% \remarque[utile=3] En reprenant les notations du théorème,
+%   $f$ est injective si et seulement si $y_1,\ldots,y_n$
+%   est libre. De même, $f$ est surjective si et seulement si $y_1,\ldots,y_n$ est
+%   une famille génératrice de $F$. Enfin, $f$ est bijective si et seulement si
+%   $y_1,\ldots,y_n$ est une base de $F$.
+% \remarque Soit $p,q\in\Ns$. Un application $f$ de $\K^p$ dans $\K^q$ est
+%   linéaire si et seulement si il existe une famille de scalaires
+%   $\p{a_{i,j}}_{1\leq i\leq q,1\leq j\leq p}$ telle que, pour tout
+%   $\p{x_1,\ldots,x_p}\in\K^p$
+%   \[f\p{x_1,\ldots,x_p}=\p{\sum_{k=1}^p a_{1,k} x_k,\ldots,
+%                            \sum_{k=1}^p a_{q,k} x_k}\]
+%   En particulier, si $n\in\Ns$, une application $f$ de $\K^n$ dans $\K$ est une
+%   forme linéaire si et seulement si il existe $a_1,\ldots,a_n\in\K$ tels
+%   que, pour tout $\p{x_1,\ldots,x_n}\in\K^n$
+%   \[f\p{x_1,\ldots,x_n}=a_1 x_1+\cdots+a_n x_n\]
+% \end{remarques}
+
+\begin{exoUnique}
+\exo On pose $E\defeq\R^3$. Montrer qu'il existe $u\in\mathcal{L}(E)$ tel que
+  $u^3=\id$ et $u\neq \id$.
+  \begin{sol}
+  Suffit de bien la définir sur la base canonique en prenant par exemple $u(e_1)=e_2$, $u(e_2)=e_3$ et $u(e_3)=e_1$.
+  \end{sol}
+\end{exoUnique}
+
+\begin{proposition}
+Soit $A$ et $B$ deux sous-espaces vectoriels de $E$, $\mathcal{A}\defeq(a_1,\ldots,a_p)$ une famille d'éléments de $A$ et
+$\mathcal{B}\defeq(b_1,\ldots,b_q)$ une famille libre d'éléments de $B$. On pose $\mathcal{E}\defeq(a_1,\ldots,a_p,b_1,\ldots,b_q)$.
+\begin{itemize}
+\item Si $A$ et $B$ sont en somme directe et $\mathcal{A}$ et $\mathcal{B}$ sont libres, alors $\mathcal{E}$ est libre.
+\item Si $A+B=E$ et $\mathcal{A}$ et $\mathcal{B}$ sont respectivement génératrices de $A$ et $B$, alors
+  $\mathcal{E}$ est génératrice de $E$.
+\item Si $A\oplus B=E$ et $\mathcal{A}$ et $\mathcal{B}$ sont respectivement des bases de $A$ et $B$, alors
+  $\mathcal{E}$ est une base de $E$. On dit qu'une telle base est \emph{adaptée} à la
+  décomposition $E=A\oplus B$.
+\end{itemize}
+\end{proposition}
+
+\begin{definition}
+Soit $E$ un \Kev admettant une base $\mathcal{B}\defeq(e_1,\ldots,e_n)$. Pour tout $k\in\intere{1}{n}$,
+on définit $e_k^\star\in E^\star$ comme étant l'application de $E$ dans $\K$ qui à $x$ associe la
+$k$-ième coordonnée de $x$ relativement à la base $\mathcal{B}$. Les applications $e_k^\star$ sont
+appelées \emph{applications coordonnées} de la base $\mathcal{B}$.
+\end{definition}
+
+\begin{remarques}
+\remarque Si $\mathcal{B}\defeq(e_1,\ldots,e_n)$ est une base de $E$ et $x\in E$,
+  alors $(e_1^\star(x),\ldots,e_n^\star(x))\in\K^n$ est la famille des coordonnées de $x$
+  relativement à la base $\mathcal{B}$. Autrement dit
+  \[\forall x\in E\qsep x=\sum_{k=1}^n e_k^{\star}(x)e_k.\]
+\remarque En particulier, si $\mathcal{B}\defeq(e_1,\ldots,e_n)$ est la base canonique
+  de $\K^n$ et $x\defeq(x_1,\ldots,x_n)\in\K^n$, alors
+  \[\forall k\in\intere{1}{n}\qsep e_k^\star(x)=x_k.\]
+\end{remarques}
+
+\begin{definition}
+Soit $E$ un \Kev admettant une base $\mathcal{B}\defeq(e_1,\ldots,e_n)$. Alors $(e_1^\star,\ldots,e_n^\star)$
+est une base de $E^\star$, appelée \emph{base duale} de $\mathcal{B}$.
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque Dans $E\defeq \K^n$, si $\mathcal{B}\defeq(e_1,\ldots,e_n)$ est la base canonique
+  de $E$ et $\phi\in E^*$, il existe $a_1,\ldots,a_n\in\K$ tels que
+  \[\phi=a_1 e_1^*+\cdots+a_n e_n^*.\]
+  Pour tout $x=(x_1,\ldots,x_n)\in\K^n$, on a donc $\phi(x)=a_1 x_1+\cdots+a_n x_n$.
+\end{remarqueUnique}
+
+\subsection{Cas des familles infinies}
+
+\begin{definition}
+On dit qu'une famille $(\lambda_i)_{i\in I}$ d'éléments de $\K$ est \emph{presque nulle} lorsqu'il existe une partie finie
+$J\defeq\ens{i_1,\ldots,i_n}$ de $I$ telle que
+\[\forall i\in I\setminus J\qsep \lambda_i=0.\]
+Si $(x_i)_{i\in I}$ est une famille d'éléments de $E$, on définit alors
+\[\sum_{i\in I} \lambda_i x_i \defeq \sum_{k=1}^n \lambda_{i_k} x_{i_k}.\]
+On note $\K^{(I)}$ l'ensemble des familles presque nulles d'éléments de $\K$ indexées par $I$.
+\end{definition}
+
+\begin{remarques}
+\remarque Si $(\lambda_i)_{i\in I}$ est une famille d'éléments de $\K$, on appelle support
+  de cette famille l'ensemble
+  \[J\defeq\enstq{i\in I}{\lambda_i \neq 0}.\]
+  Les familles presque nulles sont donc les familles \emph{à support fini}.
+\remarque Soit $(\lambda_i)_{i\in I}$ et $(\mu_i)_{i\in I}$ deux familles presque nulles d'éléments de $\K$. On pose
+  \[x\defeq\sum_{i\in I} \lambda_i x_i \quad\et\quad y\defeq\sum_{i\in I} \mu_i x_i.\]
+  Alors, quels que soient $\lambda$ et $\mu\in\K$, $(\lambda\lambda_i+\mu\mu_i)_{i\in I}$ est une famille
+  presque nulle et
+  \[\lambda x+\mu y=\sum_{i\in I} (\lambda \lambda_i+\mu \mu_i)x_i.\]
+\end{remarques}
+
+
+\begin{proposition}
+Soit $(x_i)_{i\in I}$ une famille d'éléments de $E$. Alors
+\[\vect\ensim{x_i}{i\in I}=\ensim{\sum_{i\in I} \lambda_i x_i}{(\lambda_i)_{i\in I} \in \K^{(I)}}.\]
+\end{proposition}
+
+\begin{definition}[utile=-3]
+On dit qu'une famille $(x_i)_{i\in I}$ d'éléments de $E$ est \emph{libre} lorsque, quelle que soit la famille
+presque nulle $(\lambda_i)_{i\in I}$
+\[\sum_{i\in I} \lambda_i x_i=0 \quad\implique\quad \forall i\in I\qsep \lambda_i=0.\]
+Sinon, on dit qu'elle est \emph{liée}. Dans ce cas, toute relation du type
+$\sum_{i\in I} \lambda_i x_i=0$ où les $\lambda_i$ ne sont pas tous nuls est appelée \emph{relation de liaison}.
+\end{definition}
+
+\begin{remarques}
+\remarque On dit qu'une partie $A$ de $E$ est libre lorsque la famille de ses éléments est
+  libre.
+\remarque Une famille $(x_i)_{i\in I}$ d'éléments de $E$ est libre si et seulement si
+  toute sous-famille finie de $(x_i)_{i\in I}$ est libre, c'est-à-dire si et seulement si
+  pour tout $i_1,\ldots,i_n\in I$ deux à deux distincts et $\lambda_1,\ldots,\lambda_n\in\K$
+  tels que
+  \[\lambda_1 x_{i_1}+\cdots+\lambda_n x_{i_n}=0\]
+  on a $\lambda_1=\cdots=\lambda_n=0$.
+\remarque Une famille $(x_i)_{i\in\N}$ est libre si et seulement si pour tout $n\in\N$
+  et $\lambda_0,\ldots,\lambda_n\in\K$ tels que
+  \[\lambda_0 x_0+\cdots+\lambda_n x_n=0\]
+  on a $\lambda_0=\cdots=\lambda_n=0$.
+\end{remarques}
+
+\begin{exoUnique}
+\exo Soit $(P_n)_{n\in\N}$ une famille d'éléments de $\polyK$ telle que
+\[\forall n\in\N\qsep \deg(P_n)=n.\]
+Montrer qu'elle est libre.
+\end{exoUnique}
+
+\begin{sol}
+On peut prendre comme exemple la famille $(x\mapsto |x-a|)_{a\in \R}$.
+\end{sol}
+
+\begin{definition}[utile=-3]
+On dit qu'une famille $(x_i)_{i\in I}$ d'éléments de $E$ est \emph{génératrice} de $E$ lorsque, quel que soit
+$x\in E$, il existe une famille presque nulle $(\lambda_i)_{i\in I}$ telle que
+\[x=\sum_{i\in I} \lambda_i x_i.\]
+Autrement dit, la famille $(x_i)_{i\in I}$ est génératrice si et seulement si $\vect\ensim{x_i}{i\in I}=E$.
+\end{definition}
+
+\begin{remarques}
+\remarque On dit qu'une partie $A$ de $E$ est génératrice lorsque la famille de ses éléments est génératrice.
+\remarque Une famille $(x_i)_{i\in I}$ d'éléments de $E$ est génératrice de $E$ si et
+seulement si pour tout $x\in E$, il existe $i_1,\ldots,i_n\in I$ et $\lambda_1,\ldots,\lambda_n\in\K$ tels que
+\[x=\sum_{k=1}^n \lambda_k x_{i_k}.\]
+\remarque Comme dans le cas des familles finies, si $f,g\in\mathcal{L}(E,F)$ coïncident sur une famille génératrice de
+$E$, alors $f=g$. De même, si $f\in\mathcal{L}(E,F)$ et que chaque élément d'une famille génératrice de $F$ admet un antécédent
+par $f$, alors $f$ est surjective.
+\remarque Enfin, l'image par une application linéaire $f\in\mathcal{L}(E, F)$ d'une famille génératrice de $E$ est une famille
+génératrice de $\im f$.
+\end{remarques}
+
+\begin{definition}[utile=-3]
+On dit qu'une famille $(e_i)_{i\in I}$ d'éléments de $E$ est une \emph{base} de $E$ lorsque, quel que soit $x\in E$, il existe une
+unique famille presque nulle $(\lambda_i)_{i\in I}$ telle que
+\[x=\sum_{i\in I} \lambda_i x_i.\]
+Autrement dit, la famille $(x_i)_{i\in I}$ est une base de $E$ si et seulement si elle est libre et génératrice.
+\end{definition}
+
+\begin{remarqueUnique}
+% \remarque Comme pour les familles finies, une famille d'éléments de $E$ est une base
+%   si et seulement si elle est libre maximale ou génératrice minimale.
+\remarque Si $(e_i)_{i\in I}$ est une base de $E$ et $(y_i)_{i\in I}$ est une famille
+d'éléments de $F$, alors il existe une unique application linéaire $f$ de $E$ dans $F$ telle que
+\[\forall i\in I\qsep f(e_i)=y_i.\]
+De plus, $f$ est injective si et seulement si $(y_i)_{i\in I}$ est libre, $f$ est surjective si et seulement si
+$(y_i)_{i\in I}$ est génératrice de $F$ et $f$ est un isomorphisme si et seulement si $(y_i)_{i\in I}$ est une base de $F$.
+\end{remarqueUnique}
+
+% \begin{exempleUnique}
+% \exemple La famille $(X^k)_{k\in\N}$ est une base de $\polyK$.
+% \end{exempleUnique}
+
+\begin{definition}
+La famille $(X^n)_{n\in\N}$ est une base de $\polyK$, appelée \emph{base canonique}.
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque Si $P\defeq a_0+a_1X+\cdots+a_nX^n\in\polyK$ et que l'on définit $a_k$ pour
+  tout $k>n$ en posant $a_k\defeq 0$, alors la famille
+$(a_k)_{k\in\N}$ est la famille des coordonnées de  $P$ dans la base canonique.
+\end{remarqueUnique}
+
+\section{Dimension}
+
+\subsection{Espace vectoriel de dimension finie}
+\begin{definition}[utile=-3]
+On dit qu'un \Kev $E$ est de \emph{dimension finie} lorsqu'il admet une famille
+génératrice finie. Dans le cas contraire, on dit que $E$ est de \emph{dimension
+infinie}.
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque $\K^n$ et $\polyK[n]$ sont de dimension finie. $\polyK$ est
+  de dimension infinie.
+\end{remarqueUnique}
+
+
+\begin{proposition}[utile=2,nom={Lemme de \nom{Steinitz}}]
+Soit $E$ un \Kev de dimension finie et $(g_1,\ldots,g_q)$ une famille génératrice de $E$.
+\begin{itemize}
+\item Toute famille libre de $E$ possède au plus $q$ éléments.
+\item Il est possible de compléter toute famille libre $(e_1,\ldots,e_p)$ en une base
+$(e_1,\ldots,e_p,g_{i_{p+1}},\ldots,g_{i_n})$ de $E$ où $g_{i_{p+1}},
+\ldots,g_{i_n}$ sont des éléments de la famille $(g_1,\ldots,g_q)$.
+\end{itemize}
+
+\end{proposition}
+
+\begin{preuve}
+Soit $\mathcal{F}$ l'ensemble des familles libres de $E$ formées des éléments
+$(e_1,\ldots,e_m)$ et de certains des éléments de $(g_1,\ldots,g_p)$. Cet ensemble
+est non vide car il contient la famille $(e_1,\ldots,e_m)$. De plus les familles
+de $\mathcal{F}$ sont toutes de cardinal inférieur à $m+p$. Il existe
+donc une famille de $\mathcal{F}$ de cardinal maximal. Notons
+$(e_1,\ldots,e_m,g_{i_{m+1}},\ldots,g_{i_n})$ une telle famille et montrons que c'est
+une base de $E$
+\begin{itemize}
+\item Cette famille est libre par définition de $\mathcal{F}$.
+\item Montrons qu'elle est génératrice.
+  \begin{itemize}
+  \item Montrons d'abord que~:
+    \[\forall k\in\intere{1}{p} \quad
+      g_k\in\vect(e_1,\ldots,e_m,g_{i_{m+1}},\ldots,g_{i_n})\]
+    Soit $k\in\intere{1}{p}$. Si $g_k$ est un des $g_{i_{m+1}},\ldots,g_{i_n}$, le
+    résultat est évident. \\
+    Sinon, la famille
+    $(e_1,\ldots,e_m,g_{i_{m+1}},\ldots,g_{i_n},g_k)$ possède $n+1$ éléments. Puisque
+    les familles de $\mathcal{F}$ ont toutes au plus $n$ éléments, on en déduit
+    que cette famille n'est pas dans $\mathcal{F}$. Elle est donc liée. Il existe
+    donc $\lambda_1,\ldots,\lambda_{n+1} \in\K$ non tous nuls tels que~:
+    \[\lambda_1 e_1+\cdots+\lambda_m e_m + \lambda_{m+1} g_{i_{m+1}}+\cdots+
+      \lambda_n g_{i_n} + \lambda_{n+1} g_k=0\]
+    Montrons que $\lambda_{n+1}\neq 0$. On raisonne par l'absurde et on suppose que
+    $\lambda_{n+1}=0$. Alors~:
+    \[\lambda_1 e_1+\cdots+\lambda_m e_m + \lambda_{m+1} g_{i_{m+1}}+\cdots+
+      \lambda_n g_{i_n}=0\]
+    Puisque la famille $(e_1,\ldots,e_m,g_{i_{m+1}},\ldots,g_{i_n})$ est libre, on en
+    déduit que $\lambda_1=\cdots=\lambda_n=0$. Donc les $\lambda_k$
+    ($1\leq k\leq n+1$) sont tous nuls. C'est absurde, donc $\lambda_{n+1}\neq 0$.
+    On en déduit donc que~:
+    \[g_k=\p{-\frac{\lambda_1}{\lambda_{n+1}}} e_1+\cdots+
+          \p{-\frac{\lambda_m}{\lambda_{n+1}}} e_m +
+          \p{-\frac{\lambda_{m+1}}{\lambda_{n+1}}} g_{i_{m+1}}+\cdots+
+          \p{-\frac{\lambda_n}{\lambda_{n+1}}} g_{i_n}\]
+    Donc $g_k\in\vect\ens{e_1,\ldots,e_m,g_{i_{m+1}},\ldots,g_{i_n}}$
+  \item Montrons désormais que la famille $(e_1,\ldots,e_m,g_{i_{m+1}},\ldots,g_{i_n})$
+    est génératrice, c'est-à-dire que~:
+    \[E=\vect(e_1,\ldots,e_m,g_{i_{m+1}},\ldots,g_{i_n})\]
+    Puisque
+    \[\forall k\in\intere{1}{p} \quad
+      g_k\in\vect(e_1,\ldots,e_m,g_{i_{m+1}},\ldots,g_{i_n})\]
+    on en déduit que~:
+    \[\vect(g_1,\ldots,g_p) \subset
+      \vect(e_1,\ldots,e_m,g_{i_{m+1}},\ldots,g_{i_n})\]
+    Or la famille $(g_1,\ldots,g_p)$ est génératrice donc
+    $\vect(g_1,\ldots,g_p)=E$. Donc~:
+    \[E\subset  \vect(e_1,\ldots,e_m,g_{i_{m+1}},\ldots,g_{i_n})\]
+    L'inclusion réciproque étant immédiate, on en déduit que~:
+    \[E= \vect(e_1,\ldots,e_m,g_{i_{m+1}},\ldots,g_{i_n})\]
+    et donc que $(e_1,\ldots,e_m,g_{i_{m+1}},\ldots,g_{i_n})$ est génératrice.
+  \end{itemize}
+\end{itemize}
+En conclusion $(e_1,\ldots,e_m,g_{i_{m+1}},\ldots,g_{i_n})$ est une base de $E$.  
+\end{preuve}
+\begin{preuve}
+Montrons ce résultat par récurrence sur $n$~:
+\begin{center}
+$\mathcal{H}_n$ : \flqq\ 
+\parbox[t]{0.75\linewidth}{%
+Soit $E$ un \Kev et $(g_1,\ldots,g_n)$ une famille génératrice de $E$. Alors
+toute famille d'éléments de $E$ possédant plus de $n+1$ éléments est liée.
+\frqq}
+\end{center}
+\begin{itemize}
+\item $\mathcal{H}_0$ est vraie.\\
+  En effet, soit $E$ un \Kev engendré par une famille vide. Alors $E=\ens{0}$.
+  Montrons que toute famille qui possède au moins 1 élément est liée. En effet
+  si $x_1\in E$ alors $x_1=0$ donc $1\cdot x_1=0$ est une relation de liaison.
+\item $\mathcal{H}_n\implique\mathcal{H}_{n+1}$.\\
+  On suppose que $\mathcal{H}_n$ est vraie. Montrons que $\mathcal{H}_{n+1}$ est
+ vraie. En effet, soit $E$ un \Kev engendré par une famille $(g_1,\ldots,g_{n+1})$.
+  Montrons que toute famille qui possède au moins $n+2$ éléments est liée. Soit
+  $(x_1,\ldots,x_{n+2})$ une famille de $n+2$ éléments. Puisque
+  $(g_1,\ldots,g_{n+1})$ est génératrice il existe une famille de scalaires
+  $\p{\lambda_{i,j}}$ avec $i\in\intere{1}{n+2}$ et $j\in\intere{1}{n+1}$ telle
+  que~:
+  \[\syslin{x_1&=&\lambda_{1,1}g_1&+\lambda_{1,2}g_2&+\cdots&
+                  +\lambda_{1,n+1}g_{n+1}\cr
+            x_2&=&\lambda_{2,1}g_1&+\lambda_{2,2}g_2&+\cdots&
+                  +\lambda_{2,n+1}g_{n+1}\cr
+               &\hfill\vdots\hfill&&&&\cr
+            x_{n+2}&=&\lambda_{n+2,1}g_1&+\lambda_{n+2,2}g_2&+\cdots&
+                  +\lambda_{n+2,n+1}g_{n+1}}\]
+  Deux cas se présentent~:
+  \begin{itemize}
+  \item Si $\forall i\in\intere{1}{n+2} \quad \lambda_{i,1}=0$.\\
+    Dans ce cas la famille $(x_1,\ldots,x_{n+2})$ est une famille de $n+2$
+    vecteurs de l'espace $F=\vect\p{g_2,\ldots,g_{n+1}}$ engendré par $n$
+    éléments. Puisque $\mathcal{H}_n$ est vraie, on en déduit que cette famille
+    est liée.
+  \item Sinon, il existe $i\in\intere{1}{n+2}$ tel que $\lambda_{i,1}\neq 0$.
+    Quitte à changer l'ordre des $x_i$ on peut supposer que
+    $\lambda_{1,1}\neq 0$. Alors, en utilisant $\lambda_{1,1}$ comme pivot~:
+    \[L_2\gets L_2-\frac{\lambda_{2,1}}{\lambda_{1,1}}L_1 \quad \ldots \quad
+      L_{n+2}\gets L_{n+2}-\frac{\lambda_{n+2,1}}{\lambda_{1,1}}L_1\]
+    \[\syslin{x_1&=&\lambda_{1,1}g_1&+\lambda_{1,2}g_2&+\cdots&
+                  +\lambda_{1,n+1}g_{n+1}\cr
+              x_2-\frac{\lambda_{2,1}}{\lambda_{1,1}}x_1
+                &=&&\p{?}g_2&+\cdots&+\p{?}g_{n+1}\cr
+               &\hfill\vdots\hfill&&&&\cr
+              x_{n+2}-\frac{\lambda_{n+2,1}}{\lambda_{1,1}}x_1
+                &=&&\p{?}g_2&+\cdots&+\p{?}g_{n+1}}\]
+    où les $\p{?}$ sont des scalaires dont la valeur exacte est inutile. On en
+    déduit que la famille de $n+1$ vecteurs~:
+    \[x_2-\frac{\lambda_{2,1}}{\lambda_{1,1}}x_1,\ldots,
+      x_{n+2}-\frac{\lambda_{n+2,1}}{\lambda_{1,1}}x_1\]
+    appartient à l'espace vectoriel $F=\vect\p{g_2,\ldots,g_{n+1}}$ engendré
+    par $n$ vecteurs. Puisque $\mathcal{H}_n$ est vraie, on en déduit que cette
+    famille est liée. Il existe donc $\lambda_2,\ldots,\lambda_{n+2}\in\K$ non
+    tous nuls tels que~:
+    \[\lambda_2\p{x_2-\frac{\lambda_{2,1}}{\lambda_{1,1}}x_1}+\cdots+
+      \lambda_{n+2}\p{x_{n+2}-\frac{\lambda_{n+2,1}}{\lambda_{1,1}}x_1}=0\]
+    Donc~:
+    \[\p{?}x_1+\lambda_2 x_2+\cdots+\lambda_{n+2}x_{n+2}=0\]
+    qui est une relation de liaison puisque les $\lambda_k$ ne sont pas tous
+    nuls. En conclusion, la famille $(x_1,\ldots,x_{n+2})$ est liée.
+  \end{itemize}
+   Donc $\mathcal{H}_{n+1}$ est vraie.
+\end{itemize}
+Par récurrence sur $n$ on en déduit donc que $\mathcal{H}_n$ est vraie pour
+tout $n\in\N$.
+\end{preuve}
+
+\begin{remarqueUnique}
+\remarque[utile=-2] Pour montrer qu'un espace vectoriel est de dimension infinie, il
+  suffit donc de trouver des familles libres possédant autant d'éléments que l'on
+  souhaite.
+\end{remarqueUnique}
+
+\begin{exoUnique}
+\exo \`A l'aide d'éléments de la famille $(1, X, X^2)$, compléter la famille
+  $(X^2-1,X^2+1)$ en une base de $\polyR[2]$.
+\begin{sol}
+Il suffit de rajouter un élément de la base canonique (par exemple) qui n'est pas dans son $\vect$. $X$ fonctionne. On vérifie que cela forme une base.
+\end{sol}
+\end{exoUnique}
+
+
+
+\begin{theoreme}[nom={Théorèmes de la base incomplète et de la base extraite}]
+Soit $E$ un \Kev de dimension finie.
+\begin{itemize}
+\item Toute famille libre se complète en une base finie de $E$.
+\item Il est possible d'extraire une base finie de toute famille génératrice de $E$.
+\end{itemize}
+\end{theoreme}
+
+\begin{preuve}
+Comme $E$ est de dimension finie, il existe une famille génératrice (définition) donc on peut appliquer le théorème de la base incomplète.
+
+Pour le deuxième point, on complète à partir de la famille vide.
+\end{preuve}
+
+% \begin{remarques}
+% \remarque Algorithme de construction d'une base~:
+% \begin{itemize}
+% \item On commence par une famille $e_1,\ldots,e_m$
+% \item Si cette famille est génératrice, on arrête. C'est une base.
+% \item Sinon, on y ajoute un vecteur quelconque de $g_1,\ldots,g_p$ qui n'est pas
+%   dans $\vect(F)$. On retourne à l'étape 2.
+% \end{itemize}
+% \end{remarques}
+
+
+\begin{proposition}[utile=-3]
+Tout espace vectoriel de dimension finie admet une base finie.
+\end{proposition}
+
+\begin{preuve}
+C'est une autre lecture du deuxième point de la proposition précédente.
+\end{preuve}
+
+\begin{remarques}
+\remarque[utile=-3] On en déduit qu'un espace vectoriel est de dimension finie si et seulement si il
+  admet une base finie.
+\remarque On peut montrer que tout espace vectoriel admet une base mais ce théorème est hors programme,
+  difficile à montrer et fait appel à l'axiome du choix.
+\end{remarques}
+
+\subsection{Dimension d'un espace vectoriel}
+
+
+\begin{definition}[utile=-3]
+Soit $E$ un \Kev de dimension finie. Alors toutes les bases de $E$ sont finies et ont le
+même nombre d'éléments; on appelle \emph{dimension} de $E$ et on note $\dim E$ cet
+entier.
+\end{definition}
+\begin{preuve}
+Soit $E$ un \Kev de dimension finie, $\mathcal{B}_1=(e_1,\ldots,e_{n_1})$ et
+$\mathcal{B}_2=(f_1,\ldots,f_{n_2})$ deux bases de $E$. Montrons que
+$n_1=n_2$.\\
+Puisque $E$ est engendré par $\mathcal{B}_2$ et que $\mathcal{B}_1$ est une
+famille libre de $E$ le théorème précédent montre que $n_1\leq n_2$. De même on
+montre que $n_2\leq n_1$, donc $n_1=n_2$.
+\end{preuve}
+
+\begin{remarques}
+\remarque[utile=-2] Un espace vectoriel $E$ est de dimension nulle si et seulement
+  si $E=\ens{0}$. On appelle \emph{droite vectorielle} tout espace vectoriel de dimension 1,
+  c'est-à-dire tout espace vectoriel $E$ tel qu'il existe $x\in E\setminus\ens{0}$ tel
+  que $E=\K x$. On appelle \emph{plan vectoriel} tout espace vectoriel de dimension 2.
+\remarque[utile=-1] Considéré comme un \Rev, $\C$ est de dimension 2. Cependant, $\C$
+  est de dimension 1 lorsqu'on le considère comme un \Cev. La dimension
+  est donc une notion qui dépend du corps.
+\end{remarques}
+
+\begin{exos}
+\exo Dans $\R^3$, donner une base du sous-espace vectoriel d'équation $x+y+z=0$.
+\exo Dans $\polyR[2]$, donner une base puis la dimension du sous-espace vectoriel
+  \[F=\enstq{P\in\polyR[2]}{\integ{0}{1}{P(t)}{t}=0}.\]
+  
+  \begin{sol}
+  $\vect(X-1/2,X^2-1/3)$ puis on montre que c'est une famille libre.
+  \end{sol}
+\exo Si $E$ est un \Kev de dimension $n$, montrer qu'il existe $u\in\mathcal{L}(E)$
+  tel que $u^n=0$ et $u^{n-1}\neq 0$.
+  \begin{sol}
+  On définit $u$ par $u(e_k)=e_{k-1}$ si $k\geq 2$ et $u(e_1)=0$.
+  \end{sol}
+\end{exos}
+
+\begin{proposition}[utile=-3]
+\begin{itemize}
+\item Si $n\in\N$, $\K^n$ est un \Kev de dimension $n$.
+\item Si $n\in\N$, $\polyK[n]$ est un \Kev de dimension $n+1$.
+\item Si $p,q\in\N$, $\mat{q,p}{\K}$ est un \Kev de dimension $pq$. 
+\end{itemize}
+\end{proposition}
+
+\begin{remarques}
+\remarque En particulier, $\mat{n}{\K}$ est de dimension $n^2$.
+\remarque $\mathcal{T}_n(\K)$ et $\mathcal{S}_n\p{\K}$ sont de dimension $n(n+1)/2$. $\mathcal{A}_n\p{\K}$ est de dimension $n(n-1)/2$.
+\end{remarques}
+
+\begin{proposition}[utile=-3]
+Soit $E$ un \Kev de dimension $n$ et $(x_1,\ldots,x_p)$ une famille de $p$
+éléments de $E$.
+\begin{itemize}
+\item Si $(x_1,\ldots,x_p)$ est libre, alors $p\leq n$.
+\item Si $(x_1,\ldots,x_p)$ est génératrice, alors $p\geq n$.
+\end{itemize}
+\end{proposition}
+\begin{preuve}
+Soit $\mathcal{B}=(e_1,\ldots,e_n)$ une base de $E$ et $(x_1,\ldots,x_p)$ une
+famille de $E$. Si $(x_1,\ldots,x_p)$ est libre, alors $p\leq n$ car
+$\mathcal{B}$ est génératrice. Si $(x_1,\ldots,x_p)$ est génératrice, alors
+$n\leq p$ car $\mathcal{B}$ est libre.
+\end{preuve}
+
+\begin{exoUnique}
+\exo Soit $E$ un \Kev de dimension $n$ et $f$ un endomorphisme nilpotent
+  de $E$. En notant $m$ le plus petit entier tel que $f^{m}=0$, montrer
+  qu'il existe $x\in E$ tel que la famille $(x,f(x),\ldots,f^{m-1}(x))$ est
+  libre. Que peut-on en déduire sur $m$~?
+  
+  \begin{sol}
+  On prend $x\in E$ tel que $f^{m_0-1}(x)\neq 0$. Montrons que la famille $(x,f(x),\ldots,f^{m_0-1}(x))$ est libre. On considère une CL nulle de cette famille et on la suppose par l'absurde non triviale. On prend le plus petit indice tel que $\lambda_i\neq 0$ et on compose par la bonne puissance de $f$ qui annule tous les autres et laisse tout seul l'indice $i_0$ pour aboutir à une contradiction.
+  \end{sol}
+\end{exoUnique}
+
+\begin{proposition}[utile=2]
+Soit $E$ et $F$ deux \Kevs. On suppose que $E$ est de dimension finie. Alors
+$E$ et $F$ sont isomorphes si et seulement si $F$ est de dimension finie et
+$\dim E=\dim F$.
+En particulier, si $E$ est de dimension $n$, $E$ est isomorphe à $\K^n$.
+\end{proposition}
+\begin{preuve}
+$\Longrightarrow$
+Supposons que $E$ et $F$ soient isomorphes et montrons que $F$ est de dimension
+finie et que $\dim F=\dim E$. Soit $(e_1,\ldots,e_n)$ une base de $E$ et $f$
+un isomorphisme de $E$ dans $F$. Alors la famille $(f\p{e_1},\ldots,f\p{e_n})$
+est une base de $F$. En particulier $F$ est de dimension finie et
+$\dim F=n=\dim E$.\\
+$\Longleftarrow$
+Réciproquement, supposons que $F$ soit de dimension finie et que
+$\dim F=\dim E$. Soit $(e_1,\ldots,e_n)$ une base de $E$ et $(f_1,\ldots,f_n)$ une
+base de $F$. Alors, il existe une unique application linéaire $f$ de $E$ dans
+$F$ telle que~:
+\[\forall k\in\intere{1}{n} \quad f\p{e_k}=f_k\]
+Puisque $(f\p{e_1},\ldots,f\p{e_n})$ est une base de $F$, on en déduit que $f$
+est un isomorphisme.
+\end{preuve}
+
+\begin{exos}
+\exo Soit $a_0,\ldots,a_{p-1}\in\K$ et $E$ l'ensemble des suites $(u_n)$ à valeurs dans
+$\K$ telles que
+\[\forall n\in\N\qsep u_{n+p}=a_{p-1}u_{n+p-1}+\cdots+a_0 u_n.\]
+Montrer que
+\[\dspappli{\phi}{E}{\K^p}{(u_n)}{(u_0,\ldots,u_{p-1})}\]
+est un isomorphisme. En déduire que $E$ est de dimension finie et que
+$\dim E=p$.
+\exo Soit $a,b,c\in\R$ avec $a\neq 0$ et $E$ l'ensemble des solutions de l'équation
+  différentielle
+  \[\forall t\in\R\qsep ay''(t)+by'(t)+cy(t)=0.\]
+  Montrer que si $t_0\in\R$, alors
+  \[\dspappli{\phi}{E}{\R^2}{y}{(y(t_0),y'(t_0))}\]
+  est un isomorphisme. En déduire que $E$ est un \Rev de dimension 2.
+\end{exos}
+
+\subsection{Existence et unicité en dimension finie}
+
+\begin{proposition}[utile=3]
+Soit $E$ un \Kev de dimension $n$. Alors
+\begin{itemize}
+\item Toute famille libre de $E$ comportant $n$ éléments est une base de $E$.
+\item Toute famille génératrice de $E$ comportant $n$ éléments est une base de
+  $E$.
+\end{itemize}
+Autrement dit, si la famille $\mathcal{F}$ est composée de $n$ éléments,
+\[\text{$\mathcal{F}$ est libre} \quad\ssi\quad \text{$\mathcal{F}$ est une base}
+  \quad\ssi\quad \text{$\mathcal{F}$ est génératrice.}\]
+\end{proposition}
+\begin{preuve}
+Soit $(e_1,\ldots,e_n)$ une famille libre à $n$ éléments de $E$. D'après le
+théorème de la base incomplète, on peut la compléter en une base
+$\mathcal{B}=(e_1,\ldots,e_n,\ldots,e_{n+k})$ de $E$. Puisque $\dim E=n$ on en
+déduit que $n+k=n$ donc $k=0$. En conclusion $\mathcal{B}=(e_1,\ldots,e_n)$ donc
+$(e_1,\ldots,e_n)$ est une base de $E$.\\
+Soit $(e_1,\ldots,e_n)$ une famille génératrice à $n$ éléments de $E$. En partant
+de la famille vide, on peut d'après le théorème de la base à incomplète la
+compléter avec des éléments de la famille génératrice $(e_1,\ldots,e_n)$ pour
+en faire une base de $E$. Comme cette base a $n$ éléments, on en déduit que
+c'est la famille $(e_1,\ldots,e_n)$.
+\end{preuve}
+
+\begin{proposition}
+Soit $\mathcal{B}\defeq (P_0,\ldots,P_n)$ une famille de polynômes de degrés
+\emph{échelonnés}, c'est-à-dire telle que
+\[\forall k\in\intere{0}{n} \qsep \deg P_k=k.\]
+Alors $\mathcal{B}$ est une base de $\polyK[n]$.
+\end{proposition}
+
+% \begin{remarqueUnique}
+% \remarque[utile=3] On dit qu'une famille de polynômes $(P_0,\ldots,P_n)$ est
+%   \emph{échelonnée} lorsque
+%   Une telle famille est une base de $\polyK[n]$.
+% %  En particulier
+% %   si $\alpha\in\K$, la famille $1$, $(X-\alpha)$,
+% %   $(X-\alpha)^2,\ldots,(X-\alpha)^n$ est une base de $\polyK[n]$.
+% \end{remarqueUnique}
+
+\begin{exos}
+% \exo La famille $\p{0,1,1}$, $\p{1,0,1}$, $\p{1,1,0}$ est libre. C'est donc
+%   une base de $\R^3$.
+\exo Montrer que l'application de $\polyC[n+1]$ dans $\polyC[n]$ qui à $P$
+  associe $P\p{X+1}-P(X)$ est surjective.
+  \begin{sol}
+  On montre que $\phi(X^k)$ est de degré $k-1$ donc on a $(\phi(X),\ldots,\phi(X^{n+1}))$ qui forme une famille de degrés échelonnés de $\polyC[n]$ donc ça en est une base, en particulier c'est générateur, d'où le résultat.
+  \end{sol}
+% \exo La famille $P_0,\ldots,P_n$ définie par $P_k=X^{n-k}(1-X)^k$ est une
+%   base de $\polyK[n]$.
+%\exo Base de Lagrange.
+% \exo Soit $n\in\Ns$ et $E$ l'espace des fonctions affines par morceaux sur
+%   $\interf{k/n}{(k+1)/n}$. Alors~:
+%   \begin{itemize}
+%   \item $E$ est de dimension $n+1$~: Construire l'isomorphisme
+%     $f\mapsto \p{f(0),\ldots,f(1)}$.
+%   \item La famille : $x\mapsto\abs{x-k/n}$ est libre
+%   \item Comme elle comporte $n+1$ éléments, c'est une base de $E$.
+%   \end{itemize}
+\exo Quels sont les sous-espaces vectoriels de $\polyR$ stables par
+  dérivation~?
+  \begin{sol}
+  $\polyK$ et $\polyK[n]$. On fait une analyse-synthèse. On introduit l'ensemble des degrés d'éléments de $E\setminus\set{0}$ et on étudie le cas où cet ensemble est majoré ou non.
+  \end{sol}
+\end{exos}
+
+\begin{proposition}[utile=3]
+Soit $E$ et $F$ deux \Kevs de dimension finie et $f$ une application linéaire
+de $E$ dans $F$.
+\begin{itemize}
+\item Si $f$ est injective et $\dim E=\dim F$, alors $f$ est un isomorphisme.
+\item Si $f$ est surjective et $\dim E=\dim F$, alors $f$ est un isomorphisme.
+\end{itemize}
+Autrement dit, si $\dim E=\dim F$
+\[\text{$f$ est injective} \quad\ssi\quad \text{$f$ est bijective}
+   \quad\ssi\quad \text{$f$ est surjective.}\]
+\end{proposition}
+\begin{preuve}
+Supposons que $f$ soit injective et que $\dim E=\dim F=n$. Soit
+$(e_1,\ldots,e_n)$ une base de $E$. Puisque $f$ est injective on en déduit que
+$(f\p{e_1},\ldots,f\p{e_n})$ est libre dans $F$. Or $\dim F=n$ donc cette
+famille est une base de $F$. Donc $f$ est un isomorphisme.\\
+Supposons que $f$ soit surjective et que $\dim E=\dim F=n$. Soit
+$(e_1,\ldots,e_n)$ une base de $E$. Puisque $f$ est surjective
+$(f\p{e_1},\ldots,f\p{e_n})$ est génératrice dans $F$. Puisque $\dim F=n$ on
+en déduit que c'est une base de $F$. Donc $f$ est un isomorphisme.
+\end{preuve}
+
+\begin{remarques}
+\remarque[utile=-3] Si $f$ est un endomorphisme d'un \Kev de dimension
+  finie $E$, pour montrer que c'est un automorphisme, il suffit de montrer
+  qu'il est injectif (ou surjectif).
+\remarque[utile=-1] Ce théorème est faux si $E$ et $F$ ne sont pas de même dimension
+  ou si ils sont de dimension infinie. Par exemple, les applications linéaires
+  \[\dspappli{f}{\R}{\R^2}{x}{\p{x,0}} \et
+    \dspappli{g}{\polyK}{\polyK}{P}{XP}\]
+  sont injectives mais pas surjectives. De même, les applications linéaires
+  \[\dspappli{f}{\R^2}{\R}{\p{x,y}}{x+y} \et
+    \dspappli{f}{\polyK}{\polyK}{P}{P'}\]
+  sont surjectives mais ne sont pas injectives.
+\end{remarques}
+
+\begin{proposition}
+Soit $E$ un \Kev de dimension finie et $f\in\Endo{E}$. Alors
+\begin{itemize}
+\item $f$ est inversible si et seulement si $f$ est inversible à gauche, c'est-à-dire
+  si et seulement si il existe $g\in\mathcal{L}(E)$ tel que $g\circ f=\id_E$. Si tel
+  est le cas, $g=f^{-1}$ et en particulier $f\circ g=\id_E$.
+\item $f$ est inversible si et seulement si $f$ est inversible à droite, c'est-à-dire
+  si et seulement si il existe $g\in\mathcal{L}(E)$ tel que $f\circ g=\id_E$. Si tel
+  est le cas, $g=f^{-1}$ et en particulier $g\circ f=\id_E$.
+\end{itemize}
+\end{proposition}
+
+
+\subsection{Dimension d'un sous-espace vectoriel}
+\begin{proposition}[utile=3]
+Soit $E$ un \Kev de dimension finie et $A$ un sous-espace vectoriel de $E$.
+Alors
+\begin{itemize}
+\item $A$ est de dimension finie et $\dim A\leq \dim E$.
+\item $A=E$ si et seulement si $\dim A=\dim E$.
+\end{itemize}
+\end{proposition}
+\begin{preuve}
+Soit $E$ un \Kev de dimension finie $n$ et $A$ un sous-espace vectoriel de $E$.
+Montrons que $A$ est de dimension finie. Soit $\mathcal{A}$ l'ensemble des
+familles libres de $A$. Puisque toute famille libre de $A$ est une famille
+libre de $E$ ces familles ont au plus $n$ éléments. Il existe donc une
+famille libre de $A$ de cardinal maximum. Soit $(e_1,\ldots,e_m)$ une telle
+famille. Montrons que c'est une base de $A$.
+\begin{itemize}
+\item Cette famille est libre par définition.
+\item Montrons que cette famille est génératrice. Soit $x$ un élément de $A$.
+  Puisque $(e_1,\ldots,e_m,x)$ possède $m+1$ éléments, elle n'est pas libre.
+  Il existe donc $\lambda_1,\ldots,\lambda_m,\lambda\in\K$ non tous nuls tels
+  que~:
+  \[\lambda_1 e_1+\cdots+\lambda_m e_m +\lambda x=0\]
+  Alors $\lambda\neq 0$. En effet si tel était le cas on aurait
+  $\lambda_1 e_1+\cdots+\lambda_m e_m=0$ donc tous les $\lambda_k$ seraient
+  nuls car la famille $(e_1,\ldots,e_m)$ est libre. Ce serait absurde car
+  la famille $(\lambda_1,\ldots,\lambda_m,\lambda)$ comporte au moins un élément
+  non nul. Donc $\lambda\neq 0$ et~:
+  \[x=\p{-\frac{\lambda_1}{\lambda}}e_1+\cdots+
+      \p{-\frac{\lambda_m}{\lambda}}e_m\]
+  En conclusion, la famille $(e_1,\ldots,e_m)$ est génératrice.
+\end{itemize}
+Donc la famille $(e_1,\ldots,e_m)$ est une base de $A$. $A$ est donc de dimension
+finie. De plus $m\leq n$ par définition de $(e_1,\ldots,e_m)$. Donc $A$ est de
+dimension finie et $\dim A\leq \dim E$.\\
+Montrons que $A=E$ si et seulement si $\dim A=\dim E$. Si $E=A$ alors il est
+évident que $E$ et $A$ sont de même dimension. Réciproquement supposons que
+$E$ et $A$ soient de même dimension $n$. Soit $(e_1,\ldots,e_n)$ une base de
+$A$. Puisque cette famille est libre dans $E$ et possède $n$ éléments, c'est
+une base de $E$. Donc $E=A$.
+\end{preuve}
+
+\begin{remarqueUnique}
+\remarque Si $E$ est un \Kev de dimension $n$ et $A$ un sous-espace vectoriel de $E$
+  de dimension $p$, toute base $\mathcal{B}\defeq(e_1,\ldots,e_n)$ de $E$
+  telle que $(e_1,\ldots,e_p)$ est une base de $A$ est appelée \emph{base adaptée}
+  au sous-espace vectoriel $A$.
+\end{remarqueUnique}
+
+\begin{exoUnique}
+\exo Soit $E$ un \Kev de dimension finie, $u\in\gl{}{E}$ et $F$ un
+  sous-espace vectoriel de $E$. Montrer que si $F$ est stable par $u$,
+  alors $u(F)=F$ et $F$ est stable par $u^{-1}$.
+
+\end{exoUnique}
+
+  \begin{sol}
+  On sait que $\forall x \in F$, $u(x)\in F$ donc $u(F)\subset F$. Réciproquement, on pose $\dspappli{\phi}{F}{F}{x}{u(x)}$. $\phi$ est bien défini grâce à la stabilité. Elle est linéaire. On veut montrer qu'elle est surjective. Comme $F$ est de dimension finie, c'est équivalent de démontrer que $F$ est injective. On prend $x\in \ker\phi$. Alors $\phi(x)=u(x)=0$. Donc $x\in \ker u=\set{0}$ car $u$ est un isomorphisme. Ainsi, $u$ est bien injective donc surjective. Donc $\forall y \in F$, il existe $x\in F$ tel que $u(x)=\phi(x)=y$.\\
+  Montrons que $F$ est stable par $u^{-1}$. Soit $y\in F$, il existe $x\in F$ tel que $u(x)=y$ d'après la première partie. Ainsi, $u^{-1}(y)=u^{-1}(u(x))=x \in F$ ce qui montre bien la stabilité.
+  \end{sol}
+
+
+
+\begin{proposition}[utile=2]
+Dans un \Kev de dimension finie, tout sous-espace vectoriel admet un
+supplémentaire.
+\end{proposition}
+\begin{preuve}
+Puisque $A$ est un sous-espace vectoriel de $E$, il est de dimension finie.
+Il admet donc une base $(e_1,\ldots,e_m)$. Cette famille est libre dans $E$, donc
+d'après le théorème de la base incomplète on en déduit qu'on peut la
+compléter en une base $(e_1,\ldots,e_m,\ldots,e_{m+k})$ de $E$. On pose
+$B=\vect\p{e_{m+1},\ldots,e_{m+k}}$. Montrons que $B$ est un supplémentaire de
+$A$ dans $E$.
+\begin{itemize}
+\item La somme est directe, c'est-à-dire que $A\cap B=\ens{0}$.\\
+  En effet, soit $x\in A\cap B$. Puisque $x\in A$, il existe
+  $\lambda_1,\ldots,\lambda_m\in\K$ tels que $x=\lambda_1 e_1+\cdots+
+  \lambda_m e_m$. Comme de plus $x\in B$, il existe $\lambda_{m+1},\ldots,
+  \lambda{m+k} e_{m+k}$ tels que $x=\lambda_{m+1} e_{m+1}+\cdots+
+  \lambda_{m+k}e_{m+k}$. Donc~:
+  \[\lambda_1 e_1+\cdots+\lambda_m e_m -\lambda_{m+1} e_{m+1}-\cdots-
+    \lambda_{m+k}e_{m+k}=0\]
+  Puisque la famille $(e_1,\ldots,e_{m+k})$ est libre, on en déduit que tous les
+  $\lambda_k$ sont nuls. En conclusion $x=0$. Donc la somme est directe.
+\item $E=A+B$.\\
+  En effet, soit $x\in E$. Alors, puisque $e_1,\ldots,e_{m+k}$ est génératrice
+  dans $E$, il existe $\lambda_1,\ldots,\lambda_{m+k}$ tels que~:
+  \[x=\underbrace{\lambda_1 e_1+\cdots+\lambda_m e_m}_{\in A} +
+      \underbrace{\lambda_{m+1} e_{m+1}+\cdots+\lambda_{m+k} e_{m+k}}_{\in B}\]
+  Donc $x\in A+B$.
+\end{itemize}
+En conclusion $E=A\oplus B$, donc $B$ est un supplémentaire de $F$ dans $E$.
+\end{preuve}
+
+\begin{exoUnique}
+\exo Trouver un supplémentaire dans $\R^3$ de l'espace vectoriel engendré par $\p{1,1,1}$.
+  \begin{sol}
+  On complète $\p{1,1,1}$ en une base avec des vecteurs d'une base (la canonique par exemple).
+  \end{sol}
+% \exo Soit $E$ un \Kev de dimension finie et $f,g\in\Endo{E}$. Montrer
+%   qu'il existe $h\in\Endo{E}$ tel que $g=h\circ f$ si et seulement si
+%   $\ker f\subset \ker g$. 
+\end{exoUnique}
+
+\begin{remarqueUnique}
+% \remarque Si $E$ est un \Kev de dimension $n$, $A$ un sous-espace vectoriel de $E$
+%   de dimension $p$ et $B$ un supplémentaire de $A$ de dimension $q$ (où $p+q=n$),
+%   toute base
+%   $\mathcal{B}\defeq(a_1,\ldots,a_p,b_1,\ldots,b_q)$ de $E$ telle que
+%   $(a_1,\ldots,a_p)$ est une base de $A$ et $(b_1,\ldots,b_q)$ est une base de $B$ est
+%   appelée \emph{base adaptée} à la décomposition $E=A\oplus B$.
+\remarque Si $E$ est de dimension infinie, on peut montrer que tout sous-espace vectoriel
+  de $E$ admet un supplémentaire, mais ce théorème est hors programme, difficile à
+  démontrer et fait appel à l'axiome du choix.
+\end{remarqueUnique}
+
+\subsection{Notion de rang}
+\begin{definition}[utile=-3]
+On appelle \emph{rang} d'une famille $(x_1,\ldots,x_p)\in E^p$ et on note
+$\rg\p{x_1,\ldots,x_p}$ la dimension de $\vect\p{x_1,\ldots,x_p}$.
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque Si $(x_1,\ldots,x_p)$ est une famille d'éléments d'un \Kev $E$ de
+  dimension $n$, alors son rang est inférieur à $n$ et à $p$. De plus,
+  si $u\in\mathcal{L}(E,F)$ est injective, alors
+  \[\rg(u(x_1),\ldots,u(x_p))=\rg(x_1,\ldots,x_p).\]
+\end{remarqueUnique}
+
+\begin{sol}
+On pose $G=\vect(x_1,\ldots,x_p)$ et $H=\vect(f(x_1),\ldots,f(x_p))$ et on définit $\dspappli{\phi}{G}{H}{x}{f(x)}$. $\phi$ est bien définie et est linéaire. Grâce à l'injectivité de $f$, $\phi$ est injective également. On montre ensuite que $g$ est surjective. Donc $G$ et $H$ ont même dimension.
+\end{sol}
+
+\begin{definition}[utile=-3]
+Soit $f$ une application linéaire de $E$ dans $F$. Lorsque $\im f$ est de
+dimension finie, on appelle \emph{rang} de $f$ et on note $\rg f$ la dimension de
+$\im f$.
+\end{definition}
+
+\begin{remarques}
+\remarque[utile=-2] Si $F$ est de dimension finie, $\im f$ est de dimension finie et
+  $\rg f\leq \dim F$. De plus, cette inégalité est une égalité si et seulement
+  si $f$ est surjective.
+\remarque Si $E$ est de dimension finie, $\im f$ est
+  de dimension finie et $\rg f\leq \dim E$. De plus, cette inégalité est une
+  égalité si et seulement si $f$ est injective. En particulier, si $A$ est un sous-espace
+  vectoriel de $E$, alors $\dim f(A)\leq \dim A$.
+  \begin{sol}
+  La deuxième partie de la remarque est moins triviale. Si $E$ est de dimension finie, $E$ admet une base $(e_1,\ldots,e_n)$ et $(f(e_1),\ldots,f(e_n))$ est une famille génératrice de $\im f$. Donc $\im f$ est de dimension finie et $\rg f\leq n=\dim E$.
+  \end{sol}
+\remarque[utile=-3] Si $u\in\lin{E}{F}$, alors $\rg u=0$ si et seulement si $u=0$.
+\end{remarques}
+
+\begin{exoUnique}
+\exo Calculer le rang de l'application de $\polyK[n]$ dans lui-même
+  qui à $P$ associe $P\p{X+1}-P(X)$.
+
+\end{exoUnique}
+
+  \begin{sol}
+  On a déjà vu que $\phi$ est à valeurs dans $\polyK[n-1]$ et que l'image de $(X,X^2,\ldots,X^n)$ formait une famille échelonnée donc était libre. Ainsi, $\im \phi\subset \polyK[n-1]$ et $\dim( \im \phi)\geq n$ donc c'est une égalité et par égalité des dimensions + inclusion, les deux espaces sont égaux. Ainsi, le rang vaut $n$.
+  \end{sol}
+
+
+\begin{proposition}[utile=2]
+Soit $E$ et $F$ deux \Kevs de même dimension $n$ et $f$ une application
+linéaire de $E$ dans $F$. Alors $f$ est un isomorphisme si et seulement si
+$\rg f=n$.
+\end{proposition}
+\begin{preuve}
+Supposons que $f$ soit un isomorphisme. Alors $f$ est surjective donc
+$\im f=F$. Donc $\rg f=\dim\im f=\dim F=n$.\\
+Réciproquement, supposons que $\rg f=n$. Alors puisque $\dim F=n$, on en
+déduit que $\im f=F$. Donc $f$ est surjective. Puisque $E$ et $F$ ont même
+dimension, on en déduit que $f$ est un isomorphisme.
+\end{preuve}
+
+\begin{proposition}
+\begin{itemize}
+\item Soit $E, F, G$ des $\K$-espaces vectoriels de dimension finie, $f\in\lin{E}{F}$ et
+  $g\in\lin{F}{G}$. Alors
+  \[\rg(g\circ f)\leq\rg(g) \quad\et\quad \rg(g\circ f)\leq\rg(f).\]
+\item On ne change pas le rang d'une application linéaire si on la compose à gauche ou à
+  droite par un isomorphisme.
+\end{itemize}
+\end{proposition}
+
+\section{Calcul de dimension et de rang, hyperplan}
+
+\subsection{Somme de deux sous-espaces vectoriels}
+
+% \begin{proposition}
+% Soit $E$ un \Kev et $A$ et $B$ deux sous-espaces vectoriels de dimensions
+% finies, supplémentaires dans $E$. Si $a_1,\ldots,a_{n_A}$ est une base de $A$ et
+% $b_1,\ldots,b_{n_B}$ est une base de $B$, alors $a_1,\ldots,a_{n_A},b_1,\ldots,
+% b_{n_B}$ est une base de $E$. Un telle base est dite adaptée à la décomposition
+% $E=A \oplus B$.
+% \end{proposition}
+
+\begin{proposition}[utile=2]
+Soit $E$ un \Kev de dimension finie et $A$, $B$ deux sous-espaces
+vectoriels supplémentaires de $E$. Alors
+\[\dim E=\dim A+\dim B.\]
+\end{proposition}
+
+\begin{preuve}
+On concatène les bases.
+\end{preuve}
+
+% \begin{remarques}
+% \remarque[utile=-2] Plus généralement, on a démontré que si $E$ est un \Kev admettant deux
+%   sous-espaces vectoriels $A$ et $B$ supplémentaires de dimensions finies, alors
+%   $E$ est de dimension finie et $\dim E=\dim A+\dim B$.
+% \end{remarques}
+
+\begin{proposition}[nom={Formule de \nom{Grassmann}}]
+Soit $E$ un \Kev de dimension finie et $A$, $B$ deux sous-espaces vectoriels
+de $E$. Alors
+\[\dim\p{A+B}=\dim A+\dim B-\dim\p{A\cap B}.\]
+\end{proposition}
+
+\begin{preuve}
+On pose $F=A+B$.
+On pose $B'$ un supplémentaire de $A\cap B$ dans $B$. Montrons que $A\oplus B'=F$.
+\begin{itemize}
+\item[$\bullet$] Soit $x\in A\cap B'$. Comme $B'\subset B$, $x\in A\cap B\cap B'=\set{0}$ d'après la définition de $B'$. Donc $A\cap B'=\set{0}$ (l'autre inclusion étant triviale).
+\item[$\bullet$] Montrons que $A+B'=F$. On a bien $A+B'\subset F$. Maintenant, considérons $x\in F=A+B$. $x$ s'écrit $x=a+b=a+(a'+b')=(a+a')+b' \in A+B'$.
+\end{itemize}
+Donc $F=A\oplus B'$. Donc $\dim(A+B)=\dim F=\dim A+\dim B'$. Or, $B=(A\cap B)\oplus B'$ donc $\dim B=\dim(A\cap B)+\dim B'$ donc $$\dim\p{A+B}=\dim A+\dim B-\dim\p{A\cap B}.$$
+\end{preuve}
+
+\begin{remarqueUnique}
+\remarque En particulier, $\dim(A+B)\leq\dim A+\dim B$ et cette inégalité est
+  une égalité si et seulement si $A$ et $B$ sont en somme directe.
+\end{remarqueUnique}
+\begin{exos}
+\exo Dans $\R^3$, montrer que l'intersection de deux plans vectoriels est soit un
+  plan soit une droite.
+  \begin{sol}
+  $\dim(A+B)=4-\dim(A\cap B)$. Or $A\subset A+B\subset R^3$ donc $\dim(A+B)\in \set{2,3}$, ce qui donne un plan ou une droite pour $A\cap B$.
+  \end{sol}
+\end{exos}
+
+\begin{proposition}[utile=3]
+Soit $E$ un \Kev de dimension finie et $A$ et $B$ deux sous-espaces vectoriels
+de $E$.
+\begin{itemize}
+\item Si $A\cap B=\ens{0}$ et $\dim E=\dim A+\dim B$, alors $E=A\oplus B$.
+\item Si $E=A+B$ et $\dim E=\dim A+\dim B$, alors $E=A\oplus B$.
+\end{itemize}
+Autrement dit, si $\dim E=\dim A+\dim B$
+\[\text{$A$ et $B$ sont en somme directe} \quad\ssi\quad
+  E=A\oplus B \quad\ssi\quad E=A+B.\]
+
+\end{proposition}
+
+\begin{preuve}
+Immédiat pour les deux points avec l'application de la formule de Grassmann.
+\end{preuve}
+
+
+\subsection{Produit d'espaces vectoriels, espace $\lin{E}{F}$}
+
+% \begin{proposition}
+% Soit $E$ et $F$ deux \Kevs de dimensions finies. Soit
+% $\mathcal{B}_E=x_1,\ldots,x_{n_E}$ une base de $E$ et
+% $\mathcal{B}_F=y_1,\ldots,y_{n_F}$ une base de $F$. Alors
+% $\p{x_1,0_F},\ldots,\p{x_{n_E},0_F},\p{0_E,y_1},\ldots,\p{0_E,y_{n_F}}$ est une
+% base
+% de $E\times F$.
+% \end{proposition}
+
+\begin{proposition}[utile=-2]
+Soit $E$ et $F$ deux \Kevs de dimension finie. Alors $E\times F$ est de
+dimension finie et
+\[\dim\p{E\times F}=\dim E+\dim F.\]
+En particulier, si $n\in\N$, $E^n$ est de dimension finie et
+\[\dim\p{E^n}=n\dim E.\]
+\end{proposition}
+
+\begin{preuve}
+Avec $(e_1,\ldots,e_n)$ une base de $E$ et $(f_1,\ldots,f_p)$ une base de $F$, on montre que \\$((e_1,0),\ldots,(e_n,0),(0,f_1),\ldots,(0,f_p))$ est une base de $E\times F$ en montrant son caractère libre et générateur.
+\end{preuve}
+
+\begin{proposition}[utile=-3]
+Soit $E$ et $F$ deux \Kevs de dimension finie. Alors $\lin{E}{F}$ est de
+dimension finie et
+\[\dim\lin{E}{F}=\dim E\cdot\dim F.\]
+En particulier, $\Endo{E}$ est de dimension finie et
+\[\dim\Endo{E}=\p{\dim E}^2.\]
+\end{proposition}
+
+\begin{preuve}
+Soit $(e_1,\ldots,e_n)$ une base de $E$. On pose $$\dspappli{\phi}{\lin{E}{F}}{F^n}{f}{(f(e_1),\ldots,f(e_n)}.$$
+On montre que $\phi$ est linéaire. De plus, c'est une bijection car pour tout $(y_1,\ldots,y_n)\in F^n$, il existe un unique $f\in \lin{E}{F}$ tel que $\forall k \in \intere{1}{n}, f(e_k)=y_k$, i.e $\phi(f)=(y_1,\ldots,y_n)$.
+Ainsi, $$\dim(\lin{E}{F})=\dim(F^n)=n\dim(F)=\dim(E)\dim(F).$$
+\end{preuve}
+
+\begin{proposition}[utile=-1]
+Si $E$ est un \Kev de dimension finie, $E^\star$ est de dimension finie et
+\[\dim E^\star=\dim E.\]
+\end{proposition}
+
+
+% \begin{definition}
+% Soit $E$ un \Kev de dimension $n$ et $\mathcal{B}=e_1,\ldots,e_n$ une base de
+% $E$. Alors, pour tout $j\in\intere{1}{n}$, il existe une unique forme linéaire
+% $e_j^\star$ telle que~:
+% \[\forall k\in\intere{1}{n} \quad e_j^\star\p{e_k}=\delta_{j,k}=
+%   \begin{cases}
+%   0 &\text{si $k\neq j$}\\
+%   1 &\text{si $k=j$}
+%   \end{cases}\]
+% La forme linéaire $e_j^\star$ associe à tout élément $x\in E$ sa $j$-ième
+% coordonnée relativement à la base $\mathcal{B}$. De plus, la famille
+% $e_1^\star,\ldots,e_n^\star$ est une base de $E^\star$ notée $\mathcal{B}^\star$
+% et appelée base duale de la base $\mathcal{B}$.
+% \end{definition}
+
+
+\subsection{Théorème du rang}
+
+% \begin{proposition}
+% Soit $E$, $F$ et $G$ trois \Kevs de dimensions finies.
+% \begin{itemize}
+% \item Soit $g$ une application linéaire surjective de $E$ dans $F$ et
+%   $f$ une application linéaire de $F$ dans $G$. Alors~:
+%   \[\rg\p{f\circ g}=\rg f\]
+% \item Soit $g$ une application linéaire injective de $F$ dans $G$ et $f$
+%   une application linéaire de $E$ dans $F$. Alors~:
+%   \[\rg\p{g \circ f}=\rg f\]
+% \end{itemize}
+% En particulier, on ne change pas le rang d'une application linéaire si on la
+% compose à droite ou à gauche par un isomorphisme.
+% \end{proposition}
+
+% \begin{proposition}[utile=1]
+% On ne change pas le rang d'une application linéaire si on la compose à droite ou à
+% gauche par un isomorphisme.
+% \end{proposition}
+
+
+% \begin{preuve}
+% Soit $f\in \lin{E}{F}$ avec $E$ et $F$ de dimension finie.
+% \begin{itemize}
+% \item[$\bullet$] Soit $G$ un $\Kev$ de dimension finie et $g\in \lin{F}{G}$ un isomorphisme. Montrons que $\rg(g\circ f)=\rg (f)$. On pose $$\dspappli{\phi}{\im f}{\im(g\circ f)}{y}{g(y)}.$$
+% Tout d'abord, $\phi$ est bien définie : soit $y\in \im f$. Alors, il existe $x\in E$ tel que $y=f(x)$, alors $\phi(y)=g(y)=g(f(x))=(g\circ f)(x)\in \im(g\circ f).$ De plus, $\phi$ est linéaire (évident), on montre qu'elle est injective et surjective.
+% Ainsi, c'est un isomorphisme, on a donc égalité entre les dimensions de l'espace de départ et d'arrivée, ce qui correspond au résultat souhaité.
+
+% Remarque : seul l'injectivité de $g$ a servi.
+% \item[$\bullet$] Pour la droite, on montre directement que $\im(f\circ u)=\im(f)$ avec $u$ un isomorphisme (on peut remarquer qu'on utilise en fait seulement le caractère surjectif).
+% \end{itemize}
+
+% \end{preuve}
+
+
+% \begin{remarqueUnique}
+% \remarque[utile=-1] Plus généralement, on a démontré qu'on ne changeait pas le rang d'une
+%   application linéaire en la composant par la droite par une application surjective
+%   ou en la composant par la gauche par une application injective.  
+% \end{remarqueUnique}
+
+\begin{theoreme}[utile=3, nom=Théorème du rang]
+Soit $E$ un \Kev de dimension finie, $F$ un \Kev et $f$ une application
+linéaire de $E$ dans $F$. Alors $\im f$ est de dimension finie et
+\[\dim E=\dim\ker f+\dim\im f.\]
+Autrement dit
+\[\rg f=\dim E-\dim\ker f.\]
+\end{theoreme}
+\begin{preuve}
+Puisque $E$ est de dimension finie, $\ker f$ admet un supplémentaire $G$ dans
+$E$. Soit $\phi$ l'application~:
+\[\dspappli{\phi}{G}{\im f}{x}{f(x)}\]
+Alors~:
+\begin{itemize}
+\item $\phi$ est bien à valeurs dans $\im f$.
+\item $\phi$ est {\it injective}.\\
+  En effet, montrons que $\ker\phi=\ens{0}$. Soit
+  $x\in\ker\phi$. Alors $x\in G$ et $\phi(x)=0$. Donc $f(x)=0$,
+  c'est-à-dire $x\in\ker f$. Donc $x\in\ker f\cap G$. Or $G$ est un
+  supplémentaire de $\ker f$ dans $E$ donc $x=0$.
+\item $\phi$ est {\it surjective}.\\
+  En effet, si on se donne $y\in\im f$, il existe
+  $x\in E$ tel que $y=f(x)$. Puisque $E=\ker f+G$, il existe $a\in\ker f$ et
+  $b\in G$ tels que $x=a+b$. Alors
+  \[f(x)=f\p{a+b}=\underbrace{f(a)}_{=0}+f(b)=f(b)\]
+  Donc $y=f(b)=\phi(b)$. Donc $y\in\im\phi$.
+\end{itemize}
+En conclusion $\phi$ est un {\it isomorphisme} de $G$ dans $\im f$. Puisque $G$
+est de dimension finie, il en est de même pour $\im f$ et $\dim\im f=\dim G$.
+Or, puisque $E=\ker f\oplus G$, on a $\dim E=\dim \ker f+\dim G$. Donc~:
+\[\dim E=\dim\ker f+\dim\im f\]
+Puisque par définition $\rg f=\dim\im f$, il vient~:
+\[\rg f=\dim E-\dim\ker f\]
+\end{preuve}
+
+\begin{remarqueUnique}
+% \application Si $u_1,\ldots,u_p$ est une famille de vecteurs de $\K^n$, alors
+%   l'application~:
+%   \[\dspappli{f}{\K^p}{\K^n}{\p{\lambda_1,\ldots,\lambda_p}}{\lambda_1 u_1+
+%     \cdots+\lambda_p u_p}\]
+%   est linéaire et $\im f=\vect\p{u_1,\ldots,u_p}$. On en déduit donc que
+%   $\rg\p{u_1,\ldots,u_p}=\rg f$. Le théorème du rang nous donne~:
+%   \[\rg f=\dim \K^p-\dim\ker f=p-\dim\ker f\]
+%   On est donc ramené à calculer $\ker f$, c'est-à-dire résoudre un système
+%   linéaire à $n$ équations et $p$ inconnues.\\
+%   Par exemple, calculons le rang de la famille $u_1$,$u_2$,$u_3$,$u_4$ avec~:
+%   \[u_1=\p{1,2,3} \quad u_2=\p{4,5,6} \quad u_3=\p{7,8,9} \quad
+%     u_4=\p{-2,-1,0}\]
+%   Soient $\lambda_1,\ldots,\lambda_4\in\R$. Alors~:
+%   \begin{eqnarray*}
+%   &    &\p{\lambda_1,\lambda_2,\lambda_3,\lambda_4}\in\ker f\\
+%   &\ssi& \lambda_1 u_1+\lambda_2 u_2+\lambda_3 u_3+\lambda_4 u_4=0\\
+%   &\ssi& \syslin{\lambda_1&+4\lambda_2&+7\lambda_3&-2\lambda_4&=&0\cr
+%                  2\lambda_1&+5\lambda_2&+8\lambda_3&-\lambda_4&=&0\cr
+%                  3\lambda_1&+6\lambda_2&+9\lambda_3& &=&0}\\
+%   &\ssi& \syslin{\lambda_1&+4\lambda_2&+7\lambda_3&-2\lambda_4&=&0&\cr
+%    &-3\lambda_2&-6\lambda_3&+3\lambda_4&=&0&\quad L_2\gets L_2-2L_1\cr
+%    &-6\lambda_2&-12\lambda_3&+6\lambda_4 &=&0&\quad L_3\gets L_3-3L_1}\\
+%   &\ssi& \syslin{\lambda_1&+4\lambda_2&+7\lambda_3&-2\lambda_4&=&0&\cr
+%    &\lambda_2&+2\lambda_3&-\lambda_4&=&0&\quad L_2\gets L_2/\p{-3}\cr
+%    &\lambda_2&+2\lambda_3&-\lambda_4 &=&0&\quad L_3\gets L_3/\p{-6}}\\
+%   &\ssi& \syslin{\lambda_1&+4\lambda_2&+7\lambda_3&-2\lambda_4&=&0\cr
+%                             &\lambda_2&+2\lambda_3&-\lambda_4&=&0}\\
+%   &\ssi& \exists t_1,t_2\in\R \quad 
+%          \syslin{\lambda_1&+4\lambda_2&+7\lambda_3&-2\lambda_4&=&0\cr
+%                              &\lambda_2&+2\lambda_3&-\lambda_4&=&0\cr
+%                              &         &\lambda_3&            &=&t_1\cr
+%                              &         &         &\lambda_4   &=&t_2}\\
+%   &\ssi& \exists t_1,t_2\in\R \quad
+%          \syslin{\lambda_1&=&t_1&-2t_2 \cr
+%                  \lambda_2&=&-2t_1&+t_3 \cr
+%                  \lambda_3&=&t_1&    \cr
+%                  \lambda_4&=&   &t_2 }\\
+%   &\ssi& \exists t_1,t_2\in\R \quad \p{\lambda_1,\lambda_2,\lambda_3,\lambda_4}
+%          =t_1\p{1,-2,1,0}+t_2\p{-2,1,0,1}
+%   \end{eqnarray*}
+%   Remarquons que les vecteurs $e_1=\p{1,-2,1,0}$ et $e_2=\p{-2,1,0,1}$ forment
+%   une famille libre. En effet si $\mu_1$ et $\mu_2$ sont deux réels tels que
+%   $\mu_1 e_1+\mu_2 e_2=0$, alors la troisième composante de cette égalité
+%   (respectivement la quatrième) nous donne $\mu_1=0$ (respectivement
+%   $\mu_2=0$). Donc $e_1,e_2$ est une base de $\ker f$, donc $\ker f$ est
+%   de dimension 2. En conclusion~:
+%   \[\rg\p{u_1,u_2,u_3,u_4}=\dim \R^4-\dim\ker f=4-2=2\]
+%   En analysant cette méthode, il est possible de montrer que la famille
+%   $e_1,\ldots,e_k$ est toujours libre (la méthode utilisée dans cet exemple se
+%   généralise aisément). C'est donc une base de $\ker f$,
+%   donc $\dim \ker f=k$ et $\rg\p{u_1,\ldots,u_p}=p-k$. Puisque $k$ est
+%   le nombre d'inconnues $p$ moins le nombre d'équations restantes $r$ lorsque
+%   le système linéaire d'origine est triangularisé, on en déduit que
+%   $\rg\p{u_1,\ldots,u_p}=p-\p{p-r}=r$. On aurait donc pu s'arrêter à cet
+%   instant et dire que le rang du système était $r$.\\
+%   Nous reviendrons sur cette méthode lors du calcul du rang d'une matrice par
+%   la méthode du pivot de Gauss.
+\remarque Le théorème du rang permet de retrouver le fait que si $f$ est une
+  application linéaire d'un \Kev $E$ de dimension finie dans un \Kev $F$ de
+  même dimension, alors il suffit de montrer que $f$ est injective ou 
+  surjective pour montrer que $f$ est un isomorphisme.
+%   En effet, si $f$ est injective $\ker f=\ens{0}$ donc $\dim\ker f=0$. D'après
+%   le théorème du rang, $\rg f=\dim E=\dim F$. Donc $\im f$ est de même
+%   dimension que $F$ donc $\im f=F$. En conclusion $f$ est surjective. C'est
+%   donc un isomorphisme.\\
+%   De la même manière, si $f$ est surjective $\im f=F$ donc $\rg f=n$. D'après
+%   le théorème du rang $\dim E=\dim\ker f+\rg f$ donc $n=\dim\ker f+n$
+%   donc $\dim\ker f=0$. On en déduit que $\ker f=\ens{0}$ puis que $f$ est
+%   injective. En conclusion, $f$ est un isomorphisme.
+\end{remarqueUnique}
+
+
+\begin{exos}
+\exo Soit $n\in\N$ et
+  \[\dspappli{\phi}{\polyK[n]}{\polyK[n]}{P}{P(X+1)-P(X)}\]
+  Déterminer le noyau de $\phi$, son rang, puis son image.
+\exo Soit $E$ et $F$ deux \Kevs de dimension finie, $f\in\lin{E}{F}$ et $A$
+  un sous-espace vectoriel de $E$. Montrer que
+  \[\dim\cro{f(A)}=\dim A-\dim\p{A\cap\ker f}\]
+  \begin{sol}
+  Il suffit de l'appliquer à la restriction de $f$ à $A$ au départ.
+  \end{sol}
+%%\exo Si $E$ est de dimension finie et $f\in\Endo{E}$, alors
+%  \[\dim\p{\im f}=\dim\p{\im f^2}+\dim\p{\ker f\cap\im f}\]
+%   En effet, soit $\phi$ l'application~:
+%   \[\dspappli{\phi}{\im f}{\im f^2}{x}{f(x)}\]
+%   Alors on montre aisément que $\phi$ est bien à valeurs dans $\im f^2$,
+%   qu'elle est surjective et que $\ker\phi=\ker f\cap\im f$. En appliquant le
+%   théorème du rang à $\phi$, il vient~:
+%   \[\dim \im f=\dim\p{\ker f\cap\im f}+\dim\im f^2\]
+\exo Soit $E$ un \Kev de dimension finie et $g\in\Endo{E}$. Calculer le rang de
+  \[\dspappli{\phi}{\Endo{E}}{\Endo{E}}{f}{g\circ f}\]
+  \begin{sol}
+  Déjà, on montre que $\phi$ est linéaire. Il nous faut déterminer $\dim(\ker\phi))$ puis appliquer le théorème du rang. 
+  $$\ker \phi=\set{f\in \Endo{E} \text{ tel que } \im(f)\subset \ker g}.$$ Pour avoir sa dimension, on définit :
+  $$\dspappli{\psi}{\lin{E}{\ker g}}{\ker \phi}{f}{\dspappli{\psi(f)}{E}{E}{x}{f(x)}}.$$
+  On montre que $\psi$ est bien définie, linéaire, injective, surjective. On en déduit donc $$\dim E\times\dim(\ker g)=\dim(\lin{E}{\ker g})=\dim(\ker\phi)$$ et ainsi $$\rg(\phi)=(\dim E)^2-\dim E\times\dim(\ker g)=\dim E \times \rg(g).$$
+  \end{sol}
+\exo Soit $E,F$ et $G$ des espaces vectoriels de dimension finie,
+  $f\in\lin{F}{E}$ et $g\in\lin{G}{E}$. Montrer qu'il existe une application
+  linéaire $h$ de $F$ dans $G$ telle que $f=g\circ h$ si et seulement si
+  $\im f\subset\im g$.  
+  \begin{sol}
+  Gauche-droite ok. Droite-gauche :
+  Soit $G'$ un supplémentaire de $\ker g$ dans $G$. On définit :
+  $$\dspappli{\phi}{G'}{\im g}{x}{g(x)}$$ alors $\phi$ est un isomorphisme (cf. preuve précédente et remarque). On pose alors $$\dspappli{h}{F}{G}{x}{\phi^{-1}(f(x))}.$$ On montre que $h$ est bien définie, linéaire et vérifie $f=g\circ h$.
+  \end{sol}
+\end{exos}
+
+\subsection{Hyperplan}
+
+% \begin{definition}
+% Soit $E$ un \Kev. On appelle \emph{hyperplan} de $E$ tout noyau d'une forme linéaire non
+% nulle.
+% \end{definition}
+
+% \begin{proposition}
+% Soit $E$ un \Kev.
+% \begin{itemize}
+% \item Si $H$ est un hyperplan de $E$ et $D$ est une droite vectorielle non contenue dans
+%   $H$, alors
+%   \[E=H\oplus D.\]
+% \item Si $D$ est une droite vectorielle, tout supplémentaire de $D$ est un hyperplan.
+% \end{itemize}
+% \end{proposition}
+
+% \begin{proposition}[utile=1]
+% Soit $H$ un hyperplan de $E$ et $\phi_0$ une forme linéaire telle que $H=\ker \phi_0$.
+% Alors l'ensemble des formes linéaires de $E$ dont le noyau est $H$ est
+% \[\Ks\phi_0=\ensim{\lambda\phi_0}{\lambda\in\K^*}.\]  
+% \end{proposition}
+
+% \begin{preuve}
+% Soit $E$ un \Kev de dimension finie, $H$ un hyperplan de $E$ et $\phi_0$
+% une forme linéaire telle que $H=\ker \phi_0$.
+
+% Montrons que $H=\ker\phi\Longleftrightarrow \exists \lambda\in \Ks \text{ tel que } \phi=\lambda\phi_0$.
+% Le sens droite-gauche est aisée. Réciproquement, soit $\phi\in E^\star$ telle que $H=\ker\phi$. Considérons $(e_1,\ldots,e_{n-1})$ une base de $H$, qu'on complète avec $e_n$ en une base de $E$. Comme $e_n\notin H$, $\phi_0(e_n)\neq 0$. On pose $\displaystyle \lambda=\frac{\phi(e_n)}{\phi_0(e_n)}$. On montre que $\phi=\lambda\phi_0$ en montrant qu'elles coïncident sur une base (la base $(e_1,\ldots,e_n)$).
+% \end{preuve}
+
+
+\begin{proposition}[utile=1]
+Soit $E$ un \Kev de dimension $n$. Un sous-espace vectoriel $H$ de $E$ est
+un hyperplan si et seulement si $\dim H=n-1$.
+\end{proposition}
+
+\begin{preuve}
+Pour montrer l'équivalence entre les deux définitions. La remontée vient du théorème du rang.
+Pour la descente, on prend un supplémentaire de $H$ qui est donc de dimension $1$ et on définit la forme linéaire qui à $x$ associe la coordonnée sur une base de ce supplémentaire. On vérifie que la fonction ainsi définie est bien linéaire et que son noyau est bien $H$.
+\end{preuve}
+
+
+\begin{exos}
+\exo Dans $\R^3$, donner la dimension du sous-espace vectoriel d'équation $3x+2y-z=0$.
+\exo Dans $\polyR[n]$, donner la dimension du sous-espace vectoriel
+  \[H\defeq\enstq{P\in\polyR[n]}{\integ{0}{1}{P(t)}{t}=0}.\]
+\exo Soit $E$ un \Kev de dimension finie et $\phi_1$, $\phi_2$ deux formes
+  linéaires sur $E$. Calculer le rang de
+  \[\dspappli{f}{E}{\K^2}{x}{\p{\phi_1(x),\phi_2(x)}}\]
+  en fonction de $\phi_1$ et $\phi_2$.
+\exo Quelle est la dimension de l'intersection de deux hyperplans~?
+\begin{sol}
+Soient $H_1$ et $H_2$ deux hyperplans de $E$. On a $\dim(H_1\cap H_2)=\dim H_1+ \dim H_2-\dim(H_1+H_2)\geq 2n-2-n=n-2$. De plus, comme $H_1\cap H_2 \subset H_1$, on a $\dim(H_1\cap H_2)\leq n-1$ donc la dimension vaut $n-1$ ou $n-2$. Supposons que ce soit $n-1$, alors par inclusion et égalité des dimensions, on a $H_1\cap H_2=H_1=H_2$. Réciproquement, si $H_1=H_2$, on a bien la dimension de l'intersection qui vaut $n-1$. Et on a alors la dimension qui vaut $n-2$ si et seulement s'ils sont distincts.
+\end{sol}
+\end{exos}
+
+\begin{proposition}[utile=1]
+Soit $E$ un \Kev de dimension $n$ et $\mathcal{B}\defeq(e_1,\ldots,e_n)$ une base de
+$E$. 
+\begin{itemize}
+\item Si $a_1,\ldots,a_n\in\K$ ne sont pas tous nuls, l'ensemble
+  $H$ d'équation
+  \[a_1 e_1^\star(x)+\cdots+a_n e_n^\star(x)=0\]
+  est un hyperplan de $E$.
+\item Réciproquement, si $H$ est un hyperplan de $E$, il existe
+  $a_1,\ldots,a_n\in\K$ non tous nuls tels que
+  \[a_1 e_1^\star(x)+\cdots+a_n e_n^\star(x)=0\]
+  est une équation de $H$. De plus, si $b_1,\ldots,b_n\in\K$, alors
+  \[b_1 e_1^\star(x)+\cdots+b_n e_n^\star(x)=0\]
+  est une équation de $H$ si et seulement si il existe $\alpha\in\K^*$ tel que
+  \[\forall k\in\intere{1}{n} \qsep b_k=\alpha a_k.\]
+\end{itemize}
+\end{proposition}
+
+\begin{preuve}
+En considérant $(e_1,\ldots,e_n)$ une base de $E$. on définit $$\dspappli{\phi}{E}{\K}{x=\sum_{i=1}^nx_k e_k}{\sum_{i=1}^n\lambda_k x_k}.$$
+On montre que $\phi$ est linéaire et non nulle (pour la non nullité, comme les $\lambda_i$ sont non tous nuls, on a $\phi(e_{i_0})=\lambda_{i_0}\neq 0$ pour un certain $i_0$).
+
+
+Réciproquement, soit $H$ un hyperplan de $E$. Alors $H$ est le noyau d'une forme linéaire non nulle $\phi$. En posant $\lambda_k=\phi(e_k)$, ils sont non tous nuls (sinon, $\phi=0$). Et si $x=\displaystyle \sum_{k=1}^nx_ke_k$, on a $x\in H\Longleftrightarrow \phi(x)=0\Longleftrightarrow \displaystyle \sum_{k=1}^n\lambda_k x_k=0$, ce qui fournit bien une équation de $H$.
+
+
+Soit $\mu_1,\ldots, mu_n \in \K$. On définit $$\dspappli{\psi}{E}{\K}{x=\sum_{i=1}^nx_k e_k}{\sum_{i=1}^n\mu_k x_k}.$$ L'ensemble d'équation $\sum_{i=1}^n\mu_k x_k=0$ est $\ker \psi$.
+Et \begin{eqnarray*}
+H=\ker \psi &\Longleftrightarrow & \exists \alpha\in \Ks, \psi=\lambda \phi\\
+&\Longleftrightarrow & \exists \alpha\in \Ks, \forall k \in \intere{1}{n}, \psi(e_k)=\alpha\phi(e_k)\\
+&\Longleftrightarrow & \exists \alpha\in \Ks, \forall k \in \intere{1}{n}, u_k=\alpha\lambda_k.
+\end{eqnarray*}
+\end{preuve}
+
+\begin{proposition}[utile=1]
+Soit $E$ un \Kev de dimension $n$.
+\begin{itemize}
+\item L'intersection de $p$ hyperplans est de dimension supérieure ou égale à $n-p$.
+\item Si $p\in \intere{0}{n}$, tout sous-espace vectoriel de dimension $n-p$ est l'intersection de $p$ hyperplans.
+\end{itemize}
+\end{proposition}
+
+\begin{preuve}
+\begin{itemize}
+\item Montrons par récurrence sur $p$ que l'intersection de $p$ hyperplans est de dimension supérieure ou égale à $n-p$.
+La propriété est vraie pour $p=1$. Supposons la vraie pour $p$. D'après la formule de Grassmann $\dim(H_1\cap\ldots\cap H_{p+1})=\dim(H_1\cap\ldots\cap H_{p})+\dim H_{p+1}-\dim(H_1\cap\ldots\cap H_{p}+H_{p+1})\geq \dim(H_1\cap\ldots\cap H_{p})+n-1-n\underbrace{\geq}_{HR}n-p-1=n-(p+1).$
+\item Montrons par récurrence sur $p\in \intere{1}{n}$ que tout sous-espace vectoriel de dimension $n-p$ est l'intersection de $p$ hyperplans. Vrai pour $p=1$. Supposons la propriété vraie pour $p\in \intere{1}{n-1}$ et montrons-là pour $p+1$. Soit $F$ un sous-espace vectoriel de dimension $n-(p+1)$. $F\neq E$ donc il existe $a\in E\setminus F$. Posons $D=\vect(a)$ et $G=F+D$. $a$ n'appartenant pas à $F$, $F$ et $D$ sont en somme directe et $G$ est donc de dimension $n-p$. $G$ est donc d'après l'hypothèse de récurrence l'intersection de $p$ hyperplans $H_1,\ldots, H_p$. Soit $G'$ un supplémentaire de $G$ dans $E$. On a $\dim(G)=p$. Posons $H_{p+1}=F+G'$. Cette somme est directe car si $x\in F\cap G'$, $x\in G\cap G'=\set{0}$. Ainsi, $\dim(H_{p+1})=\dim F+\dim G'=n-(p+1)+p=n-1$, donc $H_{p+1}$ est un hyperplan. Montrons pour finir que $F=G\cap H_{p+1}$, ainsi, nous aurons $F=H_1\cap\ldots\cap H_p\cap H_{p+1}$, ce qui correspond au résultat souhaité.
+
+$F$ est contenu dans $G$ et dans $H_{p+1}$ par construction de ces deux sous-espaces. Ainsi, $F\subset G\cap H_{p+1}$. Réciproquement, soit $x\in G\cap H_{p+1}$. Comme $x\in H_{p+1}=F+G'$, il s'écrit $x=x_1+x_2$ avec $(x_1,x_2)\in F\times G'$. $x$ et $x_1$ sont deux éléments de $G$ donc $x-x_1=x_2\in G$. Mais $x_2\in G'$. Donc $x_2\in G\cap G'=\set{0}$, d'où $x_2=0$ et finalement, $x=x_1\in F$, ce qui achève de démontrer $G\cap H_{p+1}\subset F$.
+\end{itemize}
+
+\end{preuve}
+
+\section{Sous-espace affine}
+
+
+Soit $E$ un \Kev. Nous avons vu que les éléments de $E$ sont naturellement des vecteurs.
+Dans cette partie, nous allons voir les éléments de $E$ comme des points. Afin de marquer
+cette différence de point de vue, nous utiliserons dans cette partie les lettres
+$a$, $b$, $c$, $d$ du début de l'alphabet pour désigner les éléments de $E$ que nous
+considérerons comme des points et les lettres $x$, $y$, $z$ de la fin de l'alphabet pour
+désigner les éléments de $E$ que nous considérerons comme des vecteurs.
+\vspace{2ex}
+\begin{definition}
+Soit $a,b\in E$. On définit le vecteur $\ve{ab}\in E$ par
+\[\ve{ab}\defeq b-a.\]
+\end{definition}
+
+\begin{proposition}
+\begin{itemize}
+\item Quel que soit $a\in E$, l'application
+  \[\dspappli{\phi}{E}{E}{b}{\ve{ab}}\]
+  est bijective.
+\item Quels que soient $a, b, c\in E$
+  \[\ve{ab}+\ve{bc}=\ve{ac}.\]
+\end{itemize}
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque Soit $a\in E$ et $x\in E$. Alors $b\defeq a+x$ est l'unique élément de $E$ tel
+  que $\ve{ab}=x$.
+\end{remarqueUnique}
+
+\begin{definition}
+Soit $x\in E$. On appelle translation de vecteur $x$ l'application
+\[\dspappli{\tau_x}{E}{E}{a}{a+x.}\]
+\end{definition}
+
+\begin{remarques}
+\remarque Si $x,y\in E$, alors $\tau_x \circ \tau_y=\tau_{x+y}$. 
+\remarque Si $x\in E$, l'application $\tau_x$ est linéaire si et seulement si $x=0$.
+  Dans ce cas, $\tau_x=\id$.
+\end{remarques}
+
+
+
+\begin{definition}
+On dit qu'une partie $\mathcal{F}$ de $E$ est un \emph{sous-espace affine} de $E$
+lorsqu'il existe $a\in E$ et un sous-espace vectoriel $F$ de $E$ tel que
+\[\mathcal{F}=\ensim{a+x}{x\in F}.\]
+On écrit alors $\mathcal{F}=a+F$. De plus $a\in\mathcal{F}$ et
+\[F=\ensim{\ve{bc}}{b, c\in\mathcal{F}}.\]
+On dit que $F$ est la \emph{direction} de $\mathcal{F}$.
+\end{definition}
+
+\begin{remarques}
+\remarque En particulier, un sous-espace affine est non vide.
+\remarque Si $\mathcal{F}$ est un sous-espace affine de direction $F$, alors, quel que
+  soit $a\in\mathcal{F}$, $\mathcal{F}=a+F$.
+\remarque Un sous-espace vectoriel est un sous-espace affine. Réciproquement, un sous-espace
+  affine est un sous-espace vectoriel si et seulement si il contient 0.
+\end{remarques}
+
+\begin{exos}
+\exo Déterminer l'ensemble des solutions dans $\R^3$ de
+  \[\syslin{x&+2y&+3z&=1&\cr
+           2x&+3y&+4z&=1&\cr
+           3x&+4y&+5z&=1&}\]
+  et l'exprimer comme un sous-espace affine de $\R^3$.
+\begin{sol}
+$$\mathcal{S}=SP+\vect((1,-2,1)).$$ C'est une droite affine de $\R^3$.
+\end{sol}
+\exo Résoudre sur $\R$ l'équation différentielle suivante et exprimer son ensemble de
+  solutions comme un sous-espace affine de $\mathcal{D}(\R,\R)$.
+  \[y'+2y=x^2-2x+3.\]
+
+\begin{sol}
+$y(x)=ce^{-2x}+(2x^2-6x+9)/4$
+\end{sol}
+\end{exos}
+
+\begin{proposition}
+Soit $u\in\lin{E}{F}$ et $b\in F$. Alors l'ensemble
+\[\mathcal{S}\defeq\enstq{a\in E}{u(a)=b}\]
+de solutions de l'équation $u(a)=b$ est
+\begin{itemize}
+\item Soit vide. Dans ce cas, ce n'est pas un sous-espace affine.
+\item Soit non vide. Dans ce cas, c'est un sous-espace affine de $E$ de direction $\ker u$.
+\end{itemize}
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque En particulier, si $a_0\in E$ est une solution de l'équation $u(a)=b$, l'ensemble
+  des solutions de cette équation est
+  \[a_0 + \ker u = \ensim{a_0+x}{x\in\ker u}.\]
+\end{remarqueUnique}
+
+\begin{proposition}
+Soit $(\mathcal{F}_i)_{i\in I}$ une famille de sous-espaces affines de $E$ et
+$(F_i)_{i\in I}$ la famille de leurs directions respectives. On pose
+\[\mathcal{F}\defeq\bigcap_{i\in I} \mathcal{F}_i \quad\et\quad F\defeq\bigcap_{i\in I} F_i.\]
+Alors
+\begin{itemize}
+\item Soit $\mathcal{F}$ est vide. Dans ce cas, ce n'est pas un sous-espace affine.
+\item Soit $\mathcal{F}$ est non vide. Dans ce cas, c'est un sous-espace affine de
+  $E$ de direction $F$.
+\end{itemize}
+\end{proposition}
+
+% \begin{exoUnique}
+% \exo Soit $\mathcal{A}$ et $\mathcal{B}$ deus sous-espaces affines de $E$ de directions
+%   respectives $A$ et $B$. On suppose que $A$ et $B$ sont supplémentaires dans $E$. Montrer
+%   que $\mathcal{A}\cap\mathcal{B}$ contient excatement un point.
+% \end{exoUnique}
+
+
+  
+\begin{definition}
+Soit $\mathcal{F}_1$ et $\mathcal{F}_2$ deux sous-espaces affines de
+$E$ de directions respectives $F_1$ et $F_2$. On dit que
+\begin{itemize}
+\item $\mathcal{F}_1$ est parallèle à $\mathcal{F}_2$ lorsque
+  $F_1\subset F_2$.
+\item $\mathcal{F}_1$ et $\mathcal{F}_2$ sont parallèles lorsque
+  $F_1=F_2$.
+\end{itemize}
+\end{definition}
+
+% \begin{remarqueUnique}
+% \item Une droite peut être parallèle à un plan, mais pas l'inverse.
+% \end{remarqueUnique}
+
+\begin{proposition}
+Soit $\mathcal{F}_1$ et $\mathcal{F}_2$ deux sous-espaces affines de
+$\mathcal{E}$.
+\begin{itemize}
+\item Si $\mathcal{F}_1$ est parallèle à $\mathcal{F}_2$, alors
+  $\mathcal{F}_1\cap\mathcal{F}_2=\emptyset$ ou
+  $\mathcal{F}_1\subset\mathcal{F}_2$.
+\item Si $\mathcal{F}_1$ et $\mathcal{F}_2$ sont parallèles
+  $\mathcal{F}_1\cap\mathcal{F}_2=\emptyset$ ou 
+  $\mathcal{F}_1=\mathcal{F}_2$.
+\end{itemize}
+\end{proposition}
+
+\begin{preuve}
+\begin{itemize}
+\item Si $\mathcal{F}_1$ est parallèle à $\mathcal{F}_2$ alors ou bien 
+  $\mathcal{F}_1\cap\mathcal{F}_2=\emptyset$ ou bien il existe $A \in \mathcal{F}_1\cap\mathcal{F}_2$ auquel cas $\mathcal{F}_1=A+\ve{\mathcal{F}_1} \subset A+\ve{\mathcal{F}_2}=\mathcal{F}_2$.
+\item D'après le point 1 et la définition d'être tous deux parallèles.
+\end{itemize}
+\end{preuve}
+
+% \begin{proposition}
+% Soit $\mathcal{F}_1$ et $\mathcal{F}_2$ deux sous-espaces affines de
+% $\mathcal{E}$. Alors soit $\mathcal{F}_1\cap\mathcal{F}_2=\emptyset$, soit 
+% $\mathcal{F}_1\cap\mathcal{F}_2$ est un sous-espace affine de direction
+% $\ve{\mathcal{F}_1}\cap \ve{\mathcal{F}_2}$.
+% \end{proposition}
+
+\begin{preuve}
+Supposons $\mathcal{F}_1\cap\mathcal{F}_2\neq \emptyset$. On peut alors fixer $A$ dans l'intersection. Montrons que $$\mathcal{F}_1\cap\mathcal{F}_2=A+\ve{\mathcal{F}_1}\cap\ve{\mathcal{F}_2}.$$
+On raisonne par double inclusion :
+\begin{itemize}
+\item[$\bullet$] Soit $B\in \mathcal{F}_1\cap\mathcal{F}_2$, comme il est dans chaque sous espace-affine, on peut écrire $$B=A+\ve{u} \text{ avec } \ve{u} \in \ve{\mathcal{F}_1} \et B=A+\ve{v} \text{ avec } \ve{v} \in \ve{\mathcal{F}_2}.$$
+Donc $\ve{u}=\ve{v}$ et $B$ s'écrit donc comme $A$+ un élément de $\ve{\mathcal{F}_1}\cap\ve{\mathcal{F}_2}$.
+\item[$\bullet$] La réciproque se voit encore plus clairement à la main.
+\end{itemize}
+\end{preuve}
+
+
+\begin{proposition}
+Soit $\mathcal{F}$ et $\mathcal{G}$ deux sous-espaces affines de $E$ de directions
+respectives $F$ et $G$. Si $E=F\oplus G$, alors $\mathcal{F}\cap\mathcal{G}$ est réduit à
+un unique point.
+\end{proposition}
+
+\begin{preuve}
+Commençons par montrer que $\mathcal{F}\cap\mathcal{G}$ est non vide. On considère $A\in \mathcal{F}$ et $B\in \mathcal{G}$. $\ve{AB}$ en tant qu'élément de $E$ s'écrit $\ve{u}+\ve{v}$ avec $(\ve{u},\ve{v})\in \ve{\mathcal{F}}\times\ve{\mathcal{G}}$.\\
+Posons alors $C=A+\ve{u} \in \mathcal{F}$. On a aussi $C=B-\ve{AB}+\ve{u}=B-\ve{v} \in \ve{\mathcal{G}}$. Ainsi, $\mathcal{F}\cap\mathcal{G}\neq \emptyset$.\\
+
+Mais alors, d'après la proposition précédente, $\mathcal{F}\cap\mathcal{G}$ est donc un sous-espace affine de $E$, de direction $\ve{\mathcal{F}}\cap\ve{\mathcal{G}}={\ve{0}}$ donc il s'agit d'un singleton.
+\end{preuve}
+%END_BOOK
+
+\end{document}
+

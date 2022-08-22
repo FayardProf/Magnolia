@@ -1,0 +1,155 @@
+\documentclass[book]{magnolia}
+
+\magtex{tex_driver={pdftex},
+        tex_packages={float,caption,titling,epigraph,minitoc,slashbox,tabularx,cancel,pgfplots,xypic,nicefrac},
+        tex_pstricks={pstricks,pst-plot}}
+\magfiche{document_nom={Cours de Sup},
+          auteur_nom={François Fayard},
+          auteur_mail={fayard.prof@gmail.com}}
+\magcours{cours_matiere={maths},
+          cours_niveau={mpsi},
+          cours_chapitre_numero={11},
+          cours_chapitre={Dérivation}}
+\magmisenpage{misenpage_presentation={tikzvelvia},
+              misenpage_format={a4},
+              misenpage_nbcolonnes={1},
+              misenpage_preuve={non},
+              misenpage_sol={non}}
+\maglieudiff{lieu_lycee={Aux Lazaristes},
+             lieu_classe={MPSI 1},
+             lieu_annee={2020--2021}}
+\magprocess
+
+\title{{\Huge\bf Cours d'Informatique Commune}\\\vspace{1cm}
+       \textbf{\Huge Maths Sup}\\\vspace{1cm}
+       \textsc{F. Fayard}\\\vspace{1cm}
+       \includegraphics[width=12cm]{../../Commun/Images/magnolia.jpg}}
+
+\mtcsettitle{minitoc}{}
+\mtcsettitle{secttoc}{Table des matières}
+\mtcsettitle{parttoc}{Table des matières}
+
+\usetikzlibrary{positioning}
+
+\input{vc.tex}
+
+\begin{document}
+
+\maketitle
+
+La version de ce document est la \textsc{\GITAbrHash}.
+
+\tableofcontents
+
+
+\chapter{Valeur, type, variable}
+\setcounter{numeroexercicecours}{1}
+\input{cours-valeur_type_variable}
+% \section{Exercices}
+% \setcounter{numeroexercice}{1}
+% \input{exos-valeur_type_variable}
+
+\chapter{Flot d'exécution}
+\setcounter{numeroexercicecours}{1}
+\input{cours-flot_execution}
+% \section{Exercices}
+% \setcounter{numeroexercice}{1}
+% \input{exos-flot_execution}
+
+\chapter{Fonction}
+\setcounter{numeroexercicecours}{1}
+\input{cours-fonction}
+% \section{Exercices}
+% \setcounter{numeroexercice}{1}
+% \input{exos-fonction}
+
+\chapter{Structure Séquentielle - Informatique Commune}
+\setcounter{numeroexercicecours}{1}
+\input{cours-structure_sequentielle}
+% \section{Exercices}
+% \setcounter{numeroexercice}{1}
+% \input{exos-liste_pile_file}
+
+\chapter{Représentation des données}
+\setcounter{numeroexercicecours}{1}
+\input{cours-representation_donnees}
+% \section{Exercices}
+% \setcounter{numeroexercice}{1}
+% \input{exos-memoire}
+
+% \chapter{Récursivité}
+% \setcounter{numeroexercicecours}{1}
+% \input{cours-recursivite}
+% \section{Exercices}
+% \setcounter{numeroexercice}{1}
+% \input{exos-recursivite}
+
+\chapter{Complexité}
+\setcounter{numeroexercicecours}{1}
+\input{cours-complexite}
+% \section{Exercices}
+% \setcounter{numeroexercice}{1}
+% \input{exos-complexite}
+
+\chapter{Correction}
+\setcounter{numeroexercicecours}{1}
+\input{cours-correction}
+% \section{Exercices}
+% \setcounter{numeroexercice}{1}
+% \input{exos-correction}
+
+
+\chapter{Graphe - Informatique Commune}
+\setcounter{numeroexercicecours}{1}
+\input{cours-graphe}
+
+
+\chapter{Langage Python}
+Cette annexe liste limitativement les éléments du langage Python (version 3 ou supérieure) dont la connaissance est exigible des étudiants. Aucun concept sous-jacent n'est exigible au titre de la présente annexe.\\
+
+Aucune connaissance sur un module particulier n'est exigible des étudiants.\\
+
+Toute utilisation d'autres éléments du langage que ceux que liste cette annexe, ou d'une fonction d'un module, doit obligatoirement être accompagnée de la documentation utile, sans que puisse être attendue une quelconque maîtrise par les étudiants de ces éléments.
+
+\subsubsection*{Traits généraux}
+\begin{itemize}
+\item Typage dynamique~: l'interpréteur détermine le type à la volée lors de l'exécution du code.
+\item Principe d'indentation.
+\item Portée lexicale~: lorsqu'une expression fait référence à une variable à l'intérieur d'une fonction, Python cherche la valeur définie à l'intérieur de la fonction et à défaut la valeur dans l'espace global du module.
+\item Appel de fonction par valeur~: l'exécution de \verb|f(x)| évalue d'abord $x$ puis exécute $f$ avec la valeur calculée.
+\end{itemize}
+
+\subsubsection*{Types de base}
+\begin{itemize}
+\item Opérations sur les entiers (\verb|int|)~: \verb|+|, \verb|-|, \verb|*|, \verb|//|, \verb|**|, \verb|%| avec des opérandes positifs.
+\item Opérations sur les flottants (\verb|float|)~: \verb|+|, \verb|-|, \verb|*|, \verb|/|, \verb|**|.
+\item Opérations sur les booléens (\verb|bool|)~: \verb|not|, \verb|or|, \verb|and| (et leur caractère paresseux).
+\item Comparaisons \verb|==|, \verb|!=|, \verb|<|, \verb|>|, \verb|<=|, \verb|>=|.
+\end{itemize}
+
+\subsubsection*{Types structurés}
+\begin{itemize}
+\item Structures indicées immuables (chaînes, tuples)~: \verb|len|, accès par indice positif valide, concaténation \verb|+|, répétition \verb|*|, tranche.
+\item Listes~: création par compréhension \verb|[e for x in s]|, par \verb|[e] * n|, par \verb|append| successifs~; \verb|len|, accès par indice positif valide~; concaténation \verb|+|, extraction de tranche, copie (y compris son caractère superficiel)~; \verb|pop| en dernière position.
+\item Dictionnaires~: création \verb|{c_1 : v_1, ..., c_n : v_n}|, accès, insertion, présence d'une clé \verb|k in d|, \verb|len|, \verb|copy|.
+\end{itemize}
+
+\subsubsection*{Structures de contrôle}
+\begin{itemize}
+\item Instruction d'affectation avec \verb|=|. Dépaquetage de tuples.
+\item Instruction conditionnelle~: \verb|if|, \verb|elif|, \verb|else|.
+\item Boucle \verb|while| (sans \verb|else|). \verb|break|, \verb|return| dans un corps de boucle.
+\item Boucle \verb|for| (sans \verb|else|) et itération sur \verb|range(a, b)|, une chaîne, un tuple, une liste, un dictionnaire au travers des méthodes \verb|keys| et \verb|items|.
+\item Définition d'une fonction \verb|def f(p_1, ..., p_n)|, \verb|return|.
+\end{itemize}
+
+\subsubsection*{Divers}
+\begin{itemize}
+\item Introduction d'un commentaire avec \verb|#|.
+\item Utilisation simple de \verb|print|, sans paramètre facultatif.
+\item Importation de modules avec \verb|import module|, \verb|import module as alias|, \verb|from module import f, g, ...|
+\item Manipulation de fichiers texte (la documentation utile de ces fonctions doit être rappelée~; tout problème relatif aux encodages est éludé)~: \verb|open|, \verb|read|, \verb|readline|, \verb|readlines|, \verb|split|, \verb|write|, \verb|close|.
+\item Assertion~: \verb|assert| (sans message d'erreur).
+\end{itemize}
+
+\end{document}

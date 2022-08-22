@@ -1,0 +1,309 @@
+\documentclass{magnolia}
+
+\magtex{tex_driver={pdftex}}
+\magfiche{document_nom={Exercices sur les fractions rationnelles},
+          auteur_nom={François Fayard},
+          auteur_mail={fayard.prof@gmail.com}}
+\magexos{exos_matiere={maths},
+         exos_niveau={mpsi},
+         exos_chapitre_numero={11},
+         exos_theme={Fractions rationnelles}}
+\magmisenpage{}
+\maglieudiff{}
+\magprocess
+ 
+\begin{document}
+
+%BEGIN_BOOK
+\magsection{Fraction rationnelle}
+
+\exercice{nom={Valeurs prises par une fraction rationnelle}}
+% Gourdon Algèbre, page 75
+Soit $F\in\fracC$ une fraction rationnelle. On note $\mathcal{D}_F\defeq\C\setminus\ens{a_1,\ldots,a_n}$,
+où $a_1,\ldots,a_n\in\C$ sont les pôles de $F$, et on définit la fonction
+\[\dspappli{f}{\mathcal{D}_F}{\C}{z}{F(z).}\]
+On suppose que $F$ n'est pas constante. Montrer que $f(\mathcal{D}_F)=\C$ ou qu'il existe $\alpha\in\C$
+tel que $f(\mathcal{D}_F)=\C\setminus\ens{\alpha}$.
+
+\exercice{nom={Primitive}}
+Montrer que la fraction rationnelle $F\defeq 1/X$ n'a pas de primitive dans $\fracC$.
+
+\magsection{Décomposition en éléments simples}
+
+
+\exercice{nom={Décomposition en éléments simples}}
+Décomposer en éléments simples sur $\R$ les fractions suivantes
+\[\frac{10X^3}{(X^2+1)(X^2-4)}, \qquad \frac{X^4+1}{X^4+X^2+1},
+  \qquad \frac{X^3-1}{(X-1)(X-2)(X-3)},\]
+\[\frac{X^2}{(X^2+X+1)^2}, \qquad \frac{(X^2+4)^2}{(X^2+1)(X^2-2)^2}.\]
+\begin{sol}
+$\quad$
+\begin{questions}
+\question 
+  \[\frac{10X^3}{(X^2+1)(X^2-4)}=
+    \frac{4}{X-2}+\frac{4}{X+2}+\frac{2X}{X^2+1}\]
+\question 
+  \[\frac{X^4+1}{X^4+X^2+1}=
+    1-\frac{1}{2}\cdot\frac{X}{X^2-X+1}+\frac{1}{2}\cdot\frac{X}{X^2+X+1}\]
+\question 
+  \[\frac{X^3-1}{(X-1)(X-2)(X-3)}=
+    1-\frac{7}{X-2}+\frac{13}{X-3}\]
+\question 
+  \[\frac{X^2}{(X^2+X+1)^2}=
+    \frac{1}{X^2+X+1}-\frac{X+1}{\p{X^2+X+1}^2}\]\
+\question 
+  \begin{eqnarray*}
+  \frac{(X^2+4)^2}{(X^2+1)(X^2-2)^2}&=&
+    \frac{1}{X^2+1}+\frac{3\sqrt{2}}{4}\cdot\frac{1}{X+\sqrt{2}}
+    +\frac{3}{2}\cdot\frac{1}{\p{X+\sqrt{2}}^2}\\
+   & &
+    -\frac{3\sqrt{2}}{4}\cdot\frac{1}{X-\sqrt{2}}
+    +\frac{3}{2}\cdot\frac{1}{\p{X-\sqrt{2}}^2}
+  \end{eqnarray*}
+\end{questions}
+\end{sol}
+
+\exercice{nom={Décomposition en éléments simples}}
+Décomposer en éléments simples sur $\C$ les fractions suivantes
+\[\frac{1}{X^n-1}, \qquad \frac{X^{n-1}}{X^n-1}, \qquad
+  \frac{1}{(X-1)(X^n-1)}.\]
+\begin{sol}
+$\quad$
+\begin{questions}
+\question 
+  \[\frac{1}{X^n-1}=\sum_{k=0}^{n-1} \frac{1}{n}\cdot\frac{\omega^k}{X-\omega^k}\]
+\question 
+  \[\frac{X^{n-1}}{X^n-1}=\frac{1}{n}\sum_{k=0}^{n-1} \frac{1}{X-\omega^k}\]
+\question 
+  \[\frac{1}{\p{X-1}\p{X^n-1}}=-\frac{n-1}{2n}\cdot\frac{1}{X-1}+
+    \frac{1}{n}\cdot\frac{1}{\p{X-1}^2}+\sum_{k=1}^{n-1}
+    \frac{1}{n}\cdot\frac{\omega^k}{\omega^k-1}\cdot\frac{1}{X-\omega^k}\]
+\end{questions}
+\end{sol}
+
+\exercice{nom={Une somme}}
+Soit $n\in\Ns$. Simplifier
+\[\sum_{k=1}^n \frac{1}{k(k+1)(k+2)}.\]
+
+\exercice{nom={Une somme de série}}
+Calculer la limite lorsque $n$ tend vers $+\infty$ de
+\[\sum_{k=2}^n \frac{3k^2-1}{(k-1)^2k^2(k+1)^2}.\]
+\begin{sol}
+On trouve
+\[\frac{3X^2-1}{(X-1)^2X^2(X+1)^2}=\frac{1}{2}\cdot\frac{1}{(X-1)^2}
+  -\frac{1}{X^2}+\frac{1}{2}\cdot\frac{1}{(X+1)^2}\]
+(Astuce de Anis Marrakchi : Pour connaître le coefficient au dessus de
+$1/(X+1)$ et $-1/(X-1)$ on regroupe ces éléments simples, on multiplie par
+$X^2$ et on fait tendre $x$ vers $+\infty$ // Autre astuce de Anis Marrakchi :
+on peut remarquer que $F=P'/P^2$).
+On obtient donc une somme télescopique. La somme de la série est donc
+$\frac{3}{8}$.
+\end{sol}
+
+\exercice{nom={Décomposition en éléments simples}}
+On considère la fraction
+\[F\defeq\frac{1}{(X^3-1)^3}\]
+que l'on souhaite décomposer en éléments simples sur $\fracC$.
+\begin{questions}
+\question Calculer la partie polaire de $F$ relative au pôle 1.
+\question En étudiant les symétries de $F$, en déduire sa décomposition en
+  éléments simples.
+\end{questions}
+\begin{sol}
+$\quad$
+\begin{questions}
+\question On trouve
+  \[\frac{5}{27}\cdot\frac{1}{X-1}-\frac{1}{9}\cdot\frac{1}{(X-1)^2}
+    +\frac{1}{27}\cdot\frac{1}{(X-1)^3}\]
+\question On a enfin~:
+  \begin{eqnarray*}
+  \frac{1}{(X^3-1)^3}&=&
+    \frac{5}{27}\cdot\frac{1}{X-1}-\frac{1}{9}\cdot\frac{1}{(X-1)^2}
+    +\frac{1}{27}\cdot\frac{1}{(X-1)^3}+\\
+    &&\sum_{\alpha\in\ens{j,j^2}}\cro{
+    \frac{5}{27}\cdot\frac{\alpha}{X-\alpha}+\frac{1}{9}\cdot\frac{1+\alpha}{(X-\alpha)^2}
+    +\frac{1}{27}\cdot\frac{1}{(X-\alpha)^3}}
+  \end{eqnarray*}
+\end{questions}
+\end{sol}
+
+\exercice{nom={Autour de \nom{Chebyshev}}}
+\begin{questions}
+\question Montrer que pour tout entier $n\in\N$, il existe un unique polynôme
+  $P_n\in\polyR$ tel que
+  \[X^n+\frac{1}{X^n}=P_n\p{X+\frac{1}{X}}.\]
+\question Soit $n\in\Ns$.
+  \begin{questions}
+  \question Factoriser $P_n$ dans $\polyC$.
+  \question Décomposer $1/P_n$ en éléments simples dans $\fracC$.
+  \end{questions}
+\end{questions}
+\begin{sol}
+$\quad$
+\begin{questions}
+\question $P_{n+1}=XP_n-P_{n-1}$
+\question
+  \begin{questions}
+  \question 
+    \[P_n=\prod_{k=0}^{n-1} \p{X-2\cos\p{\frac{\pi\p{2k+1}}{2n}}}\]
+  \question
+    \[\frac{1}{P_n}=\sum_{k=0}^{n-1} \frac{\p{-1}^k}{n}\sin\p{\frac{\pi\p{2k+1}}{2n}}
+      \frac{1}{X-2\cos\p{\frac{\pi\p{2k+1}}{2n}}}\]
+  \end{questions}
+\end{questions}
+\end{sol}
+
+% \exercice{nom={Racines de P'}}
+% Soit $P\in\polyC$ de degré $n$.
+% \begin{questions}
+% \question Décomposer $P'/P$ en éléments simples.
+% \question En déduire que les racines de $P'$ sont dans l'enveloppe convexe des
+%   racines de $P$ c'est-à-dire que toute racine de $P'$ s'écrit comme barycentre
+%   à coefficients positifs des racines de $P$.
+% \end{questions}
+
+
+\exercice{nom={Racines multiples de $P'$}}
+Soit $P\in\polyR$ un polynôme non constant.
+\begin{questions}
+\question On suppose que $P$ est scindé sur $\polyR$.
+\begin{questions}
+\question Calculer la décomposition en éléments simples de $P'/P$.
+\question En déduire que
+  \[\forall x\in\R\qsep P'(x)^2\geq P(x)P''(x)\]
+  avec égalité si et seulement si $x$ est racine multiple de $P$.
+\question Rappeler pourquoi $P'$ est scindé, puis montrer que toute
+  racine multiple de $P'$ est racine de $P$.
+\end{questions}
+\question
+\begin{questions}
+\question Est-il vrai en général que toute racine multiple de $P'$ est racine de $P$~?
+\question Est-il vrai, sous l'hypothèse que $P$ est scindé sur $\R$, que toute racine de $P'$ est racine de $P$~?
+\end{questions}
+\question On suppose que
+  \[\forall x\in\R\qsep P'(x)^2\geq P(x)P''(x).\]
+  Montrer que $P$ possède une racine réelle.
+\end{questions}
+
+\exercice{nom={Théorème de \nom{Gauss}-\nom{Lucas}}}
+\begin{questions}
+\question Soit $P\in\fracC$ non nul. Calculer la décomposition en éléments simples de $F\defeq P'/P$.
+\question Soit $n\in\Ns$. Déterminer la valeur de
+  \[\sum_{z\in\mathbb{U}_n\setminus\ens{1}} \frac{1}{1-z}.\]
+\question Soit $P\in\polyC$ un polynôme non constant dont les racines sont $z_1,\ldots,z_r\in\C$.
+\begin{questions}
+\question Montrer que pour toute racine $\alpha\in\C$ de $P'$, il existe $\lambda_1,\ldots,\lambda_r \geq 0$
+  tels que $\lambda_1+\cdots+\lambda_r=1$ et \[\alpha=\lambda_1 z_1+\cdots+\lambda_r z_r.\]
+\question Interpréter géométriquement ce résultat.
+\end{questions}
+\end{questions}
+
+
+\exercice{nom={Calcul de dérivées $n$-ièmes}}
+Calculer la dérivée $n$-ième de
+\[x\mapsto\ln(x^2-x+2).\]
+
+\exercice{nom={Majoration d'une dérivée $n$-ième}}
+Montrer que
+\[\forall n\in\Ns \qsep \forall x\in\R \qsep \abs{\arctan^{(n)} x}\leq(n-1)!.\]
+\begin{sol}
+On trouve grâce à $\arctan'(x)=\dfrac{1}{1+x^2}=\dfrac{\ii}{2}\p{\dfrac{1}{x+i}-\dfrac{1}{x-i}}$, 
+\[\forall n\in\Ns \quad \forall x\in\R \quad \arctan^{(n)} x=
+  (-1)^{n+1}\frac{(n-1)!}{2}\cro{\frac{1}{(x+i)^n}-\frac{1}{(x-i)^n}}i\]
+  puis on majore en passant aux valeurs absolues.
+\end{sol}
+
+\exercice{nom={Dérivée $n$-ième}}
+On pose
+\[R\defeq\frac{1}{X^2+1}.\]
+\begin{questions}
+\question Décomposer $R$ en éléments simples, puis calculer $R^{(n)}$ pour tout $n\in\N$.
+\question Montrer que pour tout $n\in\N$
+  \[R^{(n)}=\frac{(-1)^n (n+1)!}{(X^2+1)^{n+1}}\prod_{k=1}^n \p{X-\cotan\frac{k\pi}{n+1}}.\]
+\end{questions}
+
+\magsection{Primitive d'expression rationnelle}
+% \exercice{nom={Primitives de polynôme-exponentielles}}
+% Calculer les primitives des fonctions dont les expressions sont :
+% \[(1+2x+x^2)e^x \qquad (1+2x)e^x \sin x\]
+% \begin{sol}
+% $\quad$
+% \begin{questions}
+% \question
+%   \[\prim{(1+2x+x^2)e^x}{x}=\p{1+x^2}e^x\]
+% \question
+%   \[\prim{(1+2x)e^x \sin x}{x}=
+%     \p{\frac{1}{2}-x}e^x\cos x-\p{\frac{1}{2}+x}e^x\sin x\]
+% \end{questions}
+% \end{sol}
+
+% \exercice{nom={Primitives de polynômes en $\cos,\sin$}}
+% Calculer les primitives des fonctions dont les expressions sont :
+% \[\sin^2 x\cos^3 x \qquad \sin^3 x\cos^4 x \qquad \sin^3 x\cos^5 x\]
+
+\exercice{nom={Primitives de fractions rationnelles}}
+\begin{questions}
+\question Calculer sur un intervalle $I$ que l'on précisera les primitives des
+  fonctions dont les expressions sont
+  \[\frac{1}{1-x^4}, \qquad \frac{x}{1+x^4}, \qquad \frac{x^2}{x^3-1}.\]
+\question Calculer
+  \[\integ{0}{1}{\frac{x^3+x}{(x^2+x+1)^2}}{x}\]
+\end{questions}
+\begin{sol}
+$\quad$
+\begin{questions}
+\question
+  \[\priminv{1-x^4}{x}=\frac{1}{2}\arctan x+\frac{1}{2}\argth x\]
+  \[\prim{\frac{x}{1+x^4}}{x}=\frac{1}{2}\arctan\p{x^2}\]
+  \[\prim{\frac{x^2}{x^3-1}}{x}=\frac{1}{3}\ln\abs{x^3-1}\]
+\question Le mieux est de faire cet exercice en cherchant une primitive sous
+  une forme donnée.
+  \[\prim{\frac{x^3+x}{(x^2+x+1)^2}}{x}=\frac{1}{2} \ln\p{1+x+x^2}
+    -\frac{7\sqrt{3}}{9}
+    \arctan\p{\frac{2 x+1}{\sqrt{3}}}+\frac{x-1}{3 \p{1+x+x^2}}\]
+  On trouve
+  \[\frac{1}{54}\p{18+27\ln 3-7\sqrt{3}\pi}\]
+\end{questions}
+\end{sol}
+
+\exercice{nom={Primitives de fractions rationnelles en $\cos,\sin$}}
+Calculer sur un intervalle $I$ que l'on précisera les primitives des
+fonctions dont les expressions sont
+\[\frac{1}{\cos x\sin^3 x}, \qquad \frac{1}{\sin x+\cos x}.\]
+\begin{sol}
+$\quad$
+\begin{questions}
+  \question On doit décomposer en éléments simples~:
+  \[\frac{1}{X \left(X^2-1 \right)^2}=
+    \frac{1}{4 (X-1)^2}-\frac{1}{2 (X-1)}+\frac{1}{X}-\frac{1}{4 \
+    (X+1)^2}-\frac{1}{2 (X+1)}\]
+  Puis~:
+  \[\priminv{\cos x\sin^3 x}{x}=\ln\abs{\tan x}-\frac{1}{2\sin^2 x}\]
+% \question
+%   \[\priminv{1+2\cos x}{x}=
+%     \frac{2\sqrt{3}}{3}\arctan\p{\frac{\sqrt{3}\tan\p{x/2}}{3}}\]
+\question
+  \[\priminv{\sin x+\cos x}{x}=\sqrt{2}
+    \argth\p{\frac{\tan\p{\frac{x}{2}}-1}{\sqrt{2}}}\]
+\end{questions}
+\end{sol}
+
+\exercice{nom={Calcul de primitives}}
+Calculer sur un intervalle $I$ que l'on précisera les primitives des
+fonctions dont les expressions sont
+\[\frac{1}{2}x\sqrt{\frac{x-1}{x+1}}, \qquad \frac{x}{\sqrt{-x^2+x+2}}.\]
+
+\exercice{nom={Une intégrale impropre}}
+Calculer la limite lorsque $x$ tend vers $\pi/2$ par la gauche de
+\[\integ{0}{x}{\sqrt{\tan t}}{t}.\]
+\begin{sol}
+On se ramène au calcul d'une primitive de $u^2/(1+u^4)$. Après avoir
+factorisé $u^4+1$ en $(u^2+\sqrt{2}u+1)(u^2-\sqrt{2}u+1)$, on cherche
+l'allure d'une primitive. On utilise ensuite l'imparité de la primitive
+cherchée pour se ramener au calcul de 2 coefficients. Remarquer qu'un des
+coefficients est inutile, puis calculer le dernier par substitution. On trouve
+\[\integ{0}{\frac{\pi}{2}}{\sqrt{\tan t}}{t}=\frac{\pi}{\sqrt{2}}\]
+\end{sol}
+%END_BOOK
+
+\end{document}

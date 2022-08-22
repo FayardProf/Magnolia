@@ -1,0 +1,405 @@
+\documentclass{magnolia}
+
+\magtex{tex_driver={pdftex}}
+\magfiche{document_nom={Exercices sur les fonctions usuelles},
+          auteur_nom={François Fayard},
+          auteur_mail={fayard.prof@gmail.com}}
+\magexos{exos_matiere={maths},
+         exos_niveau={mpsi},
+         exos_chapitre_numero={5},
+         exos_theme={Fonctions usuelles}}
+\magmisenpage{}
+\maglieudiff{}
+\magprocess
+
+\begin{document}
+
+%BEGIN_BOOK
+\magsection{Logarithme, exponentielle, puissance}
+\magsubsection{Logarithme népérien}
+
+\exercice{nom={Équations, inéquations, inégalités}}
+Montrer que pour tout $x\in\intero{-1}{1}\setminus\ens{0}$, on a
+\[\frac{\ln\p{1+x}}{x}\leq -\frac{\ln\p{1-\abs{x}}}{\abs{x}}.\]
+\begin{sol}
+Pour $x<0$, l'inégalité est une égalité. Pour $x>0$, l'inégalité se
+montre facilement en résolvant l'inéquation (inutile de dériver).
+\end{sol}
+
+\exercice{nom={Études de variations}}
+\begin{questions}
+\question Soit $a,b\in\R$ tels que $0<a<b$. On définit la fonction $f$ sur $\RPs$
+  par
+  \[\forall x>0 \qsep f(x)\defeq\frac{\ln\p{1+ax}}{\ln\p{1+bx}}.\]
+  Étudier la monotonie de $f$.
+\question
+  \begin{questions}
+  \question Montrer que
+    \[\forall x\geq 0 \qsep x-\frac{x^2}{2}\leq\ln\p{1+x}\leq x.\]
+  \question En déduire la limite de la suite de terme général
+    \[\prod_{k=1}^n \p{1+\frac{k}{n^2}}.\]
+  \end{questions}
+\end{questions}
+\begin{sol}
+$\quad$
+\begin{questions}
+\question $f$ est croissante sur $\RPs$. Il suffit de dériver $f$ puis d'étudier
+  le numérateur (on le dérive).
+\question La limite est $\sqrt{e}$.
+\end{questions}
+\end{sol}
+
+\magsubsection{Exponentielle}
+\magsubsection{Logarithme et exponentielle en base $a$}
+
+\exercice{nom={Équations, inéquations, inégalités}}
+\begin{questions}
+\question Résoudre, avec $a\in\RPs\setminus\ens{1}$
+  $$\log_a x > \log_{a^3}\p{3x-2}.$$
+\question Résoudre
+  $$
+  \begin{cases}
+  \log_y x +\log_x y=\frac{50}{7} &\\
+  xy=256. &
+  \end{cases}
+  $$
+\end{questions}
+\begin{sol}
+$\quad$
+\begin{questions}
+\question Le domaine est $]2/3,+\infty[$. Si $a>1$, l'inéquation est toujours
+  vérifiée, sauf si $x=1$. Si $a<1$, l'inéquation n'est jamais vérifiée.
+\question On pose $u=(\ln x)/(\ln y)$ et on obtient $u+1/u=50/7$ ce qui
+  donne 7 et $1/7$ comme solutions. On trouve $x=2$ et $y=128$ ou le contraire.\\
+  On peut aussi multiplier tout par $\ln x\ln y$ et obtenir une équation en
+  le produit et la somme de $\ln x$ et $\ln y$.
+\end{questions}
+\end{sol}
+
+\magsubsection{Fonction puissance}
+\magsubsection{Calcul de limite}
+
+\exercice{nom={Calcul de limite en $\pm\infty$}}
+Déterminer les limites, si elles existent, en $+\infty$ des fonctions
+d'expressions
+\[\sqrt{x+1}-\sqrt{x}, \qquad \sqrt{x^2+x+1}-\sqrt{x}, \qquad
+  \frac{\sqrt{2x^2+1}-\sqrt{x^2+x+1}}{x},\]
+\[\sqrt{x+\sqrt{x+\sqrt{x}}}-\sqrt{x}, \qquad
+  \frac{\p{x^x}^x}{x^{\p{x^x}}}, \qquad \frac{\e^{2x} \ln^3 x}{x^4},\]
+\[\frac{a^{\p{b^x}}}{b^{\p{a^x}}} \quad \text{où $1<a<b$}, \qquad
+  \frac{a^{\p{a^x}}}{x^{\p{x^a}}} \quad \text{où $a>1$}.\]
+Déterminer la limite, si elle existe, en $-\infty$ de 
+\[x^2 \e^{x} \ln^3(-x).\]
+
+\begin{sol}
+$$\sqrt{x+1}-\sqrt{x}=\dfrac{1}{\sqrt{x+1}+\sqrt{x}}\tendvers{x}{+\infty}{0}.$$
+$$\sqrt{x^2+x+1}-\sqrt{x}=x\p{\sqrt{1+1/x+1/x^2}-1/\sqrt{x}}\tendvers{x}{+\infty}{+\infty}.$$
+$$\frac{\sqrt{2x^2+1}-\sqrt{x^2+x+1}}{x}=\sqrt{2+1/x^2}-\sqrt{1+1/x+1/x^2}\tendvers{x}{+\infty}{\sqrt{2}-1}.$$
+$$\sqrt{x+\sqrt{x+\sqrt{x}}}-\sqrt{x}=\dfrac{\sqrt{x+\sqrt{x}}}{\sqrt{x+\sqrt{x+\sqrt{x}}}+\sqrt{x}}=\dfrac{\sqrt{1+1/\sqrt{x}}}{\sqrt{1+\sqrt{1/x+1/x^{3/2}}}+1}\tendvers{x}{+\infty}{\frac{1}{2}}.$$
+$$\frac{\sin x}{x}\tendvers{x}{+\infty}{0}.$$
+$$\frac{\p{x^x}^x}{x^{\p{x^x}}}=\e^{x^x\p{\frac{1}{x^{x-2}}-1}\ln(x)}\tendvers{x}{+\infty}{0}.$$
+
+$$\frac{\e^{2x} \ln^3 x}{x^4}\tendvers{x}{+\infty}{0} \text{ par croissances comparées}.$$
+$$\frac{a^{\p{b^x}}}{b^{\p{a^x}}}=\e^{\e^{x\ln(b)}\p{\ln(a)-\e^{x\ln(a/b)}\ln(b)}}\tendvers{x}{+\infty}{+\infty}.$$ 
+$$\frac{a^{\p{a^x}}}{x^{\p{x^a}}}\tendvers{x}{+\infty}{+\infty}.$$
+\end{sol}
+
+\exercice{nom={Calcul de limite en 0}}
+Déterminer les limites, si elles existent, en $0$ des fonctions
+d'expressions
+\[\frac{\sqrt{1+x}-\sqrt{1-x}}{x}, \qquad
+  x^x, \qquad \abs{\ln x}^x,\]
+\[x^2 \ln^3(x^3), \qquad \frac{\sqrt[3]{1+x}-\sqrt[3]{1-x}}{x}.\]
+\begin{sol}
+\begin{questions}
+\question On a
+\[\frac{\sqrt{1+x}-\sqrt{1-x}}{x}=\frac{(1+x)-(1-x)}{x\p{\sqrt{1+x}+\sqrt{1-x}}}=\frac{2}{\sqrt{1+x}+\sqrt{1-x}}\tendvers{x}{0}1.\]
+\question On a
+\[x^x=\e^{x \ln(x)}.\]
+Or, par croissances comparées
+\[x\ln(x)\tendvers{x}{0}0\]
+donc
+\[x^x\tendvers{x}{0}1.\]
+\question On a
+\[\abs{\ln x}^x=\e^{x\ln\abs{\ln x}}.\]
+On pose $u\defeq \abs{\ln x}=-\ln x$ pour $x\in\interof{0}{1}$. Alors
+\[u=-\ln(x)\tendvers{x}{0}+\infty\]
+et
+\[\abs{\ln x}^x=\e^{\frac{\ln u}{\e^ u}}.\]
+Comme
+\[\frac{\ln u}{\e^ u}\tendvers{u}{+\infty}0\]
+on en déduit que
+\[\abs{\ln x}^x\tendvers{x}{0}1.\]
+\question On a, par croissances comparées
+  \[x^2 \ln^3(x^3)=27 x^2\ln^3(x)\tendvers{x}{0}0.\]
+\question En posant $a=\sqrt[3]{1+x}$ et $b=\sqrt[3]{1-x}$, on a
+\begin{eqnarray*}
+ \frac{\sqrt[3]{1+x}-\sqrt[3]{1-x}}{x}=\frac{a-b}{x}
+ &=&\frac{a^3-b^3}{x\p{a^2+ab+b^2}}=\frac{2}{a^2+ab+b^2}\\
+ &=&\frac{2}{\p{1+x}^{2/3}+\cro{(1+x)(1-x)}^{1/3}+\p{1-x}^{2/3}}\tendvers{x}{0}\frac{2}{3}
+ \end{eqnarray*}
+\question On a
+\[\p{\sin x}^{\frac{1}{\ln x}}=\e^{\frac{\ln(\sin x)}{\ln x}}=\e^{1+\frac{\ln\p{\frac{\sin x}{x}}}{\ln x}}\tendvers{x}{0}\e.\]
+
+\end{questions}
+\end{sol}
+
+
+
+
+
+
+\magsection{Fonctions trigonométriques directes et réciproques}
+\magsubsection{Fonctions trigonométriques directes}
+
+\exercice{nom={Calcul de limite en 0}}
+Déterminer les limites, si elles existent, en $0$ des fonctions
+d'expressions
+\[\frac{\ln\p{1+\sin x}}{x}, \qquad \p{\sin x}^{\frac{1}{\ln x}},
+  \qquad \frac{\sin x}{\sqrt{1-\cos x}}.\]
+\begin{sol}
+\begin{questions}
+\question Au voisinage de 0
+  \[\frac{\ln(1+\sin x)}{x}=\frac{\ln(1+\sin x)}{\sin x}\cdot\frac{\sin x}{x}\]
+  Or
+  \[\sin x\tendvers{x}{0}0 \et \frac{\ln(1+u)}{u}\tendvers{u}{0}1 \quad\donc\quad
+    \frac{\ln(1+\sin x)}{\sin x}\tendvers{x}{0}1.\]
+  De plus
+  \[\frac{\sin x}{x}\tendvers{x}{0}1\]
+  donc
+  \[\frac{\ln(1+\sin x)}{x}\tendvers{x}{0}1.\]
+\question L'expression étant impaire, on cherche sa limite à droite en 0. On a, puisque $\sin(x/2)>0$ au voisinage à droite de 0
+  \[\frac{\sin x}{\sqrt{1-\cos x}}=\frac{\sin x}{\sqrt{2\sin^2\p{\frac{x}{2}}}}=\frac{1}{\sqrt{2}}\cdot\frac{\sin x}{\sin \frac{x}{2}}=\sqrt{2}\cdot\frac{\sin x}{x}\cdot\frac{\frac{x}{2}}{\sin\frac{x}{2}}\tendversdp{x}{0}\sqrt{2}.\]
+  Par imparité
+  \[\frac{\sin x}{\sqrt{1-\cos x}}\tendversgp{x}{0}-\sqrt{2}\]
+  donc $(\sin x)/\sqrt{1-\cos x}$ n'admet pas de limite en 0.
+\end{questions}
+\end{sol}
+
+\magsubsection{Fonction $\arcsin$}
+\magsubsection{Fonction $\arccos$}
+\exercice{nom={Étude de fonction}}
+On considère la fonction $f$ définie par
+$$f(x)\defeq\arccos\sqrt{\frac{1+\sin x}{2}}-\arcsin\sqrt{\frac{1+\cos x}{2}}.$$
+\begin{questions}
+\question Déterminer le domaine de définition et de continuité de $f$.
+\question Pour tout $x\in\R$, exprimer $f\p{\frac{\pi}{2}-x}$ en fonction de
+  $f(x)$. Sur quel intervalle $I$ suffit-il de faire l'étude de $f$~?
+\question Étudier la dérivabilité de $f$ sur $I$ et calculer $f'$.
+\question Tracer le graphe de $f$ sur $\interf{-\pi}{\pi}$.
+\end{questions}
+\begin{sol}
+\begin{questions}
+\question On cherche le domaine de $\arccos\sqrt{(1+\sin x)/2}$. Pour tout $x\in\R$, on a
+\begin{eqnarray*}
+-1\leq\sin(x)\leq 1
+&\donc& 0\leq 1+\sin(x)\leq 2\\
+&\donc& 0\leq \frac{1+\sin(x)}{2}\leq 1\\
+&\donc& 0\leq \sqrt{\frac{1+\sin(x)}{2}}\leq 1.
+\end{eqnarray*}
+Donc $\arccos\sqrt{(1+\sin x)/2}$ est définie sur $\R$. De même $\arcsin\sqrt{(1+\cos x)/2}$ est définie sur $\R$. Donc $f$ est définie sur $\R$. D'après les théorèmes usuels, $f$ est donc continue sur $\R$.
+\question Soit $x\in\R$. Alors
+\begin{eqnarray*}
+f\p{\frac{\pi}{2}-x}
+&=& \arccos\sqrt{\frac{1+\sin\p{\frac{\pi}{2}-x}}{2}}-\arcsin\sqrt{\frac{1+\cos\p{\frac{\pi}{2}-x}}{2}}\\
+&=& \arccos\sqrt{\frac{1+\cos x}{2}}-\arcsin\sqrt{\frac{1+\sin x}{2}}\\
+&=& \frac{\pi}{2}-\arcsin\sqrt{\frac{1+\cos x}{2}}-\cro{\frac{\pi}{2}-\arccos\sqrt{\frac{1+\sin x}{2}}}\\
+&=& \arccos\sqrt{\frac{1+\sin x}{2}} - \arcsin\sqrt{\frac{1+\cos x}{2}}\\
+&=& f(x)
+\end{eqnarray*}
+De plus, $f$ est $2\pi$-périodique. Il suffit donc d'étudier $f$ sur un intervalle de longueur $2\pi$. Puisque $f(\pi/2-x)=f(x)$, on choisit un un intervalle centré en $\pi/4$~: $\interf{\pi/4-\pi}{\pi/4+\pi}$. Comme $f(\pi/2-x)=f(x)$, on se limite donc à l'étude de $f$ sur $\interf{\pi/4-\pi}{\pi/4}$, c'est-à-dire $\interf{-3\pi/4}{\pi/4}$.
+On obtiendra le graphe de $f$ est effectuant une symétrie par rapport à la droite d'équation $x=\pi/4$ puis des translations de vecteur $2k\pi\ve{e_x}$ où $k\in\Z$.
+\question On cherche le domaine de dérivabilité de $f$. On a
+\begin{eqnarray*}
+\forall x\in\interf{-\frac{3\pi}{4}}{\frac{\pi}{4}}\qsep
+\frac{1+\sin(x)}{2}=0
+&\ssi& \sin(x)=-1\\
+&\ssi& x=-\frac{\pi}{2}
+\end{eqnarray*}
+De plus
+\begin{eqnarray*}
+\forall x\in\interf{-\frac{3\pi}{4}}{\frac{\pi}{4}}\qsep
+\sqrt{\frac{1+\sin(x)}{2}}=1
+&\ssi& \frac{1+\sin(x)}{2}=1\\
+&\ssi& \sin x=1 \quad\text{ce qui est faux.}
+\end{eqnarray*}
+D'autre part
+\begin{eqnarray*}
+\forall x\in\interf{-\frac{3\pi}{4}}{\frac{\pi}{4}}\qsep
+\frac{1+\cos(x)}{2}=0
+&\ssi& \cos(x)=-1 \quad\text{ce qui est faux.}
+\end{eqnarray*}
+et enfin
+\begin{eqnarray*}
+\forall x\in\interf{-\frac{3\pi}{4}}{\frac{\pi}{4}}\qsep
+\sqrt{\frac{1+\cos(x)}{2}}=1
+&\ssi& \cos(x)=1\\
+&\ssi& x = 0.
+\end{eqnarray*}
+D'après les théorèmes usuels, $f$ est donc dérivable sur $\mathcal{D}\defeq\interf{-3\pi/4}{\pi/4}\setminus\ens{-\pi/2,0}$ et
+\begin{eqnarray*}
+\forall x\in\mathcal{D}\qsep
+f'(x)&=&\frac{\cos x}{2}\cdot\frac{1}{2\sqrt{\frac{1+\sin(x)}{2}}}\cdot(-1)\cdot\frac{1}{\sqrt{1-\p{\sqrt{\frac{1+\sin(x)}{2}}}^2}}+\\
+     & &\frac{\sin x}{2}\cdot\frac{1}{2\sqrt{\frac{1+\cos(x)}{2}}}\cdot\frac{1}{\sqrt{1-\p{\sqrt{\frac{1+\cos(x)}{2}}}^2}}\\
+&=& \frac{1}{2}\cro{\frac{-\cos x}{\sqrt{1-\sin^2 x}}+\frac{\sin x}{\sqrt{1-\cos^2 x}}}\\
+&=& \frac{1}{2}\cro{\frac{\sin x}{\abs{\sin x}}-\frac{\cos x}{\abs{\cos x}}}.
+\end{eqnarray*}
+\question On en déduit que
+\[\forall x\in\intero{0}{\frac{\pi}{4}}\qsep f'(x)=\frac{1}{2}\cro{\frac{\sin x}{\abs{\sin x}}-\frac{\cos x}{\abs{\cos x}}}=\frac{1}{2}\p{1-1}=0\]
+Il existe donc $c$ tel que $f(x)=c$ sur $]0,\pi/4[$. Puisque $f$ est continue sur $[0,\pi/4]$, on en déduit que $f(x)=c$ sur $[0,\pi/4]$. Or $f(0)=\arccos(1/\sqrt{2})-\arcsin(1)=\pi/4-\pi/2=-\pi/4$. Donc
+\[\forall x\in\interf{0}{\frac{\pi}{4}}\qsep f(x)=-\frac{\pi}{4}.\]
+De plus
+\[\forall x\in\intero{-\frac{\pi}{2}}{0}\qsep f'(x)=\frac{1}{2}\cro{\frac{\sin x}{\abs{\sin x}}-\frac{\cos x}{\abs{\cos x}}}=\frac{1}{2}\p{(-1)-1}=-1\]
+Il existe donc $c$ tel que $f(x)=-x+c$ sur $]-\pi/2,0[$. Puisque $f$ est continue sur $[-\pi/2,0]$, on en déduit que $f(x)=-x+c$ sur $[-\pi/2,0]$. Or $f(0)=-\pi/4$. Donc
+\[\forall x\in\interf{-\frac{\pi}{2}}{0}\qsep f(x)=-x-\frac{\pi}{4}.\]
+Enfin
+\[\forall x\in\intero{-\frac{3\pi}{4}}{-\frac{\pi}{2}}\qsep f'(x)=\frac{1}{2}\cro{\frac{\sin x}{\abs{\sin x}}-\frac{\cos x}{\abs{\cos x}}}=\frac{1}{2}\p{(-1)-(-1)}=0\]
+Il existe donc $c$ tel que $f(x)=c$ sur $]-3\pi/4,-\pi/2[$. Puisque $f$ est continue sur $[-3\pi/4,-\pi/2]$, on en déduit que $f(x)=c$ sur $[-3\pi/4,-\pi/2]$. Or $f(-\pi/2)=\pi/4$. Donc
+\[\forall x\in\interf{-\frac{3\pi}{4}}{-\frac{\pi}{2}}\qsep f(x)=\frac{\pi}{4}.\]
+Ce qui permet de tracer $f$.
+% \begin{center}
+% \includegraphics[width=0.7\textwidth]{graphe-f.pdf}
+% \end{center}
+\end{questions}
+\end{sol}
+
+\magsubsection{Fonction $\arctan$}
+
+\exercice{nom={Simplification}}
+Simplifier les expressions suivantes
+$$\arccos\p{\cos\frac{2\pi}{3}}, \qquad \arccos\p{\cos\p{-\frac{2\pi}{3}}},$$
+$$\arccos\p{\cos 4\pi}, \qquad \arctan\p{\tan\frac{3\pi}{4}},$$ 
+$$\tan\p{\arcsin x}, \qquad \sin\p{\arccos x}, \qquad \cos\p{\arctan x}.$$
+\begin{sol}
+$$\arccos\p{\cos\frac{2\pi}{3}}=\frac{2\pi}{3}, \qquad \arccos\p{\cos\p{-\frac{2\pi}{3}}}=\frac{2\pi}{3},$$
+$$\arccos\p{\cos 4\pi}=\arccos\p{0}=0, \qquad \arctan\p{\tan\frac{3\pi}{4}}=\arctan\p{\tan\frac{-\pi}{4}}=\frac{-\pi}{4},$$ 
+$$\tan\p{\arcsin x}=\frac{\sin\p{\arcsin x}}{\cos\p{\arcsin x}}=\frac{x}{\sqrt{1-x^2}}, \qquad \sin\p{\arccos x}=\pm \sqrt{1-\cos^2(\arccos x)}=\sqrt{1-x^2} \quad (\sin \geq 0 \text{ sur } [0;\pi])$$
+$$\cos\p{\arctan x}=\sqrt{\cos^2\p{\arctan x}}=\sqrt{\frac{1}{1+\tan^2\p{\arctan x}}}=\sqrt{\frac{1}{1+x^2}}.$$
+\end{sol}
+
+\exercice{nom={Étude de fonction}}
+Étudier la fonction définie par
+$$f(x)\defeq x^2 \arctan\frac{1}{1+x^2}.$$
+\begin{sol}
+La fonction est paire d'où une étude sur $\RP$. On dérive et on obtient
+\[\forall x\in\RP \quad f'(x)=2xg(x) \quad\text{avec}\quad g(x)=
+   \arctan\frac{1}{1+x^2}-\frac{x^2}{(1+x^2)^2+1}\]
+On dérive $g$ et on obtient
+\[\forall x\in\RP \quad g'(x)=-\frac{4x(2+x^2)}{\p{(1+x^2)^2+1}}\]
+On en déduit facilement que $f$ est croissante sur $\RP$. Sa limite en $+\infty$
+est 1 et la fonction s'annule en 0.
+\end{sol}
+
+
+\magsubsection{Formules de trigonométrie réciproque}
+
+\exercice{nom={Identités}}
+A-t-on égalité entre les expressions suivantes~?
+$$\arcsin\sqrt{x} \et \frac{\pi}{4}+\frac{1}{2}\arcsin\p{2x-1},$$
+$$\arctan\frac{x+y}{1-xy} \et \arctan x+\arctan y,$$
+$$\arcsin x+\arcsin\sqrt{1-x^2} \et \frac{\pi}{2},$$
+$$2\arcsin x \et \arcsin\p{2x\sqrt{1-x^2}}.$$
+\begin{sol}
+$\quad$
+\begin{questions}
+\question $\forall x\in\interf{0}{1} \quad
+  \arcsin\sqrt{x}=\frac{\pi}{4}+\frac{1}{2}\arcsin\p{2x-1}$
+\question
+\question On trouve
+  \[\forall x\in\interf{-1}{1} \quad \arcsin x+\arcsin\sqrt{1-x^2}=
+    \begin{cases}
+    \frac{\pi}{2} & \text{si $x\geq 0$}\\
+    \frac{\pi}{2}+2\arcsin x & \text{si $x\leq 0$}
+    \end{cases}\]
+\question On trouve
+  \[\forall x\in\interf{-1}{1} \quad \arcsin\p{2x\sqrt{1-x^2}}=
+    \begin{cases}
+    -\pi-2\arcsin x & \text{si $-1\leq x \leq -1/\sqrt{2}$}\\
+    2\arcsin x & \text{si $-1/\sqrt{2}\leq x\leq 1/\sqrt{2}$}\\
+    \pi-2\arcsin x & \text{si $1/\sqrt{2}\leq x \leq 1$}
+    \end{cases}\]
+\end{questions}
+\end{sol}
+
+\exercice{nom={Équations}}
+Résoudre les équations suivantes
+$$\arctan x+\arctan\p{2x}=\frac{\pi}{4}, \qquad
+  \arcsin\p{2x}=\arcsin{x}+\arcsin\p{\sqrt{2}x}.$$
+\begin{sol}
+$\quad$
+\begin{questions}
+\question On compose par $\tan$ et on trouve comme solutions $(-3\pm\sqrt{17})/2$.
+  La première solution est à éliminer car négative. La seconde solution
+  est à garder. Il faut remarquer que $(-3+\sqrt{17})/2\leq1/\sqrt{3}$.
+  En conclusion l'unique solution est
+  \[\frac{-3+\sqrt{17}}{2}\]
+\question On compose par $\sin$ et on obtient 0 et $\pm \sqrt{\frac{7}{32}}$.
+  Comme on est sur $\interf{-1/2}{1/2}$, la composition par $\sin$ ne perd pas
+  l'équivalent. En conclusion, les solutions sont
+  \[0,\pm\sqrt{\frac{7}{32}}\]
+\end{questions}
+\end{sol}
+
+
+
+
+\magsection{Fonctions trigonométriques hyperboliques}
+\exercice{nom={Simplification}}
+Simplifier les expressions suivantes
+\[\frac{\ch\p{\ln x}+\sh\p{\ln x}}{x}, \qquad \sh^2x\cos^2y+\ch^2x\sin^2y,\]
+\[\ln\sqrt{\frac{1+\tanh x}{1-\tanh x}}.\]
+% \begin{sol}
+% On trouve~:
+% \[\frac{\ch\p{\ln x}+\sh\p{\ln x}}{x}=1\]
+% \[\sh^2x\cos^2y+\ch^2x\sin^2y=\sh^2 x+\sin^2 y\]
+% \[\argsh\frac{x^2-1}{2x}=
+%  \begin{cases}
+%  \ln x & \text{si $x>0$}\\
+%  -\ln(-x) & \text{si $x<0$}
+%  \end{cases} \quad \text{poser $y=\ln x$}\]
+% \[\argch\p{2x^2-1}=
+%   \begin{cases}
+%   2\argch x & \text{si $x\geq 1$}\\
+%   2\argch(-x) & \text{si $x\leq -1$}
+%   \end{cases}\]
+% \[\ln\sqrt{\frac{1+\tanh x}{1-\tanh x}}=2x\]
+% \end{sol}
+
+\exercice{nom={Identité}}
+Montrer que
+\[\arctan\p{\e^x}-\arctan\p{\tanh\frac{x}{2}}\]
+est une constante à déterminer.
+\begin{sol}
+Soit $f$ la fonction définie sur $\R$ par
+\[\forall x\in\R\qsep f(x)\defeq \arctan\p{\e^x}-\arctan\p{\tanh\frac{x}{2}}.\]
+D'après les théorèmes usuels, $f$ est dérivable sur $\R$ et
+\begin{eqnarray*}
+\forall x\in\R\qsep f'(x)
+&=& \frac{\e^x}{1+\e^{2x}}-\frac{1}{2}\p{1-\th^2\p{\frac{x}{2}}}\frac{1}{1+\th^2\p{\frac{x}{2}}}\\
+&=& \frac{\e^x}{1+\e^{2x}}-\frac{1}{2}\cdot\frac{\ch^2\p{\frac{x}{2}}-\sh^2\p{\frac{x}{2}}}{\ch^2\p{\frac{x}{2}}+\sh^2\p{\frac{x}{2}}}\\
+&=& \frac{1}{\e^{-x}+\e^{x}}-\frac{1}{2}\cdot\frac{1}{\p{\frac{\e^{\frac{x}{2}}+\e^{-\frac{x}{2}}}{2}}^2+\p{\frac{\e^{\frac{x}{2}}-\e^{-\frac{x}{2}}}{2}}^2}\\
+&=& \frac{1}{\e^{-x}+\e^{x}} - \frac{1}{\e^{-x}+\e^{x}}\\
+&=& 0.
+\end{eqnarray*}
+Il existe donc $c\in\R$ tel que
+\[\forall x\in\R\qsep f(x)=c.\]
+Or $f(0)=\arctan(1)-\arctan(\th(0))=\pi/4-\arctan(0)=\pi/4$, donc $c=\pi/4$. En conclusion 
+\[\forall x\in\R\qsep \arctan\p{\e^x}-\arctan\p{\tanh\frac{x}{2}}=\frac{\pi}{4}.\]
+\end{sol}
+
+\exercice{nom={Calcul de somme}}
+Soit $a$ et $b$ deux réels. Calculer
+$$\sum_{k=0}^n \ch\p{a+kb}.$$
+
+\exercice{nom={Produit}}
+\begin{questions}
+\question Déterminer la limite, lorsque $x$ tend vers 0, de
+  \[\frac{\th x}{x}.\]
+\question Montrer que
+  \[\forall x\in\R\qsep \th(2x)=\frac{2\th x}{1+\th^2 x}.\]
+\question En déduire que pour tout $x\in\Rs$
+  \[\prod_{k=1}^n \p{1+\th^2 \frac{x}{2^k}}\tendvers{n}{+\infty}\frac{x}{\th x}.\]
+\end{questions}
+%END_BOOK
+
+\end{document}

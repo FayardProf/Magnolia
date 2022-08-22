@@ -1,0 +1,295 @@
+\documentclass{magnolia}
+
+\magtex{tex_driver={pdftex}}
+\magfiche{document_nom={Exercices sur les polynômes},
+          auteur_nom={François Fayard},
+          auteur_mail={fayard.prof@gmail.com}}
+\magexos{exos_matiere={maths},
+         exos_niveau={mpsi},
+         exos_chapitre_numero={15},
+         exos_theme={Polynômes}}
+\magmisenpage{misenpage_presentation={tikzvelvia},
+              misenpage_format={a4},
+              misenpage_nbcolonnes={1},
+              misenpage_sol={non}}
+\maglieudiff{lieu_lycee={Aux Lazaristes},
+             lieu_classe={MPSI 1},
+             lieu_annee={2020--2021}}
+\magprocess
+
+\begin{document}
+%BEGIN_BOOK
+
+\magsection{Arithmétique des polynômes}
+
+\exercice{nom={Division euclidienne}}
+\begin{questions}
+\question Trouver le reste et le quotient de la division euclidienne de $A$ par
+  $B$ dans les cas suivants :
+  \begin{itemize}
+  \item $A\defeq X^3-2X+1$ et $B\defeq X^2-1$
+  \item $A\defeq X^4-2X^3+1$ et $B\defeq X+1$
+  \end{itemize}
+\question Trouver les restes dans la division de $(X-3)^{2n}-(X-2)^{n}-2$ par
+  $(X-2)(X-3)$ et $(X-3)^3$.
+\question Soit $n\in\N$ et $\theta\in\R$. Déterminer le reste de la division
+  du polynôme $(\cos\theta+X\sin\theta)^n$ par $X^2+1$.
+\question Soit $n\in\Ns$. Trouver le reste de la division euclidienne de
+  $X^n+nX^{n-1}+X^2+1$ par $(X+1)^2$.
+\end{questions}
+\begin{sol}
+$\quad$
+\begin{questions}
+\question On trouve $X^3-2X+1=X(X^2-1)+(-X+1)$ et
+  $X^4-2X^3+1=(X^3-3X^2+3X-3)(X+1)+4$.
+\question On trouve $-2X+3$ si $n\geq 1$ et $-2$ si $n=0$ pour le premier
+  reste et
+  \[-\frac{1}{2}n(n-1)X^2+n(3n-4)X-\frac{1}{2}(9n^2-15n+6)\]
+  pour le second reste (si $n\geq 2$, $X^2-7X+9$ si $n=1$ et $-2$ si $n=0$).
+\question $R=\sin(n\theta)+i\cos(n\theta)$.
+\question $R=(-1)^n \cro{(n^2-2n+2(-1)^{n+1})X+(n^2-3n+1)}$.
+\end{questions}
+\end{sol}
+
+\exercice{nom={Calculs de pgcd}}
+\begin{questions}
+\question Calculer le $\pgcd$ des polynômes $X^5-4X^4+6X^3-6X^2+5X-2$ et
+  $X^4+X^3+2X^2+X+1$.
+\question Soit $p$ et $q$ deux entiers naturels.
+  \begin{questions}
+  \question Calculer le reste de la division euclidienne de $X^p-1$ par
+    $X^q-1$.
+  \question En déduire le $\pgcd$ de $X^p-1$ et $X^q-1$.
+  \end{questions}
+\end{questions}
+
+\exercice{nom={Calcul de coefficients}}
+Soit $n\in\Ns$.
+\begin{questions}
+\question Montrer qu'il existe un unique couple $(P,Q)$ de polynômes de degrés
+  strictement inférieurs à $n$ tels que
+  $$(1-X)^n P(X) + X^n Q(X)=1.$$
+\question Montrer que
+  $$P(X)=Q(1-X) \quad \text{et} \quad Q(X)=P(1-X).$$
+\question Montrer qu'il existe $\lambda\in\K$ telle que
+  $$(1-X)P'(X)-nP(X)=\lambda X^{n-1}.$$
+\question En déduire les coefficients de $P$.
+\end{questions}
+\begin{sol}
+$\quad$
+\begin{questions}
+\question
+\question
+\question
+\question On trouve
+  \[\forall k\in\intere{0}{n-1} \quad a_k=\binom{n+k-1}{k}\]
+
+  -lambda (n-1)! (n+k-1)! / (k! (2n-1)!)
+\end{questions}
+\end{sol}
+
+% \exercice{nom={Nombres algébriques}} %%fayard francois
+% On dit qu'un nombre complexe $z$ est algébrique si et seulement si il
+% existe un polynôme à coefficients entiers $P$ non nul tel que $P(z)=0$.
+% \begin{questions}
+% \question Montrer que $\sqrt{2}$, $i$, $\frac{1+\sqrt{5}}{2}$ sont algébriques.
+% \question Montrer que $z$ est algébrique si et seulement si il existe un
+%   polynôme $P$ non nul à coefficients rationnels tel que $P(z)=0$.
+% \question Soit $z$ un nombre algébrique.
+%   \begin{questions}
+%   \question Montrer que si $z$ est non nul, alors $\frac{1}{z}$ est algébrique.
+%   \question Montrer qu'il existe un polynôme $P_z$ appelé polynôme minimal de
+%      $z$ tel que :
+%     $$\forall P\in\polyQ \quad P(z)=0 \Longleftrightarrow P_z | P$$
+%   \question Montrer que $P_z$ est irréductible sur $\polyQ$.
+%   \question Montrer que :
+%      $$\Q[z]=\left\{ P(z) : \deg P < \deg P_z \right\}$$
+%   \question En déduire que $\Q[z]$ est un corps.
+%   \end{questions}
+% \end{questions}
+
+\exercice{nom={Factorisation sur $\polyQ$}} %%Tout en un
+Soit $a_0,\ldots,a_n \in\Z$ et $P$ le polynôme
+$$P\defeq a_0+a_1X+\dots+a_nX^n.$$
+\begin{questions}
+\question Montrer que si $r\defeq p/q$ (avec $p\wedge q=1$) est racine de $P$, alors
+  $q|a_n$ et $p|a_0$. Que dire si $a_n=1$ ?
+\question Montrer que si $r$ est une racine de $P$, alors
+  $$\forall m\in\Z \qsep p-mq|P(m).$$
+\question En déduire la décomposition en facteurs irréductibles sur $\polyQ$
+  des polynômes
+  $$X^3-X-1, \qquad 3X^3-2X^2-2X-5,$$
+  $$6X^4+19X^3-7X^2-26X+12.$$
+\end{questions}
+
+
+\exercice{nom={Polynômes premiers entre eux dans leur ensemble}} 
+Soit $A_1,\ldots,A_n\in\polyK$ deux à deux premiers entre eux. Pour tout
+$k\in\intere{1}{n}$, on pose
+\[B_k\defeq \prod_{\substack{i=1\\i\neq k}}^n A_i.\]
+Montrer que $B_1,\ldots,B_n$ sont premiers entre eux dans leur ensemble.
+
+\magsection{Racines d'un polynôme}
+
+
+
+\exercice{nom={Racines d'un polynôme}}
+  \begin{questions}
+  \question Soit $P\in\polyR$. Montrer que $P-X$ divise $P\circ P-X$.
+  \question Résoudre sur $\C$ l'équation
+    \[(z^2-3z+1)^2=3z^2-8z+2.\]
+  \end{questions}
+\begin{sol}
+\begin{questions}
+  \question Soit $P\in\polyR$. $P\circ P-X=P\circ P-P+P-X$. Or, 
+  $$P\circ P-P=\sum_{k=0}^d a_k (P^k-X^k)=\sum_{k=0}^d a_k (P-X) \sum_{i=0}^{k-1}P^iX^{k-1-i}=(P-X)Q.$$
+  \question On pose $P(X)=X^2-3X+1$. On calcule $P\circ P-X$ qu'on factorise grâce à la première question.
+  \end{questions}
+\end{sol}
+
+\exercice{nom={Calculs trigonométriques}}
+%%Gourdon : Les maths en tête, algèbre, p.63
+Soit $n\in\Ns$. On définit le polynôme $P_n\in\polyC$ par
+\[P_n\defeq (X+1)^{n}-(X-1)^{n}.\]
+\begin{questions}
+\question Factoriser $P_n$ dans $\polyC$.
+\question En déduire, pour tout $p\in\N$, les valeurs de
+  \[\sum_{k=1}^p \cotan^2\p{\frac{k\pi}{2p+1}}
+    \quad \text{et}
+    \quad \prod_{k=1}^p \cotan\p{\frac{k\pi}{2p+1}}.\]
+\end{questions}
+\begin{sol}
+$\quad$
+\begin{questions}
+\question On obtient
+  \[P_n=2n\prod_{k=1}^{n-1} \p{X+i\cotan\p{\frac{k\pi}{n}}}\]
+\question Les réponses sont $p\p{2p-1}/3$ et $1/\sqrt{2p+1}$.
+\end{questions}
+\end{sol}
+
+\exercice{nom={Base de $\polyR[n]$ sans racines}}
+Donner une condition nécessaire et suffisante sur $n\in\N$ pour que
+$\polyR[n]$ admette une base formée de polynômes sans racines réelles.
+\begin{sol}
+Il faut et il suffit que $n$ soit pair. En effet, si $n$ est impair, il existe
+un polynôme de degré $n$ dans la base. D'après le théorème des valeurs
+intermédiaires, ce polynôme a une racine réelle. Si $n$ est pair, on
+écrit $n=2p$. Si on définit pour tout $k\in\intere{1}{p}$,
+$A_k=X^{2k}+1$ et $B_k=X^{2k}+X^{2k-1}+\cdots+X+1$, alors
+$1,A_1,B_1,\ldots,A_p,B_p$ est une base de $\polyK[n]$.
+\end{sol}
+
+\exercice{nom={Factorisation dans $\polyR$}}
+Factoriser dans $\polyR$
+\[X^3-1, \qquad X^6+1 \et X^8+X^4+1.\]
+\begin{sol}
+On trouve
+\[X^3-1=(X-1)(X^2+X+1)\]
+\begin{eqnarray*}
+X^6+1&=&(X^2+1)^3-3(X^4+X^2)\\
+     &=&(X^2+1)^3-3X^2(X^2+1)\\
+     &=&(X^2+1)((X^2+1)^2-3X^2)\\
+     &=&(X^2+1)(X^2+\sqrt{3}X+1)(X^2-\sqrt{3}X+1)
+\end{eqnarray*}
+\begin{eqnarray*}
+X^8+X^4+1&=&(X^4+1)^2-X^4\\
+         &=&(X^4+X^2+1)(X^4-X^2+1)\\
+         &=&((X^2+1)^2-X^2)((X^2+1)^2-3X^2)\\
+         &=&(X^2+X+1)(X^2-X+1)(X^2-\sqrt{3}X+1)(X^2+\sqrt{3}X+1)
+\end{eqnarray*}
+\end{sol}
+
+\exercice{nom={Racines doubles}}
+Quelles sont les valeurs de $n\in\N$ pour lesquelles le polynôme
+\[\p{X-1}^n-\p{X^n-1}\]
+admet une racine double~?
+\begin{sol}
+On calcule le $\pgcd$ de $P$ et $P'$. On trouve
+$(X^{n-1}-1)\wedge((X-1)^{n-1}-1)$. Si ces deux polynômes ont une racine commune,
+c'est $-j$ ou $-j^2$. Comme ils sont réels soient ces deux complexes sont tous
+les deux racines des deux polynômes, soit aucun ne l'est. On trouve
+qui $-j$ est racine du premier si et seulement si $n\equiv 1\ [6]$ et que
+$-j$ est racine du second si et seulement si $n\equiv 1\ [3]$. Finalement
+ces deux polynômes admettent une racine double si et seulement si
+$n\equiv 1\ [6]$.
+\end{sol}
+
+\exercice{nom={Polynômes d'interpolation de \nom{Hermite}}}
+Soit $n$ réels deux à deux distincts $\alpha_1,\ldots,\alpha_n$ et
+$a_1,\ldots,a_n,b_1,\ldots,b_n\in\R$. Montrer qu'il existe un unique polynôme
+$P\in\polyR$ de degré strictement inférieur à $2n$ tel que
+\[\forall k\in\intere{1}{n} \qsep P\p{\alpha_k}=a_k \et P'\p{\alpha_k}=b_k.\]
+
+\exercice{nom={Polynôme scindé}}
+Soit $P\in\polyR$ un polynôme non constant.
+\begin{questions}
+\question Montrer que si $P$ est scindé simple sur $\R$, alors $P'$ est scindé simple sur $\R$.
+\question Montrer que si $P$ est scindé sur $\R$, alors $P'$ est scindé sur $\R$.
+\end{questions}
+
+\exercice{nom={Résolution d'une équation polynomiale}}
+%%Gourdon : Les maths en tête, algèbre, p.66
+Déterminer les polynômes $P\in\polyC$ tels que
+\[P(X^2)=P(X)P(X+1).\]
+\begin{sol}
+Si $z$ est racine, alors $z^2$ est racine, donc $z=0$ ou $\abs{z}=1$. Si
+$z$ est racine, alors $(z-1)^2$ est racine donc $z=1$ ou $\abs{z-1}=1$.
+Les racines possibles de $P$ sont 0, 1, $1+j$ et $1+j^2$. Les racines
+$1+j$ et $1+j^2$ sont à éliminer car si $\alpha$ est racine $(\alpha-1)^2$
+est racine donc sa distance à 1 est égale à 0 ou 1. On trouve que finalement
+$P=0$ ou $P=X^p(X-1)^p$.
+\end{sol}
+
+% \exercice{nom={Polynômes comme somme de deux carrés}}
+% Soit $A$ un polynôme de $\polyR$. Le but de cet exercice est de montrer
+% qu'il existe deux polynômes $P$ et $Q$ dans $\polyR$ tels que $A=P^2+Q^2$
+% si et seulement si :
+% $$\forall x \in\R \quad P(x)\geq 0$$
+% \begin{questions}
+% \question Montrer que si $A$ et $B$ sont deux polynômes qui sont chacun somme
+%   de deux carrés de polynômes, alors il en est de même pour $AB$.
+% \question Conclure.
+% \end{questions}
+
+\exercice{nom={Relations entre coefficients et racines}} %%Tout en un
+\begin{questions}
+\question Soit $p$, $q$ et $r$ trois nombres complexes et $a,b,c$ les trois
+racines du polynôme $P\defeq X^3+pX^2+qX+r$. Calculer en fonction de $p$, $q$ et
+$r$ l'expression $a^3b+a^3c+b^3c+b^3a+c^3a+c^3b$.
+\question On considère le polynôme
+  $$P\defeq X^4+pX^2+qX+r.$$
+  avec $r\not=0$. On note $x_1,\ldots,x_4$ ses racines. Calculer les
+  expressions suivantes en fonction de $p$, $q$ et $r$ :
+  $$\frac{1}{x_1}+\frac{1}{x_2}+\frac{1}{x_3}+\frac{1}{x_4} \qquad\et\qquad  \frac{1}{x_1^2}+\frac{1}{x_2^2}+\frac{1}{x_3^2}+\frac{1}{x_4^2}.$$
+\end{questions}
+\begin{sol}
+$\quad$
+\begin{questions}
+\question $\sigma_1^2\sigma_2-2\sigma_2^2-\sigma_1\sigma_3$, $p^2q-2q^2-rp$.
+\question $-q/r$ et $(\sigma_3^2-2\sigma_4\sigma_2)/\sigma_4^2=(q^2-2pr)/r^2$.
+\end{questions}
+\end{sol}
+
+
+%% \magsection{Exercices de concours}
+%% \exercice{nom={Polytechnique}} %% ENS/X Tome 1, P.39
+%% \begin{questions}
+%% \question Prouver que $X^5-X^2+1$ n'admet aucune racine rationnelle et une
+%%   unique racine réelle.
+%% \question Soit $P=2X^3-X^2-X-3\in\polyC$.
+%%   \begin{questions}
+%%   \question Vérifier que $P$ a une racine rationnelle. Quelles sont les
+%%     racines de $P$ ?
+%%   \question Prouver que les images $D$ et $E$ des racines de $P'$ sont à
+%%     l'intérieur du triangle $(ABC)$ formé des images des racines.
+%%   \question Prouver qu'il existe une ellipse de foyer $D$ et $E$ inscrite
+%%     dans le triangle $(ABC)$.
+%%   \end{questions}
+%% \question Soit $a_0,\ldots,a_n$ des réels tels que :
+%%   $$\abs{a_0}+\abs{a_1}+\dots+\abs{a_{n-1}} < a_n$$
+%%   Prouver que $f(x)=a_0+a_1\cos x+a_2\cos 2x+\dots+a_n\cos nx$ n'a que des
+%%   zéros réels.
+%% \end{questions}
+%END_BOOK
+
+\end{document}

@@ -1,0 +1,661 @@
+\documentclass{magnolia}
+
+\magtex{tex_driver={pdftex},
+        tex_packages={epigraph,tikz,pgfplots,slashbox,nicefrac,listings,xypic}}
+\magfiche{document_nom={Cours sur l'espérance et la variance},
+          auteur_nom={François Fayard},
+          auteur_mail={fayard.prof@gmail.com}}
+\magcours{cours_matiere={maths},
+          cours_niveau={mpsi},
+          cours_chapitre_numero={24},
+          cours_chapitre={Espérance, variance}}
+\magmisenpage{}
+\maglieudiff{}
+\magprocess
+
+\usetikzlibrary{positioning}
+\lstset{%
+  frame            = tb,    % draw frame at top and bottom of code block
+  tabsize          = 1,     % tab space width
+  numbers          = none,  % display line numbers on the left
+  framesep         = 3pt,   % expand outward
+  framerule        = 0.4pt, % expand outward 
+  commentstyle     = \color{green},      % comment color
+  keywordstyle     = \color{blue},       % keyword color
+  stringstyle      = \color{blue},    % string color
+  backgroundcolor  = \color{colorLazoBlue1Light}, % backgroundcolor color
+  showstringspaces = false,              % do not mark spaces in strings
+  basicstyle       = \ttfamily,
+  breaklines       = true
+}
+
+\begin{document}
+
+
+% 30.35 de Troesch: Cauchy-Schwarz
+% 
+
+%BEGIN_BOOK
+
+\setlength\epigraphwidth{.7\textwidth}
+\epigraph{\og Je ne crois aux statistiques que lorsque je les ai moi-même falsifiées. \fg}{--- {\sc Winston Churchill (1874--1965)}}
+
+\hfill\includegraphics[width=0.25\textwidth]{../../Commun/Images/maths-cours-launch_risk.png}
+
+\magtoc
+
+
+% \begin{proposition}
+% Soit $P_1,\ldots,P_n$ une famille de lois sur les ensembles finis
+% respectifs $E_1,\ldots,E_n$. Alors, il existe une probabilité $\mathbb{P}$ sur
+% $\Omega\defeq E_1\times\cdots\times E_n$ telle que les variables aléatoires
+% \[\dspappli{X_k}{\Omega}{E_k}{(x_1,\ldots,x_n)}{x_k}\]
+% soient mutuellement indépendantes et suivent respectivement les lois $P_1,\ldots,P_n$.
+% \end{proposition}
+
+% \begin{remarqueUnique}
+% \remarque Si $P_1,\ldots,P_n$ sont des lois uniformes, alors la probabilité $\mathbb{P}$ est
+%   uniforme.
+% \end{remarqueUnique}
+
+\section{Espérance, variance}
+
+\subsection{Espérance}
+
+\begin{definition}
+Soit $X:\Omega\to\R$ une variable aléatoire réelle. On appelle \emph{espérance} de $X$ le
+réel
+\[\mathbb{E}(X)\defeq\sum_{x\in X(\Omega)} x \mathbb{P}(X=x).\] 
+\end{definition}
+
+\begin{remarques}
+\remarque Dans cette formule, on peut remplacer $X(\Omega)$ par une partie finie $E'$ de $E$ telle que
+  $X(\Omega)\subset E'$. 
+\remarque L'espérance de $X$ ne dépend que de la loi suivie par $X$.
+\remarque Si $A\in\mathcal{P}(\Omega)$ est un évènement, alors
+  $\mathbb{E}(\mathds{1}_A)=\mathbb{P}(A).$
+\end{remarques}
+
+\begin{exoUnique}
+\exo On lance $n$ fois une pièce équilibrée. On s'intéresse à la première apparition de
+  pile. On note $X$ la variable aléatoire égale à $k$ si le premier pile a lieu au $k$-ième
+  lancer et on convient que $X=0$ si aucun lancer n'amène pile. Déterminer la loi et
+  l'espérance de $X$.
+  % \begin{prof}
+  % $\pr{X=k} = \frac 1{2^k}$ puis $\esp{X} = \sum\limits_{k=1}^n \frac{k}{2^k} = 2 \p{1 - \frac{n+2}{2^{n+1}}}$.
+  % \end{prof}
+\end{exoUnique}
+
+\begin{proposition}
+Soit $X:\Omega\to\R$ une variable aléatoire réelle. Alors
+\[\mathbb{E}(X)\defeq\sum_{\omega\in\Omega} X(\omega) \mathbb{P}(\ens{\omega}).\]
+\end{proposition}
+
+
+\begin{proposition}
+Soit $X,Y:\Omega\to\R$ deux variables aléatoires réelles. Alors, quels que soient
+$a,b\in\R$
+\[\mathbb{E}(aX+bY)=a\mathbb{E}(X)+b\mathbb{E}(Y).\]
+\end{proposition}
+
+\begin{exos}
+\exo On lance deux dés à 6 faces. Calculer l'espérance de leur somme.
+\exo Le chat \nom{Speed} se fait chaque jour les griffes, soit sur le canapé soit sur les
+  rideaux. Il ne se fait jamais les griffes deux jours de suite sur le canapé. S'il se fait les
+  griffes sur les rideaux un jour donné, alors il choisira le lendemain le canapé avec une
+  probabilité \nicefrac{1}{3}. Vous devez vous occuper de \nom{Speed} pendant $m+1$ jours.
+  Le premier jour, jour d'indice 0, il attaque les rideaux. Pour tout $n\in\intere{0}{m}$, on
+  définit la variable aléatoire $X_{n}$ égale au nombre de jours où le chat a fait ses griffes
+  sur les rideaux parmi les jours d'indices 0 à $n$. Calculer $\mathbb{E}(X_n)$.
+% \begin{reponse}
+% On a un processus de Markov sur un graphe :
+% \medskip
+% On note $Y_i$ la variable aléatoire qui vaut $1$ si le chat a fait ses griffes sur le rideau le jour $i$ et $0$ sinon. Il s'agit d'une variable de Bernoulli
+% de paramètre $p_i$.
+% On a $X_n=\sum\limits_{i=1}^n Y_i$ donc $\esp{X}=\sum\limits_{i=1}^n \esp{Y_i}=\sum\limits_{i=1}^n p_i$.
+% $$p_i=\pr{Y_i=1}= \prc{Y_i=1}{Y_{i-1}=0} \pr{Y_{i-1}=0} + \prc{Y_i=1}{Y_{i-1}=1} \pr{Y_{i-1}=1}$$
+% $$\boxed{p_i}= 1 \times \pr{Y_{i-1}=0} + \frac 23 \pr{Y_{i-1}=1}=1-p_{i-1} + \frac 23 p_{i-1}= \boxed{1 - \frac 13 p_{i-1}}$$
+% Avec $p_1=1$ on trouve par la méthode usuelle $p_i=\frac 34 + \frac 14 \p{- \frac 13 }^{i-1}$ puis en sommant
+% $$\boxed{\esp{X_n} = \frac 34 n + \frac{3}{16} \p{1 - \p{ - \frac 13 }^{n}} \sim \frac 34 n}$$
+% Attention, on peut aussi faire le calcul directement en sommant la relation de récurrence si l'on ne s'intéresse qu'à la limite de l'espérance.
+% \end{reponse}
+\exo Soit $A_1,\ldots,A_n\in\mathcal{P}(\Omega)$. Montrer la formule dite du crible
+  \[\mathbb{P}(A_1\cup\ldots\cup A_n)=\sum_{k=1}^n
+    (-1)^{k+1}\sum_{1\leq i_1<\cdots<i_k\leq n}
+    \mathbb{P}(A_{i_1}\cap\ldots\cap A_{i_k}).\]
+  En déduire que si $A_1,\ldots,A_n$ sont des parties d'un ensemble fini $E$
+  \[\card(A_1\cup\ldots\cup A_n)=\sum_{k=1}^n
+    (-1)^{k+1}\sum_{1\leq i_1<\cdots<i_k\leq n}
+    \card(A_{i_1}\cap\ldots\cap A_{i_k}).\] 
+\end{exos}
+
+
+\begin{proposition}
+Soit $X,Y:\Omega\to\R$ deux variables aléatoires réelles.
+\begin{itemize}
+\item Si $X\geq 0$, alors $\mathbb{E}(X)\geq 0$.
+\item Si $X\leq Y$, alors $\mathbb{E}(X)\leq\mathbb{E}(Y)$.
+\item On a $\abs{\mathbb{E}(X)}\leq \mathbb{E}(\abs{X})$.
+\end{itemize}
+\end{proposition}
+
+\begin{proposition}
+Soit $X:\Omega\to\R$ une variable aléatoire réelle.
+\begin{itemize}
+\item Si $X$ est une variable aléatoire constante égale à $a$, alors $\mathbb{E}(X)=a$.
+\item S'il existe $a,b\in\Z$ tel que $X\sim\mathcal{U}(\intere{a}{b})$, alors
+  $\mathbb{E}(X)=(a+b)/2$.
+\item S'il existe $p\in[0,1]$ tel que $X\sim\mathcal{B}(p)$, alors $\mathbb{E}(X)=p$.
+\item S'il existe $n\in\N$ et $p\in[0,1]$ tels que $X\sim\mathcal{B}(n, p)$, alors
+  $\mathbb{E}(X)=np$. 
+\end{itemize}
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque Dans les formules donnant les espérances d'une loi de \nom{Bernoulli} et d'une loi binomiale,
+  on a posé $q\defeq 1-p$.
+\end{remarqueUnique}
+
+\begin{exos}
+\exo On dispose de $n$ fléchettes. À chaque lancer, on a une probabilité de \nicefrac{1}{10} de
+  tirer dans le mille. On suppose les lancers indépendants et on note $X$ la variable aléatoire
+  égale au nombre de fléchettes placées dans le mille.
+\begin{questions}
+\question Donner la loi de $X$.
+\question Calculer la probabilité de mettre au plus 1 fléchette dans le mille.
+\question Calculer l'espérance de $X$.
+\end{questions}
+% \begin{reponse}
+% \begin{enumerate}
+% \item \fbox{$X$ suit une loi binomiale de paramètres $n=20$ et $p=0,1$}. 
+% On a donc  $\pr{X=k}=\binom{20}{k} p^k (1-p)^{20-k}$.
+% \item $\pr{X \leq 1} = \pr{X=0}+\pr{X=1}=q^{20}+20 q^{19} p \simeq \boxed{0,39}$.
+% \item $\esp{X}=20 \times 0,1 = \boxed{2}$.
+% \end{enumerate}
+% \end{reponse}
+\exo Soit $n\in\Ns$. On pose $I_n\defeq\intere{1}{n}$ et on munit
+  $\Omega_n\defeq\mathcal{F}(I_n,I_n)$ de la
+  probabilité uniforme. On note $X_n$ la variable aléatoire sur $\Omega_n$ égale au cardinal de
+  l'image d'un élément de $\Omega_n$. Déterminer l'espérance de $X_n$ puis en donner un équivalent quand
+  $n$ tend vers $+\infty$.
+% \begin{reponse}
+% On note $X_k(f) = 1$ si $k$ a un antécédent par $f$ et $0$ sinon. On a donc une variable de Bernoulli de paramètre $p$.
+% $1-p=\pr{X_k = 0} = \frac{ \card {\cal F}(I_n, I_k \backslash \{k \})}{\card \Omega} = \frac{(n-1)^n}{n^n}$ donc 
+% $p = 1 - \p{1 - \frac 1n}^n$.
+% Mais $X = \sum\limits_{k=1}^n X_k$ donc $\boxed{\esp{X} =n \p{1 - \p{1 - \frac 1n}^n} \sim \frac{n}{e}}$.
+% \end{reponse}
+% \exo On s'intéresse au nombre moyen d'affectations réalisées dans l'algorithme usuel de
+%   recherche du maximum dans un tableau. On adopte le modèle suivant~: un tableau d'entiers de
+%   longueur $n$ est une permutation des entiers de $1$ à $n$ et ces permutations sont
+%   équiprobables. Donner un équivalent du nombre moyen d'affectations réalisées.
+% % \begin{lstlisting}[language = Python, numbers = none, escapechar = !,
+% %     basicstyle = \ttfamily\bfseries, linewidth = .6\linewidth] 
+% \begin{lstlisting}[language=python]
+% def find_max(t):
+%   """find_max(t: list[int]) -> int"""
+%   n = len(t)
+%   maximum = t[0]
+%   for k in range(n):
+%     if t[k] >= maximum:
+%       maximum = t[k]
+%   return maximum
+% \end{lstlisting}
+\end{exos}
+
+\begin{definition}
+On dit qu'une variable aléatoire réelle $X:\Omega\to\R$ est centrée lorsque
+\[\mathbb{E}(X)=0.\]
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque Si $X:\Omega\to\R$ est une variable aléatoire, alors $X-\mathbb{E}(X)$ est
+  centrée.
+\end{remarqueUnique}
+
+\begin{proposition}[nom={Formule de transfert}]
+Soit $X:\Omega\to E$ une variable aléatoire et $f:E\to\R$. Alors
+\[\mathbb{E}(f(X))=\sum_{x\in X(\Omega)} f(x) \mathbb{P}(X=x).\]
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque Dans cette formule, on peut remplacer $X(\Omega)$ par une partie finie $E'$ de $E$ telle que
+  $X(\Omega)\subset E'$. 
+\end{remarqueUnique}
+
+\begin{exoUnique}
+\exo Soit $X$ une variable aléatoire suivant une loi uniforme sur $\intere{-2}{2}$. Déterminer
+  l'espérance de $X^2$ en utilisant la définition de l'espérance, puis la formule de
+  transfert.
+\end{exoUnique}
+
+\begin{proposition}
+Soit $X,Y:\Omega\to\R$ deux variables aléatoires réelles indépendantes. Alors
+\[\mathbb{E}(XY)=\mathbb{E}(X)\mathbb{E}(Y).\]
+Plus généralement, soit $X_1,\ldots,X_n:\Omega\to\R$ des variables aléatoires mutuellement
+indépendantes. Alors
+\[\mathbb{E}\p{\prod_{i=1}^n X_i}=\prod_{i=1}^n \mathbb{E}(X_i).\]
+\end{proposition}
+
+\begin{exos}
+\exo Dans le quadrillage $\intere{0}{n}\times\intere{0}{p}$, on place uniformément et de manière indépendante
+  un point $A$ sur l'axe des abscisses et un point $B$ sur l'axe
+  des ordonnées. Quelle est, en moyenne, l'aire du triangle $OAB$~?
+% \begin{reponse}
+% On note $X$ l'abscisse de $A$ et $Y$ l'ordonnée de $B$. $X$ et $Y$ suivent
+% des lois uniformes. L'aire de $OAB$ est $Z=\frac 12 XY$ donc $\exp{Z}=\frac
+% 12 \esp{X} \esp{Y}$ puisque $X$ et $Y$ sont indépendantes.
+% Mais $\esp{X}=\frac n2$ et $\esp{Y}=\frac p2$  donc $\boxed{\esp{Z}=\frac{np}{8}}$.
+% \end{reponse}
+\exo On effectue $p\in\Ns$ tirages avec remise dans une urne contenant des boules numérotées
+  de 1 à $n$. On note $X_1,\ldots,X_p$ les résultats des tirages successifs et on pose
+  $Y\defeq\max(X_1,\ldots,X_p)$.
+  \begin{questions}
+  \question Pour tout $k\in\intere{0}{n}$, calculer $\mathbb{P}(Y\leq k)$. En déduire $\mathbb{E}(Y)$.
+  \question Déterminer un équivalent de $\mathbb{E}(Y)$ lorsqu'à $p$ fixé, $n$ tend vers $+\infty$.
+  \question Déterminer un équivalent de $\mathbb{E}(Y)$ lorsqu'à $n$ fixé, $p$ tend vers $+\infty$.
+  \end{questions}
+\end{exos}
+
+
+
+\subsection{Variance}
+
+\begin{definition}
+Soit $X$ une variable aléatoire réelle. On appelle respectivement \emph{variance} et
+\emph{écart-type} de $X$ les réels
+\[\mathbb{V}(X)\defeq\mathbb{E}\p{\cro{X-\mathbb{E}(X)}^2} \quad\et\quad
+  \sigma(X)\defeq\sqrt{\mathbb{V}(X)}.\]
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque La variance et l'écart-type de $X$ ne dépendent que de la loi suivie par $X$.
+\end{remarqueUnique}
+
+\begin{proposition}[nom={Formule de \nom{König-Huygens}}]
+Soit $X:\Omega\to\R$ une variable aléatoire réelle. Alors
+\[\mathbb{V}(X)=\mathbb{E}(X^2)-\mathbb{E}(X)^2.\]
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque On calcule souvent la variance de $X$ en utilisant la formule d'\nom{Huygens}
+  ou en passant par $\mathbb{E}(X(X-1))$ qui est parfois plus commode à calculer que
+  $\mathbb{E}(X^2)$. On utilise alors la relation
+  \[\mathbb{V}(X)=\mathbb{E}(X(X-1))+\mathbb{E}(X)-\mathbb{E}(X)^2.\]
+\end{remarqueUnique}
+
+\begin{exoUnique}
+\exo Soit $X$ une variable aléatoire réelle. Quelle valeur de $\lambda\in\R$ minimise
+  $\mathbb{E}((X-\lambda)^2)$~? Que vaut ce minimum~?
+\end{exoUnique}
+
+\begin{proposition}
+Soit $X:\Omega\to\R$ une variable aléatoire réelle. Alors, quels que soient $a,b\in\R$
+\[\mathbb{V}(aX+b)=a^2\mathbb{V}(X) \quad\et\quad
+  \sigma(aX+b)=\abs{a}\sigma(X).\]
+\end{proposition}
+
+\begin{proposition}
+Soit $X:\Omega\to\R$ une variable aléatoire réelle.
+\begin{itemize}
+\item Si $X$ est une variable aléatoire constante égale à $a\in\R$, alors $\mathbb{V}(X)=0$.
+\item Soit $a,b\in\Z$ tels que $a\leq b$. Si $X\sim\mathcal{U}(\intere{a}{b})$,
+  alors $\mathbb{V}(X)=(n^2-1)/12$ où $n\defeq\card(\intere{a}{b})=b-a+1$.
+\item S'il existe $p\in[0,1]$ tel que $X\sim\mathcal{B}(p)$, alors $\mathbb{V}(X)=pq$.
+\item S'il existe $n\in\N$ et $p\in[0,1]$ tels que $X\sim\mathcal{B}(n, p)$, alors
+  $\mathbb{V}(X)=npq$. 
+\end{itemize}
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque Dans les formules donnant les variances d'une loi de \nom{Bernoulli} et d'une loi binomiale,
+  on a posé $q\defeq 1-p$.
+\end{remarqueUnique}
+
+\begin{proposition}
+Soit $X:\Omega\to\R$ une variable aléatoire réelle. Alors $\mathbb{V}(X)=0$ si et seulement
+si il existe un évènement $A$ de probabilité 1 tel que
+\[\forall \omega\in A\qsep X(\omega)=\mathbb{E}(X).\]
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque Autrement dit, la variance d'une variable aléatoire $X:\Omega\to\R$ est nulle si et
+  seulement si $X$ est constante sur un évènement de probabilité 1. Un tel évènement est
+  dit \og \emph{presque sûr} \fg.
+\end{remarqueUnique}
+
+\begin{definition}
+On dit qu'une variable aléatoire réelle $X:\Omega\to\R$ est réduite lorsque
+\[\mathbb{V}(X)=1.\]
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque Si $X:\Omega\to\R$ est une variable aléatoire réelle de variance non nulle, alors
+  \[\frac{X-\mathbb{E}(X)}{\sigma(X)}\]
+  est centrée réduite.
+\end{remarqueUnique}
+
+% \begin{definition}
+% Soit $X:\Omega\to\R$ une variable aléatoire réelle. Pour tout $k\in\N$, on appelle moment
+% d'ordre $k$ le réel $\mathbb{E}\p{X^k}$.
+% \end{definition}
+
+\section{Couple de variables aléatoires}
+
+\subsection{Loi conjointe}
+
+\begin{definition}
+Soit $X:\Omega\to E$ et $Y:\Omega\to F$ deux variables aléatoires. On définit la variable
+aléatoire $Z\defeq (X,Y)$ par
+\[\dspappli{Z}{\Omega}{E\times F}{\omega}{(X(\omega),Y(\omega)).}\]
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque On a $Z(\Omega)\subset X(\Omega)\times Y(\Omega)$. Cependant, l'inclusion peut être
+  stricte. Par exemple, Si $X$ est une variable aléatoire suivant la loi uniforme
+  sur $\intere{1}{n}$ et $Z\defeq (X,X)$, alors $Z(\Omega)=\ensim{(k,k)}{k\in\intere{1}{n}}$
+  tandis que $X(\Omega)\times X(\Omega)=\intere{1}{n}^2$.
+\end{remarqueUnique}
+
+% \begin{exoUnique}
+% \exo On lance deux dés à quatre faces. On modélise cette expérience aléatoire en
+%   prenant $\Omega\defeq\intere{1}{4}^2$, que l'on munit de la probabilité uniforme.
+%   On considère les variables aléatoires $A$ et $B$ donnant respectivement les résultats
+%   du premier et du second dé. 
+%   \begin{center}
+%   \includegraphics[width=0.15\textwidth]{../../Commun/Images/maths-cours-de-4_faces.png}
+%   \end{center}
+%   \begin{questions}
+%   \question On pose $C\defeq(A,B)$. Déterminer $A(\Omega)$, $B(\Omega)$ et $C(\Omega)$.
+%   \question On pose $X\defeq \min(A,B)$, $Y\defeq\max(A,B)$ et $Z\defeq(X,Y)$.
+%     Déterminer $X(\Omega)$, $Y(\Omega)$ et $Z(\Omega)$. 
+%   \end{questions}
+% \end{exoUnique}
+
+
+% \begin{proposition}
+% Soit $X:\Omega\to E$ et $Y:\Omega\to F$ deux variables aléatoires. $X(\Omega)$ et
+% $Y(\Omega)$ sont des ensembles finis que l'on note respectivement $\ens{x_1,\ldots,x_n}$ et
+% $\ens{y_1,\ldots,y_m}$. Alors la famille des $((X=x_i)\cap(Y=y_j))$ pour
+% $(i,j)\in\intere{1}{n}\times\intere{1}{m}$ forme un système complet d'évènements.
+% \end{proposition}
+
+% \begin{remarqueUnique}
+% \remarque Cette proposition reste vraie si on remplace respectivement $X(\Omega)$ et $Y(\Omega)$
+%   par des parties finies $E'$ de $E$ et $F'$ de $F$ telles que $X(\Omega)\subset E'$
+%   et $Y(\Omega)\subset F'$.
+% \end{remarqueUnique}
+
+\begin{definition}
+Soit $X:\Omega\to E$ et $Y:\Omega\to F$ deux variables aléatoires.
+\begin{itemize}
+\item  On appelle \emph{loi conjointe} du couple $(X,Y)$ la loi de $Z\defeq (X,Y)$.
+\item  On appelle \emph{première loi marginale} de $(X,Y)$ la loi de $X$ et
+\emph{seconde loi marginale} de $(X,Y)$ la loi de $Y$.
+\end{itemize}
+\end{definition}
+
+\begin{remarques}
+\remarque La loi conjointe de $(X,Y)$ est caractérisée par sa distribution de
+  probabilités $(\mathbb{P}(Z=z))_{z\in Z(\Omega)}$. Étant donné que
+  $Z(\Omega)\subset X(\Omega)\times Y(\Omega)$, cette distribution est
+  donnée par
+  \[\p{\mathbb{P}((X=x)\cap(Y=y))}_{(x,y)\in X(\Omega)\times Y(\Omega)}.\]
+\remarque Soit $X:\Omega\to E$ et $Y:\Omega\to F$ deux variables aléatoires. On note
+$X(\Omega)\defeq\ens{x_1,\ldots,x_n}$ et $Y(\Omega)\defeq\ens{y_1,\ldots,y_m}$. Alors
+\begin{eqnarray*}
+\forall i\in\intere{1}{n}\qsep \mathbb{P}(X=x_i)&=&\sum_{j=1}^m \mathbb{P}((X=x_i)\cap(Y=y_j))\\
+\forall j\in\intere{1}{m}\qsep \mathbb{P}(Y=y_j)&=&\sum_{i=1}^n \mathbb{P}((X=x_i)\cap(Y=y_j))
+\end{eqnarray*}
+En particulier, les lois marginales se déduisent de la loi conjointe. Par contre, la
+connaissance des lois marginales ne permet pas d'en déduire la loi conjointe. Par exemple,
+si on considère l'expérience qui consiste à jouer deux fois de suite à pile ou face,
+modélisée par $\Omega\defeq\ens{P,F}^2$ muni de la loi uniforme, et que
+$X_1,X_2:\Omega\to\ens{P,F}$ sont les variables aléatoires donnant les résultats respectifs
+des deux lancers, alors $(X_1,X_2)$ et $(X_1,X_1)$ ont les mêmes lois marginales, mais n'ont
+pas la même loi conjointe.
+\end{remarques}
+
+\begin{exoUnique}
+\exo On considère l'expérience aléatoire qui consiste à tirer successivement et sans remise
+  deux boules dans une urne contenant $2$ boules rouges et $3$ boules noires. On note $X_1$
+  (respectivement $X_2$) la variable aléatoire qui vaut $R$ si la première (respectivement
+  deuxième) boule tirée est rouge, et $N$ sinon.
+  \begin{questions}
+  \question Déterminer la loi du couple $Y\defeq(X_1,X_2)$, puis ses lois marginales.
+  \question Même question si le tirage se fait avec remise.
+  \end{questions}
+\end{exoUnique}
+
+\begin{definition}
+Soit $X:\Omega\to E$ une variable aléatoire à valeurs dans un ensemble fini $E$ et $B\in\mathcal{P}(\Omega)$
+un évènement de probabilité non nulle. On appelle \emph{loi de $X$ conditionnée par l'évènement $B$}
+la probabilité
+\[\dspappli{\mathbb{P}_{X|B}}{\mathcal{P}(X(\Omega))}{[0,1]}{A}{\mathbb{P}(X\in A|B).}\]
+\end{definition}
+
+\begin{remarques}
+\remarque En pratique, lorsqu'il nous sera demandé de déterminer la loi d'une variable aléatoire
+  $X:\Omega\to E$ conditionnée par l'évènement $B$, on commencera par déterminer un ensemble fini
+  $E'$ tel que $X(\Omega)\subset E'$ et on calculera $\mathbb{P}(X=x|B)$ pour tout $x\in E'$.
+\remarque Si $X:\Omega\to E$ et $Y:\Omega\to F$ sont deux variables aléatoires et $y\in F$
+  est tel que $\mathbb{P}(Y=y)>0$, il est courant de considérer la loi de $X$ conditionnée
+  par l'évènement $(Y=y)$.
+\end{remarques}
+
+% \begin{exoUnique}
+% \exo \nom{Jinko} le chaton a trois passions dans la vie~: Manger, Dormir et Jouer. On peut
+%   considérer qu'il pratique ces activités par tranches de 5 minutes.
+%   \begin{itemize}
+%   \item Après 5 minutes de repas, il continue de manger les 5 minutes suivantes avec une
+%     probabilité de \nicefrac{1}{2}. Sinon, il se met à jouer.
+%   \item Après 5 minutes de sommeil, il continue de dormir les 5 minutes suivantes avec une
+%     probabilité de \nicefrac{3}{4}. Sinon, il a faim au réveil et va manger.
+%   \item Après 5 minutes de jeu, soit il est en appétit et mange les 5 minutes suivantes
+%     avec une probabilité de \nicefrac{1}{4}, soit il est fatigué et s'endort.
+%   \end{itemize}
+%   L'expérience que l'on considère est une journée de \nom{Jinko} de $5(m+1)$ minutes. Sur la
+%   tranche d'indice 0 des 5 premières minutes de la journée, \nom{Jinko} se lève et va
+%   petit-déjeuner. Pour tout $n\in\intere{0}{m}$, on note $A_n:\Omega\to\ens{M,D,J}$ la
+%   variable aléatoire donnant l'activité de \nom{Jinko} sur la tranche de 5 minutes
+%   d'indice $n$ de la journée. Pour tout
+%   $n\in\intere{0}{m}$, on pose
+%   \[X_n\defeq
+%     \begin{pmatrix}
+%     \mathbb{P}(A_n=M)\\
+%     \mathbb{P}(A_n=D)\\
+%     \mathbb{P}(A_n=J)
+%     \end{pmatrix}.\]
+%   \begin{questions}
+%   \question Déterminer une matrice $B\in\mat{3}{\R}$ telle que
+%     \[\forall n\in\intere{0}{m-1}\qsep X_{n+1}=B X_n.\]
+%   \question
+%     \begin{questions}
+%     \question Déterminer les valeurs propres de $B$, c'est-à-dire les $\lambda\in\R$ tels
+%       que $B-\lambda I_3$ n'est pas inversible.
+%     \enonce On note $\lambda_1,\lambda_2,\lambda_3\in\R$ ces valeurs et on pose
+%       $P\defeq(X-\lambda_1)(X-\lambda_2)(X-\lambda_3)$.
+%     \question Montrer que $P(B)=0$. En déduire une expression de $B^n$ valable pour tout
+%       $n\in\N$.
+%     \question En déduire les limites de
+%       \[\mathbb{P}(A_n=M),\qquad
+%         \mathbb{P}(A_n=D),\qquad
+%         \mathbb{P}(A_n=J)\]
+%       lorsque $n$ tend vers $+\infty$.
+%     \end{questions}
+%   \end{questions}
+% \end{exoUnique}
+
+
+\subsection{Covariance}
+
+\begin{definition}
+Soit $X,Y:\Omega\to\R$ deux variables aléatoires réelles. On appelle \emph{covariance} de $X$ et
+de $Y$ et on note ${\rm Cov}(X,Y)$ le réel
+\[{\rm Cov}(X,Y)=\mathbb{E}\p{\cro{X-\mathbb{E}(X)}\cro{Y-\mathbb{E}(Y)}}.\]
+Lorsque ${\rm Cov}(X,Y)=0$, on dit que $X$ et $Y$ sont \emph{décorrélées} et on note $X\perp Y$.
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque Si $X:\Omega\to\R$ est une variable aléatoire, alors
+  \[{\rm Cov}(X,X)=\mathbb{V}(X).\]
+\end{remarqueUnique}
+
+\begin{proposition}
+Soit $X,Y:\Omega\to\R$ deux variables aléatoires réelles. Alors
+\[{\rm Cov}(X,Y)=\mathbb{E}(XY)-\mathbb{E}(X)\mathbb{E}(Y).\]
+\end{proposition}
+
+\begin{proposition}
+Soit $X,Y,Z:\Omega\to\R$ des variables aléatoires réelles.
+\begin{itemize}
+\item Si $a,b\in\R$, alors
+  \begin{eqnarray*}
+{\rm Cov}(aX+bY,Z)&=&a{\rm Cov}(X,Z)+b{\rm Cov}(Y,Z)\\
+{\rm Cov}(X,aY+bZ)&=&a{\rm Cov}(X,Y)+b{\rm Cov}(X,Z).
+  \end{eqnarray*}
+\item De plus
+  \[{\rm Cov}(X,Y)={\rm Cov}(Y,X).\]
+\item Enfin
+  \[{\rm Cov}(X,X)=\mathbb{V}(X)\geq 0.\]
+\end{itemize}
+Autrement dit, la covariance est une forme bilinéaire symétrique positive sur l'espace
+vectoriel des variables aléatoires réelles sur $(\Omega,\mathbb{P})$.
+\end{proposition}
+
+\begin{remarques}
+\remarque Soit $X:\Omega\to\R$ une variable aléatoire réelle et $a\in\R$. Alors
+  \[{\rm Cov}(a,X)=0 \quad\et\quad {\rm Cov}(X,a)=0.\]
+\remarque La covariance est presque un produit scalaire. La seule propriété qui lui manque
+  pour en être un est la propriété de séparation. En effet, si $X:\Omega\to\R$, alors
+  ${\rm Cov}(X,X)=0$ si et seulement si $X$ est constante sur un évènement de probabilité 1.
+\remarque En particulier, l'inégalité de Cauchy-Schwarz nous dit que  si $X,Y:\Omega\to\R$ sont
+  deux variables aléatoires réelles, alors
+  \[\abs{{\rm Cov}(X,Y)}\leq\sigma(X)\sigma(Y).\]
+  De plus, cette inégalité est une égalité si et seulement si il existe $\alpha,\beta\in\R$
+  et un évènement $A$ de probabilité 1 tel que
+  \[\cro{\forall \omega\in A\qsep Y(\omega)=\alpha X(\omega)+\beta} \quad\ou\quad
+    \cro{\forall \omega\in A\qsep X(\omega)=\alpha Y(\omega)+\beta}.\]
+\remarque Si $\sigma(X)>0$ et $\sigma(Y)>0$, le réel
+  \[{\rm Cor}(X,Y)\defeq\frac{{\rm Cov}(X,Y)}{\sigma(X)\sigma(Y)},\]
+  appelé \emph{coefficient de corrélation}, est dans $[-1,1]$. De plus,
+  ${\rm Cor}(X, Y)=1$ si et seulement si il existe $\alpha>0$, $\beta\in\R$ et
+  un évènement $A$ de probabilité 1 tel que
+  \[\forall \omega\in A\qsep Y(\omega)=\alpha X(\omega)+\beta.\]
+  De même ${\rm Cor}(X, Y)=-1$ si et seulement si il existe $\alpha>0$, $\beta\in\R$ et
+  un évènement $A$ de probabilité 1 tel que
+  \[\forall \omega\in A\qsep Y(\omega)=-\alpha X(\omega)+\beta.\]
+\end{remarques}
+
+\begin{proposition}
+Soit $X,Y:\Omega\to\R$ deux variables aléatoires réelles. Si $X$ et $Y$ sont
+indépendantes, alors elles sont décorrélées.
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque La réciproque de la proposition précédente est fausse. Il est possible que
+  ${\rm Cov}(X,Y)=0$ sans que $X$ et $Y$ soient indépendantes. Prenons par exemple
+  l'exemple d'une variable aléatoire $X$ suivant une loi uniforme sur $\intere{-1}{1}$.
+  Alors ${\rm Cov}(X,X^2)=0$. Pourtant, $X$ et $X^2$ ne sont pas indépendantes. 
+\end{remarqueUnique}
+
+\begin{proposition}
+Soit $X,Y:\Omega\to\R$ deux variables aléatoires. Alors
+\[\mathbb{V}(X+Y)=\mathbb{V}(X)+\mathbb{V}(Y)+2{\rm Cov}(X,Y).\]
+Plus généralement, si $X_1,\ldots,X_n:\Omega\to\R$ sont des variables aléatoires, alors
+\[\mathbb{V}\p{\sum_{i=1}^n X_i}=\sum_{i=1}^n \mathbb{V}(X_i)+
+  2\sum_{1\leq i<j\leq n} {\rm Cov}(X_i,X_j).\]
+\end{proposition}
+
+\begin{proposition}
+Soit $X,Y:\Omega\to\R$ deux variables aléatoires. Si $X$ et $Y$ sont indépendantes, alors
+\[\mathbb{V}(X+Y)=\mathbb{V}(X)+\mathbb{V}(Y).\]
+Plus généralement, si $X_1,\ldots,X_n:\Omega\to\R$ sont des variables aléatoires deux à deux
+indépendantes, alors
+\[\mathbb{V}\p{\sum_{i=1}^n X_i}=\sum_{i=1}^n \mathbb{V}(X_i).\]
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque Si $X,Y:\Omega\to\R$ sont deux variables aléatoires réelles indépendantes
+  \[\sigma(X+Y)=\sqrt{\sigma^2(X)+\sigma^2(Y)}.\]
+\end{remarqueUnique}
+
+\begin{exoUnique}
+\exo Les \emph{méthodes probabilistes} permettent de prouver certains résultats mathématiques
+  dont l'énoncé ne fait pas apparaître des probabilités.
+  \begin{questions}
+  \question Soit $X:\Omega\to\R$ une variable aléatoire réelle. Montrer qu'il existe
+    $\omega\in\Omega$ tel que $X(\omega)\leq\mathbb{E}(X)$.
+  \question Soit $v_1,\ldots,v_n\in\R^n$ des vecteurs de norme 1. Montrer qu'il existe
+    $\epsilon_1,\ldots,\epsilon_n\in\ens{-1,1}$ tels que
+    \[\norme{\epsilon_1 v_1+\cdots+\epsilon_n v_n}\leq\sqrt{n}.\]
+  \end{questions}
+\end{exoUnique}
+
+\section{Vers les grands nombres}
+
+\begin{proposition}[nom={Inégalité de \nom{Markov}}]
+Soit $X:\Omega\to\R$ une variable aléatoire réelle. Alors, quel que soit $a>0$
+\[\mathbb{P}(\abs{X}\geq a)\leq\frac{\mathbb{E}(\abs{X})}{a}.\]
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque Cette inégalité a le mérite de pouvoir être appliquée sans aucune hypothèse sur la
+  loi de la variable aléatoire. Elle est très générale mais assez mauvaise~! Évidemment, cette
+  inégalité n'a aucun intérêt si $a\leq \mathbb{E}(\abs{X})$.
+% \remarque Il se peut que l'on soit gêné par la valeur absolue dans l'espérance. Dans ce cas,
+%   il y a un moyen simple de s'en sortir. Il suffit de constater que les évènements
+%   $(\abs{X} \geq a)$ et $(X^2 \geq a^2)$ sont égaux puisque $\abs{X}$ et $a$ sont positifs.
+%   On obtient ainsi
+%   \[\mathbb{P}(\abs{X} \geq a)=\mathbb{P}(X^2 \geq a^2)\leq\frac{\mathbb{E}(X^2)}{a^2}.\]
+\end{remarqueUnique}
+
+\begin{exoUnique}
+\exo Soit $X:\Omega\to\R$ une variable aléatoire positive, majorée par $M$. Montrer que
+  \[\forall a\geq 0\qsep \mathbb{E}(X)\leq a+M\mathbb{P}(X\geq a).\]
+\end{exoUnique}
+
+\begin{proposition}[nom={Inégalité de \nom{Bienaymé-Tchebychev}}]
+Soit $X:\Omega\to\R$ une variable aléatoire réelle. Alors, quel que soit $a>0$
+\[\mathbb{P}(\abs{X-\mathbb{E}(X)}\geq a)\leq\frac{\mathbb{V}(X)}{a^2}.\]
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque On se donne
+  $X_1,\ldots,X_n:\Omega\to\R$ des variables aléatoires indépendantes suivant une
+  même loi d'espérance $\alpha$ et de variance $\sigma^2$. On pose
+  \[M_n\defeq \frac{X_1+\cdots+X_n}{n}.\]
+  Alors 
+  \[\mathbb{E}(M_n)=\alpha \quad\et\quad \mathbb{V}(M_n)=\frac{\sigma^2}{n}.\]
+  En particulier, d'après l'inégalité de \nom{Bienaymé-Tchebychev}, quel que soit
+  $\epsilon>0$
+  \[\mathbb{P}\p{\abs{M_n-\alpha}\geq\epsilon}\leq\frac{\sigma^2}{n \epsilon^2}
+    \tendvers{n}{+\infty}0.\]
+  Toute information de ce type est appelée \emph{loi des grands nombres}. Les lois des
+  grands nombres sont fondamentales car elles justifient l'approche fréquentiste que l'on a
+  des probabilités. 
+\end{remarqueUnique}
+
+\begin{exoUnique}
+\exo Un parti politique effectue un sondage pour évaluer son image dans l'opinion. La
+  proportion de la population qui lui est favorable est $p\in[0,1]$. On interroge un
+  échantillon de $n$ personnes. La réponse de la $k$-ième personne sondée est
+  représentée par la variable aléatoire $X_k$ qui vaut 1 si la personne est favorable au
+  parti et 0 sinon. Chaque variable $X_k$ suit donc une loi de \nom{Bernoulli}
+  de paramètre $p$ et on suppose que $X_1,\ldots,X_n$ sont indépendantes.
+  La variable aléatoire 
+  \[M_n\defeq\frac{X_1+\ldots+X_n}{n}\]
+  est utilisée comme un estimateur de $p$.
+  \begin{questions}
+  \question Montrer que quel que soit $\epsilon>0$
+    \[\mathbb{P}(\abs{M_n-p}\geq\epsilon)\leq \frac{1}{4n\epsilon^2}.\]
+  \question Soit $\alpha\in]0,1]$. Combien de personnes doit-on interroger pour obtenir une approximation de $p$
+    à $\epsilon$ près  avec une probabilité supérieure à $1-\alpha$~? Faites une application
+    numérique pour $\epsilon=0.02$ et $\alpha=0.1$.
+  \end{questions}
+\end{exoUnique}
+
+%END_BOOK
+
+\end{document}
+
+

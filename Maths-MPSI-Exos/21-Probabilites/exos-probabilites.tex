@@ -1,0 +1,455 @@
+\documentclass{magnolia}
+
+\magtex{tex_driver={pdftex},
+        tex_packages={xypic,nicefrac}}
+\magfiche{document_nom={Exercices sur les probabilités},
+          auteur_nom={François Fayard},
+          auteur_mail={fayard.prof@gmail.com}}
+\magexos{exos_matiere={maths},
+         exos_niveau={mpsi},
+         exos_chapitre_numero={25},
+         exos_theme={Probabilités}}
+\magmisenpage{misenpage_presentation={tikzvelvia},
+              misenpage_format={a4},
+              misenpage_nbcolonnes={1},
+              misenpage_sol={non}}
+\maglieudiff{lieu_lycee={Aux Lazaristes},
+             lieu_classe={MPSI 1},
+             lieu_annee={2019--2020}}
+\magprocess
+
+\begin{document}
+%BEGIN_BOOK
+
+\magsection{Espace probabilisé}
+\magsubsection{Espace probabilisé}
+
+\exercice{nom={Exercice}}
+Soit $A$ et $B$ deux évènements d'un espace probabilisé $(\Omega,\mathbb{P})$. Montrer que
+\[\sqrt{\mathbb{P}(A\cap B)\mathbb{P}(A\cup B)}\leq\frac{\mathbb{P}(A)+\mathbb{P}(B)}{2}\]
+et étudier les cas d'égalité.
+\begin{sol}
+Poser $a=\mathbb{P}(A)$, $b=\mathbb{P}(B)$ et $c=\mathbb{P}(A\cap B)$. Cette inégalité revient à prouver
+que $(a+b-2c)^2\geq 0$. Il y a égalité si et seulement si $a=b=c$.
+\end{sol}
+
+\exercice{nom={Exercice}}
+On permute aléatoirement les lettres du mot \og \textsc{Baobab} \fg. Avec quelle probabilité
+le mot obtenu est-il encore \og \textsc{Baobab} \fg~?
+
+\exercice{nom={Exercice}}
+Expliquer pourquoi, lorsqu'on lance 3 dés simultanément, on obtient plus souvent
+la somme 10 que la somme 9, alors que ces deux sommes peuvent être obtenues de 6
+manières chacune.
+
+\exercice{nom={Exercice}}
+On lance 4 fois de suite un dé équilibré à 6 faces. Avec quelle probabilité
+obtient-on~:
+\begin{questions}
+\question Au moins un 6.
+\question Exactement un 6.
+\question Au moins 2 faces identiques.
+\end{questions}
+
+\exercice{nom={Exercice}}
+Dans un lot de 20 yaourts, il y en a 3 qui ont dépassé la date de péremption. On extrait au
+hasard et simultanément 4 yaourts. Quelle est la probabilité qu'un seul de ces yaourts ait
+dépassé la date de péremption ?
+
+% \begin{reponse}
+% Univers = combinaisons de 4 yaourts parmi 20 puisque le tirage est simultané. $\card \p{\Omega} = \binom{20}{4}$.
+% On le muni de la probabilité uniforme.
+% Dénombrement des cas favorables : on doit choisir un yaourt périmé $\binom{4}{1}$ puis 3 non périmés 
+% $\binom{17}{3}$ donc il y a $\binom{4}{1}\binom{17}{3}$ choix.
+% La probabilité cherchée est donc $\dfrac{\binom{4}{1}\binom{17}{3}}{ \binom{20}{4}} = 
+% \boxed{\frac{8}{19}}$. 
+% \end{reponse}
+
+\exercice{nom={Exercice}}
+On place aléatoirement $n$ boules indiscernables dans $n$ urnes discernables. Calculer la
+probabilité qu'une seule urne soit vide.
+% \begin{reponse}
+% Facile puisqu'une seule urne est vide ssi une est vide, toutes les autres contiennent une
+% seule boule sauf une qui en contient deux. On procède par dénombrement.
+% \end{reponse}
+
+\exercice{nom={Exercice}}
+On lance $n$ fois une pièce équilibrée. On appelle changement un lancer qui donne un résultat différent du précédent.
+Calculer pour tout entier $k \in \intere{0}{n-1}$ la probabilité pour qu'il y ait $k$ changements.
+% \begin{reponse}
+% $\Omega=\{P,F\}^n$. On prend la probabilité uniforme. On dénombre. Une réalisation avec $k$ changements correspond au choix des $k$ emplacements de changement entre $2$ et $n$ puis le premier lancer (P ou F) détermine toute la suite.
+% On a donc $2 \binom{n-1}{k}$ choix. $\card \Omega = 2^n$ donc la probabilité cherchée est 
+% $\boxed{\frac 1{2^{n-1}} \binom{n-1}{k}}$ (la somme fait bien $1$).
+% \end{reponse}
+
+\magsubsection{Variable aléatoire}
+
+\magsubsection{Lois usuelles}
+\magsection{Dépendance des évènements}
+\magsubsection{Probabilité conditionnelle}
+
+\exercice{nom={Exercice}}
+Un train contient $n$ places numérotées et $n$ voyageurs possèdent un billet. Le premier voyageur monte dans le train, mais il a oublié son billet et se place donc au hasard. Puis chaque personne s'installe à sa place si elle est libre et choisit une place libre au hasard sinon. Quelle est la probabilité que la dernière personne se trouve à sa place ?
+% \begin{reponse}
+% On note $P_i=j$ l'évènement "la personne $i$ est à la place $j$" et $p_n=\pr{P_n=n}$.
+% On conditionne suivant la place qu'occupe $P_1$.
+% $$p_n=\pr{P_n=n}=\sum\limits_{k=1}^n \prc{P_n=n}{P_1=k} \underbrace{\pr{P_1=k}}_{=\frac 1n}
+% =\frac 1n \sum\limits_{k=1}^{n-1} \prc{P_n=n}{P_1=k} $$
+% Mais si $P_1=k$ alors tous les voyageurs jusqu'au $k-1$-ième inclus vont à leur place puis arrive le $k$-ième qui trouve sa place occupée et doit donc choisir au hasard une place. On se retrouve donc dans la même situation qu'au début mais il reste $n-k+1$ voyageurs. On a donc 
+% $$\boxed{p_n=\frac 1n \sum\limits_{k=1}^{n-1} p_{n-k+1} =\frac 1n \sum\limits_{k=1}^{n-1} p_{k} }$$
+% avec $p_1=1$, $p_2=\frac 12$ on obtient par récurrence, $\boxed{p_n=\frac 12}$.
+% \end{reponse}
+
+
+
+% \begin{reponse}
+% \begin{enumerate}
+% \item La plante donne une fleur rose toutes les années ssi elle donne une fleur rose la première année donc la probabilité vaut $\boxed{\frac 34}$.
+% \item La plante donne une fleur blanche la première année est probabilité $\frac 14$ puis chaque année avec probabilité $\frac 12$ donc par indépendance, la probabilité cherchée est $\boxed{\frac 14 \p{\frac 12}^{n-1}}$.
+% \item On $R_n$ l'évènement : la plante a donné une fleur rose l'année $n$ et $B_n$ pour blanche. On a alors
+% $$\pr{R_{n+1}}=\prc{R_{n+1}}{R_n} \pr{R_n}+ \prc{R_{n+1}}{B_n} \pr{B_n}$$
+% $$p_{n+1}=p_n+ \frac 12 (1-p_n)$$
+% $$\boxed{p_{n+1}=\frac 12 p_n + \frac 12}$$
+% Si on pose $x_{n}=p_n-1$ alors $x_{n+1}=\frac 12 x_n$ et comme $x_1=- \frac 14$ on a $x_n=-\frac 14 \p{\frac 12}^{n-1}$ et finalement
+% $$\boxed{p_n = 1 -\frac 14 \p{\frac 12}^{n-1}}$$
+% En particulier, $p_n \to 1$ donc à coup presque sûr la fleur deviendra définitivement rose.
+% \end{enumerate}
+% \end{reponse}
+
+\exercice{nom={Exercice}}
+$n$ personnes numérotées de $1$ à $n$ se transmettent dans cet ordre une
+information. Chaque personne transforme l'information reçue en son contraire
+avec la probabilité $p \in ]0,1[$ et la transmet fidèlement avec la probabilité
+$1-p$. Quelle est la probabilité que l'information parvienne non déformée à la $n$-ième
+personne ?
+
+% \begin{reponse}
+% On note $A_n$ l'évènement "la $n$-ième personne reçoit l'information non
+% déformée" et $p_n=\pr{A_n}$.
+% Pour $n \in \{1,\dots,N-1\}$, $\{ A_n, \co{A_n} \}$ est un système complet
+% d'évènements donc d'après la \textbf{formule des probabilités totales}
+% $$\pr{A_{n+1}}=\pr{A_n} \pr{A_{n+1} | A_n} + \pr{\co{A_n}} \pr{A_{n+1} | \co{A_n}}$$
+% $$p_{n+1}=p_n (1-p) + (1-p_n) p =(1-2p) p_n + p$$
+% On pose $p_1=1$ et on a une suite arithmético-géométrique ce qui donne
+% $$\boxed{p_N = \frac 12 \left( 1+ (1-2p)^{N-1} \right)}$$
+% En particulier, $p_N \to \frac 12$ et ceci indépendamment de la valeur de
+% $p$ !
+% \end{reponse}
+
+\exercice{nom={Exercice}}%vincent
+On dispose de $n+1$ urnes $U_0, U_1, \dots, U_n$ où l'urne $U_k$
+contient $k$ boules blanches et $n-k$ boules noires. On choisit une
+urne au hasard puis on réalise $p$ tirages avec remise dans l'urne
+choisie.
+\begin{questions}
+\question Quelle est la probabilité de ne tirer que des boules blanches ?
+\question Déterminer la limite de cette probabilité lorsque $n$ tend vers $+\infty$.
+\end{questions}
+
+% \begin{reponse}
+% \begin{enumerate}
+% \item
+% On note $U_k$ l'évènement : "on a choisi l'urne $U_k$" et $B_p$ l'évènement : "on a tiré $p$ boules blanches".
+% Comme le tirage de l'urne est uniforme, $\pr{U_k} = \frac 1{n+1}$.
+% \medskip
+% La famille $(U_0, \dots, U_n)$ est un système complet d'évènements donc la formule des probabilités totales donne
+% $$\pr{B_p} = \sum\limits_{k=0}^n \prc{B_p}{U_k} \pr{U_k} = \frac 1{n+1} \sum\limits_{k=0}^n \prc{B_p}{U_k}$$
+% On note $BL_i$ l'évènement : "on a tiré une boule blanche au $i$-ième tirage". On a donc 
+% $$\prc{B_p}{U_k} = \prc{BL_1 \cap \dots \cap BL_p}{U_k} = \prc{BL_1}{U_k} \dots \prc{BL_p}{U_k} = 
+% \prc{BL_1}{U_k}^p$$
+% par indépendance des tirages successifs et par le fait qu'ils sont avec remise. Il reste donc
+% $$\prc{B_p}{U_k} = \p{\frac kn}^p \text{ donc } \boxed{\pr{B_p} = \frac 1{n+1} \sum\limits_{k=0}^n \p{\frac kn}^p}$$
+% \item On utilise une somme de Riemann ou une comparaison somme-intégrale pour obtenir
+% $$\boxed{ \pr{B_p} \to \frac 1{p+1} \text{ quand } n \to + \infty}$$
+% \end{enumerate}
+% \end{reponse}
+
+
+
+
+
+\exercice{nom={Exercice}}%\textbf{[pêche à la grenouille]}
+Soit ${\cal G}$ un ensemble fixé de cardinal $N$ et ${\cal M}$ une partie fixée de ${\cal G}$ de cardinal $m$. L'ensemble des parties de ${\cal G}$ est muni de la probabilité uniforme. On fixe $n \leq N$.
+\begin{enumerate}
+\item Soit $k \in \intere{0}{\min(n, m)}$. Quelle est la probabilité $p_k$ qu'une partie ${\cal P}$ de ${\cal G}$ de cardinal $n$ intersecte ${\cal M}$ selon un ensemble de cardinal $k$~?
+\item Le cardinal moyen de l'intersection d'une partie ${\cal P}$ de ${\cal G}$ de cardinal $n$ avec ${\cal M}$ est donc \[\sum\limits_{k=0}^{\min(n,m)} k p_k.\] Calculer ce nombre moyen.
+\item Un étang contient $N$ grenouilles. On cherche à estimer $N$. Pour cela, on commence par pêcher $m$ grenouilles que l'on marque puis que l'on rejette à l'eau. Quelques jours plus tard, on pêche $n$ grenouilles. Montrer que l'on peut estimer $N$.
+\end{enumerate}
+
+\exercice{nom={Exercice}}
+On considère une urne contenant $n$ boules numérotées. Les nombres inscrits sur les boules sont des réels deux à deux distincts sur lesquels on ne sait rien de plus.
+On réalise un tirage sans remise dans l'urne avec l'objectif de déterminer le maximum $M$ des nombres inscrits sur les boules.
+Comme on n'a pas le temps de tirer toutes les boules (disons que $n$ est trop grand), on opte pour la stratégie suivante : on choisit un entier $p \in \intere{1}{n-1}$, on tire $p$ boules successivement et sans remise et on mémorise le maximum $M_p$ que l'on a vu parmi ces $p$ boules. On continue alors à tirer des boules, mais on s'arrête dès que l'on a trouvé un nombre supérieur à $M_p$. 
+\begin{enumerate}
+\item Quelle est la probabilité $P_{n,p}$ que l'on trouve ainsi le maximum $M$.
+\item Si $n=4$, quelle valeur de $p$ a-t-on intérêt à choisir ?
+\item Soit $\alpha \in ]0,1]$. On choisit $p$ en fonction de $n$ (on le notera donc $p_n$) de manière à ce que 
+\[\frac{p_n}{n} \tendvers{n}{+\infty} \alpha.\] ($\alpha$ représente donc asymptotiquement la proportion de boules que l'on commence par tirer).
+Montrer que $P_{n,p_n}$ tend vers $-\alpha \ln(\alpha)$ lorsque $n \to + \infty$.
+\item Quelle valeur de $\alpha$ a-t-on intérêt à choisir ?
+\end{enumerate}
+
+
+
+% \begin{sol}
+% \begin{enumerate}
+% \item 
+% On note $A_k$ l'évènement "le maximum $M$ se trouve en position $k$ dans le tirage". On a par équiprobabilité 
+% $\pr{A_k}=\frac 1n$. 
+% On note $G$ l'évènement "on gagne i.e. on a trouvé le maximum".
+% On a évidemment $\prc{G}{A_k}=0$ si $k \leq p$ puisqu'alors le maximum fait partie de l'échantillon des $p$ premières boules et l'on ne trouvera plus le maximum parmi les boules qui restent.
+% Ainsi, puisque $(A_1,\dots,A_n)$ est un système complet, la formule des probabilités totales donne
+% $$\pr{G} = \sum\limits_{k=p+1}^n \prc{G}{A_k} \pr{A_k} = \frac 1n \sum\limits_{k=p+1}^n \prc{G}{A_k}$$
+% Il reste donc à calculer $\prc{G}{A_k}$. Mais, si $M$ est en position $k$, on gagne ssi entre les boules $p+1$ et $k-1$ on a trouvé aucune valeur supérieure à $M_p$ ssi le max des valeurs des boules de $1$ à $k-1$ est obtenu parmi les $p$ premières boules et ceci est réalisé avec une probabilité $\frac{p}{k-1}$ (équiprobabilité). On a donc
+% $$\boxed{P_{n,p}} = \frac 1n \sum\limits_{k=p+1}^n \frac{p}{k-1} = \boxed{ \frac pn \sum\limits_{k=p}^{n-1} \frac{1}{k} }$$
+% \item 
+% La formule précédente montrer que 
+% $$P_{4,1}=\frac{11}{24} \qquad P_{4,2}=\frac{10}{24} \qquad P_{4,3}=\frac{6}{24}$$
+% de sorte que l'on a intérêt à choisir $\boxed{p=1}$.
+% \item On utilise le développement asymptotique bien connu de $H_n=\sum\limits_{k=1}^n \frac 1k = 
+% \ln(n) + \gamma + o(1)$ ce qui donne facilement le résultat.
+% \item On maximise facilement la fonction $\alpha \mapsto - \alpha \ln(\alpha)$ ce qui donne que le maximum est atteint en 
+% $\frac 1e$ et vaut $\frac 1e$. On a donc intérêt à prendre $\boxed{p \sim \frac 1e n}$.
+% \end{enumerate}
+% \end{sol}
+
+
+%\exercice{nom={Exercice}}On dispose d'une pièce truquée pour laquelle la probabilité de faire {\it pile} est $p$. On ne connait pas $p$. Pour l'estimer, on lance la pièce 10 fois et on obtient $3$ fois {\it pile}. Quelle est la valeur de $p$ rendant cet évènement le plus probable ?
+%
+
+
+%\exercice{nom={Exercice}}
+%On transmet un message en binaire sous forme d'une suite de $n$ bits.
+%Lors de la transmission, chaque bit a une probabilité $p$ d'être modifié. Quelle est la probabilité que le message reçu comporte au plus une erreur ?
+%
+%\begin{reponse}
+%Le nombre de bits erronés suit une loi binomiale de paramètres $n,q$.
+%
+%La probabilité cherchée est donc $\boxed{q^n+npq^{n-1}}$.
+%\end{reponse}
+%
+
+
+
+%
+%\exercice{nom={Exercice}}
+%On considère un gène possédant deux caractères $a$ et $A$. Le génotype d'un individu est donc $aa$, $aA$ ou $AA$.
+%On suppose qu'à la génération $0$, les proportions de porteurs $aa$, $aA$ et $AA$ sont respectivement $u_1,u_2$ et $u_3$.
+%
+%On fait l'hypothèse que les mariages sont aléatoires et la transmission des caractères uniforme.
+%
+%On note $M$ le génotype de la mère, $P$ celui du père et $E$ celui de l'enfant. On note $x=u_1+ \frac 12 u_2$. Montrer qu'à la génération 1,
+%$$\pr{ E = \text{aa} } = x^2 \qquad \pr{ E = \text{aA} } = 2x(1-x) \qquad \pr{ E = \text{AA} } = (1-x)^2 \qquad$$
+%En déduire que les proportions sont constantes à partir de la première génération.
+%
+%
+
+\magsubsection{Formule des probabilités totales}
+
+\exercice{nom={Monthy Hall}}
+Dans une fête foraine, on vous propose le jeu suivant~: trois verres opaques sont
+retournés devant vous, dont l'un seulement abrite une bille, et vous devez deviner lequel.
+\begin{questions}
+\question Quelle est la probabilité de deviner juste~?
+\question Pris de pitié devant votre malchance à répétition, le maître du jeu décide 
+  de vous donner un coup de pouce. Après votre réponse, il vous indique, parmi les deux
+  verres que vous n'avez pas désignés, une verre qui ne contient pas la bille et vous
+  propose de revoir votre réponse. Préférez-vous confirmer votre réponse initiale ou
+  la modifier~?
+\end{questions}
+
+\exercice{nom={Exercice}}
+Un horticulteur dispose d'un stock de plantes. Chacune des plantes fleurit une fois par an.
+Pour chaque plante, la première année, la probabilité de donner une fleur rose est de \nicefrac{3}{4},
+celle de donner une fleur blanche est de \nicefrac{1}{4}.  Puis les années suivantes, pour tout entier naturel $n$ non nul :
+\begin{itemize}
+\item Si l'année $n$, la plante a donné une fleur rose, alors l'année $n+1$, elle donnera
+  une fleur rose.
+\item Si l'année $n$, la plante a donné une fleur blanche, alors l'année $n+1$, elle
+  donnera de façon équiprobable une fleur rose ou une fleur blanche.
+\end{itemize}
+\begin{enumerate}
+\item Quelle est la probabilité que la plante ne donne que des fleurs roses pendant les $n$
+premières années ?
+\item Quelle est la probabilité que la plante ne donne que des fleurs blanches pendant les $n$
+premières années ?
+\item On note $p_n$ la probabilité de l'évènement \og
+  La plante a donné une fleur rose l'année $n$ \fg.
+Calculer $p_n$, puis sa limite quand $n$ tend vers $+\infty$.
+\end{enumerate}
+
+
+\exercice{nom={Urnes d'\nom{Ehrenfest}}}%\textbf{[urnes d'Ehrenfest = chaîne de Markov]}
+On considère deux urnes $U_1$ et $U_2$. Chaque urne contient une boule. À chaque étape, on choisit une boule au hasard et on la change d'urne. Pour tout $k \in \{0,1,2\}$ et
+$n\in\N$, on note $E_n^k$ l'évènement \og Il y a $k$ boules dans l'urne $U_1$ après
+l'étape $n$ \fg. On note
+\[a_n \defeq \mathbb{P}\p{E_n^0},\quad b_n \defeq \mathbb{P}\p{E_n^1}, \quad
+  c_n \defeq \mathbb{P}\p{E_n^2}, \et 
+  X_n \defeq \trans{(a_n, b_n, c_n)}.\]
+\begin{questions}
+\question Déterminer une matrice $A\in\mat{3}{\R}$ telle que pour tout $n\in\N$,
+$X_{n+1}=A X_n$.
+\question Calculer $A^2$ et $A^3$.
+\question Comment interpréter ce résultat~?
+\end{questions}
+% \begin{reponse}
+% On trouve $A=\begin{pmatrix} 0 & \frac 12 & 0 \\ 1 & 0 & 1 \\ 0 & \frac 12 & 0 \end{pmatrix}$ puis $A^3=A$.
+% \end{reponse}
+
+\exercice{nom={Jinko}}
+\nom{Jinko} le chaton a trois passions dans la vie~: Manger, Dormir et Jouer. On peut
+  considérer qu'il pratique ces activités par tranches de 5 minutes.
+  \begin{itemize}
+  \item Après 5 minutes de repas, il continue de manger les 5 minutes suivantes avec une
+    probabilité de \nicefrac{1}{2}. Sinon, il se met à jouer.
+  \item Après 5 minutes de sommeil, il continue de dormir les 5 minutes suivantes avec une
+    probabilité de \nicefrac{3}{4}. Sinon, il a faim au réveil et va manger.
+  \item Après 5 minutes de jeu, soit il est en appétit et mange les 5 minutes suivantes
+    avec une probabilité de \nicefrac{1}{4}, soit il est fatigué et s'endort.
+  \end{itemize}
+  L'expérience que l'on considère est une journée de \nom{Jinko} de $5(m+1)$ minutes. Sur la
+  tranche d'indice 0 des 5 premières minutes de la journée, \nom{Jinko} se lève et va
+  petit-déjeuner. Pour tout $n\in\intere{0}{m}$, on note $A_n:\Omega\to\ens{M,D,J}$ la
+  variable aléatoire donnant l'activité de \nom{Jinko} sur la tranche de 5 minutes
+  d'indice $n$ de la journée. Pour tout
+  $n\in\intere{0}{m}$, on pose
+  \[X_n\defeq
+    \begin{pmatrix}
+    \mathbb{P}(A_n=M)\\
+    \mathbb{P}(A_n=D)\\
+    \mathbb{P}(A_n=J)
+    \end{pmatrix}.\]
+  \begin{questions}
+  \question Déterminer une matrice $B\in\mat{3}{\R}$ telle que
+    \[\forall n\in\intere{0}{m-1}\qsep X_{n+1}=B X_n.\]
+  \question
+    \begin{questions}
+    \question Déterminer les valeurs propres de $B$, c'est-à-dire les $\lambda\in\R$ tels
+      que $B-\lambda I_3$ n'est pas inversible.
+    \enonce On note $\lambda_1,\lambda_2,\lambda_3\in\R$ ces valeurs et on pose
+      $P\defeq(X-\lambda_1)(X-\lambda_2)(X-\lambda_3)$.
+    \question Montrer que $P(B)=0$. En déduire une expression de $B^n$ valable pour tout
+      $n\in\N$.
+    \question En déduire les limites de
+      \[\mathbb{P}(A_n=M),\qquad
+        \mathbb{P}(A_n=D),\qquad
+        \mathbb{P}(A_n=J)\]
+      lorsque $n$ tend vers $+\infty$.
+    \end{questions}
+  \end{questions}
+
+\magsubsection{Formule de \nom{Bayes}}
+
+\exercice{nom={Exercice}}
+On prend un dé au hasard parmi un lot de 100 dés dont on sait que 25
+sont pipés~: pour ces dés, la probabilité d'obtenir $6$ est $1/2$.
+\begin{questions}
+\question On lance le dé et on obtient $6$.
+  Quelle est la probabilité que ce dé soit pipé~?
+\question Même question si l'on fait $n$ lancers et que l'on obtient
+  $6$ à chaque fois.
+\end{questions}
+% \begin{reponse}
+% On note $DP$ l'évènement "le dé est pipé" et $A_1$ l'évènement "on obtient
+% $6$ au premier lancers".
+% On a alors par la \textbf{formule de Bayes} :
+% \begin{eqnarray*}
+% \pr{DP | A_1 }& = &\frac{\pr{DP} \pr{A_1 | DP}}{\pr{DP} \pr{A_1 | DP} +
+% \pr{\co{DP}} \pr{A_1 | \co{DP}}} \\
+% & = &\frac{ \frac 14 \pr{A_1 | DP}}{  \frac 14 \pr{A_1 | DP} + 
+% \frac 34 \pr{A_1 | \co{DP}}}=\frac{ \frac 14  \frac 12 }{  \frac 14 \frac 12  +
+%  \frac 34  \frac 16} =\frac 12 \\
+% \end{eqnarray*}
+% De la même manière en notant $A_n$ l'évènement "on obtient $6$ aux $n$ lancers"
+% :
+% \begin{eqnarray*}
+% \pr{DP | A_n }& = &\frac{\pr{DP} \pr{A_n | DP}}{\pr{DP} \pr{A_n | DP} + \pr{\co{DP}}
+% \pr{A_n | \co{DP}}} \\
+% & = &\frac{ \frac 14 \pr{A_n | DP}}{  \frac 14 \pr{A_n | DP} + 
+% \frac 34 \pr{A_n | \co{DP}}}=\frac{ \frac 14  \frac{1}{2^n} }{  \frac 14 \frac{1}{2^n}  + %
+% \frac 34  \frac{1}{6^n}} =\frac {1}{1+ \frac{1}{3^{n-1}}} \\
+% \end{eqnarray*}
+% On a donc $\pr{DP | A_n } \to 1$ ce qui est raisonnable\dots
+% \end{reponse}
+
+\magsubsection{Indépendance}
+
+\exercice{nom={Exercice}}
+Un concours consiste à passer 3 épreuves indépendantes. On a $80 \%$ de chances de réussir
+l'épreuve $1$, $60\%$ pour l'épreuve $2$ et $25\%$ pour l'épreuve $3$. On est reçu au
+concours si on réussit au moins deux épreuves sur trois (n'importe lesquelles). Quelle est
+la probabilité de réussir le concours ?
+
+% \begin{reponse}
+% On note $R_k$ l'évènement "on a réussi l'épreuve $k$" et $R$ l'évènement
+% "on a réussi le concours". Alors
+% $$R = \left( R_1 \cap R_2 \cap \co{R_3} \right) \cup \left( R_2 \cap R_3 \cap \co{R_1} \right) \cup \left( R_1 \cap R_3 \cap \co{R_2} \right) \cup
+% \left( R_1 \cap R_2 \cap R_3 \right)$$
+% et c'est une partition donc en passant aux probabilités (par exemple, $R_1$
+% et $R_2$ sont indépendants) on obtient
+% $$\pr{R} = \pr{R_1} \pr{R_2} \left( 1 - \pr{R_3} \right) + \dots = \boxed{59
+% \%}$$
+% \end{reponse}
+
+\exercice{nom={Exercice}}
+On dispose d'un dé à quatre faces non pipé. On réalise $n$ lancers indépendants.
+On note $T$ l'évènement  \og Lors des $n$ lancers, les quatre numéros sont sortis \fg.
+En utilisant la formule du crible, calculer la probabilité de $T$, puis sa limite lorsque $n$
+tend vers $+\infty$.
+% \begin{reponse}
+% On note $A_k$ l'évènement "lors des $n$ lancers, le numéro $k$ n'est jamais sorti". Alors 
+% $$\co{T} = A_1 \cup A_2 \cup A_3 \cup A_4$$
+% En utilisant la formule du crible, on a donc
+% $$1- \pr{T} = \pr{A_1} + \dots + \pr{A_4} - \pr{A_1 \cap A_2} - \dots - \pr{A_3 \cap A_4} 
+% + \pr{A_1 \cap A_2 \cap A_3} + \dots - \pr{A_1 \cap \dots \cap A_4}$$
+% ce qui donne facilement
+% $$\pr{T} = 1 - 4 \p{\frac 34}^n + 6 \p{\frac 12}^n - 4 \p{\frac 14}^n \to 1$$
+% ce qui est bien naturel \dots
+% \end{reponse}
+
+\magsubsection{Loi d'une somme}
+
+
+\exercice{nom={Centre d'appels}}
+ Dans un centre d'appels, un employé effectue successivement $n$ appels
+  téléphoniques vers $n$ correspondants distincts dont chacun décroche avec une
+  probabilité $p\in\interf{0}{1}$.
+  \begin{questions}
+  \question Déterminer la loi du nombre $N_1$ de correspondants qui ont décroché.
+  \question L'employé rappelle plus tard les $n-N_1$ correspondants qui n'ont pas décroché
+    lors de la première série d'appels. On note $N_2$ le nombre de correspondants
+    qui ont décroché cette fois. Enfin, on pose $N\defeq N_1+N_2$. Cette variable aléatoire donne
+    le nombre total de personnes qui ont été contactées avec succès.
+    \begin{questions}
+    \question Pour tout $k,i\in\intere{0}{n}$, calculer $\mathbb{P}(N=k|N_1=i)$.
+    \question En déduire la loi suivie par $N$.
+    \end{questions}
+    % Quelle est la loi du nombre total $N\defeq N_1+N_2$
+    % de correspondants qui ont décroché~?
+  \end{questions}
+  \begin{sol}
+Il faut calculer $\mathbb{P}(N=k)=\sum \mathbb{P}(N_1=i) \mathbb{P}(n=k|N_1=i)$. On utilise une relation sur
+les coefficients binomiaux qui se montre facilement en passant par les factorielles. On trouve que $N$ suit une
+loi binomiale de paramètre $n,p(2-p)$.
+  \end{sol}
+
+
+
+%END_BOOK
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

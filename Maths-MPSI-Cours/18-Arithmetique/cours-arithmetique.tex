@@ -1,0 +1,1348 @@
+\documentclass{magnolia}
+
+\magtex{tex_driver={pdftex},
+        tex_packages={xypic,epigraph}}
+\magfiche{document_nom={Cours d'arithmétique},
+          auteur_nom={François Fayard},
+          auteur_mail={fayard.prof@gmail.com}}
+\magcours{cours_matiere={maths},
+          cours_niveau={mpsi},
+          cours_chapitre_numero={11},
+          cours_chapitre={Arithmétique}}
+\magmisenpage{}
+\maglieudiff{}
+\magprocess
+
+\begin{document}
+
+%BEGIN_BOOK
+\setlength\epigraphwidth{.6\textwidth}
+\epigraph{\og La Mathématique est la reine des sciences et l'Arithmétique est
+la reine des mathématiques. \fg}{--- \textsc{Carl Friedrich Gauss (1777--1855)}}
+\bigskip
+\hfill\includegraphics[width=0.5\textwidth]{../../Commun/Images/maths-cours-factoring_the_time.png}
+
+\magtoc
+
+\section{Divisibilité, division euclidienne}
+
+\subsection{Relation de divisibilité}
+\begin{definition}
+Soit $a,b\in\Z$. On dit que $a$ \emph{divise} $b$ lorsqu'il existe $k\in\Z$ tel que
+$b=ka$.  
+\end{definition}
+
+\begin{remarques}
+\remarque Soit $a,b\in\Z$ tels que $a|b$. Alors $-a|b$, $a|-b$ et $-a|-b$.
+  Autrement dit, lorsqu'on parle de divisibilité, le signe n'est pas
+  significatif.
+\remarque Soit $a\in\Z$. Alors $a|1$ si et seulement si $a=\pm 1$.
+\begin{sol}
+Soit $a\in\Z$ tel que $a|1$, alors il existe $k\in \Z$ tel que $1=ka$. Supposons un instant que $a\notin\set{-1;1}$. Ainsi, comme on a également $a\neq 0$, $|a|\geq 2$. Donc $|k|=\dfrac{1}{|a|}\leq \dfrac{1}{2}$ d'où $k=0$, ce qui fournit une contradiction.\\
+Réciproquement, $1=1\cdot 1$ et $1=(-1)\cdot(-1)$ donc $-1$ et $1$ divisent bien $1$.
+\end{sol}
+\remarque Soit $a,b,c\in\Z$. Si $ac|bc$ et $c\neq 0$, alors $a|b$
+\begin{sol}
+Si $ac|bc$, il existe $k\in \Z$ tel que $bc=kac$ donc $(b-ka)c=0$ et $c\neq 0$ donc $b=ka$, i.e. $a|b$.
+\end{sol}
+\end{remarques}
+
+\begin{proposition}
+La relation de divisibilité
+\begin{itemize}
+\item est réflexive~: $\forall a\in\Z \qsep a|a$.
+\item est transitive~: $\forall a,b,c\in\Z \qsep \cro{a|b \et b|c}\quad\implique\quad a|c$.
+\item n'est pas antisymétrique. Cependant
+  \[\forall a,b\in\Z \qsep \cro{a|b \et b|a}\quad\ssi\quad a=\pm b.\]
+\end{itemize}
+\end{proposition}
+
+\begin{remarques}
+\remarque La relation de divisibilité n'étant pas antisymétrique sur $\Z$, ce
+  n'est pas une relation d'ordre. Cependant, si $a,b\in\N$, on a
+  \[\cro{a|b \et b|a}\quad\ssi\quad a=b.\]
+  En particulier, la relation de divisibilité est une relation d'ordre sur $\N$.
+\remarque Quel que soit $n\in\Z$,  $1 | n$ et $n | 0$. En particulier, pour la relation de divisibilité, $\N$ admet 1 pour plus petit élément et 0 pour plus grand élément.
+\remarque Soit $a,b\in\N$. Si $a|b$ et $b\neq 0$, alors $a\leq b$.
+\end{remarques}
+
+\begin{proposition}
+Soit $a,b,c\in\Z$ et $k_1,k_2\in\Z$. Alors
+\[\cro{a|b \et a|c}\quad\implique\quad a|\p{k_1b+k_2c}.\]
+\end{proposition}
+
+\begin{exos}
+\exo Soit $a,b,c\in\Z$. Les assertions suivantes sont-elles vraies~?
+  \begin{itemize}
+  \item Si $a$ divise $b+c$, alors $a$ divise $b$ et $c$.
+  \item Si $a$ et $b$ divisent $c$, alors $ab$ divise $c$.
+  \end{itemize}
+\begin{sol}
+NON. $2\mid6=3+3$ mais $2\nmid 3$
+NON. $2\mid 6$ et $2\mid6$ mais $4\nmid6$.
+\end{sol}
+\exo Déterminer les entiers $n\in\N$ tels que $n|n+8$.
+\begin{sol}
+Analyse : Si $n\mid n+8$, $n$ divise $n$ et $n+8$ donc $n$ divise $n+8-n=8$, d'où $n\in \set{1,2,4,8}$.
+Synthèse : OK.
+\end{sol}
+\end{exos}
+
+\subsection{Congruence, division euclidienne}
+
+\begin{definition}
+Soit $a,b\in\Z$ et $m\in\Ns$. On dit que $a$ est \emph{congru} à $b$ modulo $m$ et on
+note
+\[a\equiv b\quad[m]\]
+lorsque $m|\p{a-b}$, c'est-à-dire lorsqu'il existe $k\in\Z$ tel que
+$a=b+km$.
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque Si $m\in\Ns$, la relation binaire $\mathcal{R}$ définie sur $\Z$ par
+  \[\forall a,b\in\Z \quad a\mathcal{R}b \quad\ssi\quad a\equiv b\ [m]\]
+  est une relation d'équivalence.
+\end{remarqueUnique}
+
+\begin{proposition}
+Soit $a_1,a_2,b_1,b_2\in\Z$ et $m\in\Ns$ tels que
+\[a_1\equiv b_1 \quad [m] \et a_2\equiv b_2 \quad [m].\]
+Alors, si $k_1,k_2\in\Z$ et $k\in\N$
+\[k_1a_1+k_2a_2\equiv k_1b_1+k_2b_2 \quad [m] \qquad
+  a_1a_2\equiv b_1b_2 \quad [m] \qquad\text{et}\qquad
+  a_1^k\equiv b_1^k \quad [m].\]
+\end{proposition}
+
+\begin{preuve}
+Tout se montre très bien "à la main". Pour les puissances, il s'agit de faire une récurrence et dans l'hérédité on a en fait besoin du cas $k=2$ obtenu dans la propriété précédente.
+\end{preuve}
+
+\begin{remarqueUnique}
+\remarque Soit $m,n\in\Ns$ et $a,b\in\Z$. Alors
+  $a\equiv b\ [m] \ssi an\equiv bn\ [mn]$.
+\end{remarqueUnique}
+
+\begin{exos}
+\exo Montrer que pour tout $n\in\N$, 11 divise $3^{n+3}-4^{4n+2}$.
+\begin{sol}
+On veut montrer que $3^{n+3}-4^{4n+2} \equiv 0 \quad [11]$.
+Or, $3^3\equiv 5 \quad [11]$, $4^2\equiv 5 \quad [11]$ et donc $4^4=(4^2)^2\equiv 3 \quad [11]$ d'où :
+$$3^{n+3}-4^{4n+2} \equiv 5\times 3^n-3^n\times 5 \equiv 0 \quad [11].$$
+\end{sol}
+\exo Trouver les $n\in\N$ tels que $10^n+5^n+1$ est un multiple de 3.
+  \begin{sol} Soit $n\in\N$.
+  \begin{eqnarray*}
+  3\mid 10^n+5^n+1 &\Longleftrightarrow& 10^n+5^n+1 \equiv 0 \quad [3]\\
+  &\Longleftrightarrow& 1^n+(-1)^n+1 \equiv 0 \quad [3]\\
+  &\Longleftrightarrow& (-1)^n \equiv -2 \quad [3]\\
+  &\Longleftrightarrow& (-1)^n \equiv 1 \quad [3]\\
+  &\Longleftrightarrow& n \text{ est pair}.
+  \end{eqnarray*}
+  On peut montrer la dernière équivalence par disjonction de cas.
+  \end{sol}
+\exo Montrer qu'un entier est divisible par 3 si et seulement si la somme
+  de ses chiffres est divisible par 3. De même, montrer qu'un entier est
+  divisible par 9 si et seulement si la somme de ses chiffres est divisible
+  par 9. Enfin, montrer qu'un nombre est divisible par 11 si et seulement
+  si la somme alternée de ses chiffres est divisible par 11.
+  \begin{sol}
+  Si $a=\sum_{k=0}^n 10^k a_k$, alors
+  \begin{itemize}
+  \item $a$ est divisible par 3 si et seulement si $\sum_{k=0}^n a_k$ est
+    divisible par 3.
+  \item $a$ est divisible par 9 si et seulement si $\sum_{k=0}^n a_k$ est
+    divisible par 9.
+  \item $a$ est divisible par 11 si et seulement si
+    \[\sum_{\substack{k=0\\k\equiv 0\,[2]}}^n a_k-
+       \sum_{\substack{k=0\\k\equiv 1\,[2]}}^n a_k\] est divisible par 11 car $$\sum_{k=0}^n 10^k a_k\equiv \sum_{k=0}^n (-1)^k a_k \quad [11].$$
+  \end{itemize}
+  \end{sol}
+\end{exos}
+
+\begin{proposition}
+Soit $a\in\Z$ et $b\in\Ns$. Alors il existe un unique couple $\p{q,r}\in\Z^2$
+tel que
+\[a=qb+r \et 0\leq r<b.\]
+$q$ est appelé \emph{quotient} de la division euclidienne de $a$ par $b$, $r$ son
+\emph{reste}.
+\end{proposition}
+
+\begin{preuve}
+\begin{itemize}
+\item[$\bullet$] \textbf{Unicité :} Supposons trouvés deux couples $(q_1,r_1)$ et $(q_2,r_2)$. On obtient alors $$b|q_1-q_2|=|r_2-r_1|.$$ Supposons un instant $q_1\neq q_2$, alors $$b\leq b|q_1-q_2|=|r_2-r_1|\leq b-1$$ d'où la contradiction.
+\item[$\bullet$] \textbf{Existence :} Commençons par le cas $a\geq 0$ et considérons l'ensemble~:
+\[A=\enstq{k\in\N}{kb\leq a}\]
+Cet ensemble est non vide ($0\in A$), majoré (par $a$) donc admet un plus grand
+élément $q$. Comme $q\in A$ et $q+1 \notin A$, on a $bq\leq a <b(q+1)$ d'où $0\leq a-bq<b$. Il reste à poser $r=a-bq$.\\
+Si $a\leq 0$, il suffit d'appliquer ce qui précède à $-a$. Il existe donc $q\in \N$ et $r\in \N$ vérifiant \[-a=qb+r \et 0\leq r<b.\]
+Donc $a=(-q)b+(-r)$ ce qui convient si $r=0$ et si $0<r<b$, alors $-b<-r<0$ donc $0<-r+b<b$ et dans ce cas $a=(-q-1)b+(-r+b)$ est de la forme recherchée.
+\end{itemize}
+
+\end{preuve}
+
+\begin{remarques}
+\remarque Si $a\in\Z$ et $b\in\Ns$, le reste de la division euclidienne de $a$
+  par $b$ est l'unique élément $r$ de $\intere{0}{b-1}$ tel que
+  $a\equiv r\ [b]$.
+\remarque Les langages Python et OCaml possèdent tous les deux une division entière
+  et un opérateur \og modulo \fg. Si $a\in\Z$ et $b\in\Ns$, la division entière
+  s'obtient avec \verb_a // b_ en Python et avec \verb_a / b_ en OCaml. L'opérateur
+  \og modulo \fg s'obtient quant à lui avec \verb_a % b_ en Python et
+  \verb_a mod b_ en OCaml. Si on note $q$ la division entière de $a$ par $b$ et $r$
+  le résultat de l'opérateur modulo, on aura toujours $a=qb+r$. En Python, ce sont respectivement le quotient
+  et le reste de la division euclidienne de $a$ par $b$. C'est aussi le cas en OCaml lorsque $a\geq 0$. 
+  Cependant, lorsque $a<0$, ce n'est
+  plus le cas. Par exemple, la division entière de $-7$ par $2$ renvoie $-3$ alors que le quotient de
+  la division euclidienne de $-7$ par $2$ est $-4$.
+  % Cependant, $q$ et $r$
+  % ne sont pas toujours le quotient et le reste de la division euclidienne de $a$ par $b$.
+  % En pratique, on ne s'intéressera qu'au cas où $a\in\Z$ et $b\in\Ns$, car aucun programmeur
+  % sensé ne va tenter de faire une division entière par un nombre $b$ strictement négatif. Cependant,
+  % Python et OCaml n'ont pas le même comportement, même lorsque $b>0$.
+  % \begin{itemize}
+  % \item En Python, si $a\in\Z$ et $b\in\Ns$, $q$ et $r$ sont respectivement le quotient et le
+  %   reste de la division euclidienne de $a$ par $b$.
+  % \item En OCaml, si $a\in\N$ et $b\in\Ns$, $q$ et $r$ sont respectivement le quotient et le
+  %   reste de la division euclidienne de $a$ par $b$. Mais, si $a<0$ et $b>0$, ce n'est plus
+	% le cas. Dans ce cas, le résultat renvoyé par \verb_a / b_ est \verb_-((-a) / b)_. Par exemple, si
+	% $a=-5$ et $b=2$, alors les quotient et reste de la division euclidienne de $a$ par
+	% $b$ sont respectivement $-3$ et $1$, mais \verb_a / b_ renvoie $2$ et \verb_a mod b_
+	% renvoie $-1$.
+  % \end{itemize}
+\remarque Si $a\in\Z$ et $b\in\Zs$, on montre qu'il existe un unique couple $\p{q,r}\in\Z^2$
+  tel que $a=qb+r$ et $0\leq r<\abs{b}$. On peut donc ainsi étendre la définition
+  de la division euclidienne au cas où $b\in\Zs$. Mais en pratique, on effectuera
+  toujours des divisions euclidiennes par des entiers strictement positifs.
+\end{remarques}
+
+
+
+\begin{exoUnique}
+\exo Déterminer le reste de la division euclidienne de $4852^{203}$ par 5.
+  \begin{sol}
+  \begin{eqnarray*}
+  4852^{203}&\equiv& 2^{203} \quad [5]\\
+  &\equiv& 2^{4*50+3} \quad [5]\\
+  &\equiv& (2^{4})^{50}\times 2^3 \quad [5]\\
+  &\equiv& 1^{50}\times 3 \quad [5]\\
+  &\equiv& 3 \quad [5]
+  \end{eqnarray*}
+  \end{sol}
+\end{exoUnique}
+
+% \subsection{Idéaux de $\Z$}
+
+% \begin{definition}
+% On dit qu'une partie $\mathcal{I}$ de $\Z$ est un idéal lorsque~:
+% \begin{itemize}
+% \item $0\in\mathcal{I}$
+% \item $\forall a,b\in\mathcal{I} \quad \forall k_1,k_2\in\Z \quad
+%        k_1 a+k_2 b\in\mathcal{I}$
+% \end{itemize}
+% \end{definition}
+
+% %% Remarque :
+% %% 1) Les idéaux de Z sont les sous-groupes de (Z,+)
+
+% \begin{definition}
+% Si $a\in\Z$
+% \[a\Z=\enstq{ka}{k\in\Z}\]
+% est un idéal de $\Z$. Tout idéal de ce type est appelé idéal principal.
+% \end{definition}
+
+% \begin{proposition}
+% L'intersection d'une famille d'idéaux est un idéal.
+% \end{proposition}
+
+%% Exemple :
+%% 1) 4Z n 6Z = 12Z
+%%    - 12Z est inclu dans 4Z n 6Z
+%%    - réciproquement si n est un multiple de 4 et de 6. Alors n=6k. Comme
+%%      6k-4k=2k, on a n-4k=2k. Or n est un mutiple de 4, donc n=4p.
+%%      Donc 4p-4k=2k. Donc 2p-2k=k. Donc k=2k'. Donc n=12k'
+
+% \begin{definition}
+% $\quad$
+% \begin{itemize}
+% \item Soit $\mathcal{I}_1,\ldots,\mathcal{I}_n$ une famille d'idéaux.
+%   Alors il existe un plus petit idéal $\mathcal{I}$ contenant
+%   $\mathcal{I}_1\cup\dots\cup\mathcal{I}_n$; on l'appelle idéal engendré par
+%   $\mathcal{I}_1,\ldots,\mathcal{I}_n$ et on le note
+%   $\mathcal{I}_1+\cdots+\mathcal{I}_n$.
+% \item Soit $a_1,\ldots,a_n\in\Z$. Alors~:
+%   \[a_1\Z+\cdots+a_n\Z=
+%     \enstq{k_1 a_1+\cdots+k_n a_n}{k_1,\ldots,k_n\in\Z}\]
+% \end{itemize}
+% \end{definition}
+
+%% Exemple :
+%% 1) L'idéal engendré par 4Z et 6Z est 2Z
+
+% \begin{theoreme}
+% Tout idéal de $\Z$ est principal; on dit que $\Z$ est un anneau principal.
+% \end{theoreme}
+
+% \begin{proposition}
+% Soit $\mathcal{I}$ un idéal de $\Z$. Alors, il existe un unique $n\in\N$ tel
+% que $\mathcal{I}=n\Z$.
+% \end{proposition}
+
+%% Exemple :
+%% 1) Ordre d'un élément dans un groupe.
+%%    Soit x dans G. On considère l'application phi : Z -> G qui à n associe
+%%    x^n. C'est un morphime de groupe.
+%%    On dit que x est d'ordre fini, lorsque phi n'est pas injective,
+%%    c'est-à-dire lorsque Ker phi n'est pas réduit à {0}. Si tel est le cas,
+%%    il existe un unique n\in\Ns tel que ker phi=nZ. On l'appelle ordre de 
+%%    x et on lle note omega(x)
+%%    Remarquons que si G est fini, tout élément est d'ordre fini
+%%    
+%%    - e est l'unique élément d'ordre 1
+%%    - -1 est d'ordre 2, j d'ordre 3 et i d'ordre 4
+
+\section{Pgcd, ppcm}
+
+\subsection{Plus grand commun diviseur}
+
+\begin{definition}
+Soit $a,b\in\Z$. Il existe un unique entier positif $p$ tel que
+\begin{itemize}
+\item $p|a \et p|b$
+\item $\forall q\in\Z \qsep \cro{q|a \et q|b} \implique q|p$
+\end{itemize}
+On l'appelle $\pgcd$ (\emph{plus grand commun diviseur}) de $a$ et de $b$ et on le note
+$\pgcd\p{a,b}$ ou $a\wedge b$.
+\end{definition}
+
+\begin{preuve}
+\begin{itemize}
+\item[$\bullet$] \textbf{Unicité :} On suppose qu'il y en a deux $p_1$ et $p_2$. D'après (ii), $p_1 \mid p_2$ et $p_2\mid p_1$ avec $p_1, p_2$ dans $\N$, donc $p_1=p_2$.
+\item[$\bullet$] \textbf{Existence :} Puisque la définition de divisibilité est invariante par changement de signe et qu'ici les rôles de $a$ et $b$ sont symétriques, on peut supposer $0\leq b\leq a$.\\
+Idée :On va faire une récurrence forte sur $n=a+b$ en remarquant que le $\pgcd$ de $a,b$ est
+égal à au $\pgcd$ de $a-b,b$ (en prenant bien sur $b\leq a$ et en traitant
+à part le cas où $b=0$).\\
+Définissons alors l'assertion $\mathcal{H}_n$ : "Soit $a,b\in \N$ tels que $a\geq b$ et $a+b=n$. Alors, il existe $p\in\N$ tel que \begin{itemize}
+\item $p|a \et p|b$
+\item $\forall q\in\Z \quad \cro{q|a \et q|b} \implique q|p$
+\end{itemize}".
+$\mathcal{H}_0$ : $a+b=0$ donc $a=b=0$ et $p=0$ convient.\\
+Soit $n\in \N$. Supposons $\mathcal{H}_i$ vraie pour $i\in \set{0,\ldots,n}$. Montrons que $\mathcal{H}_{n+1}$ est vraie. Soit donc $a,b\in \N$ tels que $a\geq b$ et $a+b=n+1$.\\
+Si $b=0$. On pose $p=a$. Alors $p\mid a$ et $p\mid 0=b$. De plus, si $q\in \Z$ est tel que $q|a \et q|b$ alors $q|a=p$.\\
+Sinon, posons $a'=a-b\geq 0$. Alors $a'+b=a-b+b=a+b-b=n+1-b<n+1$. \underline{Si $a'\geq b$} on peut appliquer $\mathcal{H}_{a'+b}$. Il existe $p\in\N$ tel que :
+\begin{itemize}
+\item $p|a' \et p|b$
+\item $\forall q\in\Z \quad \cro{q|a' \et q|b} \implique q|p$
+\end{itemize}
+Montrons que $p$ convient. $p|a'+b=a$ et $p|b$. Soit $q\in \Z$ tel que $q|a \et q|b$, $q|a-b=a'$ donc $q|a' \et q|b$ donc $q|p$. Ainsi, $p$ convient.\\
+\underline{Si $a'<b$}, on a $0\leq a'<b$. On pose $a''=b$ et $b''=a'$. Alors $a''+b''=a'+b<n+1$. Donc il existe $p\in \N$ tel que :
+\begin{itemize}
+\item $p|a'' \et p|b''$
+\item $\forall q\in\Z \quad \cro{q|a'' \et q|b''} \implique q|p$
+\end{itemize}
+De la même façon, $p$ convient.
+Donc $\mathcal{H}_{n+1}$ est vraie.
+\end{itemize}
+ 
+\end{preuve}
+
+\begin{remarques}
+\remarque Si $a,b\in\Z$, les diviseurs de $a$ et de $b$ sont les diviseurs
+  de $a\wedge b$.
+\remarque Soit $a,b\in\N$. Pour la relation d'ordre de divisibilité sur $\N$, l'ensemble
+  des diviseurs de $a$ et de $b$ n'est rien d'autre que
+  l'ensemble des minorants de $\ens{a,b}$. La définition précédente montre donc que
+  cet ensemble admet un plus grand élément (au sens de la divisibilité) qui est
+  $a\wedge b$. Autrement dit, au sens de la divisibilité, l'ensemble $\ens{a,b}$ admet
+  une borne inférieure qui est $a\wedge b$.
+\remarque Soit $a,b\in\N$. Si l'un des deux entiers est non nul,
+  le $\pgcd$ de $a$ et de $b$ est le plus grand (au sens de l'ordre)
+  diviseur commun de $a$ et $b$.
+\end{remarques}
+
+\begin{proposition}
+\begin{eqnarray*}
+\forall a\in\Z, & & a\wedge 0=\abs{a}\\
+\forall a\in\Z, & & a\wedge 1=1\\
+\forall a,b\in\Z, & & a\wedge b=0 \quad\ssi\quad\cro{a=0 \et b=0}
+\end{eqnarray*}
+\end{proposition}
+
+\begin{proposition}
+\begin{eqnarray*}
+\forall a,b\in\Z, & & a\wedge b=b\wedge a\\
+\forall a,b\in\Z, & & a\wedge b=\p{-a}\wedge b=a\wedge\p{-b}=
+  \p{-a}\wedge\p{-b}=\abs{a}\wedge\abs{b}\\
+\forall a,b,k\in\Z, & & \p{ka}\wedge\p{kb}=\abs{k}\p{a\wedge b}
+\end{eqnarray*}
+\end{proposition}
+
+\begin{preuve}
+Par symétrie de la définition en $a$ et $b$, on a le premier point. Cette définition ne faisant intervenir que la relation de divisibilité qui est invariante par changement de signe, on a le deuxième point.\\
+Pour le troisième point, montrons que $\p{ka}\wedge\p{kb} \et \abs{k}\p{a\wedge b}$ se divisent l'un l'autre. Comme ce sont des entiers naturels, on pourra conclure qu'ils sont égaux.\\
+Si $k=0$, cela donne $0=0$. Sinon :
+\begin{itemize}
+\item On a $a\wedge b\mid a$ donc $k(a\wedge b)\mid ka$ donc $\abs{k}\p{a\wedge b}\mid ka$. De même $\abs{k}\p{a\wedge b} \mid kb$ donc $\abs{k}\p{a\wedge b}\mid ka$ et $\abs{k}\p{a\wedge b}\mid kb$, ce qui implique que $\abs{k}\p{a\wedge b}\mid \p{ka}\wedge\p{kb}$.
+\item $k\mid ka$ et $k\mid kb$ donc $k\mid \p{ka}\wedge\p{kb}$. Il existe donc $u\in \Z$ tel que $\p{ka}\wedge\p{kb}=ku$. Montrons que $u\mid a\wedge b$.\\
+$ku=\p{ka}\wedge\p{kb}\mid ka$. Or $k\neq 0$ donc $u\mid a$. De même, $u\mid b$ donc $u\mid a\wedge b$. Ainsi, $ku\mid k(a\wedge b)$, i.e. $\p{ka}\wedge\p{kb}\mid k(a\wedge b)$. Finalement $\p{ka}\wedge\p{kb}\mid \abs{k}(a\wedge b)$.
+\end{itemize}
+\end{preuve}
+
+\begin{definition}
+Soit $a_1,\ldots,a_n\in\Z$. Il existe un unique entier positif $p$ tel que
+\begin{itemize}
+\item $\forall i\in\intere{1}{n} \qsep p|a_i$
+\item $\forall q\in\Z \qsep \cro{\forall i\in\intere{1}{n} \qsep q|a_i} \implique q|p$
+\end{itemize}
+On l'appelle $\pgcd$ (plus grand commun diviseur) de la famille $(a_1,\ldots,a_n)$ et on le note
+$\pgcd\p{a_1,\ldots,a_n}$ ou $a_1\wedge\cdots\wedge a_n$.
+\end{definition}
+
+\begin{preuve}
+Pour l'existence, on le montre par récurrence sur $n$ et la clé est de montrer dans l'hérédité que $p=(a_1\wedge \ldots \wedge a_n)\wedge a_{n+1}$ (qui existe d'après l'hypothèse de récurrence) convient.
+\begin{itemize}
+\item Déjà, par définition, $p\mid a_1\wedge \ldots \wedge a_n$ donc chaque $a_i$ pour $i\in \set{1,\ldots,n}$ et $p\mid a_{n+1}$.
+\item Soit maintenant $q\in\Z$ tel que$\forall i\in\intere{1}{n+1} \quad q|a_i$. Montrons que $q\mid p$.\\
+$q\mid a_i, \forall i\in\intere{1}{n}$ donc $q\mid a_1\wedge \ldots \wedge a_n$. De plus, $q\mid a_{n+1}$ donc $q\mid p$.
+\end{itemize}
+\end{preuve}
+
+\begin{remarqueUnique}
+\remarque Le $\pgcd$ d'une famille d'entiers $(a_1,\ldots,a_n)$ ne dépend pas de l'ordre de
+  ces derniers.
+\end{remarqueUnique}
+
+\begin{proposition}
+Soit $a_1,\ldots,a_n\in\Z$ et $p\in\intere{1}{n-1}$. Alors
+\[a_1\wedge\cdots\wedge a_n=(a_1\wedge\cdots\wedge a_p)\wedge(a_{p+1}\wedge\cdots\wedge a_n).\]
+\end{proposition}
+
+
+\subsection{Algorithme d'\nom{Euclide}}
+
+\begin{proposition}
+Soit $a,b,k\in\Z$. Alors
+\[a\wedge b=a\wedge\p{b+ka}=\p{a+kb}\wedge b.\]
+En particulier, si $b\in\Ns$ et $r$ est le reste de la division euclidienne de
+$a$ par $b$, on a
+\[a\wedge b=b\wedge r.\]
+\end{proposition}
+
+\begin{preuve}
+Posons $p=a\wedge b$ et montrons que $p=a\wedge\p{b+ka}$.
+\begin{itemize}
+\item $p\mid a \et p\mid b$ donc $p\mid b+ka$. Ainsi, $p\mid a \et p\mid b+ka$.
+\item Soit maintenant $q\in\Z$ tel que $q\mid a \et q\mid b+ka$. Montrons que $q\mid p$.\\
+$q\mid a \et q\mid b+ka$ donc $q\mid 1\times (b+ka)+(-k)\times a=b$. Ainsi, $q\mid a \et q\mid b$ donc $q\mid a\wedge b=p$.
+\end{itemize}
+\end{preuve}
+
+
+% Soit $a,b\in\N$, pour calculer $a\wedge b$, on utilise l'algorithme
+% suivant, appelé {\bf algorithme d'Euclide}.
+% \begin{itemize}
+% \item On pose $r_0=a$ et $r_1=b$.
+% \item Si $r_1=0$, la réponse est $r_0$. Sinon, on effectue la division
+%   euclidienne de $r_0$ par $r_1$. Il existe donc $q_1\in\N$ et
+%   $r_2\in\intere{0}{r_1-1}$ tels que $r_0=q_1r_1+r_2$.
+% \item Si $r_2=0$, la réponse est $r_1$. Sinon, on effectue la division
+%   euclidienne de $r_1$ par $r_2$. Il existe donc $q_2\in\N$ et
+%   $r_3\in\intere{0}{r_2-1}$ tels que $r_1=q_2r_2+r_3$.
+% \item Si $r_3=0$, etc.
+% \item Supposons que $r_{n+1}$ soit défini. Si $r_{n+1}=0$, la réponse est
+%   $r_n$. Sinon, on effectue la division euclidienne de $r_n$ par
+%   $r_{n+1}$. Il existe donc $q_{n+1}\in\N$ et $r_{n+2}\in\intere{0}{r_{n+1}-1}$
+%   tels que $r_n=q_{n+1}r_{n+1}+r_{n+2}$.
+% \end{itemize}
+% Démontrons la validité de cet algorithme~:
+% \begin{itemize}
+% \item {\bf L'algorithme s'arrête~:}\\
+%   En effet, si tel n'était pas le cas, on aurait
+%   ainsi construit une suite $(r_n)_{n\in\N}$ strictement décroissante (à partir
+%   du rang 1) d'entiers naturels, ce qui n'existe pas.
+% \item {\bf L'algorithme donne la bonne réponse~:}\\ En effet, comme
+%   $r_n=q_{n+1}r_{n+1}+r_{n+2}$, on en déduit que
+%   \begin{eqnarray*}
+%   r_n\wedge r_{n+1}
+%   &=& (q_{n+1}r_{n+1}+r_{n+2})\wedge r_{n+1}\\
+%   &=& r_{n+2}\wedge r_{n+1} \qquad \text{(lemme d'Euclide)}\\
+%   &=& r_{n+1}\wedge r_{n+2}
+%   \end{eqnarray*}
+%   On en déduit facilement par récurrence finie que, pour tout entier $n$,
+%   $r_n\wedge r_{n+1}=r_0\wedge r_1$ $(=a\wedge b)$. Lorsque l'algorithme
+%   s'arrête, $r_{n+1}=0$ donc $a\wedge b=r_n\wedge r_{n+1}=r_n\wedge 0=r_n$.
+%   L'algorithme donne donc la bonne réponse.
+% \end{itemize}
+% \medskip
+
+\begin{exos}
+\exo Calculer $105\wedge 147$.
+  \begin{sol}
+  $105\wedge 147=147\wedge 105=105\wedge42=42\wedge21=21\wedge0=21$
+  \end{sol}
+\exo Soit $n\in\N$. Calculer $(3n+1)\wedge(2n)$, puis
+  $(n^4-1)\wedge(n^6-1)$.
+  \begin{sol}
+  On a
+  \[(3n+1,2n)=(n+1,2n)=(n+1,-2)=(n+1,2)=
+    \begin{cases}
+    2 &\text{si n est impair}\\
+    1 &\text{si n est pair}
+    \end{cases}\]
+  Puis
+  \begin{eqnarray*}
+  (n^4-1)\wedge(n^6-1)&=&\left[(n^2-1)(n^2+1)\right]\wedge \left[(n^2-1)(n^4+n^2+1)\right]\\
+  &=&|n^2-1|\left[(n^2+1)\wedge (n^4+n^2+1)\right]\\
+  &=&|n^2-1|\left[(n^2+1)\wedge (n^4+n^2+1-n^2(n^2+1))\right]\\
+  &=&|n^2-1|\left[(n^2+1)\wedge 1\right]\\
+  &=&|n^2-1|.
+  \end{eqnarray*} 
+  \end{sol}
+\exo Soit $(F_n)$ la suite, appelée suite de Fibonacci, définie par
+  \[F_0\defeq 0, \quad F_1\defeq 1, \et \forall n\in\N \qsep F_{n+2}\defeq F_{n+1}+F_n.\]
+  Montrer que pour tout $n\in\N$, $F_n\wedge F_{n+1}=1$.
+  \begin{sol}
+  Alors, quel que soit $n$ dans $\N$ le $\pgcd$ de $F_n$ et de $F_{n+1}$ est
+  égal à 1. On le montre par récurrence sur $n$.
+  $$F_{n+1}\wedge F_{n+2}=F_{n+1}\wedge (F_{n}+F_{n+1})=F_{n+1}\wedge (F_{n}+F_{n+1}-F_{n+1})=F_{n+1}\wedge F_{n}=1.$$\\
+  Donc deux termes consécutifs de la suite 0,1,1,2,3,5,8,13,21, ont un pgcd
+  égal à 1.\\
+  Leonardo Pisano (Leonardo de Pise) appelé aussi Leonardo Fibonacci
+  Publié en 1202. Il avait lu le travail de Al-Khwarizmi, 825 (Persan)
+  (le mot \og algèbre \fg vient du titre de son oeuvre majeure : Kitab al-jabr
+  wa'l-muqabala) (Rules of restoring and equating)
+  Son livre contient le problème suivant : Combien de couples de lapins
+  peuvent naître d'un couple de lapin en un an~? Pour résoudre ce problème, on
+  sait que~:
+  \begin{itemize}
+  \item Chaque couple donne naissance a un couple chaque mois.
+  \item Chaque couple devient fertile à l'âge d'un mois.
+  \item Les lapins ne meurent jamais
+  \end{itemize}
+  Avant le travail de Fibonacci, la suite $(F_n)$ a déjà été étudiée par les
+  Indiens. Ils se demandaient combien de rythmes de n temps il était possible
+  de faire avec des noires et des blanches. Ce nombre est $F_{n+1}$ .   
+  \end{sol}
+\end{exos}
+
+\begin{remarqueUnique}
+\remarque Si $a,b\in\N$, l'algorithme suivant, appelé algorithme d'\nom{Euclide}, calcule le $\pgcd$ de $a$ et $b$.
+\begin{pythoncodeline}
+def pgcd(a, b):
+    """pgcd(a: int, b: int) -> int"""
+    while b != 0:
+        a, b = b, a % b
+    return a
+\end{pythoncodeline}
+% \remarque Remarquons qu'il est inutile de supposer que $b$ soit inférieur à $a$
+%   pour que l'algorithme fonctionne. En effet, si $a<b$, alors la division
+%   euclidienne de $a$ par $b$ donne $a=0\cdot b+a$. La première étape de l'algorithme échange donc $a$ et $b$.  
+\end{remarqueUnique}
+
+\subsection{Relation de \nom{Bézout}}
+
+\begin{proposition}
+Soit $a,b\in\Z$. Alors il existe $u,v\in\Z$ tels que
+\[ua+vb=a\wedge b.\]
+\end{proposition}
+
+\begin{preuve}
+Quitte à changer $a$ en $-a$ et $b$ en $-b$, on peut les supposer positifs. Définissons $\mathcal{H}_n$ : "quels que soient $a$ et $b$ dans $\N$ tels que $a+b=n$, il existe $u,v\in \Z$ tels que $ua+vb=a\wedge b$."
+\begin{itemize}
+\item[$\bullet$] $\mathcal{H}_0$ est vraie : $a+b=0$ donc $a=0$ et $b=0$. Posons $u=v=0$.
+\item[$\bullet$] Soit $n\in \N$. Supposons $\mathcal{H}_i$ vraie pour $i\in \set{0,\ldots,n}$. Montrons que $\mathcal{H}_{n+1}$ est vraie. Soit donc $a,b\in \N$ tels que $a\geq b$ et $a+b=n+1$. Quitte à échanger $a$ et $b$, on peut supposer $a\geq b$.\\
+Si $b=0$, alors $a\wedge b=a\wedge 0=a$. On a alors $a\wedge b=a=1\times a+0\times b$.\\
+Si $b\neq 0$, alors on pose $a'=a-b\geq 0$ et $b'=b$. On a $a'+b'=a-b+b=a+b-b=n+1-b<n+1$. Donc  $\mathcal{H}_{a'+b'}$ est vraie. Il existe donc $u,v\in \Z$ tels que $ua'+vb'=a'\wedge b'=(a-b)\wedge b=a\wedge b$ et $ua'+vb'=u(a-b)+vb=ua+(v-u)b$. Donc $\mathcal{H}_{n+1}$ est vraie.
+\end{itemize}
+\end{preuve}
+
+\begin{exos}
+\exo Trouver une relation de \nom{Bézout} pour $105$ et $147$.
+  \begin{sol}
+  $$147=105+42$$
+  $$105=2*42+21$$
+  $$42=21*2+0$$ donc en remontant
+  $$21=105-2*(147-105)=3\times 105-2\times 147.$$
+  \end{sol}
+\exo Soit $n,m\in\Ns$. Montrer que
+  \[\U[n]\cap\U[m]=\U[n\wedge m].\]
+  \begin{sol}
+  On va procéder par double-inclusion :
+  \begin{itemize}
+\item[$\bullet$] Inclusion droite-gauche facile.
+\item[$\bullet$] Pour l'inclusion gauche-droite, on prend $z$ dans $\U[n]\cap\U[m]$. D'après \nom{Bézout}, il existe $u,v\in \Z$ tels que $n\wedge m=un+vm$. Reste plus qu'à élever à la puissance...
+\end{itemize}
+  \end{sol}
+\end{exos}
+
+\begin{definition}
+Soit $a,b\in\Z$. On dit que $a$ et $b$ sont \emph{premiers entre eux} lorsque
+$a\wedge b=1$.
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque Soit $a,b\in\Z$. Puisque $a\wedge b$ est un diviseur commun à $a$ et
+  $b$, il existe $a',b'\in\Z$ tels que $a=a'(a\wedge b)$ et $b=b'(a\wedge b)$.
+  Si $(a,b)\neq (0,0)$, alors $a'$ et $b'$ sont premiers entre eux.
+  \begin{sol}
+  $$a\wedge b=(a'(a\wedge b))\wedge (b'(a\wedge b))=(a\wedge b)(a'\wedge b')$$
+  \end{sol}
+\end{remarqueUnique}
+
+\begin{exoUnique}
+\exo Soit $a,b\in\Z$ deux entiers premiers entre eux. Calculer
+  $(a-b)\wedge(a+b)$.
+  \begin{sol}
+  Si $d$ divise $(a-b)\wedge(a+b)$, il divise la somme et la différence donc il divise $2a$ et $2b$ donc leur pgcd, i.e. $d\mid 2(a\wedge b)=2$. Ainsi, c'est $1$ ou $2$. C'est $2$ ssi $2\mid a-b$ et $2\mid a+b$, c'est-à-dire s'ils ont même parité. Or, étant premiers entre eux, ils ne peuvent être tous les deux pairs. Ainsi, on trouve 2 si $a$ et $b$ sont impairs et 1 sinon.
+  \end{sol}
+\end{exoUnique}
+
+\begin{proposition}
+Soit $a,b\in\Z$. Alors $a$ et $b$ sont premiers entre eux si et seulement si il
+existe $u,v\in\Z$ tels que
+\[ua+vb=1.\]
+\end{proposition}
+
+\begin{preuve}
+Sens gauche-droite : relation de \nom{Bézout}.\\
+Pour le sens droite-gauche, $a\wedge b$ divise la gauche donc la droite, donc $1$, donc c'est $1$.
+\end{preuve}
+
+\begin{proposition}
+$\quad$
+\begin{itemize}
+\item Soit $a,b,c\in\Z$ tels que $a\wedge b=1$ et $a\wedge c=1$. Alors
+  $a\wedge \p{bc}=1$.
+\item Plus généralement, si $a\in\Z$ est premier avec chaque élément d'une
+  famille d'entiers $b_1,\ldots,b_n\in\Z$, alors $a$ est premier avec leur
+  produit.
+\item Soit $a,b\in\Z$ deux entiers premiers entre eux et $m,n\in\N$. Alors
+  $a^m\wedge b^n=1$.
+\end{itemize}
+\end{proposition}
+
+\begin{preuve}
+\begin{itemize}
+\item On fait le produit des deux relations de \nom{Bézout}.
+\item On récurre.
+\item On utilise deux fois la propriété précédente en utilisant la commutativité du pgcd.
+\end{itemize}
+\end{preuve}
+
+\begin{exos}
+\exo Soit $a,b\in\Z$ deux entiers premiers entre eux. Montrer que $a+b$ et
+  $ab$ sont premiers entre eux.
+  \begin{sol}
+  Si $d$ divise les deux, $d\mid ab-a(a+b)=-a^2$ donc $d\mid a^2$. De même, $d\mid b^2$. Or $a^2\wedge b^2=1$ donc $d\mid 1$.
+  \end{sol}
+\exo Résoudre sur $\Z$ l'équation $2n\equiv 7\ [9]$.
+\begin{sol}
+Idée : la relation de Bezout donne l'inverse d'un nombre modulo $n$ (s'il existe, cf. chapitre suivant).\\
+$2\wedge 9=1$ et on dispose de la relation $1\times 9+(-4)\times 2=1$ qu'on peut lire $2\times (-4)\equiv 1 \quad [9]$. Ainsi,
+
+$$2n\equiv 7\quad [9] \Longleftrightarrow 5\times 2n\equiv 5\times 7\quad [9] \Longleftrightarrow n \equiv -1 \quad [9]$$
+Donc c'est $\set{-1+9k, k\in \Z}$.
+\end{sol}
+\end{exos}
+
+\begin{definition}
+Soit $n\in\Ns$. On dit que $a\in\Z$ est inversible modulo $n$ lorsqu'il existe $b\in\Z$
+tel que $ab\equiv 1\ [n]$.
+\end{definition}
+
+\begin{proposition}
+Soit $n\in\Ns$. Alors $a\in\Z$ est inversible modulo $n$ si et seulement si $a\wedge n=1$.
+\end{proposition}
+
+
+\begin{proposition}
+Soit $a_1,\ldots,a_n\in\Z$. Alors il existe $u_1,\ldots,u_n\in\Z$ tels que
+\[u_1 a_1+\cdots+u_n a_n = a_1\wedge \ldots\wedge a_n.\]
+\end{proposition}
+
+
+\begin{definition}
+Soit $a_1,\ldots,a_n\in\Z$.
+\begin{itemize}
+\item On dit que $a_1,\ldots,a_n$ sont \emph{deux à deux premiers entre eux} lorsque
+  \[\forall i,j\in\intere{1}{n} \quad i\neq j \implique a_i\wedge a_j=1.\]
+\item On dit que $a_1,\ldots,a_n$ sont \emph{premiers entre eux dans leur ensemble} lorsque
+  \[a_1\wedge\cdots\wedge a_n=1.\]
+\end{itemize}
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque Si les entiers $a_1,\ldots,a_n$ sont deux à deux premiers entre eux, alors
+  ils sont premiers entre eux dans leur ensemble. Cependant, la réciproque est fausse.
+  Par exemple, $a_1=2$, $a_2=3$ et $a_3=6$
+  sont premiers entre eux dans leur ensemble, mais ne sont pas deux à deux premiers
+  entre eux.
+\end{remarqueUnique}
+
+\begin{proposition}
+Soit $a_1,\ldots,a_n\in\Z$. Alors $a_1,\ldots,a_n$ sont premiers entre eux dans leur
+ensemble si et seulement si il existe $u_1,\ldots,u_n\in\Z$ tels que
+\[u_1 a_1+\cdots+u_n a_n=1.\]
+\end{proposition}
+
+\begin{preuve}
+Sens gauche-droite : On récurre en montrant en fait le résultat plus général avec l'hypothèse de récurrence "relation de Bezout avec $n$ éléments dans le cas général". Ainsi, comme $a_1\wedge \ldots \wedge a_n \wedge a_{n+1}=(a_1\wedge \ldots \wedge a_n) \wedge a_{n+1}$ le cas $n=2$ nous dit qu'on a $$ua_{n+1}+v(a_1\wedge \ldots \wedge a_n)=a_1\wedge \ldots \wedge a_n \wedge a_{n+1}$$ et il nous reste à écrire $a_1\wedge \ldots \wedge a_n$ grâce à l'HR.\\
+Sens droite-gauche : idem antépénultième proposition.
+\end{preuve}
+
+\begin{exoUnique}
+\exo Trouver les solutions entières de l'équation
+  \[a^2+b^2=3c^2.\]
+\end{exoUnique}
+
+\begin{sol}
+\begin{itemize}
+\item[$\bullet$] \textbf{Méthode 1 :} On procède par analyse. Posons $p=a\wedge b \wedge c$. Si $p=0$, comme $p\mid a$, $p\mid b$ et $p\mid c$, cela donne $a=b=c=0$. Sinon, avec $a=pa'$, $b=pb'$ et $c=pc'$, on a $a'\wedge b' \wedge c'=1$ et $a'^2+b'^2=3c'^2$. Ainsi, $a'^2+b'^2\equiv 0 \quad [3]$. Un tableau des carrés mod $3$ montre que nécessairement $a'\equiv 0 \quad [3]$ et $b'\equiv 0 \quad [3]$. On a donc $a'=3a''$ et $b'=3b''$ et en injectant cela dans l'équation on en déduit que $3\mid c'^2$. D'où $c'^2\equiv 0 \quad [3]$ et d'après le tableau fait précédemment, $c'\equiv 0 \quad [3]$. Ceci est impossible car $3$ divise alors $a'\wedge b' \wedge c'=1$. Finalement, $p=0$ et $a=b=c=0$.
+Synthèse triviale.
+\item[$\bullet$] \textbf{Méthode 2 :}
+Supposons par l'absurde qu'il existe une solution non nulle (on voit rapidement dans ce cas qu'ils sont tous non nuls): On regarde tout cela modulo 4. Les carrés modulo 4 étant $0$ ou $1$ on a forcément $c^2 \equiv 0 \quad [4]$ et ensuite les deux autres aussi. Donc $a$, $b$ et $c$ sont pairs. Si on divise le triplet par $2$ on a donc une nouvelle solution, et ceci indéfiniment, d'où la contradiction.
+\end{itemize}
+\end{sol}
+
+\subsection{Lemme de \nom{Gauss}}
+
+\begin{theoreme}
+Soit $a,b,c\in\Z$. Alors
+\[\cro{a|bc \et a\wedge b=1} \quad\implique\quad a|c.\]  
+\end{theoreme}
+
+\begin{preuve}
+$bc=wa$ et $ua+vb=1$ donne $uac+vbc=c$ donc $a(uc+vw)=c$ donc $a\mid c$.
+\end{preuve} 
+
+\begin{exos}
+\exo Soient $a,b,c\in\Z$ tels que $a\wedge c=1$. Montrer que
+  \[\p{ab}\wedge c=b\wedge c.\]
+  \begin{sol}
+  Soit $a,b,c\in\Z$ tels que $a\wedge c=1$. Montrons que
+  $\p{ab}\wedge c=b\wedge c$. Ces deux nombres étant positifs, il suffit de
+  montrer que $\p{ab}\wedge c|b\wedge c$ et $b\wedge c|\p{ab}\wedge c$.
+  \begin{itemize}
+  \item $b\wedge c|\p{ab}\wedge c$.\\
+    En effet $b\wedge c|b$ donc $b\wedge c|ab$. De plus $b\wedge c|c$ donc
+    $b\wedge c|\p{ab}\wedge c$.
+  \item $\p{ab}\wedge c|b\wedge c$.\\
+    En effet $\p{ab}\wedge c|c$. De plus $\p{ab}\wedge c|ab$. Comme
+    \[\p{\p{ab}\wedge c}\wedge a=\p{ab}\wedge\p{c\wedge a}=\p{ab}\wedge 1=1\]
+    on en déduit, d'après le lemme de Gauss, que $\p{ab}\wedge c|b$. Donc
+    $\p{ab}\wedge c|b\wedge c$.
+  \end{itemize}
+  \end{sol}
+\exo Résoudre l'équation $105u+147v=21$ dans $\Z$.
+  \begin{sol}
+  Analyse : Soit $(u,v) \in \Z^2$ tel que $105u+147v=21$. On a alors $5u+7v=1=5u_0+7v_0$ avec $u_0=3$ et $v_0=-2$. Donc $$5(u-u_0)=-7(v_0-v)$$ ce qui implique que $5\mid 7(v_0-v)$. Or, $5\wedge 7=1$ donc $5\mid v-v_0$ d'après le lemme de Gauss. Ainsi, il existe $k\in \Z$ tel que $v=-2+5k$, ce qui donne en réinjectant $u=3-7k$.\\
+  Synthèse : il suffit de l'écrire.\\
+  Finalement, on trouve $\set{(3-7k,-2+5k), k\in\Z}.$
+  \end{sol}
+\exo Trois comètes passent régulièrement dans le ciel \nom{Shadok}. La
+  première, la comète Gabu, passe tous les 10 jours depuis
+  le deuxième jour d'existence de leur planète. La seconde, la comète Zomeu
+  passe tous les 21 jours depuis le cinquième jour d'existence de leur planète.
+  Enfin, la comète Gibi passe tous les 6 jours depuis le troisième jour
+  d'existence de leur planète. Est-il possible d'admirer les comètes Gabu et
+  Zomeu le même jour dans le ciel Shadok~? Si oui, lesquels~? Même question
+  pour les comètes Gabu et Gibi.
+  \begin{sol}
+  \begin{itemize}
+  \item[$\bullet$]
+  On souhaite résoudre l'équation 
+  $$\begin{cases}n\equiv 2\quad [10]\\
+  n\equiv 5\quad [21]\end{cases}$$
+  \underline{Analyse :}
+  Supposons trouvé une telle solution, alors il existe $u,v \in \Z$ tels que $n=2+10u=5+21v$ donc $10u-21v=3$. On cherche une SP en partant de l'équation de Bezout $10\times (-2)+21\times 1=1$ on a $u_0=-6$ et $v_0=-3$ qui sont solutions. Ainsi, $10(u-u_0)=21(v-v_0)$ donc $10 \mid 21(v-v_0)$. Or, $10\wedge 21=1$ donc d'après le Lemme de Gauss $10\mid v-v_0$, i.e il existe $k\in \Z$ tel que $v=v_0+10k=-3+10k$ (on en déduit $u=-6+21k$). Ainsi,
+  $$n=5+21(-3+10k)=-58+210k.$$\\
+  \underline{Synthèse :} On vérifie que $n=-58+210k$ vérifie bien l'équation initiale.
+  \item[$\bullet$]On souhaite résoudre l'équation 
+  $$\begin{cases}n\equiv 2\quad [10]\\
+  n\equiv 3\quad [6]\end{cases}$$
+  \underline{Analyse :}
+  Supposons trouvé une telle solution, alors il existe $u,v \in \Z$ tels que $n=2+10u=3+6v$ donc $10u-6v=1$, ce qui est absurde (modulo 2 pour le voir). Donc il n'est pas possible d'admirer Gabu et Gibi le même jour. 
+  \end{itemize}
+  \end{sol}
+\end{exos}
+
+\begin{remarqueUnique}
+\remarque Soit $a,b,c\in\Z$ tels que $(a,b)\neq (0,0)$. On cherche les
+  solutions entières de l'équation
+  \[(E) \qquad ua+vb=c\]
+  \begin{itemize}
+  \item Si $a\wedge b$ ne divise pas $c$, il n'y a aucune solution.
+  \item Sinon, il existe $c'\in\Z$ tel que $c=c'(a\wedge b)$.
+    En utilisant l'algorithme d'\nom{Euclide}, on trouve $u_0',v_0'\in\Z$ tels que
+    $u_0' a+v_0' b=a\wedge b$. On a donc $(c'u_0')a+(c'v_0')b=c$ ce qui nous
+    donne une solution particulière à l'équation $(E)$. Soit $a',b'\in\Z$ tels
+    que $a=a'(a\wedge b)$ et $b=b'(a\wedge b)$. Alors $a'$ et $b'$ sont premiers
+    entre eux. On a alors~:
+    \begin{eqnarray*}
+    \forall u,v\in\Z \quad ua+vb=c
+    &\ssi& ua+vb=(c'u_0')a+(c'v_0')b\\
+    &\ssi& (u-c'u_0')a=(c'v_0'-v)b\\
+    &\ssi& (u-c'u_0')a'=(c'v_0'-v)b' \quad (E')
+    \end{eqnarray*}
+    Si le couple $(u,v)$ est solution de $(E')$, on en déduit que $b'$ divise
+    $(u-c'u_0')a'$. Or $a'$ et $b'$ sont premiers entre eux, donc d'après le
+    lemme de Gauss, $b'$ divise $u-c'u_0'$. Il existe donc $k\in\Z$ tel que
+    $u=c'u_0'+kb'$. En reportant cette égalité dans $(E')$, on trouve
+    $v=c'v_0'-ka'$. Réciproquement, on vérifie que de tels $u$ et $v$ sont
+    bien solution de $(E')$. L'ensemble des solutions de $(E)$ est donc
+    \[\mathcal{S}=\enstq{(c'u_0'+kb',c'v_0'-ka')}{k\in\Z}\]
+  \end{itemize}
+\end{remarqueUnique}
+
+
+\begin{proposition}
+Soit $r\in\Q$.
+\begin{itemize}
+\item Alors, il existe un unique couple $\p{a,b}\in\Z\times\Ns$ tel que
+  \[r=\frac{a}{b} \et a\wedge b=1.\]
+  Cette écriture est appelée \emph{forme irréductible} de $r$.
+\item De plus, si $p\in\Z$ et $q\in\Zs$, $r=p/q$ si et seulement si il existe
+  $k\in\Zs$ tel que $p=ka$ et $q=kb$.
+\end{itemize}
+\end{proposition}
+
+\begin{preuve}
+\begin{itemize}
+\item \begin{itemize}
+\item[$\bullet$] \textbf{Existence :} On part de $r=\dfrac{p}{q}$ et avec $s=p\wedge q$ on simplifie et on la rend irréductible.
+\item[$\bullet$] \textbf{Unicité :} On suppose trouvé deux couples puis grâce à $a_1b_2=a_2b_1$ on démontre grâce au lemme de Gauss que $b_1\mid b_2$ puis par symétrie $b_2\mid b_1$ donc $b_1=b_2$ ce qui conduit aussi à $a_1=a_2$.
+\end{itemize}
+\item Soit $r=\dfrac{a}{b}$ avec $a\wedge b=1$. On procède alors par analyse-synthèse pour déterminer les autres formes $r=\dfrac{p}{q}$. $pb=qa$ + Gauss donne $b\mid q$ donc $q=kb$ qu'on reporte pour avoir $p=ka$.
+\end{itemize}
+
+\end{preuve}
+
+\begin{remarqueUnique}
+\remarque Si $P(x)=a_n x^n+\cdots+a_1 x+a_0$ est un polynôme à coefficients
+  entiers et $r=p/q$ est une racine rationnelle de $P$, mise sous
+  forme irréductible, alors $q|a_n$ et $p|a_0$. On a ainsi un moyen de trouver
+  toutes les racines rationnelles d'un polynôme à coefficients entiers.
+\end{remarqueUnique}
+
+\begin{sol}
+Si $x$ est une racine rationnelle de $P$, il existe $p\in\Z$ et $q\in\Ns$ premiers entre eux tels que $x=p/q$. Puisque $P(x)=0$, on en déduit que
+\[a_n\p{\frac{p}{q}}^n+\cdots+a_1\cdot\frac{p}{q}+a_0=0.\]
+En multipliant par $q^n$, on obtient
+\[a_n p^n + a_{n-1}p^{n-1}q+\cdots+a_1 p q^{n-1}+a_0 q^n=0.\]
+On en déduit que
+\[a_n p^n = -q\p{a_{n-1}p^{n-1}+\cdots+a_1 p q^{n-2}+a_0 q^{n-1}}\]
+et donc que $q$ divise $a_n p^n$. Or $q$ et $p$ sont premiers entre eux donc $q$ et $p^n$ sont premiers entre eux. D'après le lemme de {\sc Gauss}, on en déduit que $q$ divise $a_n$. De même, on montre que $p$ divise $a_0$. Comme il existe un nombre fini de diviseurs d'un entier, les racines rationnelles sont donc à chercher parmi un nombre fini d'éléments.
+\end{sol}
+
+\begin{exos}
+\exo Rechercher les racines rationnelles de $P(x)=2x^3+x^2+x-1$. En déduire
+  une factorisation de ce polynôme.
+  \begin{sol}
+  $1/2$ est racine. On peut donc factoriser le polynôme en
+  $(2x-1)(x^2+x+1)$.    
+  \end{sol}
+\exo Soit $n\in\N$. Montrer que $\sqrt{n}$ est soit  entier, soit
+  irrationnel.
+  \begin{sol}
+  On pose $r=\sqrt{n}$ et on suppose que $r=\dfrac{a}{b}\in \Q$ avec $a\wedge b=1$. $r$ est racine de $X^2-n$ donc $b\mid 1$, donc $b=\pm 1$ et ainsi, $r\in \Z$. Ainsi, $r\in \Z$ ou $r\in \R\setminus\Q$.
+  \end{sol} 
+%\exo Déterminer les triplets $(a,b,c)\in\Ns^3$ tels que
+%  \[\frac{1}{a}+\frac{1}{b}=\frac{1}{c}\]
+%  \begin{sol}
+%  On trouve $a=\alpha (p+k)k$, $b=\alpha p(p+k)$ et $c=\alpha pk$ avec
+%  $\alpha\in\Ns$ et $p,k\in\Ns$ premiers entre eux.
+%  \end{sol}
+\end{exos}
+
+
+\begin{proposition}
+$\quad$
+\begin{itemize}
+\item Soit $a,b,c\in\Z$. On suppose que $a|c$, $b|c$ et $a\wedge b=1$.
+  Alors $ab|c$.
+\item Plus généralement si $a\in\Z$ est divisé par chaque élément d'une famille
+  $b_1,\ldots,b_n\in\Z$ d'entiers deux à deux premiers entre eux, alors il
+  est divisé par leur produit.
+\end{itemize}
+\end{proposition}
+
+\begin{preuve}
+$a\mid c$ donc $c=ua$, mais alors $b\mid ua$ et $b\wedge a=1$ donc $b\mid u$. En écrivant $u=vb$, on a $c=vba$ donc $ab\mid c$.\\
+Récurrence sur $n$ pour la deuxième propriété.
+\end{preuve}
+
+\subsection{Plus petit commun multiple}
+
+\begin{definition}
+Soit $a,b\in\Z$. Il existe un unique entier positif $p$ tel que
+\begin{itemize}
+\item $a|p \et b|p$
+\item $\forall q\in\Z \qsep \cro{a|q \et b|q} \implique p|q$
+\end{itemize}
+On l'appelle $\ppcm$ (\emph{plus petit commun multiple}) de $a$ et de $b$ et on le note
+$\ppcm\p{a,b}$ ou $a\vee b$.
+\end{definition}
+
+\begin{preuve}
+\begin{itemize}
+\item[$\bullet$] \textbf{Unicité :} On suppose qu'il y en a $2$. On obtient directement en appliquant les propriétés que $p_1\mid p_2$ et $p_2\mid p_1$ donc $p_1=p_2$.
+\item[$\bullet$] \textbf{Existence :} Quitte à changer $a$ en $-a$ et $b$ en $-b$, on peut les supposer positifs. Si l'un des deux est nul, on montre que $p=0$ convient. Sinon, $a>0$ et $b>0$. Posons alors $$X=\set{n\in \Ns \text{ tel que } a\mid n \et b\mid n}.$$
+$X\neq \emptyset$ car $ab\in X$. Donc $X$ admet un ppe qu'on note $p$. La première propriété est donc vérifiée car $p\in X$. Soit alors $q\in \Z$ tel que $a|q \et b|q$. Montrons que $p\mid q$. On effectue la DE de $q$ par $p\neq 0$ : $q=sp+r$ avec $s\in \Z$ et $r\in \intere{0}{p-1}$. $a$ divise $p$ et $q$ donc $r$. De même pour $b$. Donc $r=0$ par définition de $p$ (ppe de $X$), ce qui signifie bien que $p\mid q$.
+\end{itemize}
+
+\end{preuve}
+
+\begin{proposition}
+\begin{eqnarray*}
+\forall a\in\Z, & & a\vee 0=0\\
+\forall a\in\Z, & & a\vee 1=\abs{a}\\
+\forall a,b\in\Z, & & a\vee b=0 \ssi \cro{a=0 \ou b=0}
+\end{eqnarray*}
+\end{proposition}
+
+\begin{preuve}
+Pour le troisième point, pour gauche implique droit, si $a\vee b=0$, d'après (ii), comme $a\mid ab$ et $b\mid ab$, $0\mid ab$ donc $ab=0$ d'où $a=0 \ou b=0$.
+\end{preuve}
+
+\begin{proposition}
+\begin{eqnarray*}
+\forall a,b\in\Z, & & a\vee b=b\vee a\\
+\forall a,b\in\Z, & &a\vee b=\p{-a}\vee b=a\vee\p{-b}=
+  \p{-a}\vee\p{-b}=\abs{a}\vee\abs{b}\\
+\forall a,b,k\in\Z, & & \p{ka}\vee\p{kb}=\abs{k}\p{a\vee b}
+\end{eqnarray*}
+\end{proposition}
+
+\begin{preuve}
+Montrons que $\forall a,b,k\in\Z  \p{ka}\vee\p{kb}=\abs{k}\p{a\vee b}$. Si $k=0$, OK. Sinon, on va montrer qu'ils se divisent l'un l'autre.
+\begin{itemize}
+\item[$\bullet$] $a\mid a\vee b$ donc $ka\mid k(a\vee b)$ donc $ka\mid |k|(a\vee b)$. De même pour $kb$ donc $\p{ka}\vee\p{kb}\mid \abs{k}\p{a\vee b}$.
+\item[$\bullet$] $\p{ka}\vee\p{kb}$ étant un multiple de $ka$ c'est un multiple de $k$. On peut l'écrire $\p{ka}\vee\p{kb}=ku$. Montrons que $a\vee b \mid u$. $ka\mid ku$ donc $a\mid u$. De même, $b\mid u$. Donc $a\vee b \mid u$. On peut donc écrire $u=v(a\vee b)$. Ainsi, on a montré que $\p{ka}\vee\p{kb}=kv(a\vee b)$ donc $k(a\vee b) \mid \p{ka}\vee\p{kb}$ donc $|k|(a\vee b) \mid \p{ka}\vee\p{kb}$.
+\end{itemize}
+Comme ils sont positifs et se divisent l'un l'autre, ils sont égaux.
+\end{preuve}
+
+\begin{proposition}
+Soit $a,b\in\Z$.
+\begin{itemize}
+\item Si $a\wedge b=1$, alors
+  \[a\vee b=\abs{ab}.\]
+\item De manière générale
+  \[\p{a\wedge b}\p{a\vee b}=\abs{ab}.\]
+\end{itemize}
+\end{proposition}
+
+\begin{preuve}
+\begin{itemize}
+\item Posons $p=\abs{ab}$ et montrons qu'il vérifie les propriétés du ppcm. La première est évidente. Pour la deuxième, considérons $q\in \Z$ tel que $a\mid q$ et $b\mid q$. Comme $a\wedge b=1$ d'après la proposition 2.10, $p\mid q$.
+\item Pour le cas général, on évacue déjà le cas où $a\vee b=0$ facilement.\\
+Sinon, on écrit $a=(a\wedge b)a'$ et $b=(a\wedge b)b'$ d'où on tire (déjà fait plein de fois) $a'\wedge b'=1$. Ainsi, d'après le premier cas $a'\vee b'=|a'b'|$. Finalement $$\p{a\wedge b}\p{a\vee b}=(a\wedge b)(a'\wedge b')(a\wedge b)(a'\vee b')=(a\wedge b)^2\times 1 \times |a'b'|=|(a\wedge b)a'(a\wedge b)b'|=|ab|.$$
+\end{itemize}
+\end{preuve}
+
+\begin{remarqueUnique}
+\remarque On peut définir $a\vee b \vee c$ mais attention, en général, $(a\wedge b \wedge c)(a\vee b \vee c)\neq |abc| $.
+\end{remarqueUnique}
+
+\begin{sol}
+$a=2$, $b=3$, $c=6$.
+\end{sol}
+
+\begin{exoUnique}
+\exo Résoudre dans $\Z$ l'équation $a\vee b=a+b-1$.
+  \begin{sol}
+  Analyse : Si $a=0$, $b=1$ et si $b=0$, $a=1$. On suppose maintenant $a$ et $b$ non nuls. $a\vee b\geq 0$ donc $a$ et $b$ ne peuvent être tous deux négatifs. Supposons par exemple $a\geq 0$. Or, comme $a\vee b\neq 0$, $a+b-1=a\vee b\geq a\geq 0$ donc $b-1\geq 0$. Donc $b\geq 1$ et en particulier ils sont tous deux positifs.\\
+  $a\wedge b$ divise $a\vee b$, $a$ et $b$ donc $1$ donc c'est $1$. Ainsi, $a\vee b=ab=a+b-1$ d'où $(a-1)(b-1)=0$ donc $a=1$ ou $b=1$. Ainsi, $(a,b)$ est du type $(1,k)$ ou $(k,1)$ avec $k\in\N$.\\
+  
+  Synthèse : vérifions que les couples $(1,k)$ et $(k,1)$ avec $k\in\N$ fonctionnent.
+  \end{sol}
+\end{exoUnique}
+
+% \subsection{Pgcd et ppcm d'une famille d'entiers}
+
+% \begin{proposition}
+% Soit $a,b,c\in\Z$. Alors~:
+% \[\p{a\wedge b}\wedge c=a\wedge\p{b\wedge c}\]
+% Cet entier est appelé $\pgcd$ de $a,b,c$ et est noté $\pgcd\p{a,b,c}$ ou
+% $a\wedge b\wedge c$.
+% \end{proposition}
+
+% \begin{remarques}
+% \remarque Si $a,b,c\in\Z$, $a\wedge b\wedge c$ est l'unique entier naturel
+%   $p$ tel que~:
+%   \begin{itemize}
+%   \item $p|a \et p|b \et p|c$
+%   \item $\forall q\in\Z \quad \cro{q|a \et q|b \et q|c} \implique q|p$
+%   \end{itemize}
+% \remarque On dit que $a,b,c\in\Z$ sont premiers entre eux dans leur ensemble
+%   lorsque $a\wedge b\wedge c=1$. Si $a,b,c$ sont deux à deux premiers entre
+%   eux, alors ils sont premiers entre eux dans leur ensemble. Cependant
+%   la réciproque est fausse.
+% \remarque Si $a,b,c\in\Z$, il existe $a',b',c'\in\Z$ tels que
+%   $a=a'(a\wedge b\wedge c)$, $b=b'(a\wedge b\wedge c)$ et
+%   $c=c' (a\wedge b\wedge c)$. Si $(a,b,c)\neq(0,0,0)$, alors $a'$, $b'$ et $c'$
+%   sont premiers entre eux dans leur ensemble.
+% \end{remarques}
+
+
+
+% \begin{proposition}
+% Soit $a,b,c\in\Z$. Alors~:
+% \[\p{a\vee b}\vee c=a\vee\p{b\vee c}\]
+% Cet entier est appelé $\ppcm$ de $a,b,c$ et est noté $\ppcm\p{a,b,c}$ ou
+% $a\vee b\vee c$. 
+% \end{proposition}
+
+% \begin{remarqueUnique}
+% \remarque Si $a,b,c\in\Z$, $a\vee b\vee c$ est l'unique entier naturel
+%   $p$ tel que~:
+%   \begin{itemize}
+%   \item $a|p \et b|p \et c|p$
+%   \item $\forall q\in\Z \quad \cro{a|q \et b|q \et c|q} \implique p|q$
+%   \end{itemize}
+% % \remarque On définit de même le $\ppcm$ d'une famille de $n$ entiers.
+% \end{remarqueUnique}
+
+\section{Nombres premiers}
+\subsection{Nombres premiers}
+
+\begin{definition}
+On dit qu'un entier $p\geq 2$ est \emph{premier} lorsque ses seuls diviseurs
+positifs sont 1 et $p$. On note $\mathcal{P}$ l'ensemble des nombres premiers.
+\end{definition}
+
+\begin{remarques}
+\remarque Par convention, 1 n'est pas un nombre premier.
+\remarque Un nombre $p\geq 2$ n'est pas premier si et seulement si il existe $a,b\geq 2$ tel que $p=ab$.
+\remarque Soit $p$ un entier supérieur ou égal à 2. Pour montrer que $p$ est
+  premier, il suffit de montrer que $k$ ne divise pas $p$ pour tout entier
+  $k$ compris (au sens large) entre 2 et $\sqrt{p}$.
+\end{remarques}
+
+\begin{exos}
+\exo Pour tout $n\in\N$, on définit le $n$-ième nombre de Mersenne comme
+  $M_n=2^n-1$. Montrer que si $M_n$ est premier, alors $n$ est premier. La
+  réciproque est-elle vraie~?
+  \begin{sol}
+  On raisonne par contraposée et on montre que si $n$ n'est pas premier alors $M_n$ n'est pas premier. Soit donc $n\in \N$ tel qu'il existe $a,b\geq 2$ tel que $n=ab$. On a alors :
+  $$M_n=2^{ab}-1=(2^a)^b-1^b=(2^a-1)\sum_{k=0}^{b-1}(2^{a})^k1^{b-k-1}=\underbrace{(2^a-1)}_{\geq 3\geq 2}\underbrace{\sum_{k=0}^{b-1}2^{ak}}_{\geq \sum_{k=0}^{b-1}1=b\geq 2 }.$$ Donc $M_n$ n'est pas premier.
+  La réciproque est fausse: $2^{11}-1=2047=23\times 89$.
+  \end{sol}
+\exo Soit $p$ un nombre premier supérieur ou égal à 5. Montrer que
+  $24|p^2-1$.
+  \begin{sol}
+  $p$ est impair. $p=2n+1$ donc $p^2-1=(p-1)(p+1)=2n(2n+2)=4n(n+1)$.
+  $n$ et $n+1$ étant consécutifs l'un des deux est pair donc $2\mid n(n+1)$. Montrons que $3\mid n(n+1)$. Pour cela, regardons $p$ modulo $3$. On sait que $p\not\equiv 0 \quad [3]$.
+  \begin{itemize}
+  \item[$\bullet$]Si $p\equiv 1 \quad [3]$, $2n\equiv 0 \quad [3]$ donc $3\mid 2n$ et $3\wedge 2=1$ donc d'après le lemme de Gauss, $3\mid n$ donc $3\mid n(n+1)$.
+  \item[$\bullet$]Si $p\equiv 2 \quad [3]$, $2n+2\equiv 0 \quad [3]$ donc $3\mid 2n+2=2(n+1)$ et $3\wedge 2=1$ donc d'après le lemme de Gauss, $3\mid n+1$ donc $3\mid n(n+1)$.
+  \end{itemize}
+  \end{sol}
+\exo Soit $n\in\Ns$. Montrer qu'il existe $n$ nombres consécutifs non
+  premiers
+  \begin{sol}
+  Par exemple $(n+1)!+2,\ldots,(n+1)!+(n+1)$.
+  \end{sol}
+\end{exos}
+
+\begin{proposition}
+Soit $p$ un nombre premier et $n\in\Z$. Alors $p|n$ ou $p\wedge n=1$.
+\end{proposition}
+
+\begin{preuve}
+$p\wedge n \mid p$. Or $p$ est premier donc $p\wedge n=1$ ou $p\wedge n=p$ auquel cas $p\mid n$.
+\end{preuve}
+
+\begin{exoUnique}
+\exo Soit $p$ un nombre premier et $k\in\intere{1}{p-1}$. Montrer que
+  $p$ divise $\binom{p}{k}$.
+\end{exoUnique}
+\begin{sol}
+Déjà, on a $$p\mid k!\binom{p}{k}=\underbrace{p(p-1)\ldots (p-k+1)}_{k \text{ termes}}.$$
+Or, $p\wedge i=1, \forall i \in \intere{1}{k}$, donc $p\wedge k!$ et donc d'après le lemme de Gauss, $p\mid \binom{p}{k}$.
+\end{sol}
+
+\begin{proposition}[nom={Petit théorème de \nom{Fermat}}]
+Soit $p$ un nombre premier et $m\in\Z$ un entier qui n'est pas un multiple de
+$p$. Alors
+\[m^{p-1}\equiv 1\ [p].\]
+\end{proposition}
+
+\begin{preuve}
+Soit $p$ un nombre premier.
+\begin{itemize}
+\item[$\bullet$] On commence par montrer que pour tout $(a,b)\in \Z^2$, $(a+b)^p\equiv a^p+b^p \quad [p]$ en développant avec le binôme de Newton et en utilisant l'exercice précédent.
+\item[$\bullet$] On démontre ensuite par récurrence à l'aide de ce qu'on vient de démontrer que $\forall m \in \N$, $m^p\equiv m \quad [p]$.
+\item[$\bullet$] On étend cela à $\Z$. Si $m\leq 0\in \Z$, $0\equiv (-m+m)^p\equiv (-m)^p+m^p \equiv -m+m^p \quad [p]$ donc $m^p\equiv m \quad [p]$.
+\item[$\bullet$] Soit alors $m\in \Z$ tel que $p\nmid m$, on a alors $p\wedge m=1$ car $p$ est premier. D'après ce qu'on vient de démontrer, $p\mid m^p-m=m(m^{p-1}-1)$ et $p\wedge m=1$ donc d'après le lemme de Gauss, $p\mid m^{p-1}-1$, i.e. $m^{p-1}\equiv 1\ [p]$.
+\end{itemize}
+\end{preuve}
+
+% \begin{remarqueUnique}
+% \remarque Cette proposition porte le nom de \og petit théorème de Fermat\fg.
+% \end{remarqueUnique}
+
+
+\begin{proposition}
+Soit $p$ un nombre premier.
+\begin{itemize}
+\item Si $a,b\in\Z$, alors
+  \[p|ab \quad\ssi\quad \cro{p|a \ou p|b}.\]
+\item Plus généralement, $p$ divise un produit si et seulement si il divise
+  un de ses facteurs.
+\end{itemize}
+\end{proposition}
+
+\begin{proposition}
+Tout entier supérieur ou égal à $2$ admet un diviseur premier.  
+\end{proposition}
+
+\begin{preuve}
+Soit $n\in \N$ tel que $n\geq 2$.
+On pose $$X=\set{k\in \N, k\geq 2 \et k\mid n}.$$
+Comme $n\in X$, $X$ est une partie non vide de $\N$ et admet donc un ppe que l'on note $p$. Montrons que $p$ est premier. Pour cela, considérons $k$ un diviseur de $p$ dans $\N$.
+
+Ou bien il est plus grand que $2$ auquel cas il divise $p$ donc $n$ et par définition de $p$, on en déduit $p\leq k$. Comme $k$ divise $p$, on en déduit $k=p$.\\
+Ou bien il est $<2$ auquel cas $k=1$ car $k=0$ est impossible puisque $p$ est non nul.
+
+Ainsi, $p$ n'étant divisible que par $1$ et lui-même, il est premier.
+\end{preuve}
+
+\begin{remarqueUnique}
+\remarque Soit $n\geq 2$. On cherche l'ensemble des nombres premiers inférieurs
+  ou égaux à $n$. Pour cela, on utilise le crible d'Ératosthène~:
+  \begin{itemize}
+  \item On forme une table avec tous les entiers compris entre 2 et $n$.
+  \item On raye tous les multiples de 2.
+  \item On cherche le plus petit entier qui n'est pas rayé~: c'est 3 et il est
+    premier. On raye alors tous les multiples de 3.
+  \item On cherche ensuite le plus petit entier qui n'est pas rayé (c'est 5).
+    Il est forcément premier car on a trouvé tous les nombres premiers
+    strictement inférieurs à celui-ci et on a rayé tous leurs multiples.
+    On raye alors tous les multiples de 5.
+  \item On continue ainsi jusqu'à ce qu'on trouve un nombre premier dont le
+    carré est strictement supérieur à $n$. Les nombres qui ne sont pas rayés
+    sont les nombres premiers compris entre 2 et $n$.
+  \end{itemize}
+  Par exemple, si on cherche les nombres premiers inférieurs à 99, on trouve~:
+  \begin{center}
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+    \hline
+       &    &  2 &  3 &  4 &  5 &  6 &  7 &  8 &  9\\\hline
+    10 & 11 & 12 & 13 & 14 & 15 & 16 & 17 & 18 & 19\\\hline
+    20 & 21 & 22 & 23 & 24 & 25 & 26 & 27 & 28 & 29\\\hline
+    30 & 31 & 32 & 33 & 34 & 35 & 36 & 37 & 38 & 39\\\hline
+    40 & 41 & 42 & 43 & 44 & 45 & 46 & 47 & 48 & 49\\\hline
+    50 & 51 & 52 & 53 & 54 & 55 & 56 & 57 & 58 & 59\\\hline
+    60 & 61 & 62 & 63 & 64 & 65 & 66 & 67 & 68 & 69\\\hline
+    70 & 71 & 72 & 73 & 74 & 75 & 76 & 77 & 78 & 79\\\hline
+    80 & 81 & 82 & 83 & 84 & 85 & 86 & 87 & 88 & 89\\\hline
+    90 & 91 & 92 & 93 & 94 & 95 & 96 & 97 & 98 & 99\\\hline
+    \end{tabular}
+  \end{center}
+  \begin{sol}
+  On trouve
+  2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97.
+  \end{sol}
+\end{remarqueUnique}
+
+\begin{proposition}
+L'ensemble $\mathcal{P}$ des nombres premiers est infini.
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque Cette démonstration est due à \nom{Euclide} (325--265 avant J.C.).
+\end{remarqueUnique}
+
+\subsection{Valuation $p$-adique, décomposition en facteurs premiers}
+
+\begin{definition}
+Lorsque $n\in\Zs$ et $p$ est nombre premier, on appelle \emph{valuation
+$p$-adique de $n$} et on note ${\rm Val}_p(n)$ le plus grand
+$\alpha\in\N$ tel que $p^\alpha|n$.
+\end{definition}
+
+\begin{remarques}
+\remarque Si $n\in\Zs$, il n'existe qu'un nombre fini de nombres premiers $p$ tels que
+  ${\rm Val}_p(n)> 0$.
+\remarque Soit $p$ et $q$ deux nombres premiers. Alors
+  \[{\rm Val}_p(q)=\begin{cases}
+    1 & \text{si $p=q$,}\\
+    0 & \text{sinon.}
+  \end{cases}\]
+% Ce sont les nombres premiers apparaissant dans la décomposition
+% de $n$ en facteurs premiers.
+% \remarque Si $u\in\ens{1,-1}$ est le signe de $n$, la décomposition de $n$ en facteurs
+%   premiers s'écrit
+%   \[n=u \prod_{p\in\mathcal{P}} p^{{\rm Val}_p(n)}\]
+\end{remarques}
+
+\begin{proposition}
+Soit $n_1,n_2\in\Zs$ et $p\in\mathcal{P}$. Alors
+\[{\rm Val}_p\p{n_1 n_2}={\rm Val}_p\p{n_1}+{\rm Val}_p\p{n_2}.\]
+\end{proposition}
+
+\begin{remarques}
+\remarque Plus généralement, si $p$ est un nombre premier, $n_1,\ldots,n_r\in\Zs$ et $\alpha_1,\ldots,\alpha_r\in\N$, alors
+  \[{\rm Val}_p\p{\prod_{k=1}^r n_k^{\alpha_k}}=\sum_{k=1}^r \alpha_k {\rm Val}_p(n_k).\]
+\remarque Si $n\in\Zs$, certains auteurs définissent la valuation $p$-adique de $n$ pour tout entier $p\geq 2$. Par exemple
+  la valuation $10$-adique de $n$ est le plus grand entier $\alpha\in\N$ tel que $10^\alpha$ divise $n$, c'est-à-dire
+  le nombre de 0 à la fin de l'écriture décimale de $n$. Remarquons simplement que si $p$ n'est pas premier, la propriété de
+  la proposition précédente n'est plus vérifiée.
+\end{remarques}
+
+\begin{theoreme}[nom={Théorème de décomposition en nombres premiers}]
+Soit $n\in\Zs$. Alors, il existe $u\in\ens{-1,1}$, $p_1,\ldots,p_r$ des nombres
+premiers deux à deux distincts et $\alpha_1,\ldots,\alpha_r\in\Ns$ tels que
+\[n=u\prod_{k=1}^r p_k^{\alpha_k}.\]
+De plus, à permutation près des $p_k$, cette décomposition est unique.
+\end{theoreme}
+
+\begin{preuve}
+Pour l'unicité, on suppose deux écritures puis on commence par montrer que  que le signe est le même, et enfin, en fixant un $k_0$ quelconque, si les puissances correspondantes sont distinctes, on divise de façon à les faire disparaitre d'un côté et la laisser strictement positive de l'autre côté et on aboutit à une absurdité car $p_{k_0}$ divise un membre mais pas l'autre.\\
+Pour l'existence, on fait une récurrence sur $n\in \N$. Pour l'hérédité, ou bien $n$ est premier, ou bien il admet un diviseur premier $p$ et on applique l'HR à $n/p$.\\
+On étend enfin aisément à $\Z$.
+\end{preuve}
+
+\begin{remarqueUnique}
+\remarque Soit $n\in\Zs$. Si $u\in\ens{1,-1}$ est le signe de $n$, la décomposition de $n$ en facteurs
+  premiers s'écrit
+  \[n=u \prod_{p\in\mathcal{P}} p^{{\rm Val}_p(n)}\]
+  ce produit ne comportant qu'un nombre fini de termes n'étant pas égal à 1.
+\end{remarqueUnique}
+
+\begin{proposition}
+Soit $n_1,n_2\in\Zs$. Alors
+\begin{itemize}
+\item $n_1|n_2$ si et seulement si
+  \[\forall p\in\mathcal{P} \qsep {\rm Val}_p\p{n_1}\leq {\rm Val}_p\p{n_2}.\]
+\item $n_1=\pm n_2$ si et seulement si
+  \[\forall p\in\mathcal{P}\qsep {\rm Val}_p\p{n_1}= {\rm Val}_p\p{n_2}.\]
+\end{itemize}
+\end{proposition}
+
+\begin{preuve}
+\'Ecrivons $n_1=up_1^{\alpha_1}\ldots p_r^{\alpha_r}$ et $n_2=vp_1^{\beta_1}\ldots p_r^{\beta_r}$ quitte à ce que les $\alpha_i$ ou les $\beta_i$ soient nuls, c'est-à-dire que les $p_i$ sont l'ensemble des diviseurs de $n_1$ \underline{ou} $n_2$.
+
+\begin{itemize}
+\item[$\bullet$] Si $n_1|n_2$, on peut écrire $n_2=an_1$ donc pour tout $i\in \intere{1}{r}$, $p_i^{\alpha_i}$ divise $n_2$ donc $\alpha_i\leq \beta_i$. Pour tous les autres nombres premiers, les deux valuations sont nulles.
+\item[$\bullet$] Si $\forall p\in\mathcal{P} \qsep {\rm Val}_p\p{n_1}\leq {\rm Val}_p\p{n_2}$, on a $\alpha_i\leq \beta_i$ et donc $$n_2=uv\times \underbrace{v \prod_{i=1}^r p_i^{\alpha_i}}_{=n_1}\times \prod_{i=1}^r p_i^{\beta_i-\alpha_i}.$$
+\end{itemize}
+\end{preuve}
+
+\begin{exoUnique}
+\exo Si $n\in\N$ et $p$ est un nombre premier, montrer que
+  \[{\rm Val}_p\p{n!}=\sum_{k=1}^{+\infty} \ent{\frac{n}{p^k}}\]
+  En déduire le nombre de zéros à la fin de l'écriture décimale de $2023!$.
+  \begin{sol}
+  $n$ et $p$ sont fixés donc cette somme existe car est en fait à support fini. Il existe $k_0$ tel que $\forall k\geq k_0$, $\ent{\frac{n}{p^k}}=0$.
+  Définissons $d$ par $d(a,b)=1$ si $a\mid b$, $0$ sinon.
+  On a :
+  $${\rm Val}_p\p{n!}={\rm Val}_p\p{\prod_{k=1}^n k}=\sum_{k=1}^n{\rm Val}_p(k)=\sum_{k=1}^n\sum_{i=1}^{+\infty}d(p^i,k)=\sum_{i=1}^{+\infty}\sum_{k=1}^nd(p^i,k)$$
+  $\sum_{k=1}^nd(p^i,k)$ compte le nombre d'entiers entre $1$ et $n$ qui sont des multiples de $p^i$. Il y a $p^i, 2p^i, \ldots, mp^i$ où $m\in \N$ est tel que $mp^i\leq n <(m+1)p^i$, c'est-à-dire $m=\ent{\frac{n}{p^i}}$ d'où le résultat souhaité.\\
+  En appliquant la formule obtenue, on trouve que la valuation de 5 est 500. Celle de 2 est supérieure, donc il y a 500 zéros à la fin de l'écriture décimale de $2007!$.
+  \end{sol}  
+\end{exoUnique}
+
+
+\begin{proposition}
+Soit $n_1,n_2\in\Zs$. Alors, le $\pgcd$ et le $\ppcm$ de $n_1$ et $n_2$ sont donnés par les relations
+  \begin{eqnarray*}
+  \forall p\in\mathcal{P} \qsep {\rm Val}_p \p{n_1\wedge n_2}&=&\min\p{{\rm Val}_p\p{n_1},{\rm Val}_p\p{n_2}}\\
+  {\rm Val}_p \p{n_1\vee n_2}&=&\max\p{{\rm Val}_p\p{n_1},{\rm Val}_p\p{n_2}}.
+  \end{eqnarray*}
+\end{proposition}
+
+\begin{preuve}
+ Posons $m=\prod_{i=1}^r p_i^{\min(\alpha_i,\beta_i)}$ et on vérifie que cela vérifie bien les propriétés du pgcd en utilisant fortement la propriété que l'on vient de démontrer.
+Pour le ppcm, même chose avec $M=\prod_{i=1}^r p_i^{\max(\alpha_i,\beta_i)}$
+\end{preuve}
+
+\begin{exoUnique}
+\exo Soient $a,b\in\N$ tels que $a\wedge b=1$ et $ab$ est un carré parfait ($ab$ est le carré
+  d'un entier). Montrer que $a$ et $b$ sont des carrés parfaits.
+  \begin{sol}
+  Il suffit d'écrire leur décomposition en nombre premier et celle du produit indexé par l'union des $p$ qui divise l'un ou l'autre. Clé : Ils n'en ont aucun en commun.
+  \end{sol}
+\end{exoUnique}
+
+\subsection{Les grands problèmes d'arithmétique}
+
+\begin{itemize}
+\item {\bf Postulat de \nom{Bertrand}}\\
+  Le postulat de \nom{Bertrand} affirme que si $n\in\Ns$, alors il existe un nombre
+  premier $p$ tel que $n<p\leq 2n$. Cette conjecture fut énoncée par \nom{Joseph
+  Bertrand} en 1845 et démontrée par \nom{Tchebychev} en 1848. Bien que ce résultat
+  soit aujourd'hui un théorème, le nom de postulat lui est resté associé.
+\item {\bf Théorème de la progression arithmétique}\\
+  Ce théorème affirme que si $a$ et $b$ sont premiers entre aux, alors il existe
+  une infinité de nombres premiers $p$ tels que $p\equiv a\ [b]$. On le doit
+  à \nom{Dirichlet} (1805--1859).
+\item {\bf Théorème des nombres premiers}\\
+  Pour tout $n\in\Ns$, on définit $\pi_n$ comme le cardinal de l'ensemble des
+  nombres premiers inférieurs ou égaux à $n$. Le théorème des nombres premiers
+  affirme que
+  \[\pi_n\equi{n}{+\infty}\frac{n}{\ln n}\]
+  Autrement dit, si l'on choisit au hasard un entier entre 1 et $n$, la
+  probabilité pour qu'il soit premier est de l'ordre de $1/(\ln n)$. Remarquons
+  que cette quantité tend vers 0 lorsque $n$ tend vers $+\infty$, c'est-à-dire
+  que les nombres premiers deviennent \og de plus en plus rares \fg lorsqu'on
+  avance parmi les entiers naturels. Ce théorème fut conjecturé de
+  manière indépendante par \nom{Gauss} et \nom{Legendre} vers 1800. Il fut démontré par
+  \nom{Hadamard} et \nom{de la Vallée Poussin} en 1896.
+\item {\bf Grand (ou dernier) théorème de \nom{Fermat}}\\
+  Il s'énonce ainsi~:
+  \medskip
+  \begin{center}
+  \og \parbox[t]{0.5\linewidth}{%
+    Pour tout entier $n\geq 3$, il n'existe pas de triplet $(a,b,c)\in\Ns^3$
+    tel que $a^n+b^n=c^n$.\fg}
+  \end{center}
+  \medskip
+  Contrairement au petit théorème, il s'agit d'un résultat extrêmement
+  difficile, dont \nom{Fermat} n'a pas publié de démonstration. \nom{Fermat} n'a même jamais
+  affirmé publiquement l'avoir démontré. Il a cependant écrit dans une marge
+  du livre {\sc II} des Oeuvres de \nom{Diophante}~: \og J'ai découvert une
+  démonstration merveilleuse, mais je n'ai pas la place de la mettre dans la
+  marge \fg. Le livre et cette annotation ont été publiés après sa mort, par son
+  fils. De nombreux mathématiciens ont tenté de le prouver et sont arrivés
+  à des résultats partiels, notamment
+  \begin{itemize}
+  \item \nom{Fermat} (1601--1665) le démontre pour $n=4$.
+  \item \nom{Euler} (1707--1783) le démontre pour $n=3$.
+  \item \nom{Sophie Germain} (1776--1831) apporte un résultat majeur ouvrant la
+    porte à la démonstration du cas $n=5$, démontré quelques années plus tard
+    par \nom{Legendre} (1752--1833).
+  \item \nom{Kummer} (1810--1893) le prouve pour tout $n\in\intere{3}{99}$.
+  \end{itemize}
+  En 1993, \nom{Andrew Wiles} prouve un résultat sur les courbes elliptiques, résultat qui
+  admet le grand théorème de \nom{Fermat} pour corollaire. La démonstration initiale
+  possède une erreur mais elle sera vite réparée. La conjecture de Fermat
+  devient alors le théorème de \nom{Fermat-Wiles}.
+\item {\bf Nombres premiers jumeaux}\\
+  On dit qu'un couple $(p,q)\in\N$ est un couple de nombres premiers jumeaux
+  lorsque $q=p+2$. Par exemple $(3,5)$, $(5,7)$, $(11,13)$ sont des couples de
+  nombres premiers jumeaux. On conjecture qu'il existe une infinité de nombres premiers jumeaux. Bien que l'on pense que cette conjecture est vraie,
+  elle n'a jamais été démontrée.
+  En janvier 2016, le plus grand couple de nombres premiers
+  jumeaux connu est $2\,996\,863\,034\,895 \times 2^{1\,290\,000}\pm 1$.
+\item {\bf Conjecture de \nom{Goldbach}}\\
+  En 1742, \nom{Goldbach} (1690--1764) et \nom{Euler} (1707--1783) énoncent
+  \medskip
+  \begin{center}
+  \og \parbox[t]{0.7\linewidth}{%
+    Tout entier pair supérieur ou égal à 4 peut s'écrire comme la somme de
+    deux nombres premiers.\fg}
+  \end{center}
+  \medskip
+  On pense que cette conjecture est vraie, mais aucune démonstration n'en a jamais
+  été faite.
+\end{itemize}
+
+% \begin{exos}
+% \exo Supposons que l'on ait démontré le grand théorème de Fermat pour $n=4$ et
+%   pour tout nombre premier $p\geq 3$. Montrer qu'alors le grand théorème de
+%   Fermat est démontré.
+% \end{exos}
+%END_BOOK
+
+\end{document}

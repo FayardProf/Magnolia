@@ -1,0 +1,1173 @@
+\documentclass{magnolia}
+
+\magtex{tex_driver={pdftex},
+        tex_packages={xypic}}
+\magfiche{document_nom={Cours sur les structures algebriques},
+          auteur_nom={François Fayard},
+          auteur_mail={fayard.prof@gmail.com}}
+\magcours{cours_matiere={maths},
+          cours_niveau={mpsi},
+          cours_chapitre_numero={12},
+          cours_chapitre={Groupes}}
+\magmisenpage{}
+\maglieudiff{}
+\magprocess
+
+
+\begin{document}
+
+%BEGIN_BOOK
+\magtoc
+
+\section{Groupe}
+\subsection{Loi de composition interne}
+
+\begin{definition}
+Soit $E$ un ensemble. On appelle loi de \emph{composition interne} toute
+application $\star$ de $E\times E$ dans $E$.
+\[\dspappli{\star}{E\times E}{E}{\p{x,y}}{x\star y}\]
+\end{definition}
+
+\begin{definition}
+La loi $\star$ est dite
+\begin{itemize}
+\item \emph{associative} lorsque
+  \[\forall x,y,z\in E \qsep \p{x\star y}\star z=x\star\p{y\star z}.\]
+\item \emph{commutative} lorsque
+  \[\forall x,y\in E \qsep x\star y=y\star x.\]
+\end{itemize}
+\end{definition}
+
+\begin{exemples}
+\exemple L'addition et la multiplication sont des lois de composition interne sur $\Z$,
+  associatives et commutatives.
+\exemple L'exponentiation est une loi de composition interne sur $\N$ qui n'est
+  ni associative, ni commutative.
+\exemple Si $X$ est un ensemble, la composition est une loi de composition interne
+  associative sur $E\defeq\mathcal{F}(X,X)$. Elle n'est pas commutative dès que $X$ possède
+  au moins deux éléments.
+\exemple Le produit matriciel est une loi de composition interne associative sur
+  $\mat{n}{\C}$. Elle est n'est pas commutative dès que $n\geq 2$.
+\end{exemples}
+
+\begin{remarques}
+\remarque Soit $\star$ une loi \emph{associative}.
+  Quels que soient $x, y, z, t\in G$, les 5 expressions
+  suivantes sont égales~:
+  \[(x\star y)\star(z\star t)\qsep ((x\star y)\star z)\star t,\]
+  \[(x\star(y\star z))\star t\qsep
+    x\star((y\star z)\star t)\qsep
+    x\star(y\star(z\star t)).\]
+  On admettra plus généralement que
+  toute expression de $n$ éléments construite à l'aide de la loi $\star$ ne dépend
+  pas de l'emplacement des parenthèses. C'est pourquoi on se permettra de les omettre.
+\remarque On dit que deux éléments $x,y\in E$ \emph{commutent} lorsque $x\star y=y\star x$.
+\end{remarques}
+\begin{sol}
+$\dspappli{\star}{\N\times\N}{\N}{(a,b)}{a^b}$ est une lci. Elle n'est pas associative :
+$$(0\star 1)\star 0= 0^1 \star 0=0\star 0=0^0=1$$
+$$0\star (1\star 0)=0\star 1^0=0\star 1=0^1=0$$
+\end{sol}
+
+\begin{definition}
+Une partie $A$ de $E$ est dite \emph{stable} par $\star$ lorsque
+\[\forall x,y\in A \qsep x\star y\in A.\]
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque Si $\star$ est une loi de composition interne sur $E$ et
+  $A\in\parties{E}$ est stable par $\star$, alors la loi
+  \[\dspappli{\star_A}{A\times A}{A}{\p{x,y}}{x\star y}\]
+  est une loi de composition interne sur $A$. On continuera à la noter
+  $\star$.
+\end{remarqueUnique}
+\begin{sol}
+Elle hérite des propriétés (associativité, commutativité) de la loi ambiante.
+\end{sol}
+
+\begin{definition}
+On dit que $\star$ admet un \emph{élément neutre} $e\in E$ lorsque
+\[\forall x\in E \qsep x\star e=x \et e \star x=x.\]
+Si tel est le cas, il est unique et on l'appelle \emph{élément neutre} de $\star$.
+Lorsque la loi est notée additivement, l'élément neutre est noté $0$.
+\end{definition}
+
+\begin{preuve}
+Preuve de l'unicité : $e_2=e_1\star e_2=e_1$.
+\end{preuve}
+
+\begin{exoUnique}
+\exo Parmi les lois de composition interne citées plus haut, lesquelles
+  admettent un élément neutre~?
+  \begin{sol}
+  $0$ est l'élément neutre de $(\C,+)$, $1$ de $(\C,\times)$.\\
+  $0$ est l'élément neutre de $(\N,\wedge)$. $(\Z,\wedge)$, n'admet pas d'élément neutre. Sinon, $-1\wedge e=-1$. Pour la composition, c'est l'identité.
+  \end{sol}
+\end{exoUnique}
+
+\medskip
+Dans toute la suite de ce cours, on supposera, sauf mention explicite
+du contraire, que les lois sont associatives et admettent un élément neutre.
+\medskip
+
+\begin{definition}
+Soit $x\in E$. On définit par récurrence $x^n$ pour tout $n\in\N$ en posant~:
+\begin{itemize}
+\item $x^0\defeq e$
+\item $\forall n\in\N \qsep x^{n+1}\defeq x^n\star x.$
+\end{itemize}
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque Lorsque la loi est notée additivement, on n'utilise pas la notation $x^n$ mais plutôt la notation $n\cdot x$. On a donc~:
+\begin{itemize}
+\item $0\cdot x=0$
+\item $\forall n\in\N \qsep \p{n+1}\cdot x=n\cdot x+x.$
+\end{itemize}
+\end{remarqueUnique}
+
+\begin{proposition}
+\begin{itemize}
+\item Soit $x\in E$. Alors
+\begin{eqnarray*}
+\forall m,n\in\N, & & x^{m+n}=x^m\star x^n\\
+                 & & \p{x^m}^n=x^{mn}.
+\end{eqnarray*}
+\item Soit $x,y\in E$ tels que $x\star y=y\star x$. Alors, pour tout $n,m\in\N$, $x^n$ et $y^m$ commutent. De plus
+\[\forall n\in\N \qsep \p{x\star y}^n=x^n \star y^n.\]
+\end{itemize}
+\end{proposition}
+
+\begin{preuve}
+Pour les deux premiers points, on fixe $m$ et on "récurre" sur $n\in \N$.
+Pour l'autre récurrence + commutativité.
+\end{preuve}
+
+\begin{remarqueUnique}
+\remarque Si la loi est notée additivement, on a donc~:
+  \begin{eqnarray*}
+  \forall x\in E\qsep \forall m,n\in\N, & & (m+n)\cdot x=m\cdot x+n\cdot x\\
+                                        & & n\cdot(m\cdot x)=(nm)\cdot x\\
+  \forall x,y\in E\qsep \forall n\in\N, & & n\cdot(x+y)=n\cdot x+n\cdot y.
+  \end{eqnarray*}
+% \remarque Pour calculer $x^8$, on peut commencer par calculer $x\star x$, puis
+%   \og multiplier\fg  6 fois ce résultat par $x$. Cette méthode nécessite 7
+%   multiplications. On peut cependant faire plus rapide et se limiter à 3
+%   multiplications~: il suffit de calculer $x^2=x\star x$, de multiplier le
+%   résultat obtenu par lui-même pour obtenir $x^4$ puis de répéter l'opération pour obtenir $x^8$. Cette méthode se généralise facilement au calcul de $x^n$ lorsque $n$ est une puissance de 2. Mais on peut aussi calculer $x^n$ pour tout $n\in\N$ grâce à
+%   l'algorithme récursif suivant.
+%   \begin{itemize}
+%   \item Si $n=0$, alors la réponse est $e$.
+%   \item Sinon, deux cas se présentent.
+%   \begin{itemize}
+%   \item Si $n$ est pair, alors il existe $k\in\N$ tel que $n=2k$. On calcule
+%     alors de manière récursive $x^k$, résultat qu'il suffit de multiplier par
+%     lui-même pour obtenir $x^n$.
+%   \item Si $n$ est impair, alors il existe $k\in\N$ tel que $n=2k+1$. On calcule
+%     alors de manière récursive $x^k$, résultat qu'il suffit de multiplier par
+%     lui-même, puis par $x$ pour obtenir $x^n$.
+%   \end{itemize}
+%   \end{itemize}
+%   On peut montrer que cet algorithme, appelé \textit{méthode d'exponentiation rapide},
+%   nécessite asymptotiquement ${\rm O}(\ln n)$ multiplications, contrairement à
+%   l'algorithme naïf qui s'effectue asymptotiquement en ${\rm O}(n)$ multiplications. Voici une implémentation de cet algorithme en Python dans le cas où $x$ est un nombre et $\star$ est la multiplication usuelle.
+% \begin{pythoncode}
+% def puissance(x, n):
+%     if n == 0:
+%         return 1
+%     else:
+%         y = puissance(x, n // 2)
+%         if n % 2 == 0:
+%             return y * y
+%         else:
+%             return y * y * x
+% \end{pythoncode}
+\end{remarqueUnique}
+
+%% Exponentiation rapide
+%% Multiplication naïve : pour calculer x^8 il faut 7 multiplications
+%% Exponentiation rapide : pour calculer x^8 il faut 3 multiplications
+%% Plus généralement, pour calculer x^(2^a)
+%% Méthode naïve : 2^a - 1 multiplications
+%% Exponentiation rapide : a multiplications
+%% Donc si n est une puissance de 2, il faut log_2 (n) multiplications
+%% Ce procédé marche aussi pour les exposants qui ne sont pas des puissances
+%% de 2. Pour calculer x^9, on peut utiliser 4 multiplications.
+%%
+%% > puiss:=proc(x,n::nonnegint)
+%%     local q,r,p;
+%%
+%%     if n=0 then
+%%       return(1);
+%%     else
+%%       q:=iquo(n,2);
+%%       r:=irem(n,2);
+%%       p:=puiss(x,q);
+%%       p:=p*p;
+%%       if r=0 then
+%%         return(p);
+%%       else
+%%         return(x*p);
+%%       end if;
+%%     end if;
+%%   end proc;
+%%
+%% On peut montrer que l'algorithme effectue asymptotiquement log_2 n
+%% multiplications.
+
+\begin{definition}
+Soit $x\in E$. On dit que $x$ est \emph{symétrisable} pour la loi $\star$ lorsqu'il
+existe $y\in E$ tel que
+\[x\star y=y\star x=e.\]
+Si tel est le cas, $y$ est unique et est appelé \emph{symétrique} de $x$. On l'appelle
+\emph{inverse} de $x$ et on le note $x^{-1}$ lorsque la loi est notée multiplicativement.
+On l'appelle \emph{opposé} de $x$ et on le note $-x$ lorsque la loi est notée
+additivement.
+\end{definition}
+
+\begin{preuve}
+On suppose qu'il existe $y_1$ et $y_2$ tels que $x\star y_1=y_1\star x=e=x\star y_2=y_2\star x$.
+On a d'une part $(y_1\star x)\star y_2=e\star y_2=y_2$ et d'autre part $(y_1\star x)\star y_2=y_1\star (x\star y_2)=y_1\star e=y_1$ donc $y_1=y_2$.
+\end{preuve}
+
+\begin{sol}
+Remarques : Si $f \in F(X,X)$ muni de la loi de composition, f est inversible si et seulement si elle est bijective. Si . n'est pas commutative, il faut vérifier les deux cotés. Par exemple $\dspappli{f}{\N}{\N}{n}{n+1}$ est inversible à gauche mais pas à droite.
+\end{sol}
+
+%% Exemples :
+%% 1) L'élément neutre est toujours inversible et est égal à son propre inverse
+%% 2) Si f \in F(X,X) muni de la loi de composition, f est inversible si
+%%    et seulement si elle est bijective.
+%%
+%% Remarques:
+%% 2) Si . n'est pas commutative, il faut vérifier les deux cotés
+%%    Pas exemple f : N -> N , n -> n+1 est in versible à droite mais pas à
+%%    gauche.
+%% 3) x y^{-1} ne doit pas être noté x/y car on ne sait pas si cela signifie
+%%    x y{-1} ou y^{-1} x.
+
+\begin{proposition}
+\begin{itemize}
+\item Si $x$ est symétrisable, $x^{-1}$ l'est et
+  \[\p{x^{-1}}^{-1}=x.\]
+\item Si $x$ et $y$ sont symétrisables, $x\star y$ l'est et
+  \[\p{x\star y}^{-1}=y^{-1}\star x^{-1}.\]  
+\end{itemize}
+\end{proposition}
+
+\begin{definition}
+Soit $x\in E$. Si $x$ est symétrisable, on étend la définition de $x^n$ en posant~:
+\[\forall n\in\Z \qsep x^n\defeq
+  \begin{cases}
+  x^n & \text{si $n\geq 0$}\\
+  \p{x^{-n}}^{-1} & \text{si $n< 0$}.
+  \end{cases}\]
+\end{definition}
+
+\begin{proposition}
+\begin{itemize}
+\item Soit $x\in E$. Si $x$ est symétrisable
+\begin{eqnarray*}
+\forall m,n\in\Z, & & x^{m+n}=x^m\star x^n\\
+                 & & \p{x^m}^n=x^{mn}.
+\end{eqnarray*}
+\item Si $x,y\in E$ sont symétrisables et commutent, alors
+\[\forall n\in\Z \qsep \p{x\star y}^n=x^n \star y^n.\]
+\end{itemize}
+\end{proposition}
+
+
+\begin{preuve}
+ 1) On commence par remarquer que pour tout $n\in\Z$, $x^n$ et $x^{-n}$ sont inverses l'un de l'autre. Ensuite on fait une disjonction de cas :
+\begin{itemize}
+\item[$\bullet$] Si $m\geq 0$ et $n\geq 0$ : déjà vu
+\item[$\bullet$] Si $m\geq 0$ et $n\leq 0$ :
+\begin{itemize}
+\item Si $m+n \geq 0$,
+         $x^{m+n} x^{-n} = x^m$
+\item Si $m+n \leq 0$,
+         $x^{-(m+n)} x^m = x^{-n}$
+\end{itemize}
+\item[$\bullet$] Si $m\leq 0$ et $n\geq 0$ :
+\begin{itemize}
+\item Si $m+n \geq  0$,
+         $x^{-m}x^{m+n} = x^n$
+\item Si $m+n \leq 0$,
+         $x^n x^{-{m+n}} = x^{-m}$
+\end{itemize}
+\item[$\bullet$] Si $m\leq 0$ et $n\leq 0$,
+       $x^{-(n+m)}=x^{-n} x^{-m}$
+\end{itemize}
+ 2) On commence par montrer que $(x^{-1})^n=(x^n)^{-1}$ pour tout $n\in\N$.
+\begin{itemize}
+\item[$\bullet$] Si $m$ et $n$ sont positifs, OK.
+\item[$\bullet$] Si $m\leq 0$ et $n\geq 0$,
+      $$(x^m)^n = ((x^{-m})^{-1})^n= ((x^{-1})^{-m})^n = ...$$
+\item[$\bullet$] Si $m\geq 0$ et $n\leq 0$,
+      $$(x^m)^n = ((x^m)^{-n})^{-1}= (x^{-nm})^{-1}= x^{nm} .$$
+\item[$\bullet$] Si $m\leq 0$ et $n\leq 0$,
+      $$(x^m)^n = ((x^m)^{-n})^{-1}= ((x^m)^{-1})^{-n}= (x^{-m})^{-n}= x^{mn}.$$
+\end{itemize}
+
+    \end{preuve}
+
+%% Preuve
+%% 1) - On commence par remarquer que pour tout n\in\Z x^n et x^{-n} sont
+%%      inverses l'un de l'autre.
+%%   - Ensuite on fait le cas :
+%%     - Si m>=0 et n>=0 : déjà vu
+%%     - Si m>=0 et n<=0
+%%       - Si m+n >=0
+%%         x^(m+n) x^{-n} = x^m
+%%       - Si m+n <=0
+%%         x^{-(m+n)} x^m = x^{-n}
+%%     - Si m<=0 et n>=0
+%%       - Si m+n >= 0
+%%         x^{-m}x^{m+n} = x^n
+%%       - Si m+n <=0
+%%         x^n x^{-{m+n}} = x^{-m}
+%%     - Si m<=0 et n<=0
+%%       x^{-(n+m)}=x^{-n} x^{-m}
+%% 2) - On commence par montrer que (x^(-1))^n=(x^n)^(-1) pour tout n\in\N
+%%    - Si m et n sont positifs, OK
+%%    - Si m<=0 et n>=0
+%%      (x^m)^n = ((x^(-m))^(-1))^n
+%%              = ((x^(-1))^(-m))^n
+%%              = ...
+%%    - Si m>=0 et n<=0
+%%      (x^m)^n = ((x^m)^(-n))^(-1)
+%%              = (x^{-nm})^{-1}
+%%              = x^{nm} 
+%%    - Si m<=0 et n<=0
+%%      (x^m)^n = ((x^m)^{-n})^{-1}
+%%              = ((x^m)^{-1})^{-n}
+%%              = (x^{-m})^{-n}
+%%              = x^{mn}
+%%    - par récurrence sur n, puis par inverse (échanger x et y)
+\begin{remarqueUnique}
+\remarque Lorsque la loi est notée additivement, on a donc~:
+  \begin{eqnarray*}
+  \forall x\in E\qsep \forall m,n\in\Z, & & (m+n)\cdot x=m\cdot x+n\cdot x\\
+                                        & & n\cdot(m\cdot x)=(nm)\cdot x\\
+  \forall x,y\in E\qsep \forall n\in\Z, & & n\cdot(x+y)=n\cdot x+n\cdot y.
+  \end{eqnarray*}
+\end{remarqueUnique}
+
+
+\begin{definition}
+On dit qu'un élément $x$ de $E$ est \emph{régulier} lorsque
+\begin{eqnarray*}
+\forall y,z\in E \qsep x\star y=x\star z &\implique& y=z\\
+                       y\star x=z\star x &\implique& y=z.
+\end{eqnarray*}
+\end{definition}
+
+%% Exemples
+%% 1) (\R,+) : tous les éléments sont réguliers.
+%% 2) (\R,x) : tous les éléments non nuls sont réguliers.
+%% 3) F(R,R),o : seules les bijections sont régulières.
+%%    En effet, si f n'est pas injective, f o g_1 = f o g_2 mais g_1 \neq g_2
+%ù              si f n'est pas surjective, g_1 o f = g_2 o f mais g_1 \neq g_2
+
+% \begin{remarqueUnique}
+% \remarque Si l'élément $x$ est régulier, alors, pour tout $y,z\in E$
+% \[x\star y=x\star z \ssi y=z.\]
+% De même
+% \[y\star x=z\star x \ssi y=z.\]
+% \end{remarqueUnique}
+
+\begin{proposition}
+Les éléments symétrisables sont réguliers.  
+\end{proposition}
+
+% \begin{remarqueUnique}
+% \remarque Si l'élément $x$ est régulier, alors, pour tout $y,z\in E$
+% \[x\star y=x\star z \ssi y=z.\]
+% De même
+% \[y\star x=z\star x \ssi y=z.\]
+% \end{remarqueUnique}
+
+\begin{sol} La réciproque est fausse. Par exemple dans $(\Z,\times)$, $1$ et $-1$ sont les seuls inversibles, les éléments réguliers sont les éléments non nuls.
+\end{sol}
+%% Remarque :
+%% 1) La réciproque est fausse. Par exemples Z,x
+%%    1 et -1 sont les seuls inversibles
+%%    les éléments réguliers sont les éléments non nuls.
+
+
+\subsection{Groupe}
+
+\begin{definition}
+Soit $G$ un ensemble muni d'une loi de composition interne $\star$. On  dit que
+$\p{G,\star}$ est un \emph{groupe} lorsque
+\begin{itemize}
+\item $\star$ est associative
+\item $\star$ admet un élément neutre
+\item tout élément de $G$ est symétrisable.
+\end{itemize}
+Le groupe $\p{G,\star}$ est dit commutatif (ou \emph{abélien}) lorsque la loi $\star$
+est commutative.
+\end{definition}
+
+\begin{remarques}
+\remarque $(\C,+)$ et $(\Cs,\times)$ sont des groupes commutatifs.
+\remarque Si $(G,\star)$ est un groupe et $a, b\in G$, alors
+  \[\forall x\in G\qsep a\star x = b \quad\ssi\quad x=a^{-1}\star b.\]
+  De même
+  \[\forall x\in G\qsep x \star a = b \quad\ssi\quad x=b\star a^{-1}.\]
+  % On peut ainsi résoudre facilement de nombreuses équations dans $G$.
+% \remarque Si $(G,\star)$ est un groupe et $g\in G$, les applications
+%   \[\dspappli{\tau_g}{G}{G}{x}{g\star x} \quad\et\quad
+%     \dspappli{\sigma_g}{G}{G}{x}{x\star g}\]
+%   sont des bijections de $G$ appelées respectivement translation à gauche
+%   et à droite. De plus $\tau_g^{-1}=\tau_{g^{-1}}$ et $\sigma_g^{-1}=\sigma_{g^{-1}}$.
+%   En particulier, la résolution d'équation du type $a\star x\star b = y$ se fait
+%   simplement dans un groupe. En effet, si $a,b,y\in G$, on a
+%   \begin{eqnarray*}
+%   \forall x\in G\qsep
+%   a\star x\star b = y
+%   &\ssi& x\star b  = a^{-1} \star y\\
+%   &\ssi& x  = a^{-1} \star y \star b^{-1}.
+%   \end{eqnarray*}
+%  \begin{sol}
+%  On définit $\dspappli{\phi_g}{G}{G}{g}{x^{-1}\star g}$ et on montre que $\tau_g\circ\phi_g=Id=\phi_g\circ\tau_g$ pour voir qu'elles sont bijectives.
+%  \end{sol}
+\remarque Si $(G,\star)$ est un groupe fini, on appelle table de $(G,\star)$ le
+  tableau à deux entrées dont les lignes et les colonnes sont 
+  indexées par les éléments de $G$ et qui contient les produits $x\star y$.
+  Puisque $(G,\star)$ est un groupe, chaque
+  ligne et chaque colonne contient une et une seule fois chaque élément de
+  $G$.
+\end{remarques}
+
+\begin{exoUnique}
+\exo Montrer qu'il n'existe qu'une seule table de groupe à 3 éléments.
+\end{exoUnique}
+
+%% (Niels Abel : 1802-1829, mathématicien Norvégien)
+%%
+%% Exemples :
+%% 1) (Z,+) (Q,+) (R,+) et (C,+) sont des groupes
+%% 2) (Q^*,x) (R^*,x) (C^*,x) sont des groupes
+%%
+%% Remarques :
+%% 1) Dans un groupe, si a\in G, les opérations
+%%    g -> g a et g -> a g sont des bijections de G. On les appelle translation
+%%    à droite et à gauche.
+%%    Application : - détermination du groupe à 3 éléments e,a,b
+%%                    par sa table.
+%%                  - On peut démontrer qu'il y a deux tables pour les groupes
+%%                    à 4 éléments
+
+\begin{definition}
+Soit $\p{G,\star}$ un groupe et $H$ une partie de $G$. On dit que $H$ est un
+\emph{sous-groupe} de $(G,\star)$ lorsque
+\begin{itemize}
+\item $e\in H$
+\item $\forall x,y\in H \qsep x\star y\in H$
+\item $\forall x\in H \qsep x^{-1}\in H.$
+\end{itemize}
+Si tel est le cas, alors $\p{H,\star}$ est un groupe.
+\end{definition}
+
+\begin{preuve}
+Preuve du fait qu'un sous-groupe est un groupe.
+\begin{itemize}
+\item[$\bullet$]$\star$ est bien une lci sur $H$ d'après (ii).
+\item[$\bullet$]$\star$ est associative (hérité de $G$)
+\item[$\bullet$]$\star$ admet un élément neutre d'après (i) et hérité de $G$.
+\item[$\bullet$] Tout élément est symétrisable d'après (iii).
+\end{itemize}
+\end{preuve}
+
+\begin{remarques}
+\remarque Si $H$ est un sous-groupe de $G$, alors~:
+  $\forall x\in H\qsep \forall n\in\Z \qsep x^n\in H.$
+% \remarque Afin de montrer les deux derniers points, il suffit de montrer que~: $\forall x,y\in H\qsep x\star y^{-1}\in H$.
+\remarque En pratique, pour montrer que $(H,\star)$ est un groupe, on le fera
+  presque toujours apparaître comme sous-groupe d'un groupe connu.
+  % En pratique, pour montrer que $H$ est un sous-groupe de $G$, on vérifiera le plus souvent les 3 points suivants.
+  % \begin{itemize}
+  % \item $H\subset G$
+  % \item $e\in H$
+  % \item $\forall x,y\in H\qsep x\star y^{-1}\in H$.
+  % \end{itemize}
+% \remarque On peut montrer que si $H$ une partie du groupe $(G,\star)$, stable par $\star$, et telle que $(H,\star)$ est un groupe, alors $H$ est un sous-groupe de $G$.
+\end{remarques}
+
+\begin{exemples}
+\exemple Si $(G,\star)$ est un groupe, $G$ et $\ens{e}$ sont des sous-groupes
+  de $G$. Le sous-groupe $\ens{e}$ est appelé groupe \emph{trivial}.
+\exemple $\R$ et $\Z$ sont des sous-groupes de $(\C,+)$.
+  De même, $\Rs$ et $\U$ sont des sous-groupes de $(\Cs,\times)$.
+\end{exemples}
+
+%% Exemples :
+%% 1) Z est un sous-groupe de R pour l'addition
+%% 2) nZ est un sous-groupe de Z
+%% 4) L'ensemble des isométries du plan est un sous-groupe du groupe des
+%%    bijections du plan. (isométrie = bijection conservant les distances)
+%% 
+%% Remarques :
+%% 1) En pratique, pour montrer que (E,x) est un groupe, on montrera très
+%%    souvent que c'est un sous-groupe d'un groupe connu.
+%% 2) Il suffit de vérifier que x \in H et que x y^{-1} \in H
+
+\begin{proposition}
+Si $n\in\Ns$, $\p{\U[n],\times}$ est un groupe dont l'élément neutre est 1.
+\end{proposition}
+
+\begin{proposition}
+Soit $E$ un ensemble. On note $\sigma(E)$ l'ensemble des bijections de $E$
+dans $E$. Alors $\p{\sigma(E),\circ}$ est un groupe, appelé groupe des
+\emph{permutations} de $E$, dont l'élément neutre est $\id_E$.
+\end{proposition}
+
+\begin{exoUnique}
+\exo Montrer que l'ensemble des bijections strictement croissantes de $\R$ dans $\R$ est
+  un sous-groupe de $(\sigma(\R),\circ)$.
+\end{exoUnique}
+
+\begin{proposition}
+L'intersection d'une famille de sous-groupes est un sous-groupe.
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque Contrairement à l'intersection, l'union de deux sous-groupes n'est
+  en général pas un sous-groupe.
+\end{remarqueUnique}
+
+%% Remarque :
+%% 1) C'est faux pour l'union. Par exemple 2Z et 3Z sont des sous-groupes de Z
+%%    ET 2Z u 3Z n'en n'est pas un
+
+\begin{definition}
+Soit $\p{G,\star}$ un groupe et $A$ une partie de $G$. Alors, au sens de l'inclusion, il existe un plus
+petit sous-groupe de $G$ contenant $A$; on l'appelle \emph{groupe engendré} par $A$ et
+on le note ${\rm Gr}(A)$.
+\end{definition}
+
+\begin{preuve}
+On considère $(H_i)_{i\in I}$ la famille des sous-groupes de $G$ qui contiennent $A$. On pose $\displaystyle H=\bigcap_{i\in I} H_i$. On montre ensuite successivement que $A\subset H$, $H$ est un sg de $(G,\star)$, si $K$ est un sous-groupe de $G$ contenant $A$, $H\subset K$.
+\end{preuve}
+
+\begin{remarqueUnique}
+\remarque Si $(G,\star)$ est un groupe et $x$ est un élément de $G$, le
+  groupe engendré par $\ens{x}$, appelé abusivement groupe engendré par $x$,
+  est $\ensim{x^k}{k\in\Z}$.
+\end{remarqueUnique}
+\begin{sol}
+On pose $B=\enstq{x^k}{k\in\Z}$. On montre que $B$ est un sous-groupe de $G$. Ensuite, si $H$ est un sg de $G$ contenant $A$, il contient $x$ donc tous les $x^k, k\in \Z$ par propriété des groupes. Donc il contient $B$. Ainsi, $B$ est bien le plus petit.
+\end{sol}
+
+\begin{exoUnique}
+\exo Soit $n\in\Ns$. On se place dans le groupe $(\U[n],\times)$ et on pose $\omega\defeq\e^{\ii\frac{2\pi}{n}}$. Montrer que si $k\in\Z$, le groupe engendré par
+  $\omega^k$ est égal à $\U[n]$ si et seulement si $k$ et $n$ sont premiers
+  entre eux.
+\end{exoUnique}
+
+\begin{sol}
+\begin{itemize}
+$\U[n]=\set{\omega^r, r\in \Z}=\set{\omega^r, r\in \intere{0}{n-1}}$
+\item[$\bullet$] Soit $k\in\Z$. On suppose que $\U[n]={\rm Gr}\p{\set{\omega^k}}=\set{\p{\omega^k}^l, l\in\Z}$. En particulier, comme $\omega \in \U[n]$, il existe $l\in\Z$ tel que $\omega^{kl}=\omega$, i.e. $\e^{i\frac{2\pi}{n}kl}=\e^{i\frac{2\pi}{n}}$ ce qui conduit à $kl\equiv 1\quad [n]$ d'où $kl+(-u)n=1$ avec $u\in \Z$ ce qui signifie d'après le théorème de Bézout que $k\wedge n=1$.
+\item[$\bullet$] Réciproquement, on suppose que $k\wedge n=1$. Montrons que $\omega \in {\rm Gr}\p{\set{\omega^k}}$. Il existe $u,v \in \Z$ tel que $uk+vn=1$. Alors $$\p{\omega^k}^v=\omega^{1-vn}=\omega \p{\omega^n}^{-v}=\omega.$$ Donc $\omega \in {\rm Gr}\p{\set{\omega^k}}$. Par propriété des groupes, on en déduit que $\U[n]\subset {\rm Gr}\p{\set{\omega^k}}$. On a aussi l'autre inclusion d'où le résultat.
+\end{itemize}
+\end{sol}
+
+\begin{definition}
+Soit $\p{G_1,\star_1}$ et $\p{G_2,\star_2}$ deux groupes. On dit qu'une
+application $\phi$ de $G_1$ dans $G_2$ est un \emph{morphisme de groupe} lorsque
+\[\forall x,y\in G_1 \qsep \phi\p{x\star_1 y}=\phi(x)\star_2\phi(y).\]
+Plus précisément, on dit que $\phi$ est un
+\begin{itemize}
+\item \emph{endomorphisme} lorsque $(G_1,\star_1)=(G_2,\star_2)$.
+\item \emph{isomorphisme} lorsque $\phi$ est bijective
+\item \emph{automorphisme} lorsque $\phi$ est un endomorphisme et un isomorphisme.
+\end{itemize}
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque L'application $\phi$ de $\R$ dans $\U$ qui à $\theta$ associe
+  $\e^{\ii\theta}$ est un morphisme du groupe $(\R,+)$ dans le groupe $(\U,\times)$.
+  L'application $\exp$ de $\R$ dans $\RPs$ est un isomorphisme du
+  groupe $(\R,+)$ dans le groupe $(\RPs,\times)$. 
+\end{remarqueUnique}
+%% Exemples :
+%% 1) R -> RPs, x -> exp(x)
+%% 2) RPs -> R, x -> ln(x)
+%% 3) R -> U, theta -> exp(i theta)
+
+
+\begin{proposition}
+Soit $\phi$ un morphisme du groupe de $\p{G_1,\star_1}$ dans $\p{G_2,\star_2}$.
+Alors
+\begin{eqnarray*}
+& & \phi\p{e_1}=e_2\\
+\forall x\in G_1, & & \phi\p{x^{-1}}=\cro{\phi(x)}^{-1} \\
+\forall x\in G_1 \qsep \forall n\in\Z, & & \phi\p{x^n}=\cro{\phi(x)}^n.
+\end{eqnarray*}
+\end{proposition}
+
+\begin{preuve}
+Ne pas oublier d'obtenir le deuxième point en montrant inverse à gauche \underline{et} à droite.
+\end{preuve}
+
+\begin{remarqueUnique}
+\remarque Si $\phi$ est un morphisme de groupe et que les lois sont notées additivement, alors
+  \[\forall x\in G_1\qsep \forall n\in\Z\qsep \phi(n\cdot x)=n\cdot\phi(x).\]
+\end{remarqueUnique}
+
+\begin{exos}
+\exo Déterminer les endomorphismes, puis les automorphismes de $(\Z,+)$.
+\begin{sol}
+On montre par analyse-synthèse que ce sont les $\phi$ qui vérifient $\phi(k)=\phi(1)k, \forall k \in \Z$. Pour les automorphismes, cela impose $\phi(1)=\pm 1$. Pour montrer que ceux-ci fonctionnent, on peut montrer qu'ils sont des involutions.
+\end{sol}
+\exo Quels sont les morphismes de $(\Q,+)$ dans $(\Z,+)$~?
+\begin{sol}
+On montre que le seul possible est le morphisme nul, essentiellement grâce à $\phi(kr)=k\phi(r)$ pour $k\in\Z$.
+\end{sol}
+\end{exos}
+
+\begin{proposition}
+Soit $\phi$ un morphisme de $\p{G_1,\star_1}$ dans $\p{G_2,\star_2}$. Alors
+\begin{itemize}
+\item l'image réciproque d'un sous-groupe de $G_2$ est un sous-groupe de $G_1$.
+\item l'image directe d'un sous-groupe de $G_1$ est un sous-groupe de $G_2$.
+\end{itemize}
+\end{proposition}
+
+\begin{definition}
+Soit $\phi$ un morphisme de $\p{G_1,\star_1}$ dans $\p{G_2,\star_2}$. On
+appelle \emph{noyau} de $\phi$ et on note $\ker\phi$ l'ensemble
+\[\ker\phi\defeq\enstq{x\in G_1}{\phi(x)=e_2}.\]
+C'est un sous-groupe de $G_1$.
+\end{definition}
+
+\begin{proposition}
+Un morphisme $\phi$ de $\p{G_1,\star_1}$ dans $\p{G_2,\star_2}$ est injectif
+si et seulement si
+\[\ker\phi=\ens{e_1}.\]
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque Pour montrer l'injectivité d'un morphisme, montrer que $\ker\phi=\ens{e_1}$ doit
+  devenir un réflexe. Pour cela, il est naturel de procéder par double
+  inclusion. Mais comme l'inclusion $\ens{e_1}\subset\ker\phi$
+  est toujours vraie, puisque $\phi(e_1)=e_2$, il est essentiel de se concentrer sur
+  l'inclusion $\ker\phi\subset\ens{e_1}$.
+\end{remarqueUnique}
+
+
+\begin{exoUnique}
+\exo Soit $(G,\star)$ un groupe et $\phi$ l'application de $G$ dans
+  $\sigma(G)$ définie par
+  \[\dspappli{\phi}{G}{\sigma(G)}{x}{\dspappli{\phi(x)}{G}{G}{g}{x\star g}}\]
+  Montrer que $\phi$ est bien définie et que c'est un morphisme injectif de
+  groupe. En déduire que $(G,\star)$ est isomorphe à un sous-groupe du groupe
+  de ses permutations.
+\end{exoUnique}
+
+\begin{proposition}
+$\quad$
+\begin{itemize}
+\item La composée de deux morphismes de groupes est un morphisme de groupe.
+\item La bijection réciproque d'un isomorphisme de groupe est un isomorphisme de
+  groupe.
+\end{itemize}
+\end{proposition}
+
+\begin{proposition}
+Si $\p{G,\star}$ est un groupe, on note ${\rm Aut}(G)$ l'ensemble des
+automorphismes de $G$. $\p{{\rm Aut}(G),\circ}$ est un groupe.
+\end{proposition}
+
+\begin{definition}
+Soit $\p{G_1,\star_1}$ et $\p{G_2,\star_2}$ deux groupes. On définit la loi $\star$
+sur $G_1\times G_2$ par
+\[\forall \p{x_1,x_2},\p{y_1,y_2}\in G_1\times G_2 \qsep
+  \p{x_1,x_2}\star\p{y_1,y_2}=\p{x_1\star_1 y_1,x_2\star_2 y_2}.\]
+Alors $\p{G_1\times G_2,\star}$ est un groupe d'élément neutre $\p{e_1,e_2}$ et
+\[\forall \p{x_1,x_2}\in G_1\times G_2 \qsep
+  \p{x_1,x_2}^{-1}=\p{x_1^{-1},x_2^{-1}}.\]
+\end{definition}
+
+\begin{exoUnique}
+\exo Montrer que $(\Cs,\times)$ est isomorphe à $(\RPs\times\U,\times)$.
+\end{exoUnique}
+\begin{sol}
+On définit $\dspappli{\phi}{\RPs\times\U}{\Cs}{(r,u)}{ru}$. On montre que $\phi$ est bien défini, un morphisme, puis injectif, puis surjectif.
+\end{sol}
+
+\subsection{Ordre d'un élément}
+
+\begin{proposition}
+Pour tout $n\in\N$, on pose
+\[n\Z\defeq\ensim{kn}{k\in\Z}.\]
+C'est un sous-groupe de $(\Z,+)$.
+\end{proposition}
+
+\begin{proposition}
+Une partie $H$ de $\Z$ est un sous-groupe de $(\Z,+)$ si et seulement si il
+existe $n\in\N$ tel que $H=n\Z$. De plus, si tel est le cas, l'entier $n$ est unique.
+\end{proposition}
+
+\begin{preuve}
+On raisonne par analyse-synthèse.
+Dans l'analyse, après avoir évacué le cas nul, on s'intéresse à $A=\Ns\cap G$ qui étant non vide admet un ppe qu'on note $n$. On montre qu'alors $G=n\Z$ en utilisant la DE. La synthèse est triviale.\\
+
+L'unicité vient du fait que si $n_1\Z=n_2\Z$ alors $n_1\in n_2\Z$ donc $n_2\mid n_1$. De même, $n_1\mid n_2$.
+\end{preuve}
+
+\begin{remarqueUnique}
+\remarque Si $H$ est un sous-groupe de $(\Z,+)$ non réduit à $\ens{0}$, alors $H=n\Z$
+  où $n\in\Ns$ est le plus petit élment strictement positif de $H$.
+\end{remarqueUnique}
+
+\begin{definition}
+Soit $(G,\star)$ un groupe et $x\in G$.
+\begin{itemize}
+\item On dit que $x$ est d'\emph{ordre fini} lorsqu'il existe $n\in\Ns$ tel que $x^n=e$.
+  Dans ce cas, il existe un unique $\omega\in\Ns$ tel que 
+  \[\forall n\in\Z \qsep x^n=e \quad\ssi\quad \omega|n.\]
+  On l'appelle \emph{ordre} de $x$. C'est le plus petit entier $n\in\Ns$ tel que
+  $x^n=e$.
+\item Sinon, on dit que $x$ est d'\emph{ordre infini}. On a alors
+  \[\forall n\in\Z \qsep x^n=e \quad\ssi\quad n=0.\]
+\end{itemize}
+% Alors, l'application
+% \[\dspappli{\phi}{\Z}{G}{n}{x^n}\]
+% est un morphisme du groupe $(\Z,+)$ dans $(G,\star)$.
+% %  dont l'image est le groupe
+% % engendré par $x$.
+% \begin{itemize}
+% \item Si $\ker \phi=\ens{0}$, on dit que $x$ n'a pas d'ordre. Dans ce cas
+% \item Sinon, il existe un unique $\omega\in\Ns$ tel que $\ker\phi=\omega\Z$.
+%   On dit que $\omega$ est l'\emph{ordre} de $x$. C'est l'unique entier naturel tel que
+%   %\cro{\exists k\in\Z \quad n=k\omega}\]
+% \end{itemize}
+\end{definition}
+
+\begin{remarques}
+\remarque Dans
+  $(\Cs,\times)$, si $n\in\Ns$, $\omega\defeq\e^{\ii\frac{2\pi}{n}}$ est d'ordre
+  $n$.
+  \begin{sol}
+  On montre que $\omega^k=1\Longleftrightarrow k\equiv 0 \quad [n] \Longleftrightarrow n\mid k$.
+  \end{sol}
+\remarque Dans un groupe, $e$ est l'unique élément d'ordre 1.
+\remarque Dans un groupe fini, tout élément est d'ordre fini.
+\remarque Soit $x\in G$ un élément d'ordre
+  $\omega\in\Ns$. Alors le groupe engendré par $x$ est
+  $\ens{e,x,x^2,\ldots,x^{\omega-1}}$, ces éléments étant deux à deux distincts. En particulier, l'ordre de $x$ est le
+  cardinal du groupe qu'il engendre.
+  \begin{sol}
+  On veut montrer que $\set{x^n, n\in \Z}=\set{x^n, n\in \intere{0}{\omega-1}}$. On raisonne par double-inclusion, l'une étant triviale et l'autre s'obtient grâce à la DE.
+  Reste ensuite à voir que les éléments de $\ens{e,x,x^2,\ldots,x^{\omega-1}}$ sont bien deux à deux distincts. pour cela, on en prend $2$ d'exposants $k_1$ et $k_2$. On voit assez vite que leur différence doit être multiple de $\omega$ alors qu'elle est plus petite en valeur absolue que $\omega$, donc c'est $0$.
+  \end{sol}
+\end{remarques}
+
+\begin{exoUnique}
+\exo Soit $(G,\star)$ un groupe et $x\in G$ un élément d'ordre fini $n\in\Ns$.
+  Étant donné $k\in\Z$, calculer l'ordre de $x^k$.
+  \begin{sol}
+  $\forall a \in \Z, \p{w^k}^a=1\Longleftrightarrow \omega^{ka}=1 \Longleftrightarrow n\mid ka$ (cf. prop. précédente).
+  \'Ecrivons alors $n=(k\wedge n)n'$ et $k=(k\wedge n)k'$ ce qui impose (classique maintenant) $k'\wedge n'=1$. Reprenons les équivalences précédentes :
+  $$\forall a \in \Z, \p{w^k}^a=1\Longleftrightarrow (k\wedge n)n'\mid ka=(k\wedge n)k' \Longleftrightarrow n'\mid k'a \underbrace{\Longleftrightarrow}_{Gauss} n'\mid a \Longleftrightarrow \dfrac{n}{k\wedge n}\mid a.$$ Donc l'ordre de $\omega^k$ est $\dfrac{n}{k\wedge n}$.
+  
+  En particulier, l'ordre de $\omega^k$ est $n$ ssi $k\wedge n=1$.
+  
+  \end{sol}
+\end{exoUnique}
+
+\begin{theoreme}[nom={Théorème de \nom{Lagrange}}]
+Soit $(G,\star)$ un groupe fini et $x$ un élément de $G$. Alors l'ordre de $x$
+divise le cardinal de $G$.
+\end{theoreme}
+
+\begin{preuve}
+ADMIS. C'est une conséquence du Théorème de Lagrange (HP) qui dit que l'ordre d'un sous-groupe d'un groupe fini le divise.
+\medskip
+
+Tout de même, remarquons que dans un groupe fini, tout élément admet un ordre. En effet, si tel n'était pas le cas alors $\dspappli{\phi}{\Z}{G}{k}{x^k}$ serait injective ce qui est absurde puisque $\Z$ est infini tandis que $G$ est fini.
+\bigskip
+
+\textbf{Preuve HP du théorème de Lagrange} :
+On définit sur $G$ la relation binaire $R_H$ par $$x R_H y \Longleftrightarrow xy^{-1} \in H.$$
+C'est une relation d'équivalence sur $G$ (à vérifier). Or
+\begin{eqnarray*}
+y\in Cl_H(x) &\Longleftrightarrow& y R_H x \\
+&\Longleftrightarrow& yx^{-1}\in H \\
+&\Longleftrightarrow& \exists h \in H \text{ tq } yx^{-1}=h \\
+&\Longleftrightarrow& \exists h \in H \text{ tq } y=hx \\
+&\Longleftrightarrow& y\in Hx=\set{hx, h\in H}.
+\end{eqnarray*}
+Donc $\overline{x}=Hx$ qui est équipotent à $H$ via $h\mapsto hx$ et a donc même cardinal que $H$, et ce peu importe la classe. Les classes ont donc toutes mêmes cardinales. Or, elles forment une partition (cf. relation d'équivalence). Disons qu'il y a $q$ classes, on a donc $|G|=q|H|$.
+\end{preuve}
+
+\begin{remarques}
+\remarque Si $(G,\star)$ est un groupe fini, le cardinal de $G$ est aussi appelé
+  ordre de $G$. La version faible du théorème de Lagrange nous dit donc que
+  dans un groupe fini, l'ordre d'un élément divise l'ordre du groupe.
+\remarque La version forte du théorème de \nom{Lagrange} dit que si $(G,\star)$ est
+  un groupe fini et $H$ est un sous-groupe de $(G,\star)$, alors le
+  cardinal de $H$ divise le cardinal de $G$. De cette version forte découle
+  la version faible~: si $x\in G$, il suffit de remarquer que le cardinal du
+  groupe $H$ engendré par $x$ est l'ordre de $x$.
+\end{remarques}
+
+\begin{exoUnique}
+\exo Déterminer les sous-groupes finis de $(\U,\times)$. 
+\begin{sol}
+Soit $H$ un sous-groupe fini de $(\U,\times)$.  Notons $n$ son cardinal. Soit $x$ un élément de $H$, d'après le théorème précédent, l'ordre $a$ de $x$ divise $n$ donc $au=n$ et en particulier $x^n=(x^a)^u=1$ donc $x\in \U[n]$. Ainsi, on a montré $H\subset \U[n]$ et on a donc égalité par égalité des cardinaux.
+\end{sol}
+\end{exoUnique}
+
+
+
+\section{Groupe symétrique}
+\subsection{Groupe symétrique}
+
+\begin{definition}
+Soit $n\in\Ns$. On appelle \emph{groupe symétrique} et on note $\p{\gsym{n},\circ}$
+l'ensemble des bijections de $\intere{1}{n}$ dans lui-même muni de la loi de
+composition.
+\end{definition}
+
+\begin{remarques}
+\remarque Si $\sigma\in\mathcal{F}\p{\intere{1}{n},\intere{1}{n}}$, l'application
+  $\sigma$ est aussi notée
+  \[\sigma=
+    \begin{pmatrix}
+    1 & 2 & \cdots & n\\
+    \sigma\p{1} & \sigma\p{2} & \cdots & \sigma(n)
+    \end{pmatrix}.\]
+  Puisque $\intere{1}{n}$ est fini, $\sigma$ est bijective si et seulement si
+  elle est injective ou surjective. Autrement dit $\sigma$ est bijective si
+  et seulement si l'une des deux conditions suivantes est vérifiée.
+  \begin{enumerate}
+  \item Les entiers $\sigma\p{1},\ldots,\sigma(n)$ sont deux à deux distincts.
+  \item $\ens{\sigma\p{1},\ldots,\sigma(n)}=\intere{1}{n}$.
+  \end{enumerate}
+% \remarque L'élément neutre de $\gsym{n}$ est $\id$. De plus, si
+%   $\sigma\in\gsym{n}$, son symétrique pour la loi $\circ$ est sa bijection
+%   réciproque $\sigma^{-1}$.
+% \remarque Le groupe $\p{\gsym{2},\circ}$ ne possède que deux
+%   éléments~: $\id$ et la permutation $\sigma$ définie par $\sigma\p{1}=2$ et
+%   $\sigma\p{2}=1$. En particulier il est commutatif. Cependant, si $n\geq 3$,
+%   le groupe $\p{\gsym{n},\circ}$ n'est pas commutatif.
+\remarque Si $E$ est un ensemble fini de cardinal $n$, l'ensemble des bijections
+  de $E$ muni de la loi de composition est un groupe isomorphe à
+  $(\gsym{n},\circ)$.
+\end{remarques}
+
+\begin{proposition}
+$\p{\gsym{n},\circ}$ est un groupe fini de cardinal $n!$.  
+\end{proposition}
+
+\begin{definition}
+Soit $n\in\Ns$.
+\begin{itemize}
+\item Soit $p\in\intere{2}{n}$. On appelle \emph{cycle} de longueur $p$
+  (ou p-cycle) toute
+  permutation $\sigma$ tel qu'il existe $k_0,\ldots,k_{p-1}\in\intere{1}{n}$ deux à
+  deux distincts tels que
+  \begin{itemize}
+  \item $\sigma\p{k_0}=k_1,\sigma\p{k_1}=k_2,\ldots,\sigma\p{k_{p-1}}=k_0$
+  \item $\forall x\in\intere{1}{n}\setminus\ens{k_0,\ldots,k_{p-1}} \qsep
+         \sigma(x)=x$
+  \end{itemize}
+  On note $\sigma=\p{k_0 \quad k_1 \quad \cdots \quad k_{p-1}}$.
+\item On appelle \emph{transposition} tout cycle de longueur 2.
+\end{itemize}
+\end{definition}
+
+\begin{remarques}
+\remarque Si $n\geq 3$, $(\gsym{n},\circ)$ n'est pas commutatif.
+\remarque Si $\sigma$ est une transposition, alors $\sigma^2=\id$. On en déduit que
+  $\sigma^{-1}=\sigma$. 
+\remarque Les $p$-cycles sont des éléments d'ordre $p$.
+% \remarque On appelle support d'une permutation l'ensemble des
+%   $k\in\intere{1}{n}$ tels que $\sigma(k)\neq k$. Deux permutations
+%   de supports disjoints commutent.
+% \remarque Toute permutation s'écrit comme le produit (commutatif) de cycles
+%   de supports disjoints.
+% \remarque On dit que deux permutations $\sigma_1$ et $\sigma_2$ sont conjuguées
+%   lorsqu'il existe une permutation $\tau$ telle que
+%   $\sigma_1=\tau^{-1} \sigma_2 \tau$. Sur $\gsym{n}$, la relation
+%   \og est conjuguée à \fg, est une relation d'équivalence. De plus, si
+%   $\sigma_1$ et $\sigma_2$ sont conjuguées, il en est de même pour
+%   $\sigma_1^k$ et $\sigma_2^k$ quel que soit $k\in\Z$.
+% \remarque Deux $p$-cycles sont conjugués. En particulier, les transpositions
+%   sont conjuguées entre elles.
+\end{remarques}
+%% Remarque :
+%% 1) Toute permutation est un produit de cycles disjoints
+%%    (à voir sur des exemples)
+%% 2) si sigma est un p-cycle, sigma^p=id
+%% 3) En particulier, l'inverse d'une transposition est elle-même
+
+\begin{exoUnique}
+\exo Soit $\tau$ un $p$-cycle et $\sigma\in\gsym{n}$. Montrer que
+  $\sigma\tau\sigma^{-1}$ est un $p$-cycle.
+\exo Montrer que si $\sigma_1,\sigma_2\in\gsym{n}$ sont deux $p$-cycles, il
+  existe $\sigma\in\gsym{n}$ tel que $\sigma_2=\sigma \sigma_1 \sigma^{-1}$.
+  \begin{sol}
+  Montrons pour commencer (pas nécessaire pour la preuve de l'exercice) que si $\sigma_1=\p{k_0 \quad k_1 \quad \cdots \quad k_{p-1}}$ alors pour toute permutation $\sigma$, $\sigma \circ \sigma_1 \circ \sigma^{-1}=\p{\sigma(k_0) \quad \sigma(k_1) \quad \cdots \quad \sigma(k_{p-1})}$. Pour cela, on pose $\gamma=\sigma \circ \sigma_1 \circ \sigma^{-1}$ et on regarde ce que vaut $\gamma(x)$ selon si $x\in \set{k_0,k_1,\cdots,k_{p-1}}$ ou non.\\
+  Maintenant, si $\sigma_2$ est un autre $p$-cycle, $\sigma_2=\p{u_0 \quad u_1 \quad \cdots \quad u_{p-1}}$, il suffit de construire $\sigma$ qui envoie $k_i$ sur $u_i$ et qui se complète par une bijection de $\intere{1}{n}\setminus \set{k_0,k_1,\cdots,k_{p-1}}$ sur $\intere{1}{n}\setminus \set{u_0,u_1,\cdots,u_{p-1}}$ ce qui est possible car ce sont des ensembles de même cardinaux.
+  \end{sol}
+\end{exoUnique}
+
+% \begin{proposition}
+% Soit $\sigma=\p{k_1 \quad k_2 \quad \cdots \quad k_p}$ un cycle de longueur $p$.
+% Alors~:
+% \[\sigma=\p{k_1 \quad k_2}\p{k_2 \quad k_3}\cdots\p{k_{p-1} \quad k_p}\]
+% \end{proposition}
+
+\subsection{Décomposition en cycles à supports disjoints}
+
+\begin{definition}
+Soit $\sigma\in\gsym{n}$. On définit la relation $\mathcal{R}$ sur
+$\intere{1}{n}$ par
+\[\forall x,y\in\intere{1}{n} \qsep x\mathcal{R}y \quad\ssi\quad
+  \cro{\exists k\in\Z \qsep \sigma^k(x)=y}\]
+Alors $\mathcal{R}$ est une relation d'équivalence. Si $x\in\intere{1}{n}$, la
+classe de $x$ est notée $\mathcal{O}(x)$ et est appelée orbite de $x$.
+\end{definition}
+
+\begin{remarques}
+\remarque Les orbites étant des classes d'équivalence, elles forment une
+  partition de $\intere{1}{n}$.
+\remarque Si $x\in\intere{1}{n}$, alors
+  $\mathcal{O}(x)=\ensim{\sigma^k(x)}{k\in\Z}$. De plus, il existe
+  un plus petit $p\in\Ns$ tel que $\sigma^p(x)=x$, et
+  $\mathcal{O}(x)=\ens{x,\sigma(x),\ldots,\sigma^{p-1}(x)}$.
+\end{remarques}
+
+
+\begin{exoUnique}
+\exo Montrer qu'une permutation est un cycle si et seulement si la
+  relation d'équivalence définie ci-dessus admet une et une seule classe
+  non réduite à un point.
+\end{exoUnique}
+
+\begin{definition}
+Soit $\sigma\in\gsym{n}$. On appelle \emph{support} de $\sigma$ et on note
+$\supp(\sigma)$ l'ensemble des $x\in\intere{1}{n}$ tels que $\sigma(x)\neq x$.
+\end{definition}
+
+\begin{remarques}
+\remarque Le support de $\sigma$ est stable par $\sigma$.
+\remarque Deux permutations de support disjoints commutent. Cependant la
+  réciproque est fausse.
+\remarque Soit $\sigma_1,\ldots,\sigma_m\in\gsym{n}$ une famille de
+  permutations de supports deux à deux disjointes telle que
+  $\sigma_1 \circ \cdots \circ \sigma_m=\id$. Alors, pour tout
+  $i\in\intere{1}{m}$, $\sigma_i=\id$.
+\end{remarques}
+
+\begin{theoreme}
+Toute permutation s'écrit comme le produit (commutatif) de cycles à supports
+disjoints. De plus, à l'ordre près, il y a unicité d'une telle décomposition.
+\end{theoreme}
+
+\begin{remarqueUnique}
+\remarque Si une permutation $\sigma\in\gsym{n}$ s'écrit comme le produit
+  de $m$ cycles à supports deux à deux disjoints de longueurs respectives $p_1,\ldots,p_m$, alors l'ordre de
+  $\sigma$ est $\ppcm(p_1,\ldots,p_m)$.  
+\end{remarqueUnique}
+
+\begin{exos}
+\exo Déterminer les éléments d'ordre 2 de $\gsym{n}$~?
+\exo Déterminer tous les éléments de $\gsym{3}$. Quels sont ses
+  sous-groupes~?
+\exo Quels sont les ordres possibles dans $\gsym{4}$~?
+\exo Combien de fois un mélange portant sur 6 cartes doit-il être répété
+  pour retomber à coup sûr sur l'ordre initial~?
+\end{exos}
+
+\subsection{Signature, groupe alterné}
+
+\begin{proposition}
+Tout permutation $\sigma\in\gsym{n}$ s'écrit comme le produit d'au plus
+$n-1$ transpositions.
+\end{proposition}
+
+\begin{remarqueUnique}
+% \remarque Plus précisement, toute permutation $\sigma\in\intere{1}{n}$ s'écrit
+%   comme le produit d'au plus $n-1$ transpositions.
+\remarque Soit $\sigma=\p{k_0 \quad k_1 \quad \cdots \quad k_{p-1}}$ un cycle de
+  longueur $p$. Alors
+  \[\sigma=\p{k_0 \quad k_1}\p{k_1 \quad k_2}\cdots\p{k_{p-2} \quad k_{p-1}}.\]
+\end{remarqueUnique}
+
+\begin{exoUnique}
+\exo Dans $\gsym{3}$, on pose $\sigma_1=\p{1\quad 3}$ et
+  $\sigma_2=\p{1\quad 2\quad 3}$. Décomposer $\sigma_1 \sigma_2$ en
+  produit de transpositions de deux manières distinctes.
+\end{exoUnique}
+
+\begin{definition}
+Soit $\sigma$ une permutation et
+\[\sigma=\tau_1\cdots\tau_{m} \et \sigma=\tau_1'\cdots\tau_{n}'\]
+deux décompositions de $\sigma$ en produit de transpositions.
+Alors $m$ et $n$ ont même parité; on dit que $\sigma$ est \emph{paire} lorsque ces entiers
+sont pairs et que $\sigma$ est \emph{impaire} dans le cas contraire.
+On définit la \emph{signature} de $\sigma$ que l'on note $\signat{\sigma}$ par
+\[\signat{\sigma}\defeq
+  \begin{cases}
+  +1 & \text{si $\sigma$ est paire}\\
+  -1 & \text{si $\sigma$ est impaire.}
+  \end{cases}\]
+\end{definition}
+
+\begin{remarques}
+\remarque Soit $\sigma\in\gsym{n}$ et $\sigma=\tau_1\cdots\tau_{m}$ une
+  décomposition de $\sigma$ en produit de transpositions. Alors
+  \[\signat{\sigma}=\p{-1}^m.\]
+\remarque La signature d'un $p$-cycle est $\p{-1}^{p-1}$. En particulier, les
+  transpositions sont impaires et les 3-cycles sont pairs.
+\end{remarques}
+
+% \begin{proposition}
+% Soit $\sigma$ un cycle de longueur $p$. Alors~:
+% \[\signat{\sigma}=\p{-1}^{p+1}\]
+% En particulier, la signature d'une transposition est $-1$.
+% \end{proposition}
+
+\begin{proposition}
+L'application $\signature$ de $\p{\gsym{n},\circ}$ dans $\p{\ens{-1,1},\times}$
+est un morphisme de groupe.
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque Si $\sigma$ est une permutation, $\sigma$ et $\sigma^{-1}$ ont la même
+  signature.  
+\end{remarqueUnique}
+
+% \begin{exos}
+% \exo Il n'existe que deux morphismes du groupe $\p{\gsym{n},\circ}$ dans
+%   $\p{\Cs,\times}$~: le morphisme trivial qui à tout élément $\sigma$ de
+%   $\gsym{n}$ associe 1, et la signature.
+% \end{exos}
+
+\begin{definition}
+On note $\galt{n}$ l'ensemble des permutations paires. C'est un sous-groupe de
+$(\gsym{n},\circ)$ appelé \emph{groupe symétrique alterné}.
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque Si $n\geq 2$, le groupe $\p{\galt{n},\circ}$ est de cardinal $n!/2$.
+\end{remarqueUnique}
+
+\begin{sol}
+FAIT : Soit $\tau \in \gsym{n}$ tel que $\signature(\tau)=-1$ (par exemple une transposition), alors $\tau \galt{n}=\gsym{n}\setminus \galt{n}$.
+En effet, raisonnons par double inclusion :
+\begin{itemize}
+\item[$\bullet$] $\subset$ : Si $\sigma \in \galt{n}$, $\signature(\tau\circ\sigma)=\ldots=-1$ donc $\tau\circ\sigma\in \gsym{n}\setminus \galt{n}$.
+\item[$\bullet$] $\supset$ : Soit $\sigma\notin \galt{n}$, $\signature(\tau^{-1}\circ \sigma)=\ldots=1$ donc $\tau^{-1}\circ \sigma \in \galt{n}$ d'où $\sigma=\tau\circ(\tau^{-1}\circ \sigma) \in \tau \galt{n}$.
+\end{itemize}
+
+Il reste alors à montrer que $\abs{\tau \galt{n}}=\abs{\galt{n}}$. Pour cela définissons :
+$$\dspappli{\phi}{\galt{n}}{\tau \galt{n}}{\sigma}{\tau\circ \sigma}.$$
+$\phi$ est surjective par définition même de $\tau \galt{n}$ et injective car $\phi(\sigma)=\phi(\sigma')\Rightarrow \sigma=\sigma'$ par régularité de $\tau$.
+D'où le résultat souhaité.
+
+On a alors une union disjointe de deux ensembles de même cardinal dont la réunion est de cardinal $n!$, donc chacun a pour cardinal $\dfrac{n!}{2}$.
+\end{sol}
+
+% \subsection{Groupe diédral}
+
+% \begin{definition}
+% Soit $n\geq 2$. L'ensemble des similitudes du plan complexe laissant invariant
+% $\U[n]$ est un groupe pour la composition appelé groupe diédral et noté
+% $(D_n,\circ)$.
+% \end{definition}
+
+% \begin{proposition}
+% Soit $n\geq 2$. Une application $f:\C\mapsto\C$ est un élément du groupe
+% diédral si et seulement si il existe $u\in\U[n]$ tel que
+% \[\cro{\forall z\in\C \quad f(z)=uz} \ou \cro{\forall z\in\C \quad
+%   f(z)=u\bar{z}}\]
+% En particulier, ces applications étant deux à deux distinctes, le groupe
+% diédral est fini de cardinal $2n$.
+% \end{proposition}
+
+% \begin{remarques}
+% \remarque Toute similitude du plan laissant invariant $\U[n]$ induit
+%   une bijection de $\U[n]$ dans lui-même, donc un élément de $\gsym{n}$.
+%   On construit ainsi un morphisme de groupe $\phi$ de $(D_n,\circ)$ dans
+%   $(\gsym{n},\circ)$. Ce morphisme est injectif dès que $n\geq 3$.
+% \end{remarques}
+
+% \begin{exos}
+% \exo Montrer que $\gsym{3}$ est isomorphe à $D_3$. Que devient
+%   $\galt{3}$ par cet isomorphisme~?
+% \end{exos}
+
+% \subsection{Groupe $(\Z/n\Z,+)$}
+
+% \begin{definition}
+% Soit $n\in\Ns$ et $\mathcal{R}$ la relation d'équivalence définie sur $\Z$ par
+% \[\forall a,b\in\Z \qsep a\mathcal{R}b \quad\ssi\quad a\equiv b\ [n].\]
+% On appelle $\Z/n\Z$ l'ensemble des classes d'équivalence pour cette relation.
+% \end{definition}
+
+% \begin{proposition}
+% Soit $n\in\Ns$. Pour tout $k\in\Z$, on note $\overline{k}$ la classe
+% d'équivalence de $k$. Alors, les éléments
+% $\overline{0},\overline{1},\ldots,\overline{n-1}$ sont deux à deux distincts
+% et
+% \[\Z/n\Z=\ens{\overline{0},\overline{1},\ldots,\overline{n-1}}.\]
+% \end{proposition}
+
+% \begin{preuve}
+% On montre qu'ils sont distincts en prenant $k_1$ et $k_2$ dans $\intere{0}{n-1}$ tels que $\overline{k_1}=\overline{k_2}$ et on montre que $k_1=k_2$.\\
+% Puis, on montre l'égalité par double inclusion, droite-gauche étant immédit et gauche-droite se faisant grâce à la DE.
+% \end{preuve}
+
+% \begin{definition}
+% Soit $n\in\Ns$. On définit la loi de composition interne $+$ sur $\Z/n\Z$ par
+% \[\forall k_1,k_2\in\Z \qsep \overline{k_1}+\overline{k_2}=\overline{k_1+k_2}\]
+% Alors $(\Z/n\Z,+)$ est un groupe commutatif de cardinal $n$ et d'élément
+% neutre $\overline{0}$.
+% \end{definition}
+
+% \begin{preuve}
+% On montre que
+% \begin{itemize}
+% \item[$\bullet$] + est bien défini en montrant que la définition ne dépend pas du représentant choisi dans la classe.
+% \item[$\bullet$]$(\Z/n\Z,+)$ est un groupe commutatif (associativité, commutativité, élément neutre, opposé)
+% \end{itemize}
+% Soient $(x,y)\in \p{\Z/n\Z}^2$. Il existe $k,k' \in \Z$ tel que $x=\overline{k}$ et $y=\overline{k'}$ et on fait tout avec ça...
+% \end{preuve}
+
+% \begin{remarqueUnique}
+% \remarque Du groupe $(\Z/n\Z,+)$, on retiendra essentiellement le fait que
+%   l'application
+%   \[\dspappli{\phi}{\Z}{\Z/n\Z}{k}{\overline{k}}\]
+%   est un morphisme surjectif de groupe et que~:
+%   $\forall k_1,k_2\in\Z \qsep  \overline{k_1}=\overline{k_2} \ssi
+%     k_1\equiv k_2\ [n]$.
+% \end{remarqueUnique}
+
+% \begin{sol}
+% En pratique, vous pouvez faire "comme si" $\Z/n\Z=\intere{0}{n-1}$ et $\phi$ associé le reste dans la DE de $k$ par $n$.
+% \end{sol}
+
+% \begin{exoUnique}
+% \exo Soit $(G,\star)$ un groupe et $x\in G$ un élément d'ordre $n\in\Ns$.
+%   Montrer que l'application
+%   \[\dspappli{\phi}{\Z/n\Z}{G}{\overline{k}}{x^k}\]
+%   est bien définie et qu'elle réalise un isomorphisme de $\Z/n\Z$ sur le
+%   groupe engendré par $x$.
+%   \begin{sol}
+%   On montre que c'est indépendant du représentant puis que c'est un morphisme puis que $\ker\phi=\set{0}$ puis égalité des cardinaux.
+%   \end{sol}
+% % $n\in\Ns$ et $\omega=e^{i\frac{2\pi}{n}}$. Montrer que
+% %   l'application $\phi$ de $(\Z/n\Z,+)$ dans $(\U[n],\cdot)$ qui à
+% %   $\overline{k}$ associe $\omega^k$ est bien définie et que c'est un
+% %   isomorphisme de groupe.
+% \end{exoUnique}
+%END_BOOK
+
+\end{document}

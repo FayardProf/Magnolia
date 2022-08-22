@@ -1,0 +1,1026 @@
+\documentclass{magnolia}
+
+\magtex{tex_driver={pdftex},
+        tex_packages={xypic}}
+\magfiche{document_nom={Cours sur les structures algebriques},
+          auteur_nom={François Fayard},
+          auteur_mail={fayard.prof@gmail.com}}
+\magcours{cours_matiere={maths},
+          cours_niveau={mpsi},
+          cours_chapitre_numero={12},
+          cours_chapitre={Anneaux, Corps, Polynômes}}
+\magmisenpage{}
+\maglieudiff{}
+\magprocess
+
+
+\begin{document}
+
+%BEGIN_BOOK
+\magtoc
+
+
+\section{Anneau, corps}
+\subsection{Anneau}
+
+\begin{definition}
+Soit $\p{A,+}$ un groupe commutatif (d'élément neutre $0_A$) et $\times$ une
+loi de composition interne sur $A$. On dit que $\p{A,+,\times}$ est un \emph{anneau}
+lorsque
+\begin{itemize}
+\item $\times$ est associatif,
+\item $\times$ admet un élément neutre $1_A$,
+\item $\times$ est distributive par rapport à $+$
+  \begin{eqnarray*}
+  \forall a,b,c\in A, & & a\times\p{b+c}=a\times b+a\times c,\\    
+                     & & \p{a+b}\times c=a\times c+b\times c.
+  \end{eqnarray*}
+\end{itemize}
+Un élément $a\in A$ est dit \emph{inversible} lorsqu'il est inversible pour la loi
+$\times$. Un anneau $\p{A,+,\times}$ est dit \emph{commutatif} lorsque $\times$ est
+commutative.
+\end{definition}
+
+\begin{exemples}
+\exemple $(\C,+,\times)$ et $(\R,+,\times)$ sont des anneaux commutatifs.
+\exemple Si $(A,+,\times)$ est un anneau et $X$ est un ensemble,
+  l'ensemble $\mathcal{F}(X,A)$ des fonctions de $X$ dans $A$, muni des lois $+$ et $\times$ définies par
+  \begin{eqnarray*}
+  \forall f,g\in\mathcal{F}(X,A) \qsep \forall x\in X \qsep (f+g)(x)&\defeq&f(x)+g(x),\\
+                                              (f\times g)(x)&\defeq&f(x)\times g(x)
+  \end{eqnarray*}
+  est un anneau. En particulier, $(\mathcal{F}(\R,\R),+,\times)$ et
+  $(\R^\N,+,\times)$ sont des anneaux commutatifs.
+\exemple Si $n\in\N$, alors $(\mat{n}{\R},+,\times)$ est un anneau dont l'élément neutre
+  pour la multiplication est la matrice $I_n$. Il est non commutatif dès que
+  $n\geq 2$.
+\end{exemples}
+
+\begin{remarqueUnique}
+\remarque Si $a,b\in A$, on dit que $a$ et $b$ \emph{commutent} lorsque $a\times b=b\times a$.
+\end{remarqueUnique}
+
+%% Exemple :
+%% 1) Z, R, C sont des anneaux
+%% 2) Si A est un anneau et X est en ensemble non vide, F(X,A) est un anneau
+
+
+\begin{proposition}
+Soit $\p{A,+,\times}$ un anneau. Alors
+\begin{eqnarray*}
+\forall a\in A, & & 0_A \times a=0_A \quad\text{et}\quad a \times 0_A = 0_A\\
+\forall a,b\in A, & & a\times\p{-b}=\p{-a}\times b=-\p{a\times b}\\
+\forall a,b\in A \qsep \forall n\in\Z, & &
+  \p{n\cdot a}\times b=a\times\p{n\cdot b}=n\cdot\p{a\times b}.
+\end{eqnarray*}
+\end{proposition}
+
+\begin{preuve}
+Clés : 
+$$0\times a=(0+0)\times a=0\times a + 0\times a.$$
+$$a(-b)+ab=a(-b+b)=0 \text{ donc } a(-b)=-(ab)$$
+et $$(-a)b+ab=(-a+a)b=0 \text{ donc } (-a)b=-(ab)=a(-b).$$
+\end{preuve}
+
+\begin{remarques}
+\remarque Soit $\p{A,+,\times}$ un anneau dans lequel $0_A=1_A$. Alors $A=\ens{0_A}$. Réciproquement, si $A$ est un ensemble contenant un unique élément muni des seules lois de composition interne $+$ et $\times$ que l'on peut définir sur cet ensemble, alors $A=\ens{0_A}$ et $(A,+,\times)$ est un anneau. On dit que cet anneau est l'anneau \emph{trivial}.
+\remarque Dans la suite du cours, lorsqu'il n'y a pas de confusion possible,
+  les éléments $0_A$ et $1_A$ seront respectivement notés $0$ et $1$.
+\end{remarques}
+
+\begin{proposition}
+Soit $\p{A,+,\times}$ un anneau et $a,b\in A$ tels que $a\times b=b\times a$.
+Alors, pour tout $n\in\N$
+\[\p{a+b}^n = \sum_{k=0}^n \binom{n}{k} \cdot \p{a^{n-k} \times b^k} \quad\et\quad
+  a^n-b^n=\p{a-b}\times\cro{\sum_{k=0}^{n-1} a^{\p{n-1}-k}\times b^k}.\]
+\end{proposition}
+
+\begin{remarques}
+\remarque Ces relations peuvent être fausses lorsque $a$ et $b$ ne commutent
+  pas. Par exemple, si $a$ et $b$ sont deux éléments d'un anneau, alors
+  \[(a+b)^2=a^2+2\cdot a\times b+b^2 \quad\ssi\quad a\times b=b\times a.\]
+\remarque Remarquons que si $a\in A$, alors $a$ commute
+  avec $1$, donc ces formules sont valables pour développer $(1+a)^n$ et
+  factoriser $a^n-1$.
+\end{remarques}
+
+\begin{definition}
+On dit qu'un élément $a\in A$ est nilpotent lorsqu'il existe $n\in\N$ tel que $a^n=0$.
+\end{definition}
+
+\begin{exoUnique}
+\exo Montrer que si $x$ est nilpotent, alors $1-x$ est inversible.
+\end{exoUnique}
+\begin{sol}
+On vérifie que son inverse à gauche et à droite est $\displaystyle\sum_{k=0}^{n-1}x^k$.
+\end{sol}
+
+\begin{definition}
+Soit $\p{A,+,\times}$ un anneau. L'ensemble $U_A$ des éléments inversibles de $A$
+est un groupe pour la multiplication.
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque L'ensemble $U_A$ des inversibles de $A$ est parfois noté $A^\times$. Il est important de ne pas
+  confondre cet ensemble avec $A^*\defeq A\setminus\ens{0}$.
+\end{remarqueUnique}
+
+\begin{exemples}
+\exemple Le groupe des inversibles de $(\Z,+,\times)$ est $\ens{-1,1}$.
+\exemple Le groupe des inversibles de $(\mat{n}{\R},+,\times)$ est $\gl{n}{\R}$.
+\end{exemples}
+
+\begin{sol}
+Exemple de $(\Z,+,.)$ pour qui ses éléments inversibles $\set{-1;1}$ forment un groupe pour la multiplication.
+\end{sol}
+
+
+\begin{definition}
+On dit qu'un anneau $\p{A,+,\times}$ est \emph{intègre} lorsque
+\begin{itemize}
+\item $1\neq 0$
+\item $\times$ est commutative
+\item $\forall a,b\in A \qsep a\times b=0 \implique \cro{a=0 \ou b=0}.$
+\end{itemize}
+\end{definition}
+
+\begin{exoUnique}
+\exo L'anneau $(\mathcal{F}(\R,\R),+,\times)$ est-il intègre~?
+\end{exoUnique}
+
+\begin{sol}
+Non, évidemment. On peut prendre les indicatrices de deux parties disjointes. Le produit est nul sans que l'une des deux ne soient nulle.
+\end{sol}
+
+
+\begin{definition}
+Soit $\p{A,+,\times}$ un anneau et $B$ une partie de $A$. On dit que $B$ est un
+\emph{sous-anneau} de $A$ lorsque
+\begin{itemize}
+\item $0\in B \et 1\in B$
+\item $\forall b_1,b_2\in B \qsep b_1+b_2\in B \qsep -b_1\in B \et b_1\times b_2\in B.$
+\end{itemize}
+Si tel est le cas $\p{B,+,\times}$ est un anneau.
+\end{definition}
+
+\begin{remarques}
+\remarque Si $B$ est un sous-anneau de $(A,+,\times)$, $B$ est un
+  sous-groupe de $(A,+)$.
+\remarque Si $B$ est un sous-anneau de $\C$, alors $\Z\subset B$.
+\end{remarques}
+
+\begin{exoUnique}
+\exo Montrer que $\Z[\ii]=\ensim{a+\ii b}{a,b\in\Z}$ est un sous-anneau de $\C$.
+\end{exoUnique}
+
+\begin{definition}
+Soit $\p{A,+,\times}$ et $\p{B,+,\times}$ deux anneaux. On dit qu'une
+application $\phi$ de $A$ dans $B$ est un \emph{morphisme d'anneau} lorsque
+\begin{eqnarray*}
+\forall a_1,a_2\in A, & & \phi\p{a_1+ a_2}=\phi\p{a_1}+\phi\p{a_2}\\
+\forall a_1,a_2\in A, & & \phi\p{a_1\times a_2}=\phi\p{a_1}\times\phi\p{a_2}\\
+& & \phi\p{1_A}=1_B.
+\end{eqnarray*}
+\end{definition}
+
+\begin{proposition}
+Soit $\phi$ un morphisme d'anneau de $\p{A,+,\times}$ dans $\p{B,+,\times}$.
+Alors
+\begin{eqnarray*}
+\forall a\in A \qsep \forall n\in\Z, & & \phi\p{n\cdot a}=n\cdot\phi(a)\\
+\forall a\in A \qsep \forall n\in\N, & & \phi\p{a^n}=\cro{\phi(a)}^n.
+\end{eqnarray*}
+De plus, si $a\in A$ est inversible, il en est de même pour $\phi(a)$ et
+\[\forall n\in\Z \qsep \phi\p{a^n}=\cro{\phi(a)}^n.\]
+\end{proposition}
+
+% \begin{remarques}
+% \remarque Soit $\phi$ un morphisme d'anneau de $(A,+,\cdot)$ dans
+%   $(B,+,\cdot)$.
+% \end{remarques}
+
+\begin{proposition}
+\begin{itemize}
+\item La composée de deux morphismes d'anneaux est un morphisme d'anneau.
+\item La bijection réciproque d'un isomorphisme est un isomorphisme.
+\end{itemize}
+\end{proposition}
+
+\begin{proposition}
+Soit $\phi$ un isomorphisme de l'anneau $(A,+,\times)$ dans l'anneau $(B,+,\times)$. Alors
+\[\forall x\in A\qsep x\in U_A \ssi \phi(x)\in U_B.\]
+De plus $\phi$ induit un isomorphisme du groupe $(U_A,\times)$ dans le groupe $(U_B,\times)$.
+\end{proposition}
+
+\subsection{Corps}
+
+\begin{definition}
+On dit qu'un anneau $\p{\K,+,\times}$ est un \emph{corps} lorsque
+\begin{itemize}
+\item $1\neq 0$
+\item $\times$ est commutative
+\item Tout élément non nul de $\K$ admet un inverse pour la loi $\times$.
+\end{itemize}
+\end{definition}
+
+\begin{exemples}
+\exemple Muni des lois usuelles d'addition et de multiplication, $\C$ est un corps.
+\exemple Soit $\mathbb{F}_2$ l'ensemble à deux éléments $\ens{\bar{0},\bar{1}}$. On
+  définit sur $\mathbb{F}_2$ les lois $+$ et $\times$ par
+  \begin{center}
+  \begin{tabular}{|c|c|c|}
+  \hline
+  $+$\vphantom{\Large{A}} & $\bar{0}$ & $\bar{1}$\\
+  \hline
+  $\bar{0}$\vphantom{\Large{A}} & $\bar{0}$ & $\bar{1}$\\
+  \hline
+  $\bar{1}$\vphantom{\Large{A}} & $\bar{1}$ & $\bar{0}$\\
+  \hline
+  \end{tabular}
+  \hspace{2cm}
+  \begin{tabular}{|c|c|c|}
+  \hline
+  $\times$\vphantom{\Large{A}} & $\bar{0}$ & $\bar{1}$\\
+  \hline
+  $\bar{0}$\vphantom{\Large{A}} & $\bar{0}$ & $\bar{0}$\\
+  \hline
+  $\bar{1}$\vphantom{\Large{A}} & $\bar{0}$ & $\bar{1}$\\
+  \hline
+  \end{tabular}
+  \end{center}
+  Alors $(\mathbb{F}_2,+,\times)$ est un corps.
+\end{exemples}
+
+\begin{remarqueUnique}
+\remarque Si $\K$ est un corps, l'ensemble des
+  inversibles de $\K$ est $\Ks\defeq\K\setminus\ens{0}$.
+\end{remarqueUnique}
+
+\begin{proposition}
+Un corps est intègre.  
+\end{proposition}
+
+
+
+\begin{definition}
+Soit $\p{\KL,+,\times}$ un corps et $\K$ une partie de $\KL$. On dit que $\K$
+est un \emph{sous-corps} de $\KL$ lorsque
+\begin{itemize}
+\item $\K$ est un sous-anneau de $\KL$
+\item $\forall x\in\K\setminus\ens{0} \qsep x^{-1}\in\K$.
+\end{itemize}
+Si tel est le cas, $\p{\K,+,\times}$ est un corps.
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque $\Q$ et $\R$ sont des sous-corps de $\C$.
+\remarque Si $\K$ est un sous-corps de $\C$, alors $\Q\subset \K$.    
+\end{remarqueUnique}
+
+\begin{definition}
+Si $\p{\K,+,\times}$ et $\p{\KL,+,\times}$ sont deux corps, on appelle morphisme
+de corps de $\K$ dans $\KL$ tout morphisme d'anneau pour les structures
+sous-jacentes.
+\end{definition}
+
+\begin{remarques}
+\remarque Si $\phi$ est un morphisme d'un sous-corps $\K$ de $\C$ dans un sous-corps
+  $\KL$ de $\C$, alors
+  \[\forall r\in\Q\qsep \forall x\in\K\qsep \phi(rx)=r\phi(x).\]
+\remarque Si $\phi$ est un morphisme de corps, alors $\phi$ est injective.
+\end{remarques}
+\begin{sol}
+On considère $\phi:\K\to \KL$ un morphisme de corps. En particulier, c'est un morphisme de groupes. Raisonnons par l'absurde et supposons qu'il existe $x\neq 0$ tel que $\phi(x)=0_{\KL}$. Comme $x$ est différent de $0$ et que $\K$ est un corps, alors $xx^{-1}=1_{\K}$ donc $$0_{\KL}=0_{\KL}\phi(x^{-1})=\phi(x)\phi(x^{-1})=\phi(xx^{-1})=\phi(1_{\K})=1_{\KL}$$ ce qui est absurde car $\KL$ est un corps et donc $0_{\KL}\neq 1_{\KL}$.
+\end{sol}
+
+
+\begin{exoUnique}
+\exo Déterminer les morphismes de corps $\phi$ de $\C$ dans $\C$ tels
+  que~: $\forall x\in\R \qsep \phi(x)=x$.
+\end{exoUnique}
+
+\begin{sol}
+On va montrer que $\phi$ est ou bien l'identité ou bien la conjugaison. On raisonne par analyse-synthèse.
+\begin{itemize}
+\item[$\bullet$] \textbf{Analyse :} On a $\phi(i)^2=\phi(i^2)=\phi(-1)=-\phi(1)=-1$ donc $\phi(i)=i$ ou $\phi(i)=-i$. On montre alors que si $\phi(i)=i$ alors $\phi$ est l'identité et si $\phi(i)=-i$, c'est la conjugaison.
+\item[$\bullet$] \textbf{Synthèse :} On vérifie que ce sont bien des morphismes de corps qui vérifie l'hypothèse.
+\end{itemize}
+\end{sol}
+
+\begin{definition}
+Soit $\K$ un corps. Alors, l'application
+\[\dspappli{\phi}{\Z}{\K}{k}{k\cdot 1_{\K}}\]
+est un morphisme du groupe $(\Z,+)$ dans $(\K,+)$. Il existe donc un unique $p\in\N$ tel que $\ker\phi=p\Z$.
+L'entier $p$ est soit nul soit un nombre premier et est appelé \emph{caractéristique} de $\K$.
+\end{definition}
+
+\begin{remarques}
+\remarque Les sous-corps de $\C$ sont de caractéristique nulle. Le corps $\mathbb{F}_2$ est de caractéristique 2.
+\remarque Lorsque $\K$ est un sous-corps de $\C$, pour tout $k\in\Z$, on a $k\cdot 1_{\K}=k$. Si $\K$ est un corps
+  quelconque, on confondra le plus souvent $k\cdot 1_{\K}$ et $k$.
+\end{remarques}
+
+\section{Espace vectoriel, algèbre}
+\subsection{Espace vectoriel}
+
+
+\begin{definition}[utile=-3]
+Soit $\K$ un corps, $\p{E,+}$ un groupe commutatif d'élément neutre $0_E$ et
+$\cdot$ une loi de composition externe.
+\[\dspappli{\cdot}{\K\times E}{E}{\p{\lambda,x}}{\lambda\cdot x}\]
+On dit que $\p{E,+,\cdot}$ est un \emph{\Kev} lorsque
+\begin{eqnarray*}
+\forall x,y\in E \qsep \forall \lambda\in\K, & &
+  \lambda\cdot\p{x+y}=\lambda\cdot x+\lambda\cdot y\\
+\forall x\in E \qsep \forall \lambda,\mu\in\K, & &
+  \p{\lambda+\mu}\cdot x=\lambda\cdot x+\mu\cdot x\\
+\forall x\in E \qsep \forall \lambda,\mu\in\K, & &
+  \lambda\cdot\p{\mu\cdot x}=\p{\lambda\mu}\cdot x\\
+\forall x\in E, & & 1\cdot x=x.
+\end{eqnarray*}
+Les éléments de $\K$ sont appelés \emph{scalaires}, ceux de $E$, \emph{vecteurs}.
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque L'ensemble du cours sur les espaces vectoriels reste valide pour un corps quelconque, excepté le paragraphe
+  sur les symétries qui n'est vrai que pour les corps de caractéristique différente de 2.
+\end{remarqueUnique}
+
+\begin{proposition}[utile=1]
+Soit $\p{E,+,\cdot}$ un \Lev et $\K$ un sous-corps de $\KL$. Alors
+$\p{E,+,\cdot}$ est un \Kev. En particulier $\KL$ est un \Kev. 
+\end{proposition}
+
+\begin{remarques}
+\remarque[utile=-2] $\C$ est un \Rev.
+\remarque[utile=-1] Muni des lois usuelles, $\mathcal{F}(\R,\C)$ est un \Cev.
+  Comme $\R$ est un sous-corps de $\C$, $\mathcal{F}(\R,\C)$ est aussi un \Rev.
+\end{remarques}
+
+
+\subsection{Algèbre}
+
+\begin{definition}
+On dit qu'un anneau $\p{A,+,\times}$ muni d'une loi de composition externe
+$\cdot$ sur un corps $\K$ est une $\K$-algèbre lorsque
+\begin{itemize}
+\item $\p{A,+,\cdot}$ est un \Kev
+\item $\times$ est compatible avec la loi de composition externe
+  \[\forall x,y\in A \qsep \forall \lambda\in\K \qsep
+    \p{\lambda\cdot x}\times y=x\times\p{\lambda\cdot y}=
+     \lambda\cdot\p{x\times y}\]
+\end{itemize}
+On dit que l'algèbre $\p{A,+,\cdot,\times}$ est commutative lorsque $\times$
+est commutatif.
+\end{definition}
+
+\begin{exemples}
+\exemple $\K$ est une $\K$-algèbre.
+\exemple Soit $X$ un ensemble. Alors $(\mathcal{F}(X,\K),+,\cdot,\times)$ est une $\K$-algèbre. En particulier, l'ensemble des fonctions de $\R$ dans $\R$ est une $\R$-algèbre et l'ensemble des suites réelles est une $\R$-algèbre.
+\end{exemples}
+% Exemples :
+% 1) La R-algèbre des fonctions de R dans R
+
+\begin{definition}
+Soit $\p{A,+,\cdot,\times}$ et $\p{B,+,\cdot,\times}$ deux $\K$-algèbre. On dit qu'une application $\phi$ de $A$ dans $B$ est un morphisme d'algèbre lorsque c'est un morphisme
+d'anneau et une application linéaire, c'est-à-dire lorsque
+\begin{eqnarray*}
+  \forall x,y\in A \qsep \forall \lambda,\mu\in\K, & &
+    \phi\p{\lambda x+\mu y}=\lambda \phi(x)+\mu \phi(y)\\
+  \forall x,y\in A, & &
+    \phi\p{xy}=\phi(x)\phi(y)\\
+  & & \phi(1_A)=1_B.
+  \end{eqnarray*}
+\end{definition}
+
+
+\begin{proposition}
+Soit $E$ un \Kev. Alors $(\Endo{E},+,\cdot,\circ)$ est une $\K$-algèbre.
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque Le groupe des inversibles de $\Endo{E}$ est $(\gl{}{E},\circ)$.
+\end{remarqueUnique}
+
+\begin{proposition}
+Soit $\K$ un corps et $n\in\N$. Alors $(\mat{n}{\K},+,\cdot,\times)$ est une $\K$-algèbre.
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque Le groupe des inversibles de $\mat{n}{\K}$ est $(\gl{n}{\K},\times)$.
+\end{remarqueUnique}
+
+\section{L'algèbre $\polyK$}
+
+\subsection{Définition}
+\begin{definition}
+Soit $\K$ un corps. Alors il existe une unique algèbre commutative $\polyK$ ainsi
+qu'un élément $X\in\polyK$, appelé \emph{indéterminée}, tels que
+\begin{itemize}
+\item Pour tout $P\in\polyK$, il existe $n\in\N$ et $a_0,\ldots,a_n\in\K$ tels
+  que
+  \[P=a_0+a_1 X+\cdots+a_n X^n\]
+  où, par abus de notation, $a_0=a_0\cdot 1_{\polyK}=a_0 X^0$.
+\item Pour tout $n\in\N$ et $a_0,\ldots,a_n\in\K$
+  \[a_0+a_1X+\cdots+a_n X^n=0 \quad\implique\quad  a_0=\cdots=a_n=0.\]
+\end{itemize}
+On l'appelle \emph{algèbre des polynômes à coefficients dans $\K$}.
+\end{definition}
+
+\begin{remarques}
+\remarque Soit $P\in\polyK$ et $a_0,\ldots,a_n\in\K$ tels que
+  $P=a_0+a_1 X+\cdots+a_n X^n$.
+  Il est d'usage de définir $a_k$ pour tout $k>n$ en posant $a_k\defeq 0$. Ainsi,
+  quel que soit $m\geq n$
+  \[P=\sum_{k=0}^m a_kX^k.\]
+\remarque Soit $P\in\polyK$, $a_0,\ldots,a_n\in\K$ et $b_0,\ldots,b_m\in\K$ tels
+  que $P=a_0+a_1X+\cdots+a_n X^n$ et $P=b_0+b_1X+\cdots+b_m X^m$. Alors,
+  en prolongeant la définition des $a_k$ et $b_k$ comme dans la remarque précédente, on a
+  \[\forall k\in\N\qsep a_k=b_k.\]
+  La suite $(a_k)_{k\in\N}$ est nulle à partir d'un certain rang et est appelée suite des \emph{coefficients de $P$}.
+  Deux polynômes sont égaux si
+  et seulement si ils ont les même coefficients.
+  % Si on prolonge
+  % les définitions des suites $a$ et $b$ en posant $a_k=0$ pour $k>n$ et $b_k=0$
+  % pour $k>m$, alors les suites $\p{a_k}$ et $\p{b_k}$ sont égales.
+  % On dit que les $a_k$ sont les coefficients du polynôme $P$.
+% \remarque Deux polynômes sont égaux si et seulement si ils ont les mêmes
+%   coefficients.
+% \remarque L'application de $\K$ dans $\polyK$ qui à $\lambda\in\K$ associe
+%   $\lambda\cdot 1_{\polyK}\in\polyK$ est un morphisme injectif d'algèbre. Il
+%   permet
+%   d'identifier $\K$ à une sous-algèbre de $\polyK$. Par abus de langage, on
+%   dit que $\K$ est une sous-algèbre de $\polyK$.
+\remarque Les coefficients d'un produit de deux polynômes se calculent par
+  la formule
+  \[\p{\sum_{k=0}^n a_k X^k}\p{\sum_{k=0}^m b_k X^k}=
+    \sum_{k=0}^{n+m} \p{\sum_{l=0}^k a_l b_{k-l}}X^k\]
+\end{remarques}
+
+\begin{exoUnique}
+\exo Soit $n\in\N$. Montrer que
+  \[\sum_{k=0}^{n} \binom{n}{k}^2=\binom{2n}{n}\]
+  en calculant $(1+X)^{2n}$ de deux manières différentes.
+  \begin{sol}
+  Il suffit de développer la relation $\p{1+X}^{2n}=\p{1+X}^n\p{1+X}^n$ avec
+  le binôme de Newton.
+    \end{sol}
+  
+\end{exoUnique}
+
+\subsection{Substitution}
+
+\begin{definition}
+Soit $\mathcal{A}$ une $\K$-algèbre, $x\in\mathcal{A}$ et
+$P=a_0+a_1X+\cdots+a_nX^n\in\polyK$. On définit $P(x)$ par
+\[P(x)\defeq a_0 1_{\mathcal{A}}+a_1 x+\cdots+a_n x^n\in\mathcal{A}.\]
+On dit que l'on a substitué l'élément $x\in\mathcal{A}$ à l'indéterminée $X$.
+\end{definition}
+
+\begin{remarques}
+\remarque Si $\mathcal{A}$ une $\K$-algèbre et $x\in\mathcal{A}$,
+  l'application $\phi$ de $\polyK$ dans $\mathcal{A}$ qui à $P$ associe
+  $P(x)$ est un morphisme d'algèbre. Autrement dit
+  \begin{eqnarray*}
+  \forall P,Q\in\polyK \qsep \forall \lambda,\mu\in\K, & &
+    \p{\lambda P+\mu Q}(x)=\lambda P(x)+\mu Q(x)\\
+  \forall P,Q\in\polyK, & &
+    \p{PQ}(x)=P(x)Q(x)\\
+  & & 1_{\polyK}(x)=1_{\mathcal{A}}.
+  \end{eqnarray*}
+% \remarque Si $x\in\mathcal{A}$ et $n\in\Ns$, le calcul naïf de $x^n$ nécessite
+%   $n-1$ multiplications dans $\mathcal{A}$. Si
+%   $P=a_0+a_1X+\cdots+a_nX^n\in\polyK$, le calcul de $P(x)$ nécessite
+%   donc $n\p{n-1}/2$ multiplications dans $\mathcal{A}$. Cependant, si on
+%   écrit
+%   \[P(x)=\p{\p{\cdots\p{\p{a_n x+a_{n-1}}x+a_{n-2}}x+\cdots+a_2}x+a_1}x+a_0\]
+%   le calcul de $P(x)$ nécessite $n-1$ multiplications dans $\mathcal{A}$.
+%   Cette méthode de calcul est connue sous le nom d'algorithme de Hörner.
+\remarque On dit qu'un polynôme $P$ est un polynôme annulateur de
+  $x\in\mathcal{A}$ lorsque $P(x)=0$. Par exemple, si $\K=\R$ et
+  $\mathcal{A}=\C$, $P\defeq X^2+1$ est un polynôme annulateur de $\ii$. Si $E$
+  est un \Kev et si $s\in\Endo{E}$ est une symétrie, alors $P\defeq X^2-1$ est un
+  polynôme annulateur de $s$.
+\remarque On dit qu'un élément $z\in\C$ est algébrique lorsqu'il existe un polynôme
+  non nul $P\in\polyQ$ tel que $P(z)=0$. Par exemple $z_1=\p{1+\sqrt{5}}/2$
+  est algébrique car $P_1\defeq X^2-X-1\in\polyQ$
+  est un polynôme annulateur de $z_1$. De même,
+  $\jj$ est algébrique car $P_2\defeq X^3-1\in\polyQ$
+  est un polynôme annulateur de $\jj$. Lorsqu'on
+  effectue des calculs avec un nombre algébrique $z$, il est souvent plus économe en
+  calculs d'exploiter le fait que $P(z)=0$ plutôt que de remplacer $z$ par une
+  expression parfois complexe. Par exemple, si $x\defeq\p{1+\sqrt{5}}/2$, en exploitant le fait que
+  $x^2=x+1$, on a
+  \[\p{\frac{1+\sqrt{5}}{2}}^3
+    =x^3=x\cdot x^2=x\p{x+1}=x^2+x=2x+1=2+\sqrt{5}\]
+  Si on souhaite calculer $1/x$, on exploite le fait que $x^2-x-1=0$, ce qui donne $x\p{x-1}=1$, puis $1/x=x-1$. Donc
+  \[\frac{1}{\p{\frac{1+\sqrt{5}}{2}}}=\frac{-1+\sqrt{5}}{2}.\]
+
+\remarque On dit qu'un élément de $\C$ est \emph{transcendant} lorsqu'il n'est pas
+  algébrique. On peut montrer, mais c'est difficile, que $\e$ et $\pi$ sont
+  transcendants.
+\end{remarques}
+
+\begin{exoUnique}
+\exo Montrer que $1+\sqrt{7}$ et $\sqrt{2}+\sqrt{5}$ sont algébriques.
+  \begin{sol}
+  On pose $x=1+\sqrt{7}$ et on part de $(x-1)^2=7$. De même avec $x=\sqrt{2}+\sqrt{5}$, on l'élève au carré puis on élève $x^2-7$ au carré.
+  Les polynômes minimaux sont $X^2-2X-6$ et $X^4-14X^2+9$.
+  \end{sol}
+\exo Soit $D\defeq\diag{\lambda_1,\ldots,\lambda_n}\in\mat{n}{\K}$ et $P\in\polyK$. Montrer que
+  $P(D)=\diag{P\p{\lambda_1},\ldots,P\p{\lambda_n}}$.  
+  \begin{sol}
+  L'expliquer et ajouter qu'alors $P=\prod_{k=1}^n(X-\lambda_k)$ est un polynôme annulateur de $D$.
+  \end{sol}
+\end{exoUnique}
+
+%% Algorithme de Hörner
+%%
+%% - exemple : calcul de 1+2x-x^2+3x^3 : 3 multiplications entre réels
+%%             1+x(2+x(-1+x*3))        : 2 multiplications entre réels
+%% - implémentation en Maple
+%%   Si P est une liste contenant les coefficients
+%%
+%%   horner:=proc(P,x)
+%%     if P:=[] then
+%%       return(0);
+%%     else
+%%       return(P[1]+x*horner(P[2..-1],x));
+%%     end if;
+%%   end proc;
+
+\begin{definition}
+Soit $P,Q\in\polyK$. On définit le polynôme $P\circ Q$ par
+\[P\circ Q\defeq P(Q).\]  
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque Si $P\in\polyK$, $P(X)=P$. Un polynôme peut donc indifféremment
+  être noté $P$ ou $P(X)$.
+\end{remarqueUnique}
+
+% \begin{definition}
+% Soit $\mathcal{A}$ une $\K$-algèbre et $x\in\mathcal{A}$. Alors,
+% il existe une plus petite sous-algèbre de $\mathcal{A}$ contenant $x$; on
+% l'appelle algèbre engendrée par $x$ et on la note $\K[x]$. De plus~:
+% \[\K[x]=\enstq{P(x)}{P\in\polyK}\]
+% En particulier $\K[x]$ est commutative.
+% \end{definition}
+
+% \begin{definition}
+% Soit $x\in\mathcal{A}$ et $P\in\polyK$. On dit que $P$ est un polynôme
+% annulateur de $x$ lorsque $P(x)=0$.
+% \end{definition}
+
+\begin{definition}
+Soit $P\in\polyK$. On dit que
+\begin{itemize}
+\item $P$ est \emph{pair} lorsque $P\p{-X}=P(X)$.
+\item $P$ est \emph{impair} lorsque $P\p{-X}=-P(X)$.
+\end{itemize}
+\end{definition}
+
+\begin{proposition}
+Soit $\K$ un corps qui n'est pas de caractéristique 2 et $P\in\polyK$. Alors
+\begin{itemize}
+\item $P$ est pair si et seulement si ses coefficients d'indices impairs sont
+  nuls.
+\item $P$ est impair si et seulement si ses coefficients d'indices pairs sont
+  nuls.
+\end{itemize}
+\end{proposition}
+
+% \begin{remarques}
+% \remarque Cette proposition est fausse lorsque $\K$ est un corps où
+%   $1_\K+1_\K=0_\K$
+%   (on parle de corps de caractéristique 2) ce qui ne sera jamais le cas en
+%   {\sc MPSI}, les corps considérés étant des sous-corps de $\C$.
+% \end{remarques}
+
+\subsection{Degré d'un polynôme}
+
+\begin{definition}
+Soit $P\in\polyK$. On définit le \emph{degré} de $P$ que l'on note $\deg P$ par
+\begin{itemize}
+\item Si $P=0$, on pose $\deg P\defeq -\infty$.
+\item Sinon, il existe $n\in\N$ et $a_0,\ldots,a_n\in\K$ tels que
+  \[P=a_0+a_1X+\cdots+a_n X^n \et a_n\neq 0.\]
+  De plus $n$ et les $a_0,\ldots,a_n$ sont uniques; on pose alors $\deg P\defeq n$.
+  Le coefficient $a_n$ est appelé \emph{coefficient dominant} de $P$.
+\end{itemize}
+\end{definition}
+
+\begin{preuve}
+L'unicité de $n$ et des $a_i$ provient directement du second axiome de la première définition du cours de $\polyK$, ce qu'on peut démontrer.
+\end{preuve}
+
+\begin{remarques}
+\remarque Si $P\in\polyK$ est non nul, son coefficient dominant est parfois noté
+  ${\rm cd}(P)$.
+\remarque Un polynôme $P\in\polyK$ est de degré inférieur ou égal à $n\in\N$
+  si et seulement si il existe $a_0,\ldots,a_n\in\K$ tels que
+  \[P=\sum_{k=0}^n a_k X^k.\]
+\remarque On dit qu'un polynôme $P$ est constant lorsqu'il existe $\lambda\in\K$ tel
+  que $P=\lambda$, c'est-à-dire lorsque son degré est inférieur ou égal à 0.
+\end{remarques}
+
+\begin{proposition}
+Soit $P,Q\in\polyK$ et $n\in\N$.
+\begin{itemize}
+\item Soit $\lambda,\mu\in\K$. Si $\deg P\leq n$ et $\deg Q\leq n$, alors
+  \[\deg\p{\lambda P+\mu Q}\leq n.\]
+\item Soit $\lambda\in\Ks$ et $\mu\in\K$. Si $\deg P=n$ et $\deg Q<n$, alors
+  \[\deg\p{\lambda P+\mu Q}=n \quad\et\quad {\rm cd}(\lambda P+\mu Q)=\lambda{\rm cd}(P).\]
+\end{itemize}
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque Lorsque $P$ et $Q$ sont des polynômes de degré $n$, il est possible que
+  $P+Q$ soit de degré strictement inférieur à $n$. Par exemple $P\defeq X+1$ et
+  $Q\defeq -X$ sont de degré 1 mais $P+Q=1$ est de degré 0.
+\end{remarqueUnique}
+
+\begin{exoUnique}
+\exo Soit $P\in\polyK$. Calculer le degré de $P\p{X+1}-P(X)$ en fonction de celui de $P$.
+  \begin{sol}
+  est égal à $\deg(P)-1$ si $\deg P\geq 1$ et à $-\infty$ sinon.  
+  \end{sol}
+\end{exoUnique}
+
+\begin{definition}
+Soit $n\in\N$. On note $\polyK[n]$ l'espace vectoriel des polynômes de degré inférieur ou égal à $n$.
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque Si $n\geq 1$, $\polyK[n]$ n'est pas stable par produit. En effet,
+  $X^n\in\polyK[n]$ mais $X^{2n}=X^{n}\cdot X^n\not\in\polyK[n]$.
+\end{remarqueUnique}
+
+% \begin{proposition}
+% Soit $n\in\N$. Alors $1,X,\ldots,X^n$ est une base de $\polyK[n]$ appelée base
+% canonique. En particulier, $\polyK[n]$ est de dimension finie et~:
+% \[\dim \polyK[n]=n+1\]
+% \end{proposition}
+
+% \begin{proposition}
+% Soit $P_0,\ldots,P_n\in\polyK[n]$ une famille de polynômes tels que~:
+% \[\forall k\in\intere{0}{n} \quad \deg P_k=k\]
+% Alors $P_0,\ldots,P_n$ est une base de $\polyK[n]$.
+% \end{proposition}
+
+\begin{proposition}
+Soit $P,Q\in\polyK$. Alors
+\[\deg\p{PQ}=\deg P+\deg Q.\]
+\end{proposition}
+
+\begin{preuve}
+L'égalité de la proposition tient compte de la convention $-\infty+(-\infty)=-\infty$ et $-\infty+n=-\infty$.
+On évacue tout d'abord le cas où $P$ ou $Q$ est nul.
+Ensuite, on peut poser $p=\deg P$, $q=\deg Q$ et écrire $$P=\sum_{n\in \N}a_nX_n \et  Q=\sum_{n\in \N}b_nX_n \et PQ=\sum_{n\in \N}c_nX_n.$$
+Soit $n\geq p+q+1$, on a :
+$$c_n=\sum_{k=0}^pa_k\underbrace{b_{n-k}}_{=0 (n-k\geq q+1)}+\sum_{k=p+1}^n\underbrace{a_k}_{=0}b_{n-k}$$
+et de plus on montre que $c_{p+q}$ est non nul en séparant la somme entre les termes avant $p-1$ et après $p+1$ qui sont tous nuls et $a_pb_q\neq 0$.
+\end{preuve}
+
+\begin{remarques}
+\remarque Si $P\in\polyK$ est non nul et si $n\in\N$, alors $\deg\p{P^n}=n\deg P$.
+\remarque Si $P\in\polyK$ et $Q\in\polyK$ n'est pas constant,
+  alors $\deg\p{P\circ Q}=\deg(P)\deg(Q)$.
+\end{remarques}
+
+\begin{proposition}
+$\polyK$ est une algèbre intègre
+\[\forall P,Q\in\polyK \qsep PQ=0 \quad\implique\quad \cro{P=0 \ou Q=0}.\]
+\end{proposition}
+
+\begin{proposition}
+Les éléments inversibles de $\polyK$ sont les polynômes de degré 0, c'est-à-dire
+les polynômes constants non nuls.
+\end{proposition}
+
+\begin{definition}
+On dit qu'un polynôme non nul $U$ est unitaire lorsque son coefficient dominant est
+égal à 1. Tout polynôme $P$ non nul s'écrit de manière unique sous la forme
+$P=\lambda P_u$ où $\lambda\neq 0$ et $P_u$ est unitaire. Lorsque $P=0$, on pose
+par convention $P_u\defeq 0$.
+\end{definition}
+
+
+\begin{definition}
+  Soit $A,B\in\polyK$ avec $B\neq 0$. Alors, il existe un unique couple
+  $\p{Q,R}\in\polyK^2$ tel que
+  \[A=QB+R \et \deg R<\deg B.\]
+  $Q$ est appelé \emph{quotient} de la division euclidienne de $A$ par $B$, $R$ son
+  \emph{reste}.
+  \end{definition}
+  
+  \begin{preuve}
+  Pour l'existence, on fait une preuve effective fournissant un algorithme :
+  
+  Fixons $B\in \polyK$, $B\neq 0$. On définit $H_n : " \forall A \in \polyK[n], \exists (Q,R)\in \polyK^2 \text{ tq } A=BQ+R \et \deg R<\deg B".$.
+  \begin{itemize}
+  \item[$\bullet$] $H_0$ : Soit $A\in \polyK[0]=\K$. Si $\deg B=0$, $A=(AB^{-1})B+0$ convient. Sinon, $A=0B+A$ convient.
+  \item[$\bullet$] Hérédité : On suppose $\deg A=n+1$, sinon, c'est bon d'après l'HR. Si $\deg A<\deg B$, $A=0B+A$ convient.
+  \'Ecrivons alors $$A=\sum_{k=0}^{n+1}a_k X^k \et B=\sum_{k=0}^{d}b_k X^k$$ avec $a_{n+1}\neq 0$, $b_d\neq 0$ et $d\leq n+1$.
+  
+  Posons $A_1=A-\dfrac{a_{n+1}}{b_d}X^{n+1-d}B$. $A_1\in \polyK[n]$ donc d'après l'HR, $A_1=BQ_1+R$ et donc $$A=B\p{Q_1+\dfrac{a_{n+1}}{b_d}X^{n+1-d}}+R.$$
+  \end{itemize}
+  \end{preuve}
+  
+  \begin{remarques}
+  \remarque Si $B$ est un polynôme annulateur non nul de $x$ et $A\in\polyK$.
+    Alors $A(x)=R(x)$ où $R$ est le reste de la division euclidienne de $A$
+    par $B$. En effet
+    \[A(x)=Q(x)\underbrace{B(x)}_{=0}+R(x)\]
+  \exo Il est parfois utile de calculer le reste de la division euclidienne
+    de $A$ par $B$ sans calculer son quotient.
+      Par exemple, si $A\defeq X^n$
+      et $B\defeq \p{X-1}\p{X-2}$, le reste $R$ de la division euclidienne de $A$ par $B$
+      est de degré inférieur ou égal à 1 donc il existe $a,b\in\R$ tels que
+      $R=aX+b$. Comme $A=QB+R$, on en déduit que
+      $A\p{1}=Q\p{1}B\p{1}+R\p{1}$. Comme $B\p{1}=0$, on a $A\p{1}=R\p{1}$. De
+      même $A\p{2}=R\p{2}$. Donc
+      \[\syslin{a&+b&=&1\hfill\cr
+               2a&+b&=&2^n.\hfill}\]
+      On en déduit que $a=2^n-1$ et $b=2-2^n$. Donc $R=\p{2^n-1}X+\p{2-2^n}$.
+      Cette méthode fonctionne dès que le polynôme $B$, de degré $n$, admet $n$
+      racines deux à deux distinctes.\\
+      Si $A\defeq X^n$
+      et $B\defeq \p{X-1}^2$, le reste $R$ de la division euclidienne de $A$ par $B$
+      est de degré inférieur ou égal à 1 donc il existe $a,b\in\R$ tels que
+      $R=aX+b$. Comme plus haut, $A\p{1}=R\p{1}$. En dérivant la relation
+      $A=QB+R$, on obtient $A'=B'Q+BQ'+R'$. Puisque 1 est racine de $B$ et de $B'$, on
+      en déduit que $A'\p{1}=R'\p{1}$. Donc
+      \[\syslin{a&+b&=&1\hfill\cr
+                a&  &=&n.\hfill}\]
+      On en déduit que $a=n$ et $b=1-n$, donc $R=nX+\p{1-n}$.
+  \end{remarques}
+  
+  \begin{exos}
+  \exo Calculer $x^5+x^4-1$ où $x\defeq(1+\sqrt{5})/2$.
+    \begin{sol}
+    On a $X^5+X^4-1=(X^3+2X^2+3X+5)(X^2-X-1)+(8X+4)$. En particulier,
+    si $x=(1+\sqrt{5})/2$
+    \[\p{\frac{1+\sqrt{5}}{2}}^5+\p{\frac{1+\sqrt{5}}{2}}^4-1=x^5+x^4-1=8x+4=
+      8+4\sqrt{5}\]  
+    \end{sol}
+  \exo Montrer que le polynôme $P\defeq X^3+pX+q\in\polyR$ admet 3 racines réelles
+    deux à deux distinctes si et seulement si $4p^3+27q^2<0$.
+    \begin{sol}
+    On a déjà forcément une racine réelle. Ensuite (faire un dessin), il nous faut regarder les annulations de la dérivée. Pour qu'il y ait trois racines réelles distinctes, il nous faut deux racines pour la dérivée $x_0$ et $x_1$ telles que $P(x_1)P(x_0)<0$.
+    
+    $P'=3X^2+p$ ne s'annule pas si $p>0$ (dans ce cas, la fonction est strictement croissante et n'admet donc pas trois racines distinctes). Si $p\leq 0$, alors $P'$ s'annule en $x_0$ et $x_1$ vérifiant de plus $x_0+x_1=0$ et $x_0x_1=\frac{p}{3}$. On cherche à calculer $P(x_1)P(x_0)$. On peut faire la DE de $P$ par $P'$ puis on trouve $P(x_1)P(x_0)=\frac{1}{27}\p{4p^3+27q^2}$.
+    \end{sol}
+      \exo On pose
+      \[A\defeq
+      \begin{pmatrix}
+      4 & -1\\
+      2 & 1
+      \end{pmatrix}\]
+      Vérifier que $A^2-5A+6I_2=0$ puis calculer $A^n$ pour tout $n\in\N$.
+      \begin{sol}
+      Après avoir vérifié l'égalité, on fait la DE de $X^n$ par $X^2-5X+6=(X-3)(X-2)$ où seul le reste nous intéresse.
+      On trouve
+      \[A^n=
+      \begin{pmatrix}
+      -2^n+2\cdot 3^n & 2^n-3^n\\
+      -2\cdot 2^n+2\cdot 3^n & 2\cdot 2^n-3^n
+      \end{pmatrix}\]
+      \end{sol}
+  \end{exos}
+
+\subsection{Racines, fonctions polynomiales}
+
+\begin{definition}
+Soit $P\in\polyK$. On appelle racine de $P$ tout élément $\alpha\in\K$ tel que
+$P\p{\alpha}=0$.
+\end{definition}
+
+\begin{remarques}
+\remarque Les polynômes de degré 1 admettent une unique racine.
+\remarque D'après le théorème des valeurs intermédiaires, tout polynôme
+  réel de degré impair admet (au moins) une racine réelle.
+\remarque La notion de racine dépend du corps considéré. En effet, si on le
+  considère comme élément de $\polyC$, les racines de \mbox{$(X^2-2)(X^2+1)$} sont
+  $\sqrt{2},-\sqrt{2},\ii,-\ii$. Considéré comme élément de $\polyR$,
+  ses racines sont $\sqrt{2},-\sqrt{2}$. Enfin il n'a aucune racine si
+  on le considère comme un élément de $\polyQ$.
+\remarque Si $\K$ est un sous-corps de $\KL$, $P\in\polyK$
+  et $\alpha\in\KL$, on dit que $\alpha$ est une racine de $P$ sur $\KL$
+  lorsque $P\p{\alpha}=0$.
+\end{remarques}
+
+\begin{proposition}
+Si $n\in\N$, tout polynôme de degré $n$ admet au plus $n$ racines.
+\end{proposition}
+
+\begin{preuve}
+Se démontre par récurrence sur $n$ avec la proposition comme prédicat. Pour l'hérédité, ou bien il n'y a pas de racines auquel cas c'est tout bon, ou bien il en existe une $\alpha$ et on peut alors écrire $P=P(X)-P(\alpha)$ qui en écrivant avec les coefficients va faire apparaitre des $X^k-\alpha^k$ qu'on peut tous factoriser par $X-\alpha$. On a donc écrit $P=(X-\alpha)Q$. Reste à conclure.
+\end{preuve}
+
+\begin{remarques}
+\remarque On en déduit qu'un polynôme de degré inférieur ou égal à $n$
+  admettant $n+1$ racines deux à deux distinctes est nul. De même, si deux
+  polynômes de degrés inférieurs ou égaux à $n$ prennent la même valeur
+  en $n+1$ points deux à deux distincts, alors ils sont égaux.
+\remarque Un polynôme admettant une infinité de racines est donc nul. De même,
+  deux polynômes prenant la même valeur sur un ensemble infini sont
+  égaux.
+\end{remarques}
+
+\begin{exos}
+\exo Montrer que les polynômes de $\polyK$ tels que $P(X)=P(X+1)$ sont les
+  polynômes constants.
+  \begin{sol}
+  On peut utiliser l'exercice d'avant en utilisant les degrés. Ou bien on montre que $P-P(0)$ admet une  infinité de racines.
+  \end{sol}
+\exo Montrer qu'il n'existe pas de polynôme $P\in\polyC$ tel que, pour tout
+  $z\in\C$, $P(z)=\conj{z}$.
+  \begin{sol}
+  Tous les réels sont racines de $P(X)-X$.
+  \end{sol}
+% \exo On se donne $n+1$ éléments de $\K$ deux à deux distincts
+%   $x_0,x_1,\ldots,x_n$ et $y_0,\ldots,y_n\in\K$. Montrer qu'il existe un unique
+%   polynôme $P$ de degré inférieur ou égal à $n$ tel que
+%   \[\forall k\in\intere{0}{n} \quad P\p{x_k}=y_k\]
+%   On dit que $P$ est le polynôme interpolateur de Lagrange associé aux
+%   familles $\p{x_k}$ et $\p{y_k}$.
+%   \begin{sol}
+%   On a l'unicité en en prenant deux et en montrant que le polynôme de la différence admet trop de racines. 
+%   Pour l'existence, on peut poser $\forall k \in \llbracket 0,n \rrbracket$ $$L_k=\prod_{\underset{i\neq k}{i=0}}^n\p{\frac{X-x_i}{x_k-x_i}}.$$
+%   On peut le faire sentir car on a besoin de $L_k(x_j)=\delta_{jk}$.
+%   \end{sol}
+\end{exos}
+
+\begin{proposition}[nom={Polyôme interpolateur de \nom{Lagrange}}]
+Soit $x_0,\ldots,x_n\in\K$, $n+1$ éléments deux à deux distincts et $y_0,\ldots,y_n\in\K$. Alors,
+il existe un unique polynôme $P$ de degré inférieur ou égal à $n$ tel que
+\[\forall i\in\intere{0}{n} \qsep P(x_i)=y_i.\]
+On l'appelle polynôme interpolateur de \nom{Lagrange} associé aux familles $\p{x_0,\ldots,x_{n}}$ et $\p{y_0,\ldots,y_{n}}$.
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque  Pour tout $i\in\intere{0}{n}$, on note
+$L_i$ le polynôme défini par
+\[L_i\defeq \prod_{\substack{k=0\\k\neq i}}^{n} \frac{X-x_k}{x_i-x_k}.\]
+Alors, le polynôme interpolateur de \nom{Lagrange} associé aux familles $\p{x_0,\ldots,x_{n}}$ et $\p{y_0,\ldots,y_{n}}$ est donné par
+\[P=\sum_{i=0}^{n} y_i L_i.\]
+\end{remarqueUnique}
+
+% \begin{proposition}
+% Soit $x_0,\ldots,x_{n}\in\K$, $n+1$ éléments deux à deux distincts.
+% \end{proposition}
+
+\begin{preuve}
+On a l'unicité en en prenant deux et en montrant que le polynôme de la différence admet trop de racines. 
+  Pour l'existence, on peut poser $\forall k \in \llbracket 0,n \rrbracket$ $$L_k=\prod_{\underset{i\neq k}{i=0}}^n\p{\frac{X-x_i}{x_k-x_i}}.$$
+  On peut le faire sentir car on a besoin de $L_k(x_j)=\delta_{jk}$.
+  \end{preuve}
+
+% \begin{remarqueUnique}
+% \remarque Soit $x_0,\ldots,x_{n}\in\K$ deux à deux distincts, $y_0,\ldots,y_{n}\in\K$ et $P\in\polyK$. Alors
+%   \[\forall i\in\intere{0}{n} \qsep P(x_k)=y_k\]
+%   si et seulement si il existe un polynôme $Q\in\polyK$ tel que
+%   \[P=\sum_{i=0}^{n} y_i L_i + Q\prod_{k=0}^{n} \p{X-x_k}.\]
+% \end{remarqueUnique}
+
+
+\begin{definition}
+On dit qu'une application $f:\K\to\K$ est une fonction polynomiale lorsqu'il existe
+$P\in\polyK$ tel que
+\[\forall x\in\K \qsep f(x)=P(x).\]
+% L'ensemble des fonctions polynomiales est une sous-algèbre de
+% $\mathcal{F}\p{\K,\K}$.
+\end{definition}
+
+\begin{proposition}
+Si $\K$ est infini,
+l'application de l'algèbre $\polyK$ dans l'algèbre $\mathcal{F}(\K,\K)$, qui au polynôme $P$ associe la fonction polynomiale
+$\tilde{P}$, est injective.  
+\end{proposition}
+
+\begin{preuve}
+Si $P$ et $Q$ ont la même image, alors $P-Q$ admet une infinité (car $\K$ est infini) de racines donc $P=Q$.
+\end{preuve} 
+
+\begin{remarques}
+% \remarque Lorsque $\K$ est un sous-corps de $\C$, l'algèbre des fonctions polynomiales hérite donc des propriétés de
+%   $\polyK$. En particulier, elle est intègre, contrairement à l'algèbre
+%   $\mathcal{F}\p{\K,\K}$.
+\remarque Cette proposition permet, lorsque $\K$ est infini, d'identifier polynômes et
+  fonctions polynomiales. C'est pourquoi certains énoncés se
+  permettent de confondre polynômes et fonctions polynomiales, identification
+  que nous ne ferons que lorsque l'énoncé le demande explicitement.
+\remarque Cette proposition est fausse lorsque le corps $\K$ est fini. En effet,
+  si $\K=\ens{a_1,\ldots,a_n}$, le polynôme
+  \[P\defeq\prod_{k=1}^n \p{X-a_k}\]
+  est non nul car $\deg P=n$, mais la fonction polynomiale associée est nulle.
+\end{remarques}
+
+\subsection{Polynôme dérivé}
+
+\begin{definition}
+Soit $P=a_0+a_1 X+\cdots+a_n X^n\in\polyK$. On définit le polynôme dérivé de
+$P$ par
+\begin{eqnarray*}
+P' &\defeq& a_1 + 2a_2 X+\cdots+na_nX^{n-1}\\
+   &=& \sum_{k=1}^n ka_k X^{k-1}.
+\end{eqnarray*}
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque Dans le cas où $\K=\R$, la fonction polynomiale associée à $P'$ est
+  la dérivée de la fonction polynomiale associée à $P$.
+\end{remarqueUnique}
+
+\begin{proposition}
+Soit $P,Q\in\polyK$ et $\lambda,\mu\in\K$. Alors
+\[\p{\lambda P+\mu Q}'=\lambda P'+\mu Q' \qquad
+  \p{PQ}'=P'Q+PQ' \et \p{P\circ Q}'=Q'\p{P'\circ Q}.\]
+\end{proposition}
+
+\begin{definition}
+Soit $P\in\polyK$. On définit par récurrence la dérivée $n$-ième de $P$ par
+\begin{itemize}
+\item $P^{(0)}\defeq P$
+\item $\forall n\in\N \qsep P^{(n+1)}\defeq \cro{P^{(n)}}'$.
+\end{itemize}
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque Soit $n\in\N$. Alors
+  \[\forall k\in\N \qsep \p{X^n}^{(k)}=
+    \begin{cases}
+    \frac{n!}{\p{n-k}!}X^{n-k} &\text{si $k\leq n$}\\
+    0 & \text{sinon.}
+    \end{cases}\]
+  En particulier, si $P=a_0+a_1X+\cdots+a_nX^n\in\polyK$, alors
+  \[\forall k\in\N \qsep P^{(k)}\p{0}=k! a_k.\]
+\end{remarqueUnique}
+
+\begin{proposition}
+Soit $P,Q\in\polyK$ et $n\in\N$
+\begin{itemize}
+\item Soit $\lambda,\mu\in\K$. Alors
+  \[\p{\lambda P+\mu Q}^{(n)}=\lambda P^{(n)}+\mu Q^{(n)}.\]
+\item On a
+  \[\p{PQ}^{(n)}=\sum_{k=0}^n \binom{n}{k}P^{(n-k)}Q^{(k)}.\]
+  Cette formule est appelée formule de \nom{Leibniz}.
+\end{itemize}
+\end{proposition}
+
+\begin{exoUnique}
+\exo Calculer $(X^2P)^{(n)}$ en fonction des dérivées successives de $P$.
+\end{exoUnique}
+
+\begin{proposition}
+Soit $\K$ est un corps de caractéristique nulle et $P\in\polyK$. Alors
+\[\deg P'=
+  \begin{cases}
+  \deg(P)-1 & \text{si $\deg P\geq 1$,}\\
+  -\infty & \text{sinon.}
+  \end{cases}\]
+\end{proposition}
+
+\begin{preuve}
+Notons qu'on se place ici dans un corps de caractéristique nulle. Par exemple, dans $\Z/p\Z$, $P=X^p$ est de degré $p$ mais son polynôme dérivé est nul.
+\end{preuve}
+
+\begin{remarques}
+\remarque $P'=0$ si et seulement si $P$ est constant.
+\remarque Pour tout $P\in\polyK$, $\deg P'\leq\deg(P)-1$.
+\remarque Soit $P\in\polyK$ et $n\in\N$. Alors 
+\[\deg P^{(n)}=
+  \begin{cases}
+  \deg(P)-n & \text{si $\deg P\geq n$,}\\
+  -\infty & \text{sinon.}
+  \end{cases}\]
+  En particulier, $\deg P^{(n)}\leq\deg(P)-n$.
+\end{remarques}
+
+\begin{proposition}[nom={\nom{Taylor-Young}}]
+Soit $\K$ un corps de caractéristique nulle, $P$ un polynôme de degré inférieur ou égal à $n$ et $\alpha\in\K$. Alors
+\[P=\sum_{k=0}^n \frac{P^{(k)}\p{\alpha}}{k!}\p{X-\alpha}^k.\]  
+\end{proposition}
+
+
+\begin{preuve}
+\begin{eqnarray*}
+P&=&\sum_{k=0}^n a_kX^k\\
+&=& \sum_{k=0}^n a_k\p{X-\alpha+\alpha}^k\\
+&=&\sum_{k=0}^n a_k\sum_{i=0}^k\binom{k}{i}(X-\alpha)^i\alpha^{k-i}\\
+&=&\sum_{i=0}^n\p{\sum_{k=i}^n \binom{k}{i}a_k\alpha^{k-i}}(X-\alpha)^i\\
+&=&\sum_{i=0}^n\frac{1}{i!}\underbrace{\p{\sum_{k=i}^n \frac{k!}{(k-i)!}a_k\alpha^{k-i}}}_{=P^{(i)}(\alpha)}(X-\alpha)^i
+\end{eqnarray*}
+\end{preuve}
+% \begin{remarques}
+% \remarque Si $\K$ est un corps pour lequel il existe $n\in\Ns$ tel que
+%   \[\underbrace{1_\K+1_\K+\cdots+1_\K}_{\text{$n$ fois}}=0_\K\]
+%   (on parle de corps de caractéristique non nulle), les deux 
+%   propositions précédentes deviennent fausses. Cependant, ce ne sera pas le cas
+%   en {\sc MPSI}, les corps considérés étant des sous-corps de $\C$.  
+% \end{remarques}
+
+%END_BOOK
+
+\end{document}

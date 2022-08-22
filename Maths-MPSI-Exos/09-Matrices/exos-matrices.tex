@@ -1,0 +1,322 @@
+\documentclass{magnolia}
+
+\magtex{tex_driver={pdftex}}
+\magfiche{document_nom={Exercices sur les matrices},
+          auteur_nom={François Fayard},
+          auteur_mail={fayard.prof@gmail.com}}
+\magexos{exos_matiere={maths},
+          exos_niveau={mpsi},
+          exos_chapitre_numero={9},
+          exos_theme={Matrices}}
+\magmisenpage{}
+\maglieudiff{}
+\magprocess
+
+\begin{document}
+%BEGIN_BOOK
+
+\magsection{Matrice}
+\magsubsection{Matrice}
+\magsubsection{Matrice carrée}
+\magsection{Opérations sur les matrices}
+\magsubsection{Combinaison linéaire}
+
+\exercice{nom={Sous-structures de $\mat{n}{\K}$}}
+Montrer que l'ensemble des matrices
+\[\begin{pmatrix}
+  x   & y  & z\\
+  2z  & x  & y\\ 
+  2y  & 2z & x
+  \end{pmatrix}\]
+pour $x,y,z \in \Q$ est un sous-espace vectoriel de $(\mat{3}{\Q},+)$.
+
+% \question On dit qu'une matrice $A$ est triangulaire inférieure si :
+%   \[\forall i,j \in\intere{1}{n} \quad i<j \Longrightarrow a_{i,j}=0\]
+%   Montrer que l'ensemble des matrices triangulaires inférieures est une
+%   sous-algèbre de $\mat{n}{\K}$.
+
+\magsubsection{Produit}
+
+
+\exercice{nom={Sous-structures de $\mat{n}{\K}$}}
+Soit $E$ l'ensemble des matrices de $\mat{3}{\C}$ de la forme :
+\[\begin{pmatrix}
+    a & 0 & b\\
+    0 & a & c\\
+    0 & 0 & d
+    \end{pmatrix}\]
+où $a,b,c,d$ sont des nombres complexes.
+\begin{questions}
+\question Montrer que $E$ est une sous-espace vectoriel de $\mat{3}{\C}$, stable par produit.
+\question Les éléments de $E$ commutent-ils entre eux~?
+\question Soit $A,B\in E$. Est-il possible d'avoir $AB=0$ sans que $A=0$ ou
+  $B=0$~?
+% \question Donner la dimension de cette algèbre.
+\end{questions}
+
+
+\exercice{nom={Produit}}
+Soient $A$ et $B$ deux matrices de $\mat{n}{\K}$ telles que
+\[\forall X\in\mat{n}{\K} \qsep AXB=0.\]
+Montrer que $A=0$ ou $B=0$.
+
+
+\magsubsection{Calcul dans l'algèbre $\mat{n}{\K}$}
+
+\exercice{nom={Calcul de puissances successives}}
+Calculer la puissance n-ième des matrices
+  \[\begin{pmatrix}
+    2 & 2 & 4\\
+    0 & 2 & 1\\
+    0 & 0 & 2
+    \end{pmatrix} \et
+    \begin{pmatrix}
+    \cos \theta & -\sin \theta & 0\\
+    \sin \theta & \cos \theta & 0\\
+    0 & 0 & 2
+    \end{pmatrix}\]
+\begin{sol}
+\[\begin{pmatrix}
+  2^n & n2^n & n2^{n-2}\p{n+7}\\
+  0 & 2^n & n2^{n-1} \\
+  0 & 0 & 2^n
+  \end{pmatrix} \et
+  \begin{pmatrix}
+  \cos\p{n\theta} & -\sin\p{n\theta} & 0\\
+  \sin\p{n\theta} & \cos\p{n\theta} & 0\\
+  0 & 0 & 2^n
+  \end{pmatrix}\]
+\end{sol}
+
+
+
+\magsubsection{Matrice inversible}
+
+\exercice{nom={Déterminant}}
+Soit $A$ la matrice
+\[A=\begin{pmatrix}
+    a_{1,1} & a_{1,2}\\
+    a_{2,1} & a_{2,2}
+  \end{pmatrix}\]
+\begin{questions}
+\question Montrer que $A^2-(a_{1,1}+a_{2,2})A+(a_{1,1}a_{2,2}-a_{1,2}a_{2,1})I=0$.
+\question En déduire une condition nécessaire et suffisante pour que $A$ soit
+  inversible.
+\end{questions}
+
+
+
+
+
+
+% \question Soit $A,B,C$ les matrices définies par :
+%   \[\begin{pmatrix}
+%     1 & 0\\
+%     0 & 0
+%     \end{pmatrix}\quad
+%     \begin{pmatrix}
+%     0 & 1\\
+%     0 & 0
+%     \end{pmatrix}\quad
+%     \begin{pmatrix}
+%     0 & 0\\
+%     1 & 0
+%     \end{pmatrix}\]
+%   \begin{questions}
+%   \question Comparer $\tr\p{ABC}$ et $\tr\p{BAC}$.
+%   \question Comparer $\tr\p{ABC}$, $\tr\p{CAB}$ et $\tr\p{BCA}$.
+%   \end{questions}
+% \end{questions}
+
+
+
+
+
+
+
+
+
+% \exercice{nom={Groupe des rotations}}
+% Montrer que l'ensemble des matrices~:
+% \[\begin{pmatrix}
+%   \cos \theta & -\sin \theta\\
+%   \sin \theta & \cos \theta
+%   \end{pmatrix}\]
+% pour $\theta\in\R$ est un sous-groupe de $(\gl{2}{\R},\times)$.
+
+
+
+
+
+\exercice{nom={Calcul d'inverse}}
+Soit $n\in\Ns$ et $a\in\R$. On définit la matrice $A\in\mat{n}{\K}$ par
+\[\forall i,j\in\intere{1}{n} \quad a_{i,j}=
+  \begin{cases}
+  a^{j-i} & \text{si $j\geq i$}\\
+  0 & \text{sinon}
+  \end{cases}\]
+En introduisant la matrice $N$ définie par
+\[\forall i,j\in\intere{1}{n} \quad n_{i,j}=
+  \begin{cases}
+  1 & \text{si $j=i+1$}\\
+  0 & \text{sinon}
+  \end{cases}\]
+montrer que $A$ est inversible et calculer $A^{-1}$.
+\begin{sol}
+On remarque, en calculant $AN$ que $A=I_n+aAN$, donc $A(I_n-aN)=I_n$. Donc
+$A$ est inversible et $A^{-1}=I_n-aN$.
+\end{sol}
+
+% \exercice{nom={Calcul de rang}}
+% Résoudre le système linéaire dont la matrice $A$ est définie par :
+% \[\forall i,j\in\intere{1}{n} \quad a_{i,j}=
+%   \begin{cases}
+%   1 & \text{si} \abs{i-j}\leq 1\\
+%   0 & \text{sinon}
+%   \end{cases}\]
+% Quel est son rang ?
+% \begin{sol}
+% On peut voir qu le rang de la matrice est au moins $n-1$ puisque les $n-1$
+% premières colonnes de la matrice forment une famille libre. On calcule ensuite
+% le déterminant et on trouve une relation de récurrence $u_{n+2}=u_{n+1}-u_n$
+% puis
+% \[u_n=\frac{2}{\sqrt{3}}\sin\p{\frac{(n+1)\pi}{3}}\]
+% Donc $A$ est inversible si et seulement si $n$ n'est pas congru à 2 modulo 3.
+% Sinon, elle est de rang $n-1$.
+% \end{sol}
+
+\magsubsection{Calcul par bloc}
+
+\exercice{nom={Inversibilité des matrices triangulaires supérieures}}
+Soit $n\in\N$ et $A\in\mat{n+1}{\K}$ une matrice de la forme
+\[A=\begin{pmatrix}
+  \alpha & L\\
+  0      & B
+  \end{pmatrix}\]
+où $\alpha\in\K$, $L\in\mat{1,n}{\K}$ et $B\in\mat{n}{\K}$.
+\begin{questions}
+\question Soit $A'\in\mat{n+1}{\K}$ une matrice que l'on décompose sous la forme
+  \[A'=\begin{pmatrix}
+    \alpha' & L'\\
+    C'       & B'
+    \end{pmatrix}\]
+  où $\alpha'\in\K$, $L'\in\mat{1,n}{\K}$, $C'\in\mat{n,1}{\K}$ et $B'\in\mat{n}{\K}$.
+  Montrer que $AA'=I_{n+1}$ et $A'A=I_{n+1}$ si et seulement si
+  \[\alpha\alpha'=1, \qquad BB'=I_n, \qquad B'B=I_n, \qquad C'=0\quad\text{et}\quad L'=-\alpha' L B'.\]
+\question En déduire que $A$ est inversible si et seulement si $\alpha\neq 0$ et $B\in\gl{n}{\K}$.
+\question Montrer qu'une matrice triangulaire supérieure est inversible si et seulement si tous ses
+  coefficients diagonaux sont non nuls et que si tel est le cas, son inverse est triangulaire
+  supérieure et ses coefficients diagonaux sont les inverses des coefficients diagonaux de $A$.
+\end{questions}
+
+\exercice{nom={Matrices symplectiques}}
+Soit $n\in\N$ un entier pair et $m\in\N$ tel que $n=2m$. On pose
+\[J\defeq\begin{pmatrix}
+  0   & -I_m\\
+  I_m & 0 \end{pmatrix}\in\mat{n}{\R}\]
+On appelle matrice symplectique toute matrice $M\in\mat{n}{\R}$ telle que
+\[M^\top J M =J.\]
+\begin{questions}
+\question Montrer que $J^\top=-J$.
+\question Montrer que $J\in\gl{n}{\R}$ et que $J^{-1}=-J$.
+\question Montrer que $I_n$ et $J$ sont symplectiques.
+\question Montrer que le produit de deux matrices symplectiques est symplectique.
+\end{questions}
+
+\magsection{Matrice et système linéaire}
+\magsubsection{Interprétation matricielle}
+\magsubsection{Calcul d'inverse, système de \nom{Cramer}}
+
+\exercice{nom={Calcul d'inverse}}
+Calculer l'inverse de la matrice
+  \[\begin{pmatrix}
+    1 & -1 & 2\\
+    0 & 1 & 1\\
+    0 & 0 & 1
+    \end{pmatrix}\]
+\begin{sol}
+\[\begin{pmatrix}
+  1 & 1 & -3\\
+  0 & 1 & -1\\
+  0 & 0 & 1
+  \end{pmatrix}\]
+\end{sol}
+
+
+\magsubsection{Opérations élémentaires par produit matriciel}
+
+% \exercice{nom={Étude d'un système affine}}
+% Soit $a,b,c$ trois réels deux à deux distincts.
+% \begin{questions}
+% \question Montrer que le système~:
+%   \[\left\lbrace
+%     \begin{array}{l}
+%     x+ay+a^2z=0\\
+%     x+by+b^2z=0\\
+%     x+cy+c^2z=0
+%     \end{array}\right.\]
+%   est de Cramer.
+% \question Résoudre le système :
+%   \[\left\lbrace
+%   \begin{array}{l}
+%   x+ay+a^2z=a^4\\
+%   x+by+b^2z=b^4\\
+%   x+cy+c^2z=c^4
+%   \end{array}
+%   \right.\]
+% \end{questions}
+
+\exercice{nom={Exercice}}
+Résoudre le système
+\[\syslin{-x_1&+x_2&+x_3&+\cdots&+x_n&=&1\hfill\cr
+           x_1&-x_2&+x_3&+\cdots&+x_n&=&2\hfill\cr
+           \vdots\ \,& &    &       &\vdots\ \,&=&\,\vdots\hfill\cr
+           x_1&+x_2&+x_3&+\cdots&-x_n&=&n\hfill}\]
+% $$\begin{cases} -x_1+x_2+\dots+x_n=1 \\ x_1-x_2+x_3+\dots+x_n=2 \\ \dots \\
+% x_1+x_2+\dots+x_{n-1}-x_n=n \end{cases}$$
+\begin{sol}
+On trouve
+\[x_i=\frac{n(n+1)}{4(n-2)}-\frac{i}{2}\]
+\end{sol}
+
+\exercice{nom={Exercice}}
+Soit $m\in\R$. Résoudre le système suivant.
+\[\syslin{x&+y&+z&+t&=&3\hfill\cr
+          x&+my&+z&-mt&=&m+2\hfill\cr
+          mx&-y&-mz&-t&=&-1.\hfill}\]
+
+\exercice{nom={Exercice}}
+Soit $a,b,c\in\C$. Résoudre le système
+\[\syslin{x&+y&+z&=&a\hfill\cr
+          x&+\jj y&+\jj^2 z&=&b\hfill\cr
+          x&+\jj^2y&+\jj z&=&c.\hfill}\]
+Donner une condition nécessaire et suffisante
+sur $a,b,c$ pour que les solutions soient réelles.
+
+% \exercice{nom={Exercice}}
+% Soit $A = \begin{pmatrix}
+% 2&2&0\\1&2&1\\0&2&2\\
+% \end{pmatrix}$. Déterminer les $\lambda \in \R$ tels que $ \exists X \in \R^3$
+% non nul tel que $AX = \lambda X$. Pour chaque $\lambda$
+% déterminer $E_{\lambda} = \left\{ X \in \R^3 / AX = \lambda X\right\}$. Conclusion ?
+
+\magsubsection{Matrice échelonnée}
+
+%END_BOOK
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,161 @@
+\documentclass{magnolia}
+
+\magtex{tex_driver={pdftex}}
+\magfiche{document_nom={Exercices sur les développements limités},
+          auteur_nom={François Fayard},
+          auteur_mail={fayard.prof@gmail.com}}
+\magexos{exos_matiere={maths},
+         exos_niveau={mpsi},
+         exos_chapitre_numero={22},
+         exos_theme={Séries}}
+\magmisenpage{}
+\maglieudiff{}
+\magprocess
+
+\begin{document}
+%BEGIN_BOOK
+\magsection{Série}
+\magsubsection{Série}
+\exercice{nom={Exercice}}
+Établir la convergence et calculer
+\[\sum_{n=0}^{+\infty}\frac{2^n}{(n+2)n!},\qquad
+  \sum_{n=0}^{+\infty}\frac{2^n(5n+1)}{3^n n!}.\]
+\begin{sol}
+On trouve $(1/4)(1+\e^2)$, $(13/3)\e^{2/3}$.
+\end{sol}
+
+\exercice{nom={Exercice}}
+Soit $(u_n)$ une suite positive décroissante tendant vers $0$. Montrer que
+si $\sum u_n$ converge, alors
+\[u_n = \petito{n}{+\infty}{\frac{1}{n}}.\]
+On pourra considérer la suite de terme général $s_{2n} - s_n$. La réciproque est-elle vraie~?
+
+\magsubsection{Série à termes positifs}
+
+\exercice{nom={Exercice}}
+Soit $(u_n)$ une suite réelle positive, décroissante.
+\begin{questions}
+\question Montrer que $\sum u_n$ converge si et seulement si $\sum 2^n u_{2^n}$ converge.
+\question Soit $\alpha,\beta\in\R$. Déterminer la nature de
+  \[\sum \frac{1}{n^{\alpha} \ln^\beta n}.\]
+\end{questions}
+
+
+\magsubsection{Série absolument convergente}
+
+\exercice{nom={Exercice}}
+Déterminer la nature des séries suivantes.
+\[\sum \frac{\ln(n)}{n^2},\qquad \sum \frac{n!}{n^n},\qquad \sum \cro{\e - \p{1+\frac 1n}^n},\]
+\[\sum \frac{1}{\binom{2n}{n}}, \qquad \sum \frac{1}{\ln(n)^{\ln(n)}}.\]
+
+\exercice{nom={Exercice}}
+Montrer que la suite $(u_n)$ définie par
+\[\forall n\in\N\qsep u_n \defeq \prod_{k=1}^n \p{1+ \frac{1}{k^2}}\]
+converge vers un réel non nul.
+
+\exercice{nom={Exercice}}
+Donner la nature de la série de terme général
+\[\frac{n^{2 \lambda}}{\lambda^n + \ln n}\]
+suivant $\lambda\in\R$.
+
+\exercice{nom={Exercice}}
+Soit $a,b\in\R$. Donner la nature de
+\[\sum \p{ \sqrt[3]{n^3+n} - \sqrt[2]{n^2+an+b}}.\]
+
+\exercice{nom={Exercice}}
+Pour tout $r \in \N$, on pose
+\[S_r(x) \defeq \sum_{n=r}^{+\infty} \binom{n}{r} x^{n-r}.\]
+\begin{questions}
+\question Pour quelles valeurs de $x\in\R$ la somme $S_r(x)$ est-elle définie~?
+\question Calculer $(1-x)S_{r+1}(x)$.
+\question En déduire la valeur de $S_r(x)$. 
+\end{questions}
+
+\exercice{nom={Exercice}}
+Montrer qu'il existe $l\in \R$ tel que
+\[\sum_{k=1}^n k^{\frac{1}{k}} = n + \frac{1}{2} \ln^2 n+l +\petito{n}{+\infty}{1}.\]
+
+\magsubsection{Série semi-convergente}
+
+\exercice{nom={Exercice}}
+On définit les suites $(u_n)$ et $(v_n)$ par
+\[\forall n\geq 2\qsep u_n \defeq \frac{(-1)^n}{\sqrt{n}} \et
+  v_n \defeq \frac{(-1)^n}{\sqrt{n}+(-1)^n}.\]
+\begin{questions}
+\question Montrer que \[u_n \equi{n}{+\infty} v_n.\]
+\question Montrer que $\sum u_n$ converge et que $\sum v_n$ diverge.
+\end{questions}
+
+\exercice{nom={Exercice}}
+Déterminer les suites réelles $(v_n)$ telles que pour toute suite réelle positive $(u_n)$
+\[\sum u_n \text{ converge } \quad\implique\quad \sum u_n v_n \text{ converge }.\]
+
+
+\magsection{Famille sommable}
+\magsubsection{Famille sommable de réels positifs}
+
+\exercice{nom={Exercice}}
+Soit $\alpha\in\R$. Calculer
+\[\sum_{n\in\Ns} \sum_{k\geq n} \frac{1}{k^\alpha}, \qquad
+  \sum_{m\in\Ns}\sum_{n\in\Ns} \frac{1}{(m+n)^{\alpha}}.\]
+
+\magsubsection{Famille sommable d'éléments de $\K$}
+
+\exercice{nom={Exercice}}
+Pour tout $k\in\N$, on pose
+\[L_k\defeq \prod_{i=0}^{k-1} (X-i).\]
+\begin{questions}
+\question Montrer que pour tout $P\in\polyC$, la famille
+  \[\p{\frac{P(n)}{n!}}_{n\in\N}\]
+  est sommable.
+\question Calculer
+  \[\sum_{n\in\N} \frac{L_k(n)}{n!}\]
+  pour tout $k\in\N$.
+\question En déduire
+  \[\sum_{n\in\N} \frac{n^4}{n!}.\]
+\end{questions}
+
+\exercice{nom={Exercice}}
+\begin{questions}
+\question Prouver la sommabilité et calculer
+\[\sum_{n\in\N} \sum_{k\geq n} \frac{1}{k!}, \qquad
+  \sum_{n\in\Ns} \sum_{k\geq n} \frac{(-1)^k}{k^3}, \qquad
+  \sum_{n\in\Ns} (-1)^n \sum_{k\geq n} \frac{1}{k^3}.\]
+\question Soit $z\in\C$ tel que $\abs{z}<1$. Prouver la sommabilité et calculer
+  \[\sum_{n\in\N} \frac{z^{2^n}}{1-z^{2^{n+1}}}.\]
+\end{questions}
+
+\exercice{nom={Exercice}}
+À quelles conditions nécessaires et suffisantes sur $a,b,z\in\C$ les familles suivantes
+sont-elles sommables~?
+\[\p{\frac{z^p}{q!}}_{p,q\in\N}, \qquad
+  \p{\frac{a^p b^q}{p!q!}}_{p,q\in\N}, \qquad
+  \p{\frac{q^p z^p}{p!q!}}_{p,q\in\N}, \qquad
+  \p{\binom{p+q}{p}z^{p+q}}_{p,q\in\N}.\]
+
+\exercice{nom={Exercice}}
+\begin{questions}
+\question Soit $n\in\N$. Décomposer en éléments simples la fraction rationnelle
+  \[F\defeq \frac{1}{X(X+1)\cdots(X+n)}.\]
+\question En déduire que pour tout $z\in\C\setminus(-\N)$
+  \[\sum_{n\in\N} \frac{1}{z(z+1)\cdots(z+n)}=\e\sum_{n\in\N} \frac{(-1)^n}{n!(z+n)}.\]
+\end{questions}
+
+
+
+
+
+
+
+
+
+
+%[$\star$]
+%Quels sont les réels dont le développement décimal est périodique à partir d'un certain rang ?
+%
+
+
+
+%END_BOOK
+
+\end{document}

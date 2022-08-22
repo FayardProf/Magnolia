@@ -1,0 +1,1188 @@
+\documentclass{magnolia}
+
+\magtex{tex_driver={pdftex},
+        tex_packages={xypic}}
+\magfiche{document_nom={Cours sur les déterminants},
+          auteur_nom={François Fayard},
+          auteur_mail={fayard.prof@gmail.com}}
+\magcours{cours_matiere={maths},
+          cours_niveau={mpsi},
+          cours_chapitre_numero={21},
+          cours_chapitre={Déterminants}}
+\magmisenpage{misenpage_presentation={tikzvelvia},
+          misenpage_format={a4},
+          misenpage_nbcolonnes={1},
+          misenpage_preuve={non},
+          misenpage_sol={non}}
+% \magmisenpage{}
+\maglieudiff{}
+\magprocess
+\begin{document}
+
+%BEGIN_BOOK
+\magtoc
+
+
+\section{Déterminant}
+\subsection{Forme $n$-linéaire alternée}
+
+\begin{definition}
+Soit $E_1,\ldots,E_n$ et $F$ des \Kevs. On dit qu'une application $\phi:E_1\times\cdots\times E_n\to F$ est
+\emph{$n$-linéaire} lorsqu'elle est linéaire par rapport à chacune des variables, c'est-à-dire lorsque
+quel que soit $i\in\intere{1}{n}$ et $(x_1,\ldots,x_{i-1},x_{i+1},\ldots,x_n)\in E_1\times\cdots\times E_{i-1}\times E_{i+1}\times\cdots\times E_n$, on a
+\[\forall x,y\in E_i\qsep \forall \lambda,\mu\in\K\qsep \phi\p{x_1,\ldots,x_{i-1},\lambda x+\mu y,x_{i+1},\ldots,x_n}=\]
+\[\lambda \phi\p{x_1,\ldots,x_{i-1},x,x_{i+1},\ldots,x_n}+
+\mu \phi\p{x_1,\ldots,x_{i-1},y,x_{i+1},\ldots,x_n}.\]
+Si $F=\K$, on dit que \emph{$\phi$ est une forme $n$-lineaire}.
+\end{definition}
+
+
+% \begin{definition}
+% On dit qu'une application $\phi$ de $E^n$ dans $\K$ est une \emph{forme $n$-linéaire}
+% lorsque $\phi$ est linéaire par rapport à chacune de ses variables
+% \[\forall i\in\intere{1}{n} \qsep \forall x_1,\ldots,x_{i-1},x_{i+1},\ldots,x_n\in E
+%   \qsep \forall x,y\in E \qsep \forall \lambda,\mu\in\K,\]
+% \[\]
+% \[\]
+% Muni des lois usuelles, l'ensemble des formes $n$-linéaires sur $E$ est un \Kev.
+% \end{definition}
+
+\begin{remarques}
+\remarque Lorsque $n=2$, on parle d'application $\emph{bilinéaire}$.
+\remarque L'ensemble des applications $n$-linéaires de $E_1\times\cdots\times E_n$ dans $F$ est
+  un sous-espace vectoriel de l'ensemble des applications de $E_1\times\cdots\times E_n$ dans $F$.
+\remarque Si $\phi:E_1\times\cdots\times E_n\to F$ est $n$-linéaire, $i\in\intere{1}{n}$ et
+$(x_1,\ldots,x_{i-1},x_{i+1},\ldots,x_n)\in E_1\times\cdots\times E_{i-1}\times E_{i+1}\times\cdots\times E_n$, alors
+  $\phi(x_1,\ldots,x_{i-1},0,x_{i+1},\ldots,x_n)=0$.
+\remarque On dit qu'une application $\phi$ est une \emph{forme $n$-linéaire sur $E$} lorsque c'est une application $n$-linéaire de
+  $E^n$ dans $\K$.
+\end{remarques}
+
+\begin{exemples}
+\exemple Si $X$ est un ensemble, l'application
+  \[\dspappli{\phi}{\mathcal{F}(X,\K)\times\mathcal{F}(X,\K)}{\mathcal{F}(X,\K)}{(f,g)}{fg}\]
+  est bilinéaire.
+\exemple Si $E,F,G$ sont des \Kevs, l'application
+  \[\dspappli{\phi}{\mathcal{L}(E,F)\times\mathcal{L}(F,G)}{\mathcal{L}(E,G)}{(f,g)}{g\circ f}\]
+  est bilinéaire. De manière similaire, si $r,q,p\in\N$, l'application
+  \[\dspappli{\phi}{\mat{r,q}{\K}\times\mat{q,p}{\K}}{\mat{r,p}{\K}}{(A,B)}{AB}\]
+  est bilinéaire.
+\exemple Soit $\phi_1,\ldots,\phi_n$ des formes linéaires sur $E$. Alors
+  \[\dspappli{\phi}{E^n}{\K}{(x_1,\ldots,x_n)}{\prod_{k=1}^n \phi_k(x_k)}\]
+  est une forme $n$-linéaire sur $E$.
+\exemple Dans le plan euclidien, le produit scalaire est bilinéaire. Dans l'espace euclidien orienté, le
+  produit scalaire et le produit vectoriel sont bilinéaires.
+\end{exemples}
+
+\begin{definition}
+On dit qu'une forme $\phi$, $n$-linéaire sur $E$, est \emph{alternée} lorsqu'elle est nulle sur toute
+famille de vecteurs dont au moins deux sont égaux.
+\end{definition}
+
+\begin{remarques}
+\remarque Autrement dit, la forme $n$-linéaire $\phi:E^n\to\K$ est alternée lorsque
+  \[\forall x_1,\ldots,x_n\in E\qsep \forall i,j\in\intere{1}{n}\qsep \cro{i\neq j \et x_i=x_j}
+    \quad\implique\quad \phi\p{x_1,\ldots,x_n}=0.\]
+\remarque L'ensemble des formes $n$-linéaires alternées sur $E$ est noté $\Lambda_n(E)$. C'est
+  un sous-espace vectoriel de l'espace des formes $n$-linéaires sur $E$.
+\end{remarques}
+
+\begin{proposition}
+Soit $\phi$ une forme $n$-linéaire alternée sur $E$. Alors, on ne change pas la valeur de
+$\phi(x_1,\ldots,x_n)$ en ajoutant à l'une de ses variables une combinaison linéaire des autres.
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque En particulier, si $(x_1,\ldots,x_n)$ est liée, alors $\phi(x_1,\ldots,x_n)=0$.
+\end{remarqueUnique}
+
+\begin{proposition}
+Soit $\phi$ une forme $n$-linéaire alternée sur $E$. Alors
+\[\forall x_1,\ldots,x_n\in E \qsep \forall \sigma\in\gsym{n} \qsep
+  \phi\p{x_{\sigma\p{1}},\ldots,x_{\sigma(n)}}=\signature(\sigma)
+  \phi\p{x_1,\ldots,x_n}.\]
+On dit que $\phi$ est \emph{antisymétrique}.
+\end{proposition}
+
+
+\begin{remarqueUnique}
+\remarque Une forme $n$-linéaire alternée est donc antisymétrique. Réciproquement, si $\K$ n'est pas de
+  caractéristique 2, les formes antisymétriques sont alternées.
+\end{remarqueUnique}
+  
+\begin{preuve}
+Commençons par montrer ce résultat pour une transposition
+$$\forall x_1,\ldots,x_n\in E \quad \forall \tau\in\gsym{n} \quad
+  \phi\p{x_{\tau\p{1}},\ldots,x_{\tau(n)}}=-
+  \phi\p{x_1,\ldots,x_n}.$$
+  
+Considérons $\tau=(i,j)$ une transposition. Supposons par exemple $i<j$.
+Comme $\phi$ est alternée, on a :
+$$\phi(x_1,\ldots,\underbrace{x_i+x_j}_{i\text{-ième position}},\ldots,\underbrace{x_i+x_j}_{j\text{-ième position}},\ldots,x_n)=0.$$
+Mais alors, par linéarité par linéarité par rapport à la $i$-ième variable et par linéarité par rapport à la $j$-ième variable :
+$$\underbrace{\phi(x_1,\ldots,x_i,\ldots,x_i,\ldots,x_n)}_{=0 \text{ car } \phi \text{ est alternée }}+\phi(x_1,\ldots,x_i,\ldots,x_j,\ldots,x_n)+\phi(x_1,\ldots,x_j,\ldots,x_i,\ldots,x_n)+\underbrace{\phi(x_1,\ldots,x_j,\ldots,x_j,\ldots,x_n)}_{=0 \text{ car } \phi \text{ est alternée }}=0$$ d'où
+$$\phi(x_1,\ldots,x_i,\ldots,x_j,\ldots,x_n)=-\phi(x_1,\ldots,x_j,\ldots,x_i,\ldots,x_n).$$
+
+Pour le cas général, on écrit $\sigma=\tau_1\circ \ldots \circ \tau_m$ en produit de transpositions. On a :
+
+\begin{eqnarray*}
+\phi(x_{\sigma(1)},\ldots,x_{\sigma(n)})&=&\phi(x_{\tau_1\circ \ldots \circ \tau_m(1)},\ldots,x_{\tau_1\circ \ldots \circ \tau_m(n)})\\
+&=& \epsilon(\tau_1)\phi(x_{\tau_2\circ \ldots \circ \tau_m(1)},\ldots,x_{\tau_2\circ \ldots \circ \tau_m(n)})\\
+&=&\ldots \\
+&=&\epsilon(\tau_1)\ldots\epsilon(\tau_m)\phi(x_1,\ldots,x_n)\\
+&=&\epsilon(\tau_1\circ \ldots \circ \tau_m)\phi(x_1,\ldots,x_n)\\
+&=&\signat{\sigma}
+  \phi\p{x_1,\ldots,x_n}.
+  \end{eqnarray*}
+
+
+
+\end{preuve}
+
+\begin{sol}
+Une remarque cruciale (voir proposition) à rajouter ici :
+Soit $\phi$ une forme $n$-linéaire alternée sur $E$ et $(x_1,\ldots,x_n)\in E^n$. Alors, $\phi(x_1,\ldots,x_n)$ est inchangé si l'on ajoute à l'un des $x_i$ une combinaison linéaire des autres $x_k$.
+
+En effet, fixons $i \in \intere{1}{n}$ et des $\lambda_k$ pour $k\neq i$ dans $\K$. Par linéarité par rapport à la $i$-ième variable :
+$$\phi(x_1,\ldots,x_{i-1},x_i+\sum_{k\neq i}\lambda_k x_k,x_{i+1},\ldots,x_n)=\phi(x_1,\ldots,x_n)+\sum_{k\neq i}\lambda_k \underbrace{\phi(x_1,\ldots,x_k,\ldots,x_n)}_{=0 \text{ car } x_k \text{ est présent deux fois}}.$$
+\end{sol}
+
+\begin{proposition}
+Soit $E$ un \Kev de dimension $n$, $\mathcal{B}\defeq(e_1,\ldots,e_n)$ une base de
+$E$ et $\phi$ une forme $n$-linéaire alternée sur $E$. Alors
+\[\forall x_1,\ldots,x_n\in E\qsep \phi\p{x_1,\ldots,x_n}=\p{\sum_{\sigma\in\gsym{n}} \signat{\sigma} \prod_{k=1}^n e_{\sigma(k)}^{\star}(x_k)}
+  \phi\p{e_1,\ldots,e_n}.\]
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque En particulier, si $\phi$ et $\psi$ sont deux formes $n$-linéaires alternées sur un \Kev de dimension
+  $n$ qui prennent la même valeur sur une base de $E$, alors $\phi=\psi$.
+\end{remarqueUnique}
+
+\begin{preuve}
+On considère donc $\mathcal{B}=(e_1,\ldots,e_n)$ une base de $E$. 
+Soit $x_1,\ldots,x_n\in E$. Notons $A=\mat{\mathcal{B}}{x_1,\ldots,x_n}$. Cela signifie que :
+  \[\forall j\in\intere{1}{n} \quad x_j=\sum_{i=1}^n a_{i,j} e_i.\]
+  On a alors :
+  \begin{eqnarray*}
+  \phi\p{x_1,x_2,\ldots,x_n}
+  &=& \phi\p{\sum_{i_1=1}^n a_{i_1,1} e_{i_1},\sum_{i_2=1}^n a_{i_2,2} e_{i_2},\ldots,
+             \sum_{i_n=1}^n a_{i_n,n} e_{i_n}}\\
+  &=& \sum_{i_1=1}^n a_{i_1,1} \phi\p{e_{i_1},\sum_{i_2=1}^n a_{i_2,2} e_{i_2},\ldots,
+             \sum_{i_n=1}^n a_{i_n,n} e_{i_n}}\\
+  & & \text{par linéarité de $\phi$ par rapport à la première variable}\\
+  &=& \sum_{i_1=1}^n \sum_{i_2=1}^n \cdots \sum_{i_n=1}^n
+       a_{i_1,1} a_{i_2,2} \cdots a_{i_n,n} \phi\p{e_{i_1},e_{i_2},\ldots,e_{i_n}}\\
+  & & \text{car $\phi$ est $n$-linéaire}\\
+  &=& \sum_{\p{i_1,i_2,\ldots,i_n}\in\intere{1}{n}^n}
+       a_{i_1,1} a_{i_2,2} \cdots a_{i_n,n} \phi\p{e_{i_1},e_{i_2},\ldots,e_{i_n}}
+  \end{eqnarray*}
+Or se donner un $n$-uplet $\p{i_1,i_2,\ldots,i_n}\in\intere{1}{n}^n$, c'est exactement se donner une application $\dspappli{f}{\intere{1}{n}}{\intere{1}{n}}{k}{i_k}$. On obtient alors :
+  
+$$\phi\p{x_1,x_2,\ldots,x_n}= \sum_{f\in\mathcal{F}\p{\intere{1}{n},\intere{1}{n}}}
+       a_{f\p{1},1} a_{f\p{2},2} \cdots a_{f(n),n}
+       \phi\p{e_{f\p{1}},e_{f\p{2}},\ldots,e_{f(n)}}.$$
+       
+       Si $f\in\mathcal{F}\p{\intere{1}{n},\intere{1}{n}}$ n'est pas injective, alors il
+  existe $i,j\in\intere{1}{n}$ tels que $i\neq j$ et $f(i)=f(j)$. Comme $\phi$
+  est alternée, on en déduit que $\phi\p{e_{f\p{1}},e_{f\p{2}},\ldots,e_{f(n)}}=0$.
+  On peut donc restreindre la somme aux fonctions injectives de $\intere{1}{n}$
+  dans lui-même. L'ensemble $\intere{1}{n}$ étant fini, ces fonctions sont les
+  permutations de $\intere{1}{n}$. Donc~:
+  \begin{eqnarray*}
+  \phi\p{x_1,x_2,\ldots,x_n}
+  &=& \sum_{\sigma\in\gsym{n}}
+       a_{\sigma\p{1},1} a_{\sigma\p{2},2} \cdots a_{\sigma(n),n}
+       \phi\p{e_{\sigma\p{1}},e_{\sigma\p{2}},\ldots,e_{\sigma(n)}}\\
+  &=& \sum_{\sigma\in\gsym{n}}
+       a_{\sigma\p{1},1} a_{\sigma\p{2},2} \cdots a_{\sigma(n),n} \signat{\sigma} 
+       \phi\p{e_1,e_2,\ldots,e_n}\\
+       &=& \underbrace{\cro{\sum_{\sigma\in\gsym{n}} \signat{\sigma}
+  a_{\sigma\p{1},1}a_{\sigma\p{2},2}\cdots a_{\sigma(n),n}}}_{\text{indépendant de } \phi}
+  \phi\p{e_1,\ldots,e_n}
+  \end{eqnarray*}
+
+
+\end{preuve}
+
+\begin{theoreme}
+Soit $E$ un \Kev de dimension $n$ et $\mathcal{B}\defeq\p{e_1,\ldots,e_n}$ une base de
+$E$. Alors, il existe une unique forme $n$-linéaire alternée $\phi$ sur $E$ telle
+que $\phi\p{e_1,\ldots,e_n}=1$.
+% De plus, si $x_1,\ldots,x_n\in E$ est une famille de $n$ vecteurs et
+% $A=\mat{\mathcal{B}}{x_1,\ldots,x_n}$, on a~:
+% \[\phi\p{x_1,\ldots,x_n}=\sum_{\sigma\in\gsym{n}} \signat{\sigma}
+%   a_{\sigma\p{1},1}a_{\sigma\p{2},2}\cdots a_{\sigma(n),n}\]
+\end{theoreme}
+
+\begin{preuve}
+$\quad$
+\begin{itemize}
+\item Montrons l'unicité d'une telle application $\phi$. Soit $x_1,\ldots,x_n\in E$
+  et $A=\mat{\mathcal{B}}{x_1,\ldots,x_n}$. Alors~:
+  \[\forall j\in\intere{1}{n} \quad x_j=\sum_{i=1}^n a_{i,j} e_i\]
+  Donc~:
+  \begin{eqnarray*}
+  \phi\p{x_1,x_2,\ldots,x_n}
+  &=& \phi\p{\sum_{i_1=1}^n a_{i_1,1} e_{i_1},\sum_{i_2=1}^n a_{i_2,2} e_{i_2},\ldots,
+             \sum_{i_n=1}^n a_{i_n,n} e_{i_n}}\\
+  &=& \sum_{i_1=1}^n a_{i_1,1} \phi\p{e_{i_1},\sum_{i_2=1}^n a_{i_2,2} e_{i_2},\ldots,
+             \sum_{i_n=1}^n a_{i_n,n} e_{i_n}}\\
+  & & \text{par linéarité de $\phi$ par rapport à la première variable}\\
+  &=& \sum_{i_1=1}^n \sum_{i_2=1}^n \cdots \sum_{i_n=1}^n
+       a_{i_1,1} a_{i_2,2} \cdots a_{i_n,n} \phi\p{e_{i_1},e_{i_2},\ldots,e_{i_n}}\\
+  & & \text{car $\phi$ est $n$-linéaire}\\
+  &=& \sum_{\p{i_1,i_2,\ldots,i_n}\in\intere{1}{n}^n}
+       a_{i_1,1} a_{i_2,2} \cdots a_{i_n,n} \phi\p{e_{i_1},e_{i_2},\ldots,e_{i_n}}\\
+  &=& \sum_{f\in\mathcal{F}\p{\intere{1}{n},\intere{1}{n}}}
+       a_{f\p{1},1} a_{f\p{2},2} \cdots a_{f(n),n}
+       \phi\p{e_{f\p{1}},e_{f\p{2}},\ldots,e_{f(n)}}
+  \end{eqnarray*}
+  Si $f\in\mathcal{F}\p{\intere{1}{n},\intere{1}{n}}$ n'est pas injective, alors il
+  existe $i,j\in\intere{1}{n}$ tels que $i\neq j$ et $f(i)=f(j)$. Comme $\phi$
+  est alternée, on en déduit que $\phi\p{e_{f\p{1}},e_{f\p{2}},\ldots,e_{f(n)}}=0$.
+  On peut donc restreindre la somme aux fonctions injectives de $\intere{1}{n}$
+  dans lui-même. L'ensemble $\intere{1}{n}$ étant fini, ces fonctions sont les
+  permutations de $\intere{1}{n}$. Donc~:
+  \begin{eqnarray*}
+  \phi\p{x_1,x_2,\ldots,x_n}
+  &=& \sum_{\sigma\in\gsym{n}}
+       a_{\sigma\p{1},1} a_{\sigma\p{2},2} \cdots a_{\sigma(n),n}
+       \phi\p{e_{\sigma\p{1}},e_{\sigma\p{2}},\ldots,e_{\sigma(n)}}\\
+  &=& \sum_{\sigma\in\gsym{n}}
+       a_{\sigma\p{1},1} a_{\sigma\p{2},2} \cdots a_{\sigma(n),n} \signat{\sigma} 
+       \underbrace{\phi\p{e_1,e_2,\ldots,e_n}}_{=1}\\
+  & & \text{car $\phi$ est alternée donc antisymétrique}\\
+  &=& \sum_{\sigma\in\gsym{n}}
+      \signat{\sigma} a_{\sigma\p{1},1} a_{\sigma\p{2},2} \cdots a_{\sigma(n),n}
+  \end{eqnarray*}
+\item Montrons désormais l'existence d'une telle application. On définit $\phi$ de
+  $E^n$ dans $\K$ par~:
+  \[\forall x_1,\ldots,x_n \quad
+    \phi\p{x_1,\ldots,x_n}=\sum_{\sigma\in\gsym{n}} \signat{\sigma}
+    a_{\sigma\p{1},1}a_{\sigma\p{2},2}\cdots a_{\sigma(n),n}\]
+  où $A=\mat{\mathcal{B}}{x_1,\ldots,x_n}$. Montrons que $\phi$ est $n$-linéaire
+  alternée et que $\phi\p{e_1,\ldots,e_n}=1$.\\
+  Pour cela, on définit, pour toute permutation $\sigma\in\gsym{n}$, l'application
+  $\phi_\sigma$ de $E^n$ dans $\K$ par~:
+  \[\forall x_1,\ldots,x_n \quad \phi_\sigma \p{x_1,\ldots,x_n}=
+    a_{\sigma\p{1},1}a_{\sigma\p{2},2}\cdots a_{\sigma(n),n}\]
+  où $A=\mat{\mathcal{B}}{x_1,\ldots,x_n}$. On remarque que~:
+  \[\phi=\sum_{\sigma\in\gsym{n}} \signat{\sigma} \phi_{\sigma}\]
+  \begin{itemize}
+  \item Montrons que $\phi$ est $n$-linéaire. Pour cela, il suffit de montrer que
+    $\phi_\sigma$ est $n$-linéaire pour tout $\sigma\in\gsym{n}$. Soit
+    $\sigma\in\gsym{n}$, $i\in\intere{1}{n}$,
+    $x_1,\ldots,x_{i-1},x_{i+1},\ldots,x_n\in E$, $x,y\in E$ et $\lambda,\mu\in\K$.
+    Pour tout $j\in\intere{1}{n}\setminus\ens{i}$, on décompose $x_j$ dans la
+    base $\mathcal{B}$~:
+    \[x_j=\sum_{i=1}^n a_{i,j} e_i\]
+    De même, on décompose $x$ et $y$ dans la base $\mathcal{B}$~:
+    \[x=\sum_{i=1}^n x_i e_i \et y=\sum_{i=1}^n y_i e_i\]
+    Alors~:
+    \[\lambda x+\mu y=\sum_{i=1}^n \p{\lambda x_i+\mu y_i} e_i\]
+    Donc~:
+    \begin{eqnarray*}
+    & & \phi_\sigma \p{x_1,\ldots,x_{i-1},\lambda x+\mu y,x_{i+1},\ldots,x_n}\\
+    &=& a_{\sigma\p{1},1}\cdots a_{\sigma\p{i-1},i-1} \p{\lambda x_{\sigma(i)}
+           +\mu y_{\sigma(i)}} a_{\sigma\p{i+1},i+1} \cdots a_{\sigma(n),n}\\
+    &=& \lambda a_{\sigma\p{1},1}\cdots a_{\sigma\p{i-1},i-1} x_{\sigma(i)}
+        a_{\sigma\p{i+1},i+1} \cdots a_{\sigma(n),n} +\\
+    & & \mu a_{\sigma\p{1},1}\cdots a_{\sigma\p{i-1},i-1} y_{\sigma(i)}
+        a_{\sigma\p{i+1},i+1ß} \cdots a_{\sigma(n),n}\\
+    &=& \lambda \phi_\sigma \p{x_1,\ldots,x_{i-1},x,x_{i+1},\ldots,x_n}+\\
+    & & \mu     \phi_\sigma \p{x_1,\ldots,x_{i-1},y,x_{i+1},\ldots,x_n}
+    \end{eqnarray*}
+    Donc $\phi_\sigma$ est $n$-linéaire.
+  \item Montrons que $\phi$ est alternée. Soit $i,j\in\intere{1}{n}$ avec
+    $i\neq j$ et $x_1,\ldots,x_n\in E$ tels que $x_i=x_j$. Montrons que
+    $\phi\p{x_1,\ldots,x_n}=0$. Pour cela, on pose $\tau=\p{i \quad j}$ et on
+    considère l'application~:
+    \[\dspappli{f}{\galt{n}}{\gsym{n}\setminus\galt{n}}{\sigma}{\sigma \tau}\]
+    Alors~:
+    \begin{itemize}
+    \item $f$ est bien à valeurs dans $\gsym{n}\setminus\galt{n}$, car si
+      $\sigma$ est une permutation paire, $\sigma\tau$ est impaire.
+    \item De plus, $f$ est bijective. En effet si $g$ est l'application
+      \[\dspappli{g}{\gsym{n}\setminus\galt{n}}{\galt{n}}{\sigma}{\sigma \tau}\]
+      on vérifie de même que $g$ est bien définie et que~:
+      \[\forall \sigma\in \galt{n} \quad
+        \p{g\circ f}\p{\sigma}=g\p{\sigma \tau}=\sigma\underbrace{\tau^2}_{=\id}=
+        \sigma\]
+      Donc $g\circ f=\id$. De même, on montre que $f\circ g=\id$ donc $f$
+      est bijective.     
+    \end{itemize}
+    On en déduit que~:
+    \begin{eqnarray*}
+    \phi\p{x_1,\ldots,x_n}
+    &=& \sum_{\sigma\in\gsym{n}} \signat{\sigma} \phi_{\sigma}\p{x_1,\ldots,x_n}\\
+    &=& \sum_{\sigma\in \galt{n}} \signat{\sigma} \phi_{\sigma}\p{x_1,\ldots,x_n}+
+        \sum_{\sigma\in \gsym{n}\setminus\galt{n}} \signat{\sigma}
+        \phi_{\sigma}\p{x_1,\ldots,x_n}\\
+    &=& \sum_{\sigma\in \galt{n}} \signat{\sigma} \phi_{\sigma}\p{x_1,\ldots,x_n}+
+        \sum_{\sigma\in \galt{n}} \signat{\sigma \tau}
+        \phi_{\p{\sigma\tau}}\p{x_1,\ldots,x_n}\\
+    & & \text{car $f$ est bijective}\\
+    &=& \sum_{\sigma\in \galt{n}} \signat{\sigma} \phi_{\sigma}\p{x_1,\ldots,x_n}+
+        \sum_{\sigma\in \galt{n}} \signat{\sigma} \underbrace{\signat{\tau}}_{=-1}
+        \phi_{\p{\sigma\tau}}\p{x_1,\ldots,x_n}\\
+    &=& \sum_{\sigma\in \galt{n}} \signat{\sigma}
+        \cro{\phi_{\sigma}\p{x_1,\ldots,x_n}-
+             \phi_{\p{\sigma\tau}}\p{x_1,\ldots,x_n}}
+    \end{eqnarray*}
+    Or, si $A=\mat{\mathcal{B}}{x_1,\ldots,x_n}$, il vient~:
+    \begin{eqnarray*}
+    \phi_{\p{\sigma\tau}}\p{x_1,\ldots,x_n}
+    &=& a_{\sigma\p{\tau\p{1}},1}\cdots a_{\sigma\p{\tau(i)},i} \cdots
+        a_{\sigma\p{\tau(j)},j} \cdots a_{\sigma\p{\tau(n)},n}\\
+    &=& a_{\sigma\p{1},1}\cdots a_{\sigma(j),i} \cdots
+        a_{\sigma(i),j} \cdots a_{\sigma(n),n}\\
+    &=& a_{\sigma\p{1},1}\cdots a_{\sigma(j),j} \cdots
+        a_{\sigma(i),i} \cdots a_{\sigma(n),n}\\
+    & & \text{car $x_i=x_j$}\\
+    &=& a_{\sigma\p{1},1}\cdots a_{\sigma(i),i} \cdots
+        a_{\sigma(j),j} \cdots a_{\sigma(n),n}\\
+    &=& \phi_\sigma \p{x_1,\ldots,x_n}
+    \end{eqnarray*}
+    Donc $\phi\p{x_1,\ldots,x_n}=0$. On a donc prouvé que $\phi$ est alternée.
+  \item Montrons que $\phi\p{e_1,\ldots,e_n}=1$. On remarque que~:
+    \[A=\mat{\mathcal{B}}{e_1,\ldots,e_n}=I_n\]
+    Donc~:
+    \[\phi\p{e_1,\ldots,e_n}=\sum_{\sigma\in\gsym{n}} \signat{\sigma}
+      a_{\sigma\p{1},1}a_{\sigma\p{2},2}\cdots a_{\sigma(n),n}\]
+    Or, si $\sigma\neq \id$, il existe $i$ tel que $\sigma(i)\neq i$, donc
+    $a_{\sigma(i),i}=0$. On en déduit que~:
+    \[\phi\p{e_1,\ldots,e_n}=\signat{\id}a_{1,1}a_{2,2}\cdots a_{n,n}\]
+    Or $\signat{\id}=1$ et $a_{i,i}=1$ pour tout $i\in\intere{1}{n}$, donc
+    $\phi\p{e_1,\ldots,e_n}=1$.
+  \end{itemize}
+  En conclusion $\phi$ est une forme $n$-linéaire alternée telle que
+  $\phi\p{e_1,\ldots,e_n}=1$.
+\end{itemize}
+\end{preuve}
+
+\begin{preuve}
+Par Victor :
+
+\begin{itemize}
+\item[$\bullet$] \textbf{\underline{Analyse :}} D'après la proposition précédente, si elle existe, cette application est forcément unique car $\phi\p{e_1,\ldots,e_n}=1$ impose $$\phi\p{x_1,\ldots,x_n}=\sum_{\sigma\in\gsym{n}} \signat{\sigma}
+  a_{\sigma\p{1},1}a_{\sigma\p{2},2}\cdots a_{\sigma(n),n}.$$
+
+\item[$\bullet$] \textbf{\underline{Synthèse :}}
+ Il nous faut montrer que l'application $\phi$ ainsi définie (à la fin de l'analyse) est bien une forme $n$-linéaire alternée et vérifie bien $\phi\p{e_1,\ldots,e_n}=1$.
+
+Pour simplifier les raisonnements, nous allons utiliser les applications coordonnées qu'on définit pour tout $k$ dans $\intere{1}{n}$ par :
+$$\dspappli{e_k^*}{E}{\K}{x=\sum_{i=1}^nx_ie_i}{x_k}.$$
+Ce sont des formes linéaires de $E$.
+
+\bigskip
+L'application $\phi$ peut alors se réécrire :
+$$\dspappli{\phi}{E^n}{\K}{(x_1,\ldots,x_n)}{\sum_{\sigma\in \gsym{n}}\epsilon(\sigma)\prod_{k=1}^ne_{\sigma(k)}^*(x_k)}.$$
+On comprend bien cette écriture lorsqu'on interprète bien $e_{\sigma(k)}^*(x_k)$ comme la composante de $x_k$ selon $e_{\sigma(k)}$ dans $\mathcal{B}$. Cette écriture a d'ailleurs le mérite de montrer la dépendance en les $x_k$ de $\phi(x_1,\ldots,x_n)$ qui était dissimulée dans l'"ancienne" écriture.
+
+Mais alors :
+$$\phi(e_1,\ldots,e_n)=\sum_{\sigma\in \gsym{n}}\epsilon(\sigma)\underbrace{\prod_{k=1}^n\underbrace{e_{\sigma(k)}^*(e_k)}_{=\delta_{\sigma(k),k}}}_{=\begin{cases}0 \text{ si } \sigma\neq id_{\intere{1}{n}}\\
+1 \text{ si } \sigma= id_{\intere{1}{n}}\end{cases}}$$
+d'où $$\boxed{\phi(e_1,\ldots,e_n)=\epsilon\p{id_{\intere{1}{n}}}.1=1.}$$
+
+Montrons désormais que $\phi$ est $n$-linéaire alternée.
+\begin{itemize}
+\item Fixons $i\in \intere{1}{n}$ et vérifions que $\phi$ est linéaire par rapport à sa $i$-ième variable. Fixons alors des $x_k$ pour $k\neq i$. Pour tout $x$ dans $E$, on a :
+\begin{eqnarray*}
+\phi(x_1,\ldots,x_{i-1},x,x_{i+1},\ldots,x_n)&=&\sum_{\sigma\in \gsym{n}}\underbrace{\cro{\epsilon(\sigma)\prod_{k\neq i}e_{\sigma(k)}^*(x_k)}}_{:=\lambda_{\sigma} \text{ indépendant de } x}e_{\sigma(i)}^*(x)\\
+&=&\sum_{\sigma\in \gsym{n}}\lambda_{\sigma}e_{\sigma(i)}^*(x).
+\end{eqnarray*} ce qui est bien linéaire en $x$ comme combinaison linéaires de telles fonctions.
+\item Vérifions maintenant son caractère alterné. Soit alors $(x_1,\ldots,x_n) \in E^n$ tel que il existe $1\leq i<j\leq n$ tels que $x_i=x_j$. Posons $\tau=(i,j) \in \gsym{n}$. On rappelle que $\gsym{n}=\galt{n}\cup \set{\sigma\circ \tau, \sigma \in \galt{n}}$ et que cette union est disjointe. On a :
+\begin{eqnarray*}
+\phi(x_1,\ldots,x_n)&=&\sum_{\sigma\in \galt{n}}\epsilon(\sigma)\prod_{k=1}^ne_{\sigma(k)}^*(x_k)+\sum_{\sigma\in \galt{n}}\epsilon(\sigma\circ \tau)\prod_{k=1}^ne_{\sigma\circ \tau(k)}^*(x_k)\\
+&=&\sum_{\sigma\in \galt{n}}\prod_{k=1}^ne_{\sigma(k)}^*(x_k)-\underbrace{\sum_{\sigma\in \galt{n}}\prod_{k=1}^ne_{\sigma\circ \tau(k)}^*(x_k)}_{:=C}.
+\end{eqnarray*}
+Intéressons-nous au deuxième terme :
+\begin{eqnarray*}
+C&=&\sum_{\sigma\in \galt{n}}e_{\sigma\circ \tau(i)}^*(x_i)e_{\sigma\circ \tau(j)}^*(x_j)\prod_{k\notin\set{i,j}}e_{\sigma\circ \tau(k)}^*(x_k)\\
+&=&\sum_{\sigma\in \galt{n}}e_{\sigma(j)}^*(x_i)e_{\sigma(i)}^*(x_j)\prod_{k\notin\set{i,j}}e_{\sigma(k)}^*(x_k)\\
+&=&\sum_{\sigma\in \galt{n}}e_{\sigma(j)}^*(x_j)e_{\sigma(i)}^*(x_i)\prod_{k\notin\set{i,j}}e_{\sigma(k)}^*(x_k) \text{ car } x_i=x_j\\
+&=&\sum_{\sigma\in \galt{n}}\prod_{k=1}^ne_{\sigma(k)}^*(x_k)
+\end{eqnarray*}
+donc $\phi(x_1,\ldots,x_n)=0$ ce qu'on souhaitait montrer.
+\end{itemize}
+
+\end{itemize}
+
+\end{preuve}
+
+\begin{proposition}
+Soit $E$ un \Kev de dimension $n$. Alors $\Lambda_n(E)$ est un \Kev de
+dimension $1$.
+\end{proposition}
+
+\begin{preuve}
+En notant $\det_{\mathcal{B}}$ l'unique application du théorème précédent, on a montré dans la proposition 2.2 que toute forme $n$-linéaire alternée sur $E$ $\phi$ vérifiait $\phi=\phi(e_1,\ldots,e_n)\det_\mathcal{B}$. Donc l'ensemble des formes linéaires alternées est égale à $\vect(\det_{\mathcal{B}})$ qui est bien de dimension $1$ car $\det_{\mathcal{B}}$ n'est pas l'application nulle (elle vaut $1$ sur $\mathcal{B}$).\\
+
+Résumé : Tout élément $f$ de $\Lambda_n(E)$ s'écrit $f=\lambda \det_{\mathcal{B}}$ avec $\lambda \in \K$ unique. 
+\end{preuve}
+
+% \begin{proposition}
+% Soit $E$ un \Kev de dimension $n$, $\phi$ une forme $n$-linéaire alternée
+% sur $E$ non nulle et $x_1,\ldots,x_n$ une famille de $n$ vecteurs de $E$. Alors
+% $x_1,\ldots,x_n$ est une base de $E$ si et seulement si
+% \[\phi\p{x_1,\ldots,x_n}\neq 0.\]
+% Autrement dit, $x_1,\ldots,x_n$ est liée si et seulement si
+% \[\phi\p{x_1,\ldots,x_n}= 0.\]
+% \end{proposition}
+
+% \begin{preuve}
+% Je l'enlèverais bien parce-que je vais faire la proposition 6 avant la proposition 5 pour la déduire.
+
+% \end{preuve}
+
+\subsection{Déterminant d'une famille de $n$ vecteurs}
+
+\begin{definition}
+Si $\mathcal{B}\defeq\p{e_1,\ldots,e_n}$ est une base de $E$, on appelle \emph{déterminant relativement à la base
+$\mathcal{B}$}, et on note $\det{}_{\mathcal{B}}$, l'unique forme $n$-linéaire alternée sur $E$ telle que
+$\det{}_{\mathcal{B}}(e_1,\ldots,e_n)=1$. Si $(x_1,\ldots,x_n)$ est une famille de $n$ vecteurs de $E$, on appelle
+\emph{déterminant de la famille $(x_1,\ldots,x_n)$ relativement à la base $\mathcal{B}$} le scalaire
+$\det{}_{\mathcal{B}}\p{x_1,\ldots,x_n}$.
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque On en déduit que si $\mathcal{B}$ est une base de $E$, $x_1,\ldots,x_n\in E$ et
+  $A\defeq \mat{\mathcal{B}}{x_1,\ldots,x_n}$, alors
+  \[\det{}_{\mathcal{B}}(x_1,\ldots,x_n)=\sum_{\sigma\in\gsym{n}} \signat{\sigma}a_{\sigma(1),1}\cdots a_{\sigma(n),n}.\]
+\end{remarqueUnique}
+
+\begin{sol}
+On a donc 
+$$\det{}_{\mathcal{B}}\p{x_1,\ldots,x_n}=\sum_{\sigma\in \gsym{n}}\epsilon(\sigma)\prod_{k=1}^ne_{\sigma(k)}^*(x_k),$$
+où $e_{\sigma(k)}^*(x_k)$ est la composante de $x_k$ selon $e_{\sigma(k)}$ dans $\mathcal{B}$.
+\end{sol}
+
+\begin{proposition}
+Soit $\mathcal{B}\defeq\p{e_1,\ldots,e_n}$ et $\mathcal{B}'\defeq\p{e_1',\ldots,e_n'}$ deux
+bases de $E$. Alors
+\[\forall x_1,\ldots,x_n \in E \qsep
+  \det{}_{\mathcal{B}'}\p{x_1,\ldots,x_n}=\det{}_{\mathcal{B}'}(\mathcal{B})
+  \det{}_{\mathcal{B}}\p{x_1,\ldots,x_n}.\]
+\end{proposition}
+
+\begin{preuve}
+$\det_{\mathcal{B}'}\in \Lambda_n(E)=\vect(\det_{\mathcal{B}})$ donc il existe $\lambda \in \K$ tel que $\det_{\mathcal{B}'}=\lambda \det_{\mathcal{B}}$. En particulier, $\det_{\mathcal{B}'}(\mathcal{B})=\lambda\det_{\mathcal{B}}(\mathcal{B})=\lambda$ d'où le résultat souhaité.
+\end{preuve}
+
+\begin{remarqueUnique}
+\remarque En particulier, si $\mathcal{B}$, $\mathcal{B}'$ et $\mathcal{B}''$
+  sont des bases de $E$
+  \[\det{}_{\mathcal{B}}(\mathcal{B}'')=\det{}_{\mathcal{B}}(\mathcal{B}')
+    \det{}_{\mathcal{B}'}(\mathcal{B}'').\]
+\end{remarqueUnique}
+
+\begin{proposition}
+  Soit $\mathcal{B}\defeq\p{e_1,\ldots,e_n}$ une base de $E$ et $(x_1,\ldots,x_n)$ une
+  famille de $n$ vecteurs de $E$.
+\begin{itemize}
+\item Alors $(x_1,\ldots,x_n)$ est une base de $E$
+  si et seulement si
+  \[\det{}_{\mathcal{B}}\p{x_1,\ldots,x_n}\neq 0.\]
+\item Autrement dit, $(x_1,\ldots,x_n)$ est liée si et seulement si
+  \[\det{}_{\mathcal{B}}\p{x_1,\ldots,x_n}= 0.\]
+\end{itemize}
+  \end{proposition}
+  
+  \begin{preuve}
+  A faire après la proposition d'après.
+  On raisonne par double implication :
+  \begin{itemize}
+  \item[$\bullet$] $\Rightarrow$ : Si $\mathcal{B}':=\p{x_1,\ldots,x_n}$ est une base de $E$, d'après la proposition précédente (suivante actuellement dans le poly) $$\underbrace{\det{}_{\mathcal{B}'}\p{x_1,\ldots,x_n}}_{=1}=\det{}_{\mathcal{B}'}\mathcal{B}\cdot
+    \det{}_{\mathcal{B}}\p{x_1,\ldots,x_n}$$ donc $\det{}_{\mathcal{B}}\p{x_1,\ldots,x_n}\neq 0$.
+  \item[$\bullet$] $\Leftarrow$ : Raisonnons par contraposée. Si $\mathcal{B}':=\p{x_1,\ldots,x_n}$ n'est pas une base de $E$, comme elle est de cardinal $n=\dim E$, c'est une famille liée. Disons que par exemple $x_{i_0}=\sum_{k\neq i_0}\lambda_k x_k$. Alors
+  $$\phi(x_1,\ldots,x_{i_0-1},\sum_{k\neq i_0}\lambda_k x_k,x_{i_0+1},\ldots,x_n)=\sum_{k\neq i_0}\lambda_k \underbrace{\phi(x_1,\ldots,x_k,\ldots,x_n)}_{=0 \text{ car } x_k \text{ est présent deux fois}}.$$
+  \end{itemize}
+  \end{preuve}
+
+\subsection{Déterminant d'un endomorphisme}
+\begin{definition}
+Si $f\in\Endo{E}$, il existe un unique scalaire, appelé \emph{déterminant de $f$} et noté
+$\det f$, tel que pour toute base $\mathcal{B}$ de E, on a
+\[\forall x_1,\ldots,x_n\in E \qsep
+  \det{}_{\mathcal{B}}\p{f\p{x_1},\ldots,f\p{x_n}}=\det(f)\det{}_{\mathcal{B}}
+  \p{x_1,\ldots,x_n}.\]
+En particulier, si $\mathcal{B}\defeq\p{e_1,\ldots,e_n}$ est une base de $E$
+\[\det f=\det{}_{\mathcal{B}}\p{f\p{e_1},\ldots,f\p{e_n}}.\]
+\end{definition}
+
+\begin{preuve}
+Soit $f\in \Endo{E}$. Si on fixe $B$ une base de $E$, l'application $$\dspappli{\phi_B}{E^n}{K}{(x_1,\ldots,x_n)}{\det_B(f(x_1),\ldots,f(x_n))}$$ est dans $\Lambda_n(E)$, donc il existe $\lambda_B$ unique dans $\K$ tel que $\phi_B=\lambda_B\det_B$, i.e
+$$\forall (x_1,\ldots,x_n)\in E^n, \det{}_{\mathcal{B}}\p{f\p{x_1},\ldots,f\p{x_n}}=\lambda_B\cdot\det{}_{\mathcal{B}}
+  \p{x_1,\ldots,x_n}.$$
+  Le point crucial est le fait que $\lambda_B$ est indépendant du choix de $B$. Cela découle de la formule de changement de base. La relation précédente donne $$\lambda_B=\det_B(u(B)).$$
+  Soit $B'$ une autre base de $E$.
+  $$\lambda_{B'}=\det_{B'}(u(B'))=\det_{B'}(B)\cdot \det_B(u(B'))=\det_{B'}(B)\cdot \lambda_B \cdot \det_{B}(B')$$
+  Or, la formule de changement de base nous dit que $\det_{B'}=\det_{B'}(B)\det_B$ donc en appliquant cela à $B'$, on obtient $1=\det_{B'}(B)\cdot \det_{B}(B')$ d'où $\lambda_{B'}=\lambda_B$.
+
+\end{preuve}
+
+\begin{exoUnique}
+\exo Soit $E$ un \Kev de dimension $n$ et $s$ une symétrie de $E$. On note
+  $p$ la dimension de $\ker\p{s+\id}$. Montrer que $\det s=\p{-1}^p$.
+\end{exoUnique}
+
+\begin{sol}
+$s$ est la symétrie par rapport à $\ker(s-\id)$ parallèlement à $\ker(s+\id)$. Comme $E=\ker(s-\id)\oplus \ker(s+\id)$, on peut se munir d'une base adaptée $B=(e_1,\ldots,e_q,f_1,\ldots,f_p)$. On a alors
+\begin{eqnarray*}
+\det(s)&=&\det_B(s(e_1),\ldots,s(e_q),s(f_1),\ldots,s(f_p))\\
+&=&\det_B(e_1,\ldots,e_q,-f_1,\ldots,-f_p)\\
+&=&(-1)^p\det_B(e_1,\ldots,e_q,f_1,\ldots,f_p)\\
+&=&(-1)^p\det_B(B)\\
+&=&(-1)^p.
+\end{eqnarray*}
+\end{sol}
+
+\begin{proposition}
+$\quad$
+\begin{itemize}
+\item $\det \id_E=1$
+\item Si $f\in\Endo{E}$ et $\lambda\in\K$, alors
+  \[\det\p{\lambda f}=\lambda^n \det f.\]
+\item Si $f,g\in\Endo{E}$, alors
+  \[\det\p{g\circ f}=\det g\cdot \det f.\]
+\end{itemize}
+\end{proposition}
+
+\begin{preuve}
+\begin{itemize}
+\item $\det \id_E=\det_B(\id_E(B))=\det_B(B)=1$.
+\item Si $f\in\Endo{E}$ et $\lambda\in\K$, alors
+  \[\det\p{\lambda f}=\det_B\p{(\lambda f)(B)}=\det_B\p{\lambda f(e_1),\ldots,\lambda f(e_n)}=\lambda^n\det_B\p{f(e_1),\ldots, f(e_n)}=\lambda^n\det_B(f(B))=\lambda^n \det f.\]
+\item Si $f,g\in\Endo{E}$, alors~:
+  \[\det\p{g\circ f}=\det_B((g\circ f)(B))=\det g \det_B(f(B))=\det g\cdot \det f\]
+\end{itemize}
+\end{preuve}
+
+
+\begin{exoUnique}
+\exo Soit $E$ un \Rev de dimension $n$. Montrer qu'il existe $f\in\Endo{E}$
+  tel que $f^2=-\id$ si et seulement si $n$ est pair.
+\end{exoUnique}
+
+\begin{sol}
+\begin{itemize}
+\item[$\bullet$] $\Rightarrow$ : $\det(f^2)=\det(-\id)=(-1)^n\det(\id)=(-1)^n$. Or $\det(f^2)=\det(f)^2\geq 0$ donc $n$ est pair.
+\item[$\bullet$] Réciproquement, si $n$ est pair, on peut construire un endomorphisme, on peut construire une matrice diagonale par blocs $2\times 2$ avec chaque bloc égal à $\begin{pmatrix}0&-1\\1&0\end{pmatrix}$.
+\end{itemize}
+\end{sol}
+
+
+\begin{proposition}
+Soit $f\in\Endo{E}$. Alors $f$ est un isomorphisme si et seulement si
+\[\det f\neq 0.\]
+De plus, si tel est le cas
+\[\det f^{-1}=\frac{1}{\det f}.\]
+\end{proposition}
+
+\begin{preuve}
+Soit $B$ une base de $E$.
+$f\in \gl{}{E}\Longleftrightarrow f(B) \text{ est une base de } E \Longleftrightarrow \det_B(f(B))\neq 0 \Longleftrightarrow \det(f)\neq 0.$
+Dans ce cas, $\det(f)\det(f^{-1})=\det(f\circ f^{-1})=\det(\id)=1$ d'où \[\det f^{-1}=\frac{1}{\det f}.\]
+\end{preuve}
+
+\begin{remarqueUnique}
+\remarque On en déduit que l'application
+  \[\dspappli{\phi}{{\rm GL}(E)}{\Ks}{f}{\det f}\]
+  est un morphisme de groupe de $({\rm GL}(E),\circ)$ dans $(\Ks,\times)$.
+\end{remarqueUnique}
+
+\subsection{Déterminant d'une matrice carrée}
+
+\begin{definition}
+Soit $A\in\mat{n}{\K}$. On appelle \emph{déterminant de $A$} et on note $\det A$
+le déterminant des vecteurs colonnes de $A$ relativement à la base canonique de
+$\K^n$.
+\end{definition}
+
+\begin{remarques}
+\remarque Le déterminant est donc une forme $n$-linéaire alternée par rapport aux
+  colonnes de la matrice.
+\remarque Si $A\in\mat{n}{\K}$, alors
+  \[\det A=\sum_{\sigma\in\gsym{n}} \signat{\sigma}
+    a_{\sigma\p{1},1}a_{\sigma\p{2},2}\cdots a_{\sigma(n),n}\]
+  Cependant, cette formule comporte une somme de $n!$ termes. Il est donc déconseillé de l'utiliser
+  pour un calcul effectif de déterminant.
+  % Par contre, elle permettra, par exemple, de démontrer que le déterminant d'une matrice à
+  % coefficients entiers est un entier.
+  \begin{sol}
+  Tout de même, pour $n=2$, $S_2=\set{\id,(1,2)}$ et donc $\det(A)=a_{1,1}a_{2,2}-a_{2,1}a_{1,2}$.
+  Si $n=3$, règle de Sarrus à éviter.
+  \end{sol}
+\remarque Si $A\in\mat{n}{\K}$, son déterminant est noté
+  \[\begin{vmatrix}
+    a_{1,1} & \cdots & a_{1,n}\\
+    \vdots & & \vdots\\
+    a_{n,1} & \cdots & a_{n,n}
+    \end{vmatrix}\]
+\end{remarques}
+
+\begin{proposition}
+Soit $\mathcal{B}$ une base de $E$.
+\begin{itemize}
+\item Si $(x_1,\ldots,x_n)$ est une famille de $n$ vecteurs de $E$, alors
+  \[\det{}_{\mathcal{B}}\p{x_1,\ldots,x_n}=
+    \det\cro{\mat{\mathcal{B}}{x_1,\ldots,x_n}}.\]
+\item Si $f\in\Endo{E}$, alors
+  \[\det f=\det\cro{\mat{\mathcal{B}}{f}}.\]
+\end{itemize}
+\end{proposition}
+
+\begin{preuve}
+\begin{itemize}
+\item Rien à dire, c'est la même définition, la même somme.
+\item Si $f\in\Endo{E}$, alors~:
+  \[\det f=\det_B(f(e_1),\ldots,f(e_n))=\det(\mat{\mathcal{B}}{f(e_1),\ldots,f(e_n)}=\det\cro{\mat{\mathcal{B}}{f}}.\]
+\end{itemize}
+
+\end{preuve}
+
+\begin{proposition}
+$\quad$
+\begin{itemize}
+\item $\det I_n=1$
+\item Si $A\in\mat{n}{\K}$ et $\lambda\in\K$, alors
+  \[\det\p{\lambda A}=\lambda^n \det A.\]
+\item Si $A,B\in\mat{n}{\K}$, alors
+  \[\det\p{AB}=\det A\cdot\det B.\]
+\end{itemize}
+\end{proposition}
+
+\begin{preuve}
+On se fixe une base $B$, on passe par les endomorphismes canoniquement associés pour lesquels on a établi ces résultats.
+\end{preuve}
+
+\begin{remarqueUnique}
+\remarque Il n'existe aucune formule permettant de calculer
+  $\det\p{A+B}$ en fonction de $\det A$ et de $\det B$. En particulier, toute
+  formule du type $\det\p{A+B}=\det A+\det B$ est fausse.
+\end{remarqueUnique}
+
+\begin{proposition}
+Soit $A\in\mat{n}{\K}$. Alors $A$ est inversible si et seulement si
+\[\det A\neq 0.\]
+De plus, si tel est le cas
+\[\det\p{A^{-1}}=\frac{1}{\det A}.\]
+\end{proposition}
+
+% \begin{proposition}
+% Soit $AX=B$ un système de Cramer à $n$ équations et $n$ inconnues. Si
+% $C_1,\ldots,C_n\in\R^n$ sont les $n$ colonnes de la matrice $A$, l'unique
+% solution $\p{x_1,\ldots,x_n}\in\R^n$ du système est donnée par~:
+% \[\forall k\in\intere{1}{n} \quad
+%   x_k=\frac{\det\p{C_1,\ldots,C_{k-1},B,C_{k+1},\ldots,C_n}}{\det A}\]
+% \end{proposition}
+
+\begin{remarqueUnique}
+\remarque On en déduit que l'application
+  \[\dspappli{\phi}{{\rm GL}_n(\K)}{\Ks}{A}{\det A}\]
+  est un morphisme de groupe de $({\rm GL}_{n}(\K),\times)$ dans $(\Ks,\times)$.
+\end{remarqueUnique}
+
+\begin{proposition}
+Soit $A\in\mat{n}{\K}$. Alors
+\[\det\trans{A}=\det A.\]
+\end{proposition}
+
+\begin{preuve}
+On note $B=\trans{A}$. Alors~:
+\begin{eqnarray*}
+\det\trans{A}
+&=& \det B\\
+&=& \sum_{\sigma\in\gsym{n}} \signat{\sigma}b_{\sigma\p{1},1}\cdots b_{\sigma(n),n}\\
+&=& \sum_{\sigma\in\gsym{n}} \signat{\sigma}a_{1,\sigma\p{1}}\cdots a_{n,\sigma(n)}\\
+&=& \sum_{\sigma\in\gsym{n}}\signat{\sigma}a_{\sigma^{-1}\p{1},\sigma\p{\sigma^{-1}\p{1}}}
+          \cdots a_{\sigma^{-1}(n),\sigma\p{\sigma^{-1}(n)}}\\
+& & \text{par permutation des éléments présents dans le produit}\\
+&=& \sum_{\sigma\in\gsym{n}}\signat{\sigma}a_{\sigma^{-1}\p{1},1}
+          \cdots a_{\sigma^{-1}(n),n}
+\end{eqnarray*}
+Or $\sigma\sigma^{-1}=\id$ donc $\signat{\sigma}\signat{\sigma^{-1}}=1$. Comme
+$\signat{\sigma}\in\ens{-1,1}$, on en déduit que
+$\signat{\sigma^{-1}}=\signat{\sigma}$. Donc~:
+\[\det\trans{A}=\sum_{\sigma\in\gsym{n}}\signat{\sigma^{-1}}a_{\sigma^{-1}\p{1},1}
+          \cdots a_{\sigma^{-1}(n),n}\]
+De plus, l'application~:
+\[\dspappli{f}{\gsym{n}}{\gsym{n}}{\sigma}{\sigma^{-1}}\]
+est une bijection. En effet, on vérifie facilement que $f\circ f=\id$. Donc~:
+\begin{eqnarray*}
+\det\trans{A}
+&=& \sum_{\sigma\in\gsym{n}}\signat{\sigma}a_{\sigma\p{1},1} \cdots a_{\sigma(n),n}\\
+&=& \det A
+\end{eqnarray*}
+\end{preuve}
+
+\begin{remarqueUnique}
+\remarque On en déduit que le déterminant est une forme $n$-linéaire alternée par
+  rapport aux lignes de la matrice.
+\end{remarqueUnique}
+\vspace{2ex}
+\begin{exoUnique}
+\exo Soit $A\in\mat{3}{\R}$ une matrice antisymétrique. Montrer que
+  $\det A=0$.
+\end{exoUnique}
+
+\begin{sol}
+$\det(\trans{A})=\det(-A)=(-1)^3\det(A)=-\det(A)$. Or $\det(\trans{A})=\det(A)$ d'où $2\det(A)=0$.
+\end{sol}
+
+\section{Calcul de déterminant}
+
+\subsection{Méthode du pivot}
+
+\begin{proposition}
+Soit la matrice
+\[A\defeq
+  \begin{pmatrix}
+  a_{1,1} & a_{1,2}\\
+  a_{2,1} & a_{2,2}
+  \end{pmatrix}\in\mat{2}{\K}.\]
+Alors $\det A=a_{1,1}a_{2,2}-a_{2,1}a_{1,2}$.
+\end{proposition}
+
+\begin{remarques}
+\remarque Le déterminant de la matrice de taille nulle est 1.
+\remarque Si $a \in\K$, le déterminant de la matrice  à une ligne et une colonne $(a)$
+  est $a$. 
+\end{remarques}
+\vspace{2ex}
+\begin{exoUnique}
+\exo Soit $\theta_1,\ldots,\theta_n\in\R$. Calculer le rang de la matrice
+  $A\in\mat{n}{\R}$ définie par
+  \[\forall i,j\in\intere{1}{n} \qsep a_{i,j}\defeq\cos\p{\theta_i+\theta_j}.\]   
+  \begin{sol}
+  On trouve~:
+  \begin{itemize}
+  \item $\rg A=0$ si et seulement si~:
+    \[\cro{\forall k\in\intere{1}{n} \quad \theta_k \equiv \frac{\pi}{4}\ [\pi]}
+      \ou
+      \cro{\forall k\in\intere{1}{n} \quad \theta_k \equiv -\frac{\pi}{4}\ [\pi]}\]
+  \item $\rg A=2$ si et seulement si~:
+    \[\exists i_1,i_2,j_1,j_2\in\intere{1}{n} \quad
+      \theta_{i_1}\not\equiv \theta_{i_2}\ [\pi] \et
+      \theta_{j_1}\not\equiv \theta_{j_2}\ [\pi]\]
+  \item $\rg A=1$ sinon.
+  \end{itemize}
+  \end{sol}
+\end{exoUnique}
+
+%\begin{remarques}
+% \remarque Le calcul du déterminant d'une matrice $3\times 3$
+%   \[A=
+%     \begin{pmatrix}
+%     a_{1,1} & a_{1,2} & a_{1,3}\\
+%     a_{2,1} & a_{2,2} & a_{2,3}\\
+%     a_{3,1} & a_{3,2} & a_{3,3}
+%     \end{pmatrix}\in\mat{3}{\K}\]
+%   peut (bien que ce ne soit une bonne idée que dans très peu de cas) se faire
+%   par la règle de Sarrus
+%  \begin{eqnarray*}
+% $\det A&=&\p{a_{1,1}a_{2,2}a_{3,3}+a_{2,1}a_{3,2}a_{1,3}+a_{3,1}a_{1,2}a_{2,3}}
+%         &&-\p{a_{1,1}a_{3,2}a_{2,3}+a_{2,1}a_{1,2}a_{3,3}+a_{3,1}a_{2,2}a_{1,3}}$
+%  \end{eqnarray*}
+%\end{remarques}
+
+\begin{proposition}
+Soit $T$ une matrice triangulaire supérieure
+\[\xymatrix @-0.85cm
+  {& &\lambda_1\ar@{.}[drdrdrdr] & \star\ar@{.}[drdrdr]\ar@{.}[rrr]& & &
+     \star\ar@{.}[ddd] \\
+   & &  & & & &  \\
+   T\defeq&
+     \setbox0=\hbox{$\left(\rule[0pt]{0pt}{1.45cm}\right.$}
+     \ht0=0pt\dp0=0pt\wd0=0pt\kern-5pt\lower5pt\box0
+     &  & &\setbox0=\hbox{}\ht0=20pt\wd0=20pt\box0 & & &
+     \setbox0=\hbox{$\left.\rule[0pt]{0pt}{1.45cm}\right)$}
+     \ht0=0pt\dp0=0pt\wd0=0pt\kern-15pt\lower5pt\box0\\
+   & &  &(0) & & & \star \\
+   & &  & & & & \lambda_n}\]
+alors
+\[\det T=\prod_{k=1}^n \lambda_k.\]
+\end{proposition}
+
+\begin{preuve}
+On a~:
+\[\det T=\sum_{\sigma\in\gsym{n}}\signat{\sigma} t_{\sigma\p{1},1}\cdots
+  t_{\sigma(n),n}\]  
+On remarque que si $\sigma\neq\id$, le produit
+$t_{\sigma\p{1},1}\cdots t_{\sigma(n),n}$ est nul. En effet, soit $\sigma\in\gsym{n}$
+une permutation différente de l'identité. On considère le plus petit entier
+$k_0\in\intere{1}{n}$ tel que $\sigma\p{k_0}=k_0$. Par minimalité de $k_0$, on a~:
+\[\forall k\in\intere{1}{k_0-1} \quad \sigma(k)=k\]
+Puisque $\sigma$ est injective, on en déduit que $\sigma\p{k_0}\geq k_0$.
+Comme $\sigma\p{k_0}\neq k_0$, on en déduit que $\sigma\p{k_0}>k_0$ donc
+$t_{\sigma\p{k_0},k_0}=0$ car $T$ est triangulaire supérieure. Le produit
+$t_{\sigma\p{1},1}\cdots t_{\sigma(n),n}$ est donc nul. On a donc~:
+\[\det T=\signat{\id} t_{1,1}\cdots t_{n,n}\]
+Puisque $\signat{\id}=1$ et que $t_{k,k} =\lambda_k$ pour tout $k\in\intere{1}{n}$,
+on en déduit que~:
+\[\det T=\prod_{k=1}^n \lambda_k\]
+\end{preuve}
+
+\begin{sol}
+Mettons ici la remarque du calcul du déterminant pour une matrice diagonale.
+\end{sol}
+
+\begin{remarqueUnique}
+\remarque En particulier, le déterminant d'une matrice diagonale est le produit de
+  ses coefficients diagonaux.
+\end{remarqueUnique}
+
+\begin{proposition}
+Soit $A\in\mat{n}{\K}$ une matrice triangulaire supérieure par blocs
+\[A=\begin{pmatrix}A_{1}&\star\\0&A_{2}\end{pmatrix}\]
+où $n_1+n_2=n$, $A_{1}\in\mat{n_1}{\K}$ et $A_{2}\in\mat{n_2}{\K}$. Alors
+\[\det A=\det A_{1} \det A_{2}.\]
+\end{proposition}
+
+\begin{remarques}
+\remarque En particulier, si $A\in\mat{n+1}{\K}$ est de la forme
+  % \[A=\begin{pmatrix}\lambda&B\\0&C\end{pmatrix}\]
+\[\xymatrix @-0.85cm
+  {& &\lambda & \star\ar@{.}[rrrr]& & & &
+     \star \\
+   & & 0 \ar@{.}[ddddd]
+    & 
+    % \ar@{-}[rrrr]\ar@{-}[ddddd]
+     & & & & 
+    %  \ar@{-}[ddddd]
+     \\
+   & &  & & & & & \\
+   A=&
+     \setbox0=\hbox{$\left(\rule[0pt]{0pt}{1.45cm}\right.$}
+     \ht0=0pt\dp0=0pt\wd0=0pt\kern-5pt\lower-4pt\box0
+     & & & \setbox0=\hbox{}\ht0=15pt\wd0=10pt\box0 
+       & B & \setbox0=\hbox{}\ht0=15pt\wd0=10pt\box0 & &
+     \setbox0=\hbox{$\left.\rule[0pt]{0pt}{1.45cm}\right)$}
+     \ht0=0pt\dp0=0pt\wd0=0pt\kern-15pt\lower-4pt\box0\\
+   & &  & & & & & \\
+   & &  & & & & & \\
+   & & 0 & 
+  %  \ar@{-}[rrrr]
+    & & & & }\]
+  où $\lambda\in\K$ et $B\in\mat{n}{\K}$, alors
+  \[\det A=\lambda \det B.\]
+% Alors
+% \[\det A=\lambda\det B.\]
+\remarque De même, si $A\in\mat{n}{\K}$ est une matrice triangulaire inférieure par blocs
+  \[A=\begin{pmatrix}A_{1}&0\\ \star&A_{2}\end{pmatrix}\]
+  alors $\det A=\det A_{1} \det A_{2}$.
+\end{remarques}
+
+% \begin{proposition}
+
+% \end{proposition}
+
+% \begin{preuve}
+% Soit $\sigma=\p{n+1 \quad n \quad\cdots\quad 1}$. En appliquant cette permutation
+% aux colonnes de $A$, puis aux lignes de $A$, on obtient la matrice~:
+% \[\xymatrix @-0.85cm
+%   {& & \ar@{-}[rrrr]\ar@{-}[ddddd]& & & & \ar@{-}[ddddd] & 0\ar@{.}[ddddd] \\
+%    & & & & & & & \\
+%    C=&
+%      \setbox0=\hbox{$\left(\rule[0pt]{0pt}{1.6cm}\right.$}
+%      \ht0=0pt\dp0=0pt\wd0=0pt\kern-5pt\lower25pt\box0
+%      & & \setbox0=\hbox{}\ht0=15pt\wd0=10pt\box0 
+%        & B & \setbox0=\hbox{}\ht0=15pt\wd0=10pt\box0 & & &
+%      \setbox0=\hbox{$\left.\rule[0pt]{0pt}{1.6cm}\right)$}
+%      \ht0=0pt\dp0=0pt\wd0=0pt\kern-15pt\lower25pt\box0\\
+%    & &  & & & & & \\
+%    & &  & & & & & \\
+%    & & \ar@{-}[rrrr] & & & & & 0 \\
+%    & & \star\ar@{.}[rrrr] & & & & \star & \lambda}\]
+% Comme $\sigma$ est un $\p{n+1}$-cycle, on en déduit que
+% $\signat{\sigma}=\p{-1}^{n+2}$. Donc~:
+% \[\det C=\p{-1}^{n+2} \p{-1}^{n+2}\det A=\det A\]
+% Montrons que $\det C=\lambda \det B$. On a~:
+% \[\det C=\sum_{\sigma\in\gsym{n+1}} \signat{\sigma} c_{\sigma\p{1},1}\cdots c_{\sigma{n},n}
+%          c_{\sigma{n+1},n+1}\]
+% Or, si $\sigma\p{n+1}\neq n+1$, $c_{\sigma{n+1},n+1}=0$, donc on peut restreindre la
+% somme aux permutations qui laissent fixe $n+1$~:
+% \begin{eqnarray*}
+% \det C
+% &=& \sum_{\substack{\sigma\in\gsym{n+1}\\ \sigma(n+1)=n+1}}
+%     \signat{\sigma} c_{\sigma\p{1},1}\cdots c_{\sigma{n},n} c_{\sigma{n+1},n+1}\\
+% &=& \sum_{\substack{\sigma\in\gsym{n+1}\\ \sigma(n+1)=n+1}}
+%     \signat{\sigma} c_{\sigma\p{1},1}\cdots c_{\sigma{n},n}
+%     \underbrace{c_{n+1,n+1}}_{=\lambda}\\
+% &=& \lambda \sum_{\substack{\sigma\in\gsym{n+1}\\ \sigma(n+1)=n+1}}
+%     \signat{\sigma} c_{\sigma\p{1},1}\cdots c_{\sigma{n},n}
+% \end{eqnarray*}
+% Or, si on note $X$ l'ensemble des permutations de $\intere{1}{n+1}$ qui laissent
+% fixe $n+1$, l'application~:
+% \[\dspappli{f}{X}{\gsym{n}}{\sigma}{
+%     \dspappli{f\p{\sigma}}{\intere{1}{n}}{\intere{1}{n}}{k}{\sigma(k)}
+%   }\]
+% est une bijection. En effet~:
+% \begin{itemize}
+% \item $f$ est bien définie car si $\sigma$ est une permutation de $\intere{1}{n+1}$
+%   qui laisse fixe $n+1$, $\sigma$ étant injective, et $\sigma\p{n+1}=n+1$, on a~:
+%   \[\forall k\in\intere{1}{n} \quad \sigma(k)\in\intere{1}{n}\]
+%   Donc $f\p{\sigma}$ est bien une application de $\intere{1}{n}$ dans lui-même.
+%   De plus, puisque $\sigma$ est injective, $f\p{\sigma}$ est injective donc
+%   $f\p{\sigma}\in\gsym{n}$.
+% \item $f$ est injective. En effet soit $\sigma_1,\sigma_2$ deux permutations
+%   de $\intere{1}{n+1}$ laissant fixe $n+1$ telles que $f\p{\sigma_1}=f\p{\sigma_2}$.
+%   Alors $\sigma_1$ et $\sigma_2$ coïncident sur $\intere{1}{n}$. Comme de plus
+%   $\sigma_1\p{n+1}=\sigma_2\p{n+1}=n+1$, on en déduit que $\sigma_1=\sigma_2$.
+% \item Enfin $f$ est surjective. En effet, soit $g$ une permutation de
+%   $\intere{1}{n}$. On définit alors l'application $f$ de $\intere{1}{n+1}$ dans
+%   lui-même par~:
+%   \[\forall k\in\intere{1}{n+1}\]
+% \end{itemize}
+% \end{preuve}
+
+% \begin{remarqueUnique}
+% \remarque Plus généralement, si une matrice est triangulaire supérieure par
+%   blocs, on montre que son déterminant est égal au produit des
+%   déterminants des matrices blocs présentes sur la diagonale.
+% \end{remarqueUnique}
+
+\begin{proposition}
+Soit $A\in\mat{n}{\K}$, $i,j\in\intere{1}{n}$ tels que $i\neq j$ et $\lambda\in\K$.
+\begin{itemize}
+\item Les opérations élémentaires $L_i \gets L_i + \lambda L_j$ et $C_i\gets C_i+\lambda C_j$
+  ne modifient pas les déterminants.
+\item Les opérations élémentaires $L_i \gets \lambda L_i$ et $C_i\gets \lambda C_i$ multiplient
+  les déterminants par $\lambda$.
+\item Les opérations élémentaires $L_i \leftrightarrow L_j$ et $C_i \leftrightarrow C_j$ multiplient
+  les déterminants par $-1$.
+\end{itemize}
+% \begin{itemize}
+% \item On multiplie le déterminant de $A$ par $\lambda$ lorsqu'on multiplie une
+%   de ses colonnes (resp. lignes) par $\lambda$.
+% \item On ne change pas le déterminant de $A$ lorsqu'à une colonne (resp. ligne)
+%   de $A$ on ajoute une combinaison linéaire des ses autres colonnes (resp.
+%   lignes).
+% \item On change le signe du déterminant de $A$ lorsqu'on échange deux de ses
+%   colonnes (resp. lignes). Plus généralement, une permutation paire des colonnes
+%   (resp. lignes) de $A$ ne change pas le signe de son déterminant, tandis qu'une
+%   permutation impaire de ses colonnes (resp. lignes) change son signe.
+% \end{itemize}
+\end{proposition}
+
+
+\begin{remarques}
+\remarque Plus généralement, si à une colonne, on ajoute une combinaison linéaire des autres
+  colonnes, on ne change pas le déterminant. De même, si à une ligne, on ajoute une
+  combinaison linéaire des autres lignes, on ne change pas non plus le déterminant.
+\remarque Toute permutation des colonnes multiplie le déterminant par la signature
+  de cette permutation. De même, toute permutation des lignes multiplie le déterminant
+  par la signature de cette permutation.
+\end{remarques}
+
+\begin{preuve}
+C'est le caractère $n$-linéaire alterné du déterminant.
+\end{preuve}
+
+% \begin{exos}
+% \exo Montrer que le déterminant
+%   \[\begin{vmatrix}
+%     3 & 4 & 2\\
+%     5 & -3 & -2\\
+%     2 & 1 & 6
+%     \end{vmatrix}\]
+%   est divisible par 9.
+% \end{exos}
+%
+\vspace{2ex}
+\begin{exoUnique}
+\exo Soit $a,b,c\in\R$. Calculer les déterminants
+  \[\begin{vmatrix}
+    1 & a & a^2\\
+    a & 1 & a\\
+    a^2 & a & 1
+    \end{vmatrix} \qquad
+  \begin{vmatrix}
+  1 & \sin a & \cos a\\
+  1 & \sin b & \cos b\\
+  1 & \sin c & \cos c
+  \end{vmatrix}\et
+  \begin{vmatrix}
+    a+b & 2a & 2a\\
+    2b & a+b & 2a\\
+    2b & 2b & a+b
+    \end{vmatrix}\]
+  \begin{sol}
+  On trouve $\p{a-1}^2\p{a+1}^2$, $4\sin((b-a)/2)\sin((c-a)/2)\sin((c-b)/2)$ et
+  $\p{a+b}\p{a-b}^2$.    
+  \end{sol}
+\end{exoUnique}
+
+\subsection{Développement par rapport à une colonne}
+
+\begin{definition}
+Soit $A\in\mat{n}{\K}$.
+\begin{itemize}
+\item On appelle \emph{mineur} d'indice $\p{i,j}\in\intere{1}{n}^2$ le déterminant $\Delta_{i,j}$ de la
+  matrice obtenue en supprimant la $i$-ème ligne et la $j$-ème colonne de la
+  matrice $A$.
+\item On appelle \emph{cofacteur} d'indice $\p{i,j}\in\intere{1}{n}^2$, et on note $A_{i,j}$, le scalaire
+  $A_{i,j}\defeq\p{-1}^{i+j}\Delta_{i,j}$.
+\end{itemize}
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque On retiendra que la matrice des $(-1)^{i+j}$ comporte des $1$ sur la 
+  diagonale et qu'on passe de $\pm 1$ à son opposé lorsqu'on change de ligne ou de colonne.
+% \remarque Si $\rg A\leq n-2$, tous ses mineurs, et donc ses cofacteurs, sont
+%   nuls.
+\end{remarqueUnique}
+
+\begin{proposition}[nom={Développement par rapport à une ligne ou une colonne}]
+Soit $A\in\mat{n}{\K}$.
+\begin{itemize}
+\item Soit $j\in\intere{1}{n}$. Alors
+  \begin{eqnarray*}
+  \det A
+  &=& \sum_{i=1}^n a_{i,j}A_{i,j}\\
+  &=& \sum_{i=1}^n \p{-1}^{i+j}a_{i,j}\Delta_{i,j}.
+  \end{eqnarray*}
+\item Soit $i\in\intere{1}{n}$. Alors
+  \begin{eqnarray*}
+  \det A
+  &=& \sum_{j=1}^n a_{i,j}A_{i,j}\\
+  &=& \sum_{j=1}^n \p{-1}^{i+j}a_{i,j}\Delta_{i,j}.
+  \end{eqnarray*}  
+\end{itemize}
+\end{proposition}
+
+\begin{exos}
+\exo Soit $u,v\in\R$. Calculer le déterminant de la matrice
+  \[\begin{pmatrix}
+    -u & v & 0\\
+    -2 & 0 & 2v\\\
+    0 & -1 & u
+    \end{pmatrix}\]
+  \begin{sol}
+  On trouve 0. On peut remarquer que $vC_1+uC_2+C_3=0$.    
+  \end{sol}
+\exo Déterminer les $n\in\N$ pour lesquels la matrice suivante est inversible.
+  \[\begin{pmatrix}
+    1 & 1 &  &  & (0)\\
+    1 & 1 & 1 &  & \\
+     & \ddots & \ddots & \ddots & \\
+     &  & 1 & 1 & 1\\
+    (0) &  &   & 1 & 1
+    \end{pmatrix}\in\mat{n}{\R}.\]
+  \begin{sol}%
+  On trouve $u_{n+2}=u_{n+1}-u_n$ puis
+  $u_n=\frac{2}{\sqrt{3}}\sin\p{\p{n+1}\frac{\pi}{3}}$. On retrouve le fait
+  que la matrice est inversible sauf lorsque $n\equiv 2\ [3]$.     
+  \end{sol}
+\end{exos}
+
+
+\begin{proposition}[nom={Déterminant de \nom{Vandermonde}}]
+On appelle \nom{Vandermonde} de la famille $(x_0,\ldots,x_n)\in\K^{n+1}$ le déterminant
+  \[V(x_0,\ldots,x_n)\defeq \begin{vmatrix}
+    1 & x_0 & x_0^2 & \cdots & x_0^n\\
+    1 & x_1 & x_1^2 & \cdots & x_1^n\\
+    \vdots & & & & \vdots\\
+    1 & x_n & x_n^2 & \cdots & x_n^n
+    \end{vmatrix}\]
+On a
+\[V(x_0,\ldots,x_n)=\prod_{0\leq i<j\leq n} (x_j-x_i).\]
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque Soit $x_0,\ldots,x_n\in\K$, $n+1$ éléments deux à deux distincts et
+  $y_0,\ldots,y_n\in\K$. Soit $P\defeq a_0 +a_1 X+\cdots+a_n X^n\in\polyK[n]$. Alors
+  \[\forall k\in\intere{0}{n}\qsep P(x_k)=y_k\]
+  si et seulement si
+  \[\syslin{
+    a_0 &+ a_1 x_0&+\cdots &+a_n x_0^n&=&y_0\hfill\cr
+    a_0 &+ a_1 x_1&+\cdots &+a_n x_1^n&=&y_1\hfill\cr
+    \vdots\ & & &\vdots\ \ & &\ \vdots\hfill\cr
+    a_0 &+ a_1 x_n&+\cdots &+a_n x_n^n&=&y_n.\hfill}\]
+  Le déterminant de la matrice de ce système est un \nom{Vandermonde} qui
+  est non nul car les $x_k$ sont deux à deux distincts. On retrouve
+  le fait que ce système est de \nom{Cramer} et donc qu'il admet une unique
+  solution, résultat au coeur de la définition des polynômes interpolateurs de
+  \nom{Lagrange}.
+\end{remarqueUnique}
+
+\subsection{Comatrice}
+\begin{definition}
+Soit $A\in\mat{n}{\K}$. On appelle \emph{comatrice} de $A$ et on note $\Com A$ la
+matrice des cofacteurs de $A$
+\[\forall i,j\in\intere{1}{n} \qsep \cro{\Com A}_{i,j}\defeq
+  \p{-1}^{i+j}\Delta_{i,j}.\]
+\end{definition}
+
+\begin{proposition}
+Soit $A\in\mat{n}{\K}$. Alors
+\[A\trans{\p{\Com A}}=\trans{\p{\Com A}}A=\p{\det A}I_n.\]
+En particulier, si $A\in\gl{n}{\K}$
+\[A^{-1}=\frac{1}{\det A}\trans{\p{\Com A}}.\]
+\end{proposition}
+
+
+\begin{remarqueUnique}
+\remarque La matrice
+  \[A\defeq\begin{pmatrix}a&b\\c&d\end{pmatrix}\in\mat{2}{\K}\]
+  est inversible si et seulement si $\det A=ad-cb$ est non nul. De plus, si tel est le cas
+  \[A^{-1}=\frac{1}{ad-cb}\begin{pmatrix}d&-b\\-c&a\end{pmatrix}\]
+  Cependant, on évitera d'utiliser une telle formule en pratique.
+\end{remarqueUnique}
+
+\begin{exoUnique}
+\exo Soit $A\in\mat{n}{\Z}$ une matrice inversible dans $\mat{n}{\R}$.
+  Montrer que son inverse est à coefficients entiers si et seulement si
+  $\det A\in\ens{-1,1}$.
+\end{exoUnique}
+
+% \subsection{Orientation d'un espace vectoriel réel de de dimension finie}
+
+% \begin{definition}
+% Soit $E$ un \Rev de dimension finie. On dit qu'un automorphisme $f$ de $E$ est
+% \begin{itemize}
+% \item \emph{direct} lorsque $\det f>0$.
+% \item \emph{indirect} lorsque $\det f<0$.
+% \end{itemize}
+% On note ${\rm GL}^+(E)$ l'ensemble des automorphismes directs de $E$. On
+% définit de même les notions de matrice directes et indirectes ainsi que l'ensemble
+% ${\rm GL}_n^+\p{\R}$.
+% \end{definition}
+
+% \begin{exoUnique}
+% \item Si $E$ est un \Rev de dimension $n$, $-\id$ est direct si $n$ est
+%   pair et indirect si $n$ est impair.
+% \end{exoUnique}
+
+% \begin{proposition}
+% ${\rm GL}^+(E)$ (resp. ${\rm GL}_n^+\p{\R}$)  est un sous-groupe de $\gl{}{E}$
+% (resp. $\gl{n}{\R}$).
+% \end{proposition}
+
+% \begin{definition}
+% Soit $\mathcal{B}$ et $\mathcal{B}'$ deux bases de $E$. Alors les
+% deux assertions suivantes sont équivalentes.
+% \begin{itemize}
+% \item $\det\p{P\p{\mathcal{B},\mathcal{B}'}}>0$.
+% \item L'unique automorphisme $f$ qui transforme $\mathcal{B}$ en $\mathcal{B}'$
+%   est direct.
+% \end{itemize}
+% Si tel est le cas, on dit que $\mathcal{B}$ a \emph{même orientation} que
+% $\mathcal{B}'$.
+% \end{definition}
+
+% \begin{proposition}
+% La relation \flqq\ a même orientation que \frqq\ est une relation d'équivalence
+% sur l'ensemble des bases de $E$ et possède exactement deux classes
+% d'équivalence.
+% \end{proposition}
+
+% \begin{definition}
+% Choisir une orientation de $E$, c'est choisir une base $\mathcal{B}$ de $E$ que
+% l'on définit comme directe. Les bases ayant même orientation que $\mathcal{B}$
+% sont dites \emph{directes}, les autres sont dites \emph{indirectes}.
+% \end{definition}
+%END_BOOK
+
+\end{document}

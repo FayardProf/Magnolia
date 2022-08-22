@@ -1,0 +1,585 @@
+\documentclass{magnolia}
+
+\magtex{tex_driver={pdftex}}
+\magfiche{document_nom={Exercices sur les variables aléatoires},
+          auteur_nom={François Fayard},
+          auteur_mail={fayard.prof@gmail.com}}
+\magexos{exos_matiere={maths},
+         exos_niveau={mpsi},
+         exos_theme={Variables aléatoires}}
+\magmisenpage{misenpage_presentation={tikzvelvia},
+              misenpage_format={a4},
+              misenpage_nbcolonnes={1},
+              misenpage_sol={non}}
+\maglieudiff{lieu_lycee={Aux Lazaristes},
+             lieu_classe={MPSI 1},
+             lieu_annee={2019--2020}}
+\magprocess
+
+\begin{document}
+%BEGIN_BOOK
+\magsection{Espérance, variance}
+\magsubsection{Espérance}
+
+\exercice{nom={Espérance du maximum}}
+Soit $X$ et $Y$ deux variables aléatoires de loi uniforme sur $\intere{1}{n}$ et indépendantes. On pose $Z \defeq \max (X, Y)$. Déterminer l'espérance de $Z$.
+
+\exercice{nom={Espérance d'une différence}}%colle BCPST
+Soit $n \geq 1$. Soit $X$ et $Y$ deux variables aléatoires de loi uniforme sur $\intere{1}{n}$ et indépendantes.
+Déterminer la loi et l'espérance de $Z\defeq X-Y$.
+
+\exercice{nom={Nombre de points fixes d'une permutation}}
+L'ensemble $S_n$ des permutations de $\intere{1}{n}$ est muni de la probabilité uniforme.
+On effectue un tirage aléatoire d'une permutation. Pour $k \in \intere{1}{n}$, on note $X_k$ la variable aléatoire qui vaut $1$ si $k$ est fixe par la permutation et $0$ sinon.
+On note $X$ la variable aléatoire égale au nombre de points fixes de la permutation.
+Exprimer $X$ en fonction des $X_k$ et en déduire l'espérance de $X$.
+
+\exercice{nom={Exercice}}
+Soit $n \in \N ^*$. On dispose de $n$ urnes numérotées de $1$ à $n$. Pour tout
+$k\in\intere{1}{n}$, l'urne $k$ contient $k$ boules numérotées de $1$ à $k$. On choisit une
+urne au hasard et on tire une boule dans cette urne. On note $X$ le numéro de la boule tirée.
+Déterminer la loi de $X$ puis son espérance.
+
+\exercice{nom={Les vaches}}
+On considère une population de $2^n$ vaches susceptibles, avec la probabilité $p$, d'être porteuses d'un virus donné.
+On dispose d'un test détectant de façon certaine ce virus dans le lait des vaches.
+On fixe $0 \leq k \leq n$. On sépare les vaches en $2^{n-k}$ groupes de $2^k$ vaches. On mélange leur lait, on fait un test sur chacun des mélanges, puis on effectue un test sur chacune des vaches des groupes contaminés.
+On note $Y$ le nombre de groupes malades et $X$ le nombre total de tests effectués.
+\begin{enumerate}
+\item Exprimer $X$ en fonction de $Y$, $k$ et $n$.
+\item Déterminer la probabilité qu'un groupe donné soit malade.
+\item Donner la loi de $Y$ et son espérance.
+\item En déduire l'espérance de $X$.
+\item On suppose $n=10$ et $p=0.01$. Déterminer la meilleure valeur de $k$.
+\end{enumerate}
+
+\exercice{nom={La puce}}
+Une puce se déplace (uniquement en avant) sur une bande numérotée par les entiers naturels et commence à la case $0$. À chaque étape, elle fait un bond d'une case avec la probabilité $p$ et de deux cases avec la probabilité $q=1-p$.
+On note $X_n$ le numéro de la case où se trouve la puce après $n$ bonds et $Y_n$ le nombre de bonds d'une case effectués après $n$ bonds.
+\begin{enumerate}
+\item Déterminer la loi de $Y_n$.
+\item Exprimer $X_n$ en fonction de $Y_n$.
+\item En déduire l'espérance de $X_n$.
+\end{enumerate}
+
+\exercice{nom={Exercice}}%\textbf{[Centrale-PSI-2016]} \textbf{[Python]}%RMS
+Soit $X_1, ... , X_{n+1}$ des variables aléatoires indépendantes qui suivent
+la loi uniforme sur  $[\![1,n]\!]$.
+On pose \[T\defeq\min \enstq{j\in [\![2,n+1]\!]}{X_j\in\{X_1,...,X_{j-1}\}}.\]
+\begin{enumerate}
+\item Vérifier que $T$ est bien défini.
+\item %(Question Python facultative, je laisse tel quel l'énoncé de Centrale).
+\begin{enumerate}
+\item \'Ecrire une fonction Python qui prend $(X_1,...,X_{n+1})$ en arguments 
+et qui renvoie $T$.
+\item  On choisit $n=1000$. \'Ecrire une fonction qui prend $N$ en argument 
+et qui renvoie la moyenne de $T$ au bout de $N$ essais.
+\end{enumerate}
+\item
+\begin{enumerate}
+\item Quelles sont les valeurs que peut prendre $T$? 
+Déterminer la loi de $T$.
+\item Montrer que $\mathbb{E}(T)=\sum_{k=0}^n \mathbb{P}(T>k)$ et en déduire que
+\[\mathbb{E}(T)=\frac{n!}{n^n}\sum_{k=0}^n \frac{n^k}{k!}.\]
+\item 
+En admettant que \[\sum_{k=0}^n \frac{n^k}{k!} \sim \frac{1}{2} e^n\] donner un équivalent de $\mathbb{E}(T)$.
+\end{enumerate}
+\end{enumerate}
+
+
+\exercice{nom={Exercice}}
+On considère une urne contenant $n$ boules numérotées de $1$ à $n$. On tire aléatoirement $k$ boules en une seule prise. On note $X$ la variable aléatoire donnant le numéro de la plus petite boule tirée. Calculer $\esp{X}$.
+
+\exercice{nom={Exercice}}
+Un questionnaire comporte 20 questions. Pour chaque question, $k$ réponses  sont possibles dont une seule est bonne. Chaque bonne réponse rapporte 1 point. Un candidat répond au hasard à toutes les questions.
+\begin{enumerate}
+\item Soit $X$ la variable aléatoire donnant le nombre de points obtenus par le candidat à ce questionnaire. Déterminer la loi de $X$.
+\item À chaque question, si le candidat s'est trompé, il a droit à une seconde chance et peut choisir une  autre réponse parmi celles qui restent. Il gagne alors 1/2 point en cas de bonne réponse. Soit $Y$ le nombre de 1/2 points obtenus, déterminer la loi de $Y$.
+\item Déterminer $k$ pour que le candidat obtienne en moyenne une note de 5 sur 20.
+\end{enumerate}
+
+\exercice{nom={Exercice}}
+Soit $N$ une variable aléatoire à valeurs dans $\intere{1}{m}$ et $(X_1,\dots,X_m)$ des variables aléatoires à valeurs entières indépendantes entre elles et de $N$ et suivant toutes la même loi.
+On pose pour tout $j \in \intere{1}{m}$
+\[S_j\defeq\sum\limits_{i=1}^j X_i.\]
+On pose enfin
+$$Z\defeq\sum\limits_{i=1}^N X_i.$$
+\begin{questions}
+\question Déterminer l'espérance de $Z$. %et la variance de $Z$.
+\question On tire un entier $N$ au hasard et uniformément dans $\intere{1}{n}$
+puis on jette $N$ fois une pièce équilibrée. Calculer l'espérance %et la variance
+du nombre de piles obtenus.
+\end{questions}
+
+\magsubsection{Variance}
+\exercice{nom={Exercice}}
+On considère $5$ jetons numérotés de $1$ à $5$.
+\begin{enumerate}
+\item On tire simultanément $2$ jetons parmi les $5$ et on note $X$ la plus
+petite valeur.
+Déterminer la loi de $X$, son espérance et sa variance.
+\item On tire successivement et avec remise $2$ jetons parmi les $5$ et on note $Y$ la plus petite valeur.
+Déterminer la loi de $Y$ et son espérance.
+\end{enumerate}
+
+\magsection{Couple de variables aléatoires}
+
+\magsubsection{Loi conjointe}
+\exercice{nom={Exercice}}
+Soit $X$ et $Y$ deux variables aléatoires réelles indépendantes définies sur un même
+espace probabilisé fini. On suppose que $X$ et $Y$ sont symétriques, c'est-à-dire que
+$X$ et $-X$ (respectivement $Y$ et $-Y$) ont même loi.
+\begin{questions}
+\question Montrer que $(X,Y)$ et $(X,-Y)$ ont même loi, puis que
+  \[\mathbb{P}(X^2=Y^2)=2\mathbb{P}(X=Y)-\mathbb{P}(X=0)\mathbb{P}(Y=0).\]
+\question Montrer que $\mathbb{P}(X+Y\geq 0)=\mathbb{P}(X+Y\leq 0)$.
+\end{questions}
+
+\magsubsection{Covariance}
+
+\exercice{nom={Exercice}}
+On lance deux fois un dé équilibré à 6 faces et on note $D_1$ et $D_2$ les deux résultats. On pose $S\defeq D_1+D_2$ puis $X_1$ (resp. $X_2$) le reste de la division euclidienne de $S$ par $2$ (resp. $5$). 
+\begin{questions}
+\question Déterminer la loi conjointe du couple $(X_1,X_2)$ (est-elle uniforme ?) et ses lois marginales.
+\question  Calculer $\cov {X_1,X_2}$.  $X_1$ et $X_2$ sont-elles indépendantes ?
+\end{questions}
+
+\magsection{Vers les grands nombres}
+
+\exercice{nom={Marche aléatoire}}
+Soit $X_1,\ldots,X_n$ des variables aléatoires indépendantes et de même loi: $\mathbb{P}(X_k=1)=\mathbb{P}(X_k=-1)=1/2$. On pose $S_n\defeq X_1+\cdots +X_n$. Soit $\epsilon>0$.
+\begin{enumerate}
+\item Majorer \[\mathbb{P}\left(\left|\frac{S_n}n\right|\geq \epsilon \right).\]
+\item Montrer que, pour tout $t\in\R$, $\mathbb{E}\left(\e^{tS_n}\right) = \ch^n t$.
+\item Montrer que, pour tout $t>0$, $\ch (t) \leq \e^{t^2/2}$.
+\item Montrer que, pour tout $t>0$
+\[\mathbb{P}\left(\frac{S_n}n\geq \epsilon\right) \leq \exp\left( \frac{nt^2}2-nt\epsilon\right).\]
+\item Montrer que
+\[\mathbb{P}\left(\frac{S_n}n\geq \epsilon\right) \leq \exp\left( -\frac{n\epsilon^2}2 \right).\]
+\end{enumerate}
+
+% \begin{reponse}
+% \begin{enumerate}
+
+% \item $\Omega$ est l'ensemble des parties de cardinal $2$ parmi $5$. Il y
+% a donc $10$ tirages possibles qui sont équiprobables.
+
+% $X \p{\Omega}=\{1,2,3,4\}$.
+
+% $(X=1)=\{ \{1,2\}, \{1,3\}, \{1,4\}, \{1,5\}\}$. On a donc $\pr{X=1}=\frac{4}{10}$.
+
+% $(X=2)=\{ \{2,3\}, \{2,4\}, \{2,5\}\}$. On a donc $\pr{X=1}=\frac{3}{10}$.
+% Etc.
+
+
+% \medskip
+% \begin{center}
+% \begin{tabular}{|c|cccc|}
+% \hline
+% $k$ &  1 & 2 & 3 & 4  \\
+
+% \hline
+
+% $\pr{X=k}$ & $\frac{4}{10}$ & $\frac{3}{10}$ & $\frac{2}{10}$ & $\frac{1}{10}$ \\
+
+
+% \hline
+% \end{tabular}
+% \end{center}
+
+% On a donc $\boxed{\esp{X}=2}$ puis $\boxed{\var{X}}=\esp{X^2}-\esp{X}^2=5-4=\boxed{1}$.
+
+
+
+% \item $\Omega$ est l'ensemble des couples d'éléments de $\{1,\dots,5\}$. Il y a donc $25$ tirages possibles qui sont équiprobables.
+
+% $Y \p{\Omega}=\{1,2,3,4,5\}$.
+
+% $(Y=1)=\{ (1,1), (1,2), (2,1), (1,3), (3,1), (1,4), (4,1) , (1,5), (5,1)
+% \}$. On a donc $\pr{Y=1}=\frac{9}{25}$.
+
+% $(Y=2)=\{ (2,2), (2,3), (3,2), (2,4), (4,2) , (2,5), (5,2) \}$. On a donc $\pr{Y=2}=\frac{7}{25}$.
+
+% $(Y=3)=\{ (3,3), (3,4), (4,3) , (3,5), (5,3) \}$. On a donc $\pr{Y=3}=\frac{5}{25}$.
+
+% $(Y=4)=\{ (4,4) , (4,5), (5,4) \}$. On a donc $\pr{Y=4}=\frac{3}{25}$.
+
+% $(Y=5)=\{ (5,5) \}$. On a donc $\pr{Y=4}=\frac{1}{25}$.
+
+% \medskip
+% \begin{center}
+% \begin{tabular}{|c|ccccc|}
+% \hline
+% $k$ &  1 & 2 & 3 & 4 & 5 \\
+
+% \hline
+
+% $\pr{Y=k}$ & $\frac{9}{25}$ & $\frac{7}{25}$ & $\frac{5}{25}$ & $\frac{3}{25}$
+% & $\frac{1}{25}$ \\
+
+
+% \hline
+% \end{tabular}
+% \end{center}
+
+% Donc $\boxed{\esp{Y}=\frac{11}{5}}$.
+
+% \end{enumerate}
+% \end{reponse}
+
+
+
+
+
+
+% Solution
+% P(X_1=0,X_2=j) : 3,5,2,5,3 /36
+% P(X_1=1,X_2=j) : 4,2,6,2,4 /36
+% P(X_1=0) = 1/2
+% P(X_1=1) = 1/2
+% P(X_2=j) = 7,7,8,7,7 / 36
+% Cov(
+
+
+
+
+
+
+% \begin{reponse}
+% $Z(\Omega)=\intere{-n+1}{n-1}$. Pour $k \in \intere{-n+1}{n-1}$
+
+% $$\pr{Z=k}=\sum\limits_{i=1}^n \pr{X-Y=k,Y=i}=\sum\limits_{i=1}^n \pr{X=k+i,Y=i} $$
+
+% Mais il faut $1 \leq k+i \leq n$ i.e. $-k+1 \leq i \leq n-k$ et en outre $1 \leq i \leq n$.
+
+% \btr Si $k \geq 0$ alors il reste la condition $i \in \intere{1}{n-k}$ donc 
+
+% $$\boxed{\pr{Z=k}}=\sum\limits_{i=1}^{n-k} \pr{X=k+i,Y=i}= \sum\limits_{i=1}^{n-k} \pr{X=k+i} \pr{Y=i} = \frac 1{n^2} \sum\limits_{i=1}^{n-k} 1 = \boxed{\frac{n-k}{n^2}}$$
+
+% \btr Si $k < 0$ alors il reste la condition $i \in \intere{-k+1}{n}$ et on trouve 
+
+% $$\boxed{\pr{Z=k} = \frac{n+k}{n^2}}$$
+
+% ce que l'on pouvait prévoir par un argument de symétrie.
+
+% On a donc une loi en triangle \dots 
+
+% \end{reponse}
+
+
+
+% \begin{reponse}
+
+% On $X(\Omega)=\intere{1}{n}$. On note $U$ la variable aléatoire égale au numéro de l'urne tirée.
+% On a alors par la formule des probabilités totales
+% $$\boxed{\pr{X=k}}=\sum\limits_{i=1}^n \prc{X=k}{U=i} \pr{U=i}=
+% \frac 1n \sum\limits_{i=k}^n \prc{X=k}{U=i}=
+% \boxed{\frac 1n \sum\limits_{i=k}^n \frac 1i}$$
+
+% On peut alors calculer l'espérance par une interversion
+% $$\boxed{\esp{X}}=\sum\limits_{k=1}^n \frac{k}{n} \sum\limits_{i=k}^n \frac 1i
+% = \frac 1n \sum\limits_{i=1}^n \frac 1i \sum\limits_{k=1}^{i} k = \boxed{\frac{n+3}{4}}$$
+
+% \end{reponse}
+
+
+
+
+
+% \begin{reponse}
+% On a évidemment $X=\sum X_k$ donc $\esp{X}=\sum \esp{X_k}$. Mais chaque $X_k$ est une variable de Bernoulli de paramètre $p_k=\pr{X_k=1}$.
+
+% Mais $\pr{X_k=1}=\frac 1n$ (en effet, le nombre de permutations qui fixent $k$ est $(n-1)!$ puisqu'il reste à définir une permutation sur les $n-1$ autres éléments de $\intere{1}{n}$).
+
+% On a donc $\esp{X}=\sum\limits_{k=1}^n \frac 1n$ donc $\boxed{\esp{X}=1}$.
+% \end{reponse}
+
+
+
+
+%\exercice{nom={Exercice}}
+%Soit $(X_n)_{n \in \N^*}$ une suite de variables aléatoires réelles définies sur un même espace probabilisé, indépendantes, de même espérance $\mu$ et de même variance $\sigma^2$. On pose 
+%$\overline{X_n} = \frac 1n \p{X_1 + \dots + X_n}$ et $S_n = \frac 1{n-1} \sum\limits_{k=1}^n \p{X_k - \overline{X_n}}^2$.
+%\begin{enumerate}
+%\item Calculer l'espérance et la variance de $\overline{X_n}$.
+%\item Calculer l'espérance de $S_n$. Rien ne vous surprend ?
+%\end{enumerate}
+%
+
+
+
+
+% \begin{reponse}
+% \begin{enumerate}
+
+% \item $X=2^{n-k}+ 2^k Y$.
+
+% \item Un groupe est sain ssi chaque vache du groupe est saine ce qui donne $1-(1-p)^{2^k}$.
+
+% \item $Y$ suit une loi binomiale de paramètres $2^{n-k}, 1-(1-p)^{2^k}$ donc $\esp{Y}=2^{n-k} \left( 1-(1-p)^{2^k} \right)$.
+
+% \item $\esp{X}=2^{n-k}+ 2^k 2^{n-k} \left( 1-(1-p)^{2^k} \right)=2^{n-k}+ 2^n \left( 1-(1-p)^{2^k} \right)$.
+
+% \item Maple donne $k=3$ et $\esp{X} \sim 207$ (au lieu de $1024$).
+
+% \end{enumerate}
+% \end{reponse}
+
+
+
+
+% \begin{reponse}
+% \begin{enumerate}
+
+% \item $Y_n$ suit une loi binomiale de paramètres $n,p$. 
+
+% \item $X_n=Y_n + 2 (n-Y_n)$.
+
+% \item $\esp{Y_n}=np$ donc $\boxed{\esp{X_n}=n(2-p)}$.
+
+% \end{enumerate}
+% \end{reponse}
+
+
+
+
+
+
+
+
+% \begin{reponse}
+
+% \begin{enumerate}
+
+% \item 
+
+% Il y a $n+1$ valeurs dans un ensemble de cardinal $n$ donc deux valeurs sont égales (principe des tiroirs) donc il existe $i<j$ tels que $X_i = X_j$ donc $X_j \in \{X_1,...,X_{j-1}\}$. $T$ est donc bien défini.
+
+% \item
+
+% \begin{enumerate}
+
+% \item Il faut bien entendu comprendre que la fonction prend en arguments les valeurs et pas les variables aléatoires \dots
+
+% On code de manière naïve pour aller vite (j'utilise \verb+in+ et on a une complexité quadratique) mais on sait que l'on peut procéder par mémoïzation pour obtenir une complexité linéaire. On suppose que les valeurs sont rangées dans une liste $L$ :
+
+% \begin{lstlisting}
+% def T(L):
+    
+%     n = len(L)
+    
+%     for j in range(1, n):
+%         if L[j] in L[:j]:
+%             return j+1
+% \end{lstlisting}
+
+% Attention au petit décalage d'indice (on renvoie $j+1$) pour respecter l'énoncé où les variables sont numérotées à partir de $1$.
+
+% \item  On utilise
+
+% \begin{lstlisting}
+% import numpy.random as rd
+% \end{lstlisting}
+
+% puis \verb+rd.randint(a, b, n)+ qui renvoie une liste de $n$ valeurs aléatoires entières de $[a,b[$ (attention, $b$ est exclu) selon la loi uniforme (voir la fiche probas) :
+
+% \begin{lstlisting}
+% n = 1000
+
+% def moyenne(N):
+    
+%     s = 0
+    
+%     for _ in range(N):
+%         L = rd.randint(1, n+1, n+1)
+%         s += T(L)
+    
+%     return s / N
+% \end{lstlisting}
+
+% \begin{lstlisting}
+% In [1]: moyenne(10**4)
+% Out[1]: 40.3642
+% \end{lstlisting}
+
+% En moyenne, il faut $40$ tirages d'un nombre entre $1$ et $1000$ pour retrouver un nombre déjà tiré.
+
+% \end{enumerate}
+
+% \item
+
+% \begin{enumerate}
+
+% \item $T$ peut prendre toutes les valeurs entre $2$ et $n+1$ : il suffit de considérer le tirage $(1,2,\dots,k-1, k-1, \dots)$ pour lequel $T=k$.
+
+% Pour déterminer la loi de $T$, il est préférable de suivre l'indication (bien classique) de la question suivante. On calcule donc $\pr{T>k}$ pour $k \in \intere{0}{n}$.
+
+% L'évènement $(T>k)$ signifie que les $k$ premiers tirages ont amené des nombres deux à deux distincts. Puisque le tirage est uniforme, on peut dénombrer. Sur les $k$ premiers nombres, on a $n^k$ tirages possibles et $n(n-1) \dots (n-k+1)$ tirages favorables donc
+% $$\boxed{\pr{T>k} = \frac{n(n-1) \dots (n-k+1)}{n^k} = \frac{n!}{(n-k)!n^k}}$$
+
+% Pour répondre à la question (inutile pour le calcul de l'espérance, mais bon \dots) :
+
+% $$\pr{T=k} = \pr{T>k-1} - \pr{T>k} = \frac{n!}{(n-k+1)!n^{k-1}} - \frac{n!}{(n-k)!n^k}$$
+
+% que l'on simplifie \dots
+
+% \item La formule de l'espérance est classique. Elle donne alors
+
+% $$\boxed{{\rm E}(T)} = \sum_{k=0}^n P(T>k) = \sum_{k=0}^n \frac{n!}{(n-k)!n^k} = n! \sum_{k=0}^n \frac{1}{(n-k)!n^k}  = n! \sum_{k=0}^n \frac{1}{k!n^{n-k}}  = \boxed{\frac{n!}{n^n} \sum_{k=0}^n \frac{n^k}{k!}}$$
+
+% où l'on a changé d'indice en posant $k=n-k$.
+
+% \medskip
+
+% Test numérique (calcul brutal) :
+
+% \begin{lstlisting}
+% from math import factorial
+
+% def esperance(n):
+    
+%     return (factorial(n)/n**n)*sum(n**k/factorial(k) for k in range(n+1))
+% \end{lstlisting}
+
+% avec $n=100$ (sinon, problème de taille des factorielles) :
+
+% \begin{lstlisting}
+% In [2]: esperance(n)
+% Out[2]: 13.209960630215981
+
+% In [3]: moyenne(10**4)
+% Out[3]: 13.144
+% \end{lstlisting}
+
+% \begin{lstlisting}
+
+% \end{lstlisting}
+
+% \end{enumerate}
+
+% \textbf{Remarque} : on peut montrer que $\sum_{k=0}^n \frac{n^k}{k!} \sim \frac 12 e^n$ (voir par exemple l'exercice 970 de la RMS, Centrale-MP-2016-Python). En utilisant ceci et la formule de Stirling, on a donc
+% $$\boxed{{\rm E}(T) \sim \sqrt{\frac{\pi n}{2}}}$$
+
+% \end{enumerate}
+
+% \end{reponse}
+
+
+
+
+
+% \begin{reponse}
+% $X\p{\Omega} \subset \intere{1}{n-k+1}$.
+
+% Pour $i \in \intere{1}{n-k+1}$, $\pr{X \geq i} = \frac{\binom{n-i+1}{k}}{\binom{n}{k}}$ donc 
+
+% $$\esp{X} = \sum\limits_{i=1}^{n-k+1} \pr{X \geq i} = \frac{1}{\binom{n}{k}} \sum\limits_{i=1}^{n-k+1} \binom{n-i+1}{k} = \frac{\binom{n+1}{k+1}}{\binom{n}{k}} = \frac{n+1}{k+1}$$
+% ce que l'on vérifie pour $k=1$ et $k=n$ \dots
+% \end{reponse}
+
+
+
+
+% \begin{reponse}
+
+% $X \hookrightarrow {\cal B}(20, \frac{1}{k})$.
+
+% Quand $X=i$, $Y \hookrightarrow {\cal B}(20-i, \frac{1}{k-1})$.
+
+% On note $Z$ le nombre de points : $Z = X + \frac{1}{2}Y$.
+
+% Sans calculer la loi (trop long)
+
+% $$\esp{Z} = \sum\limits_{n} n \pr{Y=n} = \sum\limits_{n} n \sum\limits_{i} \pr{X=i} \prc{Y=n}{X=i} = \sum\limits_{i}  \pr{X=i} \sum\limits_{n} n \prc{Y=n}{X=i}  $$
+
+% La somme interne est l'espérance de $Y$ sachant $X=i$ donc c'est $\frac{20-i}{k-1}$ donc
+
+% $$\esp{Z} = \sum\limits_{i}  \pr{X=i} \frac{20-i}{k-1} = \frac{1}{k-1} \p{20 - \esp{X}}$$
+
+% Comme $\esp{X} = \frac{20}{k}$ il reste $\boxed{\esp{Z} = \frac{30}{k}}$.
+% \end{reponse}
+
+
+
+
+
+
+% \begin{reponse}
+
+% \btr Commençons par calculer l'espérance :
+
+% \medskip
+
+% $\esp{Z}=\sum\limits_{k=0}^{\infty} k \pr{Z=k}$ (cette somme est en fait finie). Mais
+% $$\pr{Z=k}=\sum\limits_{j=1}^m \prc{Z=k}{N=j} \pr{N=j}$$
+
+% $\prc{Z=k}{N=j}=\prc{S_j=k}{N=j}=\pr{S_j=k}$ puisque $N$ est indépendante des $X_i$. On a donc
+
+% $$\pr{Z=k}=\sum\limits_{j=1}^m \pr{S_j=k} \pr{N=j}$$
+
+
+% Alors
+
+% $$\esp{Z}= \sum\limits_{k=0}^{\infty} \sum\limits_{j=1}^m k \pr{S_j=k} \pr{N=j} = 
+% \sum\limits_{j=1}^m  \p{\sum\limits_{k=0}^{\infty} k \pr{S_j=k} }\pr{N=j} = 
+% \sum\limits_{j=1}^m \esp{S_j} \pr{N=j}$$
+% Mais $\esp{S_j}=j \esp{X}$ (où l'on note $\esp{X}$ l'espérance commune des $X_i$) puisque les $X_i$ ont toutes la même espérance. On a donc
+
+% $$\boxed{\esp{Z}}=\p{\sum\limits_{j=1}^m j \pr{N=j}} \esp{X} = \boxed{\esp{N} \esp{X}}$$
+
+
+% \btr Calculons maintenant la variance :
+
+% \medskip
+
+
+% $\var{Z}=\esp{Z^2}-\esp{Z}^2$. Il reste donc à calculer l'espérance de $Z^2$. On procède comme avant ($k$ est remplacé par $k^2$) :
+
+% $$\esp{Z^2}=\sum\limits_{j=1}^m \esp{S_j^2} \pr{N=j}=\sum\limits_{j=1}^m \p{\var{S_j} + \esp{S_j}^2} \pr{N=j}$$
+
+% Comme les $X_i$ sont indépendantes, $\var{S_j}=j \var{X}$ (toujours en notant $\var{X}$ la variance commune des $X_i$). Comme $\esp{S_j}^2=j^2 \esp{X}^2$, on a 
+
+% $$\esp{Z^2}=\sum\limits_{j=1}^m \p{ j \var{X} + j^2 \esp{X}^2} \pr{N=j} = \var{X} \esp{N} + \esp{X}^2 \esp{N^2}$$
+
+% Mais $\esp{N^2}=\var{N}+\esp{N}^2$ donc 
+% $$\esp{Z^2}=\var{X} \esp{N} + \esp{X}^2 \p{\var{N}+\esp{N}^2} = \var{X} \esp{N} + \esp{X}^2 \var{N}+\esp{X}^2 \esp{N}^2$$
+
+% On termine alors avec $\var{Z}=\esp{Z^2}-\esp{Z}^2= \var{X} \esp{N} + \esp{X}^2 \var{N}+\esp{X}^2 \esp{N}^2 - \esp{X}^2 \esp{N}^2$ donc
+
+% $$\boxed{\var{Z}=\var{X} \esp{N} + \esp{X}^2 \var{N}}$$
+
+% \textbf{Remarque :} c'est homogène puisque $N$ est sans unité.
+
+% \medskip
+
+% \textbf{Application :} la variable $N$ suit une loi uniforme sur $\intere{1}{n}$ donc $\esp{N}=\frac{n+1}{2}$ et $\var{N}=\frac{n^2-1}{12}$.
+
+% Si l'on note $X_i=1$ si le $i$-ième lancer de dé apporte un pile et $0$ sinon, alors les $X_i$ sont indépendantes et suivent toutes la même loi de Bernoulli de paramètre $\frac 12$. On a donc $\esp{X}=\frac 12$ et $\var{X}=\frac 12 \p{1 - \frac 12}=\frac 14$.
+
+
+% Comme le nombre de piles obtenus est égal à $Z=\sum\limits_{i=1}^N X_i$ et que $N$ est indépendante des $X_i$, on a d'après les calculs précédents,
+
+% $$\boxed{\esp{Z}=\frac{n+1}{4} \text{ et } \var{Z}=\frac{(n+1)(n+5)}{48}}$$
+% \end{reponse}
+
+
+
+%END_BOOK
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

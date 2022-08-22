@@ -1,0 +1,1485 @@
+\documentclass{magnolia}
+
+\magtex{tex_driver={pdftex},
+        tex_packages={epigraph,pgfplots,float,xypic},
+        tex_pstricks={pstricks,pst-plot}}
+\magfiche{document_nom={Cours sur la dérivation},
+          auteur_nom={François Fayard},
+          auteur_mail={fayard.prof@gmail.com}}
+\magcours{cours_matiere={maths},
+          cours_niveau={mpsi},
+          cours_chapitre_numero={13},
+          cours_chapitre={Dérivation}}
+\magmisenpage{}
+\maglieudiff{}
+\magprocess
+
+\begin{document}
+
+%BEGIN_BOOK
+\setlength\epigraphwidth{.5\textwidth}
+\epigraph{\og Le chemin le plus court d'un point à un autre est la ligne droite, à condition que les deux points soient bien en face l'un de l'autre.\fg}{--- \textsc{Pierre Dac (1893--1975)}}
+\bigskip
+\hfill\includegraphics[width=0.4\textwidth]{../../Commun/Images/maths-cours-rolle.png}
+
+\magtoc
+\vspace{2ex}
+Dans ce chapitre, $\K$ désignera l'un des corps $\R$ ou $\C$.
+
+\section{Fonction dérivable, dérivées successives}
+\subsection{Définition}
+
+\begin{definition}[utile=-3]
+On dit qu'une fonction $f:\dom\to\K$ est \emph{dérivable} en $x_0\in\mathcal{D}$ lorsque le
+\emph{taux d'accroissement}
+\[\frac{f(x)-f\p{x_0}}{x-x_0}\]
+admet une limite finie lorsque $x$ tend vers $x_0$; si tel est le cas, on note
+$f'\p{x_0}$ cette limite que l'on appelle \emph{nombre dérivé} de $f$ en $x_0$.
+La propriété \og est dérivable en $x_0$ \fg est locale en $x_0$.
+\end{definition}
+
+%% Exemples :
+%% 1) Si n\in\Ns, la fonction x -> x^n est dérivable en tout point de R et sa
+%%    dérivée est nx^{n-1}
+%% 2) La fonction f définie sur RP par f(x)=\sqrt{x} est dérivable en tout
+%%    point de RPs et sa dérivée est 1/(2\sqrt{x}). De plus, f n'est pas
+%%    dérivable en 0.
+%%
+%% Remarque : interprétation géométrique
+%%   Équation d'une tangente
+%%   Parler de tangente horizontale et de tangente verticale
+
+\begin{remarques}
+\remarque Un changement de variable montre que $f$ est dérivable en $x_0\in\mathcal{D}$
+  si et seulement si
+  \[\frac{f(x_0+h)-f(x_0)}{h}\]
+  admet une limite finie lorsque $h$ tend vers $0$.
+\remarque Si $f:\dom\to\R$ est dérivable en $x_0\in\dom$, son graphe admet une tangente
+  d'équation
+  \[y=f\p{x_0}+f'\p{x_0}\p{x-x_0}.\]
+  Cette tangente est horizontale si et seulement si $f'\p{x_0}=0$.
+  Lorsque le taux d'accroissement de $f$ en $x_0$ tend vers
+  $\pm\infty$, le graphe de $f$ admet une tangente verticale.
+  \begin{sol}
+  Faire des dessins + on parle souvent de demi-tangente si $f$ est définie uniquement à droite ou à gauche du point considéré.
+  \end{sol}
+% \remarque Soit $f$ une fonction définie sur un intervalle $I$ 
+%   qu'elle laisse stable. Étant donné $u_0\in I$, on définit la suite
+%   $\p{u_n}$ par
+%   \[\forall n\in\N \quad u_{n+1}=f\p{u_n}\]
+%   Soit $x_0$ un point fixe de $f$ en lequel elle est dérivable.
+%   \begin{itemize}
+%   \item On dit que $x_0$ est \textit{attractif} lorsque $\abs{f'\p{x_0}}<1$. Dans ce
+%     cas, il existe $\eta>0$ tel que, si $u_0\in I\cap\interf{x_0-\eta}{x_0+\eta}$,
+%     $\p{u_n}$ converge vers $x_0$.
+%   \item  Si $\abs{f'\p{x_0}}>1$, on dit que $x_0$ est \textit{répulsif}. Alors,
+%     à l'exception du cas où elle est stationnaire en $x_0$, $\p{u_n}$ ne
+%     converge pas vers $x_0$.
+%   \end{itemize}
+\end{remarques}
+
+\begin{definition}[utile=-3]
+$\quad$
+\begin{itemize}
+\item On dit qu'une fonction $f:\dom\to\K$ est \emph{dérivable à gauche} en $x_0\in\mathcal{D}$
+  lorsque le taux d'accroissement
+  \[\frac{f(x)-f\p{x_0}}{x-x_0}\]
+  admet une limite finie lorsque $x$ tend vers $x_0$ par la gauche; si tel est le cas,
+  on note $f_g'\p{x_0}$ cette limite que l'on appelle nombre dérivé à gauche de $f$
+  en $x_0$. La propriété \og est dérivable à gauche en $x_0$ \fg est locale à
+  gauche, au sens large, en $x_0$.
+\item On dit qu'une fonction $f:\dom\to\K$ est \emph{dérivable à droite} en $x_0\in\mathcal{D}$
+  lorsque le taux d'accroissement
+  \[\frac{f(x)-f\p{x_0}}{x-x_0}\]
+  admet une limite finie lorsque $x$ tend vers $x_0$ par la droite; si tel est le cas,
+  on note $f_d'\p{x_0}$ cette limite que l'on appelle nombre dérivé à droite de $f$
+  en $x_0$. La propriété \og est dérivable à droite en $x_0$ \fg est locale à
+  droite, au sens large, en $x_0$.
+\end{itemize}
+\end{definition}
+
+%% Exemple :
+%% 1) La fonction x -> abs(x) est dérivable à gauche et à droite en 0
+
+\begin{proposition}[utile=-3]
+Une fonction $f:\dom\to\K$ est dérivable en $x_0\in\mathcal{D}$ si
+et seulement si les objets ci-dessous susceptibles d'avoir un sens
+\[f_g'\p{x_0} \et f_d'\p{x_0}\]
+existent et sont égaux. Si tel est le cas, $f'\p{x_0}$ est cette valeur commune.
+\end{proposition}
+
+\begin{exoUnique}
+\exo Étudier la dérivabilité des fonctions d'expression
+  \[\abs{x} \et \frac{x}{1+\abs{x}}\]
+  en 0.
+\end{exoUnique}
+\begin{sol}
+On étudie pour chacune d'entre elles les taux d'accroissements en traitant les cas $h<0$ et $h>0$ à part. Ca ne marche (évidemment) pas pour la première, mais ça fonctionne pour l'autre où la dérivée en $0$ vaut $1$.
+\end{sol}
+
+\begin{proposition}[utile=-3]
+Une fonction dérivable en un point est continue en ce point.
+\end{proposition}
+
+\begin{preuve}
+Soit $f$ une fonction dérivable en $x_0$. Montrons qu'elle est continue en $x_0$.
+$$f(x_0+h)=\underbrace{h}_{\tendversp{h}{0}0}\underbrace{\frac{f(x_0+h)-f(x_0)}{h}}_{\tendversp{h}{0}f'(x_0)}+f(x_0)\tendversp{h}{0}f(x_0).$$
+Ainsi, $f(x_0+h)\tendvers{h}{0}f(x_0)$ ce qui signifie que $f$ est continue en $x_0$.
+\end{preuve}
+
+\begin{remarqueUnique}
+\remarque La réciproque de cette proposition est fausse comme le montre l'exemple de la fonction
+  $x\mapsto\sqrt{x}$ en 0.
+\end{remarqueUnique}
+
+
+\begin{proposition}[utile=-3]
+Une fonction $f:\dom\to\K$ est dérivable en $x_0\in\mathcal{D}$ si et seulement si elle
+y admet un développement limité à l'ordre 1. Si tel est le cas
+\[f\p{x_0+h}=f\p{x_0}+f'\p{x_0}h+\petito{h}{0}{h}.\]
+\end{proposition}
+
+\begin{preuve}
+Déjà vu dans le chapitre sur les DL.
+\end{preuve}
+
+\begin{definition}[utile=-3]
+Soit $f:\dom\to\K$.
+\begin{itemize}
+\item On dit que $f$ est \emph{dérivable} lorsqu'elle est dérivable en tout point
+  de $\dom$.
+\item Si $A$ est une partie de $\dom$, on dit que $f$ est \emph{dérivable sur $A$} lorsque
+  la restriction de $f$ à $A$ est dérivable.
+\end{itemize}
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque Si $A$ est une partie de $\dom$ et que $f$ est dérivable en tout point de $A$,
+  alors $f$ est dérivable sur $A$. Cependant la réciproque est fausse. Par exemple,
+  la fonction $f$ définie sur $\R$ par $f(x)\defeq\abs{x}$ est dérivable sur $\RP$ mais elle
+  n'est pas dérivable en 0.
+\end{remarqueUnique}
+
+\begin{proposition}
+Soit $f:\dom\to\K$ une fonction définie sur un domaine \emph{élémentaire} et
+$\dom=I_1\cup\cdots\cup I_n$ la décomposition de $\dom$ en composantes connexes. Alors
+$f'$ est dérivable sur $\dom$ si et seulement si, pour tout $k\in\intere{1}{n}$, $f$
+est dérivable sur $I_k$.
+\end{proposition}
+
+\begin{proposition}
+Soit $f:I\to\K$ une fonction définie sur un intervalle $I$ et $a\in I$.
+\begin{itemize}
+\item Si $f$ est dérivable sur $I\cap\intero{a}{+\infty}$, elle est dérivable en tout
+  point de $I\cap\intero{a}{+\infty}$. De plus, en notant $g$ la restriction de 
+  $f$ à $I\cap\intero{a}{+\infty}$, on a
+  \[\forall x\in I\cap\intero{a}{+\infty}\qsep f'(x)=g'(x).\]
+\item Si $f$ est dérivable sur $I\cap\interfo{a}{+\infty}$, elle est dérivable à droite
+  en $a$ et en tout point de $I\cap\intero{a}{+\infty}$. De plus, en notant $g$ la 
+  restriction de $f$ à $I\cap\interfo{a}{+\infty}$, on a
+  \[f_d'(a)=g'(a) \et \forall x\in I\cap\intero{a}{+\infty}\qsep f'(x)=g'(x).\]
+\end{itemize}
+\end{proposition}
+
+\subsection{Théorèmes usuels}
+
+\begin{proposition}[utile=-3]
+Soit $f,g:\dom\to\K$ deux fonctions dérivables en $x_0$.
+\begin{itemize}
+\item Si $\lambda,\mu\in\K$, alors $\lambda f+\mu g$ est dérivable
+  en $x_0$ et
+  \[\p{\lambda f+\mu g}'\p{x_0}=\lambda f'\p{x_0}+\mu g'\p{x_0}.\]
+\item $fg$ est dérivable en $x_0$ et
+  \[\p{fg}'\p{x_0}=f'\p{x_0}g\p{x_0}+f\p{x_0}g'\p{x_0}.\]
+\item Si $f\p{x_0}\neq 0$, alors $f$ ne s'annule pas au voisinage de $x_0$
+  et $1/f$ est dérivable en $x_0$. De plus
+  \[\p{\frac{1}{f}}'\p{x_0}=-\frac{f'\p{x_0}}{f^2\p{x_0}}.\]
+\item Si $g\p{x_0}\neq 0$, alors $g$ ne s'annule pas au voisinage de $x_0$
+  et $f/g$ est dérivable en $x_0$. De plus
+  \[\p{\frac{f}{g}}'\p{x_0}=\frac{f'\p{x_0}g\p{x_0}-f\p{x_0}g'\p{x_0}}{
+    g^2\p{x_0}}.\]
+\end{itemize}
+\end{proposition}
+
+\begin{preuve}
+\begin{itemize}
+\item Ca passe tout seul pour la somme en écrivant le taux d'accroissement.
+\item 
+\begin{eqnarray*}
+\frac{(fg)(x_0+h)-(fg)(x_0)}{h}&=&\frac{f(x_0+h)g(x_0+h)-f(x_0)g(x_0)}{h}\\
+&=&\frac{f(x_0+h)g(x_0+h)-f(x_0)g(x_0+h)+f(x_0)g(x_0+h)-f(x_0)g(x_0)}{h}\\
+&=&\underbrace{g(x_0+h)}_{\tendvers{h}{0}g(x_0) \text { \underline{c}}}\underbrace{\frac{f(x_0+h)-f(x_0)}{h}}_{\tendvers{h}{0}f'(x_0)}+f(x_0)\underbrace{\frac{g(x_0+h)-g(x_0)}{h}}_{\tendvers{h}{0}g'(x_0)}.
+\end{eqnarray*}
+Donc $fg$ est dérivable en $x_0$ et
+  \[\p{fg}'\p{x_0}=f'\p{x_0}g\p{x_0}+f\p{x_0}g'\p{x_0}.\]
+  \item Si $f\p{x_0}\neq 0$, comme $f$ est dérivable en $x_0$, elle y est continue, il existe donc $\eta>0$ tel que $\forall h\in \interf{-\eta}{\eta}$, $x+h\in \mathcal{D}_f \Longrightarrow f(x_0+h)\neq 0$. Ainsi, $\forall h \in \interf{-\eta}{eta}$, $$\frac{\frac{1}{f(x_0+h)}-\frac{1}{f(x_0)}}{h}=\frac{f(x_0)-f(x_0+h)}{hf(x_0+h)f(x_0)}=\underbrace{\frac{f(x_0)-f(x_0+h)}{h}}_{\tendvers{h}{0}-f'(x_0)}\underbrace{\frac{1}{f(x_0+h)f(x_0)}}_{\tendvers{h}{0}\frac{1}{f(x_0)^2}}\tendvers{h}{0}-\frac{f'(x_0)}{f(x_0)^2}.$$
+  On a donc bien
+    \[\p{\frac{1}{f}}'\p{x_0}=-\frac{f'\p{x_0}}{f^2\p{x_0}}.\]
+\item Tout vient des deux points précédentes en écrivant $\dfrac{f}{g}=f\dfrac{1}{g}$.
+\end{itemize}
+
+\end{preuve}
+
+\begin{proposition}[utile=-3]
+Soit $f$ une fonction dérivable en $x_0$ et $g$ une fonction dérivable en
+$f\p{x_0}$. Alors $g\circ f$ est dérivable en $x_0$ et
+\[\p{g\circ f}'\p{x_0}=g'\p{f\p{x_0}}f'\p{x_0}.\]
+\end{proposition}
+
+\begin{preuve}
+\begin{itemize}
+\item[$\bullet$] \textbf{Preuve fausse (mais tentante):}
+$$\frac{g(f(x_0+h))-g(f(x_0))}{h}=\underbrace{\frac{g(f(x_0+h))-g(f(x_0))}{f(x_0+h)-f(x_0)}}_{\tendvers{h}{0}g'(f(x_0))}\underbrace{\frac{f(x_0+h)-f(x_0)}{h}}_{\tendvers{h}{0}f'(x_0)}.$$
+Problème si $f(x_0+h)-f(x_0)=0$ donc cette preuve fonctionne si $f$ est injective, mais pas dans le cas général.
+\item[$\bullet$] \textbf{Vraie preuve :} On va éviter d'écrire des dénominateurs inconsidérés en recourant à des développements limités. \\
+Comme $f$ et $g$ sont respectivement dérivables en $x_0$ et $f(x_0)$, il existe des fonctions $\epsilon_1$ et $\epsilon_2$ telles que pour $h$ cohérent avec les ensembles de définitions :
+$$\begin{cases}
+\epsilon_1(h)\tendvers{h}{0}0\\
+\epsilon_2(h)\tendvers{h}{0}0\\
+f(x_0+h)=f(x_0)+hf'(x_0)+h\epsilon_1(h)\\
+g(f(x_0)+h)=g(f(x_0))+hg'(f(x_0))+h\epsilon_2(h)
+\end{cases}$$
+Ainsi, 
+\begin{eqnarray*}
+g(f(x_0+h))&=&g\p{f(x_0)+hf'(x_0)+h\epsilon_1(h)}\\
+&=&g(f(x_0))+\p{hf'(x_0)+h\epsilon_1(h)}g'(f(x_0))+\p{hf'(x_0)+h\epsilon_1(h)}\epsilon_2(h)\\
+&=&g(f(x_0))+hg'(f(x_0))f'(x_0)+h\underbrace{\epsilon_1(h)g'(f(x_0))+f'(x_0)\epsilon_2(h)+\epsilon_1(h)\epsilon_2(h)}_{=\epsilon(h)\tendvers{h}{0}0}
+\end{eqnarray*}
+D'où le résultat d'après la proposition sur les DL à l'ordre $1$.
+
+\end{itemize}
+
+\end{preuve}
+
+% \begin{remarqueUnique}
+% \remarque Soit $f\defeq g_1^{\alpha_1}g_2^{\alpha_2}\cdots g_n^{\alpha_n}$ où
+%   $\alpha_1,\ldots,\alpha_n\in\R$. Sans se soucier du signe des fonctions,
+%   on écrit formellement
+%   $\ln f=\alpha_1 \ln g_1+\alpha_2 \ln g_2+\cdots+\alpha_n \ln g_n$.
+%   En dérivant cette relation, on obtient
+%   \[\frac{f'}{f}=\alpha_1 \frac{g_1'}{g_1}+\alpha_2 \frac{g_2'}{g_2}+\cdots+
+%                  \alpha_n \frac{g_n'}{g_n}\]
+%   ce qui permet de calculer symboliquement $f'$.
+% \end{remarqueUnique}
+
+\begin{exoUnique}
+\exo Étudier les variations de la fonction $f$ définie sur $\R$ par
+  \[\forall x\in\R \qsep f(x)\defeq\frac{x+2}{\sqrt[3]{1+x^2}}.\]
+  \begin{sol}
+  d'après les théorèmes usuels, elle est dérivable sur $\R$ et
+  \[\forall x\in\R \quad f'(x)=
+    \frac{\p{x-1}\p{x-3}}{3\p{1+x^2}^{\frac{4}{3}}}\]    
+  \end{sol}
+\end{exoUnique}
+
+\begin{proposition}[utile=-3]
+Soit $f$ une bijection continue d'un intervalle $I$ sur un intervalle $J$ et
+$y_0\in J$. Si $f$ est dérivable en $x_0=f^{-1}\p{y_0}$, alors $f^{-1}$
+est dérivable en $y_0$ si et seulement si $f'\p{x_0}\neq 0$. De plus, si tel
+est le cas
+\begin{eqnarray*}
+\p{f^{-1}}'\p{y_0}&=&\frac{1}{f'\p{x_0}}\\
+&=&\frac{1}{f'\p{f^{-1}(y_0)}}.
+\end{eqnarray*}
+\end{proposition}
+
+\begin{preuve}
+Soit $y_0\in J$ et $x_0=f^{-1}\p{y_0}$. On suppose que $f'(x_0)\neq 0$.
+Pour $y\neq y_0$, par injectivité, on a aussi $f^{-1}(y)\neq f^{-1}\p{y_0}$. Ainsi, on peut écrire :
+\begin{eqnarray*}
+\frac{f^{-1}(y)-f^{-1}\p{y_0}}{y-y_0}&=&\frac{1}{\frac{y-y_0}{f^{-1}(y)-f^{-1}\p{y_0}}}\\
+&=&\frac{1}{\frac{f(f^{-1}(y))-f(f^{-1}(y_0))}{f^{-1}(y)-f^{-1}\p{y_0}}}
+\end{eqnarray*}
+Or $$\frac{f(x)-f(x_0)}{x-x_0}\tendvers{x}{x_0}f'(x_0) \et f^{-1}(y)\tendvers{y}{y_0}f^{-1}(y_0)=x_0$$ car $f^{-1}$ est continue en $y$. Donc, par composition des limites, $$\frac{1}{\frac{f(f^{-1}(y))-f(f^{-1}(y_0))}{f^{-1}(y)-f^{-1}\p{y_0}}}\tendvers{y}{y_0}\frac{1}{f'\p{f^{-1}(y_0)}}=\frac{1}{f'\p{x_0}}.$$
+\begin{victor}
+Victor :Pour retrouver la formule : $\forall x \in I$, $f^{-1}(f(x))=x$ donc $f'(x)(f^{-1})'(f(x))=1$. Ainsi, $\forall u \in f(I)$, en appliquant cela en $x=f^{-1}(u)$ on obtient :
+\[(f^{-1})'(u)=\frac{1}{f'(f^{-1}(u))}.\]
+\end{victor}
+
+\end{preuve}
+
+% \begin{exos}
+% \exo Montrer que La fonction $\arcsin$ est dérivable sur $\intero{-1}{1}$ et
+%   $\arcsin' x=1/\sqrt{1-x^2}$. De plus, $\arcsin$ n'est dérivable ni en $-1$,
+%   ni en $1$.
+% \end{exos}
+
+
+\begin{proposition}[utile=-3]
+Soit $f:\dom\to\C$ et $x_0\in\mathcal{D}$.
+\begin{itemize}
+\item Alors $\conj{f}$ est dérivable en $x_0$ si et seulement si $f$ l'est. De
+  plus, si tel est le cas
+  \[\conj{f}\ '\p{x_0}=\conj{f'\p{x_0}}.\]
+\item De même, $f$ est dérivable en $x_0$ si et seulement si $\Re(f)$ et
+  $\Im(f)$ le sont. De plus, si tel est le cas
+  \[f'\p{x_0}=\Re(f)'\p{x_0}+\ii\Im(f)'\p{x_0}.\]
+\item Enfin, si $f$ est dérivable en $x_0$, il en est de même pour $\e^f$ et
+  \[\p{\e^f}'\p{x_0}=f'\p{x_0}\e^{f\p{x_0}}\]
+\end{itemize}
+\end{proposition}
+
+% \begin{exoUnique}
+% \exo Calculer
+%   \[\prim{\e^x\cos x}{x} \et \prim{(x+1)\sin x}{x}.\]
+% \end{exoUnique}
+
+%% Exemple :
+%% 1) Si a\in\K, la fonction x -> exp(ax) est dérivable sur R et f'(x)=a exp(ax)
+
+
+%% Remarque :
+%% 1) On dit qu'une fonction f est dérivable sur A lorsque la restriction
+%%    de f à A est dérivable.
+%%    Par exemple la fonction f : x -> abs(x) est dérivable sur RP et RM.
+%%    Pourtant f n'est pas dérivable en 0.
+%% 2) Si f est dérivable sur un intervalle ouvert I, f est dérivable en tout point
+%%    de I. 
+%%
+%% Exemple :
+%% 1) Dérivabilité de la fonction f définie sur R par
+%%    f(x) = 0 si x<=0 et f(x)=exp(-1/x) si x>0
+%%    est dérivable sur R.
+
+\subsection{Fonction dérivée, dérivées successives}
+
+\begin{definition}[utile=-3]
+Soit $f:\dom\to\K$ une fonction. On note $\mathcal{D}_{f'}$
+l'ensemble des $x\in\mathcal{D}$ en lesquels $f$ est dérivable.
+On définit la \emph{fonction dérivée} de $f$, notée
+$f'$, par
+\[\dspappli{f'}{\mathcal{D}_{f'}}{\K}{x}{f'(x)}.\]
+\end{definition}
+
+%% Remarques :
+%% 1) Si f est T-périodique, il en est de même pour f'.
+%%    Si f est paire, f' est impaire
+%%    Si f est impaire, f' est paire
+%% 2) Attention. Les théorèmes usuels permettent de trouver un ensemble A tel
+%%    que A \subset D_f'. Mais A n'est pas forcément égal à D_f'.
+%%    Par exemple, si f=sqrt(1-cos x) sur [0,Pi/2], f est dérivable sur
+%%    ]0,Pi/2] d'après les théorèmes usuels. Mais f est aussi dérivable en 0
+
+\begin{definition}[utile=-3]
+Si $f:\dom\to\K$ est une fonction, on définit par récurrence
+la \emph{dérivée $n$-ième} de $f$ de la manière suivante~:
+\begin{itemize}
+\item On pose $f^{(0)}\defeq f$.
+\item Si $n\in\N$, on définit $f^{(n+1)}$ comme étant la dérivée  de $f^{(n)}$.
+\end{itemize}
+Si $x_0\in\mathcal{D}$, on dit que $f$ est dérivable $n$ fois en $x_0$
+lorsque $f^{(n)}$ est définie en $x_0$; cette notion est locale en $x_0$.
+\end{definition}
+
+\begin{remarques}
+\remarque On dit qu'une fonction est dérivable $n$ fois lorsqu'elle est
+  dérivable $n$ fois en tout point de son domaine de définition.
+\remarque Soit $f:\dom\to\K$, et $A\subset\dom$. On dit que $f$ est
+  dérivable $n$ fois sur $A$ lorsque la restriction de $f$ à $A$ est dérivable
+  $n$ fois.
+% \remarque Soit $n\in\N$ et $k\in\N$. Alors, la fonction $f$ d'expression
+%   $x^n$ est dérivable $k$ fois sur $\R$ et
+%   \[\forall x\in\R \quad f^{(k)}(x)=
+%     \begin{cases}
+%     \frac{n!}{\p{n-k}!}x^{n-k} & \text{si $k\leq n$}\\
+%     0 & \text{sinon}
+%     \end{cases}\]
+% \remarque Quel que soit $n\in\N$, la fonction $\sin$ est dérivable $n$ fois sur
+%   $\R$ et
+%   \[\forall n\in\N \quad \forall x\in\R \quad \sin^{(n)}(x)=
+%     \sin\p{x+n\frac{\pi}{2}}\]
+\end{remarques}
+
+\begin{proposition}[utile=-3]
+Soit $f, g:\dom\to\K$ deux fonctions dérivables $n$ fois.
+\begin{itemize}
+\item Soit $\lambda,\mu\in\K$. Alors $\lambda f+\mu g$ est dérivable $n$
+  fois et
+  \[\forall x\in\mathcal{D} \qsep
+    \p{\lambda f+\mu g}^{(n)}(x)=\lambda f^{(n)}(x)+\mu g^{(n)}(x).\]
+\item $fg$ est dérivable $n$ fois et
+  \[\forall x\in \mathcal{D} \qsep
+    \p{fg}^{(n)}(x)=\sum_{k=0}^n \binom{n}{k} f^{(k)}(x)g^{(n-k)}(x).\]
+  Cette formule est appelée formule de \nom{Leibniz}.
+\item Si $g$ ne s'annule pas, alors $f/g$ est dérivable $n$ fois.
+\end{itemize}
+\end{proposition}
+
+\begin{preuve}
+\begin{itemize}
+\item Se montre aisément par récurrence.
+\item Démonstration par récurrence similaire au binôme de Newton.
+\item Soit $\mathcal{D}$ une partie de $\R$. On montre $\mathcal{H}_n$ : "Si $f$ et $g$ sont dérivables $n$ fois sur $\mathcal{D}$ et $g$ ne s'annule pas sur $\mathcal{D}$, alors $f/g$ est dérivable $n$ fois sur $\mathcal{D}$".
+Pour passer à l'hérédité, on applique $\mathcal{H}_n$ à $f'g-g'f$ et $g^2$, leur rapport est dérivable $n$ fois donc $(f/g)'$ est dérivable $n$ fois.
+\end{itemize}
+
+\end{preuve}
+
+\begin{proposition}[utile=-3]
+Si $f$ et $g$ sont deux fonctions dérivables $n$ fois, alors $g\circ f$ est
+dérivable $n$ fois.  
+\end{proposition}
+
+\begin{preuve}
+Même méthode que pour le quotient.
+\end{preuve}
+
+\begin{remarqueUnique}
+\remarque Si $a\in\R$ et $f:\R\to\K$ est dérivable $n$ fois, alors la fonction $g:x\mapsto f\p{ax}$
+  est dérivable $n$ fois et
+  \[\forall x\in\R \qsep g^{(n)}(x)=a^n f^{(n)}\p{ax}.\]
+\end{remarqueUnique}
+
+\begin{exos}
+\exo %Soit $f$ une fonction dérivable $n$ fois sur $\R$.
+  Donner la dérivée $n$-ième des fonctions $x\mapsto x^2f(x)$ et
+  $x\mapsto f(x)\e^x$.
+\begin{sol}
+On utilise la formule de Leibniz. 
+Pour la première $$g^{(n)}(x)=x^2f^{(n)}(x)+2nf^{(n-1)}(x)+n(n-1)f^{(n-2)}(x).$$
+\end{sol}
+\exo Calculer la dérivée $n$-ième de la fonction $x\mapsto \cos^3 x$.
+  \begin{sol}
+  On trouve grâce à la linéarisation du cos :
+  \[\forall x\in\R \quad
+    f^{(n)}(x)=\frac{3}{4}\cos\p{x+n\frac{\pi}{2}}+
+                  \frac{3^n}{4}\cos\p{3x+n\frac{\pi}{2}}\]  
+  \end{sol}
+\exo Soit $f$ la fonction de $\R$ dans $\R$ définie par
+  \[\forall x\in\R \qsep f(x)\defeq\e^{-x^2}.\]
+  Montrer que pour tout $n\in\N$, $f^{(n)}$ est bornée.
+  \begin{sol}
+    On montre par récurrence sur $n$ que $f^{(n)}(x)=P_n(x)e^{-x^2}$, puis limites en $\pm \infty$ plus continue implique borné.
+    
+  Pour prouver $x^ke^{-x^2}\tendvers{x}{+\infty}0$, on se ramène au "vrai" théorème de croissance comparées en posant pour $x\geq 0$, $u=x^2$, cela donne $u^{k/2}e^{-u}\tendvers{u}{+\infty}0$. 
+    \end{sol}
+% \exo Soit $f$ la fonction définie sur $\intero{-1}{1}$ par
+%   \[\forall x\in\intero{-1}{1} \quad f(x)=\frac{1}{\sqrt{1-x^2}}\]
+%   Montrer que pour tout $n\in\N$, $f$ est dérivable $n$ fois sur
+%   $\intero{-1}{1}$ et qu'il existe un unique polynôme $P_n\in\polyR$ tel que
+%   \[\forall x\in\intero{-1}{1} \quad
+%     f^{(n)}(x)=\frac{P_n(x)}{\p{1-x^2}^{\frac{2n+1}{2}}}\]
+%   Donner une relation de récurrence liant $P_{n+1}$ et $P_n$. En déduire le
+%   degré et le coefficient dominant de $P_n$.
+%   \begin{sol}
+%   De plus
+%   \[\forall n\in\N \quad P_{n+1}=\p{1-X^2}P_n'+\p{2n+1}XP_n\]
+%   En particulier, $P_n$ est de degré $n$ et son coefficient dominant est $n!$.    
+%   \end{sol}
+\end{exos}
+
+\begin{proposition}[utile=-3]
+Soit $n\in\Ns$ et $f$ une bijection de l'intervalle $I$ sur l'intervalle
+$J$, dérivable $n$ fois sur $I$. Alors $f^{-1}$ est dérivable $n$ fois sur $J$ si et seulement
+si
+\[\forall x\in I \qsep f'(x)\neq 0.\]
+\end{proposition}
+
+\begin{preuve}
+  \begin{itemize}
+  \item[$\bullet$] Sens gauche-droite : Comme $n\geq 1$, en particulier $f^{-1}$ est dérivable une fois et en dérivant l'identité $f^{-1}(f(x))=x, \forall x \in I$, on tire $\forall x \in I, f'(x)\p{f^{-1}}'(f(x))=1$ donc $\forall x \in I, f'(x)\neq 0$.
+  \item[$\bullet$] Sens droite-gauche : Par récurrence sur $n$. Pour l'hérédité, si $f$ est dérivable $n+1$ fois, on utilise la dérivée première $$\p{f^{-1}}'(y)=\frac{1}{f'\p{f^{-1}(y)}}$$ où pour le dénominateur, $f^{-1}$ est dérivable $n$ fois par H.R, $f'$ est dérivable $n$ fois par hypothèse et la composée est dérivable $n$ fois par la proposition précédente. 
+  \end{itemize}
+  \end{preuve}
+
+
+\subsection{Fonctions de classe $\classec{n}$}
+
+\begin{definition}[utile=-3]
+Soit $n\in\N$. On dit qu'une fonction $f:\dom\to\K$ est de classe $\classec{n}$
+lorsqu'elle est dérivable $n$ fois et sa dérivée $n$-ième est continue. On note
+$\classec{n}\p{\mathcal{D},\K}$  l'ensemble des fonctions de $\mathcal{D}$
+dans $\K$ de classe $\classec{n}$.
+\end{definition}
+
+\begin{remarques}
+\remarque Les fonctions de classe $\classec{0}$ sont les fonctions continues.
+\remarque Une fonction peut être dérivable sur $\R$ sans que sa dérivée soit
+  continue. Par exemple la fonction $f$ définie sur $\R$ par
+  \[\forall x\in\R \qsep f(x)\defeq
+    \begin{cases}
+    x^2\sin\p{\frac{1}{x}} & \text{si $x\neq 0$}\\
+    0 & \text{si $x=0$}
+    \end{cases}\]
+  est dérivable sur $\R$ mais sa dérivée n'est pas continue en 0.
+\remarque Si on note $\classed{n}$ l'ensemble des fonctions dérivables $n$
+  fois, on a
+  \[\classec{0} \supset \classed{1} \supset \classec{1} \supset \classed{2}
+    \supset \classec{2} \cdots \]
+  On peut montrer que toutes ces inclusions sont strictes.
+\remarque Si $A$ est une partie de $\mathcal{D}$, on dit que $f$ est de
+  classe $\classec{n}$ sur $A$ lorsque la restriction de $f$ à $A$
+  est de classe $\classec{n}$.
+\end{remarques}
+
+\begin{exoUnique}
+\exo Soit $f:\R\to\R$ la fonction définie par
+  \[\forall x\in\R\qsep f(x)\defeq\begin{cases}\frac{\sin x}{x} & \text{si $x\neq 0$}\\1&\text{si $x=0$.}\end{cases}\]
+  Montrer que $f$ est de classe $\classec{1}$ sur $\R$.
+\end{exoUnique}
+
+\begin{definition}[utile=-3]
+On dit qu'une fonction $f:\dom\to\K$ est de classe $\classec{\infty}$ lorsqu'elle est de
+classe $\classec{n}$ pour tout $n\in\N$.
+\end{definition}
+
+\begin{remarques}
+\remarque Une fonction est de classe $\classec{\infty}$ si et seulement si elle
+  est dérivable $n$ fois quel que soit $n\in\N$.
+\remarque Les fonctions usuelles sont de classe $\classec{\infty}$
+  sur le domaine sur lequel elle sont dérivables.
+  % \begin{enumerate}
+  % \item La fonction valeur absolue qui l'est sur $\RP$ et $\RM$ mais pas sur
+  %   $\R$.
+  % \item Les fonctions $x\mapsto\sqrt[n]{x}$ qui ne le sont que sur $\RPs$.
+  % \item Les fonctions $\arcsin$ et $\arccos$ qui ne le sont que sur
+  %   $\intero{-1}{1}$.
+  % \item La fonction $\argch$ qui ne l'est que sur $\intero{1}{+\infty}$.
+  % \end{enumerate}
+\end{remarques}
+
+
+\begin{proposition}[utile=-3]
+Soit $n\in\N\cup\ens{\infty}$ et $f, g:\dom\to\K$ deux fonctions de classe $\classec{n}$.
+\begin{itemize}
+\item Si $\lambda,\mu\in\K$, alors $\lambda f+\mu g$ est de classe
+  $\classec{n}$.
+\item $fg$ est de classe $\classec{n}$.
+\item Si $g$ ne s'annule pas, alors $f/g$ est de classe $\classec{n}$.
+\end{itemize}
+\end{proposition}
+
+\begin{proposition}[utile=-3]
+Si $n\in\N\cup\ens{\infty}$, la composée de deux fonctions de classe $\classec{n}$ est de classe
+$\classec{n}$.
+\end{proposition}
+
+% \begin{exos}
+% \exo Soit $f$ la fonction définie sur $\R$ par~:
+%   \[\forall x\in\R \quad f(x)=
+%     \begin{cases}
+%     e^x & \text{si $x<0$}\\
+%     ax^2+bx+c & \text{si $x\geq 0$}
+%     \end{cases}\]
+%     À quelles conditions sur $a,b,c\in\R$ $f$ est-elle de classe $\classec{1}$~?
+%     de classe $\classec{2}$~?
+% \exo Soit $f$ la fonction définie sur $\R$ par
+%   \[\forall x\in\R \quad f(x)=
+%     \begin{cases}
+%     \frac{\sin x}{x} & \text{si $x\neq 0$}\\
+%     1 & \text{si $x=0$}
+%     \end{cases}\]
+%    Alors $f$ est de classe $\classec{1}$ sur $\R$.
+% \exo Soit $f$ la fonction définie sur $\R$ par
+%   \[\forall x\in\R \quad f(x)=
+%     \begin{cases}
+%     0 & \text{si $x\leq 0$}\\
+%     e^{-\frac{1}{x}} & \text{si $x>0$}
+%     \end{cases}\]
+%   Alors $f$ est de classe $\classec{\infty}$ sur $\R$.
+% \exo Soit $y$ une solution de l'équation différentielle
+%   \[\forall t\in\R \quad y''(t)+\sin\p{y(t)}=0\]
+%   Alors $y$ est de classe $\classec{\infty}$ sur $\R$.
+% \end{exos}
+
+\begin{definition}[utile=-3]
+Soit $f$ une bijection de l'intervalle $I$ sur l'intervalle $J$ et
+$n\in\N\cup\ens{\infty}$. On dit que $f$ est un $\classec{n}$-\emph{difféomorphisme}
+de $I$ sur $J$ lorsque $f$ et $f^{-1}$ sont de classe $\classec{n}$.
+\end{definition}
+
+% \begin{exos}
+% \exo La fonction $\exp$ est un $\classec{\infty}$-difféomorphisme de
+%   $\R$ sur $\RPs$.
+% \end{exos}
+
+\begin{proposition}[utile=-3]
+Soit $n\in\Ns\cup\ens{\infty}$. Une bijection $f$ de classe $\classec{n}$ de
+l'intervalle $I$ sur l'intervalle $J$ est un $\classec{n}$-difféomorphisme si
+et seulement si $f'$ ne s'annule pas.
+\end{proposition}
+
+\begin{exos}
+\exo Soit $f$ l'application de $\RP$ dans $\RP$ qui à $x$ associe $x\e^x$. Montrer que $f$ est un
+  $\classec{\infty}$-difféomorphisme. Calculer un développement limité de $f^{-1}$ en 0 à l'ordre 3.
+  % et
+  %calculer le développement limité de $f^{-1}$ en 0 à l'ordre 3.
+  \begin{sol}
+  Alors $f$ est une bijection de classe $\classec{\infty}$.
+  Sa dérivée ne s'annulant pas, on en déduit que $f^{-1}$ est un
+  $\classec{\infty}$-difféomorphisme. En particulier,  $f^{-1}$ admet un
+  développement limité à tout ordre en 0. On trouve
+  \[f^{-1}(x)=x-x^2+\frac{3}{2}x^3+\petitozero{x}{x^3}\]    
+  \end{sol}
+\exo Montrer qu'il existe une unique fonction $f\in\classec{\infty}(\R,\R)$
+  telle que
+  \[\forall x\in\R \qsep f^5(x)+f(x)+x=0.\]
+  \begin{sol}
+    On introduit $\phi:\R\mapsto\R$ définie par $\phi(x)=-x^5-x$. On montre que $\phi$ est bijective et $\classec{\infty}$. L'équation se réécrit $\phi(f(x))=x \forall x$. $g=\phi^{-1}$ est donc l'unique solution.
+    \end{sol}
+\end{exos}
+
+
+
+\section{Théorème de \nom{Rolle} et applications}
+\subsection{Extrémum local}
+\begin{definition}[utile=-3]
+Soit $f:\dom\to\R$ une fonction réelle et $x_0\in\mathcal{D}$. On dit que
+\begin{itemize}
+\item $f$ présente un \emph{maximum global} en $x_0$ lorsque
+  \[\forall x\in\mathcal{D} \qsep f(x)\leq f\p{x_0}.\]
+\item $f$ présente un \emph{maximum local} en $x_0$ lorsque
+  \[\exists \eta>0 \qsep \forall x\in\mathcal{D} \qsep
+    \abs{x-x_0}\leq\eta \implique f(x)\leq f\p{x_0}.\]
+\item $f$ présente un \emph{minimum global} en $x_0$ lorsque
+  \[\forall x\in\mathcal{D} \qsep f(x)\geq f\p{x_0}.\]
+\item $f$ présente un \emph{minimum local} en $x_0$ lorsque
+  \[\exists \eta>0 \qsep \forall x\in\mathcal{D} \qsep
+    \abs{x-x_0}\leq\eta \implique f(x)\geq f\p{x_0}.\]
+\end{itemize}
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque On peut indifféremment utiliser \og maximums \fg ou \og maximas \fg
+  pour le pluriel de \og maximum \fg. De même, on peut utiliser \og minimums \fg
+  ou \og minimas \fg pour le pluriel de \og minimum \fg.
+  %  Cependant, le pluriel d' \og extrémum \fg
+  % est \og extrémums \fg.
+\end{remarqueUnique}
+
+\begin{proposition}[utile=-3]
+Soit $f:\dom\to\R$ une fonction admettant un extrémum local en un point $x_0$ intérieur à
+$\mathcal{D}$. Si elle est dérivable en $x_0$, alors $f'\p{x_0}=0$.
+\end{proposition}
+
+\begin{preuve}
+On fait ici la preuve dans le cas d'un maximum local.\\
+Comme $x_0$ est intérieur, on peut fixer $\eta_1>0$ tel que $\interf{x_0-\eta_1}{x_0+\eta_1} \in \mathcal{D}$. Comme $f$ admet un maximum local en $x_0$, il existe $\eta_2>0$ tel que $\forall x\in \mathcal{D}, |x-x_0|\leq \eta_2 \Longrightarrow f(x)\leq f(x_0)$.\\
+Avec $\eta=\min(\eta_1,\eta_2)$, on a donc : $\forall x \in \interf{x_0-\eta}{x_0+\eta}, f(x)\leq f(x_0)$.\\
+
+Ainsi, $\forall x \in \interof{x_0}{x_0+\eta}, \dfrac{f(x)-f(x_0)}{x-x_0}\leq 0$ d'où par passage à la limite $f'(x_0)=f_d'(x_0)\leq 0$.\\
+Le même raisonnement à gauche de $x_0$ donne cette fois $f'(x_0)\geq 0$.
+
+Ainsi, $f'(x_0)=0$.
+\end{preuve}
+
+\begin{remarques}
+\remarque Attention, ce n'est pas parce que $f'$ s'annule en $x_0$ que $f$
+  y admet un extrémum local. Par exemple la fonction $x\mapsto x^3$
+  a une dérivée qui s'annule en 0 mais n'admet pas d'extrémum local en ce point.
+\remarque Les extrémums locaux d'une fonction $f$ définie sur $\mathcal{D}$ sont
+  donc à chercher parmi les bornes de $\mathcal{D}$, les points où $f$ n'est
+  pas dérivable et ceux où la dérivée de $f$ est nulle.
+\remarque Si $f'(x_0)=0$ et $f$ est assez régulière, un développement limité permet généralement de déterminer
+  si $f$ admet un maximum ou un minimum local en $x_0$. En effet, supposons que
+  \[f(x_0+h)=f(x_0)+\alpha h^\omega+\petitozero{h}{h^\omega}\]
+  avec $\alpha\in\Rs$ et $\omega\geq 2$.
+  \begin{itemize}
+  \item Supposons que $\omega$ est pair. Si $\alpha>0$, alors $f$ admet un minimum local en $x_0$. Si $\alpha<0$, alors $f$ admet un maximum local en $x_0$.
+\medskip
+\pgfplotsset{
+    standard/.style={
+        axis x line=middle,
+        axis y line=middle,
+        enlarge x limits=0.15,
+        enlarge y limits=0.15,
+        every axis x label/.style={at={(current axis.right of origin)},anchor=north west},
+        every axis y label/.style={at={(current axis.above origin)},anchor=north east}
+    }
+}
+\begin{center}
+\begin{figure}[H]
+\begin{center}
+\begin{tikzpicture}[>=latex,scale=1.0]
+%  \draw[->] (-0.2,0) -- (2,0) node[below] {$x$};
+%  \draw[->] (0.0,-0.2) -- (0.0,2.5) node[left] {$y$};
+%  \draw[-] (0.1,0.1) -- (2,2);
+\begin{axis}[standard,mark=none,
+      xmin=-0.1,ymin=-0.1,
+      xmax=2.0,ymax=2.0,
+      axis lines*=middle,
+      axis line style={->},
+      xlabel=$x$,
+      ylabel=$y$,
+      xtick={1.0},xticklabels={$x_0$},
+      ytick={1.0},yticklabels={$f(x_0)$},
+      enlargelimits]
+\addplot[no marks,domain=0.1:2.0,samples=301] {1.0};
+\addplot[line width=2pt,no marks,domain=0.1:2.0,samples=301] {1.0+(x - 1.0)^2};
+ \draw[shift={(0,0)}] (1.0,2pt) -- (1.0,-2pt) node[below] {$a$};
+ %{1.0*(x - 1.0)^2};
+\end{axis}
+\end{tikzpicture}
+$\qquad$
+\begin{tikzpicture}[>=latex,scale=1.0]
+%  \draw[->] (-0.2,0) -- (2,0) node[below] {$x$};
+%  \draw[->] (0.0,-0.2) -- (0.0,2.5) node[left] {$y$};
+%  \draw[-] (0.1,0.1) -- (2,2);
+\begin{axis}[standard,mark=none,
+      xmin=-0.1,ymin=-0.1,
+      xmax=2.0,ymax=2.0,
+      axis lines*=middle,
+      axis line style={->},
+      xlabel=$x$,
+      ylabel=$y$,
+      xtick={1.0},xticklabels={$x_0$},
+      ytick={1.0},yticklabels={$f(x_0)$},
+      enlargelimits]
+\addplot[no marks,domain=0.1:2.0,samples=301] {1.0};
+\addplot[line width=2pt,no marks,domain=0.1:2.0,samples=301] {1.0-(x - 1.0)^2};
+ %{+1.0*(x - 1.0)^2};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+\captionsetup{labelformat=empty}
+\caption{$\alpha>0$ et $\omega$ pair $\qquad\qquad\qquad\ \qquad\qquad\qquad\qquad\qquad$ $\alpha<0$ et $\omega$ pair}
+\end{figure}
+ \begin{figure}[H]
+ \centering
+
+ \captionsetup{labelformat=empty}
+ \caption{$\alpha<0$ et $\omega$ pair}
+ \end{figure}
+\end{center}
+\medskip
+  \item Si $\omega$ est impair et que $x_0$ est intérieur à $\mathcal{D}$, $f$ n'admet pas d'extrémum local en $x_0$.
+\medskip
+\begin{center}
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[>=latex,scale=1.0]
+%  \draw[->] (-0.2,0) -- (2,0) node[below] {$x$};
+%  \draw[->] (0.0,-0.2) -- (0.0,2.5) node[left] {$y$};
+%  \draw[-] (0.1,0.1) -- (2,2);
+\begin{axis}[standard,mark=none,
+      xmin=-0.1,ymin=-0.1,
+      xmax=2.0,ymax=2.0,
+      axis lines*=middle,
+      axis line style={->},
+      xlabel=$x$,
+      ylabel=$y$,
+      xtick={1.0},xticklabels={$x_0$},
+      ytick={1.0},yticklabels={$f(x_0)$},
+      enlargelimits]
+\addplot[no marks,domain=0.1:2.0,samples=301] {1.0};
+\addplot[line width=2pt,no marks,domain=0.1:2.0,samples=301] {1.0+(x - 1.0)^3};
+% +1.0*(x - 1.0)^2};
+\end{axis}
+\end{tikzpicture}
+\captionsetup{labelformat=empty}
+\caption{$\alpha>0$ et $\omega$ impair}
+\end{figure}
+\end{center}
+  \end{itemize}
+\end{remarques}
+
+\begin{exoUnique}
+\exo Rechercher les extrémums de la fonction d'expression $\abs{x\p{x-1}}$
+  sur $\interf{0}{2}$.
+  \begin{sol}
+  On étudie la fonction sans les valeurs absolues, on dresse son tableau de variations et on observe dessus son signe pour passer au tableau de variations de sa valeur absolue. On y voit donc un minimum global en $0$ et en $1$ ainsi qu'un maximum global en $2$ et un maximum local en $1/2$.
+  \end{sol}
+\end{exoUnique}
+
+\subsection{Théorème de \nom{Rolle}, accroissements finis}
+
+Dans cette section, lorsqu'on considèrera un segment $\interf{a}{b}$, on supposera que $a<b$.
+
+\begin{theoreme}[nom={Théorème de \nom{Rolle}}]
+Soit $f$ une fonction réelle continue sur $\interf{a}{b}$, dérivable sur
+$\intero{a}{b}$, telle que $f(a)=f(b)$. Alors il existe $c\in\intero{a}{b}$
+tel que $f'(c)=0$.
+\end{theoreme}
+
+\begin{preuve}
+Il nous faut chercher un extremum local atteint en un point de $[a,b]$. Comme $f$ y est continue, elle est bornée et atteint ses bornes. On peut donc fixer $(\alpha,\beta) \in [a,b]^2$ tels que $\forall x \in \interf{a}{b}, f(\alpha)\leq f(x)\leq f(\beta)$.
+\begin{itemize}
+\item[$\bullet$] 1er cas : $f(\alpha)=f(\beta)$ : $f$ est alors constante et on a l'embarras du choix.
+\item[$\bullet$] 2ème cas : $f(\alpha)\neq f(\beta)$. Comme $f(a)=f(b)$, l'un au moins des points $\alpha$ et $\beta$ est élément de $\intero{a}{b}$. Notons $c$ un tel point. On a alors d'après la proposition précédente $f'(c)=0$.
+\end{itemize}
+\end{preuve}
+
+\smallskip
+\begin{center}
+\begin{pdfpic}
+\readdata{\listeP}{graph/graphe_rolle.txt}
+\psset{xunit=3cm,yunit=2.5cm}
+\begin{pspicture}(-0.2,-0.2)(3,2)
+\psaxes[labels=none,ticks=none]{->}(0,0)(-0.2,-0.2)(3,2)
+\dataplot[plotstyle=curve,linewidth=2pt]{\listeP}
+\uput[r](3,0){$x$}
+\uput[l](0,2){$y$}
+\uput[d](0.5,0){$a$}
+\uput[d](2.5,0){$b$}
+\uput[d](2.2746,0){$c$}
+\psline[linestyle=dashed](0.5,0)(0.5,1)
+\psline[linestyle=dashed](2.5,0)(2.5,1)
+\psline[linestyle=dashed](0,1)(2.5,1)
+\psline[linestyle=dashed](2.2746,0)(2.2746,1.5707)
+\psline{<->}(1.9746,1.5707)(2.5746,1.5707)
+\end{pspicture}
+\end{pdfpic}
+\end{center}
+
+\begin{exoUnique}
+\exo Soit $f$ une fonction dérivable $n$ fois sur l'intervalle $I$
+  admettant $n+1$ zéros. Montrer que $f^{(n)}$ s'annule au moins une fois sur
+  $I$. Retrouver le fait qu'un polynôme $P\in\polyR$ de degré $n$ admet au plus
+  $n$ racines réelles.
+ % \exo Soit $f$ une fonction dérivable sur $\R$ telle que
+%   \[f(x)\tendvers{x}{-\infty}0 \et f(x)\tendvers{x}{+\infty}0\]
+%   Alors il existe $c\in\R$ tel que $f'(c)=0$.
+\end{exoUnique}
+
+\begin{remarqueUnique}
+\remarque Cette proposition est fausse si $f$ est à valeurs complexes.
+  Par exemple, si $f$ est la fonction définie sur $\R$ par
+  \[\forall x\in\R \qsep f(x)\defeq\e^{\ii x}\]
+  alors $f$ est dérivable sur $\R$, $f(0)=f(2\pi)$ mais $f'$ ne s'annule
+  pas.
+\end{remarqueUnique}
+
+\begin{theoreme}[nom={Théorème des accroissements finis}]
+Soit $f$ une fonction réelle continue sur $\interf{a}{b}$ et dérivable sur
+$\intero{a}{b}$. Alors, il existe $c\in\intero{a}{b}$ tel que
+\[\frac{f(b)-f(a)}{b-a}=f'(c).\]
+\end{theoreme}
+
+\begin{preuve}
+On applique Rolle à $h(x)=f(x)-\p{f(a)+\frac{f(b)-f(a)}{b-a}(x-a)}$. On a enlevé à $f$ la fonction affine coïncidant avec $f$ en $a$ et en $b$.
+\end{preuve}
+
+\smallskip
+\begin{center}
+\begin{pdfpic}
+\readdata{\listeP}{graph/graphe_af.txt}
+\psset{xunit=1.1cm,yunit=0.65cm}
+\begin{pspicture}(-1.5,-2)(7,7)
+\psaxes[labels=none,ticks=none]{->}(-1,-1)(-1.5,-2)(7,7)
+\dataplot[plotstyle=curve,linewidth=2pt]{\listeP}
+\uput[r](7,-1){$x$}
+\uput[l](-1,7){$y$}
+\uput[d](0,-1){$a$}
+\uput[d](6.2831,-1){$b$}
+\uput[d](1.5708,-1){$c$}
+\psline[linestyle=dashed](1.5708,-1)(1.5708,4.5708)
+\psline[linestyle=dashed](0,-1)(0,0)
+\psline[linestyle=dashed](6.2831,-1)(6.2831,6.2831)
+\psline(0,0)(6.2831,6.2831)
+\psline{<->}(0.8708,3.8708)(2.2708,5.2708)
+\end{pspicture}
+\end{pdfpic}
+\end{center}
+
+\begin{remarqueUnique}
+\remarque Remarquons que le taux d'accroissement $(f(b)-f(a))/(b-a)$ est une grandeur invariante par échange de $a$ et $b$.
+  Par conséquent, si $f$ est dérivable sur $I$, quels que soient $a,b\in I$ tels que $a\neq b$, il existe
+  $c$ strictement compris entre $a$ et $b$ tel que
+  \[\frac{f(b)-f(a)}{b-a}=f'(c).\]
+\remarque Puisque $c$ est strictement compris entre $a$ et $b$, il arrive qu'on l'écrive sous la forme
+  \[c=\theta a+(1-\theta) b\]
+  avec $\theta\in\intero{0}{1}$.
+\end{remarqueUnique}
+
+\begin{proposition}[utile=-3,nom={Inégalité des accroissements finis}]
+Soit $f$ une fonction réelle continue sur $\interf{a}{b}$ et
+dérivable sur $\intero{a}{b}$. On suppose qu'il existe $m,M\in\R$ tels que
+\[\forall x\in\intero{a}{b} \qsep m\leq f'(x)\leq M.\]
+ Alors
+\[m\p{b-a}\leq f(b)-f(a)\leq M\p{b-a}.\]
+\end{proposition}
+
+\begin{preuve}
+On applique le TAF.
+\end{preuve}
+
+\begin{proposition}[nom={Inégalité des accroissements finis}]
+Soit $f:I\to\K$ une fonction dérivable sur un intervalle $I$.
+On suppose qu'il existe $M\in\RP$ tel que
+\[\forall x\in I \qsep \abs{f'(x)}\leq M.\]
+Alors
+\[\forall x, y\in I\qsep \abs{f(x)-f(y)}\leq M\abs{x-y}.\]
+Autrement dit, $f$ est $M$-lipschitzienne.
+\end{proposition}
+
+\begin{preuve}
+  Si $x=y$, ok. Sinon, on applique le TAF sur $"[x,y]"$.
+  
+  Pour le cas complexe, on peut le faire dans le cas où $f$ est $\classec{1}$ avec le théorème fondamental de l'analyse. Le cas général est hors de porté.
+  \end{preuve}
+
+\begin{remarqueUnique}
+\remarque Une fonction de classe $\classec{1}$ sur un segment est
+  lipschitzienne.
+% \remarque On dit qu'une fonction $f$ est contractante lorsqu'elle est
+%   $M$-Lipschitzienne avec $M<1$. Si $f$ est contractante sur un intervalle $I$
+%   qu'elle laisse stable et si elle admet un point fixe $x_0\in I$, alors,
+%   quel que soit $u_0\in I$, la suite $\p{u_n}$ définie par
+%   \[\forall n\in\N \qsep u_{n+1}\defeq f\p{u_n}\]
+%   converge vers $x_0$.
+\end{remarqueUnique}
+
+% \begin{exoUnique}
+% \exo Soit $\alpha\in\R$. Démontrer que la suite $(u_n)$ définie par
+%   \[u_0=\alpha \et \forall n\in\N \qsep u_{n+1}\defeq\cos(u_n)\]
+%   est convergente.
+% \end{exoUnique}
+
+\subsection{Dérivation et monotonie}
+
+\begin{proposition}[utile=-3]
+Soit $f:I\to\R$ une fonction réelle, dérivable sur un intervalle $I$. Alors
+\begin{itemize}
+\item $f$ est croissante si et seulement si
+  \[\forall x\in I \qsep f'(x)\geq 0.\]
+\item $f$ est décroissante si et seulement si
+  \[\forall x\in I \qsep f'(x)\leq 0.\]
+\end{itemize}
+\end{proposition}
+
+\begin{preuve}
+\begin{itemize}
+\item 
+\begin{itemize}
+\item[$\bullet$] On suppose que $f$ est croissante. Soit $x\in I$. Si $x$ n'est pas la borne supérieure de $I$, on regarde le taux d'accroissement pour $y$ à droite de $I$. Grâce à la croissance de $f$, on a $\dfrac{f(y)-f(x)}{y-x}\geq 0$ d'où le résultat par passage à la limite.
+Si $x$ est la borne supérieure de $I$, alors on regarde le taux d'accroissement en venant de la gauche pour obtenir le même résultat.
+\item[$\bullet$] On suppose que 
+  \[\forall x\in I \qsep f'(x)\geq 0.\]
+  Soient $x$ et $y$ dans $I$ tels que $x<y$. D'après le TAF, il existe $c\in \intero{x}{y}$ tel que $$f(y)-f(x)=\underbrace{(y-x)}_{>0}\underbrace{f'(c)}_{\geq 0}\geq 0.$$
+\end{itemize}
+\item $f$ est décroissante si et seulement si $-f$ est croissante si et seulement si \[\forall x\in I \qsep (-f)'(x)\geq 0,\] si et seulement si
+  \[\forall x\in I \qsep f'(x)\leq 0.\]
+\item $f$ est constante si et seulement si $f$ est croissante et décroissante si et seulement si \[\forall x\in I \qsep 0\leq f'(x)\leq 0\] si et seulement si
+  \[\forall x\in I \qsep f'(x)=0.\]
+\end{itemize}
+\end{preuve}
+
+\begin{remarqueUnique}
+\remarque Ce théorème reste vrai lorsque $f$ est continue sur $I$, dérivable sur $I$
+  et que sa dérivée est de signe constant sur l'intérieur de $I$.
+% \remarque Pour montrer que $f$ est croissante sur $I$, il suffit de montrer
+%   qu'elle est continue sur $I$, dérivable sur l'intérieur de $I$ et que
+%   $f'$ est positif sur cet intérieur. Par exemple, la fonction $f$
+%   définie sur $\RP$ par
+%   \[\forall x\geq 0 \qsep f(x)\defeq\sqrt{x}\e^{-x}\]
+%   est croissante sur $\interf{0}{1/2}$.
+%   \begin{sol}
+%   D'après les TOC, $f$ est dérivable sur $\RPs$ et $\forall x>0$ :
+%   $$f'(x)=\dfrac{1-2x}{2x}\sqrt{x}\e^{-x}.$$
+%   $f'(x)\geq 0 \Longleftrightarrow x\leq 1/2$
+%   En revanche, $f$ n'est pas dérivable en $0$ (pas parce-que les TOC le disent) parce-que $$\frac{f(x)-f(0)}{x}=\frac{\e^{-x}}{\sqrt{x}}\tendvers{x}{0}+\infty.$$
+%   Le théorème précédent nous dit que $f$ est croissante sur $\interof{0}{1/2}$ mais grâce à la continuité en $0$, $f$ est croissante sur $\interf{0}{1/2}$.
+%   \end{sol}
+% \remarque Le dernier point de cette proposition reste vrai lorsque $f$ est
+%   une fonction à valeurs complexes.
+%   \begin{sol}
+%   Soit $f:I\mapsto \K$ une fonction dérivable.
+%   \begin{eqnarray*}
+%   f \text{ est constante } &\Longleftrightarrow & \Re(f) \et \Im(f) \text{ le sont}\\
+%   &\Longleftrightarrow & \forall x \in I, (\Re(f))'(x)=0 \et \forall x \in I, (\Im(f))'(x)=0\\
+%   &\Longleftrightarrow & \forall x \in I, f'(x)=0.
+%   \end{eqnarray*}
+%   \end{sol}
+\end{remarqueUnique}
+
+%% Remarque :
+%% 1) Ce théorème n'est vrai que sur un intervalle. Par exemple :
+%%    - La fonction f définie sur Rs par f(x)=0 si x<0 et f(x)=1 si x>0
+%%      est dérivable sur Rs de dérivée nulle. Pourtant f n'est pas constante
+%%    - La fonction f définie sur Rs par f(x)=1/x est dérivable de dérivée
+%%      négative mais n'est pas décroissante sur Rs. Pourtant, elle est
+%%      décroissante sur RPs et sur RMs
+%% 2) On remarque que dans la démonstration, il suffit que f soit continue
+%%    sur [a,b] et dérivable sur ]a,b[ de dérivée positive pour en déduire que
+%%    f est croissante sur [a,b].
+
+\begin{exos}
+\exo Étudier les variations de la fonction $f$ définie sur $\RP$ par
+  \[\forall x\geq 0 \qsep f(x)\defeq\sqrt{x}\e^{-x}.\]
+\exo Calculer
+  \[\inf_{x,y>0} \frac{\sqrt{x+y}}{\sqrt{x}+\sqrt{y}}.\]
+  \begin{sol}
+  $$\frac{\sqrt{x+y}}{\sqrt{x}+\sqrt{y}}=\frac{\sqrt{1+\frac{y}{x}}}{1+\sqrt{\frac{y}{x}}}.$$
+On introduit sur $\RP$ $\phi(u)=\frac{\sqrt{1+u}}{1+\sqrt{u}}$. $\phi$ est continue sur $\RP$ et dérivable sur $\RPs$ par TOC et on a $\forall u>0$ :
+$$\phi'(u)=\ldots=\frac{\sqrt{u}-1}{\text{den. positif}}.$$
+On fait le tableau de variations, $\phi$ est minimal en $1$ de valeur $\dfrac{1}{\sqrt{2}}$. Ainsi, $$\frac{\sqrt{x+y}}{\sqrt{x}+\sqrt{y}}\geq \dfrac{1}{\sqrt{2}}$$ donc l'inf est bien définie et ce minorant est atteint pour $x=y=1$ donc c'est un min. 
+  \end{sol}
+\end{exos}
+
+\begin{proposition}
+  Soit $f:I\to\K$, dérivable sur un intervalle $I$. Alors $f$ est constante si et seulement si
+    \[\forall x\in I \qsep f'(x)=0.\]
+\end{proposition}
+
+\begin{exoUnique}
+  \exo Soit $\alpha>0$. On dit qu'une fonction $f:I\to\K$ définie sur un intervalle
+  $I$ est $\alpha$-Hölderienne lorsqu'il existe $C\geq 0$ tel que
+  \[\forall x,y\in I \qsep \abs{f(x)-f(y)}\leq C\abs{x-y}^\alpha.\]
+  Montrer que si $\alpha>1$, alors $f$ est constante.
+  \begin{sol}
+  On divise pour faire apparaitre un taux d'accroissement à gauche, puis on "gendarmise".
+  \end{sol}
+\end{exoUnique}
+
+\begin{proposition}[utile=-3]
+Soit $f:I\to\R$ une fonction réelle, dérivable sur un intervalle $I$. Alors $f$ est
+strictement croissante si et seulement si
+\begin{itemize}
+\item $\forall x\in I \qsep f'(x)\geq 0$,
+\item Il n'existe pas d'intervalle non trivial sur lequel $f'$ est nulle.
+\end{itemize}
+\end{proposition}
+
+\begin{preuve}
+\begin{itemize}
+\item[$\bullet$] On suppose que $f$ est strictement croissante. Alors, comme en particulier $f$ est croissante, $f'\geq 0$. Soient $x,y \in I$ tels que $x<y$. Si jamais $f'$ était nulle sur $[x,y]$, elle y serait constante et en particulier $f(x)=f(y)$ ce qui contredirait la stricte croissance de $f$.
+\item[$\bullet$] Sens droite-gauche : Déjà, $f$ est croissante. Soient $x,y \in I$ tels que $x<y$. On a déjà $f(x)\leq f(y)$. Si jamais $f(x)=f(y)$ alors comme $f$ croît, $f$ serait constante sur $[x,y]$ ce qui serait un intervalle non trivial sur lequel $f'$ s'annule, d'où la contradiction.
+\end{itemize}
+
+\end{preuve}
+
+\begin{remarques}
+\remarque On rappelle qu'un intervalle non trivial est un intervalle qui contient au moins deux points.
+\remarque Rappelons au passage qu'une fonction croissante qui n'est pas
+  strictement croissante est constante sur un intervalle non trivial.
+\end{remarques}
+
+%% Remarque :
+%% 1) En particulier si le nombre de zéros de f est fini (ou plus généralement
+%%    fini sur tout segment) et que f' >=0, on en déduit que f est strictement
+%%    croissante.
+
+\subsection{Théorème de la limite de la dérivée}
+
+\begin{proposition}[utile=-3]
+$\quad$
+\begin{itemize}
+\item Soit $f:I\to\K$ une fonction définie sur
+  un intervalle $I$ et $x_0\in I$. On suppose que $f$ est continue sur $I$,
+  dérivable sur $I\setminus\ens{x_0}$ et que
+  \[f'(x)\tendversp{x}{x_0} l\in\K.\]
+  Alors $f$ est dérivable en $x_0$ et $f'\p{x_0}=l$.
+\item Soit $f:I\to\R$ une fonction réelle définie sur un intervalle
+  $I$ et $x_0\in I$. On suppose que $f$ est continue sur $I$, dérivable sur
+  $I\setminus\ens{x_0}$
+  et que
+  \[f'(x)\tendversp{x}{x_0} \pm\infty.\]
+  Alors
+  \[\frac{f(x)-f\p{x_0}}{x-x_0} \tendvers{x}{x_0} \pm\infty.\]
+  Autrement dit, le graphe de $f$ admet une demi-tangente verticale en $x_0$.
+  En particulier, la fonction $f$ n'est pas dérivable en $x_0$.
+\end{itemize}
+\end{proposition}
+
+\begin{preuve}
+  \begin{itemize}
+  \item Cas réel : Soit $\epsilon>0$. Comme $f'(x)\tendversp{x}{x_0} \ell\in\R,$ on peut fixer $\eta>0$ tel que $\forall x \in I$ (le $0<$ vient du fait que $f'$ n'est pas définie en $x_0$), $$0<|x-a|\leq \eta \Longrightarrow |f'(x)-\ell|\leq \epsilon.$$
+  Fixons $x\in I$ tel que $0<|x-x_0|\leq \eta$. $f$ est continue sur $"\interf{x_0}{x}"$ et dérivable sur $"\intero{x_0}{x}"$ donc d'après le TAF, il existe $c_x\in "\intero{x_0}{x}"$ tel que $f'(c_x)=\dfrac{f(x)-f(x_0)}{x-x_0}$. On a alors $0<|c_x-x_0|\leq |x-x_0|\leq\eta$ d'où $|\dfrac{f(x)-f(x_0)}{x-x_0}-\ell|=|f'(c_x)-\ell|\leq \epsilon$. Si on observe maintenant que l'inégalité $|\dfrac{f(x)-f(x_0)}{x-x_0}-\ell|\leq \epsilon$ a été obtenu pour tout $x\in I$ vérifiant $0<|x-x_0|\leq \eta$ cela signifie bien qu'il existe $\underset{x\underset{\neq}{\to}x_0}{\lim}\dfrac{f(x)-f(x_0)}{x-x_0}=\ell$ et donc que $f$ est dérivable en $x_0$ et que $f'(x_0)=\ell$.
+  
+  Cas complexe : On applique le résultat aux parties réelles et imaginaires.
+    
+  \item Preuve similaire.
+  \end{itemize}
+  
+  \end{preuve}
+
+
+\begin{exos}
+% \exo Soit $f$ la fonction définie sur $\intero{-\pi/2}{\pi/2}$ par
+%   \[\forall x\in\intero{-\frac{\pi}{2}}{\frac{\pi}{2}} \qsep
+%     f(x)\defeq
+%     \begin{cases}
+%     \frac{1}{x}-\frac{1}{\sin x} & \text{si $x\neq 0$}\\
+%     0 & \text{si $x=0$.} 
+%     \end{cases}\]
+%   Montrer que $f$ est de classe $\classec{1}$ sur $\intero{-\pi/2}{\pi/2}$.  
+%  \begin{sol}
+%  $\forall x \neq 0$, on calcule $f'(x)=\dfrac{-\sin^2(x)+x^2\cos(x)}{x^2\sin^2(x)}$. Le dénominateur étant équivalent à $x^4$ en $0$, on effectue un DL(0,4) du numérateur :
+%  $$-\sin^2(x)+x^2\cos(x)=-\p{x-\frac{x^3}{6}}^2+x^2\p{1-\frac{x^2}{2}}+\petitozero{x}{x^4}=-\frac{1}{6}x^4+\petitozero{x}{x^4}$$ donc $f'(x)\tendversp{x}{0} -\frac{1}{6}$. Alors d'après le théorème de la limite de la dérivée, $f$ est dérivable en $0$ et $f'(0)=-\frac{1}{6}$. Et on obtient bien (toujours lorsqu'on applique ce théorème en fait) une fonction $\classec{1}$ sur $\intero{-\pi/2}{\pi/2}$.
+%  \end{sol}
+\exo Montrer que
+  \[\frac{\arcsin\p{-1+h}+\frac{\pi}{2}}{h}\tendvers{h}{0}+\infty\]
+  % \begin{sol}
+  % Application directe de la deuxième partie du théorème avec $f=\arcsin$ et $x_0=-1$.
+  % \end{sol}
+  \begin{sol}
+    Application directe de la deuxième partie du théorème avec $f=\arcsin$ et $x_0=-1$.
+    $f$ est continue sur $[-1;1]$, dérivable sur l'ouvert et $f'(x)=\dfrac{1}{\sqrt{1-x^2}}\tendversp{x}{-1}+\infty$ donc $\frac{f(-1+h)-f(-1)}{h}\tendvers{h}{0}+\infty$.
+    \end{sol}
+\exo Soit $f$ la fonction définie sur $\R$ par
+  \[\forall x\in\R \qsep f(x)\defeq
+    \begin{cases}
+    \e^{-\frac{1}{x}} & \text{si $x> 0$}\\
+    0 & \text{si $x\leq 0$.}
+    \end{cases}\]
+  \begin{questions}
+\question Montrer que $f$ est de classe $\classec{\infty}$ sur $\RPs$ et que, pour tout $n\in\N$, existe
+  $P_n\in\polyR$ tel que
+  \[\forall x>0\qsep f^{(n)}(x)=P_n\p{\frac{1}{x}}\e^{-\frac{1}{x}}.\]
+\question Montrer que
+  \[\forall n\in\N\qsep f^{(n)}(x)\tendversdp{x}{0}0.\]
+\question En déduire que $f$ est de classe $\classec{\infty}$ sur $\R$.
+  \end{questions}
+  \begin{sol}
+    On montre que $f$ est continue, que pour tout $n\in \N$, pour tout $x>0$, $$f^{(n)}(x)=P_n\p{\frac{1}{x}}\e^{-\frac{1}{x}}\tendversdp{x}{0}0.$$ On complète avec la limite à gauche pour obtenir $f^{(n)}(x)\tendversp{x}{0}0$ et on applique la proposition précédente.
+    \end{sol}
+\end{exos}
+
+
+
+
+%% Exemples :
+%% 1)
+%%
+%% 2) On en déduit que le graphe de la fonction arcsin admet une demi-tangente
+%%    verticale en 1. En effet arcsin'(x) -> +infini (lorsque x tend vers 1)
+%%    donc (arcsin(x)-arcsin(1))/(x-1) -> + infini.
+
+%%%%%%% u_(n+1)=f(u_n) %%%%%%%
+%%
+%% Application :
+%% 1) Soit f:I->I une fonction et x_0 \in I un point fixe de f (f(x_0)=x_0) en
+%%    lequel elle est dérivable.
+%%    - On dit que le point fixe est attractif lorsque |f'(x_0)|< 1
+%%      Si tel est le cas, il existe eta>0 tel que pour tout x\in [x_0-eta,x_0+eta]
+%%      la suite définie par u_0=x et u_(n+1)=f(u_n) converge vers x_0.
+%%    - On dit que le point fixe est répulsif lorsque |f'(x_0)|>1
+%%      Si tel est le cas, si la suite définie par u_0=x et u_(n+1)=f(u_n)
+%%      converge vers x_0 elle est égale à x_0 à partir d'un certain rang
+%%
+%%%%%%%% Méthode de Newton %%%%%%%%
+%%
+%% Application :
+
+\section{Convexité}
+
+\subsection{Définition, propriétés élémentaires}
+
+\begin{proposition}
+Soit $x_1,x_2\in\R$.
+\begin{itemize}
+\item On a
+\[\text{\og}\interf{x_1}{x_2}\text{\fg}=\ensim{tx_1+(1-t)x_2}{t\in[0,1]}.\]
+\item Soit $y_1,y_2\in\R$. Alors il existe
+une unique fonction affine $\phi$ sur $\intergf{x_1}{x_2}$ telle que
+$\phi\p{x_1}=y_1$ et $\phi\p{x_2}=y_2$. De plus
+\[\forall t\in\interf{0}{1}\qsep \phi\p{tx_1+\p{1-t}x_2}=
+  t \phi\p{x_1}+\p{1-t}\phi\p{x_2}.\]
+\end{itemize}
+\end{proposition}
+
+
+% \begin{proposition}[utile=-3]
+% Soit $x_1,x_2\in\R$ avec $x_1\neq x_2$ et $y_1,y_2\in\R$. Alors il existe
+% une unique fonction affine $\phi$ sur $\intergf{x_1}{x_2}$ telle que
+% $\phi\p{x_1}=y_1$ et $\phi\p{x_2}=y_2$. De plus
+% \[\forall t\in\interf{0}{1}\qsep \phi\p{tx_1+\p{1-t}x_2}=
+%   t \phi\p{x_1}+\p{1-t}\phi\p{x_2}\]
+% \end{proposition}
+
+% \begin{preuve}
+% $\quad$
+% \begin{itemize}
+% \item Soit $x_1,x_2\in\R$ et $x\in\R$.\\
+%   Supposons que $x\in\intergf{x_1}{x_2}$ et montrons qu'il existe
+%   $t\in\interf{0}{1}$ tel que $x=tx_1+\p{1-t}x_2$. Si $x_1=x_2$, alors $x$ est
+%   cette valeur commune et $t=0$ convient. Sinon, supposons d'abord que
+%   $x_1<x_2$. Alors
+%   \begin{eqnarray*}
+%   \forall t\in\R \quad tx_1+\p{1-t}x_2=x
+%   &\ssi& t\p{x_1-x_2}=x-x_2\\
+%   &\ssi& t=\frac{x_2-x}{x_2-x_1}
+%   \end{eqnarray*}
+%   On pose donc $t=\p{x_2-x}/\p{x_2-x_1}$. Comme $x_1\leq x\leq x_2$, on en
+%   déduit que $-x_2\leq -x\leq -x_1$ puis que $0\leq x_2-x\leq x_2-x_1$. Donc
+%   $0\leq t\leq 1$. Si $x_2<x_1$, alors d'après ce qui précède, il existe
+%   $u\in\interf{0}{1}$ tel que $x=ux_2+\p{1-u}x_1$. On pose alors
+%   $t=1-u\in\interf{0}{1}$ et on a bien $x=tx_1+\p{1-t}x_2$.\\
+%   Réciproquement, on suppose qu'il existe $t\in\interf{0}{1}$ tel que
+%   $x=tx_1+\p{1-t}x_2$. Montrons que $x\in\intergf{x_1}{x_2}$. On suppose
+%   d'abord que $x_1\leq x_2$. Alors $tx_1\leq t x_2$ car $t\geq 0$ donc
+%   $x=tx_1+\p{1-t}x_2\leq tx_2+\p{1-t}x_2=x_2$. De même,
+%   $\p{1-t}x_1\leq\p{1-t}x_2$ donc $x_1=tx_1+\p{1-t}x_1\leq tx_1+\p{1-t}x_2=x$.
+%   En conclusion $x\in\interf{x_1}{x_2}$. De même, si $x_2\leq x_1$, on montre
+%   que $x\in\interf{x_2}{x_1}$.
+% \item Soit $x_1,x_1\in\R$ avec $x_1\neq x_2$ et $y_1,y_2\in\R$.
+%   Soit $\alpha,\beta\in\R$ et $f$ la fonction définie sur $\intergf{x_1}{x_2}$
+%   par
+%   \[\forall x\in\intergf{x_1}{x_2} \quad f(x)=\alpha x+\beta\]
+%   Alors
+%   \begin{eqnarray*}
+%   \syslin{f\p{x_1}&=&y_1\cr
+%           f\p{x_2}&=&y_2}
+%   &\ssi& \syslin{\alpha x_1+\beta&=&y_1\cr
+%                  \alpha x_2+\beta&=&y_2}
+%   \end{eqnarray*}
+%   Le déterminant de ce système linéaire en $\alpha,\beta$ est $x_1-x_2\neq 0$.
+%   Il admet donc une unique solution, d'où l'existence et l'unicité d'une telle
+%   fonction affine. De plus, si $t\in\interf{0}{1}$
+%   \begin{eqnarray*}
+%   tf\p{x_1}+\p{1-t}f\p{x_2}
+%   &=& t\p{\alpha x_1+\beta}+\p{1-t}\p{\alpha x_2+\beta}\\
+%   &=& \alpha\p{t x_1+\p{1-t}x_2}+\beta\\
+%   &=& f\p{t x_1+\p{1-t}x_2}
+%   \end{eqnarray*}
+% \end{itemize}
+% \end{preuve}
+
+\begin{definition}[utile=-3]
+Soit $f:I\to\R$ une fonction réelle définie sur un intervalle $I$. On dit que $f$ est
+\emph{convexe} lorsque
+\[\forall x_1,x_2\in I \qsep \forall t\in\interf{0}{1} \qsep
+  f\p{tx_1+\p{1-t}x_2}\leq tf\p{x_1}+\p{1-t}f\p{x_2}.\]
+\end{definition}
+
+\medskip
+\begin{center}
+\begin{pdfpic}
+\readdata{\listeP}{graph/graphe_convexite.txt}
+\psset{xunit=2.5cm,yunit=1.4cm}
+\begin{pspicture}(-1.2,-0.5)(4,5)
+\psaxes[labels=none,ticks=none]{->}(0.5,0)(0,-0.5)(3.5,5)
+\dataplot[plotstyle=curve,linewidth=2pt]{\listeP}
+\uput[r](3.5,0){$x$}
+\uput[l](0.5,5){$y$}
+\psline[linestyle=dashed](1,0)(1,2)
+\psline[linestyle=dashed](1,2)(0.5,2)
+\psline[linestyle=dashed](3,0)(3,4)
+\psline[linestyle=dashed](3,4)(0.5,4)
+\psline[linestyle=dashed](2,0)(2,3)
+\psline[linestyle=dashed](2,3)(0.5,3)
+\psline[linestyle=dashed](2,1)(0.5,1)
+\psline(1,2)(3,4)
+\uput[d](1,0){$x_1$}
+\uput[d](2,0){$tx_1+(1-t)x_2$}
+\uput[d](3,0){$x_2$}
+\uput[l](0.5,2){$f(x_1)$}
+\uput[l](0.5,4){$f(x_2)$}
+\uput[l](0.5,3){$tf(x_1)+(1-t)f(x_2)$}
+\uput[l](0.5,1){$f(tx_1+(1-t)x_2)$}
+\end{pspicture}
+\end{pdfpic}
+\end{center}
+
+
+\begin{remarques}
+\remarque Les fonctions affines sont convexes sur $\R$.
+\remarque Une combinaison linéaire positive de fonctions convexes est convexe.
+  Cependant, si $f$ est une fonction convexe, en général, $-f$ n'est pas convexe.
+  % qui n'est pas affine, $-f$ n'est
+  % pas convexe.
+\end{remarques}
+
+\begin{exos}
+\exo Montrer que les fonctions $x\mapsto\abs{x}$ et $x\mapsto x^2$ sont
+  convexes sur $\R$.
+\end{exos}
+
+\begin{proposition}[nom={Inégalité de \nom{Jensen}}, utile=-3]
+Soit $f:I\to\R$ une fonction convexe sur un intervalle $I$. Alors
+\[\forall x_1,\ldots,x_n\in I \qsep \forall t_1,\ldots,t_n\in\interf{0}{1},\]
+\[t_1+\cdots+t_n=1 \quad\implique\quad f\p{t_1 x_1+\cdots+t_n x_n} \leq
+  t_1 f\p{x_1}+\cdots+t_n f\p{x_n}.\]
+\end{proposition}
+
+\subsection{Convexité et dérivation}
+
+% \begin{proposition}[nom={Lemme des 3 pentes}]
+% Soit $f:I\to\R$ une fonction réelle. Alors $f$ est convexe si et seulement si, quels que
+% soient $x_1,x_2,x_3\in I$ tels que $x_1<x_2<x_3$, on a
+% \[\frac{f\p{x_2}-f\p{x_1}}{x_2-x_1}\leq\frac{f\p{x_3}-f\p{x_1}}{x_3-x_1}\leq
+%   \frac{f\p{x_3}-f\p{x_2}}{x_3-x_2}.\]
+% \end{proposition}
+
+
+
+\begin{proposition}
+Soit $f:I\to\R$ une fonction réelle. Alors $f$ est convexe si et seulement si, pour
+tout $x_0\in I$, la fonction
+\[\dspappli{\tau_{x_0}}{I\setminus\ens{x_0}}{\R}{x}{\frac{f(x)-f(x_0)}{x-x_0}}\]
+est croissante.
+\end{proposition}
+
+
+
+\begin{remarqueUnique}
+% \remarque Soit $f$ une fonction convexe sur $I$ et $x_0\in I$. Alors la fonction
+%   $\tau_{x_0}$ définie sur $I\setminus\ens{x_0}$ par
+%   \[\forall x\in I\setminus\ens{x_0} \qsep
+%     \tau_{x_0}(x)\defeq\frac{f(x)-f\p{x_0}}{x-x_0}\]
+%   est croissante. % Réciproquement, une fonction telle que
+%   $\tau_{x_0}$ est croissante quel que soit $x_0\in I$, est convexe.
+\remarque Soit $f:I\to\R$ une fonction convexe. Alors, quels que
+soient $x_1,x_2,x_3\in I$ tels que $x_1<x_2<x_3$, on a
+\[\frac{f\p{x_2}-f\p{x_1}}{x_2-x_1}\leq\frac{f\p{x_3}-f\p{x_1}}{x_3-x_1}\leq
+  \frac{f\p{x_3}-f\p{x_2}}{x_3-x_2}.\]
+  \begin{center}
+    \begin{pdfpic}
+    \readdata{\listeP}{graph/graphe_convexite.txt}
+    \psset{xunit=3cm,yunit=1.4cm}
+    \begin{pspicture}(0,-0.5)(3.7,5)
+    \psaxes[labels=none,ticks=none]{->}(0.5,0)(0,-0.5)(3.5,5)
+    \dataplot[plotstyle=curve,linewidth=2pt]{\listeP}
+    \uput[r](3.5,0){$x$}
+    \uput[l](0.5,5){$y$}
+    \psline[linestyle=dashed](1,0)(1,2)
+    \psline[linestyle=dashed](3,0)(3,4)
+    \psline[linestyle=dashed](2,0)(2,1)
+    \psline[linestyle=dashed](1,2)(0.5,2)
+    \psline[linestyle=dashed](3,4)(0.5,4)
+    \psline[linestyle=dashed](2,1)(0.5,1)
+    \psline(1,2)(3,4)
+    \psline(1,2)(2,1)
+    \psline(2,1)(3,4)
+    \uput[d](1,0){$x_1$}
+    \uput[d](2,0){$x_2$}
+    \uput[d](3,0){$x_3$}
+    \uput[l](0.5,2){$f(x_1)$}
+    \uput[l](0.5,4){$f(x_3)$}
+    \uput[l](0.5,1){$f(x_2)$}
+    \end{pspicture}
+    \end{pdfpic}
+    \end{center}
+\end{remarqueUnique}
+
+\begin{exos}
+\exo Montrer que sur $\R$, une fonction convexe majorée est constante.
+\end{exos}
+
+\begin{proposition}
+Soit $f:I\to\R$ une fonction convexe.
+\begin{itemize}
+\item Alors $f$ est dérivable à gauche et à droite en tout point intérieur à $I$.
+\item En particulier, $f$ est continue en tout point intérieur à $I$.
+\end{itemize}
+\end{proposition}
+
+\begin{remarqueUnique}
+  \remarque 
+  Remarquons qu'une fonction convexe peut
+  très bien ne pas être dérivable en un point intérieur à $I$ comme le montre
+  l'exemple de la valeur absolue en 0. De même, une fonction convexe peut
+  être discontinue en les bornes de son intervalle de définition comme le
+  montre l'exemple de la fonction
+  \[\dspappli{f}{\interf{0}{1}}{\R}{x}{
+    \begin{cases}
+    1 & \text{si $x=0$ ou $x=1$,}\\
+    0 & \text{sinon.}  
+    \end{cases}}\]
+\end{remarqueUnique}
+
+\begin{proposition}[utile=-3]
+Soit $f:I\to\R$ une fonction convexe sur un intervalle $I$. Si $x_0\in I$ est un point
+en lequel $f$ est dérivable, alors
+\[\forall x\in I\qsep f(x)\geq f\p{x_0}+f'\p{x_0}(x-x_0).\]
+Autrement dit, le graphe de $f$ est au-dessus de ses tangentes.
+\end{proposition}
+
+
+
+\begin{proposition}[utile=-3]
+Soit $f:I\to\R$ une fonction réelle, dérivable sur un intervalle $I$. Alors
+$f$ est convexe si et seulement si $f'$ est croissante.
+\end{proposition}
+\begin{preuve}
+Se ramener au cas où $f(0)=f(1)=0$ et montrer que pour tout
+$x\in\interf{0}{1}$, $f(x)\leq 0$. Utiliser Rolle pour montrer que $f'$ s'annule
+et conclure par un tableau de variations.
+\end{preuve}
+
+\begin{proposition}[utile=-3]
+Soit $f:I\to\R$ une fonction réelle deux fois dérivable sur un intervalle $I$. Alors
+$f$ est convexe si et seulement si
+\[\forall x\in I \qsep f''(x)\geq 0.\]
+\end{proposition}
+
+\begin{remarques}
+% \remarque Plus généralement, on a montré qu'une fonction dérivable sur un intervalle
+%   $I$ est convexe si et seulement si sa dérivée est croissante.
+\remarque La fonction $\exp$ est convexe sur $\R$. La fonction $x\mapsto 1/x$
+  est convexe sur $\RPs$.
+\remarque On dit qu'une fonction réelle définie sur un intervalle $I$ est
+  concave lorsque
+  \[\forall x_1,x_2\in I \qsep \forall t\in\interf{0}{1} \qsep
+    f\p{tx_1+\p{1-t}x_2}\geq tf\p{x_1}+\p{1-t}f\p{x_2}.\]
+  Une fonction $f$ est concave si et seulement si $-f$ est convexe. On en déduit
+  que toutes les propositions énoncées pour les fonctions convexes ont leur
+  équivalent pour les fonctions concaves. En particulier, les fonctions
+  concaves sont en dessous de leur tangentes et une fonction deux fois
+  dérivable sur un intervalle est concave si et seulement si sa dérivée
+  seconde est négative.
+\end{remarques}
+
+\begin{exos}
+\exo Montrer que
+  \[\forall x\in\R \qsep \e^x \geq 1+x, \qquad \forall x\in\intero{-1}{+\infty}
+    \qsep \ln\p{1+x}\leq x\]
+  \[\forall x\in\interf{0}{\frac{\pi}{2}} \qsep
+    \frac{2}{\pi}\cdot x\leq\sin x\leq x.\]
+% \exo Montrer que la suite de terme général
+%   \[\p{1+\frac{1}{n}}^n\]
+%   est croissante.
+\exo Soit $x_1,\ldots,x_n\in\RP$. Montrer que
+  \[\sqrt[n]{x_1 x_2\cdots x_n}\leq\frac{x_1+x_2+\cdots+x_n}{n}.\]
+  C'est l'inégalité arithmético-géométrique qui se démontre facilement pour
+  $n=2$.
+\end{exos}
+
+% \begin{remarques}
+% \remarque \textbf{Convergence de la méthode de Newton dans le cas d'une fonction convexe~:}\\
+%   Soit $f:\interf{a}{b}\to\R$ une fonction de classe
+%   $\classec{\infty}$ telle que~:
+%   \[f(a) < 0 < f(b) \qquad f'>0\text{ et }f''>0\text{ sur }\interf{a}{b}\]
+%   Alors la fonction $f$ admet un unique racine sur $\intero{a}{b}$ notée
+%   $\alpha$. De plus, la suite définie par~:
+%   \[u_0=b \et \forall n\in\N \quad u_{n+1}=u_n-\frac{f(u_n)}{f'(u_n)}\]
+%   est bien définie, décroissante et converge vers alpha en moyenne quadratique, c'est à dire
+%   que si $(\epsilon_n)$ est la suite des erreurs définie par
+%   $\epsilon_n=\abs{u_n-\alpha}$, on a
+%   \[\frac{\epsilon_{n+1}}{\epsilon_n^2}\tendvers{n}{+\infty}
+%     \frac{f''(\alpha)}{2f'(\alpha)}\]
+%   En particulier, si $(p_n)$ est la suite définie par $p_n=-\log_{10} \epsilon_n$
+%   (intuitivement, $p_n$ est le nombre de chiffres après la virgule exacts
+%   lorsque l'on considère $u_n$ comme valeur approchée de $\alpha$), on a~:
+%   \[p_{n+1} \equi{n}{+\infty} 2 p_n\]
+%   Autrement dit, le nombre de chiffre exacts donnés par la méthode de Newton
+%   double à chaque itération. Rappelons qu'avec la méthode de dichotomie,
+%   le nombre de chiffres exacts augmente de 1 toutes les 3 itérations.
+%   \begin{sol}
+%   En effet~:
+%   \begin{itemize}
+%   \item Existence et unicité de $\alpha$.
+%   \item Soit $\phi$ la fonction définie sur [a,b] par
+%     $\phi(x)=x-f(x)/f'(x)$
+%     $\phi$ est dérivable sur [a,b] et $\phi'=f.f''/(f'^2)$
+%     en particulier, $\phi'$ est du signe de f, donc croissante sur $[\alpha,b]$
+%     Comme $\phi(\alpha)=\alpha$ et $\phi(b)=b-f(b)/f'(b)<=b$, on en déduit que
+%     $[\alpha,b]$ est stable par $\phi$.
+%   \item donc $(u_n)$ est bien définie et $\alpha <= u_n <= b$
+%     De plus, sur $[\alpha,b] \phi(x)<=x$ donc $(u_n)$ est décroissante.
+%     Comme elle est décroissante minorée, elle converge vers un réel
+%     $l$. On a : $\alpha <= l <= b$. Comme $\phi(l)=l$, on a $l=l-f(l)/f'(l)$, donc
+%     $f(l)=0$, donc $l=\alpha$.
+%   \item Reste à montrer que $(u_n)$ converge vers $\alpha$ en moyenne quadratique
+%     \begin{itemize}
+%     \item Montrons que $u_{n+1} < u_n$. Par récurrence sur n
+%       $n=0$ : En effet $u_1=u_0-f(u_0)/f'(u_0) < u_0$
+%       $n-> n+1$ : car $\phi$ est strictement croissante sur $[\alpha,b]$
+%       Donc $(u_n)$ est strictement décroissante. En particulier $\alpha < u_n$
+%       pour tout $n$.
+%     \item Comme $\phi$ est de classe $\classec{\infty}$, elle admet un
+%       développement limité à l'ordre 2 en $\alpha$ et~:
+%       \[\phi(\alpha+h)=\alpha+(f''(\alpha)/(2 f'(\alpha)) h^2+o(h^2)\]
+%       En particulier~:
+%       \[(u_{n+1}-\alpha)/(u_n-\alpha)^2 -> (f''(\alpha)/(2 f'(\alpha)))\]
+%     \item Enfin $p_{n+1} ~ 2 p_n$.
+%     \end{itemize}
+%   \end{itemize}
+%   \end{sol}
+% \end{remarques}
+
+%END_BOOK
+
+\end{document}
+
+

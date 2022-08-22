@@ -1,0 +1,1510 @@
+\documentclass{magnolia}
+
+\magtex{tex_driver={pdftex},
+        tex_packages={slashbox,epigraph,xypic}}
+\magfiche{document_nom={Cours sur les ensembles},
+          auteur_nom={François Fayard},
+          auteur_mail={fayard.prof@gmail.com}}
+\magcours{cours_matiere={maths},
+          cours_niveau={mpsi},
+          cours_chapitre_numero={2},
+          cours_chapitre={Logique, Ensembles}}
+\magmisenpage{}
+\maglieudiff{}
+\magprocess
+
+\begin{document}
+
+%BEGIN_BOOK
+\setlength\epigraphwidth{.7\textwidth}
+\epigraph{\og Si la logique est l'hygiène du mathématicien, ce n'est pas elle qui lui fournit sa
+  nourriture; le pain quotidien dont il vit, ce sont les grands problèmes.\fg}{--- \textsc{André Weil (1906-1998)}}
+\setlength\epigraphwidth{.6\textwidth}
+\epigraph{\og  Sur l’enseigne du barbier du village, on peut lire~:~Je rase tous les hommes du
+  village qui ne se rasent pas eux-mêmes, et seulement ceux-là. Savez-vous qui rase
+  le barbier ? \fg}{--- \textsc{Bertrand Russel (1872--1970)}}
+\setlength\epigraphwidth{.5\textwidth}
+\epigraph{\og J'aimais et j'aime encore les mathématiques pour elles-mêmes comme n'admettant
+  pas l'hypocrisie et le vague, mes deux bêtes d'aversion.\fg}{--- \textsc{Stendhal (1783-1842)}}
+
+\magtoc
+
+\section{Éléments de logique}
+
+\subsection{Assertion, prédicat}
+
+\begin{definition}[utile=-3]
+\begin{itemize}
+\item On appelle \emph{assertion} toute phrase mathématique à laquelle
+  on peut attribuer une et une seule valeur de vérité~: vrai ou faux.
+\item Soit $E$ un ensemble. On appelle \emph{prédicat} sur $E$ toute phrase mathématique
+  dont la valeur de vérité dépend d'un élément $x\in E$.
+\end{itemize}
+\end{definition}
+
+\begin{exemples}
+\exemple \og 7 est un nombre premier \fg est une assertion vraie.
+  L'assertion \og 7 est divisible par 3 \fg est fausse.
+\exemple $P(x)\defeq$ \og $x$ est rationnel \fg est un prédicat sur $\R$. $P\p{3/4}$
+  est vrai alors que $P(\sqrt{2})$ est faux.
+\exemple $P\p{a,b,c}\defeq$ \og $a^2+b^2=c^2$ \fg est un prédicat sur $\N^3$.
+\exemple \og L'ensemble des nombres premiers est infini \fg est une assertion
+  vraie. L'assertion \og Il existe une infinité de nombres premiers $p$ tels
+  que $p+2$ est premier \fg est une assertion dont on pense qu'elle est vraie. Mais aujourd'hui, personne n'en a fait la preuve.
+\end{exemples}
+
+\begin{remarques}
+\remarque Deux principes fondamentaux gouvernent les valeurs de vérité des assertions.
+  \begin{itemize}
+  \item Le \emph{principe de non-contradiction}~: Une assertion ne peut être à la fois vraie et fausse.
+  \item Le \emph{principe du tiers exclu}~: Une assertion qui n'est pas vraie est fausse.
+  \end{itemize}
+\remarque Si $P$ est un prédicat, on dit que $P$ est vrai lorsque, quel que
+  soit $x\in E$, $P(x)$ est vraie. Dire que $P$ n'est pas vrai
+  signifie qu'il existe $x\in E$ tel que $P(x)$ est faux.
+\end{remarques}
+
+\begin{definition}[utile=-3]
+$\quad$
+\begin{itemize}
+\item Le \emph{quantificateur universel} $\forall$ signifie \og pour tout \fg
+\item Le \emph{quantificateur existentiel} $\exists$ signifie \og il existe (au moins) un \fg
+\end{itemize}
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque On trouve parfois le quantificateur $\exists !$ qui signifie
+  \og il existe un unique \fg. 
+\end{remarqueUnique}
+
+\begin{exos}
+\exo Les assertions suivantes sont-elles vraies~?
+  \begin{questions}
+  \question $\forall y\in\R \qsep \exists x\in\R \qsep x+y\geq 0$.
+  \question $\exists x\in\R \qsep \forall y\in\R \qsep x+y\geq 0$.
+  \question $\exists x\in\R \qsep \forall y\in\R \qsep y^2\geq x$.
+  \end{questions}
+\exo Déterminer les $x\in\R$ tels que
+  \[\forall n\in\N \qsep x^{n+2}\leq x^{n+1}+x^n.\]
+\end{exos}
+
+\begin{sol}
+$x^n(x^2-x-1)\leq 0$. Si $x\geq 0$, ok.
+Si $x<0$, on doit avoir $x^2-x-1=0$, d'où $S= \interf{0}{\frac{1+\sqrt{5}}{2}}\cup\ens{\frac{1-\sqrt{5}}{2}}$.
+\end{sol}
+
+\begin{definition}[utile=-3]
+Soit $P$ et $Q$ deux assertions.
+\begin{itemize}
+\item On définit l'assertion $\p{\non\  P}$ comme étant vraie
+  lorsque $P$ est fausse et fausse lorsque $P$ est vraie.
+\item On définit l'assertion $\cro{P \et Q}$ comme étant vraie
+  lorsque $P$ et $Q$ sont vraies et fausse sinon.
+\item On définit l'assertion $\cro{P \ou Q}$ comme étant vraie
+  lorsqu'au moins l'une des deux assertions est vraie, et fausse sinon.
+\end{itemize}
+\end{definition}
+
+\begin{remarques}
+\remarque Les valeurs de vérité de ces assertions sont données
+  par les tables suivantes.
+  \begin{center}
+  \begin{minipage}{0.3\linewidth}
+  \begin{center}
+  \begin{tabular}{|c|c|c|}
+  \hline
+  P & V & F \\
+  \hline
+  \non\ P &  F & V \\
+  \hline
+  \end{tabular}
+  \[\non\ P\]
+  \end{center}
+  \end{minipage}
+  \begin{minipage}{0.3\linewidth}
+  \begin{center}
+  \begin{tabular}{|c|c|c|}
+  \hline
+  \backslashbox{P}{Q} & V & F \\
+  \hline
+  V & V & F\\
+  \hline
+  F & F & F\\
+  \hline
+  \end{tabular}
+  \[P \et Q\]
+  \end{center}
+  \end{minipage}
+  \begin{minipage}{0.3\linewidth}
+  \begin{center}
+  \begin{tabular}{|c|c|c|}
+  \hline
+  \backslashbox{P}{Q} & V & F \\
+  \hline
+  V & V & V\\
+  \hline
+  F & V & F\\
+  \hline
+  \end{tabular}
+  \[P \ou Q\]
+  \end{center}
+  \end{minipage}
+
+  \end{center}
+\remarque Lorsque le menu d'un restaurant vous propose \og fromage ou dessert
+  \fg, le \og ou \fg est employé au sens strict (on dit aussi exclusif); il
+  n'est pas possible d'avoir les deux. En mathématiques, le \og ou \fg est
+  employé au sens large (on dit aussi inclusif). Lorsqu'on dit qu'un
+  entier naturel $n$ est divisible par 2 ou par 3, il peut très bien être divisible par 2 et par 3.
+\end{remarques}
+
+\subsection{Implication, équivalence}
+
+\begin{definition}[utile=-3]
+Soit $P$ et $Q$ deux assertions. On définit l'assertion $P\implique Q$ comme
+étant fausse lorsque $P$ est vraie et $Q$ est fausse, et vraie sinon.
+\end{definition}
+
+\begin{remarques}
+\remarque Montrer $P\implique Q$ revient à prouver que si $P$ est
+  vraie, alors $Q$ est vraie.
+\remarque Si $P$ et $Q$ sont deux prédicats sur $E$, $P\implique Q$
+  signifie que $Q(x)$ est vraie dès que $P(x)$ est vraie.
+  Si c'est le cas, on écrit
+  \[\forall x\in E \qsep P(x) \implique Q(x)\]
+  et on dit que $P$ est une condition suffisante pour $Q$ ou que $Q$ est une
+  condition nécessaire pour $P$.
+\end{remarques}
+
+\begin{exos}
+\exo Dans les exemples suivants, dites si le prédicat $P$ est une
+  condition nécessaire ou une condition suffisante pour $Q$.
+  \begin{itemize}
+  \item $E=\R$, $P(x)\defeq$ \og $x\in\Q$ \fg et $Q(x)\defeq$ \og $x^2\in\Q$ \fg. 
+  \item $E$ est l'ensemble des triangles du plan, $P(T)\defeq$ \og
+    $T$ est isocèle \fg et $Q(T)\defeq$ \og $T$ est équilatéral \fg.
+  \item $E=\R^2$, $P\p{x,y}\defeq$ \og $x\equiv y\ [2\pi]$ \fg et $Q\p{x,y}\defeq$
+    \og $x\equiv y\ [\pi]$ \fg.
+  \end{itemize}
+\exo Montrer que
+  \[\forall x,y\in\R \qsep\cro{xy>0 \et x+y>0}\quad\implique\quad
+    \cro{x>0 \et y>0}.\]
+\exo Montrer que
+  \[\forall x\in\R \qsep
+    \cro{\forall \epsilon\in\RPs \qsep\abs{x}\leq\epsilon} \quad\implique\quad
+    x=0.\]
+\end{exos}
+
+\begin{proposition}[utile=-3, nom={Modus Ponens}]
+Soit $P$ et $Q$ deux assertions. Si $P$ et $P\implique Q$ sont vraies, alors
+$Q$ est vraie.   
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque En pratique, on utilise cette proposition lorsque $P$ et $Q$ sont des
+  prédicats. Si $P\implique Q$ est vrai et $x$ est un élément de $E$ tel que
+  $P(x)$ est vrai, alors $Q(x)$ est vrai. Dans ce cadre, on dit que
+  $P\implique Q$ est un théorème. Vérifier les hypothèses
+  du théorème revient à vérifier que $P(x)$ est vrai et appliquer le
+  théorème nous permet de conclure que $Q(x)$ est vrai.
+  Traduisons mathématiquement le raisonnement suivant~: \og Socrate
+  est un homme. Puisque tous les hommes sont mortels, alors Socrate est
+  mortel \fg. Si $P(x)\defeq$ \og $x$ est un homme \fg et $Q(x)\defeq$ \og $x$ est
+  mortel \fg, alors l'énoncé \og Tous les hommes sont mortels \fg s'écrit
+  \[\forall x\in U \qsep P(x) \implique Q(x).\]
+  Puisque Socrate est un homme ($P\p{\text{Socrate}}$ est vrai), on en déduit
+  que Socrate est mortel ($Q\p{\text{Socrate}}$ est vrai).
+\end{remarqueUnique}
+
+\begin{exoUnique}
+\exo Soit $a,b\in\R$ tels que
+  \[\forall x\in\R \qsep x<a \quad\implique\quad x\leq b.\]
+  Montrer que $a\leq b$.
+\end{exoUnique}
+
+\begin{sol}
+Absurde + on cale un $c$ strictement entre $a$ et $b$.
+\end{sol}
+
+\begin{definition}[utile=-3]
+Soit $P$ et $Q$ deux assertions. On définit l'assertion $P\ssi Q$ comme
+étant vraie lorsque $P$ et $Q$ ont même valeur de vérité, et fausse sinon.
+\end{definition}
+
+\begin{remarques}
+\remarque Les valeurs de vérité des assertions $P \implique Q$ et
+  $P \ssi Q$ sont regroupées dans les tableaux suivants.
+  \begin{center}
+  \begin{minipage}{0.3\linewidth}
+  \begin{center}
+  \begin{tabular}{|c|c|c|}
+  \hline
+  \backslashbox{P}{Q} & V & F \\
+  \hline
+  V &  V & F \\
+  \hline
+  F &  V & V \\
+  \hline
+  \end{tabular}
+  \[P \implique Q\]
+  \end{center}
+  \end{minipage}
+  \begin{minipage}{0.3\linewidth}
+  \begin{center}
+  \begin{tabular}{|c|c|c|}
+  \hline
+  \backslashbox{P}{Q} & V & F \\
+  \hline
+  V & V & F \\
+  \hline
+  F &  F & V\\
+  \hline
+  \end{tabular}
+  \[P \ssi Q\]
+  \end{center}
+  \end{minipage}
+  \end{center}
+\remarque Les assertions $P\ssi Q$ et $Q\ssi P$ ont même valeur de vérité; on
+  dit que la relation d'équivalence est symétrique.
+\remarque Si $P$ et $Q$ sont deux prédicats sur $E$, dire que $P\ssi Q$
+  est vrai signifie que $Q(x)$ et $P(x)$ ont même valeur de vérité
+  quel que soit $x\in E$. Si c'est le cas, on écrit
+  \[\forall x\in E \qsep P(x) \ssi Q(x)\]
+  et on dit que $P$ est une condition nécessaire et suffisante pour $Q$.
+\end{remarques}
+
+\begin{proposition}[utile=-3]
+Soit $P$ et $Q$ deux assertions. Alors $P\ssi Q$ et $[\p{P\implique Q}$ et
+$\p{Q \implique P}]$ ont même valeur de vérité.
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque Pour démontrer que $P\ssi Q$, on pourra démontrer que
+  $P\implique Q$, puis que $Q\implique P$; on dit qu'on raisonne par
+  double implication.
+\end{remarqueUnique}
+
+\begin{exoUnique}
+\exo Soit $\lambda\in\R$ et $f$ la fonction définie sur $\R$ par
+  \[\forall x\in\R \qsep f(x)\defeq \sin(\lambda x).\]
+  Donner une condition nécessaire et suffisante sur $\lambda$ pour que
+  $f$ soit $2\pi$-périodique.
+% \exo Soit $a,b,c\in\R$ avec $a\neq 0$. On note $P\defeq aX^2+bX+c$. Donner une
+%   condition nécessaire et suffisante sur $a,b,c$ pour qu'il existe $x,y\in\R$
+%   tels que $P(x)=y$ et $P(y)=x$.
+\end{exoUnique}
+
+\begin{sol}
+Ok pour $\lambda=0$
+Si $f$ est $2\pi$-per, prendre $x=\pi/2\lambda$ et on obtient $\lambda\in\Z$. Réciproque ok.
+\end{sol}
+
+\begin{proposition}[utile=-3]
+Soit $P$, $Q$, $R$ trois assertions. Alors
+\begin{eqnarray*}
+\cro{P \et \p{Q \ou R}} &\ssi& \cro{\p{P \et Q} \ou \p{P \et R}},\\
+\cro{P \ou \p{Q \et R}} &\ssi& \cro{\p{P \ou Q} \et \p{P \ou R}}.
+\end{eqnarray*}
+\end{proposition}
+
+\begin{preuve}
+
+~~
+\begin{center}
+  \begin{tabular}{|c|c|c|c|c|c|c|c|}
+  \hline
+  P & Q & R & Q$\lor$ R & P$\wedge$ (Q$\lor$ R) & P$\wedge$ Q & P $\wedge$ R & (P$\wedge$ Q)$\lor$(P$\wedge$ R) \\
+  \hline
+  V &V & V &V &V &V &V &V \\
+  \hline
+  V & V & F & V &V &V &F & V \\
+  \hline
+  V& F & F & F &F &F &F & F \\
+  \hline
+  V & F & V & V &V &F &V & V \\
+  \hline
+  F & V & V & V &F &F &F & F \\
+  \hline
+  F & V & F & V &F &F &F & F \\
+  \hline
+  F &F &F & F &F &F &F & F \\
+  \hline
+  F &F &V & V &F &F &F & F \\
+  \hline
+  \end{tabular}
+  Preuve de la première équivalence
+  
+\end{center}
+\end{preuve}
+
+\begin{proposition}[utile=-3, nom={Lois de \nom{Morgan}}]
+Soit $P$ et $Q$ deux assertions. Alors
+\begin{eqnarray*}
+\non\p{P \et Q} &\ssi& \cro{\p{\non\  P} \ou \p{\non\  Q}},\\
+\non\p{P \ou Q} &\ssi& \cro{\p{\non\  P} \et \p{\non\  Q}},\\
+\non\p{\non\  P} &\ssi& P.
+\end{eqnarray*}
+\end{proposition}
+
+\begin{proposition}[utile=-3, nom={Raisonnement par contraposée}]
+Soit $P$ et $Q$ deux assertions. Alors
+\[\cro{P \implique Q} \quad\ssi\quad \cro{\non\  Q \implique \non\  P}.\]
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque Lorsque l'on démontre $\cro{\p{\non\  Q} \implique \p{\non\  P}}$ pour montrer
+  que $\cro{P\implique Q}$, on dit que l'on raisonne par contraposée.
+\end{remarqueUnique}
+
+\begin{exoUnique}
+\exo Supposons que l'on ait montré que $\pi^2$ est irrationnel. Peut-on en
+  déduire que $\pi$ est irrationnel~?
+\end{exoUnique}
+
+\begin{proposition}[utile=-3]
+Soit $P$ et $Q$ deux assertions. Alors
+\[\cro{\non\p{P \implique Q}} \quad\ssi\quad \cro{P \et \p{\non\ Q}}.\]  
+\end{proposition}
+
+
+\begin{proposition}[utile=-3]
+Soit $P$ un prédicat sur l'ensemble $E$. Alors
+\begin{eqnarray*}
+\non\cro{\forall x\in E \qsep P(x)} &\ssi&
+\cro{\exists x\in E \qsep \non\p{P(x)}},\\
+\non\cro{\exists x\in E \qsep P(x)} &\ssi&
+\cro{\forall x\in E \qsep \non\p{P(x)}}.
+\end{eqnarray*}
+\end{proposition}
+
+\begin{exoUnique}
+\exo Soit $f:\R\to\R$. Écrire les phrases suivantes avec des
+  quantificateurs. En déduire leur négation. \begin{center}
+  \og $f$ est majorée \fg,
+  \og $f$ est croissante \fg, \og $f$ est décroissante \fg. \end{center}
+\end{exoUnique}
+% \subsection{Principes de démonstration}
+
+% Utiliser dans une preuve une hypothèse de la forme $\cro{P \et Q}$.
+
+
+
+% Prouver une proposition de la forme $\cro{P \et Q}$.
+
+
+
+% Utiliser dans un raisonnement une proposition de la forme $\cro{P \ou Q}$.
+
+% \begin{exos}
+% \exo Soit $a,b\in\R$. Montrer que
+%    \[\max\p{a,b}=\frac{a+b+\abs{a-b}}{2} \et
+%      \min\p{a,b}=\frac{a+b-\abs{a-b}}{2}\]
+% \exo Si $n$ est la somme de deux carrés d'entiers, montrer que le reste
+%   de la division euclidienne de $n$ par 4 n'est jamais égal à 3.
+%   \begin{sol}
+%   Traiter les cas où~:
+%   \begin{itemize}
+%   \item $a$ et $b$ sont pairs~: on trouve 0.
+%   \item $a$ est pair, $b$ est impair~: on trouve 1. Le cas où $a$ est impair
+%     et $b$ est pair se montre de même.
+%   \item $a$ et $b$ sont impairs.
+%   \end{itemize}
+%   \end{sol}
+% \end{exos}
+
+% Prouver une proposition de la forme $P \ou Q$.
+
+% Le principe à retenir est le suivant~:
+% \begin{itemize}
+% \item Si $P$ est vraie, alors $\cro{P \ou Q}$ est vraie.
+% \item Sinon, on peut rajouter $\p{\non\ P}$ aux hypothèses et on cherche à
+%   montrer que $Q$ est vraie.
+% \end{itemize}
+
+% \begin{exos}
+% \exo Montrer qu'il existe deux irrationnels strictement positifs $x$ et $y$
+%   tels que $x^y$ soit rationnel.
+% \end{exos}
+
+
+\section{Ensemble}
+\subsection{Ensemble, élément}
+
+\begin{definition}[utile=-3]
+Les notions d'\emph{ensemble}, d'\emph{élément} et d'\emph{appartenance} sont des notions
+premières en mathématiques que l'on ne définit pas. Intuitivement, un ensemble
+est une collection d'objets mathématiques appelés éléments. La notation $x\in E$
+signifie que l'élément $x$ appartient à l'ensemble $E$.
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque Si $x_1,\ldots,x_n$ sont des objets mathématiques, l'ensemble
+  constitué de ces éléments est noté $\ens{x_1,\ldots,x_n}$.
+\end{remarqueUnique}
+
+\begin{definition}[utile=-3]
+Soit $A$ et $B$ deux ensembles. On dit que $A$ est \emph{inclus} dans $B$ et on note
+$A\subset B$ lorsque
+\[\forall x\in A \qsep x\in B.\]  
+\end{definition}
+
+\begin{proposition}[utile=-3]
+Deux ensembles $A$ et $B$ sont égaux lorsqu'ils possèdent les mêmes
+éléments, c'est-à-dire lorsque
+\[A\subset B \et B\subset A.\]
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque En particulier $\ens{0,1}=\ens{1,0}$ et $\ens{0,0,1}=\ens{0,1}$.
+\end{remarqueUnique}
+
+\begin{definition}[utile=-3]
+Soit $E$ un ensemble. On appelle partie de $E$ tout ensemble $A$ inclus dans $E$.
+L'ensemble des parties de $E$ est noté $\mathcal{P}(E)$.
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque Un même objet mathématique peut très bien, selon le contexte, être un élément
+  ou un ensemble. Par exemple, l'ensemble $\N$ est un élément de $\mathcal{P}(\R)$.
+\end{remarqueUnique}
+
+\begin{exoUnique}
+\exo Déterminer $\parties{\ens{1,2}}$,
+  $\parties{\parties{\emptyset}}$ et $\parties{\parties{\parties{\emptyset}}}$.
+\end{exoUnique}
+
+\begin{sol}
+$\parties{\ens{1,2}}=\ens{\emptyset,\ens{1},\ens{2},\ens{1,2}}$. $\parties{\emptyset}=\ens{\emptyset}$ donc $\parties{\parties{\emptyset}}=\ens{\emptyset, \ens{\emptyset}}$. Pour finir, $\parties{\parties{\emptyset}}=\ens{\emptyset,\ens{\emptyset},\ens{\emptyset,\ens{\emptyset}},\ens{\ens{\emptyset}}}$.
+
+\end{sol}
+
+\subsection{Opérations élémentaires}
+
+\begin{definition}[utile=-3]
+Soit $E$ un ensemble et $P$ un prédicat sur $E$. On définit
+\[\enstq{x\in E}{P(x)}\]
+comme l'ensemble des éléments $x$ de $E$ tels que $P(x)$ est vrai. C'est une partie
+de $E$.
+\end{definition}
+
+\begin{definition}[utile=-3]
+Soit $A$ et $B$ deux parties de $E$. On définit
+\[A\cap B\defeq\enstq{x\in E}{x\in A \et x\in B}, \qquad
+  A\cup B\defeq\enstq{x\in E}{x\in A \ou x\in B},\]
+\[\overline{A}\defeq\enstq{x\in E}{x\not\in A}.\]
+\end{definition}
+
+\begin{remarques}
+\remarque Le complémentaire de $A$ dans $E$ est aussi noté $A^c$.
+\remarque On dit que deux ensembles $A$ et $B$ sont disjoints lorsque
+  $A\cap B=\emptyset$.
+\end{remarques}
+
+\begin{proposition}[utile=-3]
+Soit $A$ et $B$ deux parties de $E$. Alors
+\begin{eqnarray*}
+A\cap\p{B\cup C}&=&\p{A\cap B}\cup\p{A\cap C},\\
+A\cup\p{B\cap C}&=&\p{A\cup B}\cap\p{A\cup C}.
+\end{eqnarray*}
+\end{proposition}
+
+\begin{preuve}
+Avec la proposition 1.3, on raisonne par équivalence avec $x\in A\cap\p{B\cup C}$.
+\end{preuve}
+
+\begin{proposition}[utile=-3, nom={Lois de \nom{Morgan}}]
+Soit $A$ et $B$ deux parties de $E$. Alors
+\begin{eqnarray*}
+\overline{A\cap B}&=&\overline{A}\cup \overline{B},\\
+\overline{A\cup B}&=&\overline{A}\cap \overline{B},\\
+\overline{\overline{A}}&=&A.
+\end{eqnarray*}
+\end{proposition}
+
+\begin{preuve}
+Avec la proposition 1.4, on raisonne par équivalence avec $x\in \overline{A\cap B}$.
+\end{preuve}
+
+\begin{exos}
+\exo Soit $A$ et $B$ deux parties d'un même ensemble. Montrer que
+  $\parties{A\cap B}=\parties{A}\cap\parties{B}$.
+\exo Soit $A$, $B$, $C$ trois parties d'un ensemble $E$ non vide.
+  \begin{questions}
+  \question Si $A\cup B=A\cup C$, a-t-on $B=C$~?
+  \question Si $A\cup B=A\cap B$, a-t-on $A=B$~?
+  \question Montrer que si $A\cup B=A\cup C$ et $A\cap B=A\cap C$, alors $B=C$.
+  \question Montrer que si $A\cup B=E$ et $A\cap B=\emptyset$, alors $A=\overline{B}$ et
+  $B=\overline{A}$.
+  \end{questions}
+\end{exos}
+
+\begin{definition}[utile=-3]
+Soit $A$ et $B$ deux parties de $E$. On définit
+\[A\setminus B\defeq\enstq{x\in E}{x\in A \et x\not\in B}.\]
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque En particulier, si $A$ est une partie de $E$, $\bar{A}=E\setminus A$.
+\end{remarqueUnique}
+
+\begin{definition}
+Soit $A$ et $B$ deux ensembles. On définit $A\times B$ comme l'ensemble
+des \emph{couples} $\p{a,b}$ avec $a\in A$ et $b\in B$. Par définition, deux couples
+$\p{a_1,b_1}, \p{a_2,b_2}\in A\times B$ sont égaux lorsque $a_1=a_2$ et $b_1=b_2$.
+\end{definition}
+
+\begin{definition}[utile=-3]
+\begin{itemize}
+\item Si $A_1,\ldots,A_n$ sont $n$ ensembles, on définit
+  $A_1\times\cdots\times A_n$ comme l'ensemble des $n$-uplets
+  $\p{a_1,\ldots,a_n}$ avec $a_1\in A_1,\ldots,a_n\in A_n$. Par définition, deux $n$-uplets
+  $\p{a_1,\ldots,a_n}, \p{b_1,\ldots,b_n}\in A_1\times\cdots\times A_n$ sont égaux lorsque
+  \[\forall k\in\intere{1}{n} \qsep a_k=b_k.\]
+\item Si A est un ensemble et $n\in\N$, on définit $A^n$ comme
+  \[A^n\defeq\underbrace{A\times A\times\cdots\times A}_{\text{$n$ fois $A$}}.\]
+\end{itemize}
+\end{definition}
+
+\begin{remarques}
+\remarque $A^1$ est l'ensemble des 1-uplets $(a)$, pour $a\in A$; on confondra cet
+  ensemble avec $A$. Quant à $A^0$, c'est l'ensemble qui contient un unique élément,
+  le $0$-uplet $()$.
+\remarque Pour énoncer qu'un prédicat portant sur deux variables est vrai, on peut écrire
+  \og $\forall x\in A\qsep \forall y\in A\qsep P(x,y)$ \fg.
+  On condense cependant souvent cette phrase en \og $\forall (x,y)\in A^2\qsep P(x,y)$ \fg ou
+  en \og $\forall x,y\in A\qsep P(x,y)$\fg.
+  % Daniel Perrin le fait
+\end{remarques}
+
+\section{Application}
+
+\subsection{Définition, exemples}
+\begin{definition}[utile=-3]
+Soit $E$ et $F$ deux ensembles. Une \emph{application} $f$ de $E$ dans $F$ associe
+à tout élément $x\in E$ un unique élément $f(x)\in F$, appelé image de $x$ par
+$f$. On note
+\[\dspappli{f}{E}{F}{x}{f(x).}\]
+On dit que $E$ est le \emph{domaine} de $f$ et que $F$ est son \emph{codomaine}. L'ensemble des
+applications de $E$ dans $F$ est noté $\mathcal{F}\p{E,F}$.
+\end{definition}
+
+
+\begin{remarques}
+\remarque Deux applications sont égales lorsqu'elles ont même domaine et codomaine et qu'elles prennent la
+  même valeur en chaque point de ce domaine.
+\remarque On utilise aussi les expressions \og ensemble de départ \fg et \og ensemble d'arrivée \fg
+  d'une application pour désigner respectivement son domaine et son codomaine.
+\remarque \og application \fg et \og fonction \fg sont synonymes. L'usage veut cependant que l'on
+  réserve le mot \og fonction \fg aux applications dont le domaine et le codomaine sont des parties de $\C$.
+\remarque L'ensemble $\mathcal{F}\p{E,F}$ est aussi noté $F^E$.
+\remarque Pour les fonctions usuelles, il arrive qu'on omette les parenthèses et
+  qu'on écrive $\sin x$ au lieu de $\sin(x)$. Cependant, on ne se permettra pas de faire cela avec les
+  autres fonctions.
+\end{remarques}
+
+\begin{definition}
+Soit $A$ une partie de $E$. On appelle \emph{fonction caractéristique} de $A$ et on note $\mathds{1}_A$ l'application de $E$ dans $\ens{0,1}$ définie
+par
+  \[\forall x\in E \qsep \mathds{1}_A(x)\defeq
+    \begin{cases}
+    1 & \text{si $x\in A$}\\
+    0 & \text{sinon.}
+    \end{cases}\]
+\end{definition}
+
+\begin{remarques}
+\remarque Deux parties $A$ et $B$ de $E$ sont égales si et seulement si $\mathds{1}_{A}=\mathds{1}_{B}$.
+\remarque Si $A$ et $B$ sont deux parties de $E$, alors
+  \[\forall x\in E\qsep \mathds{1}_{A\cap B}(x)=\mathds{1}_{A}(x)\mathds{1}_{B}(x) \et \mathds{1}_{A\cup B}(x)=\max\p{\mathds{1}_{A}(x), \mathds{1}_{B}(x)}.\]
+\end{remarques}
+
+%% Remarques :
+%% 1) 
+%% 2) 
+%% 3) Lorsqu'on définit une fonction f:E->F, il faudra toujours bien veiller à
+%%    ce que :
+%%    - f(x) a un sens pour tout x dans E
+%%    - f(x) est dans F
+%%     -f(x) ne dépend que de x : (problème avec exp(i theta)->theta
+%%
+%% Exemples :
+%% 1) f : R -> R   x -> 1/(1+x^2)
+%% 2) Si A est une partie de E, on définit
+%%    f: P(E) -> P(E)   X -> X \cap A
+%% 3) f : F(R,R) -> F(RPs,RPs)  g -> exp o g o ln
+
+\begin{definition}[utile=-3]
+Si $f$ est une application de $E$ dans $F$, on appelle \emph{graphe} de $f$ l'ensemble
+\[\enstq{\p{x,y}\in E\times F}{f(x)=y}.\]
+\end{definition}
+
+\begin{definition}[utile=-3]
+Soit $f:E\to F$ et $y\in F$. On appelle \emph{antécédent} de $y$ tout élément $x\in E$
+tel que $f(x)=y$.  
+\end{definition}
+
+%% Exemples :
+%% 1) Soit f : R -> R  x -> sin(x)
+%%    Calcul des antécédents du réel y
+
+\begin{exoUnique}
+\exo Soit $f$ l'application de $\R^2$ dans $\R^2$ qui au couple $(x,y)$
+  associe le couple $(x+2y,xy)$. Déterminer les antécédents de $(3,1)$.
+  \begin{sol}
+  Ce sont $(1,1)$ et $(2,1/2)$.
+  \end{sol}
+\end{exoUnique}
+
+\begin{definition}[utile=-3]
+Soit $f:E\to F$.
+\begin{itemize}
+\item Soit $B$ une partie de $F$. On appelle image réciproque de $B$
+  et on note $f^\applirec (B)$ l'ensemble des éléments de $E$
+  dont l'image par $f$ est dans $B$.
+  \[f^\applirec (B)\defeq\enstq{x\in E}{f(x)\in B}\]
+\item Soit $A$ une partie de $E$. On appelle image directe de $A$ 
+  et on note $f(A)$ l'ensemble des éléments de $F$ qui sont
+  image d'un élément de $A$ par $f$.
+  \[f(A)\defeq\enstq{y\in F}{\exists x\in A \qsep f(x)=y}\]  
+  L'ensemble $f(E)$ est appelé image de $f$ et noté $\im f$.
+\end{itemize}
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque L'ensemble image $f(A)$ est aussi noté
+  \[\ensim{f(x)}{x\in A}.\]
+\end{remarqueUnique}
+
+\begin{exos}
+\exo Soit $f$ la fonction
+  \[\dspappli{f}{\R}{\R}{x}{\sin x}\]
+  Calculer $f^{-1}(f(\ens{\pi/2}))$ et $f(f^{-1}(\ens{0, 2}))$.
+\exo Soit $f$ la fonction de $\C\setminus\ens{\ii}$ dans $\C$ qui à $z$
+  associe $\frac{z+\ii}{z-\ii}$. Calculer %$f\p{\U\setminus\ens{i}}$ et  
+  $f^\applirec \p{\U}$.
+  \begin{sol}
+  On a
+  \[f\p{e^{i\theta}}=-i\cotan\p{\frac{\theta}{2}-\frac{\pi}{4}}\]
+  donc $f\p{\U\setminus\ens{i}}=i\R$.) On trouve $f^\applirec \p{\U}=\R$
+  (utiliser que la norme au carré fait $1$ et passer par le conjugué).
+  \end{sol}
+\exo Soit $f$ la fonction de $\R$ dans $\R$ définie par
+  \[\forall x\in\R \qsep f(x)\defeq\frac{x}{1+x^2}.\]
+  En lisant le tableau de variations de $f$, intuiter $f(\R)$, puis
+  prouver rigoureusement ce résultat.
+  \begin{sol}
+  On trouve $\interf{-1/2}{1/2}$ (étude de fonctions avec dérivée et tableau de variations).
+  \end{sol}
+% \exo Soit $f$ l'application de $\R$ dans $\R$ définie par
+%   \[\forall x\in\R \qsep f(x)=\sqrt{3}\sin x+\cos x\]
+%   Déterminer $f^\applirec\p{\interf{0}{1}}$.
+\exo Soit $f$ une application de $E$ dans $F$. Si $A$ est une partie de $E$,
+  comparer $f^{-1}(f(A))$ et $A$. De même, si $B$ est une partie de $F$,
+  comparer $f(f^{-1}(B))$ et $B$.  
+ \begin{sol}
+ $f^{-1}(f(A))\supset A$ et $f(f^{-1}(B))\subset B$.
+ \end{sol}
+\end{exos}
+
+%% Exemples :
+%% 1) Étudier l'image réciproque par f(x)=x^2 de [-1,1] puis l'image directe par
+%%    f de [-1,1]
+
+\begin{definition}[utile=-3]
+Soit $f$ une application de $E$ dans $F$.
+\begin{itemize}
+\item Si $A$ est une partie de $E$, l'application
+  \[\dspappli{\restri{f}{A}}{A}{F}{x}{f(x)}\]
+  est appelée \emph{restriction} de $f$ à $A$.
+\item On dit qu'une application $g$ est un
+  \emph{prolongement} de $f$ lorsque $f$ est une restriction de $g$.
+\item Si $B$ est une partie de $F$ telle que
+  \[\forall x\in E \qsep f(x)\in B\]
+  l'application
+  \[\dspappli{\corestri{f}{B}}{E}{B}{x}{f(x)}\]
+  est appelée \emph{corestriction} de $f$ à $B$.
+\end{itemize}
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque Soit $f:E\to F$, $A$ une partie de $E$ et $B$ une partie de $F$
+  telles que
+  \[\forall x\in A\qsep f(x)\in B.\]
+  Alors, on peut définir l'application
+  \[\dspappli{\restricorestri{f}{A}{B}}{A}{B}{x}{f(x)}\]
+  appelée restriction de $f$ à $A$, corestreinte à $B$.
+\end{remarqueUnique}
+
+
+%% Exemples :
+%% 1) l'application f : [-Pi/2,Pi/2] -> [-1,1]  x -> sin(x) est la restriction
+%%    de l'application de g à [-Pi/2,Pi/2] corestreinte à [-1,1] où g est
+%%    l'application R -> R  x -> sin(x)
+%% 2) l'application f : R -> R  x -> (sin x)/x si x \neq 0 et x-> 1 si x=0
+%%    est un prolongement de x->sin x/x. C'est d'ailleurs le seul prolongement
+%%    continu en 0.
+
+\begin{definition}[utile=-3]
+Soit $f:E\to F$ et $g:F\to G$. On définit l'application $g\circ f$ de $E$ dans $G$ par
+\[\forall x\in E\qsep (g\circ f)(x)\defeq g\p{f(x)}.\]
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque Si $A$ est une partie de $E$, alors $(g\circ f)(A)=g(f(A))$. De même, si
+  $B$ est une partie de $F$, alors \[(g\circ f)^{-1}(B)=f^{-1}(g^{-1}(B)).\]
+\end{remarqueUnique}
+
+%% Exemple :
+%% 1) Si f : R -> RP x -> x^2 et g : RP -> R x -> sqrt(x)
+%%    alors (f o g) : RP -> RP  x -> x
+%%    et    (g o f) : R  -> R   x -> abs(x) 
+%%
+%% Remarque :
+%% 1) si f : E -> B et g : F -> G, et que B\subset F, on peut composer gof
+%%    il suffit de restreindre g
+
+\begin{proposition}[utile=-3]
+Soit $f:E\to F$, $g:F\to G$ et $h:G\to H$. Alors
+\[\p{h\circ g}\circ f=h\circ\p{g\circ f}.\]
+On note cette application $h\circ g\circ f$.
+\end{proposition}
+
+\subsection{Application injective, surjective, bijective}
+
+\begin{definition}[utile=-3]
+Soit $f:E\to F$. On dit que $f$ est \emph{injective} lorsque
+\[\forall x_1,x_2\in E \qsep f\p{x_1}=f\p{x_2} \implique x_1=x_2\]
+c'est-à-dire lorsque tout élément de $F$ a au plus un antécédent.
+\end{definition}
+
+\begin{exos}
+\exo Soit $f$ une fonction de $\R$ dans $\R$. Montrer que si $f$ est
+  strictement monotone alors elle est injective. La réciproque est-elle vraie~?
+\exo Soit $f$ une fonction de $\R$ dans $\R$ telle que :
+  $\forall x,y\in\R \qsep \abs{f(x)-f(y)}\geq\abs{x-y}$. Montrer qu'elle est
+  injective.
+\exo Soit $\phi$ l'application qui à la fonction $f$ de
+  $[-1,1]$ dans $\R$ associe la fonction $\phi(f)$ de $\R$ dans $\R$
+  définie par
+  \[\forall x\in\R \qsep \cro{\phi(f)}(x)\defeq f\p{\sin x}\]
+  Montrer que $\phi$ est injective.
+  \begin{sol}
+  $\phi(f)=\phi(g)$ implique $f\p{\sin x}=g\p{\sin x}, \forall x\in\R$ donc $f$ et $g$ sont égales étant donné les valeurs prises par $\sin$.
+  \end{sol}
+\exo Soit $E$ un ensemble et $A$ une partie de $E$. Donner une condition
+  nécessaire et suffisante sur $A$ pour que
+  \[\dspappli{\phi}{\parties{E}}{\parties{E}}{X}{X\cap A}\]
+  soit injective.
+  \begin{sol}
+  $A=E$, sinon on raisonne par l'absurde en prenant un élément $b$ de $E\setminus A$ et $X=A$, $Y=A\cup \ens{b}$.
+  \end{sol}
+\end{exos}
+
+%% Exemple :
+%% 1) f : RP -> R x->x^2, alors f est injective
+%% 2) f : R -> R^2  x -> (x,0) est injective
+%% 3) l'application phi qui a une fonction f de [-1,1] dans R associe le fonction
+%%    g de R dans R définie par g(x)=f(sin(x)) est une application injective.  
+%%
+%% En pratique :
+%% Pour montrer qu'une application est injective :
+%% 1) On montre que l'équation f(x)=y a au plus une solution : pour cela, on
+%%    peut raisonner par implication (ou par analyse)
+%% 2) On montre que f(x_1)=f(x_2) implique x_1=x_2
+
+\begin{definition}[utile=-3]
+Soit $f:E\to F$. On dit que $f$ est \emph{surjective} lorsque
+\[\forall y\in F \qsep \exists x\in E \qsep f(x)=y\]
+c'est-à-dire lorsque tout élément de $F$ a au moins un antécédent.
+\end{definition}
+
+%% Exemple :
+%% 1) f : R -> RP   x -> x^2 est surjective
+%% 2) f : R^2 -> R   (x,y) -> x est surjective
+%% 3) Si D est une droite du plan P, l'application f de P dans D qui au point M
+%%    associe son projeté orthogonal sur D est surjective 
+%%
+%% En pratique :
+%% 1) On montre que l'équation f(x)=y a au moins une solution
+%%
+%% Remarque :
+%% 1) f est surjective si et seulement si f(E)=F
+
+\begin{proposition}[utile=-3]
+Une application $f:E\to F$ est surjective si et seulement si $\im f=F$.
+\end{proposition}
+
+\begin{exos}
+% \exo Soit $f$ le fonction de $\R$ dans $\R$ définie par~:
+%   $\forall x\in\R \qsep f(x)=x^3-x$. $f$ est-elle injective~? surjective~?
+%   Calculer $f\p{\RP}$ et $f^\applirec \p{\interf{-6}{6}}$.
+\exo L'application
+  \[\dspappli{\phi}{\mathcal{F}\p{\R,\R}}{\R}{f}{f\p{0}}\]
+  est-elle injective~? surjective~?
+% \exo Soit $f:E\to F$ et $g:E\to G$. On définit l'application $\phi$ de
+%   $E$ dans $F\times G$ par \[\forall x\in E \qsep \phi(x)\defeq \p{f(x),g(x)}.\]
+%   Que dire des assertions \og $\phi$ est injective si et seulement si $f$
+%   et $g$ le sont \fg et \og $\phi$ est surjective si et seulement si $f$ et
+%   $g$ le sont \fg~?
+%   \begin{sol}
+%   Faux. Si $f=\id$ et $g=1$, $\phi$ est injective sans que $g$ le soit. Il suffit en fait que l'une des deux soit injective pour que $\phi$ le soit.
+%   Pour la deuxième, c'est l'inverse, si $\phi$ est surjective, alors $f$ et $g$ le sont. Mais si $f=\id=g$, $\phi$ n'est pas surjective.
+%   \end{sol}
+\end{exos}
+
+\begin{definition}[utile=-3]
+On dit qu'une application $f:E\to F$ est \emph{bijective} lorsqu'elle est injective et
+surjective, c'est-à-dire lorsque tout élément de $F$ possède un unique antécédent.
+\end{definition}
+
+\begin{exos}
+\exo Montrer que la fonction $f$ qui à $x$ associe $\frac{1+\ii x}{1-\ii x}$
+  réalise une bijection de $\R$ dans $\U\setminus\ens{-1}$.
+  \begin{sol}
+  $\displaystyle z=\frac{1+ix}{1-ix}\Longleftrightarrow x=-i \frac{z-1}{z+1}$, ce qui est bien dans $\R$, on le constate en prenant le conjugué et en utilisant que $\conj{z}=1/z$.
+  \end{sol}
+\exo Montrer que l'application
+  \[\dspappli{f}{\N^2}{\N}{\p{a,b}}{2^a\p{2b+1}-1}\]
+  est bijective.
+\exo Soit $X$ un ensemble et $f:X^2\to X$ une bijection. Montrer que
+  \[\dspappli{g}{X^3}{X}{(x,y,z)}{f\p{x,f(y,z)}}\]
+  est bijective.
+\end{exos}
+
+
+%% Exemples :
+%% 1) Si n>=1, f : RP -> RP  x -> x^n  est bijective
+%% 2) f : RPs -> R  x -> ln(x) est bijective
+%% 3) f : R -> RPs  x -> exp(x) est bijective
+%% 4) f : [-Pi/2,Pi/2] -> [-1,1] -> sin(x) est bijective
+%% 5) L'application de P(E) dans P(E) qui a X associe son complémentaire est
+%%    bijective.
+%% 6) L'apllication phi de F(RP,RP) dans F(R,R) qui à la fonction f associe la
+%%    fonction g définie par g(x)=ln(f(exp(x))) est bijective.
+%%
+%% En pratique :
+%% 1) On montre que l'équation f(x)=y a une et une seule solution
+%% 2) On montre que f est injective, puis que f est surjective
+
+\begin{proposition}[utile=-3]
+\begin{itemize}
+\item La composée de deux applications injectives est injective.
+\item La composée de deux applications surjectives est surjective.
+\item La composée de deux applications bijectives est bijective.
+\end{itemize}
+\end{proposition}
+
+\begin{exos}
+\exo Soit $f:E\to F$ et $g:F\to G$. Montrer que si $g\circ f$ est injective,
+  alors $f$ est injective. De même, montrer que si $g\circ f$ est surjective,
+  alors $g$ est surjective.
+\exo Est-il vrai que si $g\circ f$ est bijective, $f$ et $g$ le sont~?
+\begin{sol}
+Contre-exemple : $f:\ens{0,1}\to\R$ telle que $f(x)=x$, $g:\R\to\ens{0,1}$ telle que $g(x)=x$ si $x\in \ens{0,1}$ et $g(x)=0$ sinon.
+\end{sol}
+\end{exos}
+
+\begin{definition}[utile=-3]
+Soit $E$ un ensemble. On appelle \emph{identité} et on note $\id_E$
+l'application de $E$ dans $E$ définie par
+\[\forall x\in E \qsep \id_E(x)\defeq x.\]
+Si $f$ est une application de $E$ dans $F$
+\[f\circ \id_E=f \et \id_F\circ f=f.\]
+\end{definition}
+
+\begin{proposition}[utile=-3]
+Soit $f$ une application de $E$ dans $F$.
+\begin{itemize}
+\item L'application $f$ est bijective si et seulement si il existe une
+  application $g:F\to E$ telle que
+  \[g\circ f=\id_E \et f\circ g=\id_F.\]
+  Si tel est le cas, $g$ est unique; on l'appelle \emph{bijection réciproque} de $f$
+  et on la note $f^{-1}$.
+\item Si $f:E\to F$ est bijective, $f^{-1}$ est bijective et $\p{f^{-1}}^{-1}=f$.
+\end{itemize}
+\end{proposition}
+
+\begin{preuve}
+On raisonne par double implication. 
+\begin{itemize}
+\item [$\bullet$]
+Tout d'abord, si il existe une application $g:F\to E$ telle que \[g\circ f=\id_E \et f\circ g=\id_F.\]
+Comme $\id_E$ est injective, $g\circ f$ est injective donc $f$ est injective (cf. ex. précédent). De même, comme $\id_F$ est surjective, $f\circ g $ est surjective donc $f$ est surjective.
+Finalement, $f$ est bijective.
+\item [$\bullet$] Si $f$ est bijective. Fixons $y\in F$, il existe un unique $x$ dans $E$ tel que $f(x)=y$. Notons-le $g(y)$. On définit ainsi une fonction $g:F\to E$ vérifiant $f(g(y))=y, \forall y \in F$. $g$ associe donc à tout élément de $F$ son antécédent par $f$. Ainsi, pour tout $x\in E$, $g$ associe à $f(x)$ son antécédent par $f$, c'est-à-dire $x$, donc $g(f(x))=x$.
+\end{itemize}
+Pour l'unicité, supposons qu'il existe $h$ qui réalise la même chose, on a donc $h\circ f=\id_E$, on compose par $g$ à droite et on obtient $h=g$.
+
+Enfin, si $f$ est bijective, il existe donc $f^{-1} : F\to E$ telle que \[f^{-1}\circ f=\id_E \et f\circ f^{-1}=\id_F.\] donc en appliquant la première partie du théorème à $f^{-1}$ avec $f$ qui joue le rôle de $g$, on obtient bien que $f^{-1}$ est bijective et $\p{f^{-1}}^{-1}=f$.
+
+\end{preuve}
+
+\begin{remarques}
+\remarque Soit $f$ une bijection de $E$ dans $F$. Quel que soit $y\in F$, si $x\in E$
+  est tel que $f(x)=y$, alors $f^{-1}(y)=x$.
+\remarque La fonction $\ln$ de $\RPs$ dans $\R$ est une bijection et sa
+  bijection réciproque est la fonction $\exp$ de $\R$ dans $\RPs$.
+\end{remarques}
+
+\begin{exos}
+\exo Montrer que l'application
+  \[\dspappli{f}{\Z^2}{\Z^2}{(x,y)}{(2x+y,5x+3y)}\]
+  est bijective et calculer $f^{-1}$.
+	\begin{sol}
+$f^{-1}(a, b)=(3a-b,-5a+2b)$
+	\end{sol}
+\exo Soit $f$ une bijection de $\R$ dans $\R$. Montrer que si $f$ est
+  strictement croissante, il en est de même pour $f^{-1}$. Que dire si $f$
+  est impaire~?
+  \begin{sol}
+  Si $f$ est impaire, on regarde $f(f^{-1}(-x))=-x$ et $f(-f^{-1}(x))=-f(f^{-1}(x))=-x$ donc $f^{-1}(-x)=-f^{-1}(x)$ par injectivité.
+  
+  Une fonction paire ne peut pas être bijective.
+  \end{sol}
+% \exo Soit $f:F\to E$ et $g:G\to E$ deux applications. Montrer qu'il existe
+%   une application $h:G\to F$ telle que $g=f\circ h$ si et seulement si
+%   $g(G)\subset f(F)$.
+\end{exos}
+
+%% Exemples : calcul de la bijection réciproque de
+%% 1) Si n>=1, f : RP -> RP  x -> x^n  est bijective
+%% 2) f : RPs -> R  x -> ln(x) est bijective
+%% 3) f : R -> RPs  x -> exp(x) est bijective
+%% 4) f : [-Pi/2,Pi/2] -> [-1,1] -> sin(x) est bijective
+%% 5) L'application de P(E) dans P(E) qui a X associe son complémentaire est
+%%    bijective.
+%% 6) L'apllication phi de F(RP,RP) dans F(R,R) qui à la fonction f associe la
+%%    fonction g définie par g(x)=ln(f(exp(x))) est bijective.
+%%
+%% En pratique :
+%% 1) On résout l'équation f(x)=y. L'unique solution en x est f^{-1}(y)
+%%
+%% Applications :
+%% 1) Changement de variable
+%%    \forall x\in E_1 f_1(x)=f_2(x) \ssi
+%%      \forall t\in E_2 f_1\p{x(t)}=f_2\p{x(t)}
+%%    pour cela, il suffit que x soit surjective (exemple avec sinus).
+%%    Le plus souvent le changement de variable est bijectif (exemple avec
+%%    l'exponentielle)
+
+\begin{proposition}[utile=-3]
+Soit $f:E\to F$ et $g:F\to G$ deux applications bijectives. Alors $g\circ f$
+est bijective et
+\[\p{g\circ f}^{-1}=f^{-1} \circ g^{-1}.\]
+\end{proposition}
+
+\subsection{Famille}
+
+Si $E$ est un ensemble, il est courant de se donner $n$ éléments
+$f_1,\ldots,f_n$ de $E$. Cela revient à définir une application
+\[\dspappli{f}{\intere{1}{n}}{E}{i}{f(i)}\]
+où l'on pose $f(i)\defeq f_i$ pour tout $i\in\intere{1}{n}$. Nous dirons que $f$ est une
+famille d'éléments de $E$ indexée par $\intere{1}{n}$. On peut généraliser ce principe
+et construire des familles indexées par un ensemble quelconque. Par exemple, on peut considérer
+l'application $f$ de $\R$ dans $\mathcal{F}(\R, \R)$, qui à $\lambda\in\R$ associe la
+fonction $f_\lambda:\R\to\R$ définie par
+\[\forall x\in\R\qsep f_\lambda(x)\defeq\e^{\lambda x}.\]
+On a ainsi défini une famille d'éléments de $\mathcal{F}(\R, \R)$ indexée par $\R$.
+
+\begin{definition}[utile=-3]
+Soit $E$ un ensemble et $I$ un ensemble, appelé ensemble d'indices. On appelle
+\emph{famille d'éléments de $E$ indexée par $I$} toute application
+\[\dspappli{f}{I}{E}{i}{f_i.}\]
+Cette application est notée $\p{f_i}_{i\in I}$. L'ensemble des familles
+d'éléments de $E$ indexées par $I$ est noté $E^I$.
+\end{definition}
+
+\begin{remarques}
+\remarque Une famille d'éléments de $E$ indexée par $\N$ est une suite d'éléments de $E$.
+\remarque On appelle sous-famille d'une famille $\p{f_i}_{i\in I}$ toute famille
+  de la forme $\p{f_i}_{i\in J}$ où $J$ est une partie de $I$.
+\remarque Si $A$ est un ensemble, on dit qu'une famille $(f_i)_{i\in I}$ est la famille des éléments de $A$ lorsque $f$ est une bijection de $I$ dans $A$. Le fait de parler de \og la\fg famille des éléments de $A$ est un abus de langage, car cette famille n'est pas unique.
+% Par abus de langage, bien qu'elle ne soit pas unique, on parlera souvent de la famille des éléments d'un ensemble pour désigner une telle famille.
+% Si $A$ est un ensemble, on appelle famille des éléments de $A$
+%   l'application
+%   \[\dspappli{f}{A}{A}{a}{f_a=a}\]
+%   que l'on note $(f_a)_{a\in A}$ ou plus simplement $(f_i)_{i\in I}$ (où $I=A$, ce
+%   que l'on s'empresse d'oublier).
+\end{remarques}
+
+%% Exemples :
+%% 1) une suite  d'éléments de E est une famille indexée par N
+%% 2) (f_a)_(a\in\R) la famille indexée par \R des fonctions de \R dans \C définies
+%%    par f_a(x)=exp(iax)
+%% 3) La famille ([-1/n,1/n])_(n\in\Ns)
+%% Exemples :
+%% 1) la famille (f_n)_(n\in\N) définie par f_n(x)=exp(inx) est une sous-famille
+%%    de la famille définie plus haut.
+
+\begin{definition}[utile=-3]
+Soit $E$ un ensemble et $\p{A_i}_{i\in I}$ une famille de parties de $E$. On
+définit alors
+\[\bigcap\limits_{i\in I} A_i\defeq \enstq{x\in E}{\forall i\in I \qsep x\in A_i},\]
+\[\bigcup\limits_{i\in I} A_i\defeq \enstq{x\in E}{\exists i\in I \qsep x\in A_i}.\]
+\end{definition}
+
+%% Exemples :
+%% 1) intersection des [-1/n,1/n]
+
+\begin{exoUnique}
+% \exo Soit $f:E\to F$ et $\p{A_i}_{i\in I}$ une famille de parties de
+%   $E$. Comparer
+%   \[f\p{\bigcap\limits_{i\in I} A_i} \et \bigcap\limits_{i\in I} f\p{A_i}\]
+\exo Soit $f:E\to E$. On définit $f^n$ pour tout $n\in\N$ par
+  \[f^0\defeq \id_E \et \cro{\forall n\in\N \qsep f^{n+1}\defeq f\circ f^n}\]
+  Soit $A$ une partie de $E$. Pour tout $n\in\N$, on pose $A_n\defeq f^n(A)$.
+  Enfin, on pose $B\defeq \cup_{n\in\N} A_n$. Montrer que $A\subset B$ et que
+  $f(B)\subset B$.
+%   De plus, montrer que si $C$ est une partie de $E$ telle que
+%   $A\subset C$ et $f(C)\subset C$, alors $B\subset C$.
+\end{exoUnique}
+
+\begin{proposition}[utile=-3]
+Soit $E$ un ensemble et $\p{A_i}_{i\in I}$ une famille de parties de $E$. Alors
+\[\overline{\bigcap\limits_{i\in I} A_i}=\bigcup\limits_{i\in I} \overline{A_i} \et
+  \overline{\bigcup\limits_{i\in I} A_i}=\bigcap\limits_{i\in I} \overline{A_i}.\]
+\end{proposition}
+
+\begin{definition}[utile=-3, nom=Partition]
+Soit $E$ un ensemble et $\p{A_i}_{i\in I}$ une famille de parties de $E$.
+On dit que $\p{A_i}_{i\in I}$ est une \emph{partition} de $E$ lorsque
+\[E = \bigcup_{i\in I} A_i \qquad\et\qquad \cro{\forall i,j\in I\qsep i\neq j\implique
+  A_i\cap A_j=\emptyset}.\]
+\end{definition}
+
+\begin{remarques}
+\remarque La définition de partition peut varier d'un cours à l'autre.
+  Dans certains cours, on demande en plus que les $A_i$ soient non vides; on appelle
+  alors \emph{recouvrement disjoint} ce que nous appelons ici partition.
+\remarque La notion de partition a été définie à l'aide de familles. Mais on peut aussi
+  la définir de manière ensembliste; on dit qu'une partie $\mathcal{R}$ de
+  $\mathcal{P}(E)$ est une \emph{partition (au sens ensembliste)} de $E$ lorsque  
+  \begin{itemize}
+  \item $\forall x\in E\qsep \exists A\in\mathcal{R}\qsep x\in A$.
+  \item $\forall A_1, A_2\in\mathcal{R}\qsep A_1\neq A_2\implique A_1\cap A_2=\emptyset$.
+  \item $\forall A\in\mathcal{R}\qsep A\neq\emptyset$. 
+  \end{itemize}
+  Remarquons que dans la définition ensembliste, on demande à ce que les ensembles appartenant à $\mathcal{R}$
+  soient non vides.
+\end{remarques}
+
+\begin{exoUnique}
+\exo Déterminer les partitions (au sens ensembliste) de $E\defeq\ens{1,2,3}$.
+\end{exoUnique}
+
+\section{Relation binaire}
+
+\begin{definition}[utile=-3]
+Soit $E$ un ensemble. On appelle \emph{relation binaire} sur $E$ tout prédicat
+$\mathcal{R}$ défini sur $E\times E$. Si $x$ et $y$ sont deux
+éléments de $E$ et $\mathcal{R}\p{x,y}$ est vrai, on écrit $x\mathcal{R} y$.
+\end{definition}
+
+\begin{definition}[utile=-3]
+On dit qu'une relation binaire $\mathcal{R}$ sur $E$ est
+\begin{itemize}
+\item \emph{réflexive} lorsque
+  \[\forall x\in E \qsep x\mathcal{R} x.\]
+\item \emph{transitive} lorsque
+  \[\forall x,y,z\in E \qsep \cro{x\mathcal{R} y \et y\mathcal{R} z} \implique
+    x\mathcal{R} z.\]
+\item \emph{symétrique} lorsque
+  \[\forall x,y\in E \qsep x\mathcal{R} y \implique y\mathcal{R} x.\]
+\item \emph{antisymétrique} lorsque
+  \[\forall x,y\in E \qsep \cro{x \mathcal{R}y \et y\mathcal{R} x} \implique
+    x=y.\]
+\end{itemize}
+\end{definition}
+
+\subsection{Relation d'ordre}
+
+\begin{definition}[utile=-3]
+On dit qu'une relation binaire $\preceq$ est une
+\emph{relation d'ordre} lorsqu'elle est
+\begin{itemize}
+\item réflexive~: $\forall x\in E \qsep x\preceq x.$
+\item transitive~: $\forall x,y,z\in E \qsep \cro{x\preceq y \et y\preceq z}
+  \implique x\preceq z.$
+\item antisymétrique~: $\forall x,y\in E \qsep \cro{x\preceq y \et y\preceq x}
+  \implique x=y.$
+\end{itemize}
+On appelle \emph{ensemble ordonné} tout ensemble muni d'une relation d'ordre.
+\end{definition}
+
+\begin{remarques}
+\remarque La relation $\leq$ est une relation d'ordre sur $\R$.  La relation
+  $\leq$ définie sur $\mathcal{F}\p{\R,\R}$ par
+  \[\forall f,g\in\mathcal{F}\p{\R,\R} \qsep f\leq g \quad\ssi\quad
+    \cro{\forall x\in\R \qsep f(x)\leq g(x)}\]
+  est une relation d'ordre sur $\mathcal{F}\p{\R,\R}$.
+ \remarque Si $E$ est un ensemble,
+  la relation d'inclusion est une relation d'ordre sur $\parties{E}$. 
+\remarque Si $\preceq$ est une relation d'ordre sur $E$, la relation
+  $\succeq$ définie par
+  \[\forall x,y\in E \qsep x\succeq y \quad\ssi\quad y\preceq x\]
+  est une relation d'ordre appelée relation d'ordre opposée à la première.
+\remarque La relation $<$ n'est pas une relation d'ordre sur $\R$ car elle
+  n'est pas réflexive.
+\end{remarques}
+
+\begin{exoUnique}
+\exo Montrer que la relation | définie sur $\N$ par
+  \[\forall a,b\in\N \qsep a|b \quad\ssi\quad \cro{\exists k\in\N \qsep b=ka}\]
+  est une relation d'ordre sur $\N$.
+\end{exoUnique}
+
+%% Exemples :
+%% 1) relation d'ordre <= sur R
+%% 2) relation d'ordre <= sur F(R,R)
+%% 3) inclusion sur P(E)
+%% 4) divisibilité sur N
+%%
+%% Remarques :
+%% 1) si <= est une relation d'ordre, >= est aussi une relation d'ordre appelée
+%%    relation d'ordre opposée
+%% 2) La relation < n'est pas une relation d'ordre sur R car elle n'est pas
+%%    réflexive
+
+\begin{definition}[utile=-3]
+On dit qu'une relation d'ordre $\preceq$ est totale lorsque
+\[\forall x,y\in E \qsep x\preceq y \ou y\preceq x.\]
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque La relation d'ordre $\leq$ est totale sur $\R$. Par contre, les
+  relations $\leq$ sur $\mathcal{F}\p{\R,\R}$, $\subset$ sur $\parties{E}$ et
+  | sur $\N$ ne sont pas totales.
+\end{remarqueUnique}
+
+%% Exemples :
+%% Voir exemples précédents
+%% 1) est totale
+%% 2) n'est pas totale : f(x)=0 et g(x)=x
+%% 3) n'est pas totale dès que E possède plus de deux éléments
+%% 4) n'est pas totale : 2 et 3
+
+\begin{definition}[utile=-3]
+Soit $\p{E,\preceq}$ un ensemble ordonné et $A$ une partie de $E$.
+\begin{itemize}
+\item On dit que $M\in E$ est un \emph{majorant} de $A$ lorsque
+  \[\forall a\in A \qsep a\preceq M.\]
+\item On dit que $m\in E$ est un \emph{minorant} de $A$ lorsque
+  \[\forall a\in A \qsep m\preceq a.\]
+\end{itemize}
+\end{definition}
+
+\begin{exoUnique}
+\exo Soit $c>0$. On définit la relation $\preceq$ sur $\R^2$ par
+  \[\forall (x,t),(x',t')\in\R^2 \qsep (x,t)\preceq (x',t')\quad\ssi\quad \abs{x'-x}\leq c\cdot (t'-t).\]
+  Vérifier que c'est une relation d'ordre. Dessiner l'ensemble des majorants et
+  des minorants d'un couple $(x_0,t_0)$. L'ordre est-il total~?
+  \begin{sol}
+  L'ensemble des majorants et des minorants forme un cône (on peut le tracer dans un repère $(x,t)$ pour une valeur donnée de $t_0$). L'ordre n'est pas
+  total car $(0,0)$ et $(1,0)$ ne sont pas comparables.
+  \end{sol}
+\end{exoUnique}
+
+%% Exemples :
+%% 1) Si A=[0,1[, l'ensemble des majorants de A est [1,+infty[
+%% 2) Z n'admet ni majorant ni minorant dans R
+%% 3) Si (A_i)_(i\in I), un majorant de {A_i : i\in I} est l'union, et un minorant
+%%    de cet ensemble est l'intersection.
+%% 4) Si a,b sont des entiers naturels, A={a,b} est majoré par ab. ppcm(a,b) est
+%%    un autre majorant (pour la relation d'ordre de divisibilité)
+
+\begin{definition}[utile=-3]
+Soit $\p{E,\preceq}$ un ensemble ordonné et $A$ une partie de $E$.
+\begin{itemize}
+\item On dit que $A$ admet un \emph{plus grand élément} lorsqu'il existe un majorant
+  de $A$ appartenant à $A$. Si un tel élément existe, il est unique et on
+  l'appelle plus grand élément de $A$.
+\item On dit que $A$ admet un \emph{plus petit élément} lorsqu'il existe un minorant
+  de $A$ appartenant à $A$. Si un tel élément existe, il est unique et on
+  l'appelle plus petit élément de $A$.
+\end{itemize}
+\end{definition}
+
+\begin{remarques}
+\remarque Muni de l'ordre usuel, $\interfo{0}{1}$ admet un plus petit élément 0
+  mais n'admet pas de plus grand élément. Muni de la relation de divisibilité,
+  $\ens{2,3}$ n'admet ni de plus grand ni de plus petit élément.
+\remarque Un ensemble admettant un plus petit ou un plus grand élément est non
+   vide.
+\remarque Si $E$ est totalement ordonné et $A$ est une partie finie non vide de
+  $E$, alors il admet un plus petit et un plus grand élément.
+\end{remarques}
+
+\subsection{Relation d'équivalence}
+
+\begin{definition}[utile=-3]
+On dit qu'une relation binaire $\mathcal{R}$ sur $E$ est une
+\emph{relation d'équivalence} lorsqu'elle est
+\begin{itemize}
+\item réflexive~: $\forall x\in E \qsep x\mathcal{R} x.$
+\item transitive~: $\forall x,y,z\in E \qsep \cro{x\mathcal{R} y \et
+  y\mathcal{R} z} \implique x\mathcal{R} z.$
+\item symétrique~: $\forall x,y\in E \qsep x\mathcal{R} y \implique
+  y\mathcal{R} x.$
+\end{itemize}
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque Si $E$ est un ensemble quelconque, le relation d'égalité est une
+  relation d'équivalence. Si $n\in\N$, la relation $\mathcal{R}$ définie sur $\Z$ par
+  \og $\forall a,b\in\Z \qsep a\mathcal{R} b \quad\ssi\quad a\equiv b\ [n]$ \fg
+  est une relation d'équivalence. De même, si $f$ est une application
+  de $E$ dans $F$, la relation $\mathcal{R}$ définie sur $E$ par
+  \og $\forall x,y\in E \qsep x\mathcal{R}y \quad\ssi\quad f(x)=f(y)$ \fg
+  est une relation d'équivalence.
+\end{remarqueUnique}
+
+\begin{exoUnique}
+\exo Soit $E$ un ensemble. Montrer que la relation $\mathcal{R}$ définie
+  sur $\parties{E}$ par
+  \[\forall A,B\in\parties{E} \qsep A\mathcal{R} B \quad\ssi\quad
+    \text{\og Il existe une bijection de $A$ dans $B$. \fg}\]
+  est une relation d'équivalence.
+\end{exoUnique}
+
+%% Exemples :
+%% 1) l'égalité sur E
+%% 2) Si n\in\N la relation aRb \ssi a=b+kn est une relation d'équivalence sur
+%%    \Z
+%% 3) Si f : E -> F, la relation f(x)=f(y) est une relation d'équivalence sur E.
+%% 4) La relation << est dans la même classe que >> est une relation
+%%    d'équivalence sur l'ensemble des élèves de Janson de Sailly.
+
+\begin{definition}[utile=-3]
+Soit $\mathcal{R}$ une relation d'équivalence sur $E$ et $x\in E$. On appelle
+\emph{classe d'équivalence de $x$} et on note ${\rm Cl}(x)$ l'ensemble des
+éléments de $E$ en relation avec $x$
+\[{\rm Cl}(x)\defeq\enstq{y\in E}{x\mathcal{R}y}.\]
+On dit qu'une partie $A$ de $E$ est \emph{une classe d'équivalence} lorsqu'il existe
+$x\in E$ tel que $A={\rm Cl}(x)$.
+\end{definition}
+
+% Soit $E$ un ensemble et $\p{A_i}_{i\in I}$ une famille de parties de $E$.
+% \begin{itemize}
+% \item On dit que $\p{A_i}_{i\in I}$ est un \emph{recouvrement disjoint} de $E$ lorsque
+% \[\cro{\forall i,j\in I \qsep A_i\cap A_j\neq\emptyset
+%   \implique i=j}  \et \bigcup\limits_{i\in I} A_i=E.\]
+% \item On dit que $\p{A_i}_{i\in I}$ est une \emph{partition} de $E$ lorsque c'est un recouvrement disjoint et
+%   que
+%   \[\forall i\in I\qsep A_i\neq\emptyset.\]
+% \end{itemize}
+
+\begin{proposition}[utile=-3]
+Soit $\mathcal{R}$ une relation d'équivalence sur $E$. Alors, la famille des
+classes d'équivalence est une partition de $E$.
+\end{proposition}
+
+\begin{exoUnique}
+\exo Soit $n\in\Ns$. Déterminer le nombre de classes d'équivalence sur $\Z$
+  pour la relation de congruence modulo $n$.
+\end{exoUnique}
+  
+  
+
+\section{L'ensemble des entiers naturels}
+
+Dans ce cours, nous ne chercherons pas à construire l'ensemble des entiers naturels.
+Nous nous limiterons à la définition intuitive suivante.
+\[\N\defeq\ens{0,1,2,3,\ldots}\]
+Nous supposerons aussi définies les opérations usuelles $+$ et $\times$ ainsi que la
+relation d'ordre totale $\leq$. Nous admettrons enfin la proposition suivante.
+
+\begin{proposition}[utile=-3]
+Toute partie non vide de $\N$ admet un plus petit élément.
+\end{proposition}
+  
+\begin{proposition}[utile=-3]
+Toute partie non vide majorée de $\N$ admet un plus grand élément.
+\end{proposition}
+
+\subsection{Récurrence}
+
+
+\begin{preuve}
+Admettons le premier point pour démontrer le second. Soit $A$ une partie non vide majorée de $\N$ et $B$ l'ensemble de ses majorants ($B\neq \emptyset$). $B$ admet donc un ppe. Notons-le $m$. Montrons que $m\in A$.
+
+Supposons un instant que $m\notin A$. Comme $m$ est un majorant de $A$, on a $\forall x \in A, x<m$. Ainsi, $m>0$, sinon $A$ serait vide. Mais alors, $\forall x \in A, x\leq m-1$ donc $m-1$ est un majorant de $A$. CONTRADICTION. Donc $m$ est le pge de $A$.
+\end{preuve}
+
+\begin{proposition}[utile=-3, nom={Principe de récurrence}]
+Soit $A$ une partie de $\N$ telle que
+\begin{itemize}
+\item $0\in A$,
+\item $\forall n\in\N\qsep n\in A \implique n+1 \in A.$
+\end{itemize}
+Alors $A=\N$.
+\end{proposition}
+
+\begin{preuve}
+Procédons par l'absurde. Supposons le contraire : $\exists n\in \N, n\notin A$.
+Posons $B=\ens{n\in \N | n\notin A}$. $B$ est non vide donc admet un ppe. Notons-le $p$. $p\neq 0$ car $0\notin B$. Posons $q=p-1 \in \N$. $q\in A$ car il ne peut pas être dans $B$. Mais alors, on conclut d'après la deuxième hypothèse.
+
+\end{preuve}
+
+\begin{remarques}
+\remarque Cette proposition est au coeur du principe de récurrence. Si $\mathcal{H}$ est un prédicat sur $\N$ tel que
+\begin{itemize}
+\item $\mathcal{H}_0$ est vraie,
+\item $\forall n\in\N\qsep \mathcal{H}_n \implique \mathcal{H}_{n+1}$,
+\end{itemize}
+alors $\mathcal{H}_n$ est vraie pour tout $n\in\N$. Il suffit pour démontrer cela d'appliquer la proposition précédente à \[A\defeq\enstq{n\in\N}{\text{$\mathcal{H}_n$ est vraie}}.\]
+\remarque Le principe de récurrence double est une conséquence du principe de récurrence. En effet, si $\mathcal{H}$ est un prédicat sur $\N$ tel que
+\begin{itemize}
+\item $\mathcal{H}_0$ et $\mathcal{H}_1$ sont vraies,
+\item $\forall n\in\N\qsep \cro{\mathcal{H}_n \et \mathcal{H}_{n+1}}\implique \mathcal{H}_{n+2}$,
+\end{itemize}
+alors $\mathcal{H}_n$ est vraie pour tout $n\in\N$. Il suffit pour cela de remarquer que le prédicat $\mathcal{P}$ défini sur $\N$ par \[\forall n\in\N\qsep \mathcal{P}_n\defeq\text{\og} \mathcal{H}_n\text{ et }\mathcal{H}_{n+1}\text{ sont vraies} \text{\fg}\]
+vérifie le principe de récurrence.
+\remarque De même, le principe de récurrence forte est une conséquence du principe de récurrence.
+  En effet, si $\mathcal{H}$ est un prédicat sur $\N$ tel que
+\begin{itemize}
+\item $\mathcal{H}_0$ est vraie,
+\item $\forall n\in\N\qsep \cro{\mathcal{H}_0 \et\ldots\et \mathcal{H}_n}\implique \mathcal{H}_{n+1}$,
+\end{itemize}
+  alors $\mathcal{H}_n$ est vraie pour tout $n\in\N$. Il suffit pour cela de remarquer que le prédicat $\mathcal{P}$ défini sur $\N$ par 
+\[\forall n\in\N\qsep \mathcal{P}_n\defeq\text{\og} \mathcal{H}_0, \mathcal{H}_1, \ldots, \mathcal{H}_{n}\text{ sont vraies} \text{\fg}.\]
+vérifie le principe de récurrence.
+\end{remarques}
+
+\begin{exos}
+\exo Montrer que pour tout $n\in\N$, $4^n+2$ est un multiple de 3.
+\exo Soit $(u_n)$ une suite telle que
+  \[u_0=1\qsep u_1=1, \et\cro{\forall n\in\N\qsep u_{n+2}=u_{n+1}+\frac{2}{n+2}u_n}.\]
+  Montrer que pour tout $n\in\Ns$, $u_n\leq n^2$.
+\exo Soit $f:\N\to\N$ une fonction surjective telle que
+  \[\forall n\in\N\qsep f(n)\geq n.\]
+  Montrer que $f=\id$.
+\end{exos}
+
+% \begin{exoUnique}
+% \exo Montrer que
+%   \[\forall n\geq 2\qsep \frac{1}{\sqrt{4n+1}}\leq\frac{1\times 3\times 5\times\cdots\times(2n-1)}{2\times 4\times 6\times\cdots\times (2n)}\leq \frac{1}{\sqrt{3n+1}}.\]
+% \end{exoUnique}
+
+% \begin{sol}
+% Récurrence simple et on veut vérifier si $\dfrac{1}{\sqrt{4n+5}}\leq \dfrac{1}{\sqrt{4n+1}}\dfrac{2n+1}{2n+2}$. On passe tout au numérateur, on élève au carré et on développe et ça marche. Même chose de l'autre côté.
+% \end{sol}
+
+\subsection{Définition par récurrence}
+
+\begin{proposition}
+Soit $E$ un ensemble, $f\in\mathcal{F}(E,E)$  et $x\in E$. Alors, il existe une unique
+suite $(u_n)$ d'éléments de $E$ telle que
+\[u_0=x \quad\et\quad \forall n\in\N\qsep u_{n+1}=f(u_n).\]
+\end{proposition}
+
+\begin{definition}
+Soit $E$ un ensemble, $A$ une partie de $E$ et $f\in\mathcal{F}(A, E)$. On dit qu'une
+partie $B$ de $A$ est \emph{stable} par $f$ lorsque
+\[\forall x\in B\qsep f(x)\in B.\]
+\end{definition}
+
+\begin{remarques}
+\remarque Si $B$ est stable par $f$, il est possible de considérer la restriction de
+  $f$ à $B$, corestreinte à $B$. On parle alors d'application \emph{induite} à $B$.
+\remarque Il arrive souvent que l'on ait un ensemble $E$,
+  $f\in\mathcal{F}(A, E)$ où $A$ est une partie de $E$, $x\in A$, et que l'on souhaite prouver l'existence d'une
+  unique $(u_n)$ telle que
+  \[u_0=x \quad\et\quad \forall n\in\N\qsep u_{n+1}=f(u_n).\]
+  Si on trouve une partie $B$ de $A$ contenant $x$ et stable par $f$, il suffit
+  d'appliquer la proposition précédente à l'application $f$ induite à $B$.
+  Mais sans une telle partie $B$, il est impossible de prouver l'existence d'une telle suite.
+  Supposons par exemple, qu'on se pose la question de l'existence d'une unique  suite
+  de réels $(u_n)$ telle que
+  \[u_0=\frac{1}{2} \quad\et\quad \forall n\in\N\qsep u_{n+1}=\frac{3 u_n-2}{u_n-1}.\]
+  Nous voyons rapidement qu'une telle suite n'existe pas. En effet, si c'était le cas,
+  on aurait $u_1=1$ et $(3u_1-2)/(u_1-1)$ ne serait pas défini. On ne peut tout
+  simplement pas appliquer la proposition précédente, car la fonction
+  \[\dspappli{f}{\R\setminus\ens{1}}{\R}{x}{\frac{3x-2}{x-1}}\]
+  n'est pas définie sur $\R$ mais sur $\R\setminus\ens{1}$.
+  % Par contre, si $x\in\interfo{2}{+\infty}$, il existe
+  % bien une et une seule suite $(u_n)$ telle que
+  % \[u_0=x \quad\et\quad \forall n\in\N\qsep u_{n+1}=\frac{3x-2}{x-1}\]
+  % car~: $\forall x\geq 2\qsep f(x)\geq 2$. Autrement dit, $B\defeq \interfo{2}{+\infty}$ est stable par $f$.
+\end{remarques}
+
+\begin{exoUnique}
+\exo Soit $x\in\interfo{2}{+\infty}$. Montrer qu'il existe une unique suite $(u_n)$ telle que
+  \[u_0=x \quad\et\quad \forall n\in\N\qsep u_{n+1}=\frac{3 u_n-2}{u_n-1}.\]
+\end{exoUnique}
+
+
+
+% \subsection{Ensembles finis}
+
+% \begin{definition}[utile=-3]
+% On dit qu'un ensemble $E$ est \emph{fini} lorsqu'il existe $n\in\N$ tel que $\intere{1}{n}$ et $E$ sont en bijection. Sinon, on dit qu'il est \emph{infini}.
+% \end{definition}
+
+% \begin{proposition}[utile=-3]
+% Si $E$ est un ensemble fini alors il existe un unique $n\in\N$ pour lequel il existe une bijection de $\intere{1}{n}$ dans $E$. Cet entier est appelé \emph{cardinal} de $E$ et noté  $\card(E)$, $|E|$, ou $\# E$.
+% \end{proposition}
+
+% \begin{preuve}
+% S'il en existe un autre, cela donnera une bijection de $\intere{1}{n}$ dans $\intere{1}{m}$. Et si $n\neq m$, c'est impossible. En effet, démontrons cela par récurrence sur $n\in \N$ avec $\mathcal{H}n$ : "$\forall m\in \Ns$, s'il y a une bijection de $\intere{1}{n}$ dans $\intere{1}{m}$ alors $m=n$."
+
+% On initialise à $1$ et pour l'hérédité, on considère la restriction où on enlève $n+1$ au départ et $f(n+1)$ à l'arrivée.
+% \end{preuve}
+
+% \begin{remarqueUnique}
+% \remarque Soit $a,b\in\Z$ tels que $a\leq b$. Alors $\intere{a}{b}$ est fini et $\card(\intere{a}{b})=b-a+1$.
+% \end{remarqueUnique}
+
+% \begin{proposition}[utile=3] Soient $E$ et $F$ deux ensembles finis.
+% \begin{itemize}
+% \item Il existe une injection de $E$ dans $F$ si et seulement si $\card (E)\leq\card (F)$.
+% \item Il existe une surjection de $E$ dans $F$ si et seulement si $\card (E)\geq\card (F)$.
+% \item Il existe une bijection de $E$ dans $F$ si et seulement si $\card (E)=\card (F)$.
+% \end{itemize}
+% \end{proposition}
+
+% \begin{preuve}
+% Il suffit de considérer $f(E)$ dans un sens et de la construire dans l'autre.
+% \end{preuve}
+
+
+% \begin{remarqueUnique}
+% \remarque Du premier point découle le principe des tiroirs~: si $f$ est une application d'un ensemble fini $E$ dans un ensemble fini $F$ de cardinal strictement inférieur, alors $f$ n'est pas injective. Par exemple, si on possède 4 T-shirts que l'on a rangés dans une commode possédant 3 tiroirs, alors deux T-shirts se trouvent dans un même tiroir.
+% \end{remarqueUnique}
+
+% \begin{exoUnique}
+% \exo On estime que le nombre de cheveux qu'une personne a sur la tête est inférieur à $1\ 000\ 000$. Montrer qu'il existe deux français qui ont autant de cheveux sur la tête.
+% \end{exoUnique}
+
+% \begin{proposition}[utile=3]
+% Soit $E$ un ensemble fini et $F \subset E$. Alors $F$ est fini et $\card (F)
+% \leq \card (E)$. De plus, il y a égalité si et seulement si $E = F$.
+% \end{proposition}
+
+% \begin{preuve}
+% On peut le faire par récurrence sur le cardinal de $E$. Dans l'hérédité, ou bien $F=E$ ou bien on prend $a\in E\setminus F$ et on raisonne sur $E\setminus\ens{a}$.
+% \end{preuve}
+
+% \begin{remarqueUnique}
+% \remarque En particulier, un ensemble fini ne peut pas être en bijection avec une partie stricte de lui-même. Remarquons que c'est faux pour les ensembles infinis. Par exemple
+% \[\dspappli{f}{\N}{\Ns}{n}{n+1}\]
+% est une bijection alors que $\Ns$ est une partie stricte de $\N$.
+% \end{remarqueUnique}
+
+% \begin{proposition}[utile=3]
+% Soit $E$ et $F$ deux ensembles finis et $f$ une application de $E$ dans $F$.
+% \begin{itemize}
+% \item Si $f$ est injective et $\card(E)=\card(F)$, alors $f$ est bijective.
+% \item Si $f$ est surjective et $\card(E)=\card(F)$, alors $f$ est bijective.
+% \end{itemize}
+% Autrement dit, si $\card(E)=\card(F)$
+% \[\text{$f$ est injective} \quad\ssi\quad \text{$f$ est bijective}
+%    \quad\ssi\quad \text{$f$ est surjective}.\]
+% \end{proposition}
+
+% \begin{preuve}
+% On utilise $f$ injective ssi $|f(E)|=|E|$ et $f$ surjective ssi $|f(E)|=|F|$.
+% \end{preuve}
+
+%END_BOOK
+
+\end{document}

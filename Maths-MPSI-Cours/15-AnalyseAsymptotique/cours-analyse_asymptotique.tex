@@ -1,0 +1,2114 @@
+%% (f(x+h)-f(x))/h = f'(x) à l'ordre 1
+%% (f(x+h)-f(x-h))/2h = f'(x) à l'ordre 2
+
+\documentclass{magnolia}
+
+\magtex{tex_driver={pdftex},
+        tex_packages={cancel,epigraph,pgfplots,caption,float,xypic}}
+\magfiche{document_nom={Cours sur les développements limités},
+          auteur_nom={François Fayard},
+          auteur_mail={fayard.prof@gmail.com}}
+\magcours{cours_matiere={maths},
+          cours_niveau={mpsi},
+          cours_chapitre_numero={7},
+          cours_chapitre={Analyse asymptotique}}
+\magmisenpage{}
+\maglieudiff{}
+\magprocess
+
+\begin{document}
+
+%BEGIN_BOOK
+\setlength\epigraphwidth{.5\textwidth}
+\epigraph{\og Sans technique, un don n'est rien qu'une sale manie.\fg}{--- {\sc Georges Brassens (1921--1981)}}
+\setlength\epigraphwidth{.6\textwidth}
+\epigraph{\og Deux intellectuels assis vont moins loin qu'une brute qui marche. \fg}{--- {\sc Michel Audiard (1920--1985)}}
+
+\magtoc
+
+
+\section{Suites équivalentes, suite négligeable devant une autre}
+
+\subsection{Suites équivalentes}
+
+\begin{definition}[utile=-3]
+Soit $\p{u_n}$ et $\p{v_n}$ deux suites. On dit que $\p{u_n}$ est \emph{équivalente} à
+$\p{v_n}$ lorsqu'il existe une suite $\p{\alpha_n}$ convergeant vers 1 et un rang
+$N\in\N$ tels que
+\[\forall n\geq N \qsep u_n=\alpha_n v_n.\]
+Si tel est le cas, on note
+\[u_n \equi{n}{+\infty} v_n.\]
+La propriété \og est équivalente à \fg est asymptotique.
+\end{definition}
+
+\begin{remarques}
+\remarque Si $(u_n)$ est équivalente à $(v_n)$ et que cette dernière admet une
+  limite dans $\Rbar$, alors $(u_n)$ admet la même limite. Cependant
+  il est possible que deux suites admettent la même limite sans être
+  équivalentes.
+\remarque Il est possible qu'une suite $(u_n)$ soit équivalente à une suite
+  $(v_n)$ sans qu'il n'existe de suite $(\alpha_n)$ convergeant vers 1 telle que
+  $u_n=\alpha_n v_n$ pour tout $n\in\N$.
+  \begin{sol}
+  Prendre $u_n=0$ si $n=0$ et $u_n=1$ sinon et $v_n=1$.
+  \end{sol}
+\end{remarques}
+\begin{sol}
+Prendre $u_n=1/n$ et $v_n=1/n^2$.
+\end{sol}
+
+\begin{proposition}[utile=-3]
+La relation \og est équivalente à \fg est une relation d'équivalence sur
+l'ensemble des suites.
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque La relation étant symétrique, on dira désormais \og les suites $(u_n)$
+  et $(v_n)$ sont équivalentes \fg plutôt que \og la suite $(u_n)$ est
+  équivalente à la suite $(v_n)$ \fg.
+\end{remarqueUnique}
+
+\begin{proposition}[utile=-3]
+Soit $\p{u_n}$ et $\p{v_n}$ deux suites. On suppose que $\p{v_n}$ ne s'annule
+pas à partir d'un certain rang. Alors
+\[u_n\equi{n}{+\infty} v_n \quad\ssi\quad \frac{u_n}{v_n}
+  \tendvers{n}{+\infty} 1.\]
+\end{proposition}
+
+\begin{remarques}
+\remarque Si $a_0,a_1,\ldots,a_p\in\C$ avec $a_p\neq 0$, alors
+  \setbox0=\hbox{$a_p n^p+\cdots+a_1n+a_0\equi{n}{+\infty} a_p n^p$}\dp0=0pt\box0.
+  Si de plus $b_0,b_1,\ldots,b_q\in\C$ sont tels que $b_q\neq 0$, alors
+  \[\frac{a_p n^p+\cdots+a_1 n+a_0}{b_q n^q+\cdots+b_1 n+b_0}\equi{n}{+\infty}
+    \frac{a_p}{b_q}\cdot n^{p-q}\]
+\remarque Contrairement à ce qu'on pourrait être tenté de dire, on n'a pas
+  toujours $u_{n+1}\equi{n}{+\infty}u_n$.
+\begin{sol}
+Prendre $u_n=a^n$ avec $a\notin \set{0;1}$.
+\end{sol}
+\end{remarques}
+
+\begin{exos}
+\exo Donner des équivalents simples des suites de terme général
+  \[\frac{1}{n}-\frac{1}{n+1}, \qquad \sum_{k=0}^n a^k
+    \quad\text{où $a\in\RPs\setminus\ens{1}$}, \qquad \sum_{k=1}^n k!.\]
+    \begin{sol}
+    $$\frac{1}{n}-\frac{1}{n+1}=\frac{1}{n(n+1)}\equi{n}{+\infty}\frac{1}{n^2}.$$
+    Si $a>1$, $$\sum_{k=0}^n a^k\equi{n}{+\infty}`\frac{a^{n+1}}{a-1}$$ et si $a<1$, $$\sum_{k=0}^n a^k\equi{n}{+\infty}`\frac{1}{1-a}$$
+    $$1\leq \frac{\sum_{k=1}^n k!}{n!}=1+\frac{1}{n}+\sum_{k=1}^{n-2}\frac{k!}{n!}\leq 1+\frac{1}{n}+\p{n-2}\frac{1}{n(n-1)}\leq 1+\frac{2}{n}.$$
+    
+    
+    \end{sol}
+% \exo Encadrer $\ln k$ à l'aide d'expressions intégrales faisant intervenir
+%   la fonction d'expression $\ln x$. En déduire un équivalent de la suite de
+%   terme général
+%   \[\sum_{k=1}^n \ln k\]
+\exo Soit $(u_n)$ une suite réelle telle que
+  $u_{n+1}-u_n \equi{n}{+\infty} \frac{1}{n}$.
+  Montrer que $u_n\tendvers{n}{+\infty}+\infty$.
+  \begin{sol}
+  Par hypothèse, $n(u_{n+1}-u_n) \tendvers{n}{+\infty}{1}$ donc il existe $N\in \N$ tel que $\forall n \geq N$, $u_{n+1}-u_n \geq \dfrac{1}{2n}$. Ainsi,
+  $\forall n \geq N$, $$u_n=\sum_{k=N}^{n-1} (u_{k+1}-u_k) + u_N \geq u_N + \frac{1}{2}\sum_{k=N}^{n-1}\frac{1}{k}.$$
+  Or, $\displaystyle \frac{1}{k}=\int_{k}^{k+1}\frac{1}{k}\mathrm{d}x\geq \displaystyle \int_{k}^{k+1}\frac{1}{x}\mathrm{d}x=\ln\p{\frac{k+1}{k}}$ d'où $\forall n \geq N$: $$u_n \geq u_N + \frac{1}{2}\p{\ln(n)-\ln(N)}$$ d'où $u_n\tendvers{n}{+\infty}+\infty$ par théorème de comparaison.
+  \end{sol}
+\end{exos}
+
+%% 3) si x_n est la solution positive de l'équation : f_n(x)=x^n+nx-1=0
+%%    Nous savons déjà que x_n converge vers 0. On souhaite savoir à quelle
+%%    vitesse. Puisque x_n converge vers 0, x^n converge vers 0.
+%%    Donc n x_n = 1 - x_n^n converge vers 1. Donc~:
+%%    x_n ~ 1/n
+%% 4) Nous avions vu que si I_n = int(cos^n x,x=0..Pi/2)
+%%    I_n ~ sqrt(Pi/(2n))
+%%    Voir exercice sur les intégrales de Wallis dans la feuille sur
+%%    les révisions d'analyse
+
+\begin{proposition}[utile=-3]
+Soit $\p{u_n}$ une suite et $l\in\Cs$. Alors
+\[u_n \equi{n}{+\infty} l \quad\ssi\quad u_n \tendvers{n}{+\infty} l.\]
+De plus, $u_n$ est équivalent à 0 lorsque $n$ tend vers $+\infty$ si et
+seulement si la suite $\p{u_n}$ est nulle à partir d'un certain rang.
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque
+% Si $l\neq 0$, dire que $u_n$ est équivalent à $l$ signifie que la
+%   suite $(u_n)$ converge vers $l$. On ne conclura donc jamais un raisonnement
+%   de la sorte.
+  Si $l=0$, dire que $u_n$ est équivalent à 0 signifie que la
+  suite $(u_n)$ est nulle à partir d'un certain rang.
+% ce qui ne sera en pratique jamais le cas.
+  Si vous obtenez un tel résultat, c'est sûrement que vous avez
+  fait une erreur.
+\end{remarqueUnique}
+
+%% Remarques :
+%% 2) En pratique, il est souvent intéressant de trouver un équivalent
+%%    de (u_n) lorsque qu'elle tend vers 0 ou +/-infini pour savoir
+%%    << à quelle vitesse >> elle tend vers 0 ou +/-infini.
+%%    À priori, on ne finira donc jamais une question en écrivant
+%%    u_n ~ l.
+%% 3) Si on se demande à quelle vitesse la suite (u_n) converge vers l \neq 0,
+%%    on cherchera un équivalent de u_n - l.
+
+\begin{proposition}[utile=-3]
+Soit $\p{u_n}$ et $\p{v_n}$ deux suites telles que
+\[u_n \equi{n}{+\infty} v_n.\]
+\begin{itemize}
+\item Alors, il existe un rang à partir duquel $\p{u_n}$ et $\p{v_n}$ s'annulent
+  simultanément.
+\item Si de plus elles sont réelles, il existe un rang à partir duquel elles
+  sont de même signe. 
+\end{itemize}
+\end{proposition}
+
+\begin{proposition}[utile=-3]
+$\quad$
+\begin{itemize}
+\item Soit $\p{a_n}$, $\p{b_n}$, $\p{c_n}$, $\p{d_n}$ des suites telles que
+  \[a_n \equi{n}{+\infty} b_n \et c_n \equi{n}{+\infty} d_n.\]
+  Alors
+  \[a_n c_n \equi{n}{+\infty}  b_n d_n.\]
+  Si de plus $\p{c_n}$ et $\p{d_n}$ ne s'annulent pas à partir d'un certain
+  rang
+  \[\frac{a_n}{c_n} \equi{n}{+\infty} \frac{b_n}{d_n}.\]
+\item Soit $\p{u_n}$ et $\p{v_n}$ deux suites et $\alpha\in\R$. Si
+  $u_n^\alpha$ et $v_n^\alpha$ ont un sens à partir d'un certain rang, alors
+  \[u_n \equi{n}{+\infty} v_n \quad\implique\quad
+    u_n^\alpha \equi{n}{+\infty} v_n^\alpha.\]
+\end{itemize}
+\end{proposition}
+
+\begin{remarques}
+\remarque Les autres opérations usuelles sur les équivalents conduisent le plus
+  souvent à des résultats faux. Il est donc interdit de sommer, d'élever à une
+  puissance dépendant de $n$ ou de composer des équivalents.
+  
+  \begin{sol}
+  $-1+\p{1+1/n}$ n'est pas équivalent à $-1+1$.\\
+  $1+1/n \equi{n}{+\infty}{1}$ mais $\p{1+1/n}^n\equi{n}{+\infty}{e}$.\\
+  $n+1\equi{n}{+\infty}{n}$ mais on n'a pas $\e^{n+1}\equi{n}{+\infty}{\e^n}$.
+  \end{sol}
+\remarque \emph{Comparaison série-intégrale.}
+  Soit $f$ une fonction monotone de $\RPs$ dans $\R$, telle que
+  \[\integ{1}{x}{f(t)}{t}\tendvers{x}{+\infty} +\infty\]
+  On considère la suite $(u_n)$ définie par
+  \[\forall n\in\N \qsep u_n\defeq\sum_{k=1}^n f(k).\]
+  Alors, un encadrement de $f(k)$ par 
+  \[\integ{k}{k-1}{f(t)}{t} \et \integ{k}{k+1}{f(t)}{t}\]
+  permet de trouver simplement un équivalent de $u_n$. Cette technique
+  essentielle est appelée technique de \emph{comparaison série-intégrale}.
+\end{remarques}
+
+\begin{exos}
+\exo Donner des équivalents simples de
+  \[\sqrt{n^4+2n^2-1} \et \sqrt{n+1}-\sqrt{n-1}.\]
+  
+  \begin{sol}
+  $n^2$ et $\dfrac{1}{\sqrt{n}}$ par multiplication en haut/en bas par la quantité conjuguée.
+  \end{sol}
+\exo Montrer que
+  \[\sum_{k=1}^n \ln(k)\equi{n}{+\infty} n\ln n.\]
+
+\begin{sol}
+On a $\forall k\geq 2$, $$\integ{k-1}{k}{\ln(x)}{x}\leq \ln(k) \leq \integ{k}{k+1}{\ln(x)}{x}$$ donc $$\integ{1}{n}{\ln(x)}{x}\leq \sum_{k=2}^n\ln(k)=\sum_{k=1}^n\ln(k)\leq \integ{1}{n+1}{\ln(x)}{x}$$
+d'où :
+$$n\ln(n)\leq \sum_{k=1}^n\ln(k)\leq (n+1)\ln(n+1)$$
+ce qui permet de conclure en divisant par $n\ln(n)$.
+
+\end{sol}
+\end{exos}
+
+%% Attention :
+%% 1) On ne peut pas additionner les équivalents
+%%    n+1 ~ n et -n ~ -n. Pourtant 1 n'est pas équivalent à 0
+%% 2) on ne peut pas élever à la puissance n un équivalent
+%%    1+1/n ~ 1 mais (1+1/n)^n n'est pas équivalent à 1^n = 1
+%% 3) On ne peut pas composer les équivalents
+%%    n ~ n+1 mais exp(n) n'est pas équivalent à exp(n+1)
+%%
+%% Nous verrons que lorsqu'on cherche l'équivalent d'une suite élémentaire
+%% faisant apparaître des sommes et des compositions de fonctions, on utiliser
+%% les développements asymptotiques .
+
+% \begin{proposition}[utile=-3]
+% Soit $f$ et $g$ deux fonctions définies sur $\mathcal{D}$ et $a\in\Rbar$ un
+% point adhérent à $\mathcal{D}$. On suppose que~:
+% \[f(x)\equi{x}{a} g(x)\]
+% Alors, si $\p{u_n}$ est une suite d'éléments de $\mathcal{D}$ admettant $a$ pour
+% limite~:
+% \[f\p{u_n}\equi{n}{+\infty} g\p{u_n}\]
+% \end{proposition}
+
+%% Exemples :
+%% 1) Équivalent simple de ln(1+1/n) : 1/n
+%% 2) Équivalent simple de Pi/2-arctan(n) : 1/n
+
+
+% \begin{exoUnique}
+% \exo Donner un équivalent de
+%   \[\prod_{k=1}^{n} (2k) \et \prod_{k=0}^{n} (2k+1)\]
+%   lorsque $n$ tend vers $+\infty$.
+% \end{exoUnique}
+
+\begin{proposition}[nom={{\sc Stirling}}]
+\[n!\equi{n}{+\infty}\sqrt{2\pi n}\p{\frac{n}{\e}}^n.\]
+\end{proposition}
+
+\subsection{Suite négligeable devant une autre}
+
+\begin{definition}[utile=-3]
+Soit $\p{u_n}$ et $\p{v_n}$ deux suites. On dit que $\p{u_n}$ est \emph{négligeable}
+devant $\p{v_n}$ lorsqu'il existe une suite $\p{\epsilon_n}$ convergent vers 0 et
+un rang $N\in\N$ tels que
+\[\forall n\geq N \qsep u_n=\epsilon_n v_n.\]
+Si tel est le cas, on note
+\[u_n=\petito{n}{+\infty}{v_n}.\]
+La propriété \og est négligeable devant \fg est asymptotique.
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque Si $(u_n)$ est négligeable devant $(v_n)$, il existe un rang à partir
+  duquel $u_n$ est nul dès que $v_n$ est nul.
+\end{remarqueUnique}
+
+\begin{proposition}[utile=-3]
+Soit $\p{u_n}$, $\p{v_n}$ et $\p{w_n}$ trois suites. Alors
+\[\cro{u_n=\petito{n}{+\infty}{v_n} \et v_n=\petito{n}{+\infty}{w_n}}
+  \quad\implique\quad u_n=\petito{n}{+\infty}{w_n}.\]
+\end{proposition}
+
+\begin{proposition}[utile=-3]
+Soit $\p{u_n}$ et $\p{v_n}$ deux suites. On suppose que $\p{v_n}$ ne s'annule pas
+à partir d'un certain rang. Alors
+\[u_n=\petito{n}{+\infty}{v_n} \quad\ssi\quad
+  \frac{u_n}{v_n}\tendvers{n}{+\infty} 0.\]
+\end{proposition}
+
+% \begin{remarqueUnique}
+% \remarque La suite $(\abs{u_n})$ est négligeable devant la suite $(\abs{v_n})$
+%   si et seulement si $(u_n)$ est négligeable devant $(v_n)$.
+% \end{remarqueUnique}
+
+\begin{exoUnique}
+\exo Soit $(u_n)$ une suite réelle divergeant vers $+\infty$. Démontrer
+  qu'il existe une suite $(v_n)$, négligeable devant $(u_n)$ qui diverge aussi
+  vers $+\infty$.
+\end{exoUnique}
+
+\begin{sol}
+Il existe un rang à partir duquel $u_n\geq 1$. On prend $v_n$ nulle avant ce rang et $v_n=\sqrt{u_n}$ à partir de ce rang.
+\end{sol}
+
+\begin{proposition}[utile=-3]
+$\quad$
+\begin{itemize}
+\item Soit $a,b\in\R$. Alors
+  \[n^a = \petito{n}{+\infty}{n^b} \quad\ssi\quad a<b.\]
+  Autrement dit
+  \[\frac{1}{n^a} = \petito{n}{+\infty}{\frac{1}{n^b}} \quad\ssi\quad a>b.\]
+\item Soit $(\omega_a,\omega_b)\in\C\times\Cs$. Alors
+  \[\omega_a^n = \petito{n}{+\infty}{\omega_b^n} \quad\ssi\quad
+    \abs{\omega_a} < \abs{\omega_b}.\]
+\item Soit $\alpha,\beta>0$ et $\omega\in\C$ tel que $\abs{\omega}>1$. Alors
+  \[\p{\ln n}^\alpha = \petito{n}{+\infty}{n^\beta}, \qquad
+    n^\alpha = \petito{n}{+\infty}{\omega^n}, \qquad
+    n^\alpha=\petito{n}{+\infty}{e^{\beta n}},\]
+  \[\omega^n = \petito{n}{+\infty}{n!}, \qquad
+    \e^{\beta n} = \petito{n}{+\infty}{n!}.\]
+\end{itemize}
+\end{proposition}
+% \item Soit $\alpha,beta>0$. Alors
+%   \[(\ln n)^\alpha=\petito{n}{+\infty}{n^\beta} \et
+%     n^\alpha=\petito{n}{+\infty}{e^{\beta n}}\]
+% \end{proposition}
+\begin{preuve}
+On forme les rapports, parfois en valeurs absolues. On utilise si nécessaire les croissances comparées.
+Seul point qui nécessite une preuve ici :
+$\omega^n = \petito{n}{+\infty}{n!}$. On forme $\displaystyle u_n=\frac{\omega^n}{n!}$ puis $\forall n\in N$ :
+$$\frac{\abs{u_{n+1}}}{\abs{u_n}}=\frac{\abs{\omega}}{n+1}\tendvers{n}{+\infty}{0}.$$
+\end{preuve}
+
+\begin{exoUnique}
+\exo Comparer les suites suivantes données par leur terme général.
+  \[n^n, \qquad n^{\ln n}, \qquad \e^{n^2}, \qquad \p{\ln n}^{n\ln n}.\]
+\end{exoUnique}
+
+\begin{sol}
+$\forall n \in \Ns$, avec $a_n=n^n=\e^{n\ln(n)}$, $b_n=n^{\ln n}=\e^{\p{\ln(n)}^2}$, $c_n=\e^{n^2}$ et $d_n=\p{\ln n}^{n\ln n}=\e^{n\ln(n)\p{\ln(\ln(n))}}$, on a :
+$$\frac{b_n}{a_n}=\e^{-n\ln(n)\p{1-\frac{\ln(n)}{n}}}\tendvers{n}{+\infty}{0}.$$
+$$\frac{a_n}{d_n}=\e^{-n\ln(n)\ln(\ln(n))\p{1-\frac{1}{\ln(\ln(n))}}}\tendvers{n}{+\infty}{0}.$$
+$$\frac{d_n}{c_n}=\e^{-n^2\p{1-\frac{\ln(n)\ln(\ln(n))}{n}}}\tendvers{n}{+\infty}{0}$$ car $$\frac{\ln(n)\ln(\ln(n))}{n}=\frac{\ln(\ln(n))}{\ln(n)}\cdot \frac{\ln^2(n)}{n}\tendvers{n}{+\infty}{0}.$$
+
+\end{sol}
+
+\begin{proposition}[utile=-3]
+Soit $\p{u_n}$ une suite. Alors
+\[u_n=\petito{n}{+\infty}{1} \quad\ssi\quad u_n\tendvers{n}{+\infty} 0.\]
+\end{proposition}
+
+\begin{proposition}[utile=-3]
+$\quad$
+\begin{itemize}
+\item Soit $\p{u_n}$ une suite. Alors
+  \[\forall \lambda,\mu\in\C \quad \lambda \petito{n}{+\infty}{u_n}
+    +\mu\petito{n}{+\infty}{u_n}=\petito{n}{+\infty}{u_n}.\]
+\item Soit $\p{u_n}$ et $\p{v_n}$ deux suites. Alors
+  \[u_n \petito{n}{+\infty}{v_n}=\petito{n}{+\infty}{u_n v_n}.\]
+  % cette égalité pouvant se lire dans les deux sens.
+\item Soit $\p{u_n}$ et $\p{v_n}$ deux suites. Alors
+  \[\petito{n}{+\infty}{u_n}\petito{n}{+\infty}{v_n}=
+    \petito{n}{+\infty}{u_n v_n}.\]
+\end{itemize}
+\end{proposition}
+
+% \begin{proposition}[utile=-3]
+% $\quad$
+% \begin{itemize}
+% \item 
+% \item 
+% % \item Soit $\p{u_n}$ une suite négligeable devant $\p{v_n}$. Alors toute suite
+% %   négligeable devant $\p{u_n}$ l'est 
+% \end{itemize}
+% \end{proposition}
+
+\begin{remarques}
+\remarque Soit $\p{u_n}$ et $\p{v_n}$ deux suites équivalentes. Une suite est
+  négligeable devant $\p{u_n}$ si et seulement si elle est négligeable
+  devant $\p{v_n}$.
+\remarque Soit $\p{u_n}$ une suite et $\lambda\in\Cs$. Une suite est négligeable
+  devant $\p{u_n}$ si et seulement si elle est négligeable devant
+  $\p{\lambda u_n}$.
+\end{remarques}
+
+\begin{proposition}[utile=-3]
+Soit $\p{u_n}$ et $\p{v_n}$ deux suites. Alors
+\[u_n \equi{n}{+\infty} v_n \quad\ssi\quad u_n=v_n+\petito{n}{+\infty}{v_n}.\]
+\end{proposition}
+
+%% Remarque :
+%% 1) Si w_n est négligeable devant v_n, on en déduit que v_n + w_n est
+%%    équivalent à v_n
+
+% \begin{proposition}[utile=-3]
+% Soit $f$ et $g$ deux fonctions définies sur $\mathcal{D}$ et $a\in\Rbar$ un
+% point adhérent à $\mathcal{D}$. On suppose que~:
+% \[f(x)=\petito{x}{a}{g(x)}\]
+% Alors, si $\p{u_n}$ est une suite d'éléments de $\mathcal{D}$ admettant $a$ pour
+% limite~:
+% \[f\p{u_n}=\petito{n}{+\infty}{g\p{u_n}}\]
+% \end{proposition}
+
+
+  
+\subsection{Suite dominée par une autre}
+
+\begin{definition}[utile=-3]
+Soit $\p{u_n}$ et $\p{v_n}$ deux suites. On dit que $\p{u_n}$ est \emph{dominée} par
+$\p{v_n}$ lorsqu'il existe une suite bornée $\p{B_n}$ et un rang $N\in\N$ tels que
+\[\forall n\geq N \qsep u_n=B_n v_n.\]
+Si tel est le cas, on note
+\[u_n=\grando{n}{+\infty}{v_n}.\]
+La propriété \og est dominée par \fg est asymptotique.
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque Soit $\p{u_n}$ et $\p{v_n}$ deux suites telles qu'il existe $\lambda\in\Cs$ tel que
+\[u_n\equi{n}{+\infty}\lambda v_n.\]
+Alors $u_n=\grando{n}{+\infty}{v_n}$.
+% \remarque En informatique, lors des calculs de complexité, on utilisera le fait que si $\p{c_n}$ une suite réelle positive et $\alpha,\beta\in\R$, alors
+%   \[c_n=\grando{n}{+\infty}{n^\alpha \ln^\beta(n)} \quad\ssi\quad
+%     \exists M\in\RP\qsep\forall n\geq 1\qsep 0\leq c_n\leq M n^\alpha \ln^\beta(n).\]
+\end{remarqueUnique}
+
+\begin{proposition}[utile=-3]
+$\quad$
+\begin{itemize}
+\item Soit $\p{u_n}$ une suite. Alors
+  \[u_n=\grando{n}{+\infty}{u_n}.\]
+\item Soit $\p{u_n}$, $\p{v_n}$ et $\p{w_n}$ trois suites. Alors
+  \[\cro{u_n=\grando{n}{+\infty}{v_n} \et v_n=\grando{n}{+\infty}{w_n}}
+    \quad\implique\quad u_n=\grando{n}{+\infty}{w_n}.\]
+  De plus si dans l'hypothèse, un des $O$ est un $o$, alors $\p{u_n}$ est
+  négligeable devant $\p{w_n}$.
+\end{itemize}
+\end{proposition}
+
+\begin{proposition}[utile=-3]
+Soit deux suites $\p{u_n}$ et $\p{v_n}$. Alors
+\[u_n=\petito{n}{+\infty}{v_n} \quad\implique\quad
+  u_n=\grando{n}{+\infty}{v_n}.\]
+\end{proposition}
+
+\begin{proposition}[utile=-3]
+Soit $\p{u_n}$ et $\p{v_n}$ deux suites. On suppose que $\p{v_n}$ ne s'annule pas à
+partir d'un certain rang. Alors
+\[u_n=\grando{n}{+\infty}{v_n} \quad\ssi\quad
+  \text{$\frac{u_n}{v_n}$ est bornée}.\]
+\end{proposition}
+
+
+% \begin{proposition}[utile=-3]
+% $\quad$
+% \begin{itemize}
+% \item Soit $a,b\in\R$. Alors~:
+%   \[n^a = \grando{n}{+\infty}{n^b} \quad\ssi\quad a\leq b\]
+%   Autrement dit~:
+%   \[\frac{1}{n^a} = \grando{n}{+\infty}{\frac{1}{n^b}} \quad\ssi\quad a\geq b\]
+% \item Soit $\omega_a,\omega_b\in\R$. Alors~:
+%   \[\omega_a^n = \grando{n}{+\infty}{\omega_b^n} \quad\ssi\quad
+%     \abs{\omega_a} \leq \abs{\omega_b}\]
+% \end{itemize}
+% \end{proposition}
+
+% \begin{proposition}[utile=-3]
+% Soit $\p{u_n}$ une suite. Alors~:
+% \[u_n=\grando{n}{+\infty}{1} \quad\ssi\quad \text{$\p{u_n}$ est bornée}\]
+% \end{proposition}
+
+% \begin{proposition}[utile=-3]
+% $\quad$
+% \begin{itemize}
+% \item Soit $\p{u_n}$ une suite. Alors~:
+%   \[\forall \lambda,\mu\in\C \quad \lambda \grando{n}{+\infty}{u_n}
+%     +\mu\grando{n}{+\infty}{u_n}=\grando{n}{+\infty}{u_n}\]
+% \item Soit $\p{u_n}$ et $\p{v_n}$ deux suites. Alors~:
+%   \[u_n \grando{n}{+\infty}{v_n}=\grando{n}{+\infty}{u_n v_n}\]
+%   cette égalité pouvant se lire dans les deux sens.
+% \item Soit $\p{u_n}$ et $\p{v_n}$ deux suites. Alors~:
+%   \begin{eqnarray*}
+%   \grando{n}{+\infty}{u_n}\grando{n}{+\infty}{v_n}&=&\grando{n}{+\infty}{u_n v_n}\\
+%   \grando{n}{+\infty}{u_n}\petito{n}{+\infty}{v_n}&=&\petito{n}{+\infty}{u_n v_n}
+%   \end{eqnarray*}
+% \end{itemize}
+% \end{proposition}
+
+% \begin{proposition}[utile=-3]
+% $\quad$
+% \begin{itemize}
+% \item Soit $\p{u_n}$ et $\p{v_n}$ deux suites équivalentes. Une suite est
+%   dominée par $\p{u_n}$ si et seulement si elle est dominée par $\p{v_n}$.
+% \item Soit $\p{u_n}$ une suite et $\lambda\in\Cs$. Une suite est dominée 
+%   par $\p{u_n}$ si et seulement si elle est dominée par
+%   $\p{\lambda u_n}$.
+% \end{itemize}
+% \end{proposition}
+
+% \begin{proposition}[utile=-3]
+% Soit $f$ et $g$ deux fonctions définies sur $\mathcal{D}$ et $a\in\Rbar$ un
+% point adhérent à $\mathcal{D}$. On suppose que~:
+% \[f(x)=\grando{x}{a}{g(x)}\]
+% Alors, si $\p{u_n}$ est une suite d'éléments de $\mathcal{D}$ admettant $a$ pour
+% limite~:
+% \[f\p{u_n}=\grando{n}{+\infty}{g\p{u_n}}\]
+% \end{proposition}
+
+% \subsection{Développement asymptotique d'une suite}
+
+% \begin{definition}[utile=-3]
+% Soit $\p{u_n}$ une suite. On appelle développement asymptotique de $\p{u_n}$
+% à la précision $\p{v_{p,n}}_{n\in\N}$ (ou développement asymptotique à $p$
+% termes) toute écriture~:
+% \[u_n=a_1 v_{1,n}+\cdots+a_p v_{p,n}+\petito{n}{+\infty}{v_{p,n}}\]
+% où $a_1,\ldots,a_p\in\Cs$ et~:
+% \[\forall k\in\intere{1}{p-1} \quad v_{k+1,n}=\petito{n}{+\infty}{v_{k,n}}\]
+% \end{definition}
+
+%% Exemple :
+%% 1) Développement asymptotique à la précision 1/n de
+%%    (1+1/n)^n = e-e/(2n)+o(1/n)
+%ù 2) Équivalent simple de (ln(n+1)/ln(n))^n - 1
+%%    On trouve 1/(ln n)
+%% 2) Développement asymptotique à trois termes de u_n ou u_n est
+%%    le réel compris entre -Pi/2+nPi et Pi/2+nPi solution de tan x = x
+%%    On sait que u_n ~ n Pi
+%%    tan(u_n-nPi)=u_n donc arctan(u_n)=u_n-nPi
+%%    u_n = nPi + arctan(nPi+o(n))
+%%        = nPi + Pi/2 - arctan(1/(nPi+o(n)))
+%%        = nPi + Pi/2 - 1/(nPi) + o(1/n)
+
+
+% \section{Systèmes dynamiques discrets}
+
+% \subsection{Suites définies par récurrence}
+
+% \begin{proposition}[utile=-3]
+% Soit $X$ une partie de $\C$, $f$ une application de $X\times\N$ dans $X$ et
+% $z\in X$. Alors il existe une et une seule suite $\p{u_n}_{n\in\N}$ telle que~:
+% \[u_0=z \et \forall n\in\N \quad u_{n+1}=f\p{u_n,n}\]
+% \end{proposition}
+
+%% Remarque :
+%% 1) Problème de suites mal définies
+%%    - u_(n+1)=sqrt(1+u_n)
+%%      (u_n) n'est définie que pour u_0 >= -1
+%%    - u_(n+1)=sqrt(u_n-2)
+%%      Si une telle suite existait, on aurait
+%%      u_(n-1)=2+u_n^2 donc u_(n-1) >= 2
+%%      u_(n-2)=2+u_(n-1)^2>=u_(n-1)^2 >= 4
+%%      ...
+%%      u_0 >= 2^(2^(n-1))
+%%      C'est absurde. Donc le suite n'est définie pour aucun u_0
+
+% \subsection{Étude de suites définies par $u_{n+1}=f\p{u_n}$}
+
+% \section{Comparaison de fonctions}
+
+% \begin{definition}
+% Soit $f:\mathcal{D}\to\R$ une fonction et $a\in\Rbar$. On dit que $f$ est \emph{définie au voisinage de $a$}, lorsqu'il existe une suite d'éléments de $\mathcal{D}$ qui tend vers $a$.
+% \end{definition}
+
+% \begin{remarqueUnique}
+% \remarque Si $f:\mathcal{D}\to\R$, alors $f$ est définie au voisinage de tout point de $\mathcal{D}$. De plus, si le domaine de $f$ est un intervalle, elle est définie au voisinage de chacune de ses bornes. Par exemple, $\ln$ est définie au voisinage de $0$, de $+\infty$ et de tout $a\in\RPs$.
+% \end{remarqueUnique}
+
+% \begin{definition}[utile=-3]
+% \begin{itemize}
+% \item Soit $a\in\R$. On dit qu'une partie $\mathcal{V}$ de $\R$ est un \emph{voisinage
+%   fondamental} de $a$ lorsqu'il existe $\epsilon>0$ tel que 
+%   \[\mathcal{V}=\enstq{x\in\R}{\abs{x-a}\leq\epsilon} 
+%     =\interf{a-\epsilon}{a+\epsilon}.\]
+% \item On dit qu'une partie $\mathcal{V}$ de $\R$ est un \emph{voisinage} de $+\infty$
+%   lorsqu'il existe $m\in\R$ tel que
+%   \[\mathcal{V}=\interfo{m}{+\infty}.\]
+% \item On dit qu'une partie $\mathcal{V}$ de $\R$ est un \emph{voisinage} de $-\infty$
+%   lorsqu'il existe $M\in\R$ tel que
+%   \[\mathcal{V}=\interof{-\infty}{M}.\]
+% \end{itemize}
+% \end{definition}
+
+% \begin{proposition}
+% Une intersection finie de voisinages de $a\in\Rbar$ est un voisinage de $a$.
+% \end{proposition}
+
+% \begin{remarqueUnique}
+% \remarque On ne peut rien dire d'une intersection d'une famille infinie de voisinages de $a$. Par exemple, $\cap_{n\in\Ns} \interf{-1/n}{1/n}=\ens{0}$ n'est pas un voisinage de 0.
+
+% \end{remarqueUnique}
+
+
+% \begin{definition}[utile=-3]
+% Soit $f:\mathcal{D}\to\R$ une fonction définie au voisinage de $a\in\Rbar$.
+% On dit que $f$ \emph{vérifie la propriété $\mathcal{P}$ au voisinage de $a$}
+% lorsqu'il existe un voisinage $\mathcal{V}$ de $a$ tel que la restriction
+% de $f$ à $\mathcal{D}\cap\mathcal{V}$ vérifie la propriété $\mathcal{P}$.
+% \end{definition}
+
+% \begin{remarqueUnique}
+% \remarque La fonction $\sin$ est croissante au voisinage de $0$. La fonction $\ln$ est négative au voisinage de 0.
+% \end{remarqueUnique}
+
+\section{Comparaison de fonctions}
+\subsection{Fonctions équivalentes}
+
+% On souhaite dire que deux fonctions $f$ et $g$ sont équivalentes en $a\in\Rbar$ lorsque le quotient $f(x)/g(x)$ tend vers 1 lorsque $x$ tend vers $a$. Cette définition a le défaut de ne pas avoir de sens lorsque $g$ s'annule en $a$. C'est pourquoi, nous utiliserons la définition plus générale suivante.
+
+
+\begin{definition}[utile=-3]
+Soit $f,g:\mathcal{D}\to\R$ deux fonctions définies au voisinage de $a\in\Rbar$. On dit
+que $f(x)$ est \emph{équivalent} à $g(x)$ en $a$ lorsqu'il existe un voisinage $\mathcal{V}$ de $a$ et une fonction $\alpha$ définie sur $\mathcal{D}\cap\mathcal{V}$ telle que
+\begin{itemize}
+\item $\forall x\in\mathcal{D}\cap\mathcal{V}\qsep f(x)=\alpha(x)g(x)$.
+\item $\alpha(x)\tendvers{x}{a}1$.
+\end{itemize}
+On note alors
+\[f(x)\equi{x}{a} g(x).\]
+\end{definition}
+
+\begin{proposition}[utile=-3]
+Soit $f,g,h:\mathcal{D}\to\R$ des fonctions définies au voisinage de $a\in\Rbar$.
+\begin{itemize}
+\item La relation d'équivalence est réflexive.
+  \[f(x)\equi{x}{a} f(x).\]
+\item La relation d'équivalence est transitive.
+  \[\cro{f(x)\equi{x}{a}g(x) \et g(x)\equi{x}{a}h(x)}\quad\implique\quad
+    f(x)\equi{x}{a}h(x).\]
+\item La relation d'équivalence est symétrique.
+  \[f(x)\equi{x}{a}g(x) \quad\implique\quad g(x)\equi{x}{a}f(x).\]
+\end{itemize}
+\end{proposition}
+
+\begin{preuve}
+Il suffit d'appliquer la définition, de jouer avec les intersections de voisinage et pour la symétrie d'utiliser que $\alpha$ tendant vers $1$, il existe un voisinage sur lequel elle ne s'annule pas.
+\end{preuve}
+
+
+\begin{proposition}[utile=-3]
+Soit $f,g:\mathcal{D}\to\R$ deux fonctions définies au voisinage de $a\in\Rbar$.
+\begin{itemize}
+\item Si $g$ ne s'annule pas au voisinage de $a$, alors
+  \[f(x)\equi{x}{a} g(x) \quad\ssi\quad
+    \frac{f(x)}{g(x)}\tendvers{x}{a} 1.\]
+\item Si $g$ ne s'annule pas au voisinage de $a$, sauf en $a$, alors
+  \[f(x)\equi{x}{a} g(x) \quad\ssi\quad
+    \cro{\frac{f(x)}{g(x)}\tendvers{x}{a} 1 \et f(a)=0}.\]
+\end{itemize}
+\end{proposition}
+
+% \begin{proposition}[utile=-3]
+% On a~:
+% \[\ln\p{1+x}\equi{x}{0} x \qquad e^x-1\equi{x}{0} x \qquad
+%   \p{1+x}^\alpha-1\equi{x}{0} \alpha x \quad \p{\alpha\in\Rs}\]
+% \[\sin x\equi{x}{0}x \qquad \tan x\equi{x}{0}x \qquad \sh{x}\equi{x}{0} x \qquad
+%    \tanh{x}\equi{x}{0} x\]
+% \[\arcsin x\equi{x}{0}x \qquad \arctan x\equi{x}{0} x \qquad \argsh x\equi{x}{0}x
+%   \qquad \argth x\equi{x}{0} x\]
+% \end{proposition}
+
+\begin{remarques}
+\remarque Soit $f$ la fonction polynôme définie par $f(x)=\sum_{k=m}^n a_k x^k$.
+  \begin{itemize}
+  \item Si $a_m \neq 0$, alors
+    $f(x) \equi{x}{0} a_m x^m$.
+    En particulier \[1+x^2\equi{x}{0}1 \et 3x+x^3\equi{x}{0}3x.\]
+  \item Si $a_n \neq 0$, alors $f(x) \equi{x}{+\infty} a_n x^n$.
+    En particulier \[1+x^2+3x^3\equi{x}{+\infty}3x^3.\]
+    On a évidemment le même équivalent en $-\infty$.
+  \end{itemize}
+  \begin{sol}
+  $\displaystyle \sum_{k=m}^n a_k x^k=a_mx^m\p{\sum_{k=m}^n \dfrac{a_k}{a_m} x^{k-m}}=a_mx^m\alpha(x)$.\\
+  $\displaystyle \sum_{k=m}^n a_k x^k=a_nx^n\p{\sum_{k=m}^n \dfrac{a_k}{a_n} x^{k-n}}=a_nx^n\beta(x).$
+  
+  \end{sol}
+\remarque Soit $f$ une fonction définie au voisinage de 0.
+  \begin{itemize}
+  \item Si $f$ est continue en 0 et $f\p{0}\neq 0$, alors
+    $f(x)\equi{x}{0}f\p{0}$.
+    En particulier \[\e^x\equi{x}{0}1 \et \cos x\equi{x}{0}1.\]
+    \begin{sol}
+    $f(x)/f(0)\to 1$.
+    \end{sol}
+  \item Si $f$ est dérivable en 0, $f\p{0}=0$ et $f'\p{0}\neq 0$, alors
+    $f(x)\equi{x}{0}f'\p{0}x$. En particulier
+    \[\ln\p{1+x}\equi{x}{0}x, \quad \sin x\equi{x}{0} x \et
+      \arctan x \equi{x}{0}x.\]
+      \begin{sol}
+      On utilise le deuxième point de la proposition précédente.
+      \end{sol}
+  \end{itemize}
+\remarque Si $f$ et $g$ sont deux fonctions telles que
+  \[f(x)\equi{x}{a}g(x)\]
+  et si $g(x)$ tend vers $l\in\Rbar$ lorsque $x$ tend vers $a$, alors il en
+  est de même pour $f(x)$.
+  Cependant, la réciproque est fausse~: il est possible que $f(x)$ et
+  $g(x)$ admettent une même limite $l\in\ens{0,\pm\infty}$ lorsque $x$ tend
+  vers $a$, sans que $f(x)$
+  et $g(x)$ soient équivalents en $a$.
+\end{remarques}
+
+\begin{exoUnique}
+\exo Montrer que $1-\cos x\equi{x}{0}\frac{x^2}{2}$.
+\end{exoUnique}
+
+\begin{sol}
+On ne peut appliquer aucune des remarques précédentes, car $f(0)=0=f'(0)$.\\
+$\dfrac{1-\cos(x)}{x^2}=\dfrac{1-(1-2\sin^2\p{\frac{x}{2}})}{x^2}=\dfrac{2\sin^2\p{\frac{x}{2}}}{x^2}=\dfrac{1}{2}\p{\dfrac{\sin\p{\frac{x}{2}}}{\dfrac{x}{2}}}^2\to \dfrac{1}{2}$.
+\end{sol}
+
+%\begin{remarques}
+% Par exemple~:
+%   \[x\tendvers{x}{0}0 \et x^2\tendvers{x}{0}0\]
+%   Pourtant, $x$ et $x^2$ ne sont pas équivalents en 0. De même~:
+%   \[x\tendvers{x}{+\infty}+\infty \et x^2\tendvers{x}{+\infty}+\infty\]
+%   Pourtant, $x$ et $x^2$ ne sont pas équivalents en $+\infty$.
+%\end{remarques}
+
+\begin{proposition}[utile=-3]
+Soit $f:\mathcal{D}\to\R$ une fonction définie au voisinage de $a\in\Rbar$ et $l\neq 0$. Alors
+\[f(x)\equi{x}{a}l \quad\ssi\quad f(x)\tendvers{x}{a}l.\]
+\end{proposition}
+
+\begin{preuve}
+Pour la première partie, si $\displaystyle f(x)\equi{x}{a}l$, on a sur un voisinage $f(x)=\alpha(x)l$ et comme $\alpha(x)$ tend vers $1$, $f(x)$ tend vers $l$.
+
+Réciproquement, si $f(x)$ tend vers $l$, on écrit $f(x)=\dfrac{f(x)}{l}l$.
+
+On a la deuxième partie en appliquant simplement la définition également.
+
+\end{preuve}
+
+\begin{remarqueUnique}
+\remarque $f(x)$ est équivalente à 0 en $a$ si et seulement si la fonction $f$ est identiquement nulle au voisinage de $a$. En pratique, si vous obtenez 
+  \setbox0=\hbox{$f(x)\equi{x}{0}0$}\dp0=0pt\box0,
+  c'est surement que vous avez fait une erreur.
+\end{remarqueUnique}
+
+\begin{proposition}[utile=-3]
+Soit $f,g:\mathcal{D}\to\R$ deux fonctions définies au voisinage de $a\in\Rbar$. On suppose
+que
+\[f(x)\equi{x}{a} g(x).\]
+Alors, il existe un voisinage de $a$ sur lequel $f(x)$ et $g(x)$ sont de
+même signe et s'annulent simultanément.  
+\end{proposition}
+
+\begin{preuve}
+Comme $\displaystyle f(x)\equi{x}{a} g(x)$, il existe $\alpha$ telle que sur un voisinage $\mathcal{V}_1$ de $a$, $f(x)=\alpha(x)g(x)$. En outre, comme $\alpha(x)\tendvers{x}{a}1$, il existe un voisinage $\mathcal{V}_2$ de $a$ telle que $\alpha(x)\geq \dfrac{1}{2}$. Considérons $\mathcal{V}=\mathcal{V}_1\cap\mathcal{V}_2$. Sur ce voisinage, $\alpha$ ne s'annule pas et $\forall x \in \mathcal{V}, f(x)=\alpha(x)g(x)$ donc \[\forall x\in \mathcal{V}, f(x)=0\Longleftrightarrow g(x)=0\]
+De plus, $\forall x\in \mathcal{V}$, si $g(x)\neq0$, $\dfrac{f(x)}{g(x)}=\alpha(x)\geq \dfrac{1}{2}>0$ donc $f$ et $g$ sont de même signe.
+
+\end{preuve}
+
+\begin{proposition}[utile=-3]
+\begin{itemize}
+\item Soit $f_1,g_1,f_2,g_2:\mathcal{D}\to\R$ des fonctions définies au voisinage de $a\in\Rbar$.
+  On suppose que
+  \[f_1(x)\equi{x}{a} g_1(x) \et f_2(x)\equi{x}{a} g_2(x).\]
+  Alors
+  \[f_1(x)f_2(x) \equi{x}{a} g_1(x)g_2(x).\]
+  Si de plus, $f_2$ et $g_2$ ne s'annulent pas au voisinage de $a$, sauf peut-être en $a$, alors
+  \[\frac{f_1(x)}{f_2(x)} \equi{x}{a} \frac{g_1(x)}{g_2(x)}.\]
+\item Soit $f,g:\mathcal{D}\to\R$ deux fonctions équivalentes en $a\in\Rbar$ et
+  $\alpha\in\R$ tels que $f(x)^\alpha$ et $g(x)^\alpha$ aient un sens au
+  voisinage de $a$. Alors
+  \[f(x)^\alpha \equi{x}{a} g(x)^{\alpha}.\]
+\end{itemize}
+\end{proposition}
+
+\begin{preuve}
+\begin{francois}
+\begin{itemize}
+\item Nous allons faire la preuve de ce premier point dans le cas où $a\in\R$. Soit $f_1,g_1,f_2,g_2:\mathcal{D}\to\R$ des fonctions définies au voisinage de $a\in\R$. On suppose que
+\[f_1(x)\equi{x}{a} g_1(x) \et f_2(x)\equi{x}{a} g_2(x).\]
+Il existe donc $\epsilon_1,\epsilon_2>0$ et des fonctions $\alpha_1:\mathcal{D}\cap[a-\epsilon_1,a+\epsilon_1]\to\R$ et $\alpha_2:\mathcal{D}\cap[a-\epsilon_2,a+\epsilon_2]\to\R$ telles que
+\[\cro{\forall x\in\mathcal{D}\cap[a-\epsilon_1,a+\epsilon_1]\qsep f_1(x)=\alpha_1(x)g_1(x)} \et
+  \alpha_1(x)\tendvers{x}{a}1\]
+\[\cro{\forall x\in\mathcal{D}\cap[a-\epsilon_2,a+\epsilon_2]\qsep f_2(x)=\alpha_2(x)g_2(x)} \et
+  \alpha_2(x)\tendvers{x}{a}1\]
+On pose $\epsilon_3\defeq \min(\epsilon_1,\epsilon_2)> 0$. Alors
+\[\forall x\in\mathcal{D}\cap[a-\epsilon_3,a+\epsilon_3]\qsep f_1(x)f_2(x)=\alpha_1(x)\alpha_2(x)g_1(x)g_2(x)\]
+et
+\[\alpha_1(x)\alpha_2(x)\tendvers{x}{a}1.\]
+Donc
+\[f_1(x)f_2(x) \equi{x}{a} g_1(x)g_2(x).\]
+Si de plus $f_2$ et $g_2$ ne s'annulent pas au voisinage de $a$, il existe $\epsilon_4>0$ tel que
+\[\forall x\in\mathcal{D}\cap[a-\epsilon_4,a+\epsilon_4]\qsep f_2(x)\neq 0 \et g_2(x)\neq 0\]
+On pose alors $\epsilon_5\defeq\min(\epsilon_3,\epsilon_4)>0$. Alors
+\[\forall x\in\mathcal{D}\cap[a-\epsilon_5,a+\epsilon_5]\qsep \frac{f_1(x)}{f_2(x)}=\frac{\alpha_1(x)}{\alpha_2(x)}\cdot\frac{g_1(x)}{g_2(x)}\]
+et 
+\[\frac{\alpha_1(x)}{\alpha_2(x)}\tendvers{x}{a}1.\]
+Donc
+\[\frac{f_1(x)}{f_2(x)} \equi{x}{a} \frac{g_1(x)}{g_2(x)}.\]
+\item 
+\end{itemize}
+\end{francois}
+\begin{victor}
+Il existe $\mathcal{V}_1$ voisinage de $a$ tel que $f_1(x)=\alpha_1(x)g_1(x)$ sur $\mathcal{V}_1$ et $\alpha_1(x)\tendvers{x}{a}1$.
+
+De même, il existe $\mathcal{V}_2$ voisinage de $a$ tel que $f_2(x)=\alpha_2(x)g_2(x)$ sur $\mathcal{V}_2$ et $\alpha_2(x)\tendvers{x}{a}1$.
+
+Ainsi, sur $\mathcal{V}=\mathcal{V}_1\cap \mathcal{V}_2$, on a $f_1(x)f_2(x)=\alpha_1(x)\alpha_2(x)g_1(x)g_2(x)$ et $(\alpha_1\alpha_2)(x)\tendvers{x}{a}1$, d'où le premier résultat.
+
+Ensuite, j'ai envie de différencier les cas où $f_2$ s'annulent en $a$ (donc $g_2$ aussi) et où $f_2$ ne s'annulent pas en $a$. Dans le deuxième cas, j'aimerais dire que je peux trouver un voisinage autour de $a$ tel que $f_2$ et $g_2$ ne s'annulent pas, mais comment faire sans continuité ?
+\end{victor}
+\end{preuve}
+
+
+\begin{remarques}
+\item Attention, il n'est pas possible d'ajouter des équivalents. Par exemple
+  \[1+x\equi{x}{0}1 \et -1\equi{x}{0}-1.\]
+  Pourtant $\p{1+x}-1=x$ n'est pas équivalent à $1-1=0$ en 0.
+\item De même, il n'est pas possible de composer des équivalents. Par exemple
+  \[1+x\equi{x}{+\infty}x.\]
+  Pourtant $\e^{1+x}$ n'est pas équivalent à $\e^x$ en $+\infty$. En effet,
+  $\e^{x+1}/\e^x=\e\tendvers{x}{+\infty} \e\neq 1$.
+% \item De même, il est possible que $f(x)$ et $g(x)$ soient équivalents en
+%   $+\infty$ sans que $f(x)^x$ et $g(x)^x$ le soient. Par exemple~:
+%   \[1+\frac{1}{x}\equi{x}{+\infty}1\]
+%   Pourtant $\p{1+\frac{1}{x}}^x$ et $1^x=1$ ne sont pas équivalents en
+%   $+\infty$. En effet~:
+%   \[\p{1+\frac{1}{x}}^x=e^{x\ln\p{1+\frac{1}{x}}}=
+%     e^{\frac{\ln\p{1+\frac{1}{x}}}{\frac{1}{x}}}\tendvers{x}{+\infty} e\neq 1\]
+%   car $\ln\p{1+u}/u \tendvers{u}{0} 1$.
+% \remarque Soit $f$ et $g$ sont deux fonctions strictement positives,
+%   équivalentes au voisinage de $a\in\Rbar$. Si ces fonctions tendent vers
+%   $+\infty$ ou 0 lorsque $x$ tend vers $a$, alors $\ln(f(x))$ et $\ln(g(x))$ sont
+%   équivalents en $a$. En particulier
+%   \[\ln(x^2+1)\equi{x}{+\infty}2\ln x \et \ln(\sin x)\equi{x}{0} \ln x.\]
+%   On veillera à redémontrer au cas par cas ces équivalents.
+\end{remarques}
+
+\begin{exos}
+\item Donner un équivalent en 0 de $\ln\p{1+x}\sin x$.
+\begin{sol} Puisque $\sin x\equi{x}{0}x$ et $\ln\p{1+x}\equi{x}{0}x$, on en déduit
+   que~:
+   \[\ln\p{1+x}\sin x\equi{x}{0}x^2\]
+   \end{sol}
+\item Chercher la limite à droite en 0 de
+  \[\frac{\ln\p{1+x}}{\sqrt{1-\cos x}}.\]
+  \begin{sol}
+   Comme $\ln\p{1+x}\equi{x}{0}x$ et $1-\cos x\equi{x}{0}
+     \frac{x^2}{2}$, on en déduit que
+   \[\frac{\ln\p{1+x}}{\sqrt{1-\cos x}}\equidp{x}{0}\frac{x}{\sqrt{\frac{x^2}{2}}}=
+     \sqrt{2} \quad \text{car $x>0$}\]
+   Donc~:
+   \[\frac{\ln\p{1+x}}{\sqrt{1-\cos x}}\tendversdp{x}{0} \sqrt{2}\]
+   \end{sol}
+\end{exos}
+
+\begin{proposition}[utile=-3]
+Soit $\conj{x}$ une fonction définie au voisinage de $a\in\Rbar$ et $f_1$, $f_2$
+deux fonctions définies au voisinage de $b\in\Rbar$. Alors
+\[\cro{f_1(x)\equi{x}{b}f_2(x) \et \conj{x}(t)\tendvers{t}{a}b} \quad\implique\quad
+  f_1\p{\conj{x}(t)}\equi{t}{a}f_2\p{\conj{x}(t)}.\]
+\end{proposition}
+
+\begin{preuve}
+Comme $\displaystyle f_1(x)\equi{x}{b}f_2(x)$, il existe un voisinage $\mathcal{V}_1$ de $b$ et $\alpha$ définie sur $\mathcal{V}_1$ telle que $f_1(x)=\alpha(x)f_2(x)$ sur $\mathcal{V}_1$ et $\alpha(x)\tendvers{x}{b}1$. Soit $\varepsilon>0$, il existe $\mathcal{V}_2$ un voisinage de $b$ tel que $\forall x\in \mathcal{V}_2$, $|\alpha(x)-1|\leq \varepsilon$. On pose $\mathcal{V}=\mathcal{V}_1\cap\mathcal{V}_2$.
+
+\smallskip
+Comme $\displaystyle \conj{x}(t)\tendvers{t}{a}b$, il existe $\mathcal{U}$ un voisinage de $a$ tel que $\forall t \in \mathcal{U}$, $\conj{x}(t) \in \mathcal{V}$. Mais alors, $\forall t \in \mathcal{U}, f_1(\conj{x}(t))=\alpha(\conj{x}(t))f_2(\conj{x}(t))$. De plus, $|\alpha(\conj{x}(t))-1|\leq \varepsilon$, donc $\alpha\p{\conj{x}(t)}\tendvers{t}{a}1$.
+
+Sinon, on utilise directement le théorème de composition des limites pour $\alpha$ sans s'embêter avec les $\varepsilon$.
+
+\end{preuve}
+
+\begin{victor}
+\begin{remarqueUnique}
+\remarque Par exemple, on sait que $\ln\p{1+x}\equi{x}{0}x$, donc si $g(u)\tendvers{u}{a}0$, alors $\ln\p{1+g(u)}\equi{u}{a}g(u)$. Cela donne notamment l'équivalent $\ln(u)\equi{u}{1}u-1$ utilisé très souvent, comme ci-dessous :
+$$\ln\p{\frac{x+1}{x-1}}\equi{x}{+\infty}\frac{x+1}{x-1}-1\equi{x}{+\infty}\frac{2}{x-1}\equi{x}{+\infty}\frac{2}{x}$$
+\end{remarqueUnique}
+\end{victor}
+
+\begin{exoUnique}
+\item Donner un équivalent en 0 de $\ln\p{1+\tan x}$, puis de
+  $\arcsin\p{-1+u}+\frac{\pi}{2}$.
+  \begin{sol}
+     Comme $\ln\p{1+x}\equi{x}{0}x$ et $\tan x\tendvers{x}{0}0$, on en déduit
+   que
+   \[\ln\p{1+\tan x}\equi{x}{0}\tan x\equi{x}{0} x\]
+
+\bigskip
+
+Comme $\arcsin x\tendvers{x}{-1} -\pi/2$, on en déduit que
+  \[\arcsin\p{-1+u}+\frac{\pi}{2}\tendvers{u}{0}0\]
+  On souhaite obtenir un équivalent de cette quantité en 0. Comme
+  $\sin x\equi{x}{0} x$, on en déduit que
+  \begin{eqnarray*}
+  \arcsin\p{-1+u}+\frac{\pi}{2}
+  &\equi{u}{0}& \sin\p{\arcsin\p{-1+u}+\frac{\pi}{2}}\\
+  &\equi{u}{0}& \cos\p{\arcsin\p{-1+u}}\\
+  &\equi{u}{0}& \sqrt{1-\p{-1+u}^2}\\
+  &\equi{u}{0}& \sqrt{2u-u^2}\\
+  &\equi{u}{0}& \sqrt{2u}\\
+  &           & \text{car $2u-u^2\equi{u}{0}2u$ donc
+                $\sqrt{2u-u^2}\equi{u}{0}\sqrt{2u}$}
+  \end{eqnarray*}
+  On en déduit qu'au voisinage de 0
+  \[\arcsin\p{-1+u}=-\frac{\pi}{2}+\alpha(u)\sqrt{2u}\]
+  où $\alpha$ est une fonction tendant vers 1 lorsque $u$ tend vers 0. Cela nous
+  donne l'allure du graphe de $\arcsin$ au voisinage de $-1$.
+  \end{sol}
+
+\begin{center}
+  \begin{pdfpic}
+  \readdata{\listeParcsin}{graphe_arcsin.txt}
+  \readdata{\listeParcsinmoinsun}{graphe_arcsin_moinsun.txt}
+  \psset{xunit=2.5cm,yunit=2.5cm}
+  \begin{pspicture}(-1.3,-1.8)(1.3,1.8)
+    \psaxes[labels=none]{->}(0,0)(-1.3,-1.8)(1.3,1.8)
+    \psaxes[labels=none]{->}(-1,-1.5707)(-1.3,-1.8)(-0.3,-0.5)
+    \dataplot[plotstyle=curve,linewidth=2pt]{\listeParcsin}
+    \dataplot[plotstyle=curve,linewidth=0.5pt]%
+      {\listeParcsinmoinsun}
+    \uput[d](1,0){1}
+    \uput[u](-1,0){-1}
+    \uput[l](0,1.5707){$\frac{\pi}{2}$}
+    \uput[r](0,-1.5707){$-\frac{\pi}{2}$}
+    \uput[r](1.3,0){$x$}
+    \uput[d](-0.3,-1.5707){$u$}
+    \uput[r](0,1.8){$y$}
+    \uput[l](-1,-0.5){$v$}
+    \uput[u](1,1.5707){$y=\arcsin x$}
+    \uput[r](1.2,0.5268){$v=\sqrt{2u}$}
+    \psline[linestyle=dashed,linewidth=0.5pt](1,0)(1,1.5707)
+    \psline[linestyle=dashed,linewidth=0.5pt](1,1.5707)(0,1.5707)
+    \psline[linestyle=dashed,linewidth=0.5pt](-1,0)(-1,-1.5707)
+    \psline[linestyle=dashed,linewidth=0.5pt](-1,-1.5707)(0,-1.5707)
+    \psline{->}(1,1.5707)(1,1.0707)
+  \end{pspicture}
+  \end{pdfpic}
+  \end{center}
+\end{exoUnique}
+
+\subsection{Fonction négligeable devant une autre}
+
+\begin{definition}[utile=-3]
+Soit $f,g:\mathcal{D}\to\R$ deux fonctions définies au voisinage de $a\in\Rbar$. On dit
+que $f(x)$ est \emph{négligeable} devant $g(x)$ en $a$ lorsqu'il existe un voisinage $\mathcal{V}$ de $a$ et une fonction $\epsilon$ définie sur $\mathcal{D}\cap\mathcal{V}$ telle que
+\begin{itemize}
+\item $\forall x\in\mathcal{D}\cap\mathcal{V}\qsep f(x)=\epsilon(x)g(x)$.
+\item $\epsilon(x)\tendvers{x}{a}0$.
+\end{itemize}
+On note alors
+\[f(x)=\petito{x}{a}{g(x)}.\]
+\end{definition}
+
+\begin{proposition}[utile=-3]
+Soit $f,g,h:\mathcal{D}\to\R$ des fonctions définies au voisinage de $a\in\Rbar$. La relation
+\og est négligeable devant \fg est transitive.
+\[\cro{f(x)=\petito{x}{a}{g(x)} \et g(x)=\petito{x}{a}{h(x)}}\quad\implique\quad
+    f(x)=\petito{x}{a}{h(x)}.\]
+\end{proposition}
+
+\begin{proposition}[utile=-3]
+Soit $f,g:\mathcal{D}\to\R$ deux fonctions définies au voisinage de $a\in\Rbar$.
+\begin{itemize}
+\item Si $g$ ne s'annule pas au voisinage de $a$, alors
+  \[f(x)=\petito{x}{a}{g(x)} \quad\ssi\quad
+    \frac{f(x)}{g(x)}\tendvers{x}{a} 0.\]
+\item Si $g$ ne s'annule pas au voisinage de $a$, sauf en $a$, alors
+  \[f(x)=\petito{x}{a}{g(x)} \quad\ssi\quad
+    \cro{\frac{f(x)}{g(x)}\tendvers{x}{a} 0 \et f(a)=0}.\]
+\end{itemize}
+\end{proposition}
+
+\begin{proposition}[utile=-3]
+Soit $\alpha_1,\alpha_2\in\R$.
+\begin{itemize}
+\item On a
+  \[x^{\alpha_1}=\petitozero{x}{x^{\alpha_2}} \quad\ssi\quad \alpha_1 > \alpha_2.\]
+\item De plus
+  \[x^{\alpha_1}=\petito{x}{+\infty}{x^{\alpha_2}} \quad\ssi\quad
+    \alpha_1 < \alpha_2.\]
+%   Autrement dit~:
+%   \[\frac{1}{x^{\alpha_1}}=\petito{x}{+\infty}{\frac{1}{x^{\alpha_2}}}
+%     \quad\ssi\quad \alpha_1 > \alpha_2\]
+\end{itemize}
+\end{proposition}
+
+\begin{preuve}
+$$x^{\alpha_1}=\petitozero{x}{x^{\alpha_2}}\Longleftrightarrow x^{\alpha_1-\alpha_2}\tendvers{x}{0}0 \Longleftrightarrow \alpha_1 > \alpha_2.$$
+
+$$x^{\alpha_1}=\petitozero{x}{x^{\alpha_2}}\Longleftrightarrow x^{\alpha_1-\alpha_2}\tendvers{x}{+\infty}0 \Longleftrightarrow \alpha_1 <\alpha_2.$$
+\end{preuve}
+
+\begin{proposition}[utile=-3]
+Soit $\alpha,\beta,\gamma>0$. Alors
+\[\p{\ln x}^\gamma=\petito{x}{+\infty}{x^\beta} \et x^\beta=\petito{x}{+\infty}{\e^{\alpha x}}.\]
+\end{proposition}
+
+\begin{proposition}[utile=-3]
+Soit $f$ une fonction définie au voisinage de $a$. Alors
+\[f(x)=\petito{x}{a}{1} \quad\ssi\quad f(x)\tendvers{x}{a}0.\]
+\end{proposition}
+
+\begin{proposition}[utile=-3]
+$\quad$
+\begin{itemize}
+\item Soit $g$ une fonction définie au voisinage de $a$. Alors
+  \[\forall \lambda,\mu\in\R \quad \lambda\petito{x}{a}{g(x)}+
+    \mu\petito{x}{a}{g(x)}=\petito{x}{a}{g(x)}.\]
+\item Soit $f,g:\mathcal{D}\to\R$ deux fonctions définies au voisinage de $a$. Alors
+  \[f(x)\petito{x}{a}{g(x)}=\petito{x}{a}{f(x)g(x)}.\]
+  % cette égalité pouvant se lire dans les deux sens.
+\item Soit $f,g:\mathcal{D}\to\R$ deux fonctions définies au voisinage de $a$. Alors
+  \[\petito{x}{a}{f(x)}\petito{x}{a}{g(x)}=
+    \petito{x}{a}{f(x)g(x)}.\]
+\end{itemize}
+\end{proposition}
+
+\begin{preuve}
+Il suffit d'écrire les définitions avec des fonctions $\varepsilon$ différentes et de prendre des intersections de voisinage.
+\end{preuve}
+
+\begin{proposition}[utile=-3]
+$\quad$
+\begin{itemize}
+\item Soit $f,g:\mathcal{D}\to\R$ deux fonctions équivalentes en $a\in\Rbar$. Alors, une
+  fonction est négligeable devant $f$ en $a$ si et seulement si elle est
+  négligeable devant $g$ en $a$.
+\item Soit $f$ une fonction définie au voisinage de $a$ et $\lambda\in\Rs$.
+  Alors, une fonction est négligeable devant $f$ en $a$ si et seulement si
+  elle est négligeable devant $\lambda f$ en $a$.
+\end{itemize}
+\end{proposition}
+
+\begin{preuve}
+Soit $f$ et $g$ deux fonctions équivalentes en $a\in\Rbar$. Alors, il existe $\alpha$ et $\mathcal{V}_1$ un voisinage de $a$ sur lequel $f(x)=\alpha(x)g(x)$ et $\alpha(x)\tendvers{x}{a}1$. Soit alors $h$ une fonction négligeable devant $f$ en $a$. Il existe $\varepsilon$ et $\mathcal{V}_2$ un voisinage de $a$ sur lequel $h(x)=\varepsilon(x)f(x)$ et $\varepsilon(x)\tendvers{x}{a}0$. Posons $\mathcal{V}=\mathcal{V}_1\cap\mathcal{V}_2$. On a sur $\mathcal{V}$, $h(x)=\varepsilon(x)\alpha(x)g(x)$ avec $\varepsilon(x)\alpha(x)\tendvers{x}{a}0$ donc $h$ est négligeable devant $g$ en $a$.
+
+Pour l'autre sens, grâce à la symétrie de l'équivalence, on peut inverser les rôles de $f$ et $g$.
+
+\medskip
+
+Pour le deuxième point, $h(x)=\varepsilon(x)f(x)=\dfrac{\varepsilon(x)}{\lambda}(\lambda f)(x)$ puis faire l'autre sens avec $1/\lambda$.
+\end{preuve}
+
+
+\begin{proposition}[utile=-3]
+Soit $f,g:\mathcal{D}\to\R$ deux fonctions définies au voisinage de $a\in\Rbar$. Alors
+\[f(x)\equi{x}{a}g(x) \quad\ssi\quad f(x)=g(x)+\petito{x}{a}{g(x)}.\]  
+\end{proposition}
+
+\begin{preuve}
+Pour le sens gauche-droite, $f(x)=\alpha(x)g(x)=g(x)+(\alpha(x)-1)g(x)$. Pour le sens droite-gauche, $f(x)=g(x)+\varepsilon(x)g(x)=(1+\varepsilon(x))g(x)$.
+\end{preuve}
+
+\begin{exoUnique}
+\exo Soit $f$ la fonction de $\RP$ dans $\RP$ qui à $x$ associe $x\e^x$.
+  Montrer que $f$ est bijective, puis donner la limite et un équivalent de
+  $f^{-1}$ en $+\infty$.
+  \begin{sol}
+  On a $f(f^{-1}(x))=x$ d'où $f^{-1}(x)\e^{f^{-1}(x)}=x$ et donc $\ln(f^{-1}(x))+f^{-1}(x)=\ln(x)$.\\
+  
+  Comme $f^{-1}(x)\tendvers{x}{+\infty}+\infty$ (thm de la bijection) on peut dire que $\dfrac{\ln(f^{-1}(x))}{f^{-1}(x)} \tendvers{x}{+\infty}0$ d'où $\dfrac{\ln(x)}{f^{-1}(x)} \tendvers{x}{+\infty}1$. Finalement, $f^{-1}(x)\equi{x}{+\infty}\ln(x).$
+  \end{sol}
+\end{exoUnique}
+
+\subsection{Fonction dominée par une autre}
+
+\begin{definition}[utile=-3]
+Soit $f,g:\mathcal{D}\to\R$ deux fonctions définies au voisinage de $a\in\Rbar$. On dit
+que $f(x)$ est \emph{dominée} par $g(x)$ en $a$ lorsqu'il existe un voisinage $\mathcal{V}$ de $a$ ainsi qu'une fonction $B$ définie sur $\mathcal{D}\cap\mathcal{V}$ telle que
+\begin{itemize}
+\item $\forall x\in\mathcal{D}\cap\mathcal{V}\qsep f(x)=B(x)g(x)$.
+\item $B$ est bornée.
+\end{itemize}
+On note alors
+\[f(x)=\grando{x}{a}{g(x)}.\]
+\end{definition}
+
+\begin{proposition}[utile=-3]
+Soit $f,g:\mathcal{D}\to\R$ deux fonctions définies au voisinage de $a\in\Rbar$.
+\begin{itemize}
+\item Si $g$ ne s'annule pas au voisinage de $a$, alors
+  \[f(x)=\grando{x}{a}{g(x)} \quad\ssi\quad
+    \frac{f(x)}{g(x)} \text{ est bornée au voisinage de $a$.}\]
+\item Si $g$ ne s'annule pas au voisinage de $a$, sauf en $a$, alors
+  \[f(x)=\grando{x}{a}{g(x)} \ssi
+    \cro{\frac{f(x)}{g(x)}\text{ est bornée au voisinage de $a$}
+    \et f(a)=0}.\]
+\end{itemize}
+\end{proposition}
+
+\begin{proposition}[utile=-3]
+Soit $f$ une fonction définie au voisinage de $a$. Alors
+\[f(x)=\grando{x}{a}{1} \quad\ssi\quad
+  f(x)\text{ est bornée au voisinage de $a$}.\]
+\end{proposition}
+
+\section{Développement limité}
+\subsection{Définition, propriétés élémentaires}
+
+\begin{definition}[utile=-3]
+Soit $f$ une fonction définie au voisinage de $a\in\R$ et $n\in\N$. On dit
+que $f$ admet un \emph{développement limité} en $a$ à l'ordre $n$ lorsqu'il
+existe $a_0,a_1,\ldots,a_n\in\R$ tels que
+\begin{eqnarray*}
+f\p{a+h} &=& a_0+a_1 h+a_2 h^2+\cdots+a_n h^n+\petitozero{h}{h^n}\\
+         &=& \sum_{k=0}^n a_k h^k+\petitozero{h}{h^n}.
+\end{eqnarray*}
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque Pour tout $x\in\intero{-1}{1}$
+  \[\sum_{k=0}^n x^k=\frac{1-x^{n+1}}{1-x},\]
+  donc
+  \[\frac{1}{1-x}
+    = \sum_{k=0}^n x^k+\underbrace{\frac{x}{1-x}}_{\tendvers{x}{0}0}x^n
+    = \sum_{k=0}^n x^k+\petitozero{x}{x^n}.\]
+\end{remarqueUnique}
+
+\begin{exoUnique}
+\exo Montrer que $\e^x=1+x+\petitozero{x}{x}$, puis que $\cos x=1-\frac{x^2}{2}+\petitozero{x}{x^2}$.
+\end{exoUnique}
+
+\begin{sol}
+En effet
+   \[\frac{e^x-\p{1+x}}{x}=\frac{e^x-1}{x}-1\tendvers{x}{0}0\]
+   et $e^0-\p{1+0}=0$.
+   
+   On a vu que $\dfrac{1-\cos(x)}{x^2}\tendvers{x}{0}\dfrac{1}{2}$ donc $\dfrac{1-\cos(x)}{x^2}=\dfrac{1}{2}+\petitozero{x}{1}.$
+\end{sol}
+
+\begin{proposition}[utile=-3, nom={Troncature d'un développement limité}]
+Soit $f$ une fonction admettant un développement limité en $a$ à
+l'ordre $n$
+\[f\p{a+h}=\sum_{k=0}^n a_k h^k+\petitozero{h}{h^n}.\]
+Si $p\in\intere{0}{n}$, alors $f$ admet un développement limité en
+$a$ à l'ordre $p$ et
+\[f\p{a+h}=\sum_{k=0}^p a_k h^k+\petitozero{h}{h^p}.\]
+\end{proposition}
+
+\begin{preuve}
+Soit $f$ une fonction admettant un développement limité en $a$ à
+l'ordre $n$
+\[f\p{a+h}=\sum_{k=0}^n a_k h^k+\petitozero{h}{h^n},\]
+et $p\in\intere{0}{n}$.
+
+\[\petitozero{h}{h^n}(=h^n\varepsilon(h)=h^ph^{n-p}\varepsilon(x))=\petitozero{h}{h^p}\]
+et 
+\[\sum_{k=p+1}^n a_k h^k=\petitozero{h}{h^p}\]
+donc 
+\[f\p{a+h}=\sum_{k=0}^p a_k h^k+\petitozero{h}{h^p}.\]
+\end{preuve}
+
+\begin{proposition}[utile=-3]
+Soit $f$ une fonction admettant un développement limité en $a$ à
+l'ordre $n$~:
+\[f\p{a+h}=\sum_{k=0}^n a_k h^k+\petitozero{h}{h^n}\]
+Alors, les coefficients $a_0,\ldots,a_n$ sont uniques; on dit que
+$\sum_{k=0}^n a_k h^k$ est la \emph{partie régulière} du développement limité.
+\end{proposition}
+
+\begin{preuve}
+On suppose qu'il y en a deux : $f(a+h)=p(h)+h^n\varepsilon_1(h)=q(h)+h^n\varepsilon_2(h)$. Alors $r(h):=p(h)-q(h)=h^n(\varepsilon_1(h)-\varepsilon_2(h))=h^n\varepsilon(h)$ avec $r$ un polynôme de degré $\leq n$.
+
+\'Ecrivons $r(h)=\displaystyle\sum_{k=0}^na_kh^k$. Il s'agit de montrer que tous les $a_k$ sont nuls. Supposons le contraire et posons $k_0=\min\ens{k\in\llbracket0,n\rrbracket | a_k\neq0}$. On a alors $\displaystyle \sum_{k=k_0}^na_k h^{k-k_0}=h^{n-k_0}\varepsilon(h), \forall h\neq 0$. Le membre de gauche tend vers $a_{k_0}\neq 0$ alors que le membre de droite tend vers $0$.
+\end{preuve}
+
+\begin{definition}[utile=-3]
+Soit $f$ une fonction définie au voisinage de $a$. On suppose qu'il existe
+un réel $\alpha\neq 0$ et $\omega\in\N$ tels que
+\[f\p{a+h}=\alpha h^\omega+\petitozero{h}{h^\omega}.\]
+Alors $\alpha$ et $\omega$ sont uniques; on dit que $\alpha h^\omega$ est
+la \emph{partie principale} de $f$ en $a$ et que $\omega$ est l'\emph{ordre} de
+cette partie principale. On a alors
+\[f\p{a+h}\equi{h}{0} \alpha h^\omega.\]
+\end{definition}
+
+\begin{preuve}
+Les deux propositions précédentes permettent d'avoir l'unicité de $\alpha$ et $\omega$.
+\end{preuve}
+
+
+% \begin{remarques}
+% \remarque TODO : Faire un topo sur les relations entre les signes des
+%   coefficients du DL et l'allure du graphe.
+% \end{remarques}
+
+\begin{proposition}[utile=-3]
+Soit $f$ une fonction admettant un développement limité en 0 à l'ordre $n$
+\[f(x)=\sum_{k=0}^n a_k x^k+\petitozero{x}{x^n}.\]
+\begin{itemize}
+\item Si $f$ est paire, $a_k$ est nul pour tout $k$ impair.
+\item Si $f$ est impaire, $a_k$ est nul pour tout $k$ pair.
+\end{itemize}
+\end{proposition}
+
+\begin{preuve}
+On écrit le développement limité de $f(-x)$ puis on utilise l'unicité du développement limité.
+\end{preuve}
+
+\subsection{Développement limité et propriétés locales}
+
+\begin{proposition}[utile=-3]
+Soit $f:\mathcal{D}\to\R$ une fonction et $a\in\mathcal{D}$.
+\begin{itemize}
+\item Alors $f$ admet un développement limité en $a$ à l'ordre 0 si et
+  seulement si elle est continue en $a$. De plus, si tel est le cas
+  \[f\p{a+h}=f(a)+\petitozero{h}{1}.\]
+\item Alors $f$ admet un développement limité en $a$ à l'ordre 1 si et
+  seulement si elle est dérivable en $a$. De plus, si tel est le cas
+  \[f\p{a+h}=f(a)+f'(a)h+\petitozero{h}{h}.\]
+\end{itemize}
+\end{proposition}
+
+\begin{remarques}
+\remarque Plus généralement, une fonction définie au voisinage de $a$
+  admet un développement limité en $a$ à l'ordre 0 si et seulement si elle
+  admet une limite finie en $a$.
+% \remarque En utilisant la dérivabilité en 0 des fonctions
+%   $x\mapsto\p{1+x}^\alpha$ et $x\mapsto\cos\p{\pi/4+x}$, on obtient
+%   \begin{eqnarray*}
+%   \p{1+x}^\alpha &=& 1+\alpha x+\petitozero{x}{x}\\  
+%   \cos\p{\frac{\pi}{4}+x} &=& \cos\p{\frac{\pi}{4}}+\cos'\p{\frac{\pi}{4}}x+
+%     \petitozero{x}{x}\\
+%   &=& \frac{\sqrt{2}}{2}-\frac{\sqrt{2}}{2}x+\petitozero{x}{x}.
+%   \end{eqnarray*}
+\remarque Pour déterminer la position d'une courbe par rapport à sa tangente en un point $a$, il suffit de calculer la partie principale de $f(a+h)-\cro{f(a)+f'(a)h}$. Supposons que
+\[f(a+h)=f(a)+f'(a)h+\alpha h^\omega+\petitozero{h}{h^\omega}\]
+avec $\alpha\neq 0$ et $\omega\geq 2$.
+\begin{itemize}
+\item \emph{Si $\omega$ est pair}, alors le graphe de $f$ est au-dessus de sa tangente au voisinage de $a$ si $\alpha>0$ et en dessous si $\alpha<0$.
+\medskip
+\pgfplotsset{
+    standard/.style={
+        axis x line=middle,
+        axis y line=middle,
+        enlarge x limits=0.15,
+        enlarge y limits=0.15,
+        every axis x label/.style={at={(current axis.right of origin)},anchor=north west},
+        every axis y label/.style={at={(current axis.above origin)},anchor=north east}
+    }
+}
+\begin{center}
+\begin{figure}[H]
+\begin{center}
+\begin{tikzpicture}[>=latex,scale=1.0]
+% \draw[->] (-0.2,0) -- (2,0) node[below] {$x$};
+% \draw[->] (0.0,-0.2) -- (0.0,2.5) node[left] {$y$};
+% \draw[-] (0.1,0.1) -- (2,2);
+\begin{axis}[standard,mark=none,
+      xmin=-0.1,ymin=-0.1,
+      xmax=2.0,ymax=2.0,
+      axis lines*=middle,
+      axis line style={->},
+      xlabel=$x$,
+      ylabel=$y$,
+      xtick={1.0},xticklabels={$a$},
+      ytick={1.0},yticklabels={$f(a)$},
+      enlargelimits]
+\addplot[no marks,domain=0.1:2.0,samples=301] {1.0+0.7*(x - 1.0)};
+\addplot[line width=2pt,no marks,domain=0.1:2.0,samples=301] {1.0+0.7*(x - 1.0)+(x - 1.0)^2};
+% \draw[shift={(0,0)}] (1.0,2pt) -- (1.0,-2pt) node[below] {$a$};
+ %+1.0*(x - 1.0)^2};
+\end{axis}
+\end{tikzpicture}
+$\qquad$
+\begin{tikzpicture}[>=latex,scale=1.0]
+% \draw[->] (-0.2,0) -- (2,0) node[below] {$x$};
+% \draw[->] (0.0,-0.2) -- (0.0,2.5) node[left] {$y$};
+% \draw[-] (0.1,0.1) -- (2,2);
+\begin{axis}[standard,mark=none,
+      xmin=-0.1,ymin=-0.1,
+      xmax=2.0,ymax=2.0,
+      axis lines*=middle,
+      axis line style={->},
+      xlabel=$x$,
+      ylabel=$y$,
+      xtick={1.0},xticklabels={$a$},
+      ytick={1.0},yticklabels={$f(a)$},
+      enlargelimits]
+\addplot[no marks,domain=0.1:2.0,samples=301] {1.0+0.7*(x - 1.0)};
+\addplot[line width=2pt,no marks,domain=0.1:2.0,samples=301] {1.0+0.7*(x - 1.0)-(x - 1.0)^2};
+ %+1.0*(x - 1.0)^2};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+\captionsetup{labelformat=empty}
+\caption{$\alpha>0$ et $\omega$ pair $\qquad\qquad\qquad\ \qquad\qquad\qquad\qquad\qquad$ $\alpha<0$ et $\omega$ pair}
+\end{figure}
+% \begin{figure}[H]
+% \centering
+
+% \captionsetup{labelformat=empty}
+% \caption{$\alpha<0$ et $\omega$ pair}
+% \end{figure}
+\end{center}
+\medskip
+\item \emph{Si $\omega$ est impair}, alors le graphe de $f$ traverse sa tangente en $a$. La courbe admet un point d'inflexion en $a$.
+\medskip
+\begin{center}
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[>=latex,scale=1.0]
+% \draw[->] (-0.2,0) -- (2,0) node[below] {$x$};
+% \draw[->] (0.0,-0.2) -- (0.0,2.5) node[left] {$y$};
+% \draw[-] (0.1,0.1) -- (2,2);
+\begin{axis}[standard,mark=none,
+      xmin=-0.1,ymin=-0.1,
+      xmax=2.0,ymax=2.0,
+      axis lines*=middle,
+      axis line style={->},
+      xlabel=$x$,
+      ylabel=$y$,
+      xtick={1.0},xticklabels={$a$},
+      ytick={1.0},yticklabels={$f(a)$},
+      enlargelimits]
+\addplot[no marks,domain=0.1:2.0,samples=301] {1.0+0.7*(x - 1.0)};
+\addplot[line width=2pt,no marks,domain=0.1:2.0,samples=301] {1.0+0.7*(x - 1.0)-(x - 1.0)^3};
+ %+1.0*(x - 1.0)^2};
+\end{axis}
+\end{tikzpicture}
+\captionsetup{labelformat=empty}
+\caption{$\alpha<0$ et $\omega$ impair}
+\end{figure}
+\end{center}
+\end{itemize}
+% \remarque Puisque $\e^x=1+x+\petitozero{x}{x}$, alors $\e^x-1=x+\petitozero{x}{x}$,
+%   donc $\e^x-1\equi{x}{0}x$.
+\end{remarques}
+
+\begin{exoUnique}
+\exo Montrer que la fonction $f$ définie sur $\R$ par
+  \[\forall x\in\R \quad f(x)=
+    \begin{cases}
+    \frac{\cos x-1}{x} & \text{si $x\neq 0$}\\
+    0 & \text{si $x=0$}
+    \end{cases}\]
+  est dérivable sur $\R$.
+\begin{sol}
+   D'après les théorèmes
+   usuels, $f$ est dérivable sur $\Rs$. Montrons que $f$ est dérivable en 0.
+   Comme
+   \[\cos x=1-\frac{x^2}{2}+\petitozero{x}{x^2}\]
+   on en déduit que~:
+   \[\frac{\cos x-1}{x}=-\frac{x}{2}+\petitozero{x}{x}\]
+   donc
+   \[f(x)=-\frac{x}{2}+\petitozerop{x}{x}\]
+   Comme de plus $f\p{0}=-0/2$, on en déduit que~:
+   \[f(x)=-\frac{x}{2}+\petitozero{x}{x}\]
+   Donc $f$ est dérivable en 0 et $f'\p{0}=-\frac{1}{2}$. En conclusion, $f$ est
+   dérivable sur $\R$.
+\end{sol}
+\end{exoUnique}
+
+\subsection{Intégration et existence d'un développement limité}
+
+\begin{proposition}[utile=-3]
+Soit $f:I\to\R$ une fonction continue sur un intervalle $I$ contenant $a$. On suppose que
+$f$ admet un développement limité en $a$ à l'ordre $n$
+\[f\p{a+h}=\sum_{k=0}^n a_k h^k+\petitozero{h}{h^n}.\]
+Alors, si $F$ est une primitive de $f$~
+\[F\p{a+h}=F(a)+\sum_{k=0}^n \frac{a_k}{k+1} h^{k+1}+
+  \petitozero{h}{h^{n+1}}.\]
+\end{proposition}
+
+\begin{preuve}
+$\forall h \in I-a$, posons $p(h)=F(a+h)-F(a)-\displaystyle \sum_{k=0}^n \frac{a_k}{k+1} h^{k+1}$.
+
+On a $p(0)=0$ et \[\forall h \in I-a, \qquad p'(h)=f(a+h)-\sum_{k=0}^n a_k h^k\]
+On a donc $p'(h)=\petitozero{h}{h^n}$. En appliquant le TAF entre $0$ et $h$, on obtient : il existe $\theta_h \in ]0;1[$ tel que \[p(h)=p(h)-p(0)=hp'(\theta_h h)=h\petitozero{h}{\theta_h^n h^n}=\petitozero{h}{h^{n+1}}.\]
+On a donc 
+\[F\p{a+h}=F(a)+\sum_{k=0}^n \frac{a_k}{k+1} h^{k+1}+
+  \petitozero{h}{h^{n+1}}.\]
+  \end{preuve}
+
+\begin{exoUnique}
+\exo Donner un développement limité en 0 à l'ordre 2 de $\ln(1+x)$. En
+  déduire la limite de
+  \[n^2\cro{\ln\p{1+\frac{1}{n}}+\ln\p{1-\frac{1}{n}}}\]
+  lorsque $n$ tend vers $+\infty$.
+  \begin{sol}
+  Comme
+  \[\frac{1}{1+x}=1-x+\petitozero{x}{x}\]
+  on en déduit, par intégration, que~:
+  \[\ln\p{1+x}=x-\frac{x^2}{2}+\petitozero{x}{x^2}\]  
+  On remplace ensuite et on trouve $-1$ comme limite.  
+  \end{sol}
+\end{exoUnique}
+
+\begin{remarqueUnique}
+\remarque Il n'est pas possible de dériver un développement limité.
+  En effet, il existe des fonctions admettant un développement limité en $a$
+  à l'ordre $n$ dont la dérivée n'admet pas de développement limité en $a$
+  à l'ordre $n-1$.
+  \begin{sol}
+  Par exemple, soit $f$ la fonction définie sur $\R$ par~:
+  \[\forall x\in\R \quad f(x)=
+    \begin{cases}
+    x^2\sin\p{\frac{1}{x}} & \text{si $x\neq 0$}\\
+    0 & \text{si $x=0$}
+    \end{cases}\]
+  Nous avons vu que cette fonction était dérivable sur $\R$ mais que se dérivée
+  n'était pas continue en 0. Comme~:
+  \[\abs{\frac{x^2\sin\p{\frac{1}{x}}}{x}}
+    =\abs{x\sin\p{\frac{1}{x}}}\leq\abs{x}\tendvers{x}{0}0\]
+  on en déduit que
+  \[f(x)=\petitov{x}{\neq}{0}{x}\]
+  Comme de plus $f\p{0}=0$, on en déduit que
+  \[f(x)=\petitozero{x}{x}\]
+  Donc $f$ admet un développement limité en 0 à l'ordre 1. Pourtant $f'$ n'admet
+  pas de développement limité en 0 à l'ordre 0 car $f'$ n'est pas continue en
+  0.    
+  \end{sol}
+% \remarque Cependant, supposons que l'on ait un développement limité de $f$ en $a$
+%   à l'ordre $n$ et que l'on sache que $f'$ est continue sur un intervalle $I$
+%   contenant $a$ et qu'elle admette un développement limité en $a$ à l'ordre $n-1$.
+%   \begin{eqnarray*}
+%   f\p{a+h}&=&\sum_{k=0}^n a_k h^k+\petitozero{h}{h^n}\\
+%   f'\p{a+h}&=&\sum_{k=0}^{n-1} b_k h^k+\petitozero{h}{h^{n-1}}.
+%   \end{eqnarray*}
+%   Par intégration du développement limité de $f'$, on obtient
+%   \[f\p{a+h}=f(a)+\sum_{k=0}^{n-1} \frac{b_k}{k+1} h^{k+1}+\petitozero{h}{h^n}.\]
+%   Comme de plus
+%   \begin{eqnarray*}
+%   f\p{a+h}
+%   &=& \sum_{k=0}^n a_k h^k+\petitozero{h}{h^n}\\
+%   &=& a_0 + \sum_{k=0}^{n-1} a_{k+1} h^{k+1}+\petitozero{h}{h^n}.
+%   \end{eqnarray*}
+%   Par unicité des coefficients d'un développement limité, on obtient
+%   \[\forall k\in\intere{0}{n-1} \qsep \frac{b_k}{k+1}=a_{k+1}.\]
+%   Donc $b_k=\p{k+1}a_{k+1}$. On a donc
+%   \begin{eqnarray*}
+%   f'\p{a+h}
+%   &=& \sum_{k=0}^{n-1} \p{k+1}a_{k+1} h^k+\petitozero{h}{h^{n-1}}\\
+%   &=& \sum_{k=1}^n k a_k h^{k-1}+\petitozero{h}{h^{n-1}}.
+%   \end{eqnarray*}
+%   Donc la partie régulière du développement limité de $f'$ à l'ordre $n-1$ est
+%   la dérivée de la partie régulière du développement limité de $f$ à l'ordre
+%   $n$.
+\end{remarqueUnique}
+
+On dit qu'une fonction $f:I\to\R$ est de classe $\classec{\infty}$ lorsque, quel que
+soit $n\in\N$, $f$ est dérivable $n$ fois sur $I$. Les fonctions usuelles sont
+de classe $\classec{\infty}$ sur le domaine sur lequel elles sont dérivables.
+
+\begin{proposition}[utile=-3,nom={Formule de \nom{Taylor-Young}}]
+Soit $f:I\to\R$ une fonction de classe $\classec{\infty}$ sur un intervalle $I$ contenant
+$a$. Alors $f$ admet un développement limité en $a$ à tout ordre $n\in\N$
+et
+\begin{eqnarray*}
+f\p{a+h} &=& f(a)+f'(a)h+\cdots+\frac{f^{(n)}(a)}{n!}h^n+
+  \petitozero{h}{h^n}\\
+  &=& \sum_{k=0}^n \frac{f^{(k)}(a)}{k!}h^k + \petitozero{h}{h^n}.
+\end{eqnarray*}
+\end{proposition}
+
+\begin{preuve}
+Démontrons le résultat par récurrence. Pour $n\in \N$, on note $\mathcal{P}(n)$ l'assertion :"Si $f$ est une fonction de classe $\classec{n}$ sur un voisinage de 
+$a$ alors $f\p{a+h}=\displaystyle\sum_{k=0}^n \frac{f^{(k)}(a)}{k!}h^k + \petitozero{h}{h^n}$. "
+
+\begin{itemize}
+\item[$\bullet$]\underline{Initialisation :} $\mathcal{P}(0)$ est vrai d'après les résultats sur les fonctions continues.
+\item[$\bullet$]\underline{Hérédité :} Soit $n\in\N$. Supposons $\mathcal{P}(n)$ et montrons $\mathcal{P}(n+1)$. Soit $f$ une fonction de classe $\classec{n+1}$ sur un voisinage de $a$. Alors $f'$ est de classe $\classec{n}$ et puisqu'on a $\mathcal{P}(n)$ :
+\begin{eqnarray*}
+f'\p{a+h}&=&\displaystyle\sum_{k=0}^n \frac{f'^{(k)}(a)}{k!}h^k + \petitozero{h}{h^n}\\
+&=&\displaystyle\sum_{k=0}^n \frac{f^{(k+1)}(a)}{k!}h^k + \petitozero{h}{h^n}
+\end{eqnarray*}
+Ainsi, d'après la proposition précédente (2.5), comme $f$ est une primitive de $f'$, on a : 
+
+\begin{eqnarray*}
+f\p{a+h}&=&f(a)+\displaystyle\sum_{k=0}^n \frac{f^{(k+1)}(a)}{k!(k+1)}h^{k+1} + \petitozero{h}{h^{n+1}}\\
+&=&f(a)+\displaystyle\sum_{k=0}^n \frac{f^{(k+1)}(a)}{(k+1)!}h^{k+1} + \petitozero{h}{h^{n+1}}\\
+&=&f(a)+\displaystyle\sum_{k=1}^{n+1} \frac{f^{(k)}(a)}{k!}h^{k} + \petitozero{h}{h^{n+1}}\\
+&=&\displaystyle\sum_{k=0}^{n+1} \frac{f^{(k)}(a)}{k!}h^{k} + \petitozero{h}{h^{n+1}}
+\end{eqnarray*}
+\end{itemize}
+ce qui correspond à $\mathcal{P}(n+1)$.
+\end{preuve}
+
+
+\subsection{Développements limités usuels}
+
+\begin{proposition}[utile=-3]
+\begin{eqnarray*}
+\e^x &=& 1+x+\frac{x^2}{2!}+\frac{x^3}{3!}+\cdots+\frac{x^n}{n!}
+        +\petitozero{x}{x^n}\\
+\ch x &=& 1+\frac{x^2}{2!}+\frac{x^4}{4!}+\cdots+\frac{x^{2n}}{\p{2n}!}
+        +\petitozero{x}{x^{2n+1}}\\
+\sh x &=& x+\frac{x^3}{3!}+\frac{x^5}{5!}+\cdots+\frac{x^{2n+1}}{\p{2n+1}!}
+        +\petitozero{x}{x^{2n+2}}\\
+\cos x &=& 1-\frac{x^2}{2!}+\frac{x^4}{4!}-\cdots+\p{-1}^n\frac{x^{2n}}{\p{2n}!}
+        +\petitozero{x}{x^{2n+1}}\\
+\sin x &=& x-\frac{x^3}{3!}+\frac{x^5}{5!}-\cdots+
+        \p{-1}^n\frac{x^{2n+1}}{\p{2n+1}!}+\petitozero{x}{x^{2n+2}}
+\end{eqnarray*}
+\end{proposition}
+
+\begin{proposition}[utile=-3]
+\begin{eqnarray*}
+\frac{1}{1-x} &=& 1+x+x^2+\cdots+x^n+\petitozero{x}{x^n}\\
+\frac{1}{1+x} &=& 1-x+x^2-\cdots+\p{-1}^nx^n+\petitozero{x}{x^n}\\
+\p{1+x}^\alpha &=& 1+\alpha x+\cdots+
+  \frac{\alpha\p{\alpha-1}\cdots\p{\alpha-n+1}}{n!}x^n+\petitozero{x}{x^n}\\
+  &=& 1+\binom{\alpha}{1}x+\cdots+\binom{\alpha}{n}x^n+\petitozero{x}{x^n}
+    \quad \p{\alpha\in\R}\\
+\ln\p{1+x} &=& x-\frac{x^2}{2}+\frac{x^3}{3}-\cdots+\p{-1}^{n+1}\frac{x^n}{n}
+  +\petitozero{x}{x^n}
+\end{eqnarray*}
+\end{proposition}
+
+% \begin{proposition}[utile=-3]
+% On a~:
+% \begin{eqnarray*}
+% \arctan x &=& x-\frac{x^3}{3}+\frac{x^5}{5}-\cdots+
+%   \p{-1}^n\frac{x^{2n+1}}{2n+1}+\petitozero{x}{x^{2n+2}}\\
+% \arcsin x &=& x+\frac{1}{2}\frac{x^3}{3}+\frac{1\cdot 3}{2\cdot 4}\frac{x^5}{5}
+%   +\frac{1\cdot 3\cdot 5}{2\cdot 4\cdot 6}\frac{x^7}{7}+\cdots+
+%   \petitozero{x}{x^{2n+2}}\\
+% \arccos x &=& \frac{\pi}{2}
+%   -x-\frac{1}{2}\frac{x^3}{3}-\frac{1\cdot 3}{2\cdot 4}\frac{x^5}{5}
+%   -\frac{1\cdot 3\cdot 5}{2\cdot 4\cdot 6}\frac{x^7}{7}-\cdots+
+%   \petitozero{x}{x^{2n+2}}
+% \end{eqnarray*}
+% \end{proposition}
+
+% \begin{proposition}[utile=-3]
+% On a~:
+% \begin{eqnarray*}
+% \tan x &=& x+\frac{x^3}{3}+\frac{2x^5}{15}+\petitozero{x}{x^6}\\
+% \tanh x &=& x-\frac{x^3}{3}+\frac{2x^5}{15}+\petitozero{x}{x^6}
+% \end{eqnarray*}
+% \end{proposition}
+
+\begin{exoUnique}
+\exo Donner un développement limité en 0 à l'ordre $n$ de
+  \[\frac{1}{\sqrt{1+x}}.\]
+  En déduire un développement limité à l'ordre $2n+1$ de $\arcsin x$.
+  \begin{sol}
+  En posant $\alpha=-1/2$, il vient
+  \begin{eqnarray*}
+  \frac{\alpha\p{\alpha-1}\cdots\p{\alpha-n+1}}{n!}
+  &=& \frac{\p{-\frac{1}{2}}\p{-\frac{3}{2}}\cdots\p{-\frac{2n-1}{2}}}{n!}\\
+  &=& \frac{\p{-1}^n\frac{1\times 3\times\cdots\times\p{2n-1}}{2^n}}{n!}\\
+  &=& \p{-1}^n\frac{1\times 2\times 3\times\cdots\times\p{2n-1}\times\p{2n}}%
+       {2\times 4\times\cdots\times\p{2n}}\frac{1}{2^n n!}\\
+  &=& \p{-1}^n\frac{\p{2n}!}{2^nn!}\frac{1}{2^n n!}\\
+  &=& \p{-1}^n\frac{\p{2n}!}{2^{2n}\p{n!}^2}
+  \end{eqnarray*}
+  Donc~:
+  \[\frac{1}{\sqrt{1+u}}=\sum_{k=0}^n \p{-1}^k\frac{\p{2k}!}{2^{2k}\p{k!}^2}u^k
+    +\petitozero{u}{u^n}\]    
+  Effectuons un développement limité en 0 à l'ordre $2n+2$ de $\arcsin x$.
+  Comme $-x^2\tendvers{x}{0}0$, on en déduit, d'après le développement limité
+  précédent~:
+  \begin{eqnarray*}
+  \frac{1}{\sqrt{1-x^2}}
+  &=& \sum_{k=0}^n \p{-1}^k\frac{\p{2k}!}{2^{2k}\p{k!}^2}\p{-x^2}^k+
+       \petitozero{x}{x^{2n}}\\
+  &=& \sum_{k=0}^n \frac{\p{2k}!}{2^{2k}\p{k!}^2} x^{2k}+
+       \petitozero{x}{x^{2n}}
+  \end{eqnarray*}
+  Par intégration, comme $\arcsin 0=0$, il vient
+  \[\arcsin x= \sum_{k=0}^n \frac{\p{2k}!}{\p{2k+1}2^{2k}\p{k!}^2} x^{2k+1}+
+       \petitozero{x}{x^{2n+1}}\]
+  De même, il est possible de calculer un développement limité en 0 de
+  $\arctan x$.
+  \end{sol}
+\end{exoUnique}
+
+\subsection{Opérations usuelles sur les développements limités}
+
+\begin{proposition}[utile=-3]
+Soit $f,g:\mathcal{D}\to\R$ deux fonctions admettant un développement limité en
+$a$ à l'ordre $n$
+\[f\p{a+h}=\sum_{k=0}^n a_k h^k+\petitozero{h}{h^n},\quad
+  g\p{a+h}=\sum_{k=0}^n b_k h^k+\petitozero{h}{h^n}\]
+et $\lambda,\mu\in\R$. Alors $\lambda f+\mu g$ admet un développement limité au
+voisinage de $a$ à l'ordre $n$ et
+\[\lambda f\p{a+h}+\mu g\p{a+h}=
+  \sum_{k=0}^n \p{\lambda a_k+\mu b_k} h^k+\petitozero{h}{h^n}.\]
+\end{proposition}
+
+\begin{proposition}[utile=-3]
+Soit $f,g:\mathcal{D}\to\R$ deux fonctions admettant un développement limité en
+$a$ à l'ordre $n$
+\[f\p{a+h}=\sum_{k=0}^n a_k h^k+\petitozero{h}{h^n} \et
+  g\p{a+h}=\sum_{k=0}^n b_k h^k+\petitozero{h}{h^n}.\]
+Alors $fg$ admet un développement limité en $a$ à l'ordre $n$ dont la
+partie régulière est obtenue en développant le produit des parties régulières
+précédentes et en ne gardant que les monômes de degrés inférieurs à $n$.
+\[f\p{a+h}g\p{a+h}=\sum_{k=0}^n \p{\sum_{i=0}^k a_i b_{k-i}} h^k+\petitozero{h}{h^n}.\]
+\end{proposition}
+
+\begin{exoUnique}
+\exo Donner un développement limité de $\e^x \cos x$ en 0 à l'ordre 2.
+\end{exoUnique}
+
+\begin{sol}
+On a $\e^x=1+x+\frac{1}{2}x^2+\petitozero{x}{x^2}$ et $\cos(x)=1-\frac{1}{2}x^2+\petitozero{x}{x^2}$ donc 
+\begin{eqnarray*}
+\e^x \cos x&=&\p{1+x+\frac{1}{2}x^2+\petitozero{x}{x^2}}\p{1-\frac{1}{2}x^2+\petitozero{x}{x^2}}\\
+&=&1+x-\frac{1}{2}x^2+\frac{1}{2}x^2+\petitozero{x}{x^2}\\
+&=&1+x+\petitozero{x}{x^2}
+\end{eqnarray*}
+\end{sol}
+
+\begin{remarqueUnique}
+\item On cherche un développement limité en 0 de $\e^x\sin x$. Comme
+  \[\sin x=x-\frac{1}{6}x^3+\petitozero{x}{x^3} \et
+    \e^x=1+x+\frac{1}{2}x^2+\petitozero{x}{x^2}\]
+  on en déduit que~:
+  \begin{eqnarray*}
+  \e^x\sin x
+  &=& \p{1+x+\frac{1}{2}x^2+\petitozero{x}{x^2}}
+      \p{x-\frac{1}{6}x^3+\petitozero{x}{x^3}}\\
+  &=& x\p{1+x+\frac{1}{2}x^2+\petitozero{x}{x^2}}
+       \p{1-\frac{1}{6}x^2+\petitozero{x}{x^2}}\\
+  &=& x\p{1+x+\frac{1}{3}x^2+\petitozero{x}{x^2}}\\
+  &=& x+x^2+\frac{1}{3}x^3+\petitozero{x}{x^3}
+  \end{eqnarray*}
+  On a ainsi obtenu un développement limité à l'ordre 3 comme produit d'un
+  développement limité à l'ordre 3 et d'un développement limité dont l'ordre
+  n'était que de 2.
+  Ce phénomène apparaît dès que l'ordre de l'une des parties principales est
+  non nul. Avant de calculer le développement limité d'un produit, on prendra
+  donc soin de calculer les ordres auxquels il faudra effectuer le développement
+  limité de chaque terme. Pour cela  nous utiliserons la notation $\DL_{m,n}$
+  pour représenter un développement limité d'ordre $n$ dont la partie
+  principale est d'ordre $m$. Par exemple, si l'on souhaite obtenir
+  un développement limité de $\p{\cos x-1}\ln\p{1+x}$ en 0 à l'ordre 4, on
+  remarque que
+  \[\cos x-1=-\frac{1}{2}x^2+\petitozero{x}{x^2} \et
+    \ln\p{1+x}=x+\petitozero{x}{x}.\]
+  Donc $\cos x-1$ a une partie principale d'ordre 2, et $\ln\p{1+x}$ a une
+  partie principale d'ordre 1. Donc
+  \[\p{\cos x-1}\ln\p{1+x}=\DL_{2,n}\DL_{1,m}=\p{x^2\DL_{0,n-2}}\p{x\DL_{0,m-1}}=
+    x^3 \DL_{0,n-2}\DL_{0,m-1}.\]
+  Comme on souhaite un développement limité à l'ordre 4, il suffit d'obtenir un
+  développement limité de $\DL_{0,n-2}\DL_{0,m-1}$ à l'ordre 1. On choisit donc
+  $n$ et $m$ tels que $n-2=1$ et $m-1=1$, soit $n=3$ et $m=2$. On a alors
+  \begin{eqnarray*}
+  \p{\cos x-1}\ln\p{1+x}
+  &=& \p{-\frac{1}{2}x^2+\petitozero{x}{x^3}}
+      \p{x-\frac{1}{2}x^2+\petitozero{x}{x^2}}\\
+  &=& x^3\p{-\frac{1}{2}+\petitozero{x}{x}}\p{1-\frac{1}{2}x+\petitozero{x}{x}}\\
+  &=& x^3\p{-\frac{1}{2}+\frac{1}{4}x+\petitozero{x}{x}}\\
+  &=& -\frac{1}{2}x^3+\frac{1}{4}x^4+\petitozero{x}{x^4}.
+  \end{eqnarray*}
+\end{remarqueUnique}
+
+\begin{proposition}[utile=-3]
+Soit $f$ une fonction admettant un développement limité en $a$ à
+l'ordre $n$ et $k\in\N$.
+\[f\p{a+h}=\sum_{i=0}^n a_i h^i+\petitozero{h}{h^n}\]
+Alors $f^k$ admet un développement limité en $a$ à l'ordre $n$ dont
+la partie régulière est obtenue en développant la puissance $k$-ème de la partie
+régulière précédente et en ne gardant que les monômes de degrés inférieurs à
+$n$.
+\end{proposition}
+
+\begin{remarqueUnique}
+\item Lorsque la partie principale de $f$ en $a$ est d'ordre non nul, il est
+  utile d'effectuer un calcul d'ordre. Par exemple, si
+  l'on souhaite obtenir un développement limité à l'ordre 5 en 0 de
+  $\ln^4\p{1+x}$, on écrit
+  \[\p{\ln\p{1+x}}^4=\p{\DL_{1,n}}^4=\p{x\DL_{0,n-1}}^4=x^4\DL_{0,n-1}^4\]
+  Comme on souhaite un développement limité à l'ordre 5, il suffit
+  d'obtenir un développement limité de $\p{\DL_{0,n-1}}^4$ à l'ordre 1.
+  On choisit donc $n$ tel que $n-1=1$, soit $n=2$. On a alors~:
+  \begin{eqnarray*}
+  \ln^4\p{1+x}
+  &=& \p{x-\frac{1}{2}x^2+\petitozero{x}{x^2}}^4\\
+  &=& x^4\p{1-\frac{1}{2}x+\petitozero{x}{x}}^4\\
+  &=& x^4\p{\p{1-\frac{1}{2}x}^4+\petitozero{x}{x}}\\
+  &=& x^4\p{1-\binom{4}{1}\frac{1}{2}x+\petitozero{x}{x}}\\
+  &=& x^4-2x^5+\petitozero{x}{x^5}
+  \end{eqnarray*}   
+\end{remarqueUnique}
+
+\begin{proposition}[utile=-3]
+Soit $f$ et $g$ deux fonctions admettant respectivement des développements
+limités à l'ordre $n$ en $a$ et $f(a)$.
+\begin{eqnarray*}
+f\p{a+u}&=&f(a)+\underbrace{\sum_{k=1}^n a_k u^k}_{P(u)}+\petitozero{u}{u^n}\\
+g\p{f(a)+v}&=&\sum_{k=0}^n b_k v^k+\petitozero{v}{v^n}
+\end{eqnarray*}
+Alors $g\circ f$ admet un développement limité en $a$ à l'ordre $n$
+dont la partie régulière est obtenue en substituant $P(u)$ à $v$ dans la partie
+régulière du développement limité de $g$ et en ne gardant que les monômes de
+degrés inférieurs à $n$.
+\end{proposition}
+
+\begin{preuve}
+On a $$f(a+u)f(a)+\underbrace{\sum_{k=1}^n a_k u^k}_{P(u)}+\epsilon(u)u^n$$ avec $\epsilon(u)\tendvers{u}{0}{0}$ et 
+$$g\p{f(a)+v}=\sum_{k=0}^n b_k v^k+\epsilon'(v)v^n$$ avec $\epsilon'(v)\tendvers{v}{0}{0}$.
+Ainsi,
+
+\begin{eqnarray*}
+(g\circ f)(a+u)&=&g(f(a+u))\\
+&=&g(f(a)+P(u)+\epsilon(u)u^n\\
+&=&\sum_{k=0}^n b_k \p{P(u)+\epsilon(u)u^n}^k+\epsilon'(P(u)+\epsilon(u)u^n)\underbrace{\p{P(u)+\epsilon(u)u^n}^n}_{=u^n\underbrace{\alpha(u)}_{\tendvers{u}{0}{a_1}}}\\
+&=&\sum_{k=0}^n b_k\p{P(u)^k+\petitozero{u}{u^n}}+\underbrace{\epsilon''(u)}_{\tendvers{u}{0}{0}}u^n\\
+&=&\sum_{k=0}^n b_k\underbrace{P(u)^k}_{\text{On ne garde que les monômes de degré}\leq n}+\petitozero{u}{u^n}
+\end{eqnarray*}
+
+\end{preuve}
+
+\begin{exoUnique}
+\exo Donner un développement limité en 0 à l'ordre 2 de $\e^{\sqrt{1+x}}$.
+  \begin{sol}
+  On cherche un développement limité en 0 à l'ordre 2 de $e^{\sqrt{1+x}}$.
+  \begin{eqnarray*}
+  \sqrt{1+x} &=& 1+\frac{1}{2}x+\frac{\frac{1}{2}\p{-\frac{1}{2}}}{2}x^2
+                 +\petitozero{x}{x^2}\\
+             &=& 1+
+    \underbrace{\frac{1}{2}x-\frac{1}{8}x^2+\petitozero{x}{x^2}}_{%
+     \tendvers{x}{0}0}\\
+  e^{1+u} &=& e\cdot e^u\\
+         &=& e\p{1+u+\frac{1}{2}u^2+\petitozero{u}{u^2}}\\
+         &=& e+eu+\frac{e}{2}u^2+\petitozero{u}{u^2}
+  \end{eqnarray*}
+  Donc
+  \begin{eqnarray*}
+  e^{\sqrt{1+x}}
+  &=& e^{1+\frac{1}{2}x-\frac{1}{8}x^2+\petitozero{x}{x^2}}\\
+  &=& e+e\p{\frac{1}{2}x-\frac{1}{8}x^2}+\frac{e}{2}
+      \p{\frac{1}{2}x-\frac{1}{8}x^2}^2+\petitozero{x}{x^2}\\
+  &=& e+e\p{\frac{1}{2}x-\frac{1}{8}x^2}+\frac{e}{2}
+      x^2 \p{\frac{1}{2}-\cancel{\frac{1}{8}x}}^2+\petitozero{x}{x^2}\\
+  &=& e+\frac{e}{2}x+\p{-\frac{e}{8}+\frac{e}{8}}x^2+\petitozero{x}{x^2}\\
+  &=& e+\frac{e}{2}x+\petitozero{x}{x^2}
+  \end{eqnarray*}    
+  \end{sol}
+\end{exoUnique}
+
+\begin{remarqueUnique}
+\remarque Lorsque la partie principale de $f\p{a+u}-f(a)$ est d'ordre $\omega\geq 2$, il n'est pas nécessaire de pousser le développement limité de $g$ jusqu'à l'ordre $n$. En effet, si $f$ admet un développement limité à l'ordre $n$ et si
+\[g\p{f(a)+v}=\sum_{k=0}^m b_k v^k+\petitozero{v}{v^m}\]
+est un développement limité de $g$ à l'ordre $m$ avec $\omega m\geq n$, ces développements suffisent pour obtenir un développement limité de $g\circ f$ à l'ordre $n$. Par
+  exemple, si on souhaite un développement limité en 0 à l'ordre 4 de
+  $\ln\p{\cos x}$, on écrit
+  \[\cos x=1\underbrace{-\frac{1}{2}x^2+\frac{1}{4!}x^4+\petitozero{x}{x^4}}_%
+    {\tendvers{x}{0}0}.\]
+  Comme la partie principale en $0$ de $\cos x-1$ est d'ordre 2, il suffit de
+  faire un développement limité de $\ln$ en 1 à l'ordre $2$.
+  \[\ln\p{1+u}=u-\frac{1}{2}u^2+\petitozero{u}{u^2}\]
+  Par composition
+  \begin{eqnarray*}
+  \ln\p{\cos x}
+  &=& \ln\p{1-\frac{1}{2}x^2+\frac{1}{4!}x^4+\petitozero{x}{x^4}}\\
+  &=& \p{-\frac{1}{2}x^2+\frac{1}{4!}x^4}
+       -\frac{1}{2}\p{-\frac{1}{2}x^2+\frac{1}{4!}x^4}^2+\petitozero{x}{x^4}\\
+  &=& \p{-\frac{1}{2}x^2+\frac{1}{4!}x^4}
+       -\frac{1}{2}x^4\p{-\frac{1}{2}+\cancel{\frac{1}{4!}x^2}}^2+
+       \petitozero{x}{x^4}\\
+  &=& -\frac{1}{2}x^2+\p{\frac{1}{4!}-\frac{1}{2^3}}x^4+\petitozero{x}{x^4}\\
+  &=& -\frac{1}{2}x^2-\frac{1}{12}x^4+\petitozero{x}{x^4}.
+  \end{eqnarray*}
+\end{remarqueUnique}
+
+\begin{proposition}[utile=-3]
+Soit $f$ une fonction admettant un développement limité en $a$ à
+l'ordre $n$.
+\[f\p{a+h}=\sum_{k=0}^n a_k h^k+\petitozero{h}{h^n}\]
+Si $a_0\neq 0$, alors $f$ ne s'annule pas au voisinage de $a$ et $1/f$ admet un
+développement limité en $a$ à l'ordre $n$.
+\end{proposition}
+
+\begin{exos}
+\exo Donner un développement limité de $1/\p{\cos x}$ en 0 à l'ordre 4.
+  \begin{sol}
+  On cherche un développement limité de $1/\p{\cos x}$ en 0 à l'ordre 4.
+  Comme
+  \[\cos x=1-\frac{1}{2}x^2+\frac{1}{4!}x^4+\petitozero{x}{x^4}\]
+  on en déduit que
+  \[\frac{1}{\cos x}
+    =\frac{1}{1-\underbrace{\p{\frac{1}{2}x^2-\frac{1}{4!}x^4+%
+      \petitozero{x}{x^4}}}_{\tendvers{x}{0}0}}\]
+  Comme la partie principale de $\cos x-1$ est d'ordre 2, il suffit de faire un
+  développement limité de $1/\p{1-u}$ à l'ordre 4/2=2.
+  \[\frac{1}{1-u}=1+u+u^2+\petitozero{u}{u^2}\]
+  donc
+  \begin{eqnarray*}
+  \frac{1}{\cos x}
+  &=& 1+\p{\frac{1}{2}x^2-\frac{1}{4!}x^4}+\p{\frac{1}{2}x^2-\frac{1}{4!}x^4}^2
+      +\petitozero{x}{x^4}\\
+  &=& 1+\p{\frac{1}{2}x^2-\frac{1}{4!}x^4}+x^4\p{\frac{1}{2}-%
+      \cancel{\frac{1}{4!}x^2}}^2
+      +\petitozero{x}{x^4}\\
+  &=& 1+\frac{1}{2}x^2+\p{-\frac{1}{4!}+\frac{1}{4}}x^4+\petitozero{x}{x^4}\\
+  &=& 1+\frac{1}{2}x^2+\frac{5}{24}x^4+\petitozero{x}{x^4}
+  \end{eqnarray*}    
+  \end{sol}
+\exo Donner un développement limité de $\tan x$ en 0
+  à l'ordre 5.
+  \begin{sol}
+  On peut en déduire un développement limité de $\tan x$ en 0
+  à l'ordre 5. En effet
+  \begin{eqnarray*}
+  \tan x
+  &=& \p{\sin x}\frac{1}{\cos x}\\
+  &=& \p{x-\frac{1}{3!}x^3+\frac{1}{5!}x^5+\petitozero{x}{x^5}}
+      \p{1+\frac{1}{2}x^2+\frac{5}{24}x^4+\petitozero{x}{x^4}}\\
+  &=& x \p{1-\frac{1}{3!}x^2+\frac{1}{5!}x^4+\petitozero{x}{x^4}}
+      \p{1+\frac{1}{2}x^2+\frac{5}{24}x^4+\petitozero{x}{x^4}}\\
+  &=& x\p{1+\p{\frac{1}{2}-\frac{1}{3!}}x^2+
+      \p{\frac{5}{24}-\frac{1}{3!}\cdot\frac{1}{2}+\frac{1}{5!}}x^4
+      +\petitozero{x}{x^4}}\\
+  &=& x+\frac{1}{3}x^3+\frac{2}{15}x^5+\petitozero{x}{x^5}
+  \end{eqnarray*}    
+  \end{sol}
+\end{exos}
+
+\begin{remarques}
+\remarque Il est possible de faire des développements limités avec des ${\rm O}$. On dit qu'une fonction $f$ admet un développement limité en $a$ à l'ordre $n$ avec un ${\rm O}$ lorsque
+\[f(a+h)=a_0+a_1 h+\cdots+a_n h^n+\grando{h}{0}{h^{n+1}}.\]
+Si $f$ admet un tel développement limité, alors il admet un développement limité en $a$ à l'ordre $n$ et
+\[f(a+h)=a_0+a_1 h+\cdots+a_n h^n+\petito{h}{0}{h^n}.\]
+La réciproque est fausse, mais si $f$ admet un développement limité en $a$ à l'ordre $n+1$
+\[f(a+h)=a_0+a_1 h+\cdots+a_n h^n+a_{n+1} h^{n+1}+\petito{h}{0}{h^{n+1}}\]
+alors elle admet un développement limité en $a$ à l'ordre $n$ avec un ${\rm O}$ obtenu par troncature.
+\[f(a+h)=a_0+a_1 h+\cdots+a_n h^n+\grando{h}{0}{h^{n+1}}\]
+Bref, un développement limité avec un ${\rm O}$ à l'ordre $n$ nous donne plus d'informations qu'un développement limité à l'ordre $n$ mais moins qu'un développement limité à l'ordre $n+1$. Comme le calcul d'un tel développement limité demande autant de calculs qu'un développement limité en $a$ à l'ordre $n$, il est parfois avantageux de les utiliser. Nous verrons tout leur intérêt notamment lorsque nous aurons à montrer la convergence de séries. Notons au passage que les anglo-saxons utilisent par défaut des développements limités avec des ${\rm O}$. Ce sont donc ces développements limités que vous donneront les logiciels de calcul formel.
+\begin{sol}
+\underline{Commentaire  :} Il apparait clairement ici la non symétrie de l'égalité qu'on manipule depuis le début du cours. On a bien $\grando{h}{0}{h^{n+1}}=\petito{h}{0}{h^n}$ au sens où si $f$ fait partie des fonctions $\grando{h}{0}{h^{n+1}}$ elle fait partie des fonctions $\petito{h}{0}{h^n}$, mais l'inverse n'est pas vrai (prendre $h^{n+1/2}$). De même, on écrit $\petitozero{x}{x^2}=\petitozero{x}{x}$ mais on ne peut pas écrire l'égalité dans l'autre sens, c'est en  toute rigueur une inclusion d'ensemble que l'on devrait écrire, mais on se contentera du caractère pratique ici de l'écriture avec des égalités (qu'on ne manipulera pas pour écrire n'importe quoi...)
+\end{sol}
+
+\remarque Les opérations usuelles ont leur équivalent pour les développements limités avec des ${\rm O}$.
+\end{remarques}
+
+\begin{exoUnique}
+\exo Donner un développement limité en 0 avec un ${\rm O}$ à l'ordre 3 de $\sqrt{\cos x}$.
+\end{exoUnique}
+
+\begin{sol}
+On pourrait écrire un DL(4,0) avec des $o$ et le tronquer :
+\begin{eqnarray*}
+\sqrt{\cos(x)}&=&\sqrt{1-(1/2x^2-1/24x^4+\petitozero{x}{x^4})}\\
+&=&1-1/2(1/2x^2-1/24x^4)+1/8(1/2x^2-1/24x^4)^2+\petitozero{x}{x^4}\\
+&=&1-1/4x^2+Cx^4+\petitozero{x}{x^4}\\
+&=&1-1/4x^2+\grandozero{x}{x^4}.
+\end{eqnarray*}
+
+Ou bien on utilise directement des théorèmes usuels (non vu dans le cours) sur les $O$ :
+$$\sqrt{\cos(x)}=\sqrt{1-(1/2x^2+\grandozero{x}{x^4})}$$
+$$\sqrt{1-u}=1-1/2u+\grandozero{u}{u^2}$$ donc par composition
+$$\sqrt{\cos(x)}=1-1/2(1/2x^2)+\grandozero{x}{x^4}=1-1/4x^2+\grandozero{x}{x^4}.$$
+\end{sol}
+\section{Développement asymptotique}
+
+\subsection{Développement limité généralisé au voisinage de $a\in\R$}
+
+\begin{definition}[utile=-3]
+Soit $f$ une fonction définie au voisinage de $a\in\R$. On dit que $f$ admet
+un développement limité généralisé en $a$ à la précision $h^n$
+lorsqu'il existe $p\in\N$ et $b_p,\ldots,b_1,a_0,a_1,\ldots,a_n\in\R$ tels
+que
+\[f\p{a+h}=\frac{b_p}{h^p}+\cdots+\frac{b_1}{h}+a_0+a_1h+\cdots+a_nh^n
+  +\petitozero{h}{h^n}.\]
+\end{definition}
+
+\begin{exoUnique}
+\exo Donner un développement limité généralisé de $1/\sin x$ en 0 à
+  la précision $x$.
+  \begin{sol}
+  Puisque $1/\p{\sin x}$ n'a pas de limite finie en 0, cette expression
+  n'admet pas de développement limité en 0. Nous allons montrer cependant
+  qu'elle admet en développement limité généralisé. On a
+  \[\sin x=x-\frac{1}{6}x^3+\petitozero{x}{x^3}\]
+  donc
+  \begin{eqnarray*}
+  \frac{1}{\sin x}
+  &=& \frac{1}{x-\frac{1}{6}x^3+\petitozero{x}{x^3}}\\
+  &=& \frac{1}{x}\cdot\frac{1}{1-\frac{1}{6}x^2+\petitozero{x}{x^2}}\\
+  &=& \frac{1}{x}\p{1+\frac{1}{6}x^2+\petitozero{x}{x^2}}\\
+  &=& \frac{1}{x}+\frac{1}{6}x+\petitozero{x}{x}
+  \end{eqnarray*}    
+  \end{sol}
+\end{exoUnique}
+
+\subsection{Développement asymptotique au voisinage de $a\in\R$}
+
+\begin{definition}[utile=-3]
+Soit $f$ une fonction définie au voisinage de $a\in\R$. On appelle \emph{développement
+asymptotique} de $f$ en $a$ à la précision $f_n(h)$ toute écriture
+\[f\p{a+h}=a_1 f_1(h)+\cdots+a_n f_n(h)+\petitozero{h}{f_n(h)}\]
+où $a_1,\ldots,a_n\in\Rs$ et
+\[\forall k\in\intere{1}{n-1} \qsep f_{k+1}(h)=\petitozero{h}{f_k(h)}.\]
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque Nous avons vu que
+  \[\arcsin\p{-1+x}+\frac{\pi}{2}\equi{x}{0}\sqrt{2x}.\]
+  donc
+  \[\arcsin\p{-1+x}+\frac{\pi}{2}=\sqrt{2x}+\petitozero{x}{\sqrt{x}}.\]
+  On obtient donc
+  \[\arcsin\p{-1+x}=-\frac{\pi}{2}+\sqrt{2}\sqrt{x}+\petitozero{x}{\sqrt{x}}\]
+  qui est bien un développement asymptotique de $\arcsin$ en $-1$ car, au
+  voisinage de 0, $\sqrt{x}$ est négligeable devant 1.
+\end{remarqueUnique}
+
+\begin{exoUnique}
+\exo Donner un développement asymptotique à 2 termes en 0 de
+  $\sqrt{\ln\p{1+x}}$.
+  \begin{sol}
+  On cherche un développement asymptotique en 0 de $\sqrt{\ln\p{1+x}}$.
+  On a
+  \[\ln\p{1+x}=x-\frac{1}{2}x^2+\petitozero{x}{x^2}\]
+  donc
+  \begin{eqnarray*}
+  \sqrt{\ln\p{1+x}}
+  &=& \sqrt{x-\frac{1}{2}x^2+\petitozero{x}{x^2}}\\
+  &=& \sqrt{x}\sqrt{1-\frac{1}{2}x+\petitozero{x}{x}}\\
+  &=& \sqrt{x}\p{1+\frac{1}{2}\p{-\frac{1}{2}x}+\petitozero{x}{x}}\\
+  &=& \sqrt{x}-\frac{1}{4}x\sqrt{x}+\petitozero{x}{x\sqrt{x}}
+  \end{eqnarray*}
+  On obtient bien un développement asymptotique car, au voisinage de 0,
+  $x\sqrt{x}$ est négligeable devant $\sqrt{x}$.    
+  \end{sol}
+\end{exoUnique}
+
+\subsection{Développement asymptotique au voisinage de $\pm\infty$}
+
+\begin{definition}[utile=-3]
+Soit $f$ une fonction définie au voisinage de $+\infty$. On appelle \emph{développement
+asymptotique} de $f$ au voisinage de $+\infty$ à la précision $f_n(x)$ toute
+écriture
+\[f(x)=a_1 f_1(x)+\cdots+a_n f_n(x)+\petito{x}{+\infty}{f_n(x)}\]
+où $a_1,\ldots,a_n\in\Rs$ et
+\[\forall k\in\intere{1}{n-1} \qsep f_{k+1}(x)=\petito{x}{+\infty}{f_k(x)}.\]
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque Pour avoir une éventuelle asymptote du graphe de $f$ au voisinage de $+\infty$, il suffit de faire un développement asymptotique de $f(x)$ en $+\infty$. Supposons que
+\[f(x)=ax+b+\petito{x}{+\infty}{1}\]
+alors $f$ admet une asymptote d'équation $y=ax+b$ en $+\infty$. Pour connaitre la position de la courbe par rapport à son asymptote, il suffit de trouver la partie principale de $f(x)-(ax+b)$ en $+\infty$.
+
+
+% Pour avoir la position d'une courbe par rapport à sa tangente en un point $a$, il suffit de calculer la partie principale de $f(a+h)-\cro{f(a)+f'(a)h}$. Supposons que
+% \[f(a+h)=f(a)+f'(a)h+\alpha h^\omega+\petitozero{h}{h^\omega}\]
+% avec $\alpha\neq 0$ et $\omega\geq 2$.
+% \begin{itemize}
+% \item \emph{Si $\omega$ est pair}, alors le graphe de $f$ est au-dessus de sa tangente au voisinage de $a$ si $\alpha>0$ et en dessous si $\alpha<0$.
+% \item \emph{Si $\omega$ est impair}, alors le graphe de $f$ traverse sa tangente en $a$. La courbe admet un point d'inflexion en $a$.
+% \end{itemize}
+% \remarque Puisque $\e^x=1+x+\petitozero{x}{x}$, alors $\e^x-1=x+\petitozero{x}{x}$,
+%   donc $\e^x-1\equi{x}{0}x$.
+\end{remarqueUnique}
+
+\begin{exos}
+\exo Donner un développement asymptotique à 2 termes de $\ln\p{x^3\sin\p{1/x}}$ en $+\infty$.
+  \begin{sol}
+  On cherche un développement asymptotique de $\ln\p{x^3\sin\p{1/x}}$
+  au voisinage de $+\infty$. Comme $1/x\tendvers{x}{+\infty}0$, on
+  cherche un développement limité de $\sin u$ en 0. On a donc
+  \begin{eqnarray*}
+  \sin u
+  &=& u-\frac{1}{6}u^3+\petitozero{u}{u^3}\\
+  &=& u-\frac{1}{6}u^3+\epsilon(u)u^3
+      \quad \text{avec $\epsilon(u)\tendvers{u}{0}0$}
+  \end{eqnarray*}
+  Donc
+  \begin{eqnarray*}
+  \sin\p{\frac{1}{x}}
+  &=& \frac{1}{x}-\frac{1}{6}\cdot\frac{1}{x^3}+
+      \underbrace{\epsilon\p{\frac{1}{x}}}_{\tendvers{x}{+\infty}0}\frac{1}{x^3}\\
+  &=& \frac{1}{x}-\frac{1}{6}\cdot\frac{1}{x^3}+\petitoinfty{x}{\frac{1}{x^3}}
+  \end{eqnarray*}
+  En conclusion
+  \begin{eqnarray*}
+  \ln\cro{x^3\sin\p{\frac{1}{x}}}
+  &=& \ln\cro{x^3\p{\frac{1}{x}-\frac{1}{6}\cdot\frac{1}{x^3}+%
+      \petitoinfty{x}{\frac{1}{x^3}}}}\\
+  &=& \ln\cro{x^2\p{1-\frac{1}{6}\cdot\frac{1}{x^2}+%
+      \petitoinfty{x}{\frac{1}{x^2}}}}\\
+  &=& 2\ln x+\ln\p{1-\frac{1}{6}\cdot\frac{1}{x^2}+%
+      \petitoinfty{x}{\frac{1}{x^2}}}\\
+  &=& 2\ln x-\frac{1}{6}\cdot\frac{1}{x^2}+\petitoinfty{x}{\frac{1}{x^2}}
+  \end{eqnarray*}
+  qui est bien un développement asymptotique car $1/x^2$ est négligeable devant
+  $\ln x$ au voisinage de $+\infty$.    
+  \end{sol}
+\exo Chercher une éventuelle asymptote à la fonction d'expression
+  $\sqrt[3]{\p{x^2-2}\p{x+3}}$ en $+\infty$. Donner la position de la courbe par
+  rapport à cette asymptote.
+  \begin{sol}
+  On cherche 
+  au voisinage de $+\infty$. On a~:
+  \begin{eqnarray*}
+  \sqrt[3]{\p{x^2-2}\p{x+3}}
+  &=& \sqrt[3]{x^3+3x^2-2x-6}\\
+  &=& \sqrt[3]{x^3+3x^2+\petitoinfty{x}{x^2}}\\
+  &=& x\sqrt[3]{1+\frac{3}{x}+\petitoinfty{x}{\frac{1}{x}}}
+  \end{eqnarray*}
+  Comme $1/x\tendvers{x}{+\infty}0$, on cherche un développement limité de
+  $\sqrt[3]{1+u}$ en 0. On a donc
+  \begin{eqnarray*}
+  \sqrt[3]{1+u}
+  &=& 1+\frac{1}{3}u+\petitozero{u}{u}\\
+  &=& 1+\frac{1}{3}u+\epsilon(u)u
+      \quad \text{avec $\epsilon(u)\tendvers{u}{0}0$}\\
+  \end{eqnarray*}
+  Donc
+  \begin{eqnarray*}
+  \sqrt[3]{1+\frac{1}{x}}
+  &=& 1+\frac{1}{3}\cdot\frac{1}{x}+
+      \underbrace{\epsilon\p{\frac{1}{x}}}_{\tendvers{x}{+\infty}0}
+      \frac{1}{x}\\
+  &=& 1+\frac{1}{3}\cdot\frac{1}{x}+\petitoinfty{x}{\frac{1}{x}}
+  \end{eqnarray*}
+  En conclusion
+  \begin{eqnarray*}
+  \sqrt[3]{\p{x^2-2}\p{x+3}}
+  &=& x\p{1+\frac{1}{3}\cdot\frac{3}{x}+\petitoinfty{x}{\frac{1}{x}}}\\
+  &=& x+1+\petitoinfty{x}{1}
+  \end{eqnarray*}
+  qui est bien un développement asymptotique car $1$ est négligeable devant
+  $x$ au voisinage de $+\infty$.   
+  
+\underline{Victor :}
+Pour avoir la position de la courbe par rapport à cette asymptote, il fallait aller un cran plus loin :
+On a~:
+  \begin{eqnarray*}
+  \sqrt[3]{\p{x^2-2}\p{x+3}}
+  &=& \sqrt[3]{x^3+3x^2-2x-6}\\
+  &=& x\sqrt[3]{1+\underbrace{\frac{3}{x}-\frac{2}{x^2}-\frac{6}{x^3}}_{tendvers{x}{+\infty}0}}
+  \end{eqnarray*}
+  On cherche un développement limité de
+  $\sqrt[3]{1+u}$ en 0.
+ On a 
+  \begin{eqnarray*}
+  \sqrt[3]{1+u}
+  &=& 1+\frac{1}{3}u-\frac{1}{9}u^2+\petitozero{u}{u^2}\\
+  &=& 1+\frac{1}{3}u-\frac{1}{9}u^2+\epsilon(u)u^2
+      \quad \text{avec $\epsilon(u)\tendvers{u}{0}0$}\\
+  \end{eqnarray*}
+  Donc
+  \begin{eqnarray*}
+  \sqrt[3]{1+\frac{1}{x}}
+  &=& 1+\frac{1}{3}\cdot\frac{1}{x}-\frac{1}{9}\cdot \frac{1}{x^2}+
+      \underbrace{\epsilon\p{\frac{1}{x}}}_{\tendvers{x}{+\infty}0}
+      \frac{1}{x^2}\\
+  &=& 1+\frac{1}{3}\cdot\frac{1}{x}-\frac{1}{9}\cdot \frac{1}{x^2}+\petitoinfty{x}{\frac{1}{x^2}}
+  \end{eqnarray*}
+  En conclusion
+  \begin{eqnarray*}
+  \sqrt[3]{\p{x^2-2}\p{x+3}}
+  &=& x\p{1+\frac{1}{3}\p{\frac{3}{x}-\frac{2}{x^2}}-\frac{1}{9}\p{\frac{3}{x}-\frac{2}{x^2}}^2+\petitoinfty{x}{\frac{1}{x^2}}}\\
+  &=& x\p{1+\frac{1}{x}-\frac{5}{3x^2}+\petitoinfty{x}{\frac{1}{x^2}}}\\
+  &=& x+1-\frac{5}{3x}+\petitoinfty{x}{\frac{1}{x}}
+  \end{eqnarray*}
+  Donc $f(x)-(x+1)=-\frac{5}{3x}+\petitoinfty{x}{\frac{1}{x}}$ donc $f$ est en-dessous son asymptote.
+  \end{sol}
+\exo 
+  Montrer que l'application $f$ de $\RP$ dans $\RP$ qui a $x$ associe
+  $x\e^x$ est une bijection. Donner un développement asymptotique à deux termes
+  de $f^{-1}$ en $+\infty$.
+  \begin{sol}
+  On a $f(f^{-1}(x))=x$ d'où $f^{-1}(x)\e^{f^{-1}(x)}=x$ et donc $\ln(f^{-1}(x))+f^{-1}(x)=\ln(x)$.\\
+  On sait par le théorème de la bijection que $f^{-1}(x)\tendvers{x}{+\infty}+\infty$ donc $\ln(f^{-1}(x))=\petito{x}{+\infty}{f^{-1}(x)}$. On peut en déduire que $f^{-1}(x)\equi{x}{+\infty}\ln(x)$ et qu'en conséquence $f^{-1}(x)=\ln(x)+\petito{x}{+\infty}{\ln(x)}$.
+  
+Ainsi, on va pouvoir réinjecter dans l'égalité initiale :
+\begin{eqnarray*}
+f^{-1}(x)=\ln(x)-\ln(\ln(x)+\petito{x}{+\infty}{\ln(x)})&=&\ln(x)-\ln\p{\ln(x)\p{1+\petito{x}{+\infty}{1}}}\\
+&=&\ln(x)-\ln\p{\ln(x)}-\ln\p{1+\petito{x}{+\infty}{1}}\\
+&=&\ln(x)-\ln\p{\ln(x)}-\petito{x}{+\infty}{1}\\
+&=&\ln(x)-\ln\p{\ln(x)}+\petito{x}{+\infty}{1}.
+\end{eqnarray*}
+  
+  On réinjecte autant de fois qu'on veut pour avoir un développement asymptotique à n'importe quel ordre.
+  \end{sol}
+\end{exos}
+
+\subsection{Développement asymptotique de suites}
+
+\begin{definition}[utile=-3]
+On appelle \emph{développement asymptotique} de la suite $(u_n)$ à la précision $(v_{p,n})$ toute écriture
+\[u_n=v_{1,n}+\cdots+v_{p,n} +\petito{n}{+\infty}{v_{p,n}}\]
+où
+\[\forall k\in\intere{1}{p-1} \qsep v_{k+1,n}=\petito{n}{+\infty}{v_{k,n}}.\]
+\end{definition}
+
+\begin{exoUnique}
+  % \exo Pour tout $n\in\N$, on définit la fonction $f_n$ sur $\RP$ par
+  %   \[\forall x\in\RP\qsep f_n(x)\defeq x^n+9x^2-4.\]
+  %   \begin{questions}
+  %   \question Montrer que pour tout $n\in\N$, l'équation $f_n(x)=0$ admet une unique solution que l'on note $u_n$.
+  %   \question Montrer que~: $\forall n\in\N\qsep 0<u_n<1$.
+  %   \question Montrer que $(u_n)$ est croissante, puis convergente. Calculer sa limite $l$.
+  %   \question Montrer qu'il existe $\alpha\in\Rs$ et $q\in\intero{-1}{1}$ tels que
+  %     \[u_n=l+\alpha q^n+\petito{n}{+\infty}{q^n}.\]
+  %   \end{questions}
+  \exo Pour tout $n\in\N$, montrer que l'équation $\tan x=x$ admet une unique
+    solution sur $\intero{-\pi/2+n\pi}{\pi/2+n\pi}$. On note $u_n$ cette solution.
+    Donner un équivalent de $u_n$ puis un développement asymptotique à 3 termes
+    de cette suite.
+    \begin{sol}
+    Sur $I_n$, la fonction $x\mapsto \tan(x)-x$ est réalise une bijection de $I_n$ vers $\R$ donc on a bien une unique solution $u_n$.
+    Puisque $u_n$ est un élément de $I_n$, on dispose de l'encadrement $$-\frac{\pi}{2}+n\pi < u_n < \frac{\pi}{2}+n\pi$$ d'où $$u_n\equi{n}{+\infty}n\pi.$$
+    Posons $y_n=u_n-n\pi$. On a $\tan(y_n)=u_n$ avec $y_n \in \intero{-\frac{\pi}{2}}{\frac{\pi}{2}}$ et donc $y_n=\arctan(u_n)\tendvers{n}{+\infty}\frac{\pi}{2}.$ On peut ainsi déjà écrire le développement asymptotique à deux termes $$u_n=n\pi +\frac{\pi}{2}+\petito{n}{+\infty}{1}.$$ Déterminons un équivalent de ce $\petito{n}{+\infty}{1}$ en étudiant $u_n-n\pi-\dfrac{\pi}{2}=y_n-\dfrac{\pi}{2}=\arctan(u_n)-\dfrac{\pi}{2}$. On a :
+    $$\arctan(u_n)-\frac{\pi}{2}=-\arctan\p{\frac{1}{u_n}}=-\arctan\p{\frac{1}{n\pi +\frac{\pi}{2}+\petito{n}{+\infty}{1}}}\equi{n}{+\infty}-\frac{1}{n\pi}.$$
+    Finalement, $u_n=n\pi+\dfrac{\pi}{2}-\dfrac{1}{n\pi}+\petito{n}{+\infty}{\dfrac{1}{n}}$.
+    \end{sol}
+  \end{exoUnique}
+
+%END_BOOK
+
+% \subsection{Technique de développement asymptotique}
+
+% \begin{exoUnique}
+
+% \exo {\bf Développement asymptotique d'une suite définie par relation
+%   implicite}~:\\
+%   Pour tout $n\in\N$, montrer que l'équation $\tan x=x$ admet une unique
+%   solution sur $\intero{-\pi/2+n\pi}{\pi/2+n\pi}$. On note $u_n$ cette solution.
+%   Donner un équivalent de $u_n$ puis un développemet asymptotique à 3 termes
+%   de cette suite.
+%   \begin{sol}
+%   On trouve
+%   $u_n=n\pi+\frac{\pi}{2}-\frac{1}{n\pi}+\petito{n}{+\infty}{\frac{1}{n^2}}$.
+%   \end{sol}
+% \end{exoUnique}
+
+\end{document}

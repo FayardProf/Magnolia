@@ -1,0 +1,964 @@
+\documentclass{magnolia}
+
+\magtex{tex_driver={pdftex},
+        tex_packages={xypic}}
+\magfiche{document_nom={Cours sur fractions rationnelles},
+          auteur_nom={François Fayard},
+          auteur_mail={fayard.prof@gmail.com}}
+\magcours{cours_matiere={maths},
+          cours_niveau={mpsi},
+          cours_chapitre_numero={16},
+          cours_chapitre={Fractions rationnelles}}
+\magmisenpage{misenpage_presentation={tikzvelvia},
+              misenpage_format={a4},
+              misenpage_nbcolonnes={1},
+              misenpage_preuve={non},
+              misenpage_sol={non}}
+\maglieudiff{lieu_lycee={Aux Lazaristes},
+             lieu_classe={MPSI 1},
+             lieu_annee={2019--2020}}
+\magprocess
+
+\begin{document}
+
+%BEGIN_BOOK
+\magtoc
+
+\section{Fraction rationnelle}
+\subsection{Représentants d'une fraction rationnelle}
+\begin{definition}
+Soit $\K$ un corps. L'anneau $\polyK$ étant intègre, on admet qu'il existe
+un unique corps noté $\fracK$ et appelé \emph{corps des fractions
+rationnelles}, possédant les propriétés suivantes~:
+\begin{itemize}
+\item $\polyK$ est un sous-anneau du corps $\fracK$.
+\item Pour tout élément $F$ de $\fracK$, il existe un couple de polynômes
+  $(A,B)$ avec $B\not=0$ tel que
+  \[F=\frac{A}{B}\]
+\end{itemize}
+Les éléments de $\fracK$ sont appelés \emph{fractions rationnelles} à
+coefficients sur le corps $\K$.
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque Plus généralement, si $A$ est un anneau intègre, il existe un unique
+  corps $\K$ tel que~:
+  \begin{itemize}
+  \item $A$ est un sous-anneau de $\K$.
+  \item Pour tout $x\in\K$, il existe un couple $(a,b)\in A^2$ tel que $b\neq 0$ et $x=a/b$.
+  \end{itemize}
+  Ce corps est appelé \emph{corps des fractions} de $A$. Le corps des fractions de $\Z$ est $\Q$, celui
+  de $\polyK$ est $\fracK$.
+\end{remarqueUnique}
+
+\begin{definition}
+Soit $F$ une fraction rationnelle.
+\begin{itemize}
+\item On dit qu'un couple de polynômes $(A,B)$ avec $B\not=0$ est un
+  \emph{représentant} de $F$ lorsque
+  \[F=\frac{A}{B}\]
+\item On dit que ce représentant est \emph{irréductible} lorsque $A$ et $B$
+  sont premiers entre eux et qu'il est \emph{unitaire} lorsque $B$ est unitaire.
+\end{itemize}
+\end{definition}
+
+\begin{exoUnique}
+\exo Mettre sous forme irréductible les fractions rationnelles
+  \[\frac{X^2-1}{X^3-1} \et \frac{X^2+X-2}{X^3-5X^2+8X-4}.\]
+  \begin{sol}
+  On trouve
+  \[\frac{X+1}{X^2+X+1} \et \frac{X+2}{\p{X-2}^2}\]
+  \end{sol}
+\end{exoUnique}
+
+\begin{proposition}
+Soit $F$ une fraction rationnelle. Alors $F$ admet un unique représentant
+irréductible unitaire $(A,B)$. De plus~:
+\begin{itemize}
+\item Les représentants de $F$ sont les couples $(QA,QB)$ où $Q$ est
+  un polynôme non nul.
+\item Les représentants irréductibles de $F$ sont les couples
+  $(\lambda A,\lambda B)$ où $\lambda$ est un scalaire non nul.
+\end{itemize}
+\end{proposition}
+
+\begin{preuve}
+On simplifie par leur pgcd et on a unicité grâce au dénominateur unitaire.
+
+$\frac{A}{B}=\frac{C}{D}$ devient $AD=BC$. Or $A\wedge B=1$ donc $A\mid C$, i.e $C=QA$. De même $D=RB$, donc $ABR=ABQ$ et donc $R=Q$ par intégrité de $\polyK$.
+\end{preuve}
+
+\subsection{Degré}
+\begin{definition}
+Soit $F$ une fraction rationnelle. L'entier relatif $\deg A-\deg B$ ne
+dépend pas de la représentation de $F$ choisie; on l'appelle \emph{degré} de $F$.
+\end{definition}
+
+\begin{preuve}
+On en prend $2$ :
+$$F=\dfrac{A_1}{B_1}=\dfrac{A_2}{B_2} \text{ avec } B_1\neq 0 \et B_2 \neq 0.$$
+Donc $A_1B_2=B_1A_2$ puis on écrit l'égalité des degrés d'où comme $\deg(B_1),\deg(B_2)\geq 0$, $\deg(A_1)-\deg(B_1)=\deg(A_2)-\deg(B_2)$.
+\end{preuve}
+
+\begin{exempleUnique}
+\exemple Par exemple
+  \[\deg\p{\frac{X+1}{X+2}}=0 \et \deg\p{\frac{X^2+1}{X^3+1}}=-1.\]
+\end{exempleUnique}
+
+\begin{proposition}
+Soit $F$ et $G$ deux fractions rationnelles.
+\begin{itemize}
+\item Soit $n\in\Z$. Si $\deg F\leq n$ et $\deg G\leq n$, alors
+  \[\forall \lambda,\mu\in\K \qsep \deg(\lambda F+\mu G) \leq n.\]
+\item $\deg F G = \deg F + \deg G$
+\end{itemize}
+\end{proposition}
+
+\begin{preuve}
+Si $F_1=\dfrac{A_1}{B_1}$ et $F_2=\dfrac{A_2}{B_2}$, $$\lambda F_1+\mu F_2=\frac{\lambda A_1B_2+\mu A_2B_1}{B_1B_2}$$ donc 
+\begin{eqnarray*}
+\deg(\lambda F_1+\mu F_2)&=&\deg(\lambda A_1B_2+\mu A_2B_1)-\deg(B_1B_2)\\
+&\leq& \max{\set{\deg A_1+\deg B_2,\deg A_2+\deg B_1}}-\deg B_1-\deg B_2\\
+&=&\max{\set{\deg A_1-\deg B_1,\deg A_2-\deg B_2}}\\
+&=&\max{\set{\deg F_1,\deg F_2}}\leq n.
+\end{eqnarray*}
+\end{preuve}
+
+\subsection{Racines, pôles et substitution}
+\begin{definition}
+Soit $F$ une fraction rationnelle et $(A,B)$ un représentant irréductible de
+$F$. On dit qu'un scalaire $\alpha$ est
+\begin{itemize}
+\item une \emph{racine} de $F$ lorsque $\alpha$ est racine de $A$. Dans ce cas
+  on définit l'\emph{ordre de multiplicité de la racine $\alpha$} comme
+  son ordre de multiplicité en tant que racine de $A$. 
+\item un \emph{pôle} de $F$ lorsque $\alpha$ est racine de $B$. Dans ce cas
+  on définit l'\emph{ordre de multiplicité du pôle $\alpha$} comme
+  son ordre de multiplicité en tant que racine de $B$. 
+\end{itemize}
+\end{definition}
+
+\begin{exoUnique}
+\exo Donner les racines et les pôles de la fraction rationnelle
+  \[F\defeq\frac{X^2+X-2}{X^3-5X^2+8X-4}.\]
+\end{exoUnique}
+
+\begin{sol}
+$$\frac{X^2+X-2}{X^3-5X^2+8X-4}=\frac{X+2}{(X-2)^2}$$ donc $-2$ est une racine d'ordre $1$ et $2$ est un pôle d'ordre $2$.
+\end{sol}
+
+\begin{definition}
+Soit $F$ une fraction rationnelle sur le corps $\K$ et $\alpha$ un
+scalaire. Si $\alpha$ n'est pas un pôle de $F$, on définit $F\p{\alpha}$ par
+\[F(\alpha)\defeq\frac{A(\alpha)}{B(\alpha)}\]
+où $(A,B)$ est un représentant de $F$ tel que $\alpha$ ne soit pas
+racine de $B$.
+\end{definition}
+
+\begin{proposition}
+Soit $\alpha\in\K$, $F_1$ et $F_2$ deux fractions rationnelles
+n'admettant pas $\alpha$ pour pôle et $\lambda$, $\mu\in\K$.
+Alors $\lambda F_1+\mu F_2$ et $F_1 F_2$ n'admettent pas
+$\alpha$ pour pôle et
+\begin{eqnarray*}
+(\lambda F_1+\mu F_2)(\alpha) &=& \lambda F_1(\alpha)+\mu F_2(\alpha)\\
+(F_1 F_2)(\alpha) &=& F_1(\alpha) F_2(\alpha)
+\end{eqnarray*}
+\end{proposition}
+
+\begin{definition}
+Soit $F$ une fraction rationnelle. Si $\mathcal{P}$ est l'ensemble des pôles de $F$,
+on définit la fonction rationnelle $\tilde{F}:\K\setminus\mathcal{P}\to\K$ par
+\[\forall x\in\K\setminus\mathcal{P} \qsep \tilde{F}(x)\defeq F(x)\] 
+\end{definition}
+
+% \begin{exos}
+% \exo Soit $F\in\polyC$. Montrer que $\im\tilde{F}$ est soit un singleton,
+%   soit $\C$ privé d'un nombre complexe, soit $\C$ tout entier.
+% \end{exos}
+
+\subsection{Conjugaison sur $\fracC$}
+
+\begin{definition}
+Soit $F\in\fracC$. On définit la fraction rationnelle $\conj{F}$ par
+\[\conj{F}\defeq\frac{\conj{A}}{\conj{B}}\]
+\end{definition}
+
+\begin{proposition}
+Soit $F,G\in\fracC$.
+\begin{itemize}
+\item Si $\lambda$, $\mu\in\C$, alors
+\begin{eqnarray*}
+\conj{\lambda F+\mu G}&=&\conj{\lambda}\, \conj{F}+\conj{\rule{0pt}{6.75pt}\mu}\, \conj{G}\\
+\conj{F G}&=&\conj{F}\,\conj{G}
+\end{eqnarray*}
+\item $\deg\conj{F}=\deg F$.
+\end{itemize}
+\end{proposition}
+
+\begin{proposition}
+Soit $F\in\fracC$. Alors
+\[\conj{\conj{F}}=F \quad\et\quad \cro{F\in\fracR \quad\ssi\quad \conj{F}=F}.\]
+\end{proposition}
+
+\begin{proposition}
+Soit $F\in\fracC$ et $\alpha\in\C$. Alors
+\begin{itemize}
+\item $\alpha$ est racine de $F$ d'ordre $\omega\in\N$ si et seulement si $\conj{\alpha}$ est racine de $\conj{F}$
+   d'ordre $\omega$.
+\item $\alpha$ est pôle de $F$ d'ordre $\omega\in\N$ si et seulement si $\conj{\alpha}$ est pôle de $\conj{F}$
+   d'ordre $\omega$.
+\end{itemize}
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque En particulier, si $\alpha\in\C$ est une racine de $F\in\fracR$, alors $\conj{\alpha}$ est
+  une racine de $F$ et son ordre relativement à $F$ est le même que celui de $\alpha$. De même, si $\alpha$
+  est un pôle de $F$, alors $\conj{\alpha}$ est un pôle de $F$ et son ordre relativement à $F$ est le même
+  que celui de $\alpha$.
+\end{remarqueUnique}
+
+\section{Décomposition en éléments simples}
+
+\subsection{Décomposition en éléments simples sur $\fracK$}
+
+\begin{definition}
+Soit $F\in\fracK$. Alors il existe un unique couple
+$(E,G)$ constitué d'un polynôme $E$ appelé \emph{partie entière} de $F$, et d'une
+fraction rationnelle $G$ de degré strictement négatif tel que
+\[F=E+G\]
+En pratique $E$ s'obtient comme le quotient de la division euclidienne
+de $A$ par $B$ où $(A,B)$ est un représentant de $F$. 
+\end{definition}
+
+\begin{exoUnique}
+\exo Calculer la partie entière de
+  \[F\defeq\frac{X^3+2X^2+1}{X^2+1}.\]
+  \begin{sol}
+  On a
+  \[F=X+2-\frac{X+1}{X^2+1}\]
+  \end{sol}
+\end{exoUnique}
+
+\begin{proposition}[nom={Décomposition en éléments simples}]
+Soit $F\in\fracK$. On écrit $F$ sous forme irréductible et on
+décompose son dénominateur en produit de polynômes irréductibles $P_1,\ldots,P_r$ deux
+à deux distincts
+\[F=\frac{A}{B}=\frac{A}{\lambda \prod_{k=1}^r P_k^{\alpha_k}}.\]
+Alors, il existe un unique polynôme $E\in\polyK$ ainsi qu'une unique famille
+de polynômes $R_{k,l}\in\polyK$ avec $k\in\intere{1}{r}$ et
+$l\in\intere{1}{\alpha_k}$ tels que
+\[F=E+\sum_{k=1}^r \sum_{l=1}^{\alpha_k} \frac{R_{k,l}}{P_k^l}\]
+et $\deg R_{k,l}<\deg P_k$.
+\end{proposition}
+
+\subsection{Cas où le dénominateur est scindé}
+
+\begin{proposition}
+Soit $F\in\fracK$.  On écrit $F$ sous forme irréductible et on suppose
+que son dénominateur est scindé
+\[F=\frac{A}{B}=\frac{A}{\lambda \prod_{k=1}^r \p{X-\alpha_k}^{\omega_k}}.\]
+Alors, il existe un unique polynôme $E\in\polyK$ ainsi qu'une unique famille
+de scalaires $a_{k,l}\in\K$ avec $k\in\intere{1}{r}$ et $l\in\intere{1}{\omega_k}$
+tels que
+\[F=E+\sum_{k=1}^r \sum_{l=1}^{\omega_k} \frac{a_{k,l}}{\p{X-\alpha_k}^l}.\]
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque En reprenant les notations de la proposition ci-dessus, on dit que
+  \[\sum_{l=1}^{\omega_k} \frac{a_{k,l}}{\p{X-\alpha_k}^l}\]
+  est la \emph{partie polaire} de $F$ relative au pôle $\alpha_k$.
+\end{remarqueUnique}
+
+% On cherche ici à déterminer la partie polaire relative à un pôle simple. On se
+% donne donc une fraction rationnelle $F$ admettant $\alpha$ pour pôle simple
+% ainsi qu'un représentant irréductible $(A,B)$ de $F$~:
+% $$F=\frac{A}{B}$$
+% Puisque $\alpha$ est un pôle simple de $F$, il existe un polynôme $C$
+% n'admettant pas $\alpha$ pour racine tel que $B=(X-\alpha)C$.
+% Il existe donc $a\in\C$ tel que~:
+% $$\frac{A}{(X-\alpha)C}=\frac{a}{X-\alpha}+G$$
+% où $G$ est une fraction rationnelle n'admettant pas $\alpha$ pour pôle. Donc~:
+% $$\frac{A}{C}=a+(X-\alpha)G$$
+% Puisque $\alpha$ n'est pôle ni de $A/C$, ni de $G$, on peut substituer $\alpha$
+% à $X$ et on obtient~:
+% $$a=\frac{A(\alpha)}{C(\alpha)}$$
+% Remarquons que si on dérive $B=(X-\alpha)C$ avant de substituer $\alpha$ à $X$,
+% on obtient $C(\alpha)=B'(\alpha)$. On obtient donc une nouvelle expression de
+% $a$~:
+% $$a=\frac{A(\alpha)}{B'(\alpha)}$$
+% On a donc démontré~:
+
+% \begin{proposition}
+%   Soit $F$ une fraction rationnelle admettant $\alpha$ pour pôle simple~:
+%   $$F=\frac{A}{B}=\frac{A}{(X-\alpha)C}$$
+%   où $A$ et $C$ sont des polynômes n'admettant pas $\alpha$ pour racine.
+%   Alors la partie polaire relative au pôle $\alpha$ est~:
+%   $$\frac{a}{X-\alpha}$$
+%   où $a$ est donnée par les deux formule équivalentes~:
+%   $$a=\frac{A(\alpha)}{C(\alpha)} \qquad a=\frac{A(\alpha)}{B'(\alpha)}$$
+% \end{proposition}
+
+% Dans le cas où $F$ n'admet que des pôles simples, on a donc~:
+
+
+\begin{proposition}
+Soit $F\in\fracK$ une fraction rationnelle admettant $\alpha\in\K$ pour pôle simple
+\[F=\frac{A}{B}=\frac{A}{(X-\alpha) C} \quad \text{ avec } C(\alpha)\neq 0. \]
+Alors, la partie polaire relative au pôle $\alpha$ est
+\[\frac{a}{X-\alpha}\]
+où $a$ est donné par les deux formules équivalentes
+\[a=\frac{A(\alpha)}{C(\alpha)}, \qquad a=\frac{A(\alpha)}{B'(\alpha)}.\]
+\end{proposition}
+
+\begin{preuve}
+Soit $k\in \intere{1}{n}$. On pose $C=\dsp\prod_{\substack{j=1\\j\neq k}}^n
+  \p{X-\alpha_j}$. La multiplication/évaluation donne $a_k=\dfrac{A(\alpha_k)}{C(\alpha_k)}=\dsp\prod_{\substack{j=1\\j\neq k}}^n
+  \p{\alpha_k-\alpha_j}$.
+  
+  De plus, $B=(X-\alpha_k)C$ donc $B'=C+(X-\alpha_k)C'$ d'où $B'(\alpha_k)=C(\alpha_k)$. Cette dernière version sera utile si $B$ est sous forme développée !!!
+\end{preuve}
+
+
+\begin{exos}
+\exo Décomposer les fractions rationnelles suivantes en éléments simples
+  sur $\C$.
+  \[\frac{X+3}{(X-1)(X+2)}, \qquad \frac{1}{X^2+1}, \qquad \frac{1}{X^n-1}.\]
+  \begin{sol}
+  On a~:
+  \begin{itemize}
+  \item Premier : rien de spécial.
+    \[F=-\frac{1}{3}\cdot\frac{1}{X+2}+\frac{4}{3}\cdot\frac{1}{X-1}\]
+  \item Deuxième : utiliser le fait que F est réel. Ou on peut utiliser la parité.
+    \[F=-\frac{1}{2}\cdot\frac{i}{X-i}+\frac{1}{2}\cdot\frac{i}{x+i}\]
+  \item Troisième : rien de spécial (on utilise la multiplication/évaluation avec la deuxième forme $a_k=\frac{A(\alpha_k)}{B'(\alpha_k)}$).
+    \[F=\frac{1}{n}\sum_{k=0}^{n-1} \frac{\omega^k}{X-\omega^k}\]
+  \end{itemize}
+  \end{sol}
+\exo Calculer la dérivée $n$-ième de la fonction définie sur
+  $\R\setminus\ens{-2,1}$ par
+  \[\forall x\in\R\setminus\ens{-2,1} \qsep f(x)\defeq\frac{x+3}{(x-1)(x+2)}.\]
+\end{exos}
+
+
+% \begin{itemize}
+%   \item Soit $F$ la fraction rationnelle~:
+%     $$F=\frac{X+3}{(X-1)(X+2)}$$
+%     Alors $\deg F=-1$. De plus $F$ est sous forme irréductible. Donc les pôles
+%     de $F$ sont $-1$ et $2$. Comme ce sont des pôles simples, on a~:
+%     $$F=\frac{a}{X-1}+\frac{b}{X+2}$$
+%     Grâce à la première formule, on obtient facilement~:
+%     $$a=\frac{4}{3} \quad \text{et} \quad b=-\frac{1}{3}$$
+%     Donc~:
+%     $$\frac{X+3}{(X-1)(X+2)}=\frac{4}{3}\frac{1}{X-1}-
+%       \frac{1}{3}\frac{1}{X+2}$$
+%   \item Soit $F$ la fraction rationnelle~:
+%     $$F=\frac{1}{X^n-1}$$
+%     Alors $\deg F=-n$. De plus $F$ est sous forme irréductible. Donc les pôles
+%     de $F$ sont les racines $n$-ièmes de l'unité. Comme il y en a $n$, ce sont
+%     des pôles simples. Il existe donc $a_1,\ldots,a_n\in\C$ tels que~:
+%     $$F=\sum_{k=0}^{n-1} \frac{a_k}{X-\omega^k}$$
+%     où $\omega=\exp\p{i\frac{2\pi}{n}}$. En posant $B=X^n-1$, on a $B'=nX^{n-1}$
+%     et la seconde formule nous donne~:
+%     $$\forall k\in\intere{0}{n-1} \quad a_k=\frac{1}{n \omega^{k(n-1)}}
+%       =\frac{1}{n}\omega^k$$
+%     Donc~:
+%     $$\frac{1}{X^n-1}=\frac{1}{n}\sum_{k=0}^{n-1} \frac{\omega^k}{X-\omega^k}$$
+% \end{itemize}
+
+% \subsection{Pôles multiples}
+% \subsubsection{Utilisation des symétries}
+% Dès qu'une fraction rationnelle a au moins deux pôles d'ordre supérieur à $2$,
+% il est essentiel de réduire le nombre d'inconnues en utilisant au mieux les
+% symétries. Pour cela on, cherche des transformations du plan complexe
+% conservant les pôles de $F$ ainsi que leur ordre de multiplicité. On observe
+% ensuite quels sont les effets de ces transformations sur la fraction $F$.
+% Voyons cette méthode de réduction du nombre d'inconnues sur deux exemples~:
+% \begin{itemize}
+%   \item Soit $F$ la fraction rationnelle~:
+%     $$F=\frac{X^2+2}{X^2(X^2+1)}$$
+%     Alors $\deg F=-2$ dont la partie entière de $F$ est nulle. De plus $F$ est
+%     sous forme irréductible. En effet $X^2+2$ et $X^2(X^2+1)$ n'ont aucune
+%     racine commune dans $\C$. $F$ admet donc $0$ comme pôle double et $i,-i$
+%     comme pôles simples. Il existe donc $a,b,c,d\in\C$ tels que~:
+%     $$F(X)=\frac{a}{X}+\frac{b}{X^2}+\frac{c}{X-i}+\frac{d}{X+i}$$
+%     Puisque $\alpha$ est pôle de $F$ si et seulement si $-\alpha$ est pôle de
+%     $F$, comparons $F(-X)$ et $F(X)$. On remarque que $F(-X)=F(X)$. Or~:
+%     $$F(-X)=-\frac{a}{X}+\frac{b}{X^2}-\frac{c}{X+i}-\frac{d}{X-i}$$
+%     Donc par unicité de la décomposition en éléments simples~:
+%     $$a=-a \quad \text{et} \quad c=-d$$
+%     Donc $a=0$ et~:
+%     $$F(X)=\frac{b}{X^2}+\frac{c}{X-i}-\frac{c}{X+i}$$
+%   \item Soit $F$ la fraction rationnelle~:
+%     $$F=\frac{1}{(X^2+X+1)^2}$$
+%     Alors $\deg F=-4$ donc la partie entière de $F$ est nulle. De plus $F$ est
+%     sous forme irréductible. $F$ admet donc $j$ et $j^2$ comme pôles doubles.
+%     Il existe donc $a,b,c,d\in\C$ tels que~:
+%     $$F(X)=\frac{a}{X-j}+\frac{b}{(X-j)^2}+\frac{c}{X-j^2}+\frac{d}{(X-j^2)^2}$$
+%     puisque $F$ est à coefficients réels, $\conj{F}=F$. Or~:
+%     $$\conj{F}(X)=\frac{\conj{a}}{X-j^2}+\frac{\conj{b}}{(X-j^2)^2}+
+%                     \frac{\conj{c}}{X-j}  +\frac{\conj{d}}{(X-j)^2}$$
+%     Donc par unicité de la décomposition en éléments simples~:
+%     $$\conj{c}=a \quad \text{et} \quad \conj{d}=b$$
+%     Donc~:
+%     $$F(X)=\frac{a}{X-j}+\frac{b}{(X-j)^2}+\frac{\conj{a}}{X-j^2}
+%            +\frac{\conj{d}}{(X-j^2)^2}$$
+% \end{itemize}
+% D'autres transformations sont aussi utilisées. Par exemple si les pôles de $F$
+% sont les racines $n$-ièmes de l'unité, et que ces pôles sont tous de même
+% ordre, il peut être utile de substituer $\omega X$ à $X$ où $\omega=\exp
+% \p{i\frac{2\pi}{n}}$.
+
+% \subsubsection{Pôles doubles}
+% On cherche ici à déterminer la partie polaire relative à un pôle double. On se
+% donne donc une fraction rationnelle $F$ admettant $\alpha$ pour pôle double
+% ainsi qu'un représentant irréductible $(A,B)$ de $F$~:
+% $$F=\frac{A}{B}$$
+% Puisque $\alpha$ est un pôle double de $F$, il existe un polynôme $C$
+% n'admettant pas $\alpha$ pour racine tel que $B=(X-\alpha)^2 C$.
+% Il existe donc $a_1,a_2\in\C$ tel que~:
+% $$\frac{A}{(X-\alpha)^2C}=\frac{a_1}{X-\alpha}+\frac{a_2}{(X-\alpha)^2}+G$$
+% où $G$ est une fraction rationnelle n'admettant pas $\alpha$ pour pôle. Donc~:
+% $$\frac{A}{C}=a_1(X-\alpha)+a_2+(X-\alpha)^2 G$$
+% Puisque $\alpha$ n'est pôle ni de $A/C$, ni de $G$, on peut substituer $\alpha$
+% à $X$ et on obtient~:
+% $$a_2=\frac{A(\alpha)}{C(\alpha)}$$
+% Remarquons que si on dérive deux fois $B=(X-\alpha)^2 C$ avant de substituer
+% $\alpha$ à $X$, on obtient $C(\alpha)=B''(\alpha)/2$. On obtient donc
+% une nouvelle expression de $a_2$~:
+% $$a_2=\frac{2A(\alpha)}{B''(\alpha)}$$
+% On a donc démontré~:
+
+\begin{proposition}
+Soit $F\in\fracK$ une fraction rationnelle admettant $\alpha\in\K$ pour pôle double
+\[F=\frac{A}{B}=\frac{A}{(X-\alpha)^2C} \quad \text{ avec } C(\alpha)\neq 0. \]
+Alors, la partie polaire relative au pôle $\alpha$ est
+\[\frac{a_1}{X-\alpha}+\frac{a_2}{(X-\alpha)^2}\]
+où $a_2$ est donné par les deux formules équivalentes
+\[a_2=\frac{A(\alpha)}{C(\alpha)}, \qquad a_2=\frac{2 A(\alpha)}{B''(\alpha)}.\]
+\end{proposition}
+
+\begin{preuve}
+Puisque $\alpha$ est un pôle double de $F$, il existe un polynôme $C$
+ n'admettant pas $\alpha$ pour racine tel que $B=(X-\alpha)^2 C$.
+ Il existe donc $a_1,a_2\in\C$ tel que~:
+ $$\frac{A}{(X-\alpha)^2C}=\frac{a_1}{X-\alpha}+\frac{a_2}{(X-\alpha)^2}+G$$
+ où $G$ est une fraction rationnelle n'admettant pas $\alpha$ pour pôle. Donc~:
+ $$\frac{A}{C}=a_1(X-\alpha)+a_2+(X-\alpha)^2 G$$
+ Puisque $\alpha$ n'est pôle ni de $A/C$, ni de $G$, on peut substituer $\alpha$
+ à $X$ et on obtient~:
+ $$a_2=\frac{A(\alpha)}{C(\alpha)}$$
+ \end{preuve}
+ 
+ \begin{sol}
+ Notons qu'en théorie, de $$\frac{A}{C}=a_1(X-\alpha)+a_2+(X-\alpha)^2 G$$ on tire $$a_1=\p{\frac{A}{C}}'(\alpha)$$ ce qui n'est pas forcément pratique à calculer en général, mais cela arrive !
+ \end{sol}
+
+\begin{exos}
+\exo Décomposer les fractions rationnelles suivantes en éléments simples
+  \[\frac{X+1}{X^2\p{X-1}}, \qquad \frac{X^2+X+3}{X\p{X-1}^3}.\]
+%     F=\frac{1}{\p{X-1}\p{X^n-1}}\]
+  \begin{sol}
+  On a~:
+  \begin{itemize}
+  \item Premier~: Trouver les termes en $X^2$, $X-1$ puis multiplier par $X$ et
+    faire tendre vers $+\infty$.
+    \[F=-\frac{2}{X}-\frac{1}{X^2}+\frac{2}{X-1}\]
+  \item Second~: Effectuer un développement limité.
+    \[F=-\frac{3}{X}+\frac{3}{X-1}-\frac{2}{\p{X-1}^2}+\frac{5}{\p{X-1}^3}\]
+    
+    ou 
+    $$F=\frac{X^2+X+3}{X\p{X-1}^3}=\frac{a}{X}+\frac{b}{X-1}+\frac{c}{(X-1)^2}+\frac{d}{(X-1)^3}$$ la multiplication/évaluation donne $a=-3$ et $d=5$. Ensuite, on multiplie par $X$, on substitue $x$ à $X$ et on le fait tendre vers $+\infty$, cela donne $a+b=0$ donc $b=3$. Dernière étape, on réunit les deux premiers éléments simples, on multiplie par $X^2$ on substitue $x$ à $X$ et on fait tendre $x$ vers $+\infty$. Cela donne $c=1+a=-2$. 
+  \end{itemize}
+  \end{sol}
+\exo Calculer la limite, si elle existe, de la suite de terme général
+  \[\sum_{k=1}^n \frac{2k+1}{k^2(k+1)^2}.\]
+  \begin{sol}
+  On peut remarquer que $F(-1-X)=-F(X)$ pour réduire le problème, puis... 
+  La décomposition en éléments simples donne
+  \[\frac{2X+1}{X^2(X+1)^2}=\frac{1}{X^2}-\frac{1}{(X+1)^2}\]
+  La limite cherchée est donc 1.
+  \end{sol}
+\end{exos}
+
+\begin{proposition}
+Soit $P$ un polynôme scindé de $\polyK$
+  \[P\defeq\lambda\prod_{k=1}^r \p{X-\alpha_k}^{\omega_k}\]
+  où $\lambda\in\Ks$, $\alpha_1,\ldots,\alpha_r\in\K$ sont deux à deux distincts et
+  $\omega_1,\ldots,\omega_r\in\Ns$. Alors
+  \[\frac{P'}{P}=\sum_{k=1}^r \frac{\omega_k}{X-\alpha_k}.\] 
+\end{proposition}
+
+
+% Pour déterminer $a_1$, on utilisera l'une des méthode suivante~:
+% \begin{itemize}
+%   \item Dans le cas où $F$ est de degré négatif (cas auquel il est toujours
+%     possible de se ramener quitte à remplacer $F$ par sa partie fractionnaire),
+%     on peut multiplier la décomposition de $F$ en éléments simples par $X$ et
+%     substituer le réel $x$ à $X$ avant de faire tendre $x$ vers $+\infty$.
+%     On obtient une relation entre $a_2$ et les coefficients $a_{i,1}$ des autres
+%     pôles de $F$.
+%   \item Il est toujours possible d'étudier la fraction rationnelle~:
+%     $$F-\frac{a_2}{(X-\alpha)^2}=\frac{a_1}{X-\alpha}+G$$
+%     pour qui $\alpha$ est un pôle simple.
+%   \item Enfin, il est aussi possible d'évaluer $F$ en un point bien choisit qui
+%     n'est pas un pôle de $F$.
+% \end{itemize}
+
+% \subsubsection{Pôles d'ordre supérieur}
+% Dans le cas où $F$ admet un pôle d'ordre $3$, et que les $3$ inconnues
+% subsistent après l'étude des symétries de $F$, alors~:
+% \begin{itemize}
+%   \item Si $\alpha=0$, on effectue une division de $A$ par $C$ selon les
+%     puissances croissantes. Cette méthode permet de donner immédiatement la
+%     partie polaire relative au pôle $0$.
+%   \item D'une manière équivalente, toujours si $\alpha=0$, on peut effectuer
+%     un développement asymptotique de $F(x)$ au voisinage de $0$ à la
+%     précision $1$. Cette méthode donnera immédiatement la partie polaire
+%     relative au pôle $0$.
+%   \item Si $\alpha\not=0$ et si les symétries ne permettent pas de se ramener
+%     à un pôle nul, on substitue $Y+\alpha$ à $X$ et pour se ramener au cas où
+%     $\alpha=0$.   
+% \end{itemize}
+
+
+\subsection{Cas où $\K=\R$ et le dénominateur n'est pas scindé}
+
+\begin{proposition}
+Soit $F\in\fracR$. On écrit $F$ sous forme irréductible et on
+décompose son dénominateur en produit de polynômes irréductibles
+\[F=\frac{A}{\lambda \prod_{k=1}^r \p{X-\alpha_k}^{\omega_k}
+    \prod_{l=1}^s \p{X^2+b_lX+c_l}^{\omega_l'}}.\]
+Alors, il existe un unique polynôme $E\in\polyR$, ainsi que des uniques familles
+$\p{a_{k,i}}$, $\p{b_{l,j}}$ et $\p{c_{l,j}}$ de réels tels que
+\[F=E+\sum_{k=1}^r \p{\sum_{i=1}^{\omega_k} \frac{a_{k,i}}{(X-\alpha_k)^i}}
+ +\sum_{l=1}^s \p{\sum_{j=1}^{\omega_l'} \frac{b_{l,j}X+c_{l,j}}{\p{X^2+b_lX+c_l}^j}}.\]
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque Pour décomposer une fraction rationnelle $F\in\fracR$, il est possible
+  d'effectuer sa décomposition dans $\fracC$ puis de regrouper les parties polaires
+  ayant des pôles conjugués. Le plus souvent, on préfèrera cependant une décomposition
+  directe dans $\fracR$.
+\end{remarqueUnique}
+
+\begin{exoUnique}
+\exo Décomposer les fractions rationnelles suivantes en éléments simples sur
+  $\R$.
+  \[\frac{1}{X\p{X^2+1}}, \qquad \frac{1}{X\p{X^2+X+1}}, \qquad
+    \frac{X^2+2}{X^2\p{X^2+1}}\]
+  \[\frac{1}{X^4+1}, \qquad \frac{X^7+2}{\p{X^2+X+1}^3}, \qquad
+    \frac{1}{X^{2n}-1}.\]
+  \begin{sol}
+  On a~:
+  \begin{itemize}
+  \item Premier~: On peut commencer par faire la décomposition dans $\fracC$
+    puis regrouper les pôles conjugués.
+    Mieux : On commence par trouver le coefficient en $X$. Ensuite on
+    trouve le coefficient en $X^2+1$ en multipliant et en évaluant en $i$.
+    \[F=\frac{1}{X}-\frac{X}{X^2+1}\]
+  \item Second~: Même méthode. On évalue en $j$ et on utilise la liberté de la famille $\set{1,j}$, cf. plus tard.
+    \[F=\frac{1}{X}-\frac{X+1}{X^2+X+1}\]
+  \item Troisième~: On utilise la symétrie pour prouver qu'il n'y a pas de terme
+    en $X$. On trouve ensuite le terme en $X^2$. On multiplie par $X^2$ et on fait
+    tendre vers $+\infty$ (ou on évalue en $i$ après multiplication par $X^2+1$).
+    \[F=\frac{2}{X^2}-\frac{1}{X^2+1}\]
+  \item Quatrième~: On remarque que $X^4+1=\p{X^2+1}-2X^2$ pour factoriser le
+    dénominateur. On utilise la parité, puis on évalue en $0$. Ensuite, on évalue
+    en une racine $\omega$ de $X^2-\sqrt{2}X+1$ après multiplication par $X^2-\sqrt{2}X+1$, on a :
+    $$\frac{1}{\omega^2+\sqrt{2}\omega+1}=a\omega+b.$$ Or, $w^2+1=\sqrt{2}\omega$ donc $$\frac{1}{2\sqrt{2}}=a\omega^2+b\omega=a\p{\sqrt{2}\omega-1}+b\omega,$$ finalement $$\underbrace{\p{\sqrt{2}a+b}}_{\in \R}\underbrace{\omega}_{\in \C\setminus\R}=\underbrace{a+\frac{1}{2\sqrt{2}}}_{\in \R}$$ donc les deux réels sont nuls, ce qui permet de conclure. 
+    \[F=\frac{1}{4}\cdot\frac{\sqrt{2}X+2}{X^2+\sqrt{2}X+1}+\frac{1}{4}\cdot
+      \frac{-\sqrt{2}X+2}{X^2-\sqrt{2}X+1}\]
+  \item Cinquième~: Il suffit de faire plusieurs divisons euclidiennes
+    successives par $X^2+X+1$. On trouve~:
+    \[F=\frac{X+2}{\p{X^2+X+1+}^3}-\frac{4X+2}{\p{X^2+X+1}^2}+
+        \frac{3X+5}{X^2+X+1}+\p{X-3}\]
+  \item Sixième~: On décompose dans $\C$ puis on regroupe les racines complexes
+    conjuguées. On trouve~:
+    \[\frac{1}{X^{2n}-1}=\frac{1}{2n}\cro{\frac{1}{X-1}-\frac{1}{X+1}+\sum_{k=1}^{n-1}
+      \frac{2\cos\p{\frac{k\pi}{n}}X-2}{X^2-2\cos\p{\frac{k\pi}{n}}X+1}}\]
+  \end{itemize}
+  \end{sol}
+\end{exoUnique}
+
+% \begin{proposition}
+% Soit $F\in\fracR$. On écrit
+%  Alors $F$ est
+% la somme de sa partie entière et de ses parties polaires~:
+% \[F=E+\sum_{i=1}^n F_{\alpha_i}\]
+% Autrement dit, si $F$ est une fraction rationnelle de partie entière $E$ et
+% dont les pôles $\alpha_1,\ldots,\alpha_n$ sont d'ordres respectifs
+% $r_1,\ldots,r_n$, il existe une unique famille de nombres complexes
+% $\p{a_{i,j}}$ telle que~:
+% \[F=E+\sum_{i=1}^n \p{\sum_{j=1}^{r_i} \frac{a_{i,j}}{(X-\alpha_i)^j}}\]
+% Cette décomposition s'appelle la décomposition en éléments simples de
+% $F$ sur $\C$.
+% \end{proposition}
+
+\section{Primitive d'expression rationnelle}
+\subsection{Fractions rationnelles}
+% \begin{proposition}
+% $\quad$
+% \begin{itemize}
+% \item Soit $a$ un nombre réel, $n\in\Z$ et $I$ un intervalle ne contenant pas $a$.
+%   Alors~:
+%   \begin{itemize}
+%     \item si $n\not=-1$~:
+%       $$\prim{(x-a)^n}{x}=\frac{1}{n+1}(x-a)^{n+1}$$
+%     \item pour $n=-1$~:
+%       $$\priminv{x-a}{x}=\ln\abs{x-a}$$
+%   \end{itemize}
+% \item Soit $a=\alpha+i\beta$ un nombre complexe n'appartenant pas à $\R$, $n\in\Z$
+%   et $I$ un intervalle de $\R$. Alors~:
+%   \begin{itemize}
+%     \item si $n\not=-1$~:
+%       $$\prim{(x-a)^n}{x}=\frac{1}{n+1}(x-a)^{n+1}$$
+%     \item pour $n=-1$~:
+%       $$\priminv{x-a}{x}=\frac{1}{2}\ln\p{(x-\alpha)^2+\beta^2}
+%                          +i\arctan\p{\frac{x-\alpha}{\beta}}$$
+%   \end{itemize}
+% \end{itemize}
+% \end{proposition}
+
+\begin{exoUnique}
+\exo Calculer
+  \[\priminv{x^2-1}{x}, \qquad \prim{\frac{2x+1}{x^2+x-2}}{x},  \qquad
+    \priminv{x^3-1}{x}, \qquad \priminv{(x^2+1)^2}{x}.\]
+  \begin{sol}
+  On trouve~:
+  \begin{itemize}
+  \item Premier~:
+     \[\frac{1}{2}\ln\abs{\frac{1+x}{1-x}}\]
+  \item Réfléchir deux secondes...
+  \item Troisième~:
+     La décomposition en éléments simples donne
+     \[\frac{1}{X^3-1}=\frac{1}{3}\cdot\frac{1}{X-1}-\frac{1}{3}\cdot
+       \frac{X+2}{X^2+X+1}\]
+     Et le calcul de primitive
+     \[\frac{1}{3}\ln\abs{x-1}-\frac{1}{6}\ln\p{x^2+x+1}-\frac{1}{\sqrt{3}}
+       \arctan\p{\frac{2x+1}{\sqrt{3}}}\]
+       avec le classique :
+       \begin{eqnarray*}\priminv{x^2+x+1}{x}&=&\priminv{(x^2+1/2)^2+3/4}{x}\\
+       &=&\priminv{3/4\p{4/3(x+1/2)^2+1}}{x}=4/3\priminv{(\frac{2x+1}{\sqrt{3}})^2+1}{x}\\&=&4/3\prim{\frac{\sqrt{3}/2}{1+u^2}}{u}=2/\sqrt{3}\arctan(u).
+       \end{eqnarray*}
+    \item Quatrième~:
+    Technique : On fait une IPP à partir de $\priminv{1+x^2}{x}$ qui va faire apparaitre en utilisant $x^2=x^2+1-1$ la primitive demandée. On obtient finalement :
+    $$\priminv{(x^2+1)^2}{x}=\frac{1}{2}\p{\frac{x}{1+x^2}+\arctan x}.$$
+  \end{itemize}
+  \end{sol}
+\end{exoUnique}
+
+% \begin{remarqueUnique}
+% \remarque Lorsqu'on maîtrise bien le calcul de primitives des fractions
+%   rationnelles $F$ par les méthodes données sur ces exemples, on peut accélérer
+%   le temps de calcul en cherchant d'abord l'allure de la primitive ainsi
+%   calculée.
+%   \begin{itemize}
+%   \item La partie entière de $F$ donnera un terme polynomial.
+%   \item Les pôles $\alpha$ d'ordre $\omega$ de $F$ feront apparaître des
+%     termes en
+%     \[a_0\ln\abs{x-\alpha}+\sum_{k=1}^{\omega-1} \frac{a_k}{\p{x-\alpha}^k}\]
+%   \item Si le trinôme $aX^2+bX+c$ apparaît avec un exposant 1 dans la
+%     factorisation du dénominateur de $F$, on aura l'apparition de termes en
+%     \[d\ln(ax^2+bx+c)+e\arctan(fx+g)\]
+%     où $f$ et $g$ sont des réels tels que les racines complexes du trinôme
+%     $aX^2+bX+c$ sont données par l'équation $fx+g=\pm i$.
+%   \item Si le trinôme $aX^2+bX+c$ apparaît avec un exposant 2 dans la
+%     factorisation du dénominateur de $F$, on aura l'apparition de termes en
+%     \[d\ln(ax^2+bx+c)+e\arctan(fx+g)+\frac{hx+p}{ax^2+bx+c}\]
+%     où $f$ et $g$ sont calculés comme plus haut.
+%   \end{itemize}
+%   Une fois que l'on a la forme de la primitive, on peut exploiter la parité
+%   ou l'imparité de $F$ pour réduire le nombre d'inconnues (rappelons qu'une
+%   fonction paire admet \textit{une} primitive impaire et qu'une fonction impaire
+%   admet \textit{une} primitive paire). Il suffit alors de dériver l'expression
+%   puis de regrouper les termes pour obtenir la forme d'une décomposition en
+%   éléments simples avant de calculer les coefficients recherchés par les
+%   méthodes classiques vues plus haut.
+% \end{remarqueUnique}
+
+\subsection{Fractions rationnelles en $\e^x$}
+% \begin{proposition}
+%   Soit $F$ une fraction rationnelle et $I$ un intervalle tel que son image
+%   par l'exponentielle ne contienne pas de pôle de $F$. Alors, après
+%   avoir fait le changement de variable $u=e^x$, le calcul de~:
+%   $$\prim{F(e^x)}{x}$$
+%   se ramène au calcul d'une primitive de la fonction d'expression $F(u)/u$.
+% \end{proposition}
+Pour ces fonctions, il suffit d'effectuer le changement de variable
+$u\defeq\e^x$ pour se ramener au calcul d'une primitive d'une fraction rationnelle.
+
+\begin{exoUnique}
+\exo Calculer
+  \[\priminv{\e^{2x}+1}{x}.\]
+  \begin{sol}
+  On trouve
+  \[\frac{1}{X\p{X^2+1}}=\frac{1}{X}-\frac{X}{X^2+1}\]
+  donc
+  \[x-\frac{1}{2}\ln\p{e^{2x}+1}\]
+  \end{sol}
+\end{exoUnique}
+
+\subsection{Fractions rationnelles en $\cos x$, $\sin x$}
+
+% \begin{proposition}
+%   Soit $F$ une fraction rationnelle et $I$ un intervalle tel que son image
+%   par $\cos$ ne contienne pas de pôle de $F$. Alors, après
+%   avoir fait le changement de variable $u=\cos x$, le calcul de~:
+%   $$\prim{F(\cos x)\sin x}{x}$$
+%   se ramène au calcul d'une primitive de la fonction d'expression $-F(u)$.
+% \end{proposition}
+
+% \begin{proposition}
+%   Soit $F$ une fraction rationnelle et $I$ un intervalle tel que son image
+%   par $\sin$ ne contienne pas de pôle de $F$. Alors, après
+%   avoir fait le changement de variable $u=\sin x$, le calcul de~:
+%   $$\prim{F(\sin x)\cos x}{x}$$
+%   se ramène au calcul d'une primitive de la fonction d'expression $F(u)$.
+% \end{proposition}
+
+% \begin{proposition}
+%   Soit $F$ une fraction rationnelle et $I$ un intervalle tel que son image
+%   par $\tan$ ne contienne pas de pôle de $F$. Alors, après
+%   avoir fait le changement de variable $u=\tan x$, le calcul de~:
+%   $$\prim{F(\tan x)(1+\tan^2 x)}{x}$$
+%   se ramène au calcul d'une primitive de la fonction d'expression $F(u)$.
+% \end{proposition}
+
+\begin{proposition}[nom={Règles de \nom{Bioche}}]
+Soit $G$ une fraction rationnelle en $\cos x$, $\sin x$.
+\begin{itemize}
+\item Si $G\p{-x}=-G(x)$, il existe une fraction rationnelle $F$ telle que
+  \[G(x)=F\p{\cos x}\sin x.\]
+  On est donc ramené, après le changement de variable $u=\cos x$, à un calcul
+  de primitive d'une fraction rationnelle.
+\item Si $G\p{\pi-x}=-G(x)$, il existe une fraction rationnelle $F$ telle que
+  \[G(x)=F\p{\sin x}\cos x.\]
+  On est donc ramené, après le changement de variable $u=\sin x$, à un calcul
+  de primitive d'une fraction rationnelle.
+\item Si $G\p{\pi+x}=G(x)$, il existe une fraction rationnelle $F$ telle que
+  \[G(x)=F\p{\tan x}\p{1+\tan^2 x}.\]
+  On est donc ramené, après le changement de variable $u=\tan x$, à un calcul
+  de primitive d'une fraction rationnelle.
+\item Sinon, on effectue le changement de variable $u=\tan\p{x/2}$. En
+  remarquant que
+  \[\cos x=\frac{1-u^2}{1+u^2} \et \sin x=\frac{2u}{1+u^2}\]
+  on est ramené à un calcul de primitive d'une fraction rationnelle.
+\end{itemize}
+\end{proposition}
+
+\begin{exoUnique}
+\exo Calculer
+  \[\priminv{\cos x\cos\p{2x}}{x}, \qquad \priminv{\sin x+\sin\p{2x}}{x},
+    \qquad \integinv{0}{2\pi}{2+\cos x}{x}.\]
+  \begin{sol}
+  On trouve~:
+  \begin{itemize}
+  \item Premier~: Changement de variable $u=\sin x$.
+    Décomposition en éléments simples
+    \[\frac{1}{\p{1-2X^2}\p{1-X^2}}=\frac{1}{2}\cro{\frac{1}{X-1}-\frac{1}{X+1}}+
+      \frac{\sqrt{2}}{2}\cro{\frac{1}{X+\frac{\sqrt{2}}{2}}-
+      \frac{1}{X-\frac{\sqrt{2}}{2}}}\]
+    Puis regrouper les pôles opposés. On trouve
+    \[\sqrt{2}\argth\p{\sqrt{2}\sin x}-\argth\p{\sin x}\]
+    
+    Version Victor :
+    On se place par exemple sur $\intero{-\pi/4}{\pi/4}$ de façon à ce que le dénominateur ne s'annule pas, puis on effectue le changement de variable $u=\sin x$ ($du=\cos x dx$). On a alors :
+$$\priminv{\cos x\cos\p{2x}}{x}=\prim{\frac{\cos x}{(1-\sin^2 x)(1-2\sin^2 x)}}{x}=\prim{\frac{1}{(1-u^2)(1-2u^2)}}{u}.$$ On doit donc effectuer la décomposition en éléments simples
+    \[\frac{1}{\p{1-2X^2}\p{1-X^2}}=\frac{1}{2}\cro{\frac{1}{X-1}-\frac{1}{X+1}}+
+      \frac{\sqrt{2}}{2}\cro{\frac{1}{X+\frac{\sqrt{2}}{2}}-
+      \frac{1}{X-\frac{\sqrt{2}}{2}}}\]
+    On trouve donc :
+    \[\priminv{\cos x\cos\p{2x}}{x}=\frac{1}{2}\ln\p{\abs{\frac{u-1}{u+1}}}+
+      \frac{\sqrt{2}}{2}\ln\p{\abs{\frac{u+\frac{\sqrt{2}}{2}}{u-\frac{\sqrt{2}}{2}}}}=\boxed{\frac{1}{2}\ln\p{\abs{\frac{\sin x-1}{\sin x+1}}}+
+      \frac{\sqrt{2}}{2}\ln\p{\abs{\frac{\sin x+\frac{\sqrt{2}}{2}}{\sin x-\frac{\sqrt{2}}{2}}}}} .\]
+  \item Second~: Changement de variable $u=\cos x$. Décomposition en éléments
+    simples
+    \[\frac{1}{\p{X^2-1}\p{1+2X}}=\frac{1}{6}\cdot\frac{1}{X-1}+
+      \frac{1}{2}\cdot\frac{1}{X+1}-\frac{4}{3}\cdot\frac{1}{1+2X}\]
+    On trouve donc
+    \[\frac{1}{6}\ln\p{1-\cos x}+\frac{1}{2}\ln\p{1+\cos x}-\frac{2}{3}
+      \ln\abs{1+2\cos x}\]
+  \item Troisième~: Les règles de Bioche ne marchent pas. Il faut
+    faire le changement de variable~: $u=\tan(t/2)$. On trouve
+    \[\frac{2\sqrt{3}}{3}\arctan\p{\frac{\sqrt{3}\tan\p{x/2}}{3}}\]
+    et l'intégrale vaut
+    \[\frac{2\sqrt{3}}{3}\pi\]
+    
+    Version Victor : On se place sur $\R$. Les règles de {\sc Bioche} ne marchent pas. Il faut
+    faire le changement de variable~: $t=\tan(x/2)$. 
+    $dt/dx=1/2(1+\tan^2(x/2))=1/2(1+t^2)$ donc $dx=2dt/(1+t^2)$. On a alors $\displaystyle \cos(x)=\frac{1-t^2}{1+t^2}$ et $\displaystyle dx=\frac{2dt}{1+t^2}$, d'où :
+    \begin{eqnarray*}
+    \priminv{2+\cos(x)}{x}&=&\prim{\frac{2}{(1+t^2)\p{2+\frac{1-t^2}{1+t^2}}}}{t}=\prim{\frac{2}{3+t^2}}{t}\\
+    &=&\frac{2}{3}\prim{\frac{1}{1+\p{\frac{t}{\sqrt{3}}}^2}}{t}=\frac{2}{3}\sqrt{3}\arctan\p{\frac{t}{\sqrt{3}}}\\
+    &=&\boxed{\frac{2}{\sqrt{3}}\arctan\p{\frac{\tan(x/2)}{\sqrt{3}}}}.
+    \end{eqnarray*} 
+Ca c'est pour la primitive, mais le changement de variable et donc le terme intégré n'a pas de sens en $\pi$. On va donc se ramener à un autre intervalle :
+$$\integinv{0}{2\pi}{2+\cos x}{x}=\integinv{0}{\pi}{2+\cos x}{x}+\integinv{\pi}{2\pi}{2+\cos x}{x}=\integinv{0}{2\pi}{2+\cos x}{x}+\integinv{-\pi}{0}{2+\cos x}{x}=\integinv{-\pi}{\pi}{2+\cos x}{x}$$
+Or $$\integinv{-\pi+\epsilon}{\pi-\epsilon}{2+\cos x}{x}=\frac{2}{\sqrt{3}}\p{\arctan\p{\frac{\tan\p{\frac{\pi}{2}-\frac{\epsilon}{2}}}{\sqrt{3}}}-\arctan\p{\frac{\tan\p{\frac{-\pi}{2}+\frac{\epsilon}{2}}}{\sqrt{3}}}}\tendvers{\epsilon}{0^+}\frac{2}{\sqrt{3}}(\frac{\pi}{2}-(-\frac{\pi}{2}))=\frac{2\pi}{\sqrt{3}}.$$
+
+  \end{itemize}
+  \end{sol}
+\end{exoUnique}
+
+% Si $G$ est une expression rationnelle en $\sin x$ et $\cos x$, on peut se
+% demander si il est possible de transformer l'expression en l'un des deux cas
+% précédent. Remarquons que si il existe une fraction rationnelle $F$ telle que~:
+% $$\forall x\in I \quad G(x)=F(\sin x)\cos x$$
+% Alors l'expression $G(x)$ change de signe lorsqu'on transforme $x$ en $\pi-x$.
+% De même si il existe une fraction rationnelle $F$ telle que~:
+% $$\forall x\in I \quad G(x)=F(\cos x)\sin x$$
+% Alors l'expression $G(x)$ change de signe lorsqu'on transforme $x$ en $-x$.
+% Enfin si il existe une fraction rationnelle $F$ telle que~:
+% $$\forall x\in I \quad G(x)=F(\tan x)(1+\tan^2 x)$$
+% Alors l'expression $G(x)$ est invariante lorsqu'on transforme $x$ en $x+\pi$.
+
+% Il est possible de démontrer que les réciproques sont vraies. Face à une
+% expression rationnelle en $\cos x$ et $\sin x$, on utilisera donc les règles
+% suivantes dites règles de Bicohe~:
+% \begin{itemize}
+%   \item On change $x$ en $-x$. Si l'expression change de signe, on cherchera
+%     une fraction rationnelle $F$ telle que~:
+%     $$\forall x\in I \quad G(x)=F(\cos x)\sin x$$
+%     On effectue ensuite le changement de variable $u=\cos x$.
+%   \item On change $x$ en $\pi-x$. Si l'expression change de signe, on
+%     cherchera une fraction rationnelle $F$ telle que~:
+%     $$\forall x\in I \quad G(x)=F(\sin x)\cos x$$
+%     On effectue ensuite le changement de variable $u=\sin x$.
+%   \item On change $x$ en $x+\pi$. Si l'expression est invariante, on
+%     cherchera une fraction rationnelle $F$ telle que~:
+%     $$\forall x\in I \quad G(x)=F(\tan x)(1+\tan^2 x)$$
+%     On effectue ensuite le changement de variable $u=\tan x$.
+% \end{itemize}
+
+\subsection{Fractions rationnelles en $\ch x$, $\sh x$}
+
+Commençons par remarquer que si $f(x)$ est une fraction rationnelle en $\ch x$ et $\sh x$,
+alors c'est une fraction rationnelle en $\e^x$. On peut donc calculer une primitive
+d'une telle fonction en posant $u\defeq\e^x$.
+
+\begin{proposition}
+Soit $G$ une fraction rationnelle en $\ch x$ et $\sh x$.
+\begin{itemize}
+\item Si lorsqu'on remplace $\ch$ par $\cos$ et $\sh$ par $\sin$ les règles de
+  \nom{Bioche} préconisent le changement de variable $u=\cos x$, on effectue le
+  changement de variable $u=\ch x$. 
+\item Si lorsqu'on remplace $\ch$ par $\cos$ et $\sh$ par $\sin$ les règles de
+  \nom{Bioche} préconisent le changement de variable $u=\sin x$, on effectue le
+  changement de variable $u=\sh x$. 
+\item Si lorsqu'on remplace $\ch$ par $\cos$ et $\sh$ par $\sin$ les règles de
+  \nom{Bioche} préconisent le changement de variable $u=\tan x$, on effectue le
+  changement de variable $u=\th x$. 
+\end{itemize}
+\end{proposition}
+
+\begin{exoUnique}
+\exo Calculer
+  \[\prim{\frac{\ch x}{\sh x+\ch x}}{x}, \qquad
+    \priminv{\sh^2 x+2}{x}.\]
+  \begin{sol}
+  On trouve
+  \begin{itemize}
+  \item Tout transformer avec des exponentielles. On trouve
+    \[\prim{\frac{\ch x}{\sh x+\ch x}}{x}==\prim{\frac{\e^x+\e^{-x}}{2\e^x}}{x}=\prim{\frac{1}{2}\p{1+\e^{-2x}}}{x}=\frac{1}{2}x
+      -\frac{1}{4}e^{-2x}\]
+%   Effectuer le changement de variable $u=\th x$. On a~:
+%   \[\frac{1}{\p{1-X}\p{1+X}^2}=\frac{1}{4}\cdot\frac{1}{1+X}+
+%     \frac{1}{2}\cdot\frac{1}{\p{1+X}^2}+\frac{1}{4}\cdot\frac{1}{1-X}\]
+%   On trouve
+%   \[\prim{\frac{\ch x}{\sh x+\ch x}}{x}=\frac{1}{2}x
+%     -\frac{1}{2}\cdot\frac{1}{1+\th x}\]
+  \item Effectuer le changement de variable $t=\th x$. $dt=(1-\th^2 x)dx=(1-t^2)dx$. $\ch^2-\sh^2=1$ donc $\th^2=\sh^2/\ch^2=\sh^2/(1+\sh^2)$ d'où $\sh^2=\th^2/(1-\th^2)$. Donc 
+  $$\priminv{\sh^2 x+2}{x}=\prim{\frac{1}{\frac{t^2}{1-t^2}+2}\frac{1}{1-t^2}}{t}=\priminv{2-t^2}{t}$$ ensuite on fait la DES, etc...
+  $$\priminv{\sh^2 x+2}{x}=\frac{1}{2\sqrt{2}}\ln\p{\abs{\frac{t+\sqrt{2}}{t-\sqrt{2}}}}=\frac{1}{2\sqrt{2}}\ln\p{\frac{\sqrt{2}+\th(x)}{\sqrt{2}-\th(x)}}$$ car $\th(x)\in \intero{-1}{1}.$
+
+  \end{itemize}
+  \end{sol}
+\end{exoUnique}
+
+\subsection{Fractions rationnelles en $x$ et $\sqrt[n]{(ax+b)/(cx+d)}$, en $x$ et $\sqrt{ax^2+bx+c}$}
+
+\begin{remarques}
+\remarque Si $f$ s'écrit
+  \[f(x)=F\p{x,\sqrt[n]{\frac{ax+b}{cx+d}}}\]
+  où $F$ est une fraction rationnelle à deux variables, le calcul d'une
+  primitive de $f$ se fait en effectuant le changement de variable
+  \[u\defeq\sqrt[n]{\frac{ax+b}{cx+d}}\]
+  On a alors
+  \[x=\frac{du^n-b}{a-cu^n} \et \text{d}x=G(u)\,\text{d}u\]
+  où $G$ est une fraction rationnelle. On est donc ramené au calcul d'une
+  primitive d'une fraction rationnelle.
+\remarque On souhaite désormais calculer une primitive d'une fonction $f$ de la forme
+  \[f(x)=F\p{x,\sqrt{ax^2+bx+c}}\]
+  où $F$ est une fraction rationnelle à deux variables.
+  \begin{itemize}
+  \item Si $aX^2+bX+c$ admet une racine double réelle $\alpha$ (cas où $\Delta=0$), on
+    a $\sqrt{ax^2+bx+c}=\sqrt{a}\abs{x-\alpha}$. L'expression est donc
+    une fraction rationnelle sur chaque intervalle où $x-\alpha$ est de signe
+    constant.
+  \item Si $aX^2+bX+c$ n'admet pas de racine réelle (cas où $\Delta<0$), après
+    mise sous forme canonique de $aX^2+bX+c$ et changement de variable, on
+    est ramené au calcul d'une primitive d'une fraction rationnelle
+    en $u,\sqrt{1+u^2}$. Il suffit alors d'effectuer le changement de variable
+    $u\defeq\sh v$ pour se ramener au calcul d'une primitive d'une fraction
+    rationnelle en $\ch v$, $\sh v$.
+  \item Si $aX^2+bX+c$ admet deux racines réelles (cas où $\Delta>0$), après
+    mise sous forme canonique de $aX^2+bX+c$ et changement de variable, on
+    est ramené au calcul d'une primitive d'une fraction rationnelle
+    en $u,\sqrt{1-u^2}$ ou en $u,\sqrt{u^2-1}$. Dans le premier cas, on
+    effectue le changement de variable $u\defeq\cos v$ alors que dans le second
+    cas on effectue le changement de variable $u\defeq\pm\ch v$.
+  \end{itemize}
+\end{remarques}
+
+\begin{exoUnique}
+\exo Calculer
+  \[\priminv{x\sqrt{x+1}}{x}, \qquad \prim{\arctan\sqrt{1+x^2}}{x}.\]
+  \begin{sol}
+  \begin{itemize}
+  \item On se place sur $I$ un intervalle de $]-1;0[\cup ]0;+\infty[$ et on pose $u=\sqrt{1+x}$. $u^2=x+1$ donc $2udu=dx$. On trouve alors
+    \[\priminv{x\sqrt{x+1}}{x}=\ln\p{\frac{\sqrt{1+x}-1}{\sqrt{1+x}+1}}\]
+  \item 
+\begin{eqnarray*}
+\primppdi{\arctan\sqrt{1+x^2}}{1}{x}&\underset{IPP}{=}&x\arctan\sqrt{1+x^2}-\prim{x\cdot 2x\cdot\frac{1}{2}(1+x^2)^{-1/2}\frac{1}{1+\p{\sqrt{1+x^2}}^2}}{x}\\
+&=&x\arctan\sqrt{1+x^2}-\prim{\frac{x^2}{\sqrt{1+x^2}\p{2+x^2}}}{x}.
+\end{eqnarray*}  
+En posant $x=\sh(t)$, alors $dx=\ch(t)dt$, donc :
+\begin{eqnarray*}
+\prim{\frac{x^2}{\sqrt{1+x^2}\p{2+x^2}}}{x}&=&\prim{\frac{\sh^2(t)\ch(t)}{\ch(t)\p{2+\sh^2(t)}}}{t}\\
+&=&\prim{\frac{\sh^2(t)}{2+\sh^2(t)}}{t}\\
+&\underset{u=\th(t)}{=}&\prim{\frac{\frac{u^2}{1-u^2}}{2+\frac{u^2}{1-u^2}}\frac{1}{1-u^2}}{u}\\
+&=&\prim{\frac{u^2}{(u^2-1)(u^2-2)}}{u}\\
+&=&\ldots\\
+&=& \frac{1}{2}\ln\abs{\frac{u+1}{u-1}}+\frac{1}{\sqrt{2}}\ln\abs{\frac{u-\sqrt{2}}{u+\sqrt{2}}}\\
+&=&\frac{1}{2}\ln\p{\frac{1+\th(t)}{1-\th(t)}}+\frac{1}{\sqrt{2}}\ln\p{\frac{\sqrt{2}-\th(t)}{\sqrt{2}+\th(t)}}.
+\end{eqnarray*}
+  On trouve enfin grâce à $\th(t)=\dfrac{\sh(t)}{\ch(t)}=\dfrac{\sh(t)}{\sqrt{1+\sh^2(t)}}=\dfrac{x}{\sqrt{1+x^2}}$ :
+$$\prim{\arctan\sqrt{1+x^2}}{x}=x\arctan\sqrt{1+x^2}+\frac{1}{2}\ln\p{\frac{\sqrt{1+x^2}-x}{\sqrt{1+x^2}+x}}+\frac{1}{\sqrt{2}}\ln\p{\frac{\sqrt{2(1+x^2)}+x}{\sqrt{2(1+x^2)}-x}}.$$
+  
+  
+    \[x\arctan\sqrt{1+x^2}-\argsh x+
+      \sqrt{2}\argth\p{\frac{x}{\sqrt{2\p{1+x^2}}}}\]
+  \end{itemize}
+  \end{sol}
+\end{exoUnique}
+
+% Pour le calcul de primitives de fonctions dont l'expression est rationnelle
+% en $\sh x$ et $\ch x$, on considère l'expression obtenue en remplaçant
+% respectivement $\sh x$ par $\sin x$, $\ch x$ par $\cos x$ et $\th x$ par
+% $\tan x$. On regarde ensuite si une des règles de Bioche s'applique~:
+% \begin{itemize}
+%   \item Si la règle de Bioche préconise le changement de variable $u=\cos x$
+%     sur la nouvelle expression, effectuer le changement de variable $u=\ch x$
+%     sur l'expression d'origine.
+%   \item Si la règle de Bioche préconise le changement de variable $u=\sin x$
+%     sur la nouvelle expression, effectuer le changement de variable $u=\sh x$
+%     sur l'expression d'origine.
+%   \item Si la règle de Bioche préconise le changement de variable $u=\tan x$
+%     sur la nouvelle expression, effectuer le changement de variable $u=\th x$
+%     sur l'expression d'origine.
+% \end{itemize}
+%END_BOOK
+
+\end{document}
+

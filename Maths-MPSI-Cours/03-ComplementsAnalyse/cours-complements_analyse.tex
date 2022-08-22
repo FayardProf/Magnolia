@@ -1,0 +1,2185 @@
+\documentclass{magnolia}
+
+\magtex{tex_driver={pdftex},
+        tex_packages={epigraph,slashbox,xypic}}
+\magfiche{document_nom={Réels},
+          auteur_nom={François Fayard},
+          auteur_mail={fayard.prof@gmail.com}}
+\magcours{cours_matiere={maths},
+          cours_niveau={mpsi},
+          cours_chapitre_numero={3},
+          cours_chapitre={Compléments d'analyse}}
+\magmisenpage{}
+\maglieudiff{}
+\magprocess
+
+\begin{document}
+
+%BEGIN_BOOK
+\setlength\epigraphwidth{.8\textwidth}
+\epigraph{\og Le calcul infinitésimal est l'apprentissage du maniement des inégalités bien plus que des égalités, et on pourrait le résumer en trois mots~: majorer, minorer, approcher.\fg}{--- \textsc{Jean Dieudonné (1906--1992)}}
+\setlength\epigraphwidth{.6\textwidth}
+\epigraph{\og Les hommes sont comme les chiffres, ils n'acquièrent de valeur que par leur position.\fg}{--- \textsc{Napoléon Bonaparte (1769--1821)}}
+
+\hfill\includegraphics[width=0.55\textwidth]{../../Commun/Images/maths-cours-diff_int.png}\\
+\magtoc
+
+\section{Le corps ordonné $\R$}
+
+\subsection{La relation d'ordre sur $\R$}
+
+%% On utilise a,b,c,d et non x,y,.. pour avoir 4 lettres
+
+\begin{proposition}[utile=-3]
+La relation d'ordre $\leq$ définie sur $\R$ possède les propriétés suivantes.
+\begin{itemize}
+\item Elle est totale.
+  \[\forall a,b\in\R \qsep a\leq b \quad\ou\quad b\leq a.\]
+\item Elle est compatible avec l'addition.
+  \[\forall a,b,c\in\R \qsep a\leq b \quad\implique\quad a+c\leq b+c.\]
+\item Elle est compatible avec la multiplication.
+  \[\forall a,b\in\R \qsep \cro{0\leq a \et 0\leq b} \quad\implique\quad 0\leq ab.\]
+\end{itemize}
+\end{proposition}
+
+\begin{preuve}
+On admet cette proposition pour démontrer les trois suivantes.
+\end{preuve}
+
+\begin{remarques}
+\remarque La relation $\leq$ étant antisymétrique sur $\R$, 0 est le seul réel
+  à la fois positif et négatif.
+  \begin{sol}
+  $a\leq 0$ et $0\leq a$ $\Rightarrow$ $a=0$.
+  \end{sol}
+\remarque Si $a,b\in\R$, la négation de \og $a\leq b$ \fg  est \og $a>b$ \fg.
+\remarque Deux réels $a$ et $b$ sont de même signe si et
+  seulement si $ab\geq 0$. On dit qu'ils sont de même signe au sens strict
+  lorsque $ab>0$.
+\begin{sol}
+Déjà, si $b\leq 0$, alors d'après (ii) $b+(-b)\leq 0+(-b)$, i.e. $0\leq -b$.
+Ainsi, si $0<a$ et $b<0$ alors $0\leq a$ et $b\leq 0$ (donc $0\leq -b$ d'après ce qu'on vient de dire). D'après (iii), cela implique $0\leq a(-b)=-ab$.
+Or, si $0\leq c$, alors d'après (ii), $0+(-c)\leq c+(-c)$, i.e. $-c\leq 0$.
+Ainsi, $-(-ab)\leq 0$, i.e. $ab\leq 0$. Mais $ab\neq 0$ donc $ab<0$.
+On a montré $$0<a \text{ et } b<0 \Longrightarrow ab<0.$$
+\end{sol}  
+\remarque Quel que soit $a\in\R$, $a^2\geq 0$.
+\end{remarques}
+
+\begin{exos}
+\exo Soit $a,b$ deux réels positifs. Montrer que
+  \[\sqrt{ab}\leq\frac{a+b}{2}.\]
+\exo Soit $a,b,c\in\R$ tels que $a^2+b^2+c^2=ab+bc+ca$. Montrer que
+  $a=b=c$.
+  \begin{sol}
+  $(a-b)^2+(a-c)^2+(b-c)^2=...$
+  \end{sol}
+\end{exos}
+
+\begin{proposition}
+\begin{eqnarray*}
+\forall a,b,c,d\in\R, & & \cro{a\leq b \et c\leq d}\quad\implique\quad
+       a+c\leq b+d\\
+\forall a,b,c\in\R, & & \cro{a\leq b \et 0\leq c}\quad\implique\quad ac\leq bc\\
+\forall a,b,c,d\in\R, & & \cro{0\leq a\leq b \et 0\leq c\leq d}\quad\implique\quad
+       0\leq ac\leq bd\\
+\forall a,b\in\R, \quad \forall n\in\N, & & 0\leq a\leq b \quad\implique\quad
+  0\leq a^n\leq b^n.
+\end{eqnarray*}
+\end{proposition}
+
+\begin{preuve}
+$a+c\leq b+c\leq b+d$ avec (ii)
+$b-a\geq 0$ donc $c(b-a)\geq 0$ avec (iii)
+$ac\leq bc \leq bd $ avec le point précédent.
+Récurrence avec le point précédent.
+\end{preuve}
+
+\begin{remarqueUnique}
+\remarque On peut multiplier une inégalité de signe quelconque par un réel
+  négatif. Dans ce cas, l'inégalité change de sens.
+\begin{sol}
+Si [$a\leq b$ et $c\leq 0$], alors [$a\leq b$ et $0\leq -c$] donc $-ac\leq -bc$ d'où d'après (iii) en ajoutant $ac+bc$ des deux côtés, $bc\leq ac$.
+\end{sol}  
+  
+% \remarque On peut multiplier une inégalité de signe quelconque par
+%   un réel positif mais pas une inégalité positive par une inégalité de
+%   signe quelconque. Par exemple $-1\leq -1$ et $0\leq 1$ mais $0\not\leq -1$.
+% \remarque De cette proposition, on peut en déduire que~:
+%   \begin{itemize}
+%   \item La somme de deux fonctions croissantes est croissante.
+%   \item Le produit d'une fonction croissante par un réel positif est
+%     croissante.
+%   \item Le produit de deux fonctions croissantes positives est croissante
+%     positive.
+%   \item Si $f$ est une fonction croissante positive et $n\in\N$ alors $f^n$ est
+%     croissante positive.
+%   \end{itemize}
+%   En utilisant le fait qu'une fonction $f$ est croissante si et seulement si
+%   $-f$ est décroissante, on en déduit une série d'assertions qui permettent
+%   souvent de déterminer la monotonie d'ne fonction élémentaire sans la dériver.
+% \remarque La bijection réciproque d'une fonction croissante est croissante.
+\end{remarqueUnique}
+
+\begin{exoUnique}
+\exo L'assertion suivante est-elle vraie~?
+  \[\forall a,b,c,d\in\R \qsep\cro{a\leq b \et 0\leq c\leq d}\implique
+    ac\leq bd\]
+\end{exoUnique}
+\begin{sol}
+FAUX $-2\leq -1$ mais $(-2)\times 2 > (-1)\times 5$.
+\end{sol}
+
+\begin{proposition}
+Soit $a,b\in\R$. Alors
+\[0<a\leq b \quad\implique\quad 0<\frac{1}{b}\leq\frac{1}{a}.\]
+\end{proposition}
+
+\begin{preuve}
+Déjà, si $0\leq a$ alors $0\leq \frac{1}{a}$. En effet, supposons le contraire, i.e. $\frac{1}{a}<0$ alors $\frac{1}{a}\leq 0$ donc $a\frac{1}{a}\leq a\dot 0$ i.e. $1\leq 0$, d'où la contradiction.\\
+
+$a\leq b$ et $0\leq 1/a$ donc $1\leq b/a$. Or $0\leq 1/b$ donc $1/b\leq 1/a$.
+
+\end{preuve}
+
+\begin{proposition}
+\begin{eqnarray*}
+\forall a,b,c,d\in\R, & & \cro{a\leq b \et c< d}\quad\implique\quad
+       a+c< b+d\\
+\forall a,b,c\in\R, & & \cro{a< b \et 0< c}\quad\implique\quad ac< bc\\
+\forall a,b,c,d\in\R, & & \cro{0\leq a< b \et 0\leq c< d}\quad\implique\quad
+       0\leq ac< bd\\
+\forall a,b\in\R, \quad \forall n\in\Ns, & & 0\leq a< b \quad\implique\quad
+  0\leq a^n< b^n.
+\end{eqnarray*}
+\end{proposition}
+
+\begin{preuve}
+Il faut prouver (ii) et (iii) de la proposition 1.1 avec des inégalités strictes.
+(iii) est évidente.
+Pour (ii), supposons $a<b$. On cherche à montrer que $a+c<b+c$. Supposons le contraire, $b+c\leq a+c$ donc d'après (ii) $b+c-c\leq a+c-c$ donc $b\leq a$. CONTRADICTION
+On peut maintenant prouver la prop comme on avait prouvé la prop. 1.2 avec les nouveaux (ii) et (iii).
+\end{preuve}
+
+
+\begin{definition}[utile=-3]
+Soit $a,b\in\R$ avec $a\leq b$. On définit
+\[\interf{a}{b}=\enstq{x\in\R}{a\leq x\leq b}, \qquad
+  \intero{a}{b}=\enstq{x\in\R}{a< x< b},\]
+\[\interof{a}{b}=\enstq{x\in\R}{a< x\leq b}, \qquad
+  \interfo{a}{b}=\enstq{x\in\R}{a\leq x< b},\]
+\[\interfo{a}{+\infty}=\enstq{x\in\R}{a\leq x}, \qquad
+  \intero{a}{+\infty}=\enstq{x\in\R}{a< x},\]
+\[\interof{-\infty}{b}=\enstq{x\in\R}{x\leq b}, \qquad
+  \intero{-\infty}{b}=\enstq{x\in\R}{x< b}.\]
+\end{definition}
+
+\subsection{Valeur absolue}
+
+\begin{definition}[utile=-3]
+Pour tout réel $a$, on définit sa \emph{valeur absolue}, notée $\abs{a}$ par
+  \[\abs{a}\defeq
+    \begin{cases}
+    a  & \text{si $a\geq 0$}\\
+    -a & \text{si $a\leq 0$.}
+    \end{cases}\]
+\end{definition}
+
+\begin{remarques}
+\remarque Pour tout $a\in\R$, $a^2=\abs{a}^2$.
+\remarque Si $a$ et $b$ sont deux réels, on définit la distance de $a$ à $b$,
+  notée $\dis{a}{b}$ par
+  \[\dis{a}{b}\defeq\abs{a-b}.\]
+\end{remarques}
+
+\begin{exoUnique}
+\exo Soit $a,b\in\R$. Exprimer $\min(a,b)$ et $\max(a,b)$
+  à l'aide de $a$, $b$ et de la valeur absolue.
+\end{exoUnique}
+\begin{sol}
+$\max(a,b)=\dfrac{a+b+\abs{a-b}}{2}$ et $\min(a,b)=\dfrac{a+b-\abs{a-b}}{2}$.
+\end{sol}
+
+\begin{proposition}
+\begin{eqnarray*}
+\forall a\in\R, & & \abs{a}\geq 0\\
+\forall a\in\R, & & \abs{a}=0 \ssi a=0\\
+\forall a\in\R, & & \abs{-a}=\abs{a}\\
+\forall a,b\in\R, & & \abs{ab}=\abs{a}\abs{b}.
+\end{eqnarray*}
+\end{proposition}
+\begin{preuve}
+RAS pour les trois premiers points. Disjonction de 2 cas + inversion des rôles pour le quatrième point.
+\end{preuve}
+
+\begin{remarques}
+\remarque De cette proposition, on déduit les résultats suivants sur la distance
+  entre deux réels.
+  \begin{eqnarray*}
+  \forall a,b\in\R, & & \dis{a}{b}\geq 0\\
+  \forall a,b\in\R, & & \dis{a}{b}=0 \quad\ssi\quad a=b\\
+  \forall a,b\in\R, & & \dis{b}{a}=\dis{a}{b}.
+  \end{eqnarray*}
+\end{remarques}
+
+\begin{exoUnique}
+\exo Soit $a>0$ et $x,y\geq a$. Montrer que
+  \[\abs{\sqrt{x}-\sqrt{y}}\leq\frac{1}{2\sqrt{a}}\abs{x-y}.\]
+	\begin{sol}
+	Suffit de multiplier en haut et en bas par la quantité conjuguée.
+	\end{sol}
+\end{exoUnique}
+
+
+
+\begin{proposition}
+Soit $a$ un réel. Alors
+\[\abs{a}=\max\ens{a,-a}.\]
+\end{proposition}
+
+\begin{remarques}
+\remarque En particulier, si $M$ est un réel positif, pour montrer que
+  $\abs{a}\leq M$ il suffit de montrer que
+  \[a\leq M \et -a\leq M.\] 
+% \remarque On n'a pas $a\leq b \implique \abs{a}\leq \abs{b}$. Par exemple
+%   $-1\leq 0$ mais $\abs{-1}=1\not\leq\abs{0}=0$.
+\remarque Soit $a$ un réel et $M$ un réel positif. Alors
+  \[\abs{a}\leq M \quad\ssi\quad -M\leq a\leq M\]
+  \[\abs{a}\geq M \quad\ssi\quad \cro{a\leq -M \ou a\geq M}.\]
+\end{remarques}
+
+\begin{exoUnique}
+\exo Soit $x,y\in\R$. Montrer que $\cos(x)\sin(y)\geq -1$.  
+\end{exoUnique}
+
+\begin{proposition}
+Soit $a$ et $b$ deux réels. Alors
+\[\abs{a+b}\leq \abs{a}+\abs{b}.\]
+De plus, l'égalité a lieu si et seulement si $a$ et $b$ sont de même signe.  
+\end{proposition}
+
+\begin{preuve}
+Ou bien on dit qu'on l'a vu dans $\C$, ou bien mieux dans $\R$, c'est plus facile :
+
+$a\leq \abs{a}$, $b\leq\abs{b}$ donc $a+b\leq |a|+|b|$.
+
+On applique ce résultat à $-a$ et $-b$ puis on dit que la valeur absolue est un des deux cas qu'on vient de prouver. 
+
+Pour le cas d'égalité, il suffit de passer l'égalité au carré.
+\end{preuve}
+
+\begin{proposition}
+Soit $a$ et $b$ deux réels. Alors
+\[\abs{\abs{a}-\abs{b}}\leq\abs{a-b} \et \abs{a+b}\geq \abs{a}-\abs{b}.\]
+\end{proposition}
+
+\begin{preuve}
+cf. $\C$
+\end{preuve}
+
+\begin{remarqueUnique}
+\remarque Soit $a$, $b$, $c\in\R$. Alors
+  \[\abs{\dis{a}{b}-\dis{b}{c}} \leq \dis{a}{c} \leq
+    \dis{a}{b}+\dis{b}{c}.\]
+\end{remarqueUnique}
+
+\begin{exoUnique}
+\exo Parmi les assertions suivantes, lesquelles sont vraies~?
+  \begin{multicols}{2}
+  \begin{itemize}
+  \item $\forall a,b\in\R \qsep \abs{a-b}\leq\abs{a}-\abs{b}$.
+  \item $\forall a,b\in\R \qsep a^2\leq b^2 \ssi \abs{a}\leq\abs{b}$.
+  \item $\forall a,b\in\R \qsep \abs{a-b}\leq\abs{a}+\abs{b}$.
+  \item $\forall a,b\in\R \qsep a\leq b \implique \abs{a}\leq\abs{b}$.
+  \item $\forall a,b\in\R \qsep \abs{a-b}\geq\abs{a}-\abs{b}$.
+  \item $\forall a,b\in\R \qsep \abs{a}\leq\abs{b}+\abs{b-a}$.
+  \end{itemize}  
+  \end{multicols}
+\end{exoUnique}
+\begin{sol}
+\begin{itemize}
+  \item FAUX. $a=2$, $b=-1$.
+  \item VRAI
+  \item VRAI
+  \item FAUX. Prendre $b<0$.
+  \item VRAI
+  \item VRAI
+  \end{itemize}  
+  \end{sol}
+
+\begin{proposition}
+Soit $a_1,\ldots,a_n\in\R$. Alors
+\[\abs{\sum_{k=1}^n a_k}\leq \sum_{k=1}^n \abs{a_k}.\]
+\end{proposition}
+
+\begin{exoUnique}
+\exo Soit $a_1,\ldots,a_n\in\R$ et $\theta_1,\ldots,\theta_n\in\R$. Montrer
+  que
+  \[\abs{\sum_{k=1}^n a_k \sin(\theta_k)}\leq\sum_{k=1}^n \abs{a_k}.\]
+\end{exoUnique}
+
+
+\subsection{Intervalle}
+
+
+\begin{definition}[utile=-3]
+On appelle \emph{droite numérique achevée} et on note $\Rbar$ l'ensemble $\R$ auquel
+on adjoint deux éléments notés $-\infty$ et $+\infty$. On munit $\Rbar$ d'une
+relation d'ordre totale en prolongeant la relation d'ordre naturelle sur $\R$
+et en posant
+\[\forall x\in\R \qsep -\infty<x<+\infty.\]
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque On prolonge aussi de manière naturelle l'addition et la
+  multiplication sans toutefois définir
+  $\p{+\infty}-\p{+\infty}$ et $0\times\p{\pm \infty}$.
+\end{remarqueUnique}
+
+\begin{definition}
+On dit qu'une partie de $\R$ est un \emph{intervalle} lorsqu'elle est de la forme
+\[\emptyset, \qquad \R, \qquad \interf{a}{b}, \qquad \intero{a}{b}, \qquad 
+  \interfo{a}{b}, \qquad \interof{a}{b},\]
+\[\interfo{a}{+\infty}, \qquad \intero{a}{+\infty}, \qquad \interof{-\infty}{b},
+  \qquad \intero{-\infty}{b}\]
+où $a,b\in\R$.
+\end{definition}
+
+\begin{remarques}
+\remarque En particulier, pour $a=b$, $\interf{a}{b}=\ens{a}$ est un intervalle.
+  On dit qu'un intervalle est \emph{non trivial} lorsqu'il contient au moins 2 points.
+\remarque Si $I$ est un intervalle non vide, il existe un unique couple $(a,b)\in\Rbar^2$ tel
+  que $I=\interf{a}{b}$, $I=\interof{a}{b}$, $I=\interfo{a}{b}$ ou
+  $I=\intero{a}{b}$. On dit que $a$ et $b$ sont les
+  \emph{extrémités} de $I$. L'intervalle $I$ est dit \emph{ouvert} lorsqu'il ne contient pas ses extrémités
+  c'est-à-dire lorsqu'il est vide, ou qu'il est de la forme $\intero{a}{b}$ où $a,b\in\Rbar$.
+\remarque Dans ce cours, une partie de $\R$ notée $I$ ou $J$ sera implicitement un intervalle.
+\end{remarques}
+
+\subsection{Partie entière, approximation}
+
+\begin{proposition}
+$\R$ possède la propriété
+\[\forall x\in\R \qsep \forall \epsilon>0 \qsep \exists n\in\N \qsep n\epsilon \geq x.\]
+On dit que $\R$ est \emph{archimédien}.
+% \[\forall x\in\R \qsep \exists n\in\N \qsep x \leq n.\]
+\end{proposition}
+
+\begin{preuve}
+ADMIS
+
+\end{preuve}
+
+\begin{remarqueUnique}
+\remarque En particulier, si on note $x$ le volume d'eau de l'océan et $\epsilon$ le volume
+que peut contenir une petite cuillère, l'archimédisme de $\R$ nous permet de montrer qu'une
+personne (patiente) arrivera à vider l'océan à l'aide de cette petite cuillère.
+\end{remarqueUnique}
+
+
+% \begin{theoreme}
+% On a~:
+% \[\forall \epsilon>0 \quad \forall x \in\R \quad \exists n\in\N
+%   \quad n\epsilon\geq x\]  
+% \end{theoreme}
+
+% \begin{remarques}
+% \remarque Cette proposition permet de prouver que l'on peut (théoriquement)
+%   vider l'océan avec une petite cuillère.
+% \end{remarques}
+
+\begin{definition}[utile=-3]
+Soit $x\in\R$. Il existe un unique $n\in\Z$ tel que
+\[n\leq x<n+1.\]
+Cet entier est appelé \emph{partie entière} de $x$ et est noté $\ent{x}$.
+\end{definition}
+
+\begin{preuve}
+$\quad$
+\begin{itemize}
+\item \textbf{Unicité~:}
+  Soit $x\in\R$. On se donne $n_1,n_2\in\Z$ tels que~:
+  \[n_1\leq x<n_1+1 \et n_2\leq x<n_2+1\]
+  Alors $x-1<n_1\leq x$ et $x-1<n_2\leq x$ donc $-x\leq -n_2<-\p{x-1}$. En
+  sommant ces deux inégalités, on obtient $-1<n_1-n_2<1$. Comme $n_1-n_2\in\Z$,
+  on en déduit que $n_1-n_2=0$ donc que $n_1=n_2$.
+\item \textbf{Existence~:}
+  Soit $x\in\R$. On suppose que $x\geq 0$ et on pose
+  \[A=\enstq{n\in\N}{n\leq x}\]
+  Alors $A$ est une partie non vide de $\N$ car $0\in A$. De plus, $A$ est
+  majorée.
+  En effet, par archimédisme de $\R$, il existe $m\in\N$ tel que $m\geq x$. $A$
+  est alors majoré par $m$. Puisque $A$ est une partie non vide majorée de $\N$,
+  elle admet un plus grand élément $n$. Comme $n\in A$, on en déduit que
+  $n\leq x$ et comme $n+1\not\in A$ ($n$ étant le plus grand élément de $A$), on
+  en déduit que $x<n+1$.\\
+  Si $x<0$, alors $-x\geq 0$. Il existe donc $n\in\N$ tel que
+  $n\leq -x<n+1$, donc $-\p{n+1}<x\leq -\p{n+1}+1$. Si $x=-n$, alors $-n$
+  convient. Sinon, $-\p{n+1}$ convient.
+\end{itemize}
+\end{preuve}
+
+\begin{remarques}
+  \remarque Si $a\in\Z$ et $b\in\Ns$, $\ent{a/b}$ est le quotient de la division euclidienne de $a$ par $b$.
+  \remarque Soit $a>0$ et $x\in\R$. Alors, il existe un unique $n\in\Z$
+    tel que $na\leq x < (n+1)a$.
+  \remarque  On définit de même la partie entière supérieure de $x\in\R$,
+    notée $\lceil x\rceil$, comme l'unique $n\in\Z$ tel que $n-1<x\leq n$. Si $x$
+    est entier, alors $\lfloor x\rfloor=\lceil x\rceil=x$. Sinon,
+    $\lceil x\rceil=\lfloor x\rfloor+1$.
+\end{remarques}
+
+\begin{exos}
+\exo Calculer $\ent{x}+\ent{-x}$ pour tout $x\in\R$.
+\begin{sol}
+Si $x$ est un entier, il existe $n\in \Z$ tel que $x=n=\ent{x}$. Alors $-x=-n=\ent{-x}$ donc la somme cherchée fait $0$.
+Sinon, $\ent{x}<x<\ent{x}+1$ donc $-\ent{x}-1<-x<-\ent{x}$ et $-x$ ce qu'on peut réécrire $-\ent{x}-1\leq -x<\p{-\ent{x}-1}+1$ d'où $\ent{-x}=-\ent{x}-1$ donc la somme recherchée vaut $-1$.
+\end{sol}
+\exo Montrer que la partie entière est une fonction croissante.
+\begin{sol}
+Soit $x\leq y$. Raisonnons par l'absurde et supposons que $\ent{y}<\ent{x}$ alors $\ent{y}+1\leq \ent{x}$ car ce sont des entiers, d'où $y<\ent{y}+1\leq \ent{x}\leq x$. CONTRADICTION.
+\end{sol}
+\exo Soit $\alpha\in\interfo{0}{1}$. Montrer qu'il existe un unique
+  $n\in\Ns$ tel que
+  \[\frac{n-1}{n}\leq \alpha<\frac{n}{n+1}.\]
+  \begin{sol}
+$$\frac{n-1}{n}\leq \alpha \Longleftrightarrow n(\alpha-1)\geq -1 \Longleftrightarrow n\leq \frac{1}{1-\alpha} $$
+et $$\alpha<\frac{n}{n+1} \Longleftrightarrow 1-\alpha > \frac{1}{n+1} \Longleftrightarrow \frac{1}{1-\alpha}<n+1.$$
+Ainsi,
+
+$$\frac{n-1}{n}\leq \alpha<\frac{n}{n+1} \Longleftrightarrow n\leq \frac{1}{1-\alpha}<n+1\Longleftrightarrow n=\ent{\frac{1}{1-\alpha}}.$$
+  \end{sol}
+\end{exos}
+
+
+
+\begin{definition}[utile=-3]
+Soit $a\in\R$ et $\epsilon>0$. On appelle \emph{valeur approchée} de $a$ à la précision
+$\epsilon$ tout réel $b$ tel que $\abs{a-b}\leq\epsilon$.
+Si $b\leq a$ (respectivement $b\geq a$), on dit que $b$ est une valeur approchée
+de $a$ par \emph{défaut} (respectivement, par \emph{excès}).
+\end{definition}
+
+\begin{remarques}
+\remarque On note $\Q$ l'ensemble des nombres rationnels et $\R\setminus\Q$ l'ensemble
+  des nombres irrationnels. $\Q$ est stable par les opérations usuelles d'addition, de
+	soustraction, de multiplication et de division.
+\remarque Quel que soit $n\in\N$, $\sqrt{n}$ est soit un entier, soit un irrationnel.
+  En particulier, $\sqrt{2}, \sqrt{3}$ et $\sqrt{5}$ sont des irrationnels. On peut
+	montrer que $\e$ et $\pi$ sont irrationnels.
+\end{remarques}
+
+\begin{definition}[utile=-3]
+On dit qu'un réel $a$ est \emph{décimal} lorsqu'il existe $m\in\Z$ et $n\in\N$ tels
+que
+\[a=m\cdot 10^{-n}.\]
+\end{definition}
+
+\begin{remarques}
+\remarque Un nombre décimal est rationnel. Cependant $1/3$ est rationnel, mais
+  n'est pas décimal.
+\remarque L'ensemble $\mathcal{D}$ des nombres décimaux est stable par les
+  opérations d'addition, de soustraction, de multiplication, mais pas par
+  division.
+\end{remarques}
+
+\begin{proposition}
+Soit $a\in\R$ et $n\in\N$. Alors, $d=\ent{10^n a}\cdot 10^{-n}\in\mathcal{D}$
+est une approximation par défaut de $a$ à la précision $10^{-n}$.
+\end{proposition}
+
+\begin{preuve}
+$\dfrac{\ent{10^na}}{10^n}\leq a< \dfrac{\ent{10^na}}{10^n}+\dfrac{1}{10^n}$.
+\end{preuve}
+% \begin{proposition}
+% Quels que soient $a\in\R$ et $\epsilon>0$, il existe $r\in\Q$ tel que~:
+% \[\abs{a-r}\leq\epsilon\]
+%  On dit que $\Q$ est dense dans $\R$.
+% \end{proposition}
+
+
+% \begin{remarques}
+% \remarque Autrement dit, si $a\in \R$ et $\epsilon>0$, il existe $r\in\Q$ tel
+%   que $\abs{a-r}\leq\epsilon$. La pratique est plus compliquée~:
+%   \begin{itemize}
+%   \item Parler du développement en fractions continues. Faire un test sur $\pi$,
+%     sur le nombre de jours dans l'années.
+%   \item Utiliser $\pi=4 \arctan 1$ pour approximer $\pi$.
+%   \end{itemize}
+% \remarque Soit $a,b\in\R$ tels que $a<b$. Alors il existe $r\in\Q$ tel que
+%   $a\leq r\leq b$.\\
+%   On peut même avoir l'inégalité stricte si on le souhaite. Il suffit
+%   de travailler avec $a'=(2a+b)/3$ et $b'=(a+2b)/3$.
+% \remarque De même $\R\setminus\Q$ est dense dans $\R$.
+% \end{remarques}
+
+\section{Fonction réelle d'une variable réelle}
+\subsection{Définition}
+\begin{definition}[utile=-3]
+On appelle \emph{fonction réelle} toute fonction définie sur une partie $\dom$ de $\R$,
+à valeurs dans $\R$.
+\end{definition}
+
+\begin{remarques}
+\remarque Il sera essentiel de ne pas confondre une fonction avec son
+  expression.
+  Par exemple parler de la fonction $\sin x$ est une erreur grave. On
+  parlera plutôt de la fonction définie sur $\R$ qui au réel $x$ associe le
+  réel $\sin x$.
+\remarque Par abus de langage, il est courant que les énoncés demandent à
+  l'élève de donner le domaine de définition d'une fonction donnée par une
+  expression (par exemple $\sqrt{x})$. Dans ce cas, il faut donner l'ensemble
+  $\dom$ des $x$ pour lesquels cette expression à un sens (ici, $\RP$). La
+  fonction $f$ sera alors la fonction de
+  $\dom$ dans $\R$, qui à $x$ associe cette expression en $x$.
+\end{remarques}
+
+\begin{exoUnique}
+\exo Déterminer le domaine de définition de la fonction d'expression
+  \[f(x)\defeq\ln\p{x+\sqrt{x^2-1}}.\]
+\end{exoUnique}
+\begin{sol}
+$x\notin]-1;1[$ pour la racine puis si $x>0$, ok. Pour $x\leq -1$, $x+\sqrt{x^2-1}\geq 0 \Longleftrightarrow x^2-1\geq x^2$. Donc $D=[1;+\infty[$.
+\end{sol}
+
+\begin{definition}[utile=-3]
+Soit $f$ et $g$ deux fonctions définies sur $\dom$.
+\begin{itemize}
+\item Pour tout $\lambda,\mu\in\R$, on définit la fonction $\lambda f+\mu g$
+  par
+  \[\forall x\in\dom \qsep \p{\lambda f+\mu g}(x)\defeq
+    \lambda f(x)+\mu g(x).\]
+\item On définit la fonction $fg$ par
+  \[\forall x\in\dom \qsep (fg)(x)\defeq f(x)g(x).\]
+\item Si $f$ ne s'annule en aucun point de $\dom$, on définit $1/f$ par
+  \[\forall x\in\dom \qsep \p{\frac{1}{f}}(x)\defeq\frac{1}{f(x)}.\]
+\end{itemize}
+\end{definition}
+
+
+
+\subsection{Symétries}
+\begin{definition}[utile=-3]
+  Soit $f$ une fonction définie sur un domaine $\dom$ \emph{symétrique par rapport
+  à 0}, c'est-à-dire tel que
+\[\forall x\in\mathcal{D} \qsep -x\in\mathcal{D}.\]
+  On dit que
+  \begin{itemize}
+  \item $f$ est \emph{paire} lorsque
+    $$\forall x\in\dom \qsep f(-x)=f(x).$$
+  \item $f$ est \emph{impaire} lorsque
+    $$\forall x\in\dom \qsep f(-x)=-f(x).$$
+  \end{itemize}
+\end{definition}
+
+\begin{remarques}
+\remarque Si $f$ est paire, la droite $\p{Oy}$ est un axe de symétrie du graphe de
+  $f$.
+  \begin{center}
+\begin{pdfpic}
+  \readdata{\listeP}{graph/graphe_dom_paire.txt}
+  \psset{xunit=0.5cm,yunit=1.5cm}
+  \begin{pspicture}(-11,-0.4)(11,1.2)
+  \psaxes[labels=none,ticks=none]{->}(0,0)(-11,-0.4)(11,1.2)
+  \dataplot[plotstyle=curve,linewidth=2pt]{\listeP}
+  \uput[r](11,0){$x$}
+  \uput[r](0,1.2){$y$}
+  \uput[ur](0,0){$O$}
+  \end{pspicture}
+\end{pdfpic}
+  \end{center}
+\remarque Si $f$ est impaire, $O$ est un centre de symétrie du graphe de $f$.
+  \begin{center}
+\begin{pdfpic}
+  \readdata{\listeP}{graph/graphe_dom_impaire.txt}
+  \psset{xunit=0.5cm,yunit=0.9cm}
+  \begin{pspicture}(-11,-1.8)(11,1.8)
+  \psaxes[labels=none,ticks=none]{->}(0,0)(-11,-1.8)(11,1.8)
+  \dataplot[plotstyle=curve,linewidth=2pt]{\listeP}
+  \uput[r](11,0){$x$}
+  \uput[r](0,1.8){$y$}
+  \uput[dr](0,0){$O$}
+  \end{pspicture}
+\end{pdfpic}
+  \end{center}
+\remarque Si $f$ est paire ou impaire, pour étudier $f$,  il suffit d'étudier sa restriction à $\mathcal{D}\cap\RP$.
+\end{remarques}
+
+\begin{exoUnique}
+\exo Montrer que la fonction d'expression
+  \[\ln\p{x+\sqrt{x^2+1}}\]
+  est impaire.
+\end{exoUnique}
+
+\begin{sol} Déjà, elle est bien définie sur $\R$. De plus $\ln\p{-x+\sqrt{x^2+1}}+\ln\p{x+\sqrt{x^2+1}}=\ln(1)=0$ donc $f(-x)=-f(x) \forall x \in \R$.
+\end{sol}
+
+\begin{definition}[utile=-3]
+Soit $T\in\R$ et $f$ une fonction dont le domaine de définition vérifie
+\[\forall x\in\mathcal{D} \qsep x+T\in\mathcal{D} \et x-T\in\mathcal{D}\]
+On dit que $f$ est \emph{$T$-périodique}, ou que $T$ est une \emph{période} de $f$, lorsque
+\[\forall x\in\mathcal{D} \qsep f\p{x+T}=f(x).\]
+Lorsque $f$ admet une période non nulle, on dit que $f$ est \emph{périodique}.
+\end{definition}
+
+\begin{remarques}
+\remarque Si $f$ est $T$-périodique, alors
+  \[\forall x\in\dom\qsep \forall k\in\Z\qsep f(x+kT)=f(x).\]
+\remarque Si $f$ est $T$-périodique, la translation de vecteur $T\ve{e_1}$ laisse
+  stable le graphe de $f$.
+  \begin{center}
+\begin{pdfpic}
+  \readdata{\listeP}{graph/graphe_dom_periodique.txt}
+  \psset{xunit=0.7cm,yunit=1.0cm}
+  \begin{pspicture}(-8.5,-1.8)(8.5,1.8)
+  \psaxes[labels=none,ticks=none]{->}(0,0)(-8.5,-1.8)(8.5,1.8)
+  \dataplot[plotstyle=curve,linewidth=2pt]{\listeP}
+  \uput[r](8.5,0){$x$}
+  \uput[r](0,1.8){$y$}
+  \uput[dr](0,0){$O$}
+  \psline{<->}(-3.1415,0.2)(3.1415,0.2)
+  \uput[u](-1.5,0.2){$T$}
+  \end{pspicture}
+\end{pdfpic}
+  \end{center}
+  Pour étudier $f$, il suffit d'étudier sa restriction à
+  $\mathcal{D}\cap[a,a+T]$ pour un certain $a\in\R$.
+\remarque S'il existe $T\in\R$ tel que $f\p{T-x}=f(x)$, la droite d'équation $x=T/2$
+  est un axe de symétrie du graphe de $f$.
+  \begin{preuve}
+  $f(T/2+x)=f(T-(T/2+x))=f(T/2-x).$
+  \end{preuve}
+  \begin{center}
+\begin{pdfpic}
+  \readdata{\listeP}{graph/graphe_dom_sym.txt}
+  \psset{xunit=0.8cm,yunit=1.3cm}
+  \begin{pspicture}(-7,-1)(7,1)
+  \psaxes[labels=none,ticks=none]{->}(0,0)(-7,-1)(7,1)
+  \dataplot[plotstyle=curve,linewidth=2pt]{\listeP}
+  \uput[r](7,0){$x$}
+  \uput[l](0,1){$y$}
+  \uput[dr](0,0){$O$}
+  \psline[linestyle=dashed](0.785,-1)(0.785,1)
+  \uput[r](0.785,1){$x=T/2$}
+  \end{pspicture}
+\end{pdfpic}
+  \end{center}
+\end{remarques}
+
+\begin{exos}
+\exo La fonction
+  \[f(x)\defeq \sin(2x)+\cos\p{\frac{x}{3}}\]
+  est-elle périodique~?
+\begin{sol}
+Elle est bien $6\pi$-périodique.
+\end{sol}
+\exo Montrer que le graphe de la fonction
+  \[f(x)\defeq\ln\p{x^2+x+1}\]
+  admet un axe de symétrie.
+  \begin{sol}
+$f(-1-x)=f(x)$ donc $x=-1/2$ est axe de symétrie.
+\end{sol}
+\exo Tracer le graphe d'une fonction quelconque $f$, puis celui des fonctions
+ \[x\mapsto f(x)+a, \qquad x\mapsto f(x+a),  \qquad x\mapsto f(a-x), \qquad x\mapsto f(a x), \qquad x\mapsto a f(x).\]
+\end{exos}
+
+
+\begin{proposition}
+Soit $A$ et $B$ deux parties de $\R$ et $f$ une bijection de $A$ dans
+$B$. Alors le graphe de $f^{-1}$ est le symétrique du graphe de $f$ par
+rapport à la première bissectrice des axes $[Ox)$ et $[Oy)$.
+\end{proposition}
+\begin{preuve}
+$\begin{cases}x\in A\\ y=f(x)\end{cases}\Longleftrightarrow \begin{cases}y\in B\\ x=f^{-1}(y)\end{cases}$.
+Donc l'ensemble des $(y,f^{-1}(y))$ est l'ensemble des $(f(x),x)$.
+Or dans un repère orthonormé, le point de coordonnées $(b,a)$ est le symétrique par rapport à la première bissectrice des axes de ce repère, du point de coordonnées $(a,b)$, d'où le résultat.
+\end{preuve}
+
+\subsection{Monotonie}
+
+\begin{definition}[utile=-3]
+  Soit $f$ une fonction définie sur $\dom$. On dit que
+  \begin{itemize}
+  \item $f$ est \emph{croissante} lorsque
+    $$\forall x,y\in\dom \qsep x\leq y \implique f(x)\leq f(y).$$
+  \item $f$ est \emph{décroissante} lorsque
+    $$\forall x,y\in\dom \qsep x\leq y \implique f(x)\geq f(y).$$
+  \item $f$ est \emph{strictement croissante} lorsque
+    $$\forall x,y\in\dom \qsep x< y \implique f(x)< f(y).$$
+  \item $f$ est \emph{strictement décroissante} lorsque
+    $$\forall x,y\in\dom \qsep x< y \implique f(x)> f(y).$$
+  \end{itemize}
+\end{definition}
+
+\begin{remarques}
+\remarque Les fonctions constantes sont les seules fonctions qui sont à la fois croissantes et décroissantes.
+\remarque Une fonction peut n'être ni croissante, ni décroissante. C'est le cas de la fonction $x\mapsto x^2$ sur $\R$.
+% \remarque Une fonction strictement croissante est croissante. La réciproque est fausse, puisqu'une fonction constante est croissante mais pas strictement croissante.
+\remarque Si $f$ est strictement monotone, elle est injective.
+\remarque Si $f$ est strictement croissante alors
+  \[\forall x,y\in\dom \qsep f(x)<f(y) \ssi x< y.\]
+  De même 
+  \[\forall x,y\in\dom \qsep f(x)\leq f(y) \ssi x\leq y.\]
+  Attention, si $f$ est seulement croissante et si $f(x)\leq f(y)$, on ne peut pas en conclure que $x\leq y$. 
+\remarque Si $f$ est strictement croissante et $x_0\in\dom$ est un zéro de $f$, pour placer $x\in\dom$ par rapport à $x_0$, il suffit de déterminer le signe de $f(x_0)$.
+% Par exemple, supposons que $f$ est strictement croissante sur $\R$ et que $x_0\in\R$ est tel que $f(x_0)=0$. Alors, étant donné $x\in\R$, si $f(x)\geq 0$ alors $x\geq x_0$. Si par contre $f(x)\leq 0$, alors $x\leq x_0$.
+%   Attention, si on a seulement croissance de $f$, il n'est pas possible de placer $x$ par rapport à $x_0$ à partir du signe de $f(x)$.
+  % La réciproque est fausse comme le montre l'exemple de la fonction
+  % \[\dspappli{f}{\R}{\R}{x}{\begin{cases}\frac{1}{x}&\text{si $x\neq 0$}\\ 0&\text{si $x=0$.}\end{cases}}\]
+  % Cependant, nous verrons que si $f$ est définie sur un intervalle et injective, alors elle est strictement monotone.
+  \remarque
+Les effets des opérations usuelles sur les propriétés de monotonie sont résumés
+dans les tableaux ci-dessous.
+\begin{itemize}
+\item \emph{Combinaison linéaire positive}
+  \begin{center}
+  \begin{tabular}{|c|c|c|}
+  \hline
+  \backslashbox{f}{g} & croissante & décroissante\\
+  \hline
+  croissante   & croissante & $\times$\\
+  \hline
+  décroissante & $\times$   & décroissante\\
+  \hline
+  \end{tabular}
+  \end{center}
+\item \emph{Produit de fonctions positives}
+  \begin{center}
+  \begin{tabular}{|c|c|c|}
+  \hline
+  \backslashbox{f}{g} & croissante & décroissante\\
+  \hline
+  croissante   & croissante & $\times$\\
+  \hline
+  décroissante & $\times$   & décroissante\\
+  \hline
+  \end{tabular}
+  \end{center}
+\item \emph{Inverse d'une fonction strictement positive ou strictement négative}
+  \begin{center}
+  \begin{tabular}{|c|c|c|}
+  \hline
+  f        & croissante   & décroissante\\
+  \hline
+  1/f      & décroissante & croissante\\
+  \hline
+  \end{tabular}
+  \end{center}
+\item \emph{Composition}
+  \begin{center}
+  \begin{tabular}{|c|c|c|}
+  \hline
+  \backslashbox{f}{g} & croissante   & décroissante\\
+  \hline
+  croissante   & croissante   & décroissante\\
+  \hline
+  décroissante & décroissante & croissante\\
+  \hline
+  \end{tabular}
+  \end{center}
+\end{itemize}
+  Lorsque c'est possible, il est souvent bien plus judicieux de
+  déterminer la monotonie d'une fonction à partir de ces règles plutôt qu'à
+  partir de l'étude du signe de la dérivée. En effet, cette méthode est bien
+  plus rapide et source de beaucoup moins d'erreurs.
+\end{remarques}
+
+
+% \begin{definition}[utile=-3]
+%   Soit $f$ et $g$ deux fonctions définies respectivement sur $\dom$ et $\dom'$.
+%   On suppose que pour tout $x\in\dom$, $f(x)\in\dom'$. On définit alors la
+%   fonction $g\circ f$ par
+%   $$\forall x\in\dom \qsep \p{g\circ f}(x)\defeq g\p{f(x)}.$$
+% \end{definition}
+
+% \subsection{Opérations usuelles, symétries et monotonie}
+
+% Les effets des opérations usuelles sur les propriétés de symétries sont
+% résumés dans les tableaux ci-dessous.
+% \begin{itemize}
+% \item \emph{Combinaison linéaire}
+%   \begin{center}
+%   \begin{tabular}{|c|c|c|}
+%   \hline
+%   \backslashbox{f}{g} & paire    & impaire\\
+%   \hline
+%   paire   & paire    & $\times$\\
+%   \hline
+%   impaire & $\times$ & impaire\\
+%   \hline
+%   \end{tabular}
+%   \end{center}
+% \item \emph{Produit}
+%   \begin{center}
+%   \begin{tabular}{|c|c|c|}
+%   \hline
+%   \backslashbox{f}{g} & paire    & impaire\\
+%   \hline
+%   paire   & paire    & impaire\\
+%   \hline
+%   impaire & impaire  & paire\\
+%   \hline
+%   \end{tabular}
+%   \end{center}
+% \item \emph{Inverse}
+%   \begin{center}
+%   \begin{tabular}{|c|c|c|}
+%   \hline
+%   f        & paire  & impaire\\
+%   \hline
+%   1/f      & paire  & impaire\\
+%   \hline
+%   \end{tabular}
+%   \end{center}
+% \item \emph{Composition $g\circ f$}
+%   \begin{center}
+%   \begin{tabular}{|c|c|c|}
+%   \hline
+%   \backslashbox{g}{f}  & paire  & impaire\\
+%   \hline
+%   paire    & paire  & paire\\
+%   \hline
+%   impaire  & paire  & impaire\\
+%   \hline
+%   $\times$ & paire  & $\times$\\
+%   \hline
+%   \end{tabular}
+%   \end{center}
+% \end{itemize}
+
+\begin{exos}
+  \exo Montrer que la fonction
+  \[\dspappli{f}{\Rs}{\R}{x}{\frac{1}{x}}\]
+  n'est ni croissante, ni décroissante.
+\exo Déterminer la monotonie des fonctions d'expressions
+  \[\frac{1}{\e^x+\sqrt{1+x}}, \qquad \sqrt{x+1}-\sqrt{x}.\]
+  \begin{sol}
+Les fonctions $x\mapsto \e^{x}$ et $x \mapsto \sqrt{1+x}$ sont croissantes donc $ x\mapsto \e^x+\sqrt{1+x}$ est croissante et strictement positive, puis  par passage à l'inverse $ x \mapsto \frac{1}{\e^x+\sqrt{1+x}}$ est décroissante.\\
+Soit $f$ la fonction $ x \mapsto \sqrt{x+1}-\sqrt{x}$. Écrit sous cette forme, il n'est pas immédiat de savoir si $f$ est monotone. Cependant, en multipliant $f(x)$ par son expression conjuguée, on obtient
+  $$\forall x\in\RP \qsep f(x)=\frac{
+    \p{\sqrt{x+1}-\sqrt{x}}\p{\sqrt{x+1}+\sqrt{x}}}{\sqrt{x+1}+\sqrt{x}}
+    =\frac{1}{\sqrt{x+1}+\sqrt{x}}$$
+Par somme puis inverse de fonctions croissantes positives, $f$ est donc décroissante.
+  \end{sol}
+\end{exos}
+
+\subsection{Fonction majorée, minorée, bornée}
+
+% \begin{definition}[utile=-3]
+% On dit qu'une fonction réelle $f$ est~: 
+% \begin{itemize}
+% \item croissante lorsque
+%   \[\forall x_1,x_2\in \mathcal{D} \qsep x_1 \leq x_2 \implique
+%     f\p{x_1}\leq f\p{x_2}.\]
+% \item décroissante lorsque
+%   \[\forall x_1,x_2\in \mathcal{D} \qsep x_1 \leq x_2 \implique
+%     f\p{x_1}\geq f\p{x_2}.\]
+% \item monotone lorsqu'elle est croissante ou décroissante.
+% \item strictement croissante lorsque
+%   \[\forall x_1,x_2\in \mathcal{D} \qsep x_1 < x_2 \implique
+%     f\p{x_1} < f\p{x_2}.\]
+% \item strictement décroissante lorsque
+%   \[\forall x_1,x_2\in \mathcal{D} \qsep x_1 < x_2 \implique
+%     f\p{x_2} > f\p{x_1}.\]
+% \item strictement monotone lorsqu'elle est strictement croissante ou
+%   strictement décroissante.
+% \end{itemize}
+% \end{definition}
+
+% \begin{remarques}
+% \remarque Une fonction réelle est strictement monotone si et seulement si elle
+%   est monotone et injective.
+% \remarque Si $f$ est une fonction réelle strictement croissante, alors
+%   \[\forall x_1,x_2\in \mathcal{D} \qsep f\p{x_1} \leq f\p{x_2}
+%     \implique x_1 \leq x_2.\]
+%   % Cette propriété caractérise d'ailleurs les fonctions strictement
+%   % croissantes.
+% \end{remarques}
+
+% \begin{proposition}[utile=-3]
+% 
+% \begin{itemize}
+% \item La somme de deux fonctions croissantes (resp. décroissantes) est
+%   croissante (resp. décroissante).
+% \item Le produit de deux fonctions croissantes (resp. décroissantes) positives est
+%   croissant (resp. décroissant).
+% \item L'inverse d'une fonction croissante (resp. décroissante) de signe constant
+%   est décroissante (resp. croissante).
+% \item La composée de deux fonctions monotone est monotone; elle est croissante
+%   si les fonctions ont même sens de variations et décroissante si leurs sens
+%   de variation sont opposés.
+% \item La bijection réciproque d'une fonction strictement croissante (resp.
+%   décroissante) est strictement croissante (resp. décroissante).
+% \end{itemize}
+% \end{proposition}
+
+% \begin{remarqueUnique}
+% \remarque Une fonction $f$ est décroissante si et seulement si $-f$ est croissante.
+%   En utilisant la proposition précédente, on en déduit par exemple que le produit
+%   d'une fonction croissante positive et d'une fonction décroissante négative est
+%   décroissante négative.
+% \end{remarqueUnique}
+
+% \begin{exoUnique}
+% \exo Étudier la monotonie de la fonction
+%   $x\mapsto \sin\p{\p{\e^{-x}-1}\pi/2}$ sur $\RP$.
+% % \exo $x\mapsto \sqrt{x+1}-\sqrt{x}$ est décroissante sur $\RP$.
+% % \exo On ne peut pas obtenir la monotonie de
+% %   $x\mapsto x \ln\p{1-1/x}$ sur $\intero{1}{+\infty}$.
+% %   C'est le produit de deux fonction croissantes mais on ne peut rien en dire même si
+% %   la première est positive. On devra donc dériver la fonction.
+% \end{exoUnique}
+
+\begin{definition}[utile=-3]
+On dit qu'une fonction réelle $f$ est
+\begin{itemize}
+\item \emph{majorée} lorsque
+  \[\exists M\in\R \qsep \forall x\in\mathcal{D} \qsep
+    f(x)\leq M.\]
+\item \emph{minorée} lorsque
+  \[\exists m\in\R \qsep \forall x\in\mathcal{D} \qsep
+    f(x)\geq m.\]
+\end{itemize}
+\end{definition}
+
+\begin{exoUnique}
+\exo Montrer que la fonction d'expression $x \e^{-x}$ est majorée sur $\R$.
+% \exo La fonction d'expression $x+1/x$ est minorée par 2 sur $\RPs$.
+\end{exoUnique}
+
+\begin{sol}
+Dérivée, tableau de variations puis majorée par $f(1)=\dfrac{1}{e}$.
+\end{sol}
+
+%% Pour la seconde, penser à l'inégalité arithmetico-géométrique
+
+\begin{definition}[utile=-3]
+On dit qu'une fonction réelle ou complexe $f$ est \emph{bornée} lorsque
+\[\exists M\in\RP \qsep \forall x\in\mathcal{D} \qsep
+  \abs{f(x)}\leq M.\]
+\end{definition}
+
+\begin{exoUnique}
+\exo Montrer que la fonction d'expression $\frac{x}{1+x^2}$ est bornée par
+  $1/2$ sur $\R$.
+\end{exoUnique}
+
+\begin{sol}
+Déjà, $\frac{x}{1+x^2} \leq \frac{1}{2} \Longleftrightarrow (x-1)^2\geq 0$, ce qui est vrai.
+Donc pour $x\geq 0$, on a $0\leq \abs{\frac{x}{1+x^2}} \leq 1/2$. Et si $x<0$, $0\leq \abs{\frac{x}{1+x^2}}=\frac{-x}{1+(-x)^2}\leq 1/2$.
+\end{sol}
+
+\begin{proposition}
+Une fonction réelle est bornée si et seulement si elle est minorée et majorée.
+\end{proposition}
+
+\begin{preuve}
+Pour le sens droite-gauche, on la borne par $\abs{m}+\abs{M}$.
+\end{preuve}
+
+\begin{definition}[utile=-3]
+Soit $f$ et $g$ deux fonctions de domaine $\mathcal{D}$.
+On dit que $f$ est inférieure à $g$ et on note $f\leq g$ lorsque
+\[\forall x\in\mathcal{D} \qsep f(x)\leq g(x).\]
+\end{definition}
+
+\begin{remarques}
+\remarque La relation $\leq$ est une relation d'ordre sur
+  $\mathcal{F}\p{\R,\R}$. Elle n'est pas totale.
+\remarque La négation de $f\leq g$ s'écrit
+  \[\exists x\in\mathcal{D} \qsep f(x)> g(x).\]
+\end{remarques}
+
+
+\section{Fonction continue, fonction dérivable}
+
+\subsection{Limite}
+
+Dans ce chapitre, on ne définira pas précisément la notion de limite. On se basera sur la
+définition intuitive suivante.
+
+\begin{definition}[utile=-3]
+Étant donné une fonction $f$ et $a,l\in\Rb$, on dit que $f(x)$ tend vers
+$l$ lorsque $x$ tend vers $a$, lorsque, quitte à rendre $x$ proche de $a$, on
+peut rendre $f(x)$ aussi proche que l'on souhaite de $l$. Dans ce cas, on
+note
+$$f(x)\tendvers{x}{a}l.$$
+\end{definition}
+
+\begin{proposition}[utile=-3]
+Soit $a\in\Rbar$ et $f, g$ deux fonctions telles que
+$f(x)$ et $g(x)$ tendent respectivement vers $l_f$ et $l_g\in\R$ lorsque $x$
+tend vers $a$. Alors
+\begin{itemize}
+\item Si $\lambda$ et $\mu$ sont deux réels
+  \[\lambda f(x)+\mu g(x)\tendvers{x}{a} \lambda l_f+\mu l_g.\]
+\item On a
+  \[f(x)g(x) \tendvers{x}{a} l_f l_g.\]
+\item Si $l_f\not=0$
+  \[\frac{1}{f(x)}\tendvers{x}{a}\frac{1}{l_f}.\]
+\item Plus généralement, si $l_g\not=0$
+  \[\frac{f(x)}{g(x)}\tendvers{x}{a}\frac{l_f}{l_g}.\]
+\end{itemize}
+\end{proposition}
+
+\begin{proposition}[utile=-3]
+Soit $f$ et $g$ deux fonctions. On suppose que $f(x)$ tend vers $l_f\in\Rbar$
+lorsque $x$ tend vers $a\in\Rbar$ et que $g$ tend vers $l_g\in\Rbar$ lorsque $x$
+tend vers $l_f$. Alors $g(f(x))$ tend vers $l_g$ lorsque $x$ tend vers $a$. 
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque
+De nombreuses autres règles existent mélangeant limites finies et
+infinies. Elles sont résumées dans les tableaux ci-dessous où la présence
+d'une croix représente une forme indéterminée.
+
+\begin{itemize}
+\item \emph{Somme}\\  
+  Si $f$ et $g$ sont deux fonctions admettant respectivement pour limites
+  $l_f$ et $l_g\in\Rbar$, alors $f+g$
+  \begin{center}
+  \begin{tabular}{|c|c|c|c|}
+  \hline
+  \backslashbox{$l_f$}{$l_g$}& $-\infty$ & $l_g\in\R$     & $+\infty$\\
+  \hline
+  $-\infty$ & $-\infty$ & $-\infty$ & $\times$\\
+  \hline
+  $l_f\in\R$     & $-\infty$ & $l_f+l_g$ & $+\infty$\\
+  \hline
+  $+\infty$ & $\times$  & $+\infty$ & $+\infty$\\
+  \hline
+  \end{tabular}
+  \end{center}
+\item \emph{Opposé}\\
+  Si $f$ est une fonction admettant pour limite $l\in\Rbar$, alors $-f$
+  \begin{center}
+  \begin{tabular}{|c|c|c|c|}
+  \hline
+  $l$ & $-\infty$ & $l\in\R$ & $+\infty$\\
+  \hline
+      & $+\infty$ & $-l$ & $-\infty$\\
+  \hline
+  \end{tabular}
+  \end{center}
+\item \emph{Multiplication par un scalaire}\\
+  Si $f$ est une fonction admettant pour limite $l\in\Rbar$ et $\lambda\in\R$,
+  alors $\lambda f$
+  \begin{center}
+  \begin{tabular}{|c|c|c|c|}
+  \hline
+  \backslashbox{$\lambda$}{$l$} & $-\infty$ & $l\in\R$    & $+\infty$\\
+  \hline
+  $\lambda<0$ & $+\infty$ & $\lambda l$ & $-\infty$\\
+  \hline
+  $\lambda>0$ & $-\infty$  & $\lambda l$ & $+\infty$\\
+  \hline
+  \end{tabular}
+  \end{center}
+\item \emph{Produit}\\
+  Si $f$ et $g$ sont deux fonctions admettant respectivement pour limites
+  $l_f$ et $l_g\in\Rbar$, alors $fg$
+  \begin{center}
+  \begin{tabular}{|c|c|c|c|c|c|}
+  \hline
+  \backslashbox{$l_f$}{$l_g$}
+      & $-\infty$ & $l_g<0$ & $0$ & $l_g>0$ & $+\infty$\\
+  \hline
+  $-\infty$ & $+\infty$ & $+\infty$ & $\times$ & $-\infty$ & $-\infty$\\
+  \hline
+  $l_f<0$ & $+\infty$ & $l_f l_g$ & $0$ & $l_f l_g$ & $-\infty$\\
+  \hline
+  $l_f=0$ & $\times$ & $0$ & $0$ & $0$ & $\times$\\
+  \hline
+  $l_f>0$ & $-\infty$ & $l_f l_g$ & $0$ & $l_f l_g$ & $+\infty$\\
+  \hline
+  $+\infty$ & $-\infty$ & $-\infty$ & $\times$ & $+\infty$ & $+\infty$\\
+  \hline
+  \end{tabular}
+  \end{center}
+\item \emph{Inverse}\\
+  Si $f$ est une fonction admettant pour limite $l$, alors $1/f$
+  \begin{center}
+  \begin{tabular}{|c|c|c|c|c|c|c|c|}
+  \hline
+  $l$ & $-\infty$ & $l<0$ & $0^{-}$ & $0$ & $0^{+}$ & $l>0$ & $+\infty$\\
+  \hline
+      & $0$ & $1/l$ & $-\infty$ & $\times$ & $+\infty$ & $1/l$ & $0$\\
+  \hline
+  \end{tabular}
+  \end{center}
+\item \emph{Exponentiation}\\
+  Si $f$ et $g$ sont deux fonctions admettant respectivement pour limites
+  $l_f$ et $l_g$, alors $f^g$
+  \begin{center}
+  \begin{tabular}{|c|c|c|c|c|c|}
+  \hline
+  \backslashbox{$l_f$}{$l_g$}
+            & $-\infty$ & $l_g<0$ & $0$ & $l_g>0$ & $+\infty$\\
+  \hline
+  $0$ & $+\infty$ & $+\infty$ & $\times$ & $0$ & $0$\\
+  \hline
+  $0<l_f<1$ & $+\infty$ & $l_f^{l_g}$ & $1$ & $l_f^{l_g}$ & $0$\\
+  \hline
+  $1$ & $\times$ & $1$ & $1$ & $1$ & $\times$\\
+  \hline
+  $1<l_f$ & $0$ & $l_f^{l_g}$ & $1$ & $l_f^{l_g}$ & $+\infty$\\
+  \hline
+  $+\infty$ & $0$ & $0$ & $\times$ & $+\infty$ & $+\infty$\\
+  \hline
+  \end{tabular}
+  \end{center}
+  
+\end{itemize}
+\end{remarqueUnique}
+
+\begin{exoUnique}
+\exo Déterminer les limites en 0 de
+   $x^x$ et $x^{\frac{1}{\ln x}}$;
+   en déduire que \og $0^0$ \fg est une forme indéterminée. De même, déterminer la limite en
+   $+\infty$ de $(1+1/x)^x$; en déduire que \og $1^{+\infty}$\fg est une forme indéterminée.
+  \begin{sol}
+  En effet
+  $$x^x=\e^{x\ln x}\tendvers{x}{0} 1\quad\text{car}\quad
+        x\ln x\tendvers{x}{0} 0$$
+  $$\text{et} \quad x^{\frac{1}{\ln x}}=\e\tendvers{x}{0} \e.$$  
+  De même $1^{+\infty}$ est une forme indéterminée. En effet
+  $$\p{1+\frac{1}{x}}^x=\e^{x\ln\p{1+\frac{1}{x}}}=\e^{\frac
+                        {\ln\p{1+\frac{1}{x}}}{\frac{1}{x}}}
+                        \tendvers{x}{+\infty} \e$$
+  $$\text{et} \quad 1^x=1\tendvers{x}{+\infty} 1.$$
+  \end{sol}
+\end{exoUnique}
+
+\subsection{Continuité}
+
+\begin{definition}[utile=-3]
+On dit qu'une fonction $f:\mathcal{D}\to\R$ est \emph{continue} en $x_0\in\mathcal{D}$ lorsque
+\[f(x)\tendvers{x}{x_0} f\p{x_0}.\]
+On dit que $f$ est continue lorsque, quel que soit $x_0\in\mathcal{D}$, $f$ est continue en
+$x_0$.
+\end{definition}
+
+\begin{proposition}[utile=-3, nom={Théorèmes usuels}]
+Soit $f,g:\dom\to\R$ deux fonctions continues. Alors
+\begin{itemize}
+\item Quels que soient $\lambda,\mu\in\R$, la fonction $\lambda f+\mu g$ est continue.
+\item La fonction $fg$ est continue.
+\item Si $g$ ne s'annule pas, $f/g$ est continue.
+\end{itemize}
+\end{proposition}
+
+\begin{proposition}[utile=-3, nom={Théorèmes usuels}]
+La composée de deux fonctions continues est continue.
+\end{proposition}
+
+\begin{theoreme}[nom={Théorème de la bijection}]
+\begin{itemize}
+\item Soit $f:[a,b]\to\R$ (où $a,b\in\R$ et $a\leq b$) une fonction continue, strictement croissante.
+  Alors elle réalise une bijection de $[a,b]$ sur \[f([a,b])=[f(a),f(b)].\]
+\item Soit $f:]a,b[\to\R$ (où $a,b\in\Rbar$ et $a<b$) une fonction continue, strictement croissante.
+  On pose
+  \[l_a\defeq\lim_{x\to a} f(x) \et l_b\defeq\lim_{x\to b} f(x).\]
+Alors $f$ réalise une bijection de $]a,b[$ sur \[f\p{\intero{a}{b}}=\intero{l_a}{l_b}.\]
+\end{itemize}
+\end{theoreme}
+
+\begin{proposition}
+Soit $f:I\to\R$ une fonction continue et strictement monotone. Elle
+réalise donc une bijection de $I$ sur $J\defeq f(I)$. Alors
+\begin{itemize}
+\item $f^{-1}$ est strictement monotone, de même sens de variation que $f$. 
+\item $f^{-1}$ est continue.
+% \item Si $f$ est dérivable sur $I$, on pose
+%   \[A\defeq\enstq{x\in I}{f'(x)\neq 0}.\]
+%   Alors $f^{-1}$ est dérivable en tout point de $f(A)$.
+\end{itemize}
+\end{proposition}
+
+\begin{sol}
+Ajout Victor : $\forall x \in A$, $f^{-1}(f(x))=x$ donc $f'(x)(f^{-1})'(f(x))=1$. Ainsi, $\forall u \in f(A)$, en appliquant cela en $x=f^{-1}(u)$ on obtient :
+\[(f^{-1})'(u)=\frac{1}{f'(f^{-1}(u))}.\]
+\end{sol}
+
+\subsection{Dérivabilité}
+
+\begin{definition}[utile=-3]
+Soit $f:\dom\to\R$ et $x_0\in\dom$. On dit que $f$ est \emph{dérivable} en
+$x_0$ lorsque
+\[\frac{f(x)-f(x_0)}{x-x_0}\]
+admet une limite finie lorsque $x$ tend vers $x_0$. Dans ce cas, on note $f'(x_0)$
+cette limite que l'on appelle \emph{nombre dérivé} de $f$ en $x_0$.
+On dit que $f$ est dérivable lorsqu'elle est dérivable en tout point de $\dom$.
+\end{definition}
+
+\begin{remarques}
+\remarque Si $f$ est dérivable en $x_0$, la droite d'équation
+  $y=f(x_0)+f'(x_0)(x-x_0)$
+  est tangente au graphe de $f$ en $x_0$.
+\remarque Lorsque
+  \[\frac{f(x)-f(x_0)}{x-x_0}\tendvers{x}{x_0}\pm\infty,\]
+  le graphe de $f$ admet une tangente verticale en $x_0$. Une telle fonction n'est pas dérivable en $x_0$.
+\remarque On dit qu'une fonction $f$ est dérivable à gauche en $x_0$ lorsque
+  l'expression
+  \[\frac{f(x)-f(x_0)}{x-x_0}\]
+  admet une limite finie lorsque $x$ tend vers $x_0$ par la gauche. Si tel est le
+  cas, cette limite est notée $f_g'\p{x_0}$. On définit de même la notion de
+  dérivabilité à droite. Une fonction est dérivable en $x_0$ si et seulement si
+  elle est dérivable à gauche et à droite en $x_0$ et que
+  $f_g'\p{x_0}=f_d'\p{x_0}$.
+\remarque Si $f$ et $g$ sont des fonctions telles qu'en $x_0$, $f(x_0)=g(x_0)$, on ne peut rien en conclure sur
+  $f'(x_0)$ et $g'(x_0)$. En particulier, il est absurde de dire que parce que
+  $f(x_0)=0$, on peut en déduire que $f'(x_0)=0$.
+  On dira qu'on peut dériver des identités, mais pas des égalités.
+  % Par exemple, si $f$ et $g$ sont définies sur $\R$ par
+  % \[\forall x\in\R\qsep f(x)\defeq 0 \et g(x)\defeq x,\]
+  % alors $f(0)=g(0)$ mais $f'(0)\neq g'(0)$. Cependant, si
+  % \[\forall x\in\R \qsep f(x)=g(x)\]
+  % et que $f$ est dérivable, on peut en déduire que $g$ est dérivable et
+  % \[\forall x\in\R \qsep f'(x)=g'(x).\]
+\end{remarques}
+
+\begin{proposition}[utile=-3]
+Soit $f:\dom\to\R$ et $x_0\in\dom$. Si $f$ est dérivable en $x_0$,
+alors elle est continue en $x_0$.
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque La réciproque de cette proposition est fausse comme le montre
+  l'exemple de la fonction $x\mapsto\abs{x}$ qui est continue en 0 mais
+  qui n'est pas dérivable en 0.
+\end{remarqueUnique}
+
+\begin{exoUnique}
+\exo Donner une condition nécessaire et suffisante sur $a$ et $b\in\R$
+  pour que la fonction $f$ définie sur $\R$ par
+  \[\forall x\in\R \qsep f(x)=
+    \begin{cases}
+    ax+b & \text{si $x<0$}\\
+    \e^x & \text{si $x\geq 0$}.
+    \end{cases}\]
+  soit dérivable en 0.
+  \begin{sol}
+On cherche d'abord à quelles conditions sur $a$ et $b$ la fonction $f$ est continue en 0. On a
+\[f(x)=ax+b\tendversgp{x}{0}b\]
+et
+\[f(x)=\e^x\tendversd{x}{0}1\]
+donc $f$ est continue en 0 si et seulement si $b=1$. On suppose qu'on est dans ce cas. Alors $f$ est dérivable à gauche en 0 et $f_g'(0)=a$. De plus, $f$ est dérivable à droite en 0 et $f_d'(0)=1$. Donc $f$ est dérivable en 0 si et seulement si $a=1$. En conclusion, $f$ est dérivable en 0 si et seulement si $a=1$ et $b=1$. 
+  \end{sol}
+\end{exoUnique}
+
+\begin{definition}[utile=-3]
+Soit $f:\dom\to\R$ une fonction. On note $\dom'$ l'ensemble des $x_0\in\dom$ en
+lesquels $f$ est dérivable. On définit la \emph{fonction dérivée} de $f$, notée $f'$
+par
+\[\dspappli{f'}{\dom'}{\R}{x}{f'(x).}\]
+\end{definition}
+
+\begin{remarqueUnique}
+\remarque Les fonctions usuelles sont dérivables en tout point de leur ensemble de
+  définition, excepté la fonction $x\mapsto\abs{x}$ qui n'est pas dérivable en 0 et les
+  fonctions $x\mapsto\sqrt[n]{x}$ qui ne sont pas dérivables en 0 pour $n\geq 2$.
+  \begin{center}
+  \begin{tabular}{|c|c|c|c|}
+  \hline
+  $\dom$ & $f(x)$ & $\dom_{f'}$ & $f'(x)$\\
+  \hline
+  \hline\rule{0pt}{10pt} 
+  $\R$ & $x^n \quad (n\in\N)$ & $\R$ & $
+    \begin{cases}nx^{n-1}& \text{si $n\geq 1$}\\0&\text{si $n=0$}\end{cases}$\\
+  \hline\rule{0pt}{10pt} 
+  $\Rs$ & $x^n \quad (n\in\Z)$ & $\Rs$ & $nx^{n-1}$\\
+  \hline\rule{0pt}{10pt} 
+  $\RPs$ & $x^\alpha \quad (\alpha\in\R)$ & $\RPs$ & $\alpha x^{\alpha-1}$\\
+  \hline\rule[-5pt]{0pt}{15pt} 
+  $\RP$ & $\sqrt[n]{x}=x^{\frac{1}{n}} \quad (n\in\Ns)$ & $\RPs$ &
+    $\frac{1}{n} x^{\frac{1}{n}-1}$\\
+  \hline
+  \hline
+  $\R$ & $\e^x$ & $\R$ & $\e^x$\\
+  \hline\rule[-5pt]{0pt}{15pt} 
+  $\RPs$ & $\ln x$ & $\RPs$ & $\frac{1}{x}$\\
+  \hline\rule[-5pt]{0pt}{15pt} 
+  $\Rs$ & $\ln \abs{x}$ & $\Rs$ & $\frac{1}{x}$\\
+  \hline
+  \hline
+  $\R$ & $\cos x$ & $\R$ & $-\sin x$\\
+  \hline
+  $\R$ & $\sin x$ & $\R$ & $\cos x$\\
+  \hline\rule[-5pt]{0pt}{15pt} 
+  $\R\setminus\p{\frac{\pi}{2}+\pi\Z}$ & $\tan x$ &
+    $\R\setminus\p{\frac{\pi}{2}+\pi\Z}$ & $1+\tan^2 x=\frac{1}{\cos^2 x}$\\
+  \hline\rule[-5pt]{0pt}{15pt} 
+  $\R\setminus\pi\Z$ & $\cotan x$ & $\R\setminus\pi\Z$ & $-\p{1+\cotan^2 x}=
+  -\frac{1}{\sin^2 x}$\\
+  \hline
+  \end{tabular}
+  \end{center}
+\end{remarqueUnique}
+
+
+\begin{proposition}[utile=-3, nom={Théorèmes usuels}]
+Soit $f:\dom\to\R$ et $g:\dom\to\R$ deux fonctions dérivables. Alors
+\begin{itemize}
+\item Quels que soient $\lambda, \mu\in\R$, la fonction
+  $\lambda f+\mu g$ est dérivable et
+  \[\forall x\in\dom\qsep (\lambda f+\mu g)'(x)=\lambda f'(x)+\mu g'(x)\]
+\item La fonction $fg$ est dérivable et
+  \[\forall x\in\dom\qsep (fg)'(x)=f'(x)g(x)+f(x)g'(x).\]
+\item Si $f$ ne s'annule pas sur $\dom$, $1/f$ est dérivable et
+  \[\forall x\in\dom\qsep \p{\frac{1}{f}}'(x)=-\frac{f'(x)}{f^2(x)}.\]
+\item Plus généralement, si $g$ ne s'annule pas sur $\dom$, $f/g$ est dérivable
+  et
+  \[\forall x\in\dom\qsep \p{\frac{f}{g}}'(x)=\frac{f'(x)g(x)-f(x)g'(x)}{g^2(x)}.\]
+\end{itemize}
+\end{proposition}
+
+\begin{proposition}[utile=-3, nom={Théorèmes usuels}]
+Soit $f:\dom_f\to\R$ et $g:\dom_g\to\R$ deux fonctions telles que  $f(\dom_f)\subset\dom_g$. Si 
+$f$ et $g$ sont dérivables, alors $g\circ f$ est dérivable et
+\[\forall x\in\dom_f\qsep \p{g\circ f}'(x)=f'(x)g'\p{f(x)}.\]
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque En particulier, si $f:\dom\to\R$ est une fonction dérivable et $n\in\N$, la fonction $g$ définie sur $\mathcal{D}$ par
+\[\forall x\in\mathcal{D}\qsep g(x)\defeq f(x)^n\]
+est dérivable et
+\[\forall x\in\mathcal{D}\qsep g'(x)=n f'(x) f(x)^{n-1}.\]
+% Plus généralement, si $f$ est une fonction strictement positive et $\alpha\in\R$, la fonction $h$ définie sur $\mathcal{D}$ par
+% \[\forall x\in\mathcal{D}\qsep h(x)\defeq f(x)^\alpha\]
+% est dérivable sur $\mathcal{D}$ et
+% \[\forall x\in\mathcal{D}\qsep h'(x)=\alpha f'(x) f(x)^{\alpha-1}.\]
+\remarque Si $f(x)\defeq a(x)/b(x)^\alpha$, il est bon d'écrire $f(x)$ sous la forme $f(x)=a(x)b(x)^{-\alpha}$ avant de dériver $f$.
+\remarque Attention, ce n'est pas parce que les théorèmes usuels ne peuvent pas s'appliquer en un point qu'on peut en conclure que la fonction n'y est pas dérivable.
+\end{remarqueUnique}
+
+
+\begin{exos}
+\exo Montrer que la dérivée d'une fonction paire (resp. impaire, $T$-périodique) est impaire (resp. paire, $T$-périodique).
+\exo Étudier la dérivabilité et calculer les dérivées des fonctions
+  d'expression
+  \[\frac{x+1}{\sqrt{x^2+1}}, \qquad \p{x^3+2x+1}\e^{x^2}, \qquad \ln\sqrt{\frac{1+x}{1-x}}.\]
+  % \[\e^{\sin x}, \qquad x^x.\]
+  % \begin{sol}
+  % Soit $f$ la fonction définie sur $\R$ par
+  % $$\forall x\in\R \qsep f(x)\defeq\e^{\sin x}.$$
+  % Alors, d'après les théorèmes usuels, $f$ est dérivable sur $\R$ et
+  % $$\forall x\in\R \qsep f'(x)=\cos x\,\e^{\sin x}.$$
+  % Soit $f$ la fonction définie sur $\RPs$ par
+  % $$\forall x>0 \qsep f(x)\defeq x^x=\e^{x\ln x}.$$
+  % Alors, d'après les théorèmes usuels, $f$ est dérivable sur $\RPs$ et
+  % $$\forall x>0\qsep
+  %   f'(x)=\p{\ln x +1}\e^{x\ln x}=\p{\ln x +1}x^x.$$
+  % \end{sol}
+\exo Étudier la dérivablité et calculer la dérivée de la fonction
+  définie sur $\interf{0}{\pi/2}$ par
+  \[\forall x\in\interf{0}{\frac{\pi}{2}} \qsep 
+    f(x)\defeq\sqrt{1-\cos x}.\]
+  \begin{sol}
+  Une erreur courante est de penser que si les théorèmes usuels ne
+  s'appliquent pas en un point, alors la fonction n'est pas dérivable en ce
+  point. Cela est faux, comme le montre l'exemple de la fonction ci-dessous
+  \[\dspappli{f}{\interf{0}{\frac{\pi}{2}}}{\R}{x}{\sqrt{1-\cos x}}\]
+  D'après les théorèmes usuels, $f$ est continue sur son ensemble de définition
+  et dérivable en tout point où $1-\cos x\not=0$, c'est-à-dire sur
+  $\interof{0}{\frac{\pi}{2}}$, et
+  $$\forall x\in\interof{0}{\frac{\pi}{2}} \qsep f'(x)=
+    \frac{\sin x}{2\sqrt{1-\cos x}}.$$
+  Donc les théorèmes usuels ne permettent pas de démontrer la dérivabilité de
+  $f$ en $0$. Cependant
+  \begin{equation*}
+  \begin{split}
+  \frac{f(0+h)-f(0)}{h} &=\frac{\sqrt{1-\cos h}}{h} =
+                          \frac{\sqrt{\cos 0-\cos h}}{h}\\
+                        &=\frac{\sqrt{-2\sin\frac{h}{2}\sin\frac{-h}{2}}}{h}=
+                          \sqrt{2}\frac{\sin\frac{h}{2}}{h}\\
+                        &=\frac{1}{\sqrt{2}}\frac{\sin\frac{h}{2}}{\frac{h}{2}}
+                          \tendvers{h}{0} \frac{1}{\sqrt{2}}
+  \end{split}
+  \end{equation*}
+  ce qui montre que $f$ est dérivable en $0$ et que
+  $$f'(0)=\frac{1}{\sqrt{2}}.$$    
+  \end{sol}
+\end{exos}
+
+\begin{proposition}
+Soit $f:I\to\R$ une fonction définie sur un intervalle $I$, dérivable et strictement monotone.
+Elle réalise donc une bijection de $I$ sur $J\defeq f(I)$. On pose
+\[A\defeq\enstq{x\in I}{f'(x)= 0}.\]
+Alors $f^{-1}$ est dérivable en tout point de $J\setminus f(A)$ et
+\[\forall y\in J\setminus f(A)\qsep (f^{-1})'(y)=\frac{1}{f'(f^{-1}(y))}.\]
+\end{proposition}
+\begin{sol}
+Ajout Victor : $\forall x \in A$, $f^{-1}(f(x))=x$ donc $f'(x)(f^{-1})'(f(x))=1$. Ainsi, $\forall u \in f(A)$, en appliquant cela en $x=f^{-1}(u)$ on obtient :
+\[(f^{-1})'(u)=\frac{1}{f'(f^{-1}(u))}.\]
+\end{sol}
+
+\subsection{Dérivées successives}
+
+
+\begin{definition}[utile=-3]
+Si $f:\dom\to\R$ est une fonction, on définit par récurrence
+la \emph{dérivée $n$-ième} de $f$ de la manière suivante
+\begin{itemize}
+\item On pose $f^{(0)}\defeq f$.
+\item Si $n\in\N$, on définit $f^{(n+1)}$ comme étant la dérivée de $f^{(n)}$.
+\end{itemize}
+Si $x_0\in\mathcal{D}$, on dit que $f$ est dérivable $n$ fois en $x_0$
+lorsque $f^{(n)}$ est définie en $x_0$. On dit que $f$ est dérivable $n$ fois lorsqu'elle
+est dérivable $n$ fois en tout point de son domaine de définition.
+\end{definition}
+ 
+\begin{proposition}[utile=-3]
+Soit $f:\dom\to\R$ et $g:\dom\to\R$ deux fonctions dérivables $n$ fois.
+\begin{itemize}
+\item Soit $\lambda,\mu\in\R$. Alors $\lambda f+\mu g$ est dérivable $n$
+  fois et
+  \[\forall x\in\mathcal{D} \qsep
+    \p{\lambda f+\mu g}^{(n)}(x)=\lambda f^{(n)}(x)+\mu g^{(n)}(x).\]
+\item $fg$ est dérivable $n$ fois.
+\item Si $g$ ne s'annule pas, alors $f/g$ est dérivable $n$ fois.
+\end{itemize}
+\end{proposition}
+
+\begin{preuve}
+\begin{itemize}
+\item Se montre aisément par récurrence.
+\item Démonstration par récurrence similaire au binôme de Newton.
+\item Soit $\mathcal{D}$ une partie de $\R$. On montre $\mathcal{H}_n$ : "Si $f$ et $g$ sont dérivables $n$ fois sur $\mathcal{D}$ et $g$ ne s'annule pas sur $\mathcal{D}$, alors $f/g$ est dérivable $n$ fois sur $\mathcal{D}$".
+Pour passer à l'hérédité, on applique $\mathcal{H}_n$ à $f'g-g'f$ et $g^2$, leur rapport est dérivable $n$ fois donc $(f/g)'$ est dérivable $n$ fois.
+\end{itemize}
+\end{preuve}
+
+\begin{proposition}[utile=-3]
+Soit $f:\dom_f\to\R$ et $g:\dom_g\to\R$ sont deux fonctions telles que
+$f(\dom_f)\subset\dom_g$. Si $f$ et $g$ sont dérivables $n$ fois, alors $g\circ f$ est
+dérivable $n$ fois.  
+\end{proposition}
+
+\begin{definition}
+On dit qu'une fonction $f:\dom\to\R$ est de classe $\classec{1}$ lorsqu'elle est
+dérivable et que sa dérivée est continue.
+\end{definition}
+
+\begin{proposition}[utile=-3]
+Soit $f:\dom\to\R$ et $g:\dom\to\R$ deux fonctions de classe $\classec{1}$.
+\begin{itemize}
+\item Soit $\lambda,\mu\in\R$. Alors $\lambda f+\mu g$ est de classe $\classec{1}$.
+\item $fg$ est de classe $\classec{1}$.
+\item Si $g$ ne s'annule pas, alors $f/g$ est de classe $\classec{1}$.
+\end{itemize}
+\end{proposition}
+
+\begin{proposition}[utile=-3]
+La composée de deux fonctions de classe $\classec{1}$ est de classe $\classec{1}$.
+\end{proposition}
+
+\subsection{Dérivation et monotonie}
+
+\begin{proposition}[utile=3]
+Soit $f$ une fonction réelle, dérivable sur un intervalle $I$. Alors
+\begin{itemize}
+\item $f$ est croissante si et seulement si
+  \[\forall x\in I \qsep f'(x)\geq 0.\]
+\item $f$ est décroissante si et seulement si
+  \[\forall x\in I \qsep f'(x)\leq 0.\]
+\end{itemize}
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque Cette proposition est fausse lorsque le domaine de définition de $f$
+  n'est pas un intervalle. Par exemple la fonction
+  \[\dspappli{f}{\Rs}{\R}{x}{1/x}\]
+  n'est pas décroissante sur $\Rs$ bien qu'elle soit dérivable et que sa dérivée soit
+  négative. Cependant ses restrictions
+  aux intervalles $\RMs$ et $\RPs$ sont toutes les deux décroissantes.
+\end{remarqueUnique}
+
+\begin{exoUnique}
+\exo Montrer que
+  \[\forall x\in\interf{0}{1}\qsep x\leq \p{1+\frac{x}{2}}\ln(1+x).\]
+%  Montrer que
+%   \[\forall x\in\interf{0}{\pi/2} \qsep \frac{2}{\pi}x\leq \sin x\leq x, \qquad
+%     \forall x\in\intero{0}{1} \qsep x^x (1-x)^{1-x}\geq\frac{1}{2}\]
+%   \begin{sol}
+% Soit $f$ la fonction définie sur $\interf{0}{\pi/2}$ par
+% \[\forall x\in\interf{0}{\frac{\pi}{2}}\qsep f(x)\defeq \frac{2}{\pi}x - \sin x.\]
+% D'après les théorèmes usuels, $f$ est deux fois dérivable et
+% \begin{eqnarray*}
+% \forall x\in\interf{0}{\frac{\pi}{2}}\qsep f'(x)&=&\frac{2}{\pi}-\cos x\\
+% f''(x)&=&\sin x \geq 0
+% \end{eqnarray*}
+% Comme $f''(x)$ ne s'annule qu'en 0, on en déduit que $f'$ est strictement croissante sur $\interf{0}{\pi/2}$. Comme $f'(0)<0$ et $f'(\pi/2)>0$, en utilisant le théorème des valeurs intermédiaires et en utilisant la stricte monotonie de $f'$, il existe $\alpha\in\interf{0}{\pi/2}$ tel que $f'(\alpha)=0$. De plus $f'(x)$ est négative sur $[0,\alpha]$ et positive sur $[\alpha,\pi/2]$. Donc $f$ est décroissante sur $[0,\alpha]$ et croissante sur $[\alpha,\pi/2]$. Comme $f(0)=f(\pi/2)=0$, on en déduit que $f(x)$ est négative sur $[0,\pi/2]$. Donc
+% \[\forall x\in\interf{0}{\frac{\pi}{2}}\qsep \frac{2}{\pi}x\leq \sin x.\]
+% De même, on définit la fonction $g$ sur $\interf{0}{\pi/2}$ par
+% \[\forall x\in\interf{0}{\frac{\pi}{2}}\qsep g(x)\defeq\sin x -x.\]
+% D'après les théorèmes usuels, $g$ est dérivable et
+% \[\forall x\in\interf{0}{\frac{\pi}{2}}\qsep g'(x)=\cos x-1\leq 0.\]
+% Donc $g$ est décroissante. Or $g(0)=0$, donc
+% \[\forall x\in\interf{0}{\frac{\pi}{2}}\qsep g(x)\leq 0.\]
+% On a donc prouvé que
+% \[\forall x\in\interf{0}{\pi/2} \qsep  \sin x \leq x.\]
+% Pour la seconde inégalité, on définit la fonction $f$ sur $\intero{0}{1}$ par
+% \[\forall x\in\intero{0}{1} \quad f(x)\defeq x^x (1-x)^{1-x}.\]
+% D'après les théorèmes usuels, $f$ est dérivable et
+% \[\forall x\in\intero{0}{1}\qsep f'(x)=x^{x}(1-x)^{1-x}\ln\left( \frac{x}{1-x}\right).\]
+% Donc
+% \begin{eqnarray*}
+% \forall x\in\intero{0}{1}\qsep f'(x)=0
+% &\ssi& \ln\left( \frac{x}{1-x}\right)=0\\
+% &\ssi& \frac{x}{1-x}= 1\\
+% &\ssi& x=\frac{1}{2}\\
+% f'(x)\geq 0
+% &\ssi& \ln\left( \frac{x}{1-x}\right)\geq 0\\
+% &\ssi& \frac{x}{1-x}\geq 1\\
+% &\ssi& x\geq \frac{1}{2}
+% \end{eqnarray*}
+% Donc $f$ est décroissante sur $\interof{0}{1/2}$ et croissante sur $\interfo{1/2}{1}$. Or $f(1/2)=1/2$, donc
+% \[\forall x\in\intero{0}{1}\qsep x^x (1-x)^{1-x}\geq\frac{1}{2}.\]
+%   \end{sol}
+\end{exoUnique}
+
+\begin{proposition}[utile=3]
+Soit $f$ une fonction réelle, dérivable sur un intervalle $I$. Alors $f$ est
+constante si et seulement si
+\[\forall x\in I \qsep f'(x)=0.\]
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque Cette proposition est fausse lorsque le domaine de 
+  $f$ n'est pas un intervalle. 
+\end{remarqueUnique}
+
+\begin{proposition}[utile=2]
+Soit $f$ une fonction réelle, dérivable sur un intervalle $I$. Si
+\begin{itemize}
+\item $\forall x\in I \qsep f'(x)\geq 0$
+%%\item Il n'existe aucun intervalle non trivial sur lequel $f'$ est identiquement
+%%  nulle
+\item Le nombre de points de $I$ où $f'$ s'annule est fini.
+\end{itemize}
+alors $f$ est strictement croissante.
+\end{proposition}
+
+\begin{remarques}
+\remarque La fonction $x\mapsto x^3$ est strictement croissante sur $\R$ bien
+  qu'elle soit dérivable et que sa dérivée s'annule en 0.
+\remarque Une fonction croissante qui n'est pas strictement croissante est constante sur un intervalle non trivial. Ces fonctions sont donc rares. Cependant, il est toujours plus délicat de montrer qu'une fonction est strictement croissante que croissante. Lorsqu'on a besoin de la stricte monotonie, il convient donc d'être particulièrement attentif. Inversement, il est inutile de prouver la stricte monotonie si seule la monotonie nous est utile.
+\end{remarques}
+
+\begin{exoUnique}
+\exo Combien de racines réelles possède le polynôme $P\defeq X^3-3X-1$~?
+\end{exoUnique}
+
+
+\subsection{Dérivation des fonctions à valeurs dans $\C$}
+
+\begin{definition}[utile=-3]
+Soit $f:\dom\to\C$ et $x_0\in\mathcal{D}$. On dit que $f$ est dérivable en $x_0$ lorsque $\Re(f)$ et $\Im(f)$ le sont. Si c'est le cas, on définit le nombre dérivé de $f$ en $x_0$ par
+\[f'(x_0)\defeq \Re(f)'(x_0)+\ii \Im(f)'(x_0).\]
+On dit que $f$ est dérivable lorsque $f$ est dérivable en tout point de $\dom$.
+\end{definition}
+
+\begin{proposition}[utile=-3, nom={Théorèmes usuels}]
+Soit $f:\dom\to\C$ et $g:\dom\to\C$ deux fonctions dérivables. Alors
+\begin{itemize}
+\item Quels que soient $\lambda,\mu\in\C$, la fonction
+  $\lambda f+\mu g$ est dérivable et
+  \[\forall x\in\dom\qsep (\lambda f+\mu g)'(x)=\lambda f'(x)+\mu g'(x).\]
+\item La fonction $fg$ est dérivable et
+  \[\forall x\in\dom\qsep (fg)'(x)=f'(x)g(x)+f(x)g'(x).\]
+\item Si $f$ ne s'annule pas sur $\dom$, $1/f$ est dérivable et
+  \[\forall x\in\dom\qsep \p{\frac{1}{f}}'(x)=-\frac{f'(x)}{f^2(x)}.\]
+\item Plus généralement, si $g$ ne s'annule pas sur $\dom$, $f/g$ est dérivable
+  et
+  \[\forall x\in\dom\qsep \p{\frac{f}{g}}'(x)=\frac{f'(x)g(x)-f(x)g'(x)}{g^2(x)}.\]
+\end{itemize}
+\end{proposition}
+
+\begin{proposition}[utile=-3]
+Soit $f:\dom\to\C$ une fonction dérivable. Alors la fonction $g$ définie par
+\[\forall x\in\mathcal{D}\qsep g(x)\defeq \e^{f(x)}\]
+est dérivable et
+\[\forall x\in\dom\qsep g'(x)=f'(x)\e^{f(x)}.\]
+\end{proposition}
+
+
+\begin{proposition}[utile=3]
+  Soit $f$ une fonction complexe, dérivable sur un intervalle $I$. Alors $f$ est
+  constante si et seulement si
+  \[\forall x\in I \qsep f'(x)=0.\]
+  \end{proposition}
+
+\begin{remarqueUnique}
+\remarque On dit que'une fonction $f:\mathcal{D}\to\C$ est de classe $\classec{1}$ lorsque ses
+  parties réelles et imaginaires le sont. Comme pour les fonctions à valeurs réelles, on
+  montre qu'une combinaison linéaire, un produit, un quotient ainsi que l'exponentielle de fonctions
+  de classe $\classec{1}$ sont de classe $\classec{1}$.
+\end{remarqueUnique}
+
+\section{Intégration, primitive}
+
+Dans la suite de ce chapitre, $\K$ désignera l'un des corps $\R$ ou $\C$.
+
+% \subsection{Définition, opérations usuelles}
+
+% \begin{definition}[utile=-3]
+% Soit $f$ une fonction continue sur un intervalle $I$ et $a,b\in I$. On
+% définit l'intégrale
+% \[\integ{a}{b}{f(x)}{x}\]
+% comme l'aire algébrique comprise entre le graphe de $f$ et l'axe $(Ox)$
+% comptée positivement si $a\leq b$ et négativement dans le cas contraire.
+% \end{definition}
+
+% \begin{proposition}[utile=-3]
+% Soit $f$ et $g$ deux fonctions continues sur un intervalle $I$, $a,b\in I$
+% et $\lambda,\mu\in\R$. Alors
+% \[\integ{a}{b}{\p{\lambda f(x)+\mu g(x)}}{x}=
+%   \lambda\integ{a}{b}{f(x)}{x}+\mu\integ{a}{b}{g(x)}{x}.\]
+% \end{proposition}
+
+% \begin{proposition}[utile=-3]
+% Soit $f$ une fonction continue sur un intervalle $I$ et $a,b,c\in I$. Alors
+% \[\integ{a}{c}{f(x)}{x}=\integ{a}{b}{f(x)}{x}+\integ{b}{c}{f(x)}{x}.\]
+% \end{proposition}
+
+% \subsection{Inégalités}
+
+% \begin{proposition}[utile=-3]
+% Soit $f$ et $g$ deux fonctions continues sur un intervalle $I$ et $a,b\in I$ tels
+% que $a\leq b$. On suppose que
+% \[\forall x\in\interf{a}{b} \qsep f(x)\leq g(x).\]
+% Alors
+% \[\integ{a}{b}{f(x)}{x}\leq \integ{a}{b}{g(x)}{x}.\]
+% \end{proposition}
+
+% \begin{exoUnique}
+% \exo Montrer que, pour tout $x\in\R$, $0\leq 1-\cos x\leq x^2/2$.
+%   En déduire la limite à droite en 0 de
+%   \[\integ{x}{3x}{\frac{\cos t}{t}}{t}.\]
+%   \begin{sol}
+%   L'inégalité se montre en étudiant le signe des fonctions $f$ et $g$ définies sur $\R$ par
+% \[\forall x\in\R\qsep f(x)=1-\cos x \quad\text{et}\quad g(x)=1-\cos x-\frac{x^{2}}{2}.\]
+% Donc
+% \[\forall t>0\qsep \frac{1}{t}+\frac{t}{2}\leq \frac{\cos t}{t}\leq \frac{1}{t}.\]
+% Donc, pour tout $x>0$, puisque $x\leq 3x$
+% \[\ln 3 -8\cdot\frac{x^{2}}{4}\leq \integ{x}{3x}{\frac{\cos t}{t}}{t} \leq \ln 3\]
+% D'après le théorème des gendarmes, on en déduit que
+% \[\integ{x}{3x}{\frac{\cos t}{t}}{t}\tendversdp{x}{0} \ln 3.\]
+%   \end{sol}
+% \end{exoUnique}
+
+\subsection{Primitive}
+\begin{definition}[utile=-3]
+Soit $f:\dom\to\K$. On appelle
+\emph{primitive} de $f$ toute fonction dérivable $F:\dom\to\K$ telle que
+\[\forall x\in\dom \qsep F'(x)=f(x).\]
+\end{definition}
+
+\begin{proposition}[utile=-3]
+Soit $f:I\to\K$ une fonction  admettant une primitive $F$ sur un
+intervalle $I$. Alors les primitives de $f$ sont les fonctions $F_C:I\to\K$ définies
+sur $I$ par
+\[\forall x\in I \qsep F_C(x)\defeq F(x)+C\]
+où $C\in\K$.
+\end{proposition}
+
+\begin{remarqueUnique}
+\remarque Si la fonction d'expression $F(x)$ est une primitive de la fonction d'expression $f(x)$, on écrira
+  \[\prim{f(x)}{x}=F(x).\]
+  Il faudra rester vigilant avec cette notation. Par exemple
+  \[\prim{1}{x}=x \et \prim{1}{x}=x+1\]
+  mais $x\neq x+1$. On ne l'utilisera donc que pour calculer des primitives et on s'abstiendra de toute lecture autre que de la gauche vers la droite. On s'abstiendra aussi de l'utiliser avec des inégalités. 
+\end{remarqueUnique}
+
+\subsection{Intégration et régularité}
+
+\begin{proposition}[utile=-3]
+Soit $f:I\to\K$ une fonction continue sur un intervalle $I$ et $x_0\in I$. On
+définit sur $I$ la fonction $F$ par
+\[\forall x\in I \qsep F(x)\defeq\integ{x_0}{x}{f(t)}{t}.\]
+Alors $F$ est de classe $\classec{1}$ et
+  \[\forall x\in I \qsep F'(x)=f(x).\]
+En particulier, $F$ est une primitive de $f$.
+\end{proposition}
+
+
+\begin{proposition}[utile=-3]
+  Soit $f:I\to\K$ une fonction continue sur un intervalle $I$. Alors $f$ admet une
+  primitive. Plus précisément, pour tout $x_0\in I$, il existe une unique
+  primitive $F$ de $f$ s'annulant en $x_0$. De plus
+  $$\forall x\in I \qsep F(x)=\integ{x_0}{x}{f(t)}{t}.$$
+\end{proposition}
+
+\begin{theoreme}[utile=3, nom=Théorème fondamental de l'analyse]
+  Soit $f:I\to\K$ une fonction continue sur un intervalle $I$ et $a,b\in I$. Alors, si
+  $F$ est une primitive de $f$
+  \[\integ{a}{b}{f(x)}{x}=F(b)-F(a).\]
+\end{theoreme}
+
+\subsection{Intégration et inégalité}
+
+\begin{proposition}[utile=3]
+Soit $f:I\to\R$ et $g:I\to\R$ deux fonctions réelles continues et $a,b\in I$. On suppose que
+\[a\leq b \quad\text{et}\quad \cro{\forall x\in\interf{a}{b} \qsep f(x)\leq g(x)}.\]
+Alors
+\[\integ{a}{b}{f(x)}{x}\leq\integ{a}{b}{g(x)}{x}.\]
+\end{proposition}
+
+\begin{preuve}
+Il suffit d'appliquer la positivité et la linéarité.
+\end{preuve}
+
+
+\subsection{Intégration par parties, changement de variable}
+
+\begin{proposition}[utile=3, nom=Intégration par parties]
+Soit $f:I\to\K$ une fonction de classe $\classec{1}$ et $g:I\to\K$ une fonction
+continue sur un intervalle $I$. Soit $G$ une primitive de $g$. Alors, si $a,b\in I$
+\[\integppdi{a}{b}{f(x)}{g(x)}{x}=\evaldiff{f(x)G(x)}{a}{b}-
+  \integ{a}{b}{f'(x)G(x)}{x}.\]
+\end{proposition}
+
+\begin{exoUnique}
+\exo Pour tout $n\in\N$, on définit $I_n$ par
+  \[I_n\defeq\integ{0}{1}{t^n\sqrt{1-t}}{t}\]
+  Calculer $I_0$ et trouver une relation de récurrence entre $I_n$ et $I_{n+1}$.
+  \begin{sol}
+  Il faut intégrer $\sqrt{1-t}$. On trouve
+  \[I_{n+1}=\frac{2(n+1)}{2n+5}I_n\]
+  \end{sol}
+\end{exoUnique}
+
+\begin{remarqueUnique}
+\remarque Si $f$ est dérivable et que $G$ est une primitive de $g$, alors
+  \[\primppdi{f(x)}{g(x)}{x}=f(x)G(x)-\prim{f'(x)G(x)}{x}.\]
+\end{remarqueUnique}
+
+\begin{proposition}[utile=3, nom=Changement de variables]
+  Soit $f:I\to\K$ une fonction continue sur un intervalle $I$. Soit $J$ un intervalle,
+  $\bar{x}:J\to I$ une fonction de classe $\classec{1}$ et
+  $a_x,b_x \in I$ et $a_t,b_t \in J$ tels que
+  $$a_x=\bar{x}\p{a_t} \quad \text{et} \quad b_x=\bar{x}\p{b_t}.$$
+  Alors
+  \[\integ{a_t}{b_t}{f(\bar{x}(t))\frac{d\bar{x}}{dt}(t)}{t}=\integ{a_x}{b_x}{f(x)}{x}.\]
+\end{proposition}
+
+\begin{exoUnique}
+\exemple Calculer
+  \[\integ{0}{\pi}{\ln\p{1+\cos^2 x}\sin\p{2x}}{x}\]
+  \begin{sol}
+  C'est 0.
+  \end{sol}
+% \exemple Montrer que
+%   \[\integ{\frac{1}{2}}{2}{\frac{1-x^2}{(1+x^2)\sqrt{1+x^4}}}{x}=0\]
+\end{exoUnique}
+
+% \begin{remarqueUnique}
+% \remarque Si $\bar{x}$ (que l'on confondra ici avec $x$) est dérivable et que sa dérivée ne s'annule pas, alors, en notant
+%   \[\frac{{\rm d}x}{{\rm d}t}=g(x), \quad\text{on a}\quad {\rm d}t=\frac{{\rm d}x}{g(x)}.\]
+%   On en déduit que
+%   \[\prim{f(\bar{x}(t))}{t}
+%   = \prim{\frac{f(x)}{g(x)}}{x}.\]
+%   Une fois le calcul d'intégrale terminé, on veillera bien à remplacer $x$ par son expression en $t$. Au cours du calcul, il est important de ne jamais mélanger les $x$ et les $t$ dans la même expression.
+% \end{remarqueUnique}
+
+% \begin{proposition}
+%   Soit $f$ une fonction continue sur le segment $\interf{-a}{a}$. Alors~:
+%   \begin{itemize}
+%   \item Si $f$ est paire
+%     $$\integ{-a}{0}{f(x)}{x}=\integ{0}{a}{f(x)}{x}.$$
+%   \item Si $f$ est impaire
+%     $$\integ{-a}{0}{f(x)}{x}=-\integ{0}{a}{f(x)}{x}.$$
+%     En particulier
+%     $$\integ{-a}{a}{f(x)}{x}=0.$$
+%   \end{itemize}
+% \end{proposition}
+
+% \begin{proposition}
+%   Soit $f$ une fonction $T$-périodique, continue sur $\R$. Alors quel que soit
+%   $a\in\R$
+%   $$\integ{a}{a+T}{f(x)}{x}=\integ{0}{T}{f(x)}{x}.$$
+% \end{proposition}
+
+\subsection{Calcul de primitive}
+
+Étant donnée une fonction $f$ définie sur un intervalle à partir d'une
+expression en les fonctions usuelles, on cherche une primitive $F$ de $f$.
+Puisque $f$ est une expression en les fonctions usuelles, elle est en
+particulier continue, donc admet une primitive. Le problème du calcul de
+primitive est d'expliciter une telle fonction.\\
+
+Il est d'abord essentiel de connaitre par coeur les primitives des fonctions usuelles.
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+$\dom$ & $f(x)$ & $F(x)$\\
+\hline
+$\R$ & $x^n \quad (n\in\N)$ & $\frac{x^{n+1}}{n+1}$\\
+\hline
+$\Rs$ & $x^n \quad (n\in\Z\setminus\ens{-1})$ & $\frac{x^{n+1}}{n+1}$\\
+\hline
+$\Rs$ & $\frac{1}{x}$ & $\ln\abs{x}$\\
+\hline
+\hline
+$\R$ & $\e^x$ & $\e^x$\\
+\hline
+$\R$ & $\cos x$ & $\sin x$\\
+\hline
+$\R$ & $\sin x$ & $-\cos x$\\
+\hline
+% \hline
+% $\R$ & $\ch x$ & $\sh x$\\
+% \hline
+% $\R$ & $\sh x$ & $\ch x$\\
+% \hline
+% \hline
+% $\R$ & $\frac{1}{1+x^2}$ & $\arctan x$\\
+% \hline
+% $\intero{-1}{1}$ & $\frac{1}{\sqrt{1-x^2}}$ & $\arcsin x$\\
+% \hline
+\end{tabular}
+\end{center}
+
+Ensuite, il existe de nombreuses techniques à connaitre pour calculer certaines primitives.
+
+\begin{itemize}
+\item \emph{\bf Polynômes}\\
+  Le calcul d'une primitive d'une fonction polynôme se fait de manière
+  immédiate
+  $$\prim{a_0+a_1 x+a_2 x^2+\dots+a_n x^n}{x}=
+    a_0 x+\frac{a_1}{2}x^2+\frac{a_2}{3}x^3+\dots+\frac{a_n}{n+1}x^{n+1}.$$
+\item \emph{\bf Polynômes-exponentielle}\\
+  Le calcul d'une primitive d'une fonction polynôme-exponentielle,
+  c'est-à-dire de
+  $$\prim{\p{a_0+a_1 x+a_2 x^2+\dots+a_n x^n}\e^{cx}}{x}$$
+  se fait facilement par récurrence en effectuant une intégration par
+  parties
+  $$\primppdi{\p{a_0+a_1 x+a_2 x^2+\dots+a_n x^n}}{\e^{cx}}{x}.$$
+  De cette manière, on abaisse le degré du polynôme. Il suffit de réitérer
+  le procédé jusqu'à faire disparaitre le terme polynomial.
+  \begin{exoUnique}
+  \exo Calculer
+    \[\prim{(2x+3)\e^x}{x}.\]
+    \begin{sol}
+  Par exemple~:
+  \begin{equation*}
+  \begin{split}
+  \prim{(2x+3)\e^x}{x}&=\primppdi{\p{2x+3}}{\e^x}{x}\\
+                     &=\p{2x+3}\e^x-\prim{2\e^x}{x}\\
+                     &=\p{2x+1}\e^x
+  \end{split}
+  \end{equation*}
+    \end{sol}
+  \end{exoUnique}
+\item \emph{\bf Polynômes-sinus/cosinus}\\
+  On calcule de même toute primitive du produit d'une fonction polynôme
+  et d'une fonction sinus ou cosinus.
+  \begin{exoUnique}
+  \exo Calculer
+    \[\prim{x\cos x}{x}.\]
+    \begin{sol}
+  \begin{equation*}
+  \begin{split}
+  \prim{x\cos x}{x}&=\primppdi{x}{\cos x}{x}\\
+                   &=x\sin x-\prim{\sin x}{x}\\
+                   &=x\sin x+\cos x    
+  \end{split}
+  \end{equation*}
+    \end{sol}
+  \end{exoUnique}
+\item \emph{\bf Exponentielle-sinus/cosinus}
+  Pour calculer des primitives de la forme
+  \[\prim{\e^{a x} \cos( bx)}{x} \quad\text{ou}\quad \prim{\e^{a x} \sin(bx)}{x},\]
+  on passe par l'exponentielle complexe. On fait de même si un polynôme est en facteur d'une telle expression.
+  \begin{exoUnique}
+  \exo Calculer
+  \[\prim{\e^{2x} \sin(3x)}{x}.\]  
+  \end{exoUnique}
+\item \emph{\bf Polynôme-logarithme}\\
+  Le calcul d'une primitive d'une fonction polynôme-logarithme, c'est-à-dire
+  de
+  $$\prim{\p{a_0+a_1 x+a_2 x^2+\dots+a_n x^n}\ln x}{x}$$
+  se fait facilement par intégration par parties
+  $$\primppid{\p{a_0+a_1 x+a_2 x^2+\dots+a_n x^n}}{\ln x}{x}.$$
+  % Cette technique est utile pour calculer une primitive de toute expression faisant intervenir une fonction donc la dérivée est plus simple que la fonction.
+    \begin{exoUnique}
+  \exo Calculer
+  \[\prim{\ln x}{x}\]% \et \prim{\arctan x}{x}.\]
+    \begin{sol}
+  Par exemple~:
+  \begin{equation*}
+  \begin{split}
+  \prim{\ln x}{x}&=\primppid{1}{\ln x}{x}\\
+                 &=x\ln x-\prim{1}{x}\\
+                 &=x\ln x-x
+  \end{split}
+  \end{equation*}
+  % \begin{equation*}
+  % \begin{split}
+  % \prim{\arctan x}{x}&=\primppid{1}{\arctan x}{x}\\
+  %                &=x\arctan x-\prim{\frac{x}{1+x^2}}{x}\\
+  %                &=x\arctan x-\frac{1}{2}\ln(1+x^2)
+  % \end{split}
+  % \end{equation*}
+    \end{sol}
+  \end{exoUnique}
+\item \emph{\bf Polynômes en $\sin$ et $\cos$}\\
+  Pour le calcul de primitives de polynômes en $\sin$ et $\cos$, c'est-à-dire
+  de~:
+  $$\prim{\sin^n x \cos^m x}{x} \quad \text{où $n,m\in\N$}$$
+  on peut, lorsque $n$ ou $m$ est impair effectuer un changement de variable
+  pour se ramener à un calcul de primitive de polynôme.
+  \begin{itemize}
+  \item Si $m$ est impair, soit $m'\in\N$ tel que $m=2m'+1$. On effectue alors
+    le changement de variable $t=\sin x$.
+    \begin{equation*}
+    \begin{split}
+    \prim{\sin^n x\cos^m x}{x}&=\prim{\sin^n x \cos^{2m'+1} x}{x}\\
+                              &=\prim{\sin^n x \p{1-\sin^2 x}^{m'}\cos x}{x}\\
+                              &=\prim{t^n\p{1-t^2}^{m'}}{t}.
+    \end{split}
+    \end{equation*}
+  \item Si $n$ est impair, on effectue le changement de variable $t=\cos x$.
+  \item Si $n$ et $m$ sont pairs, on effectue une linéarisation de
+    l'expression. 
+  \end{itemize}
+\begin{exoUnique}
+\exo Calculer
+  \[\prim{\sin^2 x\cos^3 x}{x}, \qquad \prim{\cos^2 x\sin^5 x}{x}, \qquad
+    \prim{\cos^2 x\sin^2 x}{x}.\]
+    \begin{sol}
+  Par exemple~:
+    \begin{equation*}
+    \begin{split}
+    \prim{\sin^2 x\cos^3 x}{x}&=\prim{\sin^2 x \p{1-\sin^2 x}\cos x}{x}\\
+                              &=\prim{t^2\p{1-t^2}}{t}\\
+                              &=\frac{1}{3}t^3-\frac{1}{5}t^5\\
+                              &=\frac{1}{3}\sin^3 x-\frac{1}{5}\sin^5 x\\
+    \end{split}
+    \end{equation*}    
+     Par exemple~:
+    \begin{eqnarray*}
+    \prim{\cos^2 x\sin^5 x}{x}&=&\prim{\cos^2 x\p{1-\cos^2 x}^2\sin x}{x}\\
+      &=&-\prim{t^2\p{1-t^2}^2}{t}\\
+      &=&-\prim{t^2-2t^4+t^6}{t}\\
+      &=&-\frac{1}{3}t^3+\frac{2}{5}t^5-\frac{1}{7}t^7\\
+      &=&-\frac{1}{3}\cos^3 x+\frac{2}{5}\cos^5 x-\frac{1}{7}\cos^7 x
+    \end{eqnarray*}
+Par exemple~:
+    \begin{eqnarray*}
+    \cos^2 x\sin^2 x&=&\p{\frac{1}{2}\sin\p{2x}}^2\\
+     &=&\frac{1}{4}\frac{1-\cos\p{4x}}{2}\\
+     &=&\frac{1}{8}-\frac{1}{8}\cos\p{4x}
+    \end{eqnarray*}
+    Donc~:
+    $$\prim{\cos^2 x\sin^2 x}{x}=\frac{1}{8}x-\frac{1}{32}\sin\p{4x}$$
+    \end{sol}
+\end{exoUnique}
+% \item \emph{\bf Fractions rationnelles}\\
+% Le calcul de primitives de fractions rationnelles se fait après une décomposition en éléments simples sur $\R$.
+% \begin{itemize}
+% \item La partie entière s'intègre facilement comme un polynôme.
+% \item Les éléments simples de première espèce s'intègrent en
+%   \[\priminv{x-\alpha}{x}=\ln\abs{x-\alpha}.\]% \et \priminv{\p{x-\alpha}^n}{x}=\frac{-1}{n-1}\cdot\frac{1}{\p{x-\alpha}^{n-1}} \quad\text{(où $n\geq 2$)}.\]
+% \item Les éléments simples de seconde espèce s'intègrent de la manière suivante. On commence par s'occuper du terme en $x$ du numérateur en faisant apparaître une fraction rationelle de la forme $P'/P$.
+%   \begin{eqnarray*}
+%   \prim{\frac{bx+c}{x^2+\beta x+\gamma}}{x}
+%   &=& \frac{b}{2}\prim{\frac{2x+\beta}{x^2+\beta x+\gamma}}{x} + \p{c-\frac{b\beta}{2}}\priminv{x^2+\beta x+\gamma}{x}\\
+%   &=& \frac{b}{2}\ln\p{x^2+\beta x+\gamma}+\frac{2c-b\beta}{2}\priminv{x^2+\beta x+\gamma}{x}
+%   \end{eqnarray*}
+%   Il suffit ensuite de mettre le trinôme (qui rappelons-le n'a pas de racine réelle) sous forme canonique
+%   \[x^2+\beta x+\gamma = \p{x+\frac{\beta}{2}}^2+\underbrace{\frac{4\gamma - \beta^2}{4}}_{\defeq \alpha^2>0}=\alpha^2\cro{\p{\frac{2x+\beta}{2\alpha}}^2+1}\]
+%   puis de poser $u\defeq (2x+\beta)/(2\alpha)$.
+%   \begin{eqnarray*}
+%   \priminv{x^2+\beta x+\gamma}{x}
+%     &=& \frac{1}{\alpha^2}\priminv{1+\p{\frac{2x+\beta}{2\alpha}}^2}{x}\\
+%     &=& \frac{1}{\alpha}\priminv{1+u^2}{u} = \frac{1}{\alpha}\arctan u\\
+%     &=& \frac{1}{\alpha}\arctan\frac{2x+\beta}{2\alpha}.
+%   \end{eqnarray*}
+%   En conclusion
+%   \[\prim{\frac{bx+c}{x^2+\beta x+\gamma}}{x}=\frac{b}{2}\ln\p{x^2+\beta x+\gamma}+\frac{2c-b\beta}{2\alpha}\arctan\frac{2x+\beta}{2\alpha}.\]
+% \end{itemize}
+% \begin{exoUnique}
+% \exo Calculer
+%   \[\priminv{x^2-1}{x}, \qquad \prim{\frac{2x+1}{x^2+x-2}}{x},  \qquad
+%     \priminv{x^3-1}{x}.\]
+%   \begin{sol}
+%   On trouve~:
+%   \begin{itemize}
+%   \item Premier~:
+%      \[\frac{1}{2}\ln\abs{\frac{1+x}{1-x}}\]
+%   \item Réfléchir deux secondes...
+%   \item Troisième~:
+%      La décomposition en éléments simples donne
+%      \[\frac{1}{X^3-1}=\frac{1}{3}\cdot\frac{1}{X-1}-\frac{1}{3}\cdot
+%        \frac{X+2}{X^2+X+1}\]
+%      Et le calcul de primitive
+%      \[\frac{1}{3}\ln\abs{x-1}-\frac{1}{6}\ln\p{x^2+x+1}-\frac{1}{\sqrt{3}}
+%        \arctan\p{\frac{2x+1}{\sqrt{3}}}\]
+%   \end{itemize}
+%   \end{sol}
+% \end{exoUnique}
+%   \item \emph{\bf Fractions rationnelles en $\e^x$}\\
+%     Pour les fractions rationnelles en $\e^x$, un changement de variable $u=\e^x$ permet de se ramener à un calcul de primitive de fraction rationnelle.
+%     \begin{exoUnique}
+% \exo Calculer
+%   \[\priminv{\e^{2x}+1}{x}\]
+%   \begin{sol}
+%   On trouve
+%   \[\frac{1}{X\p{X^2+1}}=\frac{1}{X}-\frac{X}{X^2+1}\]
+%   donc
+%   \[x-\frac{1}{2}\ln\p{e^{2x}+1}\]
+%   \end{sol}
+% % \[\priminv{x^2+x+1}{x},\quad
+% %   \priminv{x^2-3x+2}{x}.\]
+% % \[\prim{\frac{2x+5}{(x-1)^2(x+2)}}{x},\quad
+% %   \prim{\frac{x+1}{x(x^2-x+1)}}{x}\]
+%     \end{exoUnique}
+%   \item \emph{\bf Fractions rationnelles en $\cos x$ et $\sin x$}\\
+% Le calcul de primitive de fraction rationelle en $\cos x$ et $\sin x$ s'effectue en suivant les \emph{règles de \textsc{Bioche}}. Supposons que $G$ soit une fraction rationnelle en $\cos x$, $\sin x$.
+% \begin{itemize}
+% \item Si $G\p{-x}=-G(x)$, il existe une fraction rationnelle $F$ telle que
+%   \[G(x)=F\p{\cos x}\sin x.\]
+%   On est donc ramené, après le changement de variable $u\defeq\cos x$, à un calcul
+%   de primitive d'une fraction rationnelle.
+% \item Si $G\p{\pi-x}=-G(x)$, il existe une fraction rationnelle $F$ telle que
+%   \[G(x)=F\p{\sin x}\cos x.\]
+%   On est donc ramené, après le changement de variable $u\defeq\sin x$, à un calcul
+%   de primitive d'une fraction rationnelle.
+% \item Si $G\p{\pi+x}=G(x)$, il existe une fraction rationnelle $F$ telle que
+%   \[G(x)=F\p{\tan x}\p{1+\tan^2 x}.\]
+%   On est donc ramené, après le changement de variable $u\defeq\tan x$, à un calcul
+%   de primitive d'une fraction rationnelle.
+% \item Sinon, on effectue le changement de variable $u\defeq\tan\p{x/2}$. En
+%   remarquant que
+%   \[\cos x=\frac{1-u^2}{1+u^2}, \qquad \sin x=\frac{2u}{1+u^2} \et {\rm d}u=\frac{1}{2}(1+u^2){\rm d}t,\]
+%   on est ramené à un calcul de primitive d'une fraction rationnelle. Il faut être très soigneux, car ce calcul de primitive se fait sur un intervalle ne contenant pas les $x$ tels que $x\equiv \pi\ [2\pi]$.
+% \end{itemize}
+% \begin{exoUnique}
+% \exo Calculer
+%   \[\priminv{\cos x\cos\p{2x}}{x}, \qquad \priminv{\sin x+\sin\p{2x}}{x},
+%     \qquad \integinv{0}{2\pi}{2+\cos x}{x}.\]
+%   \begin{sol}
+%   On trouve~:
+%   \begin{itemize}
+%   \item Premier~: Changement de variable $u=\sin x$.
+%     Décomposition en éléments simples
+%     \[\frac{1}{\p{1-2X^2}\p{1-X^2}}=\frac{1}{2}\cro{\frac{1}{X-1}-\frac{1}{X+1}}+
+%       \frac{\sqrt{2}}{2}\cro{\frac{1}{X+\frac{\sqrt{2}}{2}}-
+%       \frac{1}{X-\frac{\sqrt{2}}{2}}}\]
+%     Puis regrouper les pôles opposés. On trouve
+%     \[\sqrt{2}\argth\p{\sqrt{2}\sin x}-\argth\p{\sin x}\]
+%   \item Second~: Changement de variable $u=\cos x$. Décomposition en éléments
+%     simples
+%     \[\frac{1}{\p{X^2-1}\p{1+2X}}=\frac{1}{6}\cdot\frac{1}{X-1}+
+%       \frac{1}{2}\cdot\frac{1}{X+1}-\frac{4}{3}\cdot\frac{1}{1+2X}\]
+%     On trouve donc
+%     \[\frac{1}{6}\ln\p{1-\cos x}+\frac{1}{2}\ln\p{1+\cos x}-\frac{2}{3}
+%       \ln\abs{1+2\cos x}\]
+%   \item Troisième~: Les règles de \textsc{Bioche} ne marchent pas. Il faut
+%     faire le changement de variable~: $u=\tan(t/2)$. On trouve
+%     \[\frac{2\sqrt{3}}{3}\arctan\p{\frac{\sqrt{3}\tan\p{x/2}}{3}}\]
+%     et l'intégrale vaut
+%     \[\frac{2\sqrt{3}}{3}\pi\]
+%   \end{itemize}
+%   \end{sol}
+% \end{exoUnique}
+%   \item \emph{\bf Fractions rationnelles en $\ch x$ et $\sh x$}\\
+% Le calcul de primitive de fraction rationelle en $\ch x$ et $\sh x$ s'effectuent de même. Supposons que $G$ soit une fraction rationnelle en $\ch x$, $\sh x$.
+% \begin{itemize}
+% \item Si lorsqu'on remplace $\ch$ par $\cos$ et $\sh$ par $\sin$ les règles de
+%   \textsc{Bioche} préconisent le changement de variable $u\defeq\cos x$, on effectue le
+%   changement de variable $u\defeq\ch x$. 
+% \item Si lorsqu'on remplace $\ch$ par $\cos$ et $\sh$ par $\sin$ les règles de
+%   \textsc{Bioche} préconisent le changement de variable $u\defeq\sin x$, on effectue le
+%   changement de variable $u\defeq\sh x$. 
+% \item Si lorsqu'on remplace $\ch$ par $\cos$ et $\sh$ par $\sin$ les règles de
+%   \textsc{Bioche} préconisent le changement de variable $u\defeq\tan x$, on effectue le
+%   changement de variable $u\defeq\th x$. 
+% \end{itemize}
+% \begin{exoUnique}
+% \exo Calculer
+%   \[\prim{\frac{\ch x}{\sh x+\ch x}}{x} \qquad\text{et}\qquad
+%     \priminv{\sh^2 x+2}{x}.\]
+%   \begin{sol}
+%   On trouve
+%   \begin{itemize}
+%   \item Tout transformer avec des exponentielles. On trouve
+%     \[\prim{\frac{\ch x}{\sh x+\ch x}}{x}=\frac{1}{2}x
+%       -\frac{1}{4}e^{-2x}\]
+% %   Effectuer le changement de variable $u=\th x$. On a~:
+% %   \[\frac{1}{\p{1-X}\p{1+X}^2}=\frac{1}{4}\cdot\frac{1}{1+X}+
+% %     \frac{1}{2}\cdot\frac{1}{\p{1+X}^2}+\frac{1}{4}\cdot\frac{1}{1-X}\]
+% %   On trouve
+% %   \[\prim{\frac{\ch x}{\sh x+\ch x}}{x}=\frac{1}{2}x
+% %     -\frac{1}{2}\cdot\frac{1}{1+\th x}\]
+%   \item Effectuer le changement de variable $t=\th x$. On trouve
+%     \[\priminv{\sh^2 x+2}{x}=\frac{\sqrt{2}}{2}\argth\p{\frac{\th x}{\sqrt{2}}}\]
+%   \end{itemize}
+%   \end{sol}
+% \end{exoUnique}
+%   \item \emph{\bf Fractions rationnelles en $x$ et $\sqrt[n]{(ax+b)/(cx+d)}$}\\
+%   Si $f$ s'écrit
+%   \[f(x)\defeq F\p{x,\sqrt[n]{\frac{ax+b}{cx+d}}}\]
+%   où $F$ est une fraction rationnelle, le calcul d'une
+%   primitive de $f$ se fait en effectuant le changement de variable
+%   \[u\defeq\sqrt[n]{\frac{ax+b}{cx+d}}.\]
+%   On a alors
+%   \[x=\frac{du^n-b}{a-cu^n} \et \text{d}x=G(u)\,\text{d}u\]
+%   où $G$ est une fraction rationnelle. On est donc ramené au calcul d'une
+%   primitive d'une fraction rationnelle.
+% % \item On souhaite désormais calculer une primitive d'une fonction $f$ de la forme
+% %   \[f(x)=F\p{x,\sqrt{ax^2+bx+c}}\]
+% %   où $F$ est une fraction rationnelle à deux variables.
+% %   \begin{itemize}
+% %   \item Si $aX^2+bX+c$ admet une racine double réelle $\alpha$ (cas où $\Delta=0$), on
+% %     a $\sqrt{ax^2+bx+c}=\sqrt{a}\abs{x-\alpha}$. L'expression est donc
+% %     une fraction rationnelle sur chaque intervalle où $x-\alpha$ est de signe
+% %     constant.
+% %   \item Si $aX^2+bX+c$ n'admet pas de racine réelle (cas où $\Delta<0$), après
+% %     mise sous forme canonique de $aX^2+bX+c$ et changement de variable, on
+% %     est ramené au calcul d'une primitive d'une fraction rationnelle
+% %     en $u$ et $\sqrt{1+u^2}$. Il suffit alors d'effectuer le changement de variable
+% %     $u=\sh v$ pour se ramener au calcul d'une primitive d'une fraction
+% %     rationnelle en $\ch v$, $\sh v$.
+% %   \item Si $aX^2+bX+c$ admet deux racines réelles (cas où $\Delta>0$), après
+% %     mise sous forme canonique de $aX^2+bX+c$ et changement de variable, on
+% %     est ramené au calcul d'une primitive d'une fraction rationnelle
+% %     en $u$ et $\sqrt{1-u^2}$ ou en $u$ et $\sqrt{u^2-1}$. Dans le premier cas, on
+% %     effectue le changement de variable $u=\cos v$ alors que dans le second
+% %     cas on effectue le changement de variable $u=\pm\ch v$.
+% %   \end{itemize}
+% % \end{itemize}
+% \begin{exoUnique}
+% \exo Calculer
+%   \[\priminv{x\sqrt{x+1}}{x}.\]% \qquad \prim{\arctan\sqrt{1+x^2}}{x}\]
+%   \begin{sol}
+%   \begin{itemize}
+%   \item On pose $u=\sqrt{1+x}$. On trouve alors
+%     \[\priminv{x\sqrt{x+1}}{x}=\ln\p{\frac{\sqrt{1+x}-1}{\sqrt{1+x}+1}}\]
+%   \item On trouve
+%     \[x\arctan\sqrt{1+x^2}-\argsh x+
+%       \sqrt{2}\argth\p{\frac{x}{\sqrt{2\p{1+x^2}}}}\]
+%   \end{itemize}
+%   \end{sol}
+% \end{exoUnique}
+\end{itemize}
+
+
+% Pour clore cette revue des techniques classiques de calcul de primitive, il est important de noter que si d'un point de vue théorique, une fonction continue admet toujours une
+% primitive, il n'est pas toujours possible de l'exprimer à l'aide
+% fonctions usuelles. Par exemple, avant que le logarithme néperien ne fasse
+% son apparition (on ne considérait alors que les fonctions
+% rationnelles), les primitives de la fonction $x\mapsto 1/x$ ne pouvait pas
+% s'exprimer rationnellement en $x$. L'ajout des fonctions $\ln$ et $\exp$
+% dans le jeu des fonctions usuelles n'a pas résolu ce problème. Par exemple,
+% on peut démontrer que les primitive de la fonction gaussienne définie sur
+% $\R$ par $f(x)\defeq \e^{-x^2}$ ne peuvent pas s'exprimer à l'aide des fonctions usuelles.
+%END_BOOK
+
+\end{document}
+
+
+
