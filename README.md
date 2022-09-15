@@ -13,8 +13,8 @@ Les documents sont sous licence Creative Commons : CC BY-SA
   - Ensuite, les fichiers sont compilables uns à uns. Il est possible de générer des polys en allant
     dans le dossier correspondant (par exemple Info-Sup-Cours/09-Poly pour le poly d'informatique
     commune). Puis, si vous avec un système Unix:
-    $ make get
-    $ make
+    - make get
+    - make
 
 - Le cours compile correctement sous :
   - macOS avec MacTeX 2022 et Anaconda 2022-05
