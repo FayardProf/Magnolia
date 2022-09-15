@@ -9,7 +9,12 @@
           cours_niveau={mpsi},
           cours_chapitre_numero={2},
           cours_chapitre={Flot d'exécution}}
-\magmisenpage{}
+\magmisenpage{misenpage_presentation={tikzvelvia},
+          misenpage_format={presentation},
+          misenpage_nbcolonnes={1},
+          misenpage_preuve={non},
+          misenpage_sol={non}}
+% \magmisenpage{}
 \maglieudiff{}
 \magprocess
 
@@ -155,7 +160,7 @@ In [7]: m = [[0, 1, 2], [3, 4, 5]]
 \end{pythoncode}
 On accède à l'élément $m_{i,j}$ à l'aide de
 \verb!m[i][j]!. Si \verb!m! représente une matrice à $q$ lignes et
-$p$ colonnes alors $0\leq i<q$ et $0\leq j <q$, contrairement à l'usage
+$p$ colonnes alors $0\leq i<q$ et $0\leq j <p$, contrairement à l'usage
 mathématique où $1\leq i\leq q$ et $1\leq j\leq p$. Si l'on souhaite
 récupérer le nombre de lignes et de colonnes, il suffit d'écrire~:
 \begin{pythoncode}
@@ -959,7 +964,7 @@ le cas où le nombre d'itérations est connu avant de rentrer dans la boucle. Lo
 
 Supposons que l'on souhaite calculer la racine carrée
 entière de $n\in\N$, c'est-à-dire le plus grand $a\in\N$ tel que $a^2 \leq n < (a+1)^2$.
-Autrement dit, on souhaite calculer $\ent{\sqrt{a}}$, mais sans utiliser de nombre
+Autrement dit, on souhaite calculer $\ent{\sqrt{n}}$, mais sans utiliser de nombre
 flottant. Pour cela, on initialise $a$ à 0 et on l'incrémente de 1 tant que $a^2 \leq n$.
 Dès que ce n'est plus le cas, on renvoie $a-1$ qui est la valeur cherchée. On obtient
 ainsi le code~:
@@ -1005,7 +1010,7 @@ Out[1]: 3
 \begin{exos}
 \exo Après avoir remarqué que
   \[n \e^{-n}\tendvers{n}{+\infty}0,\]
-  écrire un programme prenant en entrée $\epsilon>0$ et permettant de trouver le plus petit entier $n\in\N$ tel que
+  écrire un programme prenant en entrée $\epsilon>0$ et permettant de trouver le plus petit entier $n\in\Ns$ tel que
   $n \e^{-n} \leq \epsilon$.
 \exo Montrer comment une boucle \verb_for_
 \begin{pythoncode}

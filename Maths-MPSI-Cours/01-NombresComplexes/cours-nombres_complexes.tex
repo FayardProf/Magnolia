@@ -9,7 +9,11 @@
           cours_niveau={mpsi},
           cours_chapitre_numero={1},
           cours_chapitre={Nombres Complexes}}
-\magmisenpage{}
+\magmisenpage{misenpage_presentation={tikzvelvia},
+          misenpage_format={a4},
+          misenpage_nbcolonnes={1},
+          misenpage_preuve={non},
+          misenpage_sol={oui}}
 \maglieudiff{}
 \magprocess
 
@@ -1134,7 +1138,7 @@ $\theta$ tel que
 \end{definition}
 
 \begin{proposition}[utile=-3]
-Tout nombre complexe non nul $z\in\Cs$ admet un argument. Si $\theta$ est un de ses arguments, l'ensemble de ses arguments est
+Tout nombre complexe non nul $z\in\Cs$ admet un argument. Si $\theta$ est l'un de ses arguments, l'ensemble de ses arguments est
 $\theta+2\pi\Z\defeq\ensim{\theta+k2\pi}{k\in\Z}$. On écrit
 \[\arg(z)\equiv\theta\ \cro{2\pi}.\]
 \end{proposition}
@@ -1187,7 +1191,7 @@ Puisque $(1/\sqrt{5})^2+(2/\sqrt{5})^2=1$, il existe $\theta\in\interf{0}{\pi/2}
 
 \begin{proposition}[utile=-3]
 Soit $\rho_1,\rho_2$ deux réels non nuls et $\theta_1,\theta_2$ deux réels.
-Alors $\rho_1 e^{i\theta_1}=\rho_2 e^{i\theta_2}$ si et seulement si
+Alors $\rho_1 \e^{\ii\theta_1}=\rho_2 \e^{\ii\theta_2}$ si et seulement si
 \[\cro{\rho_1=\rho_2 \et \theta_1\equiv\theta_2\ \cro{2\pi}} \quad \text{ou}
   \quad \cro{\rho_1=-\rho_2 \et \theta_1\equiv\theta_2+\pi\ \cro{2\pi}}.\]
 \end{proposition}
@@ -1306,13 +1310,9 @@ Voir la première partie comme un corollaire de la proposition précédente.
 
 \begin{proposition}[utile=-3]
 Soit $z$ un nombre complexe. Alors
-\[\conj{\e^z}=\e^{\conj{z}} \qquad \text{et} \qquad \abs{\e^z}=\e^{\Re(z)}.\]
+\[\conj{\e^z}=\e^{\conj{z}}, \qquad  \abs{\e^z}=\e^{\Re(z)}
+\qquad \text{et} \qquad \arg(\e^z)\equiv \Im(z)\ [2\pi].\]
 \end{proposition}
-
-\begin{remarqueUnique}
-\remarque Si $z\in\C$, alors
-  \[\abs{\e^z}=\e^{\Re(z)} \quad\et\quad \arg(\e^z)\equiv \Im(z)\ [2\pi].\]
-\end{remarqueUnique}
 
 \begin{proposition}[utile=-3]
 \begin{itemize}
@@ -1328,7 +1328,7 @@ Soit $z$ un nombre complexe. Alors
 L'exponentielle est une surjection de $\C$ dans $\Cs$. Autrement dit~:
 \begin{itemize}
 \item Pour tout $z\in\C$, $\e^{z}\in\Cs$.
-\item Pour tout $z'\in\Cs$, il existe $z\in\C$ tel que $\e^{z}=z'$.
+\item Pour tout $z\in\Cs$, il existe $z'\in\C$ tel que $\e^{z'}=z$.
 \end{itemize}
 \end{proposition}
 
